@@ -19,7 +19,7 @@ gem 'webpacker'
 # gem 'mini_racer', platforms: :ruby
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+# gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
@@ -39,17 +39,38 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
+  # Framework for factories
+  gem 'factory_bot_rails', '~> 4.11'
+
+  # Provide fake data
+  gem 'faker', '~> 1.9.1'
+
+  # JSON schema validator
+  gem 'json-schema', '~> 2.8'
+
+  # An IRB alternative and runtime developer console
+  gem 'pry', '~> 0.11.3'
+
+  # Testing framework for Rails 3+.
+  gem 'rspec-rails', '~> 3.8'
+
+  # Set of matchers methods for TDD
+  gem 'shoulda-matchers', '~> 3.1.2'
+
+  # Code coverage analysis tool for Ruby
+  gem 'simplecov', '~> 0.16.1'
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
+
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
-
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
