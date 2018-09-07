@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "required": ["data"],
+  "properties" : {
+    "data": {
+      "type": "object",
+      "required": ["id", "type", "attributes"],
+      "properties": {
+
+        "id" : { "type" : ["string", "number"] },
+
+        "type" : { "enum" : ["user"] },
+
+        "attributes" : {
+          "type": "object",
+          "required": ["email", "username", "first_name", "last_name"],
+          "properties": {
+
+            "email" : { "type" : "string" },
+
+            "username" : { "type" : "string" },
+
+            "first_name" : { "type" : "string" },
+
+            "last_name" : { "type" : "string" }
+          }
+        }
+      }
+    }
+  }
+}
