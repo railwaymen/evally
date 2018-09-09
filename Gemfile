@@ -73,9 +73,14 @@ group :development do
 end
 
 
+# Build JSON APIs with ease.
+gem 'fast_jsonapi', '~> 1.3'
+
 # JWT User Authentication
 gem 'rails_jwt_auth', '~> 0.23.0'
 
+# Form objects tool
+gem 'reform-rails', '~> 0.1.7'
 
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

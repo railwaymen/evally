@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     resource :session, controller: 'rails_jwt_auth/sessions', only: [:create, :destroy]
   end
 
+  namespace :v1, defaults: { format: :json } do
+    resource :users, only: [:create]
+  end
+
 
   root 'pages#index'
 

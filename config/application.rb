@@ -26,6 +26,7 @@ module Evally
       generate.helper false
       generate.template_engine false
       generate.javascripts false
+      generate.system_tests false
     end
 
     # Settings in config/environments/* take precedence over those specified here.
@@ -33,7 +34,9 @@ module Evally
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    # Don't generate system test files.
-    config.generators.system_tests = nil
+    config.eager_load_paths << Rails.root.join('app', 'forms')
+    config.eager_load_paths << Rails.root.join('app', 'serializers')
+    config.eager_load_paths << Rails.root.join('app', 'services')
+
   end
 end
