@@ -1,0 +1,8 @@
+en:
+  errors:
+    bad_request:
+      title: 'Bad request'
+      message: 'Request is bad. Try again.'
+    invalid_record:
+      title: 'Validation failed'
+      message: 'Some record attributes are invalid.'
