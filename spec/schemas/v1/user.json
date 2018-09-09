@@ -14,12 +14,10 @@
 
         "attributes" : {
           "type": "object",
-          "required": ["email", "username", "first_name", "last_name"],
+          "required": ["email", "first_name", "last_name"],
           "properties": {
 
             "email" : { "type" : "string" },
-
-            "username" : { "type" : "string" },
 
             "first_name" : { "type" : "string" },
 
