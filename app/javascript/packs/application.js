@@ -28,7 +28,7 @@ Vue.use(Vuex)
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
 
-import '../../../node_modules/vuetify/dist/vuetify.min.css'
+import '../assets/stylesheets/application.styl'
 
 document.addEventListener('DOMContentLoaded', () => {
   Vue.axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
