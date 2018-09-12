@@ -36,6 +36,7 @@ import LoginForm from './forms/LoginForm'
 import RegisterForm from './forms/RegisterForm'
 
 export default {
+  name: 'LandingPage',
   components: {
     LoginForm,
     RegisterForm

@@ -28,6 +28,10 @@ Vue.use(Vuex)
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
 
+// Mixins
+import flash_mixin from '../lib/flash_mixin'
+Vue.mixin(flash_mixin)
+
 import '../assets/stylesheets/application.styl'
 
 document.addEventListener('DOMContentLoaded', () => {

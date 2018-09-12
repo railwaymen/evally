@@ -28,7 +28,7 @@
         </v-list>
       </v-menu>
 
-      <v-btn icon>
+      <v-btn icon @click="flashNotification">
         <v-icon>notifications</v-icon>
       </v-btn>
 
@@ -70,6 +70,7 @@
 
 <script>
 export default {
+  name: 'Layout',
   data () {
     return {
       model: 0,
@@ -91,6 +92,11 @@ export default {
         { id: 0, name: 'Profile', icon: 'person', path: 'profile_path' },
         { id: 1, name: 'Log out', icon: 'last_page', path: 'dashboard_path' }
       ]
+    }
+  },
+  methods: {
+    flashNotification () {
+      this.flash({ info: Math.random() })
     }
   }
 }
