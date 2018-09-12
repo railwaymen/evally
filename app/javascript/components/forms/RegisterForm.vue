@@ -23,7 +23,7 @@
               dark
             ></v-text-field>
           </v-flex>
-          <span class="px-1" style="width: 1px;"></span>
+          <span class="separator"></span>
           <v-flex xs6>
             <v-text-field
               type="password"
@@ -43,7 +43,7 @@
               dark
             ></v-text-field>
           </v-flex>
-          <span class="px-1" style="width: 1px;"></span>
+          <span class="separator"></span>
           <v-flex xs6>
             <v-text-field
               v-model="account.lastName"
