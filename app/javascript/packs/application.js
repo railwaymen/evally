@@ -16,7 +16,7 @@ import router from '../router'
 import store from '../store'
 
 // Axios
-import axios from 'axios'
+import axios from '../lib/http_config'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
@@ -35,7 +35,7 @@ Vue.mixin(flash_mixin)
 import '../assets/stylesheets/application.styl'
 
 document.addEventListener('DOMContentLoaded', () => {
-  Vue.axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+  // Vue.axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 
   // const el = document.body.appendChild(document.createElement('hello'))
   const el = document.getElementById('hello')

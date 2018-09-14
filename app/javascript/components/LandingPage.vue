@@ -50,6 +50,11 @@ export default {
     switchPanels (target) {
       this.currentPanel = target
     }
+  },
+  created () {
+    if (this.$store.getters['AuthStore/isAuthenticated']) {
+      this.$router.push({ name: 'dashboard_path' })
+    }
   }
 }
 </script>

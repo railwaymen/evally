@@ -33,7 +33,7 @@
       </v-btn>
 
       <v-menu offset-y nudge-bottom="8">
-        <span class="toolbar-profile" slot="activator">
+        <span class="toolbar-profile" slot="activator" v-ripple>
           <v-avatar class="toolbar-profile__avatar" color="primary" size="32">
             <span class="white--text body-1">JD</span>
           </v-avatar>
@@ -49,6 +49,15 @@
               <v-icon>{{ item.icon }}</v-icon>
               <span class="separator"></span>
               {{ item.name }}
+            </v-list-tile-title>
+          </v-list-tile>
+
+          <!-- Log out list item -->
+          <v-list-tile @click="logout">
+            <v-list-tile-title>
+              <v-icon>last_page</v-icon>
+              <span class="separator"></span>
+              Logout
             </v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -89,14 +98,19 @@ export default {
         { id: 2, name: 'Template', icon: 'list_alt', path: 'dashboard_path' }
       ],
       items: [
-        { id: 0, name: 'Profile', icon: 'person', path: 'profile_path' },
-        { id: 1, name: 'Log out', icon: 'last_page', path: 'dashboard_path' }
+        { id: 0, name: 'Profile', icon: 'person', path: 'profile_path' }
       ]
     }
   },
   methods: {
     flashNotification () {
       this.flash({ info: Math.random() })
+    },
+    logout () {
+      this.$store.dispatch('AuthStore/logOut').then(() => {
+        this.flash({ success: 'You have been logged out succesfully' })
+        this.$router.push({ name: 'landing_page_path' })
+      })
     }
   }
 }

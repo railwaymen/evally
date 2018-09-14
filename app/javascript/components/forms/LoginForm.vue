@@ -2,7 +2,7 @@
   <div class="landing__form">
     <h3 class="heading-secondary heading-secondary--dark margin-bottom-20">sign in</h3>
 
-    <v-form ref="form" v-model="formValid" @submit.prevent="print">
+    <v-form ref="loginForm" v-model="formValid" @submit.prevent="login">
 
       <div class="landing__form-group">
         <v-text-field
@@ -17,7 +17,6 @@
           label="password"
         ></v-text-field>
         <v-checkbox
-          v-model="credentials.rememberMe"
           label="remember me"
           color="primary"
         ></v-checkbox>
@@ -43,9 +42,8 @@ export default {
   data() {
     return {
       credentials: {
-        email: '',
-        password: '',
-        rememberMe: false
+        email: 'john.doe@example.com',
+        password: '1234qwer'
       },
       rules: {
         required: value => !!value || 'Required.',
@@ -56,11 +54,23 @@ export default {
     }
   },
   methods: {
-    openRegisterForm() {
-      this.$emit('toggle', 'register')
+    login () {
+      if (this.formValid) {
+        this.$store.dispatch('AuthStore/logIn', { session: this.credentials })
+          .then(() => {
+            this.flash({ success: 'You have been logged in succesfully.' })
+            this.$router.push({ name: 'dashboard_path' })
+          })
+          .catch(err => {
+            if (err.response) {
+              this.$refs.loginForm.reset()
+              this.flash({ error: 'Invalid credentials, please try again.' })
+            }
+          })
+      }
     },
-    print: () => {
-      console.log('Form sent!')
+    openRegisterForm () {
+      this.$emit('toggle', 'register')
     }
   }
 }
