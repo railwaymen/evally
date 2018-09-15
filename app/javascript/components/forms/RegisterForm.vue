@@ -1,6 +1,6 @@
 <template>
   <div class="landing__form">
-    <h3 class="heading-secondary heading-secondary--light margin-bottom-20">sign up</h3>
+    <h3 class="secondary-heading secondary-heading--light margin-bottom-20">sign up</h3>
 
     <v-form ref="form" v-model="formValid" @submit.prevent="print">
 

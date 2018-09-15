@@ -1,3 +1,7 @@
+.v-toolbar {
+  z-index: 1000
+}
+
 .toolbar-logo {
   height: 4.8rem
   margin: .8rem
@@ -9,12 +13,17 @@
   }
 }
 
+.toolbar-notification {
+  color: $font-gray
+}
+
 $profile-height = 3.6rem
 
 .toolbar-profile {
   height: $profile-height
   border-radius: ($profile-height / 2)
   padding: 0 ($profile-height * 1.2)
+  margin-left: 1.8rem
   position: relative
   background-color: white
   transition: all .2s
@@ -32,7 +41,7 @@ $profile-height = 3.6rem
   &__fullname {
     font-size: 1.4rem
     line-height: $profile-height
-
+  text-transform: uppercase
   }
 
   &__arrow {
