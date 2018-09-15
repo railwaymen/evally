@@ -85,6 +85,7 @@
 
 <script>
 export default {
+  name: 'RegisterForm',
   data() {
     return {
       account: {

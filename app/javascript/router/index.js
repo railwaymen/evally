@@ -1,74 +1,75 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import DashboardPage from '../components/app/DashboardPage'
-import EmployeesPage from '../components/app/EmployeesPage'
-import EvaluationsPage from '../components/app/EvaluationsPage'
-import SchedulePage from '../components/app/SchedulePage'
-import SettingsPage from '../components/app/SettingsPage'
-import SkillsPage from '../components/app/SkillsPage'
-import TemplatesPage from '../components/app/TemplatesPage'
-
-import ProfilePage from '../components/app/ProfilePage'
-
-import LandingPage from '../components/LandingPage'
-import Layout from '../components/Layout'
+import store from '../store'
 
 Vue.use(Router)
+
+
+const isAuthenticated = (to, from, next) => {
+  if (store.getters['AuthStore/isAuthenticated']) {
+    next()
+  } else {
+    store.commit('FlashStore/push', { error: 'You are not authorized to perform this action. Please log in.' })
+    next('/')
+  }
+}
+
 
 export default new Router({
   mode: 'history',
   routes: [
     {
       path: '/app',
-      component: Layout,
+      component: require('../components/Layout').default,
+      beforeEnter: isAuthenticated,
       children: [
         {
-          path: '',
+          path: '/',
           name: 'dashboard_path',
-          component: DashboardPage
+          component: require('../components/app/DashboardPage').default,
         },
         {
           path: 'employees',
           name: 'employees_path',
-          component: EmployeesPage
+          component: require('../components/app/EmployeesPage').default,
         },
         {
           path: 'evaluations',
           name: 'evaluations_path',
-          component: EvaluationsPage
+          component: require('../components/app/EvaluationsPage').default,
         },
         {
           path: 'templates',
           name: 'templates_path',
-          component: TemplatesPage
+          component: require('../components/app/TemplatesPage').default,
         },
         {
           path: 'skills',
           name: 'skills_path',
-          component: SkillsPage
+          component: require('../components/app/SkillsPage').default,
         },
         {
           path: 'schedule',
           name: 'schedule_path',
-          component: SchedulePage
+          component: require('../components/app/SchedulePage').default,
         },
         {
           path: 'settings',
           name: 'settings_path',
-          component: SettingsPage
+          component: require('../components/app/SettingsPage').default,
         },
         {
           path: 'profile',
           name: 'profile_path',
-          component: ProfilePage
+          component: require('../components/app/ProfilePage').default,
         }
       ]
     },
     {
       path: '/',
       name: 'landing_page_path',
-      component: LandingPage
+      component: require('../components/LandingPage').default,
     },
     {
       path: '*',

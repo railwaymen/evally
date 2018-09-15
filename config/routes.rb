@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root 'pages#index'
 
   scope :v1, defaults: { format: :json } do
     resource :session, controller: 'rails_jwt_auth/sessions', only: [:create, :destroy]
@@ -9,12 +10,9 @@ Rails.application.routes.draw do
     resource :users, only: [:create]
   end
 
-
-  root 'pages#index'
-
-  get '*path', to: 'pages#index', constraints: -> (request) do
-    !request.xhr? && request.format.html?
-  end
+  # Route to hit the Vue app
+  # get '/', to: 'pages#index', format: false
+  get '/*path', to: 'pages#index', format: false
 
   # resources :invitations, controller: 'rails_jwt_auth/invitations', only: [:create, :update]
   # resource :password, controller: 'rails_jwt_auth/passwords', only: [:create, :update]

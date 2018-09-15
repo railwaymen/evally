@@ -36,6 +36,7 @@ import LoginForm from './forms/LoginForm'
 import RegisterForm from './forms/RegisterForm'
 
 export default {
+  name: 'LandingPage',
   components: {
     LoginForm,
     RegisterForm
@@ -48,6 +49,11 @@ export default {
   methods: {
     switchPanels (target) {
       this.currentPanel = target
+    }
+  },
+  created () {
+    if (this.$store.getters['AuthStore/isAuthenticated']) {
+      this.$router.push({ name: 'dashboard_path' })
     }
   }
 }
