@@ -86,11 +86,10 @@ export default {
       tabs: [
         { id: 0, name: 'Start', icon: 'dashboard', path: 'dashboard_path'},
         { id: 1, name: 'Employees', icon: 'people', path: 'employees_path'},
-        { id: 2, name: 'Evaluations', icon: 'how_to_reg', path: 'evaluations_path'},
-        { id: 3, name: 'Templates', icon: 'list_alt', path: 'templates_path'},
-        { id: 4, name: 'Skills', icon: 'pool', path: 'skills_path'},
-        { id: 5, name: 'Schedule', icon: 'event_note', path: 'schedule_path'},
-        { id: 6, name: 'Settings', icon: 'settings', path: 'settings_path'}
+        { id: 2, name: 'Templates', icon: 'list_alt', path: 'templates_path'},
+        { id: 3, name: 'Skills', icon: 'pool', path: 'skills_path'},
+        { id: 4, name: 'Schedule', icon: 'event_note', path: 'schedule_path'},
+        { id: 5, name: 'Settings', icon: 'settings', path: 'settings_path'}
       ],
       creators: [
         { id: 0, name: 'Employee', icon: 'person', path: 'dashboard_path' },

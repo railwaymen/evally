@@ -35,11 +35,6 @@ export default new Router({
           component: require('../components/app/EmployeesPage').default,
         },
         {
-          path: 'evaluations',
-          name: 'evaluations_path',
-          component: require('../components/app/EvaluationsPage').default,
-        },
-        {
           path: 'templates',
           name: 'templates_path',
           component: require('../components/app/TemplatesPage').default,
