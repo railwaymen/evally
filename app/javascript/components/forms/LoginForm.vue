@@ -1,6 +1,6 @@
 <template>
   <div class="landing__form">
-    <h3 class="heading-secondary heading-secondary--dark margin-bottom-20">sign in</h3>
+    <h3 class="secondary-heading secondary-heading--dark margin-bottom-20">sign in</h3>
 
     <v-form ref="loginForm" v-model="formValid" @submit.prevent="login">
 
