@@ -1,8 +1,8 @@
 <template>
-	<div class="list-card">
-		<h3 class="list-card__header">Drafts</h3>
+	<div class="box box--border-primary">
+		<h3 class="box__header">Drafts</h3>
 
-		<div class="list-card__list">
+		<div class="box__list">
 			<v-list two-line>
         <v-list-tile v-for="draft in drafts" :key="draft.id" avatar>
 					<v-list-tile-avatar>
@@ -10,18 +10,18 @@
 					</v-list-tile-avatar>
 
           <v-list-tile-content>
-            <v-list-tile-title>{{ draft.employee.fullname }} <em>as</em> {{ draft.employee.position }} - {{ draft.next_evaluation_date }}</v-list-tile-title>
+            <v-list-tile-title><strong>{{ draft.employee.fullname }}</strong> as <em>{{ draft.employee.position }}</em> - {{ draft.next_evaluation_date }}</v-list-tile-title>
             <v-list-tile-sub-title>Last update: {{ draft.updated_at }}</v-list-tile-sub-title>
           </v-list-tile-content>
 
 					<v-list-tile-action>
 						<div class="">
-							<v-btn icon>
-								<v-icon color="grey">edit</v-icon>
+							<v-btn color="grey" flat icon>
+								<v-icon>edit</v-icon>
 							</v-btn>
 							<span class="separator"></span>
-							<v-btn icon>
-								<v-icon color="red">delete</v-icon>
+							<v-btn color="red" flat icon>
+								<v-icon>delete</v-icon>
 							</v-btn>
 						</div>
 

@@ -1,18 +1,18 @@
 <template>
-	<div class="list-card">
-		<h3 class="list-card__header">Upcoming</h3>
+	<div class="box box--border-primary">
+		<h3 class="box__header">Upcoming</h3>
 
-		<div class="list-card__list">
+		<div class="box__list">
 			<v-list>
         <v-list-tile v-for="draft in drafts" :key="draft.id" avatar>
 
           <v-list-tile-content>
-            <v-list-tile-title>{{ draft.employee.fullname }} <em>as</em> {{ draft.employee.position }} - {{ draft.next_evaluation_date }}</v-list-tile-title>
+            <v-list-tile-title><strong>{{ draft.employee.fullname }}</strong> as <em>{{ draft.employee.position }}</em> - {{ draft.next_evaluation_date }}</v-list-tile-title>
           </v-list-tile-content>
 
 					<v-list-tile-action>
-						<v-btn color="green" flat>
-							<v-icon>add</v-icon> create
+						<v-btn color="green" icon flat>
+							<v-icon>add</v-icon>
 						</v-btn>
 					</v-list-tile-action>
         </v-list-tile>

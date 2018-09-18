@@ -1,89 +1,83 @@
-.employee-card {
-  background-color: #fff
-  padding: 3rem 4rem 5rem
-  border-radius: 3px
 
-
-  .employee-header {
-    font-weight: 200
-    
-    &__fullname {
-      font-size: 3.6rem
-      font-weight: inherit
-      margin-top: 2rem
-
-    }
-
-    &__position {
-      font-size: 2.4rem
-      font-weight: inherit
-      color: $font-gray-dark
-      text-transform: uppercase
-    }
-  }
+.employee-header {
+  font-weight: 200
   
+  &__fullname {
+    font-size: 3.6rem
+    font-weight: inherit
+    margin-top: 2rem
 
-  .date-box {
-    margin-top: 4rem
-    text-align: center
-    font-weight: 200
-
-    &__date {
-      font-weight: inherit
-      font-size: 2.1rem
-
-    }
-
-    &__description {
-      font-weight: inherit
-      font-size: 1.8rem
-      color: $font-gray-dark  
-    }
   }
 
+  &__position {
+    font-size: 2.4rem
+    font-weight: inherit
+    color: $font-gray-dark
+    text-transform: uppercase
+  }
+}
 
-  .evaluation-list {
-    margin-top: 4rem
 
-    &__heading {
-      font-size: 1.8rem
-      font-weight: 400
+.date-box {
+  margin-top: 4rem
+  text-align: center
+  font-weight: 200
+
+  &__date {
+    font-weight: inherit
+    font-size: 2.1rem
+
+  }
+
+  &__description {
+    font-weight: inherit
+    font-size: 1.8rem
+    color: $font-gray-dark  
+  }
+}
+
+
+.evaluation-section {
+  margin-top: 4rem
+
+  &__heading {
+    font-size: 1.8rem
+    font-weight: 400
+    position: relative
+    
+    &-content {
+      display: inline-block
+      background-color: #ffffff
+      padding: 1rem 2rem
+      margin-left: 3rem
       position: relative
-      
-      &-content {
-        display: inline-block
-        background-color: #ffffff
-        padding: 1rem 2rem
-        margin-left: 3rem
-        position: relative
-        z-index: 10
-      }
-
-      &::after {
-        content: ""
-        height: 1px
-        width: 75%
-        display: block
-        background-color: $font-black
-        position: absolute
-        top: 50%
-        z-index: 5
-      }
+      z-index: 10
     }
 
-    &__items {
-      margin: 2rem 2rem 0 0
+    &::after {
+      content: ""
+      height: 1px
+      width: 75%
+      display: block
+      background-color: $font-black
+      position: absolute
+      top: 50%
+      z-index: 5
     }
-
-    &__text p {
-      font-size: 1.6rem
-      font-weight: 200
-      margin-top: 2rem
-    }
-
-    .need-to-improve {
-      background-color: $background-light
-    }
-
   }
+
+  &__items {
+    margin: 2rem 2rem 0 0
+  }
+
+  &__text p {
+    font-size: 1.6rem
+    font-weight: 200
+    margin-top: 2rem
+  }
+
+  .need-to-improve {
+    background-color: $background-light
+  }
+
 }

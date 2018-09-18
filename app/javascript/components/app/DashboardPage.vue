@@ -8,7 +8,7 @@
       <v-flex>
         <div class="panel__action-bar">
           <v-btn color="green" flat>
-            <v-icon>add</v-icon> New evaluation
+            <v-icon>add</v-icon> Create evaluation
           </v-btn>
         </div>
       </v-flex>
@@ -32,7 +32,7 @@
           </v-flex>
 
           <v-flex xs3>
-            <span>Activities</span>
+            <activities></activities>
           </v-flex>
 
         </v-layout>
@@ -42,12 +42,14 @@
 </template>
 
 <script>
+import Activities from './dashboard/Activities'
 import DraftList from './dashboard/DraftList'
 import UpcomingList from './dashboard/UpcomingList'
 
 export default {
   name: 'EvaluationPage',
   components: { 
+    Activities,
     DraftList,
     UpcomingList
   }
