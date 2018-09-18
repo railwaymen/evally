@@ -1,5 +1,5 @@
 <template>
-  <div class="employee-card">
+  <div class="box box--with-content">
     <v-layout row wrap>
       <v-flex xs6>
         <div class="employee-header">
@@ -34,12 +34,12 @@
       </v-flex>
 
       <v-flex xs6>
-        <div class="evaluation-list">
-          <h5 class="evaluation-list__heading">
-            <span class="evaluation-list__heading-content">Primary section</span>
+        <div class="evaluation-section">
+          <h5 class="evaluation-section__heading">
+            <span class="evaluation-section__heading-content">Primary section</span>
           </h5>
 
-          <div class="evaluation-list__items">
+          <div class="evaluation-section__items">
             <v-list>
               <v-list-tile v-for="item in ratingItems" :key="item.id" :class="{ 'need-to-improve': item.needToImprove }">
                 <v-list-tile-content>
@@ -57,12 +57,12 @@
       </v-flex>
 
       <v-flex xs6>
-        <div class="evaluation-list">
-          <h5 class="evaluation-list__heading">
-            <span class="evaluation-list__heading-content">Secondary section</span>
+        <div class="evaluation-section">
+          <h5 class="evaluation-section__heading">
+            <span class="evaluation-section__heading-content">Secondary section</span>
           </h5>
 
-          <div class="evaluation-list__items">
+          <div class="evaluation-section__items">
             <v-list>
               <v-list-tile v-for="item in boolItems" :key="item.id" :class="{ 'need-to-improve': item.needToImprove }">
                 <v-list-tile-content>
@@ -79,12 +79,12 @@
       </v-flex>
 
       <v-flex xs12>
-        <div class="evaluation-list">
-          <h5 class="evaluation-list__heading">
-            <span class="evaluation-list__heading-content">Additional information</span>
+        <div class="evaluation-section">
+          <h5 class="evaluation-section__heading">
+            <span class="evaluation-section__heading-content">Additional information</span>
           </h5>
 
-          <div class="evaluation-list__text">
+          <div class="evaluation-section__text">
             <p>{{ additionalInfo }}</p>
           </div>
         </div>

@@ -5,7 +5,7 @@
         <h2 class="panel__heading">Employees</h2>
       </v-flex>
 
-      <v-flex>
+      <v-flex xs6>
         <div class="panel__action-bar">
           <v-btn color="green" flat>
             <v-icon>add</v-icon> New

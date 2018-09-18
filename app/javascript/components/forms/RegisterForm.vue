@@ -1,6 +1,6 @@
 <template>
   <div class="landing__form">
-    <h3 class="secondary-heading secondary-heading--light margin-bottom-20">sign up</h3>
+    <h3 class="secondary-heading secondary-heading--light mb-4">sign up</h3>
 
     <v-form ref="form" v-model="formValid" @submit.prevent="print">
 
@@ -69,7 +69,7 @@
         ></v-text-field>
       </div>
 
-      <div class="landing__form-action margin-top-20">
+      <div class="landing__form-action mt-4">
         <v-btn color="white" type="submit" flat outline round block>Sign up</v-btn>
       </div>
 

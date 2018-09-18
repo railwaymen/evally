@@ -1,0 +1,20 @@
+scrollbar-styling() {
+  &::-webkit-scrollbar {
+    width: 1rem
+    background-color: $font-gray-light
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $background-dark
+    background-image: -webkit-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, .2) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, .2) 50%,
+      rgba(255, 255, 255, .2) 75%,
+      transparent 75%,
+      transparent
+    )
+  }
+}
