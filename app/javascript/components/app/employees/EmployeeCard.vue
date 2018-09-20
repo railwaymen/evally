@@ -34,12 +34,12 @@
       </v-flex>
 
       <v-flex xs6>
-        <div class="evaluation-section">
-          <h5 class="evaluation-section__heading">
-            <span class="evaluation-section__heading-content">Primary section</span>
+        <div class="form-box">
+          <h5 class="form-box__heading">
+            <span class="form-box__heading-content">Primary section</span>
           </h5>
 
-          <div class="evaluation-section__items">
+          <div class="form-box__items">
             <v-list>
               <v-list-tile v-for="item in ratingItems" :key="item.id" :class="{ 'need-to-improve': item.needToImprove }">
                 <v-list-tile-content>
@@ -57,12 +57,12 @@
       </v-flex>
 
       <v-flex xs6>
-        <div class="evaluation-section">
-          <h5 class="evaluation-section__heading">
-            <span class="evaluation-section__heading-content">Secondary section</span>
+        <div class="form-box">
+          <h5 class="form-box__heading">
+            <span class="form-box__heading-content">Secondary section</span>
           </h5>
 
-          <div class="evaluation-section__items">
+          <div class="form-box__items">
             <v-list>
               <v-list-tile v-for="item in boolItems" :key="item.id" :class="{ 'need-to-improve': item.needToImprove }">
                 <v-list-tile-content>
@@ -79,12 +79,12 @@
       </v-flex>
 
       <v-flex xs12>
-        <div class="evaluation-section">
-          <h5 class="evaluation-section__heading">
-            <span class="evaluation-section__heading-content">Additional information</span>
+        <div class="form-box">
+          <h5 class="form-box__heading">
+            <span class="form-box__heading-content">Additional information</span>
           </h5>
 
-          <div class="evaluation-section__text">
+          <div class="form-box__text">
             <p>{{ additionalInfo }}</p>
           </div>
         </div>

@@ -4,7 +4,7 @@
 
       <v-toolbar-title>
         <router-link class="toolbar-logo" :to="{ name: 'dashboard_path' }">
-          <img src="../assets/img/logo_black.png" class="toolbar-logo__img" alt="Logo Evally">
+          <img src="../assets/img/logo2_black.png" class="toolbar-logo__img" alt="Logo Evally">
         </router-link>
       </v-toolbar-title>
 
@@ -64,7 +64,7 @@
       </v-menu>
 
       <v-tabs slot="extension" v-model="model" color="white" slider-color="primary" grow>
-        <v-tab v-for="tab in tabs" :key="tab.id" :to="{ name: tab.path }">
+        <v-tab v-for="tab in tabs" :key="tab.id" :to="{ name: tab.path }" exact>
           <v-icon>{{ tab.icon }}</v-icon>
           <span class="separator"></span>
           {{ tab.name }}
@@ -88,7 +88,7 @@ export default {
         { id: 1, name: 'Employees', icon: 'people', path: 'employees_path'},
         { id: 2, name: 'Templates', icon: 'list_alt', path: 'templates_path'},
         { id: 3, name: 'Skills', icon: 'pool', path: 'skills_path'},
-        { id: 4, name: 'Schedule', icon: 'event_note', path: 'schedule_path'},
+        { id: 4, name: 'Archive', icon: 'archive', path: 'archive_path'},
         { id: 5, name: 'Settings', icon: 'settings', path: 'settings_path'}
       ],
       creators: [

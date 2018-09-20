@@ -2,7 +2,7 @@
   <section class="panel">
     <v-layout row>
       <v-flex xs6>
-        <h2 class="panel__heading">Settings</h2>
+        <h2 class="panel__heading">Archive</h2>
       </v-flex>
 
       <v-flex>

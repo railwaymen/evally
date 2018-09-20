@@ -6,7 +6,7 @@
         <v-flex v-if="currentPanel === 'register'" xs4>
           <div class="landing__box-panel landing__box-panel--left">
             <div class="landing__logo">
-              <img src="../assets/img/logo_white.png" alt="Logo Evally">
+              <img src="../assets/img/logo2_white.png" alt="Logo Evally">
             </div>
             <register-form @toggle="switchPanels"></register-form>
           </div>
@@ -19,7 +19,7 @@
         <v-flex v-if="currentPanel === 'login'" xs4>
           <div class="landing__box-panel landing__box-panel--right">
             <div class="landing__logo">
-              <img src="../assets/img/logo_black.png" alt="Logo Evally">
+              <img src="../assets/img/logo2_black.png" alt="Logo Evally">
             </div>
             <login-form @toggle="switchPanels"></login-form>
           </div>

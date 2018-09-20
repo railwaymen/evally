@@ -8,10 +8,7 @@
       <v-flex xs6>
         <div class="panel__action-bar">
           <v-btn color="green" flat>
-            <v-icon>add</v-icon> New
-          </v-btn>
-          <v-btn flat>
-            <v-icon>list</v-icon> List evaluations
+            <v-icon>add</v-icon> New employee
           </v-btn>
           <v-btn flat>
             <v-icon>edit</v-icon> Edit
