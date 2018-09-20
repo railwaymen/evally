@@ -47,8 +47,11 @@
           <div class="form-box__items form-box__items--scrollable">
             <v-list>
               <v-list-tile v-for="item in ratingItems" :key="item.id">
-                <v-list-tile-content>
-                  <v-checkbox v-model="item.checked" :label="item.name"></v-checkbox>
+                <v-list-tile-action class="pt-3">
+                  <v-checkbox v-model="item.checked"></v-checkbox>
+                </v-list-tile-action>
+                <v-list-tile-content @click.prevent="item.checked = !item.checked">
+                  <v-list-tile-title>{{ item.name }}</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-list>
@@ -68,9 +71,12 @@
           <v-text-field class="form-box__create-field" label="New bool option" box></v-text-field>
           <div class="form-box__items form-box__items--scrollable">
             <v-list>
-              <v-list-tile v-for="item in boolItems" :key="item.id">
-                <v-list-tile-content>
-                  <v-checkbox v-model="item.checked" :label="item.name"></v-checkbox>
+              <v-list-tile v-for="item in boolItems" :key="item.id" @click="">
+                <v-list-tile-action class="pt-3">
+                  <v-checkbox v-model="item.checked"></v-checkbox>
+                </v-list-tile-action>
+                <v-list-tile-content @click.prevent="item.checked = !item.checked">
+                  <v-list-tile-title>{{ item.name }}</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-list>

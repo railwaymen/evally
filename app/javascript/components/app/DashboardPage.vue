@@ -7,9 +7,7 @@
 
       <v-flex>
         <div class="panel__action-bar">
-          <v-btn color="green" flat>
-            <v-icon>add</v-icon> Create evaluation
-          </v-btn>
+
         </div>
       </v-flex>
     </v-layout>
