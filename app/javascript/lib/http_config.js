@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:3000/v1'
+axios.defaults.baseURL = window.location.host //'http://localhost:3000/v1'
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 
 const token = localStorage.getItem('user_token')

@@ -32,7 +32,7 @@ const AuthStore = {
       return new Promise((resolve, reject) => {
         context.commit('authRequest')
 
-        axios.post('/session', payload)
+        axios.post('v1/session', payload)
           .then(response => {
             let token = response.data.session.jwt
 
