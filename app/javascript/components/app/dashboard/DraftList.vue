@@ -24,7 +24,6 @@
 								<v-icon>delete</v-icon>
 							</v-btn>
 						</div>
-
 					</v-list-tile-action>
         </v-list-tile>
       </v-list>

@@ -37,7 +37,7 @@
 }
 
 
-.evaluation-section {
+.form-box {
   margin-top: 4rem
 
   &__heading {
@@ -66,8 +66,20 @@
     }
   }
 
+  &__create-field {
+    margin: 0 1rem !important  
+  }
+
   &__items {
     margin: 2rem 2rem 0 0
+
+    &--scrollable {
+      margin-top: 0
+      max-height: 35rem
+      overflow-y: auto
+
+      scrollbar-styling()
+    }
   }
 
   &__text p {

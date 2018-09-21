@@ -45,9 +45,9 @@ export default new Router({
           component: require('../components/app/SkillsPage').default,
         },
         {
-          path: 'schedule',
-          name: 'schedule_path',
-          component: require('../components/app/SchedulePage').default,
+          path: 'archive',
+          name: 'archive_path',
+          component: require('../components/app/ArchivePage').default,
         },
         {
           path: 'settings',
