@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "required": ["data"],
+  "properties" : {
+    "data": {
+      "type": "object",
+      "required": ["id", "type", "attributes"],
+      "properties": {
+
+        "id" : { "type" : ["string", "number"] },
+
+        "type" : { "enum" : ["error"] },
+
+        "attributes" : {
+          "type": "object",
+          "required": ["code", "title", "message"],
+          "properties": {
+
+            "code" : { "type" : "number" },
+
+            "title" : { "type" : "string" },
+
+            "message": { "type": "string" },
+
+            "details": { "type": "object" }
+          }
+        }
+      }
+    }
+  }
+}

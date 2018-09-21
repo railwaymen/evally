@@ -1,22 +1,15 @@
 <template>
-  <div id="app">
-    <p>{{ message }}</p>
-  </div>
+  <v-app>
+    <router-view></router-view>
+    <flash-snackbar></flash-snackbar>
+  </v-app>
 </template>
 
 <script>
+import FlashSnackbar from './components/shared/FlashSnackbar'
+
 export default {
-  data: function () {
-    return {
-      message: "Hello Vue!"
-    }
-  }
+  name: 'App',
+  components: { FlashSnackbar }
 }
 </script>
-
-<style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
-</style>
