@@ -47,6 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
       render: h => h(App)
     })
 
-    console.log(app)
+    if (process.env.NODE_ENV !== 'production') console.log(app)
   }
 })
