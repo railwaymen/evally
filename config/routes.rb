@@ -7,7 +7,8 @@ Rails.application.routes.draw do
   end
 
   namespace :v1, defaults: { format: :json } do
-    resource :users, only: [:create]
+    resources :employees, only: [:index]
+    resources :users, only: [:create]
   end
 
   # Route to hit the Vue app

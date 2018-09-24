@@ -15,3 +15,15 @@ current_user = User.find_or_create_by(email: 'john.doe@example.com') do |user|
 end
 
 puts 'john.doe@example.com'
+
+# # ============== Employees ===================
+
+5.times do
+  Employee.create(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    position: Faker::Job.title,
+    hired_at: Faker::Date.between(1.month.ago, Time.now),
+    user: current_user
+  )
+end
