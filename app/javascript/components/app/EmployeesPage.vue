@@ -10,12 +10,16 @@
           <v-btn color="green" flat>
             <v-icon>add</v-icon> New employee
           </v-btn>
-          <v-btn flat>
-            <v-icon>edit</v-icon> Edit
-          </v-btn>
-          <v-btn color="red" flat>
-            <v-icon>delete</v-icon> Delete
-          </v-btn>
+
+          <template v-if="employee.isExisting()">
+            <v-btn flat>
+              <v-icon>edit</v-icon> Edit
+            </v-btn>
+            <v-btn color="red" flat>
+              <v-icon>delete</v-icon> Delete
+            </v-btn>
+          </template>
+          
         </div>
       </v-flex>
     </v-layout>
@@ -37,10 +41,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import EmployeeCard from './employees/EmployeeCard'
 import SearchBox from './employees/SearchBox'
 
 export default {
-  components: { EmployeeCard, SearchBox }
+  name: 'EmployeesPage',
+  components: { EmployeeCard, SearchBox },
+  computed: {
+    ...mapGetters({
+      employee: 'EmployeesStore/employee',
+    })
+  }
 }
 </script>

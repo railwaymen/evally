@@ -13,7 +13,7 @@
       <v-list two-line subheader>
         <v-subheader>List of employees</v-subheader>
 
-        <v-list-tile v-for="employee in filterableEmployees" :key="employee.id" @click="selectEmployee">
+        <v-list-tile v-for="employee in filteredEmployees" :key="employee.id" @click="selectEmployee(employee.id)">
           <v-list-tile-action>
             <v-icon>person_outline</v-icon>
           </v-list-tile-action>
@@ -23,7 +23,7 @@
           </v-list-tile-content>
         </v-list-tile>
 
-        <v-list-tile v-if="filterableEmployees.length == 0">
+        <v-list-tile v-if="filteredEmployees.length == 0">
           <v-list-tile-action>
             <v-icon>error_outline</v-icon>
           </v-list-tile-action>
@@ -47,8 +47,8 @@ export default {
     }
   },
   methods: {
-    selectEmployee() {
-      console.log('Hahaha!')
+    selectEmployee(employee_id) {
+      this.$store.commit('EmployeesStore/one', employee_id)
     }
   },
   computed: {
@@ -56,7 +56,7 @@ export default {
       employees: 'EmployeesStore/employees',
       status: 'EmployeesStore/status'
     }),
-    filterableEmployees() {
+    filteredEmployees() {
       if (this.search.length > 0) {
         return this.employees.models.filter(employee => {
           let fullname = `${employee.first_name} ${employee.last_name}`

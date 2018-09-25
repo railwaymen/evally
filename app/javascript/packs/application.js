@@ -28,6 +28,14 @@ Vue.use(Vuex)
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
 
+// VueMoment
+import VueMoment from 'vue-moment'
+Vue.use(VueMoment)
+
+// Vue2Filters
+// import Vue2Filters from 'vue2-filters'
+// Vue.use(Vue2Filters)
+
 // Mixins
 import flash_mixin from '../lib/flash_mixin'
 Vue.mixin(flash_mixin)

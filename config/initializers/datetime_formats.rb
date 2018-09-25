@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:default] = lambda { |date| date.rfc2822 }

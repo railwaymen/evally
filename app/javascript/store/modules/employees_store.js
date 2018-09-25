@@ -18,6 +18,10 @@ const EmployeesStore = {
 
   },
   mutations: {
+    one(state, employee_id) {
+      state.employee = state.employees.find({ id: employee_id })
+      return state
+    },
     many(state, data) {
       state.employees.replace(data)
       state.status = 'ok'

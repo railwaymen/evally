@@ -1,31 +1,31 @@
 <template>
   <div class="box box--with-content">
-    <v-layout row wrap>
+    <v-layout v-if="employee.isExisting()" row wrap>
       <v-flex xs6>
         <div class="employee-header">
-          <h3 class="employee-header__fullname">Rob Stark</h3>
-          <h4 class="employee-header__position">Ruby on Rails Developer</h4>
+          <h3 class="employee-header__fullname">{{ `${employee.first_name} ${employee.last_name}` }}</h3>
+          <h4 class="employee-header__position">{{ employee.position }}</h4>
         </div>
 
       </v-flex>
 
       <v-flex xs6>
-        <v-layout row>
-          <v-flex xs4>
+        <v-layout row justify-end>
+          <v-flex xs4 v-if="employee.hired_at">
             <div class="date-box">
-              <h5 class="date-box__date">March 2018</h5>
+              <h5 class="date-box__date">{{ employee.hired_at | moment("MMMM YYYY") }}</h5>
               <h6 class="date-box__description">on board since</h6>
             </div>
           </v-flex>
-          <v-flex xs4>
+          <v-flex xs4 v-if="employee.last_evaluation_at">
             <div class="date-box">
-              <h5 class="date-box__date">June 2018</h5>
+              <h5 class="date-box__date">{{ employee.last_evaluation_at | moment("MMMM YYYY") }}</h5>
               <h6 class="date-box__description">previous evaluation</h6>
             </div>
           </v-flex>
-          <v-flex xs4>
+          <v-flex xs4 v-if="employee.next_evaluation_at">
             <div class="date-box">
-              <h5 class="date-box__date">December 2018</h5>
+              <h5 class="date-box__date">{{ employee.next_evaluation_at | moment("MMMM YYYY") }}</h5>
               <h6 class="date-box__description">next evaluation</h6>
             </div>
           </v-flex>
@@ -90,10 +90,18 @@
         </div>
       </v-flex>
     </v-layout>
+
+    <v-layout row v-else>
+      <v-flex xs12>
+        <h4 class="no-content__header no-content__header--large">Select employee from the list on the left</h4>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'EmployeeCard',
   data () {
@@ -123,6 +131,11 @@ export default {
       ],
       additionalInfo: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
     }
+  },
+  computed: {
+    ...mapGetters({
+      employee: 'EmployeesStore/employee',
+    })
   }
 }
 </script>
