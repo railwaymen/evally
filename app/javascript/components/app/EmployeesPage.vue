@@ -7,12 +7,12 @@
 
       <v-flex xs6>
         <div class="panel__action-bar">
-          <v-btn color="green" flat>
+          <v-btn @click="build" color="green" flat>
             <v-icon>add</v-icon> New employee
           </v-btn>
 
           <template v-if="employee.isExisting()">
-            <v-btn flat>
+            <v-btn @click="edit" flat>
               <v-icon>edit</v-icon> Edit
             </v-btn>
             <v-btn color="red" flat>
@@ -43,12 +43,23 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import openerBus from '../../lib/opener_bus'
+
 import EmployeeCard from './employees/EmployeeCard'
 import SearchBox from './employees/SearchBox'
 
 export default {
   name: 'EmployeesPage',
   components: { EmployeeCard, SearchBox },
+  methods: {
+    build() {
+      this.$store.commit('EmployeesStore/clear')
+      openerBus.openFormModal({ model: 'employee', action: 'create', maxWidth: 500 })
+    },
+    edit() {
+      openerBus.openFormModal({ model: 'employee', action: 'Edit', maxWidth: 500 })
+    }
+  },
   computed: {
     ...mapGetters({
       employee: 'EmployeesStore/employee',

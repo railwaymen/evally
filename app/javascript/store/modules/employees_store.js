@@ -6,8 +6,8 @@ import { Employee, EmployeesList } from '../../models/employee'
 const EmployeesStore = {
   namespaced: true,
   state: {
-    employees: new EmployeesList,
-    employee: new Employee,
+    employees: new EmployeesList(),
+    employee: new Employee(),
     status: ''
 
   },
@@ -29,6 +29,10 @@ const EmployeesStore = {
     },
     progress(state, flag) {
       state.status = flag
+      return state
+    },
+    clear(state) {
+      state.employee = new Employee()
       return state
     }
   },

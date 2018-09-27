@@ -1,1 +1,1 @@
-Time::DATE_FORMATS[:default] = lambda { |date| date.rfc2822 }
+Time::DATE_FORMATS[:default] = lambda { |date| date&.strftime('%F') }
