@@ -120,4 +120,39 @@ RSpec.describe V1::EmployeesController, type: :controller do
       end
     end
   end
+
+  describe '#destroy' do
+    let(:employee) { user.employees.last }
+
+    context 'when unauthorized' do
+      it 'is not allowed to delete employee' do
+        sign_out
+
+        delete :destroy, params: { id: employee.id }
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      before(:each) do
+        sign_in user
+      end
+
+      it 'responds with error when employee not found' do
+        expect do
+          delete :destroy, params: { id: 0 }
+        end.not_to change{ user.employees.count }
+
+        expect_error_api_response(404)
+      end
+
+      it 'deletes employee and rsponds with 204' do
+        expect do
+          delete :destroy, params: { id: employee.id }
+        end.to change{ user.employees.count }.by -1
+
+        expect(response).to have_http_status 204
+      end
+    end
+  end
 end
