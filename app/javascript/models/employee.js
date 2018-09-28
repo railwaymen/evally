@@ -34,7 +34,8 @@ class Employee extends Model {
   routes() {
     return {
       save: '/v1/employees',
-      fetch: '/v1/employees/{id}'
+      fetch: '/v1/employees/{id}',
+      delete: '/v1/employees/{id}'
     }
   }
 }

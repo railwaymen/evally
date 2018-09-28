@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   namespace :v1, defaults: { format: :json } do
-    resources :employees, only: [:index, :create, :update]
+    resources :employees, only: [:index, :create, :update, :destroy]
     resources :users, only: [:create]
   end
 

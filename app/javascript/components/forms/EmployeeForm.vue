@@ -64,6 +64,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import { Employee } from '../../models/employee'
+
 export default {
   name: 'EmployeeForm',
   props: { options: Object },
@@ -74,8 +76,10 @@ export default {
   },
   methods: {
     closeModal() {
+      this.employee.reset()
       this.$emit('close')
     },
+
     sendForm() {
       if (this.employee.validate()) {
         switch(this.options.action) {
@@ -104,8 +108,6 @@ export default {
             break
         }
       }
-
-
     }
   },
   computed: {

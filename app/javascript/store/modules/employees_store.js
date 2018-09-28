@@ -47,7 +47,13 @@ const EmployeesStore = {
         return el.id == employee.id ? employee : el
       })
       return state
-    }
+    },
+    remove(state, id) {
+      state.employees.remove({ id: id })
+      state.employee = new Employee()
+      return state
+    },
+
   },
   actions: {
     index(context) {
@@ -55,11 +61,11 @@ const EmployeesStore = {
         context.commit('progress', 'loading')
 
         axios.get(context.state.employees.getFetchURL())
-          .then( response => {
+          .then(response => {
             let data = Utils.modelsFromResponse(response.data.data)
             context.commit('many', data)
           })
-          .catch( error => {
+          .catch(error => {
             reject(error)
           })
       })
@@ -67,33 +73,49 @@ const EmployeesStore = {
     create(context, employee) {
       return new Promise((resolve, reject) => {
         axios.post(context.state.employee.getSaveURL(), employee.attributes)
-          .then( response => {
+          .then(response => {
             let employee = new Employee(Utils.transformModel(response.data.data))
 
             context.commit('push', employee)
 
             resolve(response)
           })
-          .catch( error => {
+          .catch(error => {
             reject(error)
           })
       })
     },
     update(context, employee) {
-      return new Promise( (resolve, reject) => {
+      return new Promise((resolve, reject) => {
         axios.put(context.state.employee.getFetchURL(), employee)
-          .then( response => {
+          .then(response => {
             let updated = new Employee(Utils.transformModel(response.data.data))
 
             context.commit('replace', updated)
 
             resolve(response)
           })
-          .catch( error => {
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+    destroy(context) {
+      return new Promise((resolve, reject) => {
+        axios.delete(context.state.employee.getDeleteURL())
+          .then(response => {
+            let id = context.state.employee.id
+
+            context.commit('remove', id)
+
+            resolve()
+          })
+          .catch(error => {
             reject(error)
           })
       })
     }
+
   }
 }
 

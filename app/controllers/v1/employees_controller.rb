@@ -2,7 +2,7 @@ module V1
   class EmployeesController < ApplicationController
     before_action :authenticate!
 
-    before_action :set_employee, only: :update
+    before_action :set_employee, only: [:update, :destroy]
 
     # GET /v1/employees
     #
@@ -26,6 +26,13 @@ module V1
       employee = V1::EmployeeUpdaterService.new(attributes: params[:employee], employee: @employee).call
 
       render json: V1::EmployeeSerializer.new(employee).serialized_json, status: 200
+    end
+
+    # # DELETE /v1/employees/:id
+    #
+    def destroy
+      @employee.destroy
+      render json: {}, status: 204
     end
 
     private

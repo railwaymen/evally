@@ -74,14 +74,20 @@
 
     <router-view></router-view>
 
+    <destroy-modal></destroy-modal>
+    <forms-modal></forms-modal>
   </section>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
+import DestroyModal from './shared/DestroyModal'
+import FormsModal from './shared/FormsModal'
+
 export default {
   name: 'Layout',
+  components: { DestroyModal, FormsModal },
   data () {
     return {
       model: 0,
