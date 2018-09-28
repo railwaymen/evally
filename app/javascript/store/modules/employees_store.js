@@ -42,7 +42,12 @@ const EmployeesStore = {
       state.status = flag
       return state
     },
-
+    replace(state, employee) {
+      state.employees.map( el => {
+        return el.id == employee.id ? employee : el
+      })
+      return state
+    }
   },
   actions: {
     index(context) {
@@ -74,7 +79,21 @@ const EmployeesStore = {
           })
       })
     },
+    update(context, employee) {
+      return new Promise( (resolve, reject) => {
+        axios.put(context.state.employee.getFetchURL(), employee)
+          .then( response => {
+            let updated = new Employee(Utils.transformModel(response.data.data))
 
+            context.commit('replace', updated)
+
+            resolve(response)
+          })
+          .catch( error => {
+            reject(error)
+          })
+      })
+    }
   }
 }
 

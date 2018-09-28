@@ -19,7 +19,7 @@
               <v-icon>delete</v-icon> Delete
             </v-btn>
           </template>
-          
+
         </div>
       </v-flex>
     </v-layout>
@@ -57,7 +57,7 @@ export default {
       openerBus.openFormModal({ model: 'employee', action: 'create', maxWidth: 500 })
     },
     edit() {
-      openerBus.openFormModal({ model: 'employee', action: 'Edit', maxWidth: 500 })
+      openerBus.openFormModal({ model: 'employee', action: 'edit', maxWidth: 500 })
     }
   },
   computed: {

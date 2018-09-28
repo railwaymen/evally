@@ -81,15 +81,27 @@ export default {
         switch(this.options.action) {
           case 'create':
             this.$store.dispatch('EmployeesStore/create', this.employee)
-              .then( () => {
+              .then(() => {
                 this.flash({ success: 'Employee has been succefully created.' })
                 this.$emit('close')
               })
-              .catch( () => {
-                this.flash({ error: 'Category cannot be created due to some error' })
+              .catch(() => {
+                this.flash({ error: 'Employee cannot be created due to some error' })
               })
 
-            break;
+            break
+
+          case 'edit':
+            this.$store.dispatch('EmployeesStore/update', this.employee)
+              .then(() => {
+                this.flash({ success: 'Employee has been succefully updated' })
+                this.$emit('close')
+              })
+              .catch(() => {
+                this.flash({ error: 'Employee cannot be updated due to some error' })
+              })
+
+            break
         }
       }
 

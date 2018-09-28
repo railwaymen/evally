@@ -1,5 +1,5 @@
 module V1
-  class EmployeeCreateForm < Reform::Form
+  class EmployeeForm < Reform::Form
     model :employee
 
     property :first_name
@@ -16,6 +16,6 @@ module V1
     validates :position, presence: true
 
     validates :hired_at, presence: true
-    
+
   end
 end

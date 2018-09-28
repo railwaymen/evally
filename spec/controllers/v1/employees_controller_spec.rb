@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe V1::EmployeesController, type: :controller do
-  
+
   let(:user) { create(:user_with_employees) }
 
   describe '#index'do
@@ -67,6 +67,54 @@ RSpec.describe V1::EmployeesController, type: :controller do
         expect do
           post :create, params: { employee: params }
         end.not_to change(user.employees, :count)
+
+        expect_error_api_response(422)
+      end
+    end
+  end
+
+  describe '#update' do
+    let(:employee) { user.employees.last }
+    let!(:params) { { id: employee.id, employee: { first_name: 'Szczepan' } } }
+
+    context 'when unauthorized' do
+      it 'is not allowed to update employee' do
+        sign_out
+
+        put :update, params: params
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      before(:each) do
+        sign_in user
+      end
+
+      it 'responds succesfully with updated employee' do
+        expect do
+          put :update, params: params
+        end.to change{ employee.reload.first_name }.to 'Szczepan'
+
+        expect_success_api_response_for('employee')
+      end
+
+      it 'responds with error when employee not found' do
+        params[:id] = 0
+
+        expect do
+          put :update, params: params
+        end.not_to change{ employee.reload.first_name }
+
+        expect_error_api_response(404)
+      end
+
+      it 'responds with error when invalid params' do
+        params[:employee][:first_name] = ''
+
+        expect do
+          put :update, params: params
+        end.not_to change{ employee.reload.first_name }
 
         expect_error_api_response(422)
       end

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe V1::EmployeeCreateForm do
+RSpec.describe V1::EmployeeForm do
 
-  let(:form) { V1::EmployeeCreateForm.new(Employee.new) }
+  let(:form) { V1::EmployeeForm.new(Employee.new) }
   let(:params) { attributes_for(:employee) }
 
   describe 'validation'do
