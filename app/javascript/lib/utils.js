@@ -7,6 +7,10 @@ let utils = {
 
   modelsFromResponse: data => {
     return _.map(data, this.a.transformModel)
+  },
+
+  collectPositions: data => {
+    return _.uniq(_.map(data, 'position'))
   }
 }
 

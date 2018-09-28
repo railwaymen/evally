@@ -8,17 +8,20 @@
       <v-card-text>
         <v-text-field
           v-model="employee.first_name"
+          :error-messages="employee.errors.first_name"
           label="First name"
         ></v-text-field>
 
         <v-text-field
           v-model="employee.last_name"
+          :error-messages="employee.errors.last_name"
           label="Last name"
         ></v-text-field>
 
         <v-combobox
           v-model="employee.position"
-          :items="items"
+          :error-messages="employee.errors.position"
+          :items="positions"
           append-icon="expand_more"
           chips
           label="Position"
@@ -39,6 +42,7 @@
           <v-text-field
             slot="activator"
             v-model="employee.hired_at"
+            :error-messages="employee.errors.hired_at"
             label="On board since"
             prepend-icon="event"
             readonly
@@ -65,8 +69,7 @@ export default {
   props: { options: Object },
   data() {
     return {
-      menu: false,
-      items: ['Ruby on Rails Developer', 'iOS Developr', 'Accountant']
+      menu: false
     }
   },
   methods: {
@@ -74,13 +77,29 @@ export default {
       this.$emit('close')
     },
     sendForm() {
-      console.log(this.employee)
-      this.$emit('close')
+      if (this.employee.validate()) {
+        switch(this.options.action) {
+          case 'create':
+            this.$store.dispatch('EmployeesStore/create', this.employee)
+              .then( () => {
+                this.flash({ success: 'Employee has been succefully created.' })
+                this.$emit('close')
+              })
+              .catch( () => {
+                this.flash({ error: 'Category cannot be created due to some error' })
+              })
+
+            break;
+        }
+      }
+
+
     }
   },
   computed: {
     ...mapGetters({
       employee: 'EmployeesStore/employee',
+      positions: 'EmployeesStore/positions'
     })
   }
 }

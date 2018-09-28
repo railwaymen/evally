@@ -1,5 +1,8 @@
 import { Model, Collection } from 'vue-mc'
 
+// Validation rules
+import { required, string } from 'vue-mc/validation'
+
 /**
  * Employee model
  */
@@ -15,6 +18,22 @@ class Employee extends Model {
       hired_at: null,
       last_evaluation_at: null,
       next_evaluation_at: null
+    }
+  }
+
+  validation() {
+    return {
+      first_name: required.and(string).format("This field is required"),
+      last_name: required.and(string).format("This field is required"),
+      position: required.and(string).format("This field is required"),
+      hired_at: required.and(string).format("This field is required")
+    }
+  }
+
+
+  routes() {
+    return {
+      save: '/v1/employees'
     }
   }
 }

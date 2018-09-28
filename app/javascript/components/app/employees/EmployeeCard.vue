@@ -52,7 +52,7 @@
               </v-list-tile>
             </v-list>
           </div>
-          
+
         </div>
       </v-flex>
 
@@ -93,7 +93,7 @@
 
     <v-layout row v-else>
       <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">Select employee from the list on the left</h4>
+        <h4 class="no-content__header no-content__header--large">Select employee from the list on the left or create a new one</h4>
       </v-flex>
     </v-layout>
   </div>
