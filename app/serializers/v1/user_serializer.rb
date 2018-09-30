@@ -3,5 +3,6 @@ module V1
     include FastJsonapi::ObjectSerializer
 
     attributes :email, :first_name, :last_name
+
   end
 end

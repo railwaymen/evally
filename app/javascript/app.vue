@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <router-view></router-view>
+    
     <flash-snackbar></flash-snackbar>
   </v-app>
 </template>

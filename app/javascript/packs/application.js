@@ -28,6 +28,14 @@ Vue.use(Vuex)
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
 
+// VueMoment
+import VueMoment from 'vue-moment'
+Vue.use(VueMoment)
+
+// Vue2Filters
+import Vue2Filters from 'vue2-filters'
+Vue.use(Vue2Filters)
+
 // Mixins
 import flash_mixin from '../lib/flash_mixin'
 Vue.mixin(flash_mixin)
@@ -35,9 +43,7 @@ Vue.mixin(flash_mixin)
 import '../assets/stylesheets/application.styl'
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Vue.axios.defaults.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 
-  // const el = document.body.appendChild(document.createElement('hello'))
   const el = document.getElementById('hello')
 
   if (el != null) {
@@ -48,6 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
       render: h => h(App)
     })
 
-    console.log(app)
+    if (process.env.NODE_ENV !== 'production') console.log(app)
   }
 })

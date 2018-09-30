@@ -1,7 +1,7 @@
 module V1
   class UsersController < RailsJwtAuth::RegistrationsController
 
-    # # POST /v1/user
+    # # POST /v1/users
     #
     def create
       user = V1::UserCreatorService.new(attributes: params[:user]).call
