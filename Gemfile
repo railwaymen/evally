@@ -33,9 +33,6 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
@@ -83,6 +80,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+# AASM is a continuation of the acts-as-state-machine rails plugin
+gem 'aasm', '~> 5.0', '>= 5.0.1'
 
 # Build JSON APIs with ease.
 gem 'fast_jsonapi', '~> 1.3'
