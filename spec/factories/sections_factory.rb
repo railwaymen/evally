@@ -19,7 +19,7 @@ FactoryBot.define do
     end
 
     trait :for_template do
-      sectionable { |a| a.association(:evaluation_template) }
+      sectionable { |a| a.association(:template) }
     end
   end
 end

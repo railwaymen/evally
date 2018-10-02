@@ -1,4 +1,4 @@
-class EvaluationTemplate < ApplicationRecord
+class Template < ApplicationRecord
   include AASM
 
   belongs_to :user

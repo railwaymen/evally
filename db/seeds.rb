@@ -30,7 +30,7 @@ puts 'john.doe@example.com'
 
 # # ============= Template ===================
 
-template = EvaluationTemplate.create(
+template = Template.create(
   name: Faker::Lorem.word,
   state: 'draft',
   user: current_user

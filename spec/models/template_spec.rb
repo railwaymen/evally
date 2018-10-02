@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe EvaluationTemplate, type: :model do
+RSpec.describe Template, type: :model do
   
   it { is_expected.to have_db_index(:name) }
 

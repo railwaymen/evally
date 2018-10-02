@@ -8,6 +8,6 @@ RSpec.describe User, type: :model do
 
   it { is_expected.to have_many(:employees) }
 
-  it { is_expected.to have_many(:evaluation_templates) }
+  it { is_expected.to have_many(:templates) }
 
 end

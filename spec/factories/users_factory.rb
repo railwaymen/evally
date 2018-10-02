@@ -11,9 +11,9 @@ FactoryBot.define do
       end
     end
 
-    factory :user_with_evaluation_templates do
+    factory :user_with_templates do
       after(:create) do |user|
-        5.times { create(:evaluation_template, user: user) }
+        5.times { create(:template, user: user) }
       end
     end
   end

@@ -37,8 +37,8 @@ import Vue2Filters from 'vue2-filters'
 Vue.use(Vue2Filters)
 
 // Mixins
-import flash_mixin from '../lib/flash_mixin'
-Vue.mixin(flash_mixin)
+import base_mixin from '../lib/base_mixin'
+Vue.mixin(base_mixin)
 
 import '../assets/stylesheets/application.styl'
 

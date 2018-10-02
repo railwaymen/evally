@@ -1,6 +1,6 @@
-class CreateEvaluationTemplates < ActiveRecord::Migration[5.2]
+class CreateTemplates < ActiveRecord::Migration[5.2]
   def change
-    create_table :evaluation_templates do |t|
+    create_table :templates do |t|
       t.string :name, unique: true
       t.integer :state, default: 0
       t.integer :evaluations_count, default: 0
@@ -8,6 +8,6 @@ class CreateEvaluationTemplates < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
-    add_index :evaluation_templates, :name
+    add_index :templates, :name
   end
 end
