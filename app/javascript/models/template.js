@@ -3,6 +3,7 @@ import { Model, Collection } from 'vue-mc'
 // Validation rules
 import { required, string } from 'vue-mc/validation'
 
+
 /**
  * Template model
  */
@@ -15,7 +16,8 @@ class Template extends Model {
       name: '',
       state: 'draft',
       evaluations_count: 0,
-      sections: []
+      sections: [],
+      editable: false
     }
   }
 

@@ -18,30 +18,39 @@ puts 'john.doe@example.com'
 
 # # ============== Employees ===================
 
-# 5.times do
-#   Employee.create(
-#     first_name: Faker::Name.first_name,
-#     last_name: Faker::Name.last_name,
-#     position: Faker::Job.title,
-#     hired_at: Faker::Date.between(1.month.ago, Time.now),
-#     user: current_user
-#   )
-# end
+5.times do
+  Employee.create(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    position: Faker::Job.title,
+    hired_at: Faker::Date.between(1.month.ago, Time.now),
+    user: current_user
+  )
+end
 
 # # ============= Template ===================
 
-template = Template.create(
-  name: Faker::Lorem.word,
-  state: 'draft',
-  user: current_user
-)
-
-3.times do |n|
-  Section.create(
-    name: Faker::Lorem.word,
-    group: ['bool', 'rating'].sample,
-    width: 'half',
-    position: n,
-    sectionable: template
+5.times do
+  template = Template.create(
+    name: Faker::Lorem.words(2).join(' ').capitalize,
+    state: 'draft',
+    user: current_user
   )
+
+  3.times do |n|
+    skills = [
+      { name: Faker::Lorem.words(2).join(' ').capitalize, value: nil },
+      { name: Faker::Lorem.words(2).join(' ').capitalize, value: nil },
+      { name: Faker::Lorem.words(2).join(' ').capitalize, value: nil }
+    ]
+
+    Section.create(
+      name: Faker::Lorem.word.capitalize,
+      group: ['bool', 'rating', 'text'].sample,
+      width: 'half',
+      position: n,
+      skills: skills,
+      sectionable: template
+    )
+  end
 end
