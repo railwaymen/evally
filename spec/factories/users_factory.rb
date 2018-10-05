@@ -10,5 +10,11 @@ FactoryBot.define do
         5.times { create(:employee, user: user) }
       end
     end
+
+    factory :user_with_templates do
+      after(:create) do |user|
+        5.times { create(:template, user: user) }
+      end
+    end
   end
 end

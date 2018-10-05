@@ -27,3 +27,30 @@ puts 'john.doe@example.com'
     user: current_user
   )
 end
+
+# # ============= Template ===================
+
+5.times do
+  template = Template.create(
+    name: Faker::Lorem.words(2).join(' ').capitalize,
+    state: 'draft',
+    user: current_user
+  )
+
+  3.times do |n|
+    skills = [
+      { name: Faker::Lorem.words(2).join(' ').capitalize, value: nil },
+      { name: Faker::Lorem.words(2).join(' ').capitalize, value: nil },
+      { name: Faker::Lorem.words(2).join(' ').capitalize, value: nil }
+    ]
+
+    Section.create(
+      name: Faker::Lorem.word.capitalize,
+      group: ['bool', 'rating', 'text'].sample,
+      width: 'half',
+      position: n,
+      skills: skills,
+      sectionable: template
+    )
+  end
+end
