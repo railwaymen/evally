@@ -1,7 +1,11 @@
 <template>
   <div class="box box--with-content">
-    <v-text-field label="Template name" value="Rubies"></v-text-field>
-    <v-layout row wrap>
+    <v-layout v-if="template.isExisting()" row wrap>
+      <v-flex xs12>
+        <div class="template-header">
+          <v-text-field label="Name" :value="template.name" :disabled="!template.editable"></v-text-field>
+        </div>
+      </v-flex>
       <v-flex xs6>
         <div class="employee-header">
           <h3 class="employee-header__fullname">&lsaquo; employee name &rsaquo;</h3>
@@ -34,76 +38,25 @@
         </v-layout>
       </v-flex>
 
-      <v-flex xs6>
-        <div class="form-box">
-          <h5 class="form-box__heading">
-            <span class="form-box__heading-content">
-              <v-text-field label="Section title" outline></v-text-field>
-            </span>
-          </h5>
+      <section-box v-for="section in template.sections" :key="section.id" :section="section"></section-box>
+    </v-layout>
 
-          <v-text-field class="form-box__create-field" label="New rating option" box></v-text-field>
-
-          <div class="form-box__items form-box__items--scrollable">
-            <v-list>
-              <v-list-tile v-for="item in ratingItems" :key="item.id">
-                <v-list-tile-action class="pt-3">
-                  <v-checkbox v-model="item.checked"></v-checkbox>
-                </v-list-tile-action>
-                <v-list-tile-content @click.prevent="item.checked = !item.checked">
-                  <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            </v-list>
-          </div>
-          
-        </div>
-      </v-flex>
-
-      <v-flex xs6>
-        <div class="form-box">
-          <h5 class="form-box__heading">
-            <span class="form-box__heading-content">
-              <v-text-field label="Section title" outline></v-text-field>
-            </span>
-          </h5>
-
-          <v-text-field class="form-box__create-field" label="New bool option" box></v-text-field>
-          <div class="form-box__items form-box__items--scrollable">
-            <v-list>
-              <v-list-tile v-for="item in boolItems" :key="item.id" @click="">
-                <v-list-tile-action class="pt-3">
-                  <v-checkbox v-model="item.checked"></v-checkbox>
-                </v-list-tile-action>
-                <v-list-tile-content @click.prevent="item.checked = !item.checked">
-                  <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            </v-list>
-          </div>
-        </div>
-      </v-flex>
-
+    <v-layout row v-else>
       <v-flex xs12>
-        <div class="form-box">
-          <h5 class="form-box__heading">
-            <span class="form-box__heading-content">
-              <v-text-field label="Section title" outline></v-text-field>
-            </span>
-          </h5>
-
-          <div class="form-box__text">
-            <p>{{ additionalInfo }}</p>
-          </div>
-        </div>
+        <h4 class="no-content__header no-content__header--large">Select template from the list on the left or create a new one</h4>
       </v-flex>
     </v-layout>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
+import SectionBox from './SectionBox'
+
 export default {
   name: 'EmployeeCard',
+  components: { SectionBox },
   data () {
     return {
       ratingItems: [
@@ -131,6 +84,11 @@ export default {
       ],
       additionalInfo: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
     }
+  },
+  computed: {
+    ...mapGetters({
+      template: 'TemplatesStore/template'
+    })
   }
 }
 </script>

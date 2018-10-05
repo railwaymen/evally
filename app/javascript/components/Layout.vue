@@ -35,9 +35,9 @@
       <v-menu offset-y nudge-bottom="8">
         <span class="toolbar-profile" slot="activator" v-ripple>
           <v-avatar class="toolbar-profile__avatar" color="primary" size="32">
-            <span class="white--text body-1">JD</span>
+            <span class="white--text body-1">{{ initials }}</span>
           </v-avatar>
-          <span class="toolbar-profile__fullname">Trevor Hansen</span>
+          <span class="toolbar-profile__fullname">{{ fullname }}</span>
           <v-icon class="toolbar-profile__arrow" size="24">
             expand_more
           </v-icon>
@@ -74,12 +74,20 @@
 
     <router-view></router-view>
 
+    <destroy-modal></destroy-modal>
+    <forms-modal></forms-modal>
   </section>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
+import DestroyModal from './shared/DestroyModal'
+import FormsModal from './shared/FormsModal'
+
 export default {
   name: 'Layout',
+  components: { DestroyModal, FormsModal },
   data () {
     return {
       model: 0,
@@ -99,6 +107,17 @@ export default {
       items: [
         { id: 0, name: 'Profile', icon: 'person', path: 'profile_path' }
       ]
+    }
+  },
+  computed: {
+    ...mapGetters({
+      user: 'AuthStore/user'
+    }),
+    fullname () {
+      return `${this.user.first_name || ''} ${this.user.last_name || ''}`
+    },
+    initials () {
+      return this.fullname.split(' ').map(n => n[0]).join('').toUpperCase()
     }
   },
   methods: {

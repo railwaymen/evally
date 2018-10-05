@@ -7,11 +7,12 @@ Rails.application.routes.draw do
   end
 
   namespace :v1, defaults: { format: :json } do
-    resource :users, only: [:create]
+    resources :employees, only: [:index, :create, :update, :destroy]
+    resources :templates, only: [:index]
+    resources :users, only: [:create]
   end
 
   # Route to hit the Vue app
-  # get '/', to: 'pages#index', format: false
   get '/*path', to: 'pages#index', format: false
 
   # resources :invitations, controller: 'rails_jwt_auth/invitations', only: [:create, :update]
