@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 2018_09_30_190425) do
     t.integer "group"
     t.integer "width"
     t.integer "position"
-    t.text "skills"
+    t.json "skills", default: []
     t.string "sectionable_type"
     t.integer "sectionable_id"
     t.datetime "created_at", null: false

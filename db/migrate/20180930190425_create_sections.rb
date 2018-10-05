@@ -5,7 +5,7 @@ class CreateSections < ActiveRecord::Migration[5.2]
       t.integer :group
       t.integer :width
       t.integer :position
-      t.text :skills, array: true
+      t.json :skills, default: []
       t.references :sectionable, polymorphic: true, index: true
 
       t.timestamps
