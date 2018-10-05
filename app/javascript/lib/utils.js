@@ -1,15 +1,15 @@
 import _ from 'lodash'
 
 let utils = {
-  transformModel: model => {
+  transformModel(model) {
     return _.merge({id: model.id}, model.attributes)
   },
 
-  modelsFromResponse: data => {
-    return _.map(data, this.a.transformModel)
+  modelsFromResponse(data) {
+    return _.map(data, this.transformModel)
   },
 
-  collectPositions: data => {
+  collectPositions(data) {
     return _.uniq(_.map(data, 'position'))
   }
 }
