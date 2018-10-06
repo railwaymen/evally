@@ -7,11 +7,11 @@
 
       <v-flex>
         <div class="panel__action-bar">
-          <v-btn color="green" flat>
+          <v-btn color="green" @click="newTemplate" flat>
             <v-icon>add</v-icon> New template
           </v-btn>
 
-          <template v-if="template.isExisting()">
+          <template v-if="template.isExisting() || status === 'new_record'">
             <v-btn v-if="template.editable" @click="save" flat>
               <v-icon>save_alt</v-icon> Save
             </v-btn>
@@ -36,7 +36,7 @@
           </v-flex>
 
           <v-flex xs9>
-            <template-form></template-form>
+            <template-box></template-box>
           </v-flex>
         </v-layout>
       </v-container>
@@ -47,25 +47,32 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import TemplateForm from './templates/TemplateForm'
+import TemplateBox from './templates/TemplateBox'
 import TemplatesList from './templates/TemplatesList'
 
 export default {
   name: 'TemplatesPage',
-  components: { TemplateForm, TemplatesList },
+  components: { TemplateBox, TemplatesList },
   methods: {
+    newTemplate() {
+      this.$store.commit('SectionsStore/clear')
+      this.$store.commit('TemplatesStore/newTemplate')
+    },
     edit() {
       this.$store.commit('TemplatesStore/edit')
     },
     save() {
-      setTimeout(() => {
-        this.flash({ success: `Template "${this.template.name}" has been succesfully saved.`})
-      }, 500)
+      if (this.template.validate()) {
+        setTimeout(() => {
+          this.flash({ success: `Template "${this.template.name}" has been succesfully saved.`})
+        }, 500)
+      }
     }
   },
   computed: {
     ...mapGetters({
-      template: 'TemplatesStore/template'
+      template: 'TemplatesStore/template',
+      status: 'TemplatesStore/status'
     })
   }
 }

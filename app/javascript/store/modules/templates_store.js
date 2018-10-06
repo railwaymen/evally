@@ -8,7 +8,6 @@ const TemplatesStore = {
   state: {
     templates: new TemplatesList(),
     template: new Template(),
-    editable: false,
     status: ''
   },
   getters: {
@@ -18,6 +17,11 @@ const TemplatesStore = {
     status: state => state.status
   },
   mutations: {
+    newTemplate(state) {
+      state.template = new Template({ editable: true })
+      state.status = 'new_record'
+      return state
+    },
     edit(state) {
       state.template.editable = true
       return state

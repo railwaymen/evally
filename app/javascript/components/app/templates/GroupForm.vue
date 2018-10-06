@@ -6,6 +6,7 @@
       :label="`New ${group} item`"
       v-model="newSkill"
       @keyup.enter.native="addSkill"
+      append-icon="keyboard_return"
       box
     ></v-text-field>
 

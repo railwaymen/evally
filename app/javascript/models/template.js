@@ -21,6 +21,12 @@ class Template extends Model {
     }
   }
 
+  validation() {
+    return {
+      name: required.and(string).format("This field is required"),
+    }
+  }
+
 }
 
 /**

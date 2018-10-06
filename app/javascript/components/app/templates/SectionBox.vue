@@ -2,16 +2,15 @@
   <v-flex :xs6="section.width === 'half'" :xs12="section.width === 'full'">
     <div class="form-box">
       <h5 class="form-box__heading">
-        <span class="form-box__heading-content">
+        <span class="form-box__heading-content" v-if="template.editable">
           <v-text-field
-            v-if="template.editable"
             :value="section.name"
             label="Section title"
             outline
           ></v-text-field>
-
-          <span v-else>{{ section.name }}</span>
         </span>
+
+        <span class="form-box__heading-content" v-else>{{ section.name }}</span>
       </h5>
 
       <group-form :skills="section.skills" :group="section.group"></group-form>

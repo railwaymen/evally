@@ -16,10 +16,21 @@ class Section extends Model {
       group: '',
       width: '',
       position: null,
-      skills: []
+      skills: [],
+      _destroy: 0
     }
+  }
+}
+
+/**
+ * Sections collection
+ */
+class SectionsList extends Collection {
+
+  model() {
+    return Section
   }
 
 }
 
-export { Section }
+export { Section, SectionsList }
