@@ -13,13 +13,13 @@ module V1
     private
 
     def update_employee
-      @form = V1::EmployeeForm.new(@employee)
+      @form = V1::EmployeeForm.new(@employee, @attributes)
 
-      unless @form.validate(@attributes)
+      unless @form.valid?
         raise V1::ErrorResponderService.new(:invalid_record, 422, @form.errors.messages)
       end
 
-      @form.save
+      @form.submit!
     end
 
     def notify

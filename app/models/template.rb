@@ -1,9 +1,15 @@
 class Template < ApplicationRecord
   include AASM
 
+  # # Associations
+  #
   belongs_to :user
-  has_many :sections, as: :sectionable
 
+  has_many :sections, as: :sectionable, dependent: :destroy
+  accepts_nested_attributes_for :sections, reject_if: :invalid_section?, allow_destroy: true
+
+  # # States
+  #
   enum state: { draft: 0, enabled: 10, disabled: 20, removed: 30 }
 
   aasm column: :state, enum: true do
@@ -25,4 +31,9 @@ class Template < ApplicationRecord
     end
   end
 
+  private
+
+  def invalid_section?(attributes)
+    V1::SectionForm.new(Section.new, attributes).invalid?
+  end
 end

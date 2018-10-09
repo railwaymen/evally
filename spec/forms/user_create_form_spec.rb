@@ -3,35 +3,45 @@ require 'rails_helper'
 RSpec.describe V1::UserCreateForm do
 
   let(:form) { V1::UserCreateForm.new(User.new) }
-  let(:params) { attributes_for(:user) }
 
   describe 'validation'do
 
     it 'expects to return true if params ok' do
-      expect(form.validate(params)).to be true
+      form.attributes = attributes_for(:user)
+      expect(form.valid?).to be true
     end
 
-    context 'expects to respond failure when' do
-      after(:each) { expect(form.validate(params)).to eq false }
-
-      it 'password blank' do
-        params[:password] = ''
+    it 'expects to respond with errors', :aggregate_failures do
+      aggregate_failures 'when password blank' do
+        form.attributes = attributes_for(:user, password: '')
+        expect(form.valid?).to eq false
       end
 
-      it 'password too short' do
-        params[:password] = 'a' * 5
+      aggregate_failures 'when password tooshort' do
+        form.attributes = attributes_for(:user, password: '12345')
+        expect(form.valid?).to eq false
       end
 
-      it ' password too long' do
-        params[:password] = 'a' * 33
+      aggregate_failures 'when password too long' do
+        form.attributes = attributes_for(:user, password: 'a' * 33)
+        expect(form.valid?).to eq false
       end
 
-      it 'email blank' do
-        params[:email] = ''
+      aggregate_failures 'when email blank' do
+        form.attributes = attributes_for(:user, email: '')
+        expect(form.valid?).to eq false
       end
 
-      it 'invalid email format' do
-        params[:email] = 'user@local'
+      aggregate_failures 'when invalid email' do
+        form.attributes = attributes_for(:user, email: 'user@local')
+        expect(form.valid?).to eq false
+      end
+
+      aggregate_failures 'when email already exists' do
+        create(:user, email: 'sample@example.com')
+
+        form.attributes = attributes_for(:user, email: 'sample@example.com')
+        expect(form.valid?).to eq false
       end
     end
   end

@@ -1,5 +1,5 @@
 module V1
-  class EmployeeCreatorService
+  class TemplateCreatorService
 
     def initialize(attributes:, user:)
       @attributes = attributes
@@ -7,13 +7,13 @@ module V1
     end
 
     def call
-      @form.model if create_new_employee && notify
+      @form.model if create_new_template && notify
     end
 
     private
 
-    def create_new_employee
-      @form = V1::EmployeeForm.new(@user.employees.build, @attributes)
+    def create_new_template
+      @form = V1::TemplateForm.new(@user.templates.build, @attributes)
 
       unless @form.valid?
         raise V1::ErrorResponderService.new(:invalid_record, 422, @form.errors.messages)

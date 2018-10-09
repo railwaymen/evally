@@ -1,13 +1,8 @@
 module V1
-  class EmployeeForm < Reform::Form
-    model :employee
+  class EmployeeForm < ApplicationForm
 
-    property :first_name
-    property :last_name
-    property :position
-    property :hired_at
-    property :last_evaluation_at
-    property :next_evaluation_at
+    FIELDS = ['first_name', 'last_name', 'position', 'hired_at', 'last_evaluation_at', 'next_evaluation_at'].freeze
+    attr_accessor *FIELDS
 
     validates :first_name, presence: true
 

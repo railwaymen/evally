@@ -17,13 +17,13 @@ module V1
     end
 
     def create_new_user
-      @form = V1::UserCreateForm.new(User.new)
+      @form = V1::UserCreateForm.new(User.new, @attributes)
 
-      unless @form.validate(@attributes)
+      unless @form.valid?
         raise V1::ErrorResponderService.new(:invalid_record, 422, @form.errors.messages)
       end
 
-      @form.save
+      @form.submit!
     end
 
   end

@@ -3,31 +3,33 @@ require 'rails_helper'
 RSpec.describe V1::EmployeeForm do
 
   let(:form) { V1::EmployeeForm.new(Employee.new) }
-  let(:params) { attributes_for(:employee) }
 
   describe 'validation'do
 
     it 'expects to return true if params ok' do
-      expect(form.validate(params)).to be true
+      form.attributes = attributes_for(:employee)
+      expect(form.valid?).to be true
     end
 
-    context 'expects to respond failure when' do
-      after(:each) { expect(form.validate(params)).to eq false }
-
-      it 'first name blank' do
-        params[:first_name] = ''
+    it 'expects to respond with errors', :aggregate_failures do
+      aggregate_failures 'when first_name blank' do
+        form.attributes = attributes_for(:employee, first_name: '')
+        expect(form.valid?).to be false
       end
 
-      it 'last name blank' do
-        params[:last_name] = ''
+      aggregate_failures 'when last_name blank' do
+        form.attributes = attributes_for(:employee, last_name: '')
+        expect(form.valid?).to be false
       end
 
-      it 'position blank' do
-        params[:position] = ''
+      aggregate_failures 'when position blank' do
+        form.attributes = attributes_for(:employee, position: '')
+        expect(form.valid?).to be false
       end
 
-      it 'hired_at blank' do
-        params[:hired_at] = ''
+      aggregate_failures 'when hired_at blank' do
+        form.attributes = attributes_for(:employee, hired_at: '')
+        expect(form.valid?).to be false
       end
     end
   end

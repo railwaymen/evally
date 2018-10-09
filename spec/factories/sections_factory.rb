@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :section do |s|
-    s.sequence(:name)     { Faker::Lorem.word }
+    s.sequence(:name)     { |n| "Section no.#{n}" }
     group                 { 'text' }
     width                 { 'full' }
     s.sequence(:position) { |n| n }
-    skills                { [{ description: 'Lorem ipsum dolor sit amet...' }] }
+    skills                { [{ name: 'Description', value: 'Lorem ipsum dolor sit amet ...' }] }
 
     trait :rating do
       group     { 'rating' }
