@@ -21,11 +21,6 @@ RSpec.describe V1::EmployeeForm do
         form.attributes = attributes_for(:template, state: '', sections_attributes: [])
         expect(form.valid?).to be false
       end
-
-      aggregate_failures 'when no sections_attributes' do
-        form.attributes = attributes_for(:template)
-        expect(form.valid?).to be false
-      end
     end
   end
 end

@@ -2,6 +2,32 @@ require 'rails_helper'
 
 RSpec.describe V1::TemplatesController, type: :controller do
 
+  describe '#index' do
+    let(:user) { create(:user) }
+
+    context 'when unauthorized' do
+      it 'is not allowed to list templates' do
+        sign_out
+
+        get :index
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      before(:each) do
+        2.times { create(:template_with_sections, user: user) }
+      end
+
+      it 'responds succesfully with templates list (with sections)' do
+        sign_in user
+
+        get :index
+        expect_success_api_response_for('templates')
+      end
+    end
+  end
+
   describe '#create' do
     let(:user) { create(:user) }
 

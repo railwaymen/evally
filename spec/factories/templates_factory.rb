@@ -24,7 +24,7 @@ FactoryBot.define do
       end
 
       after(:create) do |template, faktory|
-        create_list(:section, faktory.sections_count, template: template)
+        create_list(:section, faktory.sections_count, sectionable: template)
       end
     end
   end
