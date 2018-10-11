@@ -5,7 +5,7 @@
         <div class="template-header">
           <v-text-field
             label="Template name"
-            :value="template.name"
+            v-model="template.name"
             :disabled="!template.editable"
             :error-messages="template.errors.name"
           ></v-text-field>
@@ -43,7 +43,7 @@
         </v-layout>
       </v-flex>
 
-      <section-box v-for="(section, index) in sections.models" :key="index" :section="section"></section-box>
+      <section-box v-for="(section, index) in sections.models" :key="index" :section.sync="section"></section-box>
       <new-section-form v-if="template.editable"></new-section-form>
     </v-layout>
 

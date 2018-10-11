@@ -62,16 +62,26 @@ export default {
       this.$store.commit('TemplatesStore/edit')
     },
     save() {
-      if (this.template.validate()) {
-        setTimeout(() => {
-          this.flash({ success: `Template "${this.template.name}" has been succesfully saved.`})
-        }, 500)
+      let areSectionsValid = _.every(this.sections.models, section => section.validate() )
+
+      if (this.template.validate() && areSectionsValid) {
+        this.template.sections_attributes = _.map(this.sections.models, section => section.attributes )
+
+        this.$store.dispatch('TemplatesStore/create', this.template)
+          .then(() => {
+            this.flash({ success: `Template '${this.template.name}' has been succefully created` })
+            this.template.editable = false
+          })
+          .catch(() => {
+            this.flash({ error: 'Template cannot be created due to some error' })
+          })
       }
     }
   },
   computed: {
     ...mapGetters({
       template: 'TemplatesStore/template',
+      sections: 'SectionsStore/sections',
       status: 'TemplatesStore/status'
     })
   }

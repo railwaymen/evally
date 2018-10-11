@@ -41,7 +41,8 @@ export default {
   },
   methods: {
     addSkill() {
-      this.skills.push({ name: this.newSkill })
+      let valuesMap = { 'rating': 0, 'bool': false, 'text': '' }
+      this.skills.push({ name: this.newSkill, value: valuesMap[this.group] })
       this.newSkill = ''
     },
     removeSkill(index) {

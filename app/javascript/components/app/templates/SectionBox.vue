@@ -4,7 +4,8 @@
       <h5 class="form-box__heading">
         <span class="form-box__heading-content" v-if="template.editable">
           <v-text-field
-            :value="section.name"
+            v-model="section.name"
+            :error-messages="section.errors.name"
             label="Section title"
             outline
           ></v-text-field>

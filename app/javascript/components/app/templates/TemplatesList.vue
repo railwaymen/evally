@@ -54,7 +54,7 @@ export default {
       this.template.reset()
 
       this.$store.commit('TemplatesStore/one', template_id)
-      this.$store.commit('SectionsStore/many', this.template.sections)
+      this.$store.commit('SectionsStore/many', this.template.sections_attributes)
     }
   },
   computed: {
@@ -63,13 +63,17 @@ export default {
       template: 'TemplatesStore/template'
     }),
     filteredTemplates() {
+      let outputArray = []
+
       if (this.search.length > 0) {
-        return this.templates.models.filter(template => {
+        outputArray = this.templates.models.filter(template => {
           return template.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         })
       } else {
-        return this.templates.models
+        outputArray = this.templates.models
       }
+
+      return outputArray.sort((a, b) => a.name.localeCompare(b.name))
     }
   },
   mounted() {

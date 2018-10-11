@@ -35,6 +35,10 @@ const TemplatesStore = {
       state.status = 'ok'
       return state
     },
+    push(state, data) {
+      state.templates.add(data)
+      return state
+    },
     progress(state, flag) {
       state.status = flag
       return state
@@ -56,8 +60,24 @@ const TemplatesStore = {
             reject(error)
           })
       })
-    }
+    },
+    create(context, template) {
+      return new Promise((resolve, reject) => {
+        axios.post(context.state.template.getSaveURL(), template)
+          .then(response => {
+            let template = new Template(Utils.transformModel(response.data.data))
 
+            context.commit('push', template)
+
+            console.log(response)
+            resolve(response)
+          })
+          .catch(error => {
+            console.log(error)
+            reject(error)
+          })
+      })
+    }
   }
 }
 
