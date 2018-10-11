@@ -43,7 +43,11 @@ const TemplatesStore = {
       state.status = flag
       return state
     },
-
+    remove(state, id) {
+      state.templates.remove({ id: id })
+      state.template = new Template()
+      return state
+    }
   },
   actions: {
     index(context) {
@@ -74,6 +78,22 @@ const TemplatesStore = {
           })
           .catch(error => {
             console.log(error)
+            reject(error)
+          })
+      })
+    },
+
+    destroy(context) {
+      return new Promise((resolve, reject) => {
+        axios.delete(context.state.template.getDeleteURL())
+          .then(response => {
+            let id = context.state.template.id
+
+            context.commit('remove', id)
+
+            resolve()
+          })
+          .catch(error => {
             reject(error)
           })
       })

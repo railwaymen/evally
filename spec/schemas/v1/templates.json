@@ -16,7 +16,7 @@
 
           "attributes" : {
             "type": "object",
-            "required": ["name", "state", "evaluations_count", "sections"],
+            "required": ["name", "state", "evaluations_count", "sections_attributes"],
             "properties": {
 
               "name" : { "type" : "string" },
@@ -25,7 +25,7 @@
 
               "evaluations_count" : { "type" : "number" },
 
-              "sections" : {
+              "sections_attributes" : {
                 "type": "array",
                 "items": {
                   "type": "object",

@@ -36,17 +36,31 @@ export default {
         case 'employee':
           this.removeEmployee()
           break
+        case 'template':
+          this.removeTemplate()
+          break
       }
     },
 
     removeEmployee() {
       this.$store.dispatch('EmployeesStore/destroy')
         .then(() => {
-          this.flash({ success: 'Employees has been succesfully destroyed' })
+          this.flash({ success: 'Employee has been succesfully destroyed' })
           this.dialog = false
         })
         .catch(() => {
-          this.flash({ error: 'Employees cannot be destroyed due to some error' })
+          this.flash({ error: 'Employee cannot be destroyed due to some error' })
+        })
+    },
+
+    removeTemplate() {
+      this.$store.dispatch('TemplatesStore/destroy')
+        .then(() => {
+          this.flash({ success: 'Template has been succesfully destroyed' })
+          this.dialog = false
+        })
+        .catch(() => {
+          this.flash({ error: 'Template cannot be destroyed due to some error' })
         })
     }
   },

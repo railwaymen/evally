@@ -52,8 +52,7 @@ const EmployeesStore = {
       state.employees.remove({ id: id })
       state.employee = new Employee()
       return state
-    },
-
+    }
   },
   actions: {
     index(context) {

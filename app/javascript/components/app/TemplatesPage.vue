@@ -19,7 +19,7 @@
               <v-icon>edit</v-icon> Edit
             </v-btn>
 
-            <v-btn color="red" flat>
+            <v-btn color="red" @click="remove" flat>
               <v-icon>delete</v-icon> Delete
             </v-btn>
           </template>
@@ -47,6 +47,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import openerBus from '../../lib/opener_bus'
+
 import TemplateBox from './templates/TemplateBox'
 import TemplatesList from './templates/TemplatesList'
 
@@ -58,9 +60,11 @@ export default {
       this.$store.commit('SectionsStore/clear')
       this.$store.commit('TemplatesStore/newTemplate')
     },
+
     edit() {
       this.$store.commit('TemplatesStore/edit')
     },
+
     save() {
       let areSectionsValid = _.every(this.sections.models, section => section.validate() )
 
@@ -76,6 +80,10 @@ export default {
             this.flash({ error: 'Template cannot be created due to some error' })
           })
       }
+    },
+    
+    remove() {
+      openerBus.openDestroyModal({ model: 'template', action: 'delete', maxWidth: 500 })
     }
   },
   computed: {

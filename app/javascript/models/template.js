@@ -29,7 +29,8 @@ class Template extends Model {
 
   routes() {
     return {
-      save: '/v1/templates'
+      save: '/v1/templates',
+      delete: '/v1/templates/{id}'
     }
   }
 
