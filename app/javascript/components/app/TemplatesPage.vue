@@ -66,9 +66,9 @@ export default {
     },
 
     save() {
-      let areSectionsValid = _.every(this.sections.models, section => section.validate() )
+      let formValid = this.template.validate() && _.every(this.sections.models, section => section.validate() )
 
-      if (this.template.validate() && areSectionsValid && this.status === 'new_record') {
+      if (formValid && this.status === 'new_record') {
         this.template.sections_attributes = _.map(this.sections.models, section => section.attributes )
 
         this.$store.dispatch('TemplatesStore/create', this.template)
@@ -78,6 +78,17 @@ export default {
           })
           .catch(() => {
             this.flash({ error: 'Template cannot be created due to some error' })
+          })
+      } else if (formValid && this.status === 'record') {
+        this.template.sections_attributes = _.map(this.sections.models, section => section.attributes )
+
+        this.$store.dispatch('TemplatesStore/update', this.template)
+          .then(() => {
+            this.flash({ success: `Template '${this.template.name}' has been succefully updated` })
+            this.template.editable = false
+          })
+          .catch(() => {
+            this.flash({ error: 'Template cannot be updated due to some error' })
           })
       }
     },

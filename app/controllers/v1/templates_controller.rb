@@ -2,7 +2,7 @@ module V1
   class TemplatesController < ApplicationController
     before_action :authenticate!
 
-    before_action :set_template, only: [:destroy]
+    before_action :set_template, only: [:update, :destroy]
 
     # GET /v1/templates
     #
@@ -16,6 +16,14 @@ module V1
     #
     def create
       template = V1::TemplateCreatorService.new(attributes: params[:template], user: current_user).call
+
+      render json: V1::TemplateSerializer.new(template).serialized_json, status: 200
+    end
+
+    # # PUT /v1/templates/:id
+    #
+    def update
+      template = V1::TemplateUpdaterService.new(attributes: params[:template], template: @template).call
 
       render json: V1::TemplateSerializer.new(template).serialized_json, status: 200
     end

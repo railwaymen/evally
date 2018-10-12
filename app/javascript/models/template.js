@@ -30,6 +30,7 @@ class Template extends Model {
   routes() {
     return {
       save: '/v1/templates',
+      fetch: '/v1/templates/{id}',
       delete: '/v1/templates/{id}'
     }
   }

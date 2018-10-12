@@ -44,6 +44,12 @@ const TemplatesStore = {
       state.status = flag
       return state
     },
+    replace(state, template) {
+      state.templates.map( el => {
+        return el.id == template.id ? template : el
+      })
+      return state
+    },
     remove(state, id) {
       state.templates.remove({ id: id })
       state.template = new Template()
@@ -74,7 +80,6 @@ const TemplatesStore = {
 
             context.commit('push', template)
 
-            console.log(response)
             resolve(response)
           })
           .catch(error => {
@@ -83,7 +88,21 @@ const TemplatesStore = {
           })
       })
     },
+    update(context, template) {
+      return new Promise((resolve, reject) => {
+        axios.put(context.state.template.getFetchURL(), template)
+          .then(response => {
+            let updated = new Template(Utils.transformModel(response.data.data))
 
+            context.commit('replace', updated)
+
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
     destroy(context) {
       return new Promise((resolve, reject) => {
         axios.delete(context.state.template.getDeleteURL())

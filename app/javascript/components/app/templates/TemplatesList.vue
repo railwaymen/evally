@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     selectTemplate(template_id) {
-      this.template.reset()
+      // this.template.reset()
 
       this.$store.commit('TemplatesStore/one', template_id)
       this.$store.commit('SectionsStore/many', this.template.sections_attributes)

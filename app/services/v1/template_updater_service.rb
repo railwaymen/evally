@@ -1,19 +1,19 @@
 module V1
-  class TemplateCreatorService
+  class TemplateUpdaterService
 
-    def initialize(attributes:, user:)
+    def initialize(attributes:, template:)
       @attributes = attributes
-      @user = user
+      @template = template
     end
 
     def call
-      @form.model if create_new_template && notify
+      @form.model if update_template && notify
     end
 
     private
 
-    def create_new_template
-      @form = V1::TemplateForm.new(@user.templates.build, filtered_attributes)
+    def update_template
+      @form = V1::TemplateForm.new(@template, filtered_attributes)
 
       unless @form.valid?
         raise V1::ErrorResponderService.new(:invalid_record, 422, @form.errors.messages)
@@ -23,7 +23,7 @@ module V1
     end
 
     def filtered_attributes
-      @attributes.permit(:name, :state, sections_attributes: [:name, :group, :width, :position, :_destroy, skills: [:name, :value]])
+      @attributes.permit(:name, :state, sections_attributes: [:id, :name, :group, :width, :position, :_destroy, skills: [:name, :value]])
     end
 
     def notify
