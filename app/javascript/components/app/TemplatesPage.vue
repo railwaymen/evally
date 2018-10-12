@@ -68,7 +68,7 @@ export default {
     save() {
       let areSectionsValid = _.every(this.sections.models, section => section.validate() )
 
-      if (this.template.validate() && areSectionsValid) {
+      if (this.template.validate() && areSectionsValid && this.status === 'new_record') {
         this.template.sections_attributes = _.map(this.sections.models, section => section.attributes )
 
         this.$store.dispatch('TemplatesStore/create', this.template)
@@ -81,7 +81,7 @@ export default {
           })
       }
     },
-    
+
     remove() {
       openerBus.openDestroyModal({ model: 'template', action: 'delete', maxWidth: 500 })
     }

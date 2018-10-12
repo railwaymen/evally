@@ -1,7 +1,7 @@
 
 .employee-header {
   font-weight: 200
-  
+
   &__fullname {
     font-size: 3.6rem
     font-weight: inherit
@@ -32,7 +32,7 @@
   &__description {
     font-weight: inherit
     font-size: 1.8rem
-    color: $font-gray-dark  
+    color: $font-gray-dark
   }
 }
 
@@ -47,14 +47,15 @@
 }
 
 
-.form-box {
+.section-form-box {
   margin-top: 4rem
+  position: relative
 
   &__heading {
     font-size: 1.8rem
     font-weight: 400
     position: relative
-    
+
     &-content {
       display: inline-block
       background-color: #ffffff
@@ -76,8 +77,15 @@
     }
   }
 
+  &__actions {
+    position: absolute
+    top: 3rem
+    right: 3rem
+    background: #fff
+  }
+
   &__create-field {
-    margin: 0 1rem !important  
+    margin: 0 1rem !important
   }
 
   &__items {

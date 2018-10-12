@@ -43,7 +43,12 @@
         </v-layout>
       </v-flex>
 
-      <section-box v-for="(section, index) in sections.models" :key="index" :section.sync="section"></section-box>
+      <section-box
+        v-for="(section, index) in sections.models"
+        v-if="!section._destroy"
+        :key="index"
+        :section.sync="section"
+      ></section-box>
       <new-section-form v-if="template.editable"></new-section-form>
     </v-layout>
 

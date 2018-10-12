@@ -1,8 +1,8 @@
 <template>
   <v-flex xs6>
     <div class="new-section">
-      <h5 class="form-box__heading">
-        <span class="form-box__heading-content">
+      <h5 class="section-form-box__heading">
+        <span class="section-form-box__heading-content">
           New section
         </span>
       </h5>
@@ -32,6 +32,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import { Utils } from '../../lib/utils'
 import { Section } from '../../models/section'
 
 export default {
@@ -44,7 +45,12 @@ export default {
   },
   methods: {
     addSection() {
-      let section = new Section({ width: this.width, group: this.group, position: this.sections.models.length})
+      let section = new Section({
+        width: this.width,
+        group: this.group,
+        position: this.sections.models.length,
+        tempId: Utils.randomId(6)
+      })
       this.$store.commit('SectionsStore/push', section)
     }
   },
