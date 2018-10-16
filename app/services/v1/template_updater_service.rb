@@ -7,22 +7,22 @@ module V1
     end
 
     def call
-      @form.model if update_template && notify
+      @template if update_template && notify
     end
 
     private
 
     def update_template
-      @form = V1::TemplateForm.new(@template, filtered_attributes)
+      @template.attributes = template_params
 
-      unless @form.valid?
-        raise V1::ErrorResponderService.new(:invalid_record, 422, @form.errors.messages)
+      unless @template.valid?
+        raise V1::ErrorResponderService.new(:invalid_record, 422, @template.errors.messages)
       end
 
-      @form.submit!
+      @template.save!
     end
 
-    def filtered_attributes
+    def template_params
       @attributes.permit(:name, :state, sections_attributes: [:id, :name, :group, :width, :position, :_destroy, skills: [:name, :value]])
     end
 

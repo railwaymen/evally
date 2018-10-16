@@ -6,12 +6,20 @@ class Template < ApplicationRecord
   belongs_to :user
 
   has_many :sections, as: :sectionable, dependent: :destroy
-  accepts_nested_attributes_for :sections, reject_if: :invalid_section?, allow_destroy: true
+  accepts_nested_attributes_for :sections, allow_destroy: true
 
-  # # States
+  # # Enums
   #
   enum state: { draft: 0, enabled: 10, disabled: 20, removed: 30 }
 
+  # # Validation
+  #
+  validates :name, presence: true
+
+  validates :state, presence: true, inclusion: { in: Template.states.keys }
+
+  # # States
+  #
   aasm column: :state, enum: true do
     state :draft, :initial => true
     state :enabled
@@ -33,7 +41,7 @@ class Template < ApplicationRecord
 
   private
 
-  def invalid_section?(attributes)
-    V1::SectionForm.new(Section.new, attributes).invalid?
+  def section_invalid?(attrs)
+    attrs['name'].blank? || !attrs['skills'].all?{ |s| s.key?('name') || s.key?('value') }
   end
 end

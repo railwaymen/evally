@@ -99,38 +99,38 @@ RSpec.describe V1::TemplatesController, type: :controller do
         expect_error_api_response(422)
       end
 
-      it 'responds succesfully with new template', :aggregate_failures do
-        aggregate_failures 'and reject invalid section' do
+      it 'responds with error', :aggregate_failures do
+        aggregate_failures 'when section name blank' do
           template_params[:sections_attributes][2] = attributes_for(:section, name: '')
           expect(template_params[:sections_attributes].count).to eq 3
 
           expect do
             post :create, params: { template: template_params }
-          end.to change(user.templates, :count).by(1).and change(Section, :count).by(2)
+          end.not_to change(user.templates, :count)
 
-          expect_success_api_response_for('template')
+          expect_error_api_response(422)
         end
 
-        aggregate_failures 'and reject section where skill has not name key' do
-          template_params[:sections_attributes][2] = attributes_for(:section,skills: [{ value: 0 }])
+        aggregate_failures 'when section skill does not have name key' do
+          template_params[:sections_attributes][2] = attributes_for(:section, skills: [{ value: 0 }])
           expect(template_params[:sections_attributes].count).to eq 3
 
           expect do
             post :create, params: { template: template_params }
-          end.to change(user.templates, :count).by(1).and change(Section, :count).by(2)
+          end.not_to change(user.templates, :count)
 
-          expect_success_api_response_for('template')
+          expect_error_api_response(422)
         end
 
-        aggregate_failures 'and reject section where skill has not value key' do
+        aggregate_failures 'when section skill does not have value key' do
           template_params[:sections_attributes][2] = attributes_for(:section,skills: [{ name: 'Lorem ...' }])
           expect(template_params[:sections_attributes].count).to eq 3
 
           expect do
             post :create, params: { template: template_params }
-          end.to change(user.templates, :count).by(1).and change(Section, :count).by(2)
+          end.not_to change(user.templates, :count)
 
-          expect_success_api_response_for('template')
+          expect_error_api_response(422)
         end
       end
     end

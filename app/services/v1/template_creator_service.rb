@@ -7,23 +7,19 @@ module V1
     end
 
     def call
-      @form.model if create_new_template && notify
+      @model if create_new_template && notify
     end
 
     private
 
     def create_new_template
-      @form = V1::TemplateForm.new(@user.templates.build, filtered_attributes)
+      @model = @user.templates.build(template_params)
 
-      unless @form.valid?
-        raise V1::ErrorResponderService.new(:invalid_record, 422, @form.errors.messages)
+      unless @model.valid?
+        raise V1::ErrorResponderService.new(:invalid_record, 422, @model.errors.messages)
       end
 
-      @form.submit!
-    end
-
-    def filtered_attributes
-      @attributes.permit(:name, :state, sections_attributes: [:name, :group, :width, :position, :_destroy, skills: [:name, :value]])
+      @model.save!
     end
 
     def notify
@@ -31,5 +27,8 @@ module V1
       true
     end
 
+    def template_params
+      @attributes.permit(:name, :state, sections_attributes: [:name, :group, :width, :position, skills: [:name, :value]])
+    end
   end
 end

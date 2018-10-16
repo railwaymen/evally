@@ -7,19 +7,23 @@ module V1
     end
 
     def call
-      @form.model if update_employee && notify
+      @employee if update_employee && notify
     end
 
     private
 
     def update_employee
-      @form = V1::EmployeeForm.new(@employee, @attributes)
+      @employee.attributes = employee_params
 
-      unless @form.valid?
-        raise V1::ErrorResponderService.new(:invalid_record, 422, @form.errors.messages)
+      unless @employee.valid?
+        raise V1::ErrorResponderService.new(:invalid_record, 422, @employee.errors.messages)
       end
 
-      @form.submit!
+      @employee.save!
+    end
+
+    def employee_params
+      @attributes.permit(:first_name, :last_name, :postion, :hired_at, :last_evaluation_at, :next_evaluation_at)
     end
 
     def notify
