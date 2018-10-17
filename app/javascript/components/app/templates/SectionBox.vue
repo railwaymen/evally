@@ -15,15 +15,12 @@
       </h5>
 
       <div class="section-form-box__actions" v-if="template.editable">
-        <v-btn flat icon small>
-          <v-icon small>drag_indicator</v-icon>
-        </v-btn>
-        <v-btn @click="remove(section)" flat icon small>
-          <v-icon small>delete</v-icon>
+        <v-btn @click="remove(section)" flat icon>
+          <v-icon>delete</v-icon>
         </v-btn>
       </div>
 
-      <group-form :skills="section.skills" :group="section.group"></group-form>
+      <group-form :skills="section.skills" :group="section.group" :sectionId="section.id || section.tempId"></group-form>
 
     </div>
   </v-flex>

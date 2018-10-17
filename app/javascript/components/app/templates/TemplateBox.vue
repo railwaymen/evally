@@ -19,36 +19,36 @@
 
       </v-flex>
 
-      <v-flex xs6>
-        <v-layout row>
-          <v-flex xs4>
-            <div class="date-box">
-              <h5 class="date-box__date">&lsaquo; date &rsaquo;</h5>
-              <h6 class="date-box__description">on board since</h6>
-            </div>
-          </v-flex>
-          <v-flex xs4>
-            <div class="date-box">
-              <h5 class="date-box__date">&lsaquo; date &rsaquo;</h5>
-              <h6 class="date-box__description">previous evaluation</h6>
-            </div>
-          </v-flex>
-          <v-flex xs4>
-            <div class="date-box">
-              <h5 class="date-box__date">&lsaquo; date &rsaquo;</h5>
-              <h6 class="date-box__description">next evaluation</h6>
-            </div>
-          </v-flex>
+      <v-flex xs2>
+        <div class="date-box">
+          <h5 class="date-box__date">&lsaquo; date &rsaquo;</h5>
+          <h6 class="date-box__description">on board since</h6>
+        </div>
+      </v-flex>
+      <v-flex xs2>
+        <div class="date-box">
+          <h5 class="date-box__date">&lsaquo; date &rsaquo;</h5>
+          <h6 class="date-box__description">previous evaluation</h6>
+        </div>
+      </v-flex>
+      <v-flex xs2>
+        <div class="date-box">
+          <h5 class="date-box__date">&lsaquo; date &rsaquo;</h5>
+          <h6 class="date-box__description">next evaluation</h6>
+        </div>
+      </v-flex>
 
+      <v-flex xs12>
+        <v-layout row wrap>
+          <section-box
+            v-for="(section, index) in sections.models"
+            v-if="!section._destroy"
+            :key="index"
+            :section.sync="section"
+          ></section-box>
         </v-layout>
       </v-flex>
 
-      <section-box
-        v-for="(section, index) in sections.models"
-        v-if="!section._destroy"
-        :key="index"
-        :section.sync="section"
-      ></section-box>
       <new-section-form v-if="template.editable"></new-section-form>
     </v-layout>
 

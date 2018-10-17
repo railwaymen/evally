@@ -28,6 +28,7 @@ const TemplatesStore = {
     },
     one(state, template_id) {
       state.template = state.templates.find({ id: template_id })
+      state.template.editable = false
       state.status = 'record'
       return state
     },

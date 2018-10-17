@@ -34,10 +34,12 @@ const SectionsStore = {
         })
       }
       return state
+    },
+    updateSkills(state, data) {
+      let section = state.sections.find(isNaN(data.id) ? { tempId: data.id } : { id: data.id })
+      if (section) section.skills = data.skills
+      return state
     }
-  },
-  actions: {
-
   }
 }
 

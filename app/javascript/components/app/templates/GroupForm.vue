@@ -12,47 +12,76 @@
 
     <div class="form-box__items form-box__items--scrollable">
       <v-list>
-        <v-list-tile v-for="(skill, index) in skills" :key="index">
-          <v-list-tile-content>
-            <v-list-tile-title>{{ skill.name }}</v-list-tile-title>
-          </v-list-tile-content>
+        <draggable v-model="mutableSkills" :options="draggableOptions">
+          <v-list-tile v-for="(skill, index) in mutableSkills" :key="index" class="drag-item">
+            <v-list-tile-content>
+              <v-list-tile-title>{{ skill.name }}</v-list-tile-title>
+            </v-list-tile-content>
 
-          <v-list-tile-action v-if="template.editable">
-            <v-btn icon flat @click="removeSkill(index)">
-              <v-icon>close</v-icon>
-            </v-btn>
-          </v-list-tile-action>
-        </v-list-tile>
+            <v-list-tile-action >
+              <div v-if="template.editable">
+                <v-btn class="drag-btn" icon flat>
+                  <v-icon>drag_indicator</v-icon>
+                </v-btn>
+                <span class="separator"></span>
+                <v-btn icon flat @click="removeSkill(index)">
+                  <v-icon>close</v-icon>
+                </v-btn>
+              </div>
+            </v-list-tile-action>
+          </v-list-tile>
+        </draggable>
       </v-list>
     </div>
   </div>
 </template>
 
 <script>
+import Draggable from 'vuedraggable'
+
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'GroupForm',
-  props: { skills: Array, group: String},
+  components: { Draggable },
+  props: { skills: Array, group: String, sectionId: [String, Number] },
   data() {
     return {
-      newSkill: ''
+      newSkill: '',
+      draggableOptions: {
+        draggable: '.drag-item',
+        handle: '.drag-btn',
+        animation: 300
+      }
     }
   },
   methods: {
+
     addSkill() {
       let valuesMap = { 'rating': 0, 'bool': false, 'text': '' }
-      this.skills.push({ name: this.newSkill, value: valuesMap[this.group] })
+      this.mutableSkills.push({ name: this.newSkill, value: valuesMap[this.group] })
       this.newSkill = ''
     },
+
     removeSkill(index) {
-      this.skills.splice(index, 1)
+      this.mutableSkills.splice(index, 1)
     }
   },
   computed: {
+
     ...mapGetters({
       template: 'TemplatesStore/template'
-    })
+    }),
+
+    mutableSkills: {
+      get() {
+        return this.skills
+      },
+
+      set(skills) {
+        this.$store.commit('SectionsStore/updateSkills', { id: this.sectionId, skills: skills })
+      }
+    }
   }
 }
 </script>
