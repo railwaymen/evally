@@ -14,6 +14,10 @@
       <v-list>
         <draggable v-model="mutableSkills" :options="draggableOptions">
           <v-list-tile v-for="(skill, index) in mutableSkills" :key="index" class="drag-item">
+            <v-list-tile-action >
+              <v-icon>{{ groupSets[group].icon }}</v-icon>
+            </v-list-tile-action>
+
             <v-list-tile-content>
               <v-list-tile-title>{{ skill.name }}</v-list-tile-title>
             </v-list-tile-content>
@@ -52,19 +56,32 @@ export default {
         draggable: '.drag-item',
         handle: '.drag-btn',
         animation: 300
+      },
+      groupSets: {
+        'rating': {
+          value: 0,
+          icon: 'star'
+        },
+        'bool': {
+          value: false,
+          icon: 'exposure'
+        },
+        'text': {
+          value: '',
+          icon: 'title'
+        }
       }
     }
   },
   methods: {
 
     addSkill() {
-      let valuesMap = { 'rating': 0, 'bool': false, 'text': '' }
-      this.mutableSkills.push({ name: this.newSkill, value: valuesMap[this.group] })
+      this.skills.push({ name: this.newSkill, value: this.groupSets[this.group].value })
       this.newSkill = ''
     },
 
     removeSkill(index) {
-      this.mutableSkills.splice(index, 1)
+      this.skills.splice(index, 1)
     }
   },
   computed: {
