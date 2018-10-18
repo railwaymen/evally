@@ -39,9 +39,4 @@ class Template < ApplicationRecord
     end
   end
 
-  private
-
-  def section_invalid?(attrs)
-    attrs['name'].blank? || !attrs['skills'].all?{ |s| s.key?('name') || s.key?('value') }
-  end
 end
