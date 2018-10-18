@@ -1,0 +1,51 @@
+.section-box {
+  margin-top: 4rem
+  position: relative
+
+  &__heading {
+    font-size: 1.8rem
+    font-weight: 400
+    position: relative
+
+    span {
+      display: inline-block
+      background-color: #ffffff
+      padding: 1rem 2rem
+      margin-left: 3rem
+      position: relative
+      z-index: 10
+    }
+
+    &::after {
+      content: ""
+      height: 1px
+      width: 75%
+      display: block
+      background-color: $font-black
+      position: absolute
+      top: 50%
+      z-index: 5
+    }
+  }
+
+  &__actions {
+    position: absolute
+    top: 2.75rem
+    right: 3rem
+    background: #fff
+  }
+
+  &__items {
+    margin: 2rem 2rem 0 0
+  }
+
+  &__text p {
+    font-size: 1.6rem
+    font-weight: 200
+    margin-top: 2rem
+  }
+
+  .need-to-improve {
+    background-color: $background-light
+  }
+}

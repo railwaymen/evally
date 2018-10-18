@@ -28,7 +28,7 @@
       <v-container grid-list-lg fluid>
         <v-layout row>
           <v-flex xs3>
-            <search-box></search-box>
+            <employee-search-box></employee-search-box>
           </v-flex>
 
           <v-flex xs9>
@@ -46,11 +46,11 @@ import { mapGetters } from 'vuex'
 import openerBus from '../../lib/opener_bus'
 
 import EmployeeCard from './employees/EmployeeCard'
-import SearchBox from './employees/SearchBox'
+import EmployeeSearchBox from './employees/EmployeeSearchBox'
 
 export default {
   name: 'EmployeesPage',
-  components: { EmployeeCard, SearchBox },
+  components: { EmployeeCard, EmployeeSearchBox },
   data() {
     return {
       model: 'employee'

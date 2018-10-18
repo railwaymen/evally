@@ -1,8 +1,8 @@
 <template>
   <v-flex :xs6="section.width === 'half'" :xs12="section.width === 'full'">
-    <div class="section-form-box">
-      <h5 class="section-form-box__heading">
-        <span class="section-form-box__heading-content" v-if="template.editable">
+    <div class="section-box">
+      <h5 class="section-box__heading">
+        <span v-if="template.editable">
           <v-text-field
             v-model="section.name"
             :error-messages="section.errors.name"
@@ -11,10 +11,10 @@
           ></v-text-field>
         </span>
 
-        <span class="section-form-box__heading-content" v-else>{{ section.name }}</span>
+        <span v-else>{{ section.name }}</span>
       </h5>
 
-      <div class="section-form-box__actions" v-if="template.editable">
+      <div class="section-box__actions" v-if="template.editable">
         <v-btn @click="remove(section)" flat icon>
           <v-icon>delete</v-icon>
         </v-btn>
@@ -29,7 +29,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import GroupForm from './GroupForm'
+import GroupForm from '../../forms/GroupForm'
 
 export default {
   name: 'SectionBox',

@@ -43,7 +43,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'TemplatesList',
+  name: 'TemplateSearchBox',
   data () {
     return {
       search: ''

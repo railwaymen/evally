@@ -32,7 +32,7 @@
       <v-container grid-list-lg fluid>
         <v-layout row>
           <v-flex xs3>
-            <templates-list></templates-list>
+            <template-search-box></template-search-box>
           </v-flex>
 
           <v-flex xs9>
@@ -50,11 +50,11 @@ import { mapGetters } from 'vuex'
 import openerBus from '../../lib/opener_bus'
 
 import TemplateBox from './templates/TemplateBox'
-import TemplatesList from './templates/TemplatesList'
+import TemplateSearchBox from './templates/TemplateSearchBox'
 
 export default {
   name: 'TemplatesPage',
-  components: { TemplateBox, TemplatesList },
+  components: { TemplateBox, TemplateSearchBox },
   methods: {
     newTemplate() {
       this.$store.commit('SectionsStore/clear')

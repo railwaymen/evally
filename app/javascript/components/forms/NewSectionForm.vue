@@ -1,10 +1,8 @@
 <template>
   <v-flex xs6>
     <div class="new-section">
-      <h5 class="section-form-box__heading">
-        <span class="section-form-box__heading-content">
-          New section
-        </span>
+      <h5 class="new-section__heading">
+        <span>New section</span>
       </h5>
 
       <v-form class="pa-3">
