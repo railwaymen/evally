@@ -6,6 +6,7 @@ RSpec.describe Template, type: :model do
 
   it { is_expected.to belong_to(:user) }
 
-  it { should define_enum_for(:state
-    ) }
+  it { is_expected.to define_enum_for(:state) }
+
+  it { is_expected.to accept_nested_attributes_for(:sections).allow_destroy(true) }
 end

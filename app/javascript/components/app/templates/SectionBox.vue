@@ -1,20 +1,26 @@
 <template>
   <v-flex :xs6="section.width === 'half'" :xs12="section.width === 'full'">
-    <div class="form-box">
-      <h5 class="form-box__heading">
-        <span class="form-box__heading-content">
+    <div class="section-box">
+      <h5 class="section-box__heading">
+        <span v-if="template.editable">
           <v-text-field
-            v-if="template.editable"
-            :value="section.name"
+            v-model="section.name"
+            :error-messages="section.errors.name"
             label="Section title"
             outline
           ></v-text-field>
-
-          <span v-else>{{ section.name }}</span>
         </span>
+
+        <span v-else>{{ section.name }}</span>
       </h5>
 
-      <group-form :skills="section.skills" :group="section.group"></group-form>
+      <div class="section-box__actions" v-if="template.editable">
+        <v-btn @click="remove(section)" flat icon>
+          <v-icon>delete</v-icon>
+        </v-btn>
+      </div>
+
+      <group-form :skills="section.skills" :group="section.group" :sectionId="section.id || section.tempId"></group-form>
 
     </div>
   </v-flex>
@@ -23,12 +29,17 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import GroupForm from './GroupForm'
+import GroupForm from '../../forms/GroupForm'
 
 export default {
   name: 'SectionBox',
   components: { GroupForm },
   props: ['section'],
+  methods: {
+    remove(section) {
+      this.$store.commit('SectionsStore/markAsRemoved', section.id || section.tempId)
+    }
+  },
   computed: {
     ...mapGetters({
       template: 'TemplatesStore/template'

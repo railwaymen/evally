@@ -52,8 +52,7 @@ const EmployeesStore = {
       state.employees.remove({ id: id })
       state.employee = new Employee()
       return state
-    },
-
+    }
   },
   actions: {
     index(context) {
@@ -72,7 +71,7 @@ const EmployeesStore = {
     },
     create(context, employee) {
       return new Promise((resolve, reject) => {
-        axios.post(context.state.employee.getSaveURL(), employee.attributes)
+        axios.post(context.state.employee.getSaveURL(), employee)
           .then(response => {
             let employee = new Employee(Utils.transformModel(response.data.data))
 

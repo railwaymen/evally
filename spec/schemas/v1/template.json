@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "required": ["data"],
+  "properties" : {
+    "data": {
+      "type": "object",
+      "required": ["id", "type", "attributes"],
+      "properties": {
+
+        "id" : { "type" : ["string", "number"] },
+
+        "type" : { "enum" : ["template"] },
+
+        "attributes" : {
+          "type": "object",
+          "required": ["name", "state", "evaluations_count", "sections_attributes"],
+          "properties": {
+
+            "name" : { "type" : "string" },
+
+            "state" : { "enum" : ["draft", "enabled", "disabled", "removed"] },
+
+            "evaluations_count" : { "type" : "number" },
+
+            "sections_attributes" : {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["id", "name", "group", "width", "position", "skills"],
+                "properties": {
+
+                  "id" : { "type" : ["string", "number"] },
+
+                  "name": { "type" : "string" },
+
+                  "group": { "enum" : ["rating", "bool", "text"] },
+
+                  "width": { "enum" : ["full", "half"] },
+
+                  "position": { "type" : "number" },
+
+                  "skills": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": ["name", "value"],
+                      "properties": {
+
+                        "name": { "type" : "string" },
+
+                        "value": { "type" : ["string", "number"] }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

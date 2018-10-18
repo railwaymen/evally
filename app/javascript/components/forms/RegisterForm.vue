@@ -1,10 +1,10 @@
 <template>
-  <div class="landing__form">
-    <h3 class="secondary-heading secondary-heading--light mb-4">sign up</h3>
+  <div class="landing-form">
+    <h3 class="landing-form__heading landing-form__heading--dark mb-4">sign up</h3>
 
     <v-form ref="form" v-model="formValid" @submit.prevent="print">
 
-      <div class="landing__form-group">
+      <div class="landing-form__group">
         <v-text-field
           v-model="account.email"
           prepend-icon="alternate_email"
@@ -69,11 +69,11 @@
         ></v-text-field>
       </div>
 
-      <div class="landing__form-action mt-4">
+      <div class="landing-form__action mt-4">
         <v-btn color="white" type="submit" flat outline round block>Sign up</v-btn>
       </div>
 
-      <div class="landing__form-question">
+      <div class="landing-form__question">
         <p>
           Already have account?
           <span class="primary--text" @click="openLoginForm">Log in</span>

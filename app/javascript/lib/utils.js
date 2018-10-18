@@ -11,6 +11,10 @@ let utils = {
 
   collectPositions(data) {
     return _.uniq(_.map(data, 'position'))
+  },
+
+  randomId(length) {
+    return `id_${Math.random().toString(36).substring(length)}`
   }
 }
 

@@ -1,5 +1,5 @@
 module V1
-  class EmployeeCreatorService
+  class TemplateCreatorService
 
     def initialize(attributes:, user:)
       @attributes = attributes
@@ -7,13 +7,13 @@ module V1
     end
 
     def call
-      @model if create_new_employee && notify
+      @model if create_new_template && notify
     end
 
     private
 
-    def create_new_employee
-      @model = @user.employees.build(employee_params)
+    def create_new_template
+      @model = @user.templates.build(template_params)
 
       unless @model.valid?
         raise V1::ErrorResponderService.new(:invalid_record, 422, @model.errors.messages)
@@ -22,14 +22,13 @@ module V1
       @model.save!
     end
 
-    def employee_params
-      @attributes.permit(:first_name, :last_name, :position, :hired_at, :last_evaluation_at, :next_evaluation_at)
-    end
-
     def notify
       # TODO: (FF) create notification to display in dashboard menu
       true
     end
 
+    def template_params
+      @attributes.permit(:name, :state, sections_attributes: [:name, :group, :width, :position, skills: [:name, :value]])
+    end
   end
 end

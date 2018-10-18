@@ -16,8 +16,22 @@ class Template extends Model {
       name: '',
       state: 'draft',
       evaluations_count: 0,
-      sections: [],
+      sections_attributes: [],
       editable: false
+    }
+  }
+
+  validation() {
+    return {
+      name: required.and(string).format("This field is required"),
+    }
+  }
+
+  routes() {
+    return {
+      save: '/v1/templates',
+      fetch: '/v1/templates/{id}',
+      delete: '/v1/templates/{id}'
     }
   }
 

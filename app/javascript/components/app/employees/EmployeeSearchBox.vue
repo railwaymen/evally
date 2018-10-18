@@ -40,7 +40,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'SearchBox',
+  name: 'EmployeeSearchBox',
   data () {
     return {
       search: ''
