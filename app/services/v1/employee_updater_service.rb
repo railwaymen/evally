@@ -23,7 +23,7 @@ module V1
     end
 
     def employee_params
-      @attributes.permit(:first_name, :last_name, :postion, :hired_at, :last_evaluation_at, :next_evaluation_at)
+      @attributes.permit(:id, :first_name, :last_name, :position, :hired_at, :last_evaluation_at, :next_evaluation_at)
     end
 
     def notify
