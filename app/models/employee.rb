@@ -1,5 +1,6 @@
 class Employee < ApplicationRecord
   belongs_to :user
+  has_many :evaluations
 
   # # Validation
   validates :first_name, presence: true
