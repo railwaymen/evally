@@ -6,7 +6,7 @@ module V1
     end
 
     def call
-      @form.model if can_create_user? && create_new_user
+      @model if can_create_user? && create_new_user
     end
 
     private
@@ -17,13 +17,17 @@ module V1
     end
 
     def create_new_user
-      @form = V1::UserCreateForm.new(User.new)
+      @model = User.new(user_params)
 
-      unless @form.validate(@attributes)
-        raise V1::ErrorResponderService.new(:invalid_record, 422, @form.errors.messages)
+      unless @model.valid?
+        raise V1::ErrorResponderService.new(:invalid_record, 422, @model.errors.messages)
       end
 
-      @form.save
+      @model.save!
+    end
+
+    def user_params
+      @attributes.permit(:email, :password, :first_name, :last_name)
     end
 
   end

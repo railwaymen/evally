@@ -1,10 +1,10 @@
 <template>
-  <div class="box box--with-content">
+  <div class="box box--with-content evaluation">
     <v-layout v-if="employee.isExisting()" row wrap>
       <v-flex xs6>
-        <div class="employee-header">
-          <h3 class="employee-header__fullname">{{ `${employee.first_name} ${employee.last_name}` }}</h3>
-          <h4 class="employee-header__position">{{ employee.position }}</h4>
+        <div class="employee">
+          <h3 class="employee__fullname">{{ `${employee.first_name} ${employee.last_name}` }}</h3>
+          <h4 class="employee__position">{{ employee.position }}</h4>
         </div>
 
       </v-flex>
@@ -12,21 +12,21 @@
       <v-flex xs6>
         <v-layout row justify-end>
           <v-flex xs4 v-if="employee.hired_at">
-            <div class="date-box">
-              <h5 class="date-box__date">{{ employee.hired_at | moment("MMMM YYYY") }}</h5>
-              <h6 class="date-box__description">on board since</h6>
+            <div class="date">
+              <h5 class="date__value">{{ employee.hired_at | moment("MMMM YYYY") }}</h5>
+              <h6 class="date__description">on board since</h6>
             </div>
           </v-flex>
           <v-flex xs4 v-if="employee.last_evaluation_at">
-            <div class="date-box">
-              <h5 class="date-box__date">{{ employee.last_evaluation_at | moment("MMMM YYYY") }}</h5>
-              <h6 class="date-box__description">previous evaluation</h6>
+            <div class="date">
+              <h5 class="date__value">{{ employee.last_evaluation_at | moment("MMMM YYYY") }}</h5>
+              <h6 class="date__description">previous evaluation</h6>
             </div>
           </v-flex>
           <v-flex xs4 v-if="employee.next_evaluation_at">
-            <div class="date-box">
-              <h5 class="date-box__date">{{ employee.next_evaluation_at | moment("MMMM YYYY") }}</h5>
-              <h6 class="date-box__description">next evaluation</h6>
+            <div class="date">
+              <h5 class="date__value">{{ employee.next_evaluation_at | moment("MMMM YYYY") }}</h5>
+              <h6 class="date__description">next evaluation</h6>
             </div>
           </v-flex>
 
@@ -34,12 +34,12 @@
       </v-flex>
 
       <v-flex xs6>
-        <div class="form-box">
-          <h5 class="form-box__heading">
-            <span class="form-box__heading-content">Primary section</span>
+        <div class="section-box">
+          <h5 class="section-box__heading">
+            <span>Primary section</span>
           </h5>
 
-          <div class="form-box__items">
+          <div class="section-box__items">
             <v-list>
               <v-list-tile v-for="item in ratingItems" :key="item.id" :class="{ 'need-to-improve': item.needToImprove }">
                 <v-list-tile-content>
@@ -57,12 +57,12 @@
       </v-flex>
 
       <v-flex xs6>
-        <div class="form-box">
-          <h5 class="form-box__heading">
-            <span class="form-box__heading-content">Secondary section</span>
+        <div class="section-box">
+          <h5 class="section-box__heading">
+            <span>Secondary section</span>
           </h5>
 
-          <div class="form-box__items">
+          <div class="section-box__items">
             <v-list>
               <v-list-tile v-for="item in boolItems" :key="item.id" :class="{ 'need-to-improve': item.needToImprove }">
                 <v-list-tile-content>
@@ -79,12 +79,12 @@
       </v-flex>
 
       <v-flex xs12>
-        <div class="form-box">
-          <h5 class="form-box__heading">
-            <span class="form-box__heading-content">Additional information</span>
+        <div class="section-box">
+          <h5 class="section-box__heading">
+            <span>Additional information</span>
           </h5>
 
-          <div class="form-box__text">
+          <div class="section-box__text">
             <p>{{ additionalInfo }}</p>
           </div>
         </div>
