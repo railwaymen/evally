@@ -15,7 +15,9 @@
       <div class="step__content">
         <v-select
           v-model="employee"
-          :items="employees"
+          :items="selectableEmployees"
+          item-value="id"
+          item-text="value"
           label="Employee"
         ></v-select>
       </div>
@@ -33,7 +35,9 @@
       <div class="step__content">
         <v-select
           v-model="template"
-          :items="templates"
+          :items="selectableTemplates"
+          item-value="id"
+          item-text="value"
           label="Template"
         ></v-select>
       </div>
@@ -41,7 +45,7 @@
 
     <div class="step">
       <div class="step__actions text-xs-center">
-        <v-btn small color="success" :disabled="!(employee && template)">New evaluation</v-btn>
+        <v-btn small color="success" @click="build" :disabled="!(employee && template)">New evaluation</v-btn>
         <v-btn small color="primary" :disabled="!(employee && template)">Assign template</v-btn>
       </div>
     </div>
@@ -49,15 +53,54 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'CreateEvaluationForm',
   data() {
     return {
-      currentStep: 1,
-      employees: ['Joe Doe', 'Jacek Przypadek', 'John Rambo'],
-      templates: ['Junior', 'Tester', 'Driver'],
       employee: null,
       template: null
+    }
+  },
+  methods: {
+    build() {
+      console.log({ employeeId: this.employee, templateId: this.template })
+    }
+  },
+  computed: {
+    ...mapGetters({
+      employees: 'EmployeesStore/employees',
+      templates: 'TemplatesStore/templates'
+    }),
+
+    selectableEmployees() {
+      return _.map(this.employees.models, employee => {
+        return { id: employee.id, value: `${employee.first_name} ${employee.last_name}` }
+      })
+    },
+
+    selectableTemplates() {
+      return _.map(this.templates.models, template => {
+        return { id: template.id, value: template.name }
+      })
+    }
+  },
+  mounted() {
+    if (this.employees.models.length === 0) {
+      this.$store.dispatch('EmployeesStore/index')
+        .catch( error => {
+          this.flash({ error: 'Employees cannot be loaded due to some error: ' + error.message })
+        })
+    }
+
+    if (this.templates.models.length === 0) {
+      this.$store.dispatch('TemplatesStore/index')
+        .catch( error => {
+          this.flash({ error: 'Templates cannot be loaded due to some error: ' + error.message })
+        })
     }
   }
 }

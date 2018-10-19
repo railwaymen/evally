@@ -77,10 +77,12 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('TemplatesStore/index')
-      .catch( error => {
-        this.flash({ error: 'Templates cannot be loaded due to some error: ' + error.message })
-      })
+    if (this.templates.models.length === 0) {
+      this.$store.dispatch('TemplatesStore/index')
+        .catch( error => {
+          this.flash({ error: 'Templates cannot be loaded due to some error: ' + error.message })
+        })
+    }
   }
 }
 </script>

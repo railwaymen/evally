@@ -68,10 +68,12 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('EmployeesStore/index')
-      .catch( error => {
-        this.flash({ error: 'Employees cannot be loaded due to some error: ' + error.message })
-      })
+    if (this.employees.models.length === 0) {
+      this.$store.dispatch('EmployeesStore/index')
+        .catch( error => {
+          this.flash({ error: 'Employees cannot be loaded due to some error: ' + error.message })
+        })
+    }
   }
 
 }
