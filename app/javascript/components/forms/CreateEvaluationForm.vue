@@ -8,7 +8,7 @@
             <v-icon color="white" v-if="employee">done</v-icon>
             <span v-else>1</span>
           </v-avatar>
-          <span class="black--text">Select employee</span>
+          <span class="step__text black--text">Select employee</span>
         </v-chip>
       </div>
 
@@ -29,7 +29,7 @@
           <v-icon color="white" v-if="template">done</v-icon>
           <span v-else>2</span>
         </v-avatar>
-        <span class="black--text">Select template</span>
+        <span class="step__text black--text">Select template</span>
       </v-chip>
 
       <div class="step__content">
