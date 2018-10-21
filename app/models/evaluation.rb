@@ -10,4 +10,12 @@ class Evaluation < ApplicationRecord
   # # Enums
   #
   enum state: { draft: 0, completed: 10 }
+
+  # # Validations
+  #
+  validates :employee_id, uniqueness: {
+    scope: :state,
+    message: 'employee\'s draft evaluation already exists'
+  }, if: :draft?
+
 end

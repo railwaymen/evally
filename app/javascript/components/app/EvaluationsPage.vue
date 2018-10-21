@@ -27,7 +27,28 @@
       <v-container grid-list-lg fluid>
         <v-layout row>
           <v-flex xs3>
-            <create-evaluation-form></create-evaluation-form>
+
+            <div class="box px-3">
+              <v-layout>
+                <v-flex xs6>
+                  <v-btn 
+                    @click="newSelected = true"
+                    :color="newSelected ? 'primary' : ''"
+                    flat outline block
+                  >New</v-btn>
+                </v-flex>
+                <v-flex xs6>
+                  <v-btn
+                    @click="newSelected = false"
+                    :color="newSelected ? '' : 'primary'"
+                    flat outline block
+                  >Drafts</v-btn>
+                </v-flex>
+              </v-layout>
+            </div>
+
+            <create-evaluation-form v-if="newSelected"></create-evaluation-form>
+            <evaluation-drafts-box v-else></evaluation-drafts-box>
           </v-flex>
 
           <v-flex xs9>
@@ -42,13 +63,14 @@
 <script>
 import CreateEvaluationForm from '../forms/CreateEvaluationForm'
 import EvaluationBox from './evaluations/EvaluationBox'
+import EvaluationDraftsBox from './evaluations/EvaluationDraftsBox'
 
 export default {
   name: 'EvaluationsPage',
-  components: { CreateEvaluationForm, EvaluationBox },
+  components: { CreateEvaluationForm, EvaluationBox, EvaluationDraftsBox },
   data() {
     return {
-
+      newSelected: true
     }
   }
 }

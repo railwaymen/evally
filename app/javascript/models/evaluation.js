@@ -24,7 +24,24 @@ class Evaluation extends Model {
       fetch: '/v1/evaluations/{id}'
     }
   }
+}
+
+/**
+ * Evaluations collection
+ */
+class EvaluationsList extends Collection {
+
+  // Model that is contained in this collection.
+  model() {
+    return Evaluation
+  }
+
+  routes() {
+    return {
+      fetch: '/v1/evaluations'
+    }
+  }
 
 }
 
-export { Evaluation }
+export { Evaluation, EvaluationsList }

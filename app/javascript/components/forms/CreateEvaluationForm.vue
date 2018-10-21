@@ -45,7 +45,7 @@
 
     <div class="step">
       <div class="step__actions text-xs-center">
-        <v-btn small color="success" @click="build" :disabled="!(employee && template)">New evaluation</v-btn>
+        <v-btn small color="success" @click="build" :disabled="!(employee && template)">Create</v-btn>
         <v-btn small color="primary" :disabled="!(employee && template)">Assign template</v-btn>
       </div>
     </div>
@@ -67,7 +67,16 @@ export default {
   },
   methods: {
     build() {
-      console.log({ employeeId: this.employee, templateId: this.template })
+      let initialData = { evaluation: { employee_id: this.employee, template_id: this.template } }
+
+      this.$store.dispatch('EvaluationsStore/create', initialData)
+        .then(() => {
+          this.flash({ success: 'Evaluation has been succefully created.' })
+        })
+        .catch((err) => {
+          console.log(err.response)
+          this.flash({ error: 'Evaluation cannot be created due to some error' })
+        })
     }
   },
   computed: {

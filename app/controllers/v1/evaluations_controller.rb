@@ -2,6 +2,14 @@ module V1
   class EvaluationsController < ApplicationController
     before_action :authenticate!
 
+    # GET /v1/evaluations
+    #
+    def index
+      evaluations = current_user.evaluations.includes(:employee)
+
+      render json: V1::EvaluationSerializer.new(evaluations).serialized_json, status: 200
+    end
+
     # POST /v1/evaluations
     #
     def create
