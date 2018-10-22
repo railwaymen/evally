@@ -37,7 +37,7 @@
                   append-icon="event"
                   readonly
                 ></v-text-field>
-                <v-date-picker 
+                <v-date-picker
                   type="month"
                   v-model="next_evaluation_at"
                   @input="$refs.menu1.save(next_evaluation_at)"

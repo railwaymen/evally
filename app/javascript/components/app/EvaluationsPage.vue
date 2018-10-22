@@ -11,7 +11,7 @@
             <v-btn color="green" flat>
               <v-icon>save_alt</v-icon> Save
             </v-btn>
-            <v-btn flat>
+            <v-btn @click="saveDraft" flat>
               <v-icon>how_to_vote</v-icon> Save draft
             </v-btn>
             <v-btn color="red" flat>
@@ -61,6 +61,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import CreateEvaluationForm from '../forms/CreateEvaluationForm'
 import EvaluationBox from './evaluations/EvaluationBox'
 import EvaluationDraftsBox from './evaluations/EvaluationDraftsBox'
@@ -72,6 +74,22 @@ export default {
     return {
       newSelected: true
     }
+  },
+  methods: {
+    saveDraft() {
+      this.$store.dispatch('EvaluationsStore/update', this.evaluation)
+        .then(() => {
+          this.flash({ success: `Evaluation has been succefully updated` })
+        })
+        .catch((error) => {
+          this.flash({ error: 'Template cannot be updated due to some error' })
+        })
+    }
+  },
+  computed: {
+    ...mapGetters({
+      evaluation: 'EvaluationsStore/evaluation'
+    })
   }
 }
 </script>

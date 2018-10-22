@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import axios from 'axios'
 
 import { Utils } from '../../lib/utils'
@@ -36,6 +37,19 @@ const EvaluationsStore = {
       state.status = flag
       return state
     },
+    replace(state, evaluation) {
+      state.evaluations.map( el => {
+        return el.id == evaluation.id ? evaluation : el
+      })
+      return state
+    },
+    updateSkills(state, data) {
+      _.map(state.evaluation.section_attributes, section => {
+        if (section.id === data.sectionId) section.skills = data.skills
+        return section
+      })
+      return state
+    }
   },
   actions: {
     index(context) {
@@ -67,7 +81,22 @@ const EvaluationsStore = {
             reject(error)
           })
       })
-    }
+    },
+    update(context, evaluation) {
+      return new Promise((resolve, reject) => {
+        axios.put(context.state.evaluation.getFetchURL(), evaluation)
+          .then(response => {
+            let updated = new Evaluation(Utils.transformModel(response.data.data))
+
+            context.commit('replace', updated)
+
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
   }
 }
 

@@ -2,6 +2,8 @@ module V1
   class EvaluationsController < ApplicationController
     before_action :authenticate!
 
+    before_action :set_evaluation, only: [:update]
+
     # GET /v1/evaluations
     #
     def index
@@ -16,6 +18,21 @@ module V1
       evaluation = V1::EvaluationCreatorService.new(attributes: params[:evaluation], user: current_user).call
 
       render json: V1::EvaluationSerializer.new(evaluation).serialized_json, status: 200
+    end
+
+    # # PUT /v1/evaluations/:id
+    #
+    def update
+      evaluation = V1::EvaluationUpdaterService.new(attributes: params[:evaluation], evaluation: @evaluation).call
+
+      render json: V1::EvaluationSerializer.new(evaluation).serialized_json, status: 200
+    end
+
+    private
+
+    def set_evaluation
+      @evaluation = current_user.evaluations.draft.find_by(id: params[:id])
+      raise V1::ErrorResponderService.new(:record_not_found, 404) unless @evaluation
     end
   end
 end

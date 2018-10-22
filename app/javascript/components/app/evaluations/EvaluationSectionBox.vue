@@ -14,7 +14,7 @@
             </v-list-tile-content>
 
             <v-list-tile-action>
-              <v-rating :value="skill.value"></v-rating>
+              <v-rating v-model="skill.value" @input="updateSkills"></v-rating>
             </v-list-tile-action>
           </v-list-tile>
         </v-list>
@@ -28,7 +28,12 @@
             </v-list-tile-content>
 
             <v-list-tile-action>
-              <v-switch :label="skill.value ? 'Yes' : 'No'" v-model="skill.value" color="success"></v-switch>
+              <v-switch
+                :label="skill.value ? 'Yes' : 'No'"
+                v-model="skill.value"
+                @change="updateSkills"
+                color="success"
+              ></v-switch>
             </v-list-tile-action>
           </v-list-tile>
         </v-list>
@@ -38,10 +43,10 @@
         <div v-for="(skill, index) in section.skills" :key="index">
           <v-textarea
             :label="skill.name"
-            :value="skill.value"
+            v-model="skill.value"
             name="input-7-1"
             rows="1"
-            @blur="print"
+            @blur="updateSkills"
             auto-grow
           ></v-textarea>
         </div>
@@ -68,9 +73,9 @@ export default {
     isTextSection() {
       return this.section.group === 'text'
     },
-    
-    print() {
-      console.log('Hello on blur')
+
+    updateSkills() {
+      this.$store.commit('EvaluationsStore/updateSkills', { sectionId: this.section.id, skills: this.section.skills})
     }
   }
 }
