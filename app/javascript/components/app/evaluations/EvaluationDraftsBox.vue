@@ -1,15 +1,16 @@
 <template>
   <div class="box">
     <div class="box__list">
-      <v-list subheader>
+      <v-list two-line subheader>
         <v-subheader>Evaluations drafts</v-subheader>
 
-        <v-list-tile v-for="draft in drafts.models" :key="draft.id">
+        <v-list-tile v-for="draft in drafts.models" :key="draft.id" @click="selectEvaluation(draft.id)">
           <v-list-tile-action>
             <v-icon>person_outline</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{ `${draft.employee.first_name} ${draft.employee.last_name}` }}</v-list-tile-title>
+            <v-list-tile-title>{{ employeeFullname(draft.employee) }}</v-list-tile-title>
+            <v-list-tile-sub-title>based on '{{ draft.template_name }}' template</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -34,6 +35,14 @@ export default {
   data () {
     return {
 
+    }
+  },
+  methods: {
+    employeeFullname(employee) {
+      return `${employee.first_name} ${employee.last_name}`
+    },
+    selectEvaluation(evaluation_id) {
+      this.$store.commit('EvaluationsStore/one', evaluation_id)
     }
   },
   computed: {

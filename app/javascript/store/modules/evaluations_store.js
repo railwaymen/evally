@@ -19,6 +19,10 @@ const EvaluationsStore = {
 
   },
   mutations: {
+    one(state, evaluation_id) {
+      state.evaluation = state.evaluations.find({ id: evaluation_id })
+      return state
+    },
     many(state, data) {
       state.evaluations.replace(data)
       state.status = 'ok'
@@ -55,6 +59,7 @@ const EvaluationsStore = {
             let evaluation = new Evaluation(Utils.transformModel(response.data.data))
 
             context.commit('push', evaluation)
+            context.commit('one', evaluation.id)
 
             resolve(response)
           })

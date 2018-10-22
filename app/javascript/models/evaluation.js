@@ -14,7 +14,10 @@ class Evaluation extends Model {
     return {
       id: null,
       state: 'draft',
-      sections_attributes: []
+      completed_at: null,
+      template_name: '',
+      sections_attributes: [],
+      editable: true
     }
   }
 

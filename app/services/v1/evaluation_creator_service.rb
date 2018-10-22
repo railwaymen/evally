@@ -18,7 +18,12 @@ module V1
         section.attributes.slice('name', 'group', 'width', 'position', 'skills')
       end
 
-      @model = @employee.evaluations.build(state: :draft, completed_at: nil, sections_attributes: sections_attrs)
+      @model = @employee.evaluations.build(
+        state: :draft,
+        completed_at: nil,
+        template_name: @template.name,
+        sections_attributes: sections_attrs
+      )
 
       unless @model.valid?
         raise V1::ErrorResponderService.new(:invalid_record, 422, @model.errors.messages)

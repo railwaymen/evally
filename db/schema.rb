@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_19_124154) do
+ActiveRecord::Schema.define(version: 2018_10_21_115928) do
 
   create_table "employees", force: :cascade do |t|
     t.string "first_name"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2018_10_19_124154) do
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "template_name"
     t.index ["employee_id"], name: "index_evaluations_on_employee_id"
   end
 
