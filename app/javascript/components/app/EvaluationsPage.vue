@@ -17,7 +17,7 @@
             <v-btn @click="reset" flat>
               <v-icon>restore</v-icon> Reset
             </v-btn>
-            <v-btn color="red" flat>
+            <v-btn @click="remove" color="red" flat>
               <v-icon>delete</v-icon> Delete
             </v-btn>
           </template>
@@ -35,22 +35,22 @@
               <v-layout>
                 <v-flex xs6>
                   <v-btn 
-                    @click="newSelected = true"
-                    :color="newSelected ? 'primary' : ''"
+                    @click="select('new')"
+                    :color="selected === 'new' ? 'primary' : 'grey darken-3'"
                     flat outline block
                   >New</v-btn>
                 </v-flex>
                 <v-flex xs6>
                   <v-btn
-                    @click="newSelected = false"
-                    :color="newSelected ? '' : 'primary'"
+                    @click="select('drafts')"
+                    :color="selected === 'drafts' ? 'primary' : 'grey darken-3'"
                     flat outline block
                   >Drafts</v-btn>
                 </v-flex>
               </v-layout>
             </div>
 
-            <create-evaluation-form v-if="newSelected"></create-evaluation-form>
+            <create-evaluation-form v-if="selected === 'new'"></create-evaluation-form>
             <evaluation-drafts-box v-else></evaluation-drafts-box>
           </v-flex>
 
@@ -77,10 +77,18 @@ export default {
   components: { CreateEvaluationForm, EvaluationBox, EvaluationDraftsBox },
   data() {
     return {
-      newSelected: true
+      selected: 'new'
     }
   },
   methods: {
+    select(option) {
+      this.selected = option
+
+      if (option === 'new') {
+        this.$store.commit('EvaluationsStore/clearOne')
+      }
+    },
+
     reset() {
       this.$store.commit('EvaluationsStore/resetOne')
     },
@@ -93,6 +101,10 @@ export default {
         .catch((error) => {
           this.flash({ error: 'Template cannot be updated due to some error' })
         })
+    },
+
+    remove() {
+      openerBus.openDestroyModal({ model: 'evaluation', action: 'delete', maxWidth: 500 })
     },
 
     saveEvaluation() {

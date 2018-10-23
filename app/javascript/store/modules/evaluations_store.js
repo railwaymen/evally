@@ -40,6 +40,11 @@ const EvaluationsStore = {
       state.status = flag
       return state
     },
+    remove(state, id) {
+      state.evaluations.remove({ id: id })
+      state.evaluation = new Evaluation()
+      return state
+    },
     replace(state, evaluation) {
       state.evaluations.map( el => {
         return el.id == evaluation.id ? evaluation : el
@@ -107,6 +112,21 @@ const EvaluationsStore = {
           })
       })
     },
+    destroy(context) {
+      return new Promise((resolve, reject) => {
+        axios.delete(context.state.evaluation.getDeleteURL())
+          .then(response => {
+            let id = context.state.evaluation.id
+
+            context.commit('remove', id)
+
+            resolve()
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    }
   }
 }
 

@@ -24,7 +24,8 @@ class Evaluation extends Model {
   routes() {
     return {
       save: '/v1/evaluations',
-      fetch: '/v1/evaluations/{id}'
+      fetch: '/v1/evaluations/{id}',
+      delete: '/v1/evaluations/{id}'
     }
   }
 }

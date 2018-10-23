@@ -2,7 +2,7 @@ module V1
   class EvaluationsController < ApplicationController
     before_action :authenticate!
 
-    before_action :set_evaluation, only: [:update]
+    before_action :set_evaluation, only: [:update, :destroy]
 
     # GET /v1/evaluations
     #
@@ -26,6 +26,13 @@ module V1
       evaluation = V1::EvaluationUpdaterService.new(attributes: params[:evaluation], evaluation: @evaluation).call
 
       render json: V1::EvaluationSerializer.new(evaluation).serialized_json, status: 200
+    end
+
+    # # DELETE /v1/evaluations/:id
+    #
+    def destroy
+      @evaluation.destroy
+      render json: {}, status: 204
     end
 
     private
