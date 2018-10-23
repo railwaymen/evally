@@ -16,36 +16,6 @@
               <h6 class="date__description">on board since</h6>
             </div>
           </v-flex>
-          <v-flex xs4>
-            <div class="date">
-              <v-menu
-                ref="menu1"
-                :close-on-content-click="false"
-                v-model="menu"
-                :nudge-right="40"
-                :return-value.sync="formattedDate"
-                lazy
-                transition="scale-transition"
-                offset-y
-                full-width
-                min-width="290px"
-              >
-                <v-text-field
-                  slot="activator"
-                  v-model="formattedDate"
-                  label="next evaluation at"
-                  append-icon="event"
-                  readonly
-                ></v-text-field>
-                <v-date-picker
-                  type="month"
-                  v-model="next_evaluation_at"
-                  @input="$refs.menu1.save(next_evaluation_at)"
-                  :min="$moment().format()"
-                  no-title scrollable></v-date-picker>
-              </v-menu>
-            </div>
-          </v-flex>
         </v-layout>
       </v-flex>
 
@@ -76,17 +46,6 @@ import EvaluationSectionBox from './EvaluationSectionBox'
 export default {
   name: 'EvaluationBox',
   components: { EvaluationSectionBox },
-  data() {
-    return {
-      menu: false,
-      next_evaluation_at: this.$moment().add(6, 'M').format()
-    }
-  },
-  methods: {
-    employeeFullname(employee) {
-      return `${employee.first_name} ${employee.last_name}`
-    }
-  },
   computed: {
     ...mapGetters({
       evaluation: 'EvaluationsStore/evaluation',
@@ -94,16 +53,6 @@ export default {
 
     employee() {
       return this.evaluation.employee
-    },
-
-    formattedDate: {
-      get() {
-        return this.$moment(this.next_evaluation_at).format('MMMM YYYY')
-      },
-
-      set(date) {
-        this.next_evaluation_at = this.$moment(date, 'YYYY-MM').format()
-      }
     }
   }
 }

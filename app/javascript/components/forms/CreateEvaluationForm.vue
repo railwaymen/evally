@@ -46,7 +46,7 @@
     <div class="step">
       <div class="step__actions text-xs-center">
         <v-btn small color="success" @click="build" :disabled="!(employee && template)">Create</v-btn>
-        <v-btn small color="primary" :disabled="!(employee && template)">Assign template</v-btn>
+        <!-- <v-btn small color="primary" :disabled="!(employee && template)">Assign template</v-btn> -->
       </div>
     </div>
 	</div>
@@ -74,7 +74,6 @@ export default {
           this.flash({ success: 'Evaluation has been succefully created.' })
         })
         .catch((err) => {
-          console.log(err.response)
           this.flash({ error: 'Evaluation cannot be created due to some error' })
         })
     }

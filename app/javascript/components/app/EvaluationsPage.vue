@@ -7,9 +7,9 @@
 
       <v-flex xs6>
         <div class="panel__action-bar">
-          <template>
-            <v-btn color="green" flat>
-              <v-icon>save_alt</v-icon> Save
+          <template v-if="evaluation.isExisting()">
+            <v-btn @click="saveEvaluation" color="green" flat>
+              <v-icon>save_alt</v-icon> Save completed
             </v-btn>
             <v-btn @click="saveDraft" flat>
               <v-icon>how_to_vote</v-icon> Save draft
@@ -63,6 +63,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import openerBus from '../../lib/opener_bus'
+
 import CreateEvaluationForm from '../forms/CreateEvaluationForm'
 import EvaluationBox from './evaluations/EvaluationBox'
 import EvaluationDraftsBox from './evaluations/EvaluationDraftsBox'
@@ -84,6 +86,10 @@ export default {
         .catch((error) => {
           this.flash({ error: 'Template cannot be updated due to some error' })
         })
+    },
+
+    saveEvaluation() {
+      openerBus.openFormModal({ model: 'evaluation', action: 'complete', maxWidth: 500 })
     }
   },
   computed: {

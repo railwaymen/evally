@@ -17,9 +17,12 @@ const EvaluationsStore = {
     drafts: state => state.evaluations.filter(evaluation => evaluation.state === 'draft'),
     evaluation: state => state.evaluation,
     status: state => state.status
-
   },
   mutations: {
+    clear(state) {
+      state.evaluation = new Evaluation()
+      return state
+    },
     one(state, evaluation_id) {
       state.evaluation = state.evaluations.find({ id: evaluation_id })
       return state

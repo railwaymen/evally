@@ -64,8 +64,6 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import { Employee } from '../../models/employee'
-
 export default {
   name: 'EmployeeForm',
   props: { options: Object },

@@ -75,7 +75,7 @@ export default {
     },
 
     updateSkills() {
-      this.$store.commit('EvaluationsStore/updateSkills', { sectionId: this.section.id, skills: this.section.skills})
+      this.$store.commit('EvaluationsStore/updateSkills', { sectionId: this.section.id, skills: this.section.skills })
     }
   }
 }
