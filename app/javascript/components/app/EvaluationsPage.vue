@@ -14,6 +14,9 @@
             <v-btn @click="saveDraft" flat>
               <v-icon>how_to_vote</v-icon> Save draft
             </v-btn>
+            <v-btn @click="reset" flat>
+              <v-icon>restore</v-icon> Reset
+            </v-btn>
             <v-btn color="red" flat>
               <v-icon>delete</v-icon> Delete
             </v-btn>
@@ -78,8 +81,12 @@ export default {
     }
   },
   methods: {
+    reset() {
+      this.$store.commit('EvaluationsStore/resetOne')
+    },
+
     saveDraft() {
-      this.$store.dispatch('EvaluationsStore/update', this.evaluation)
+      this.$store.dispatch('EvaluationsStore/update', { evaluation: this.evaluation })
         .then(() => {
           this.flash({ success: `Evaluation has been succefully updated` })
         })

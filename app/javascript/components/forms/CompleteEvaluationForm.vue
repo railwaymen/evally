@@ -75,7 +75,7 @@ export default {
       this.$store.dispatch('EvaluationsStore/update', params)
         .then(() => {
           this.flash({ success: `Evaluation has been succefully completed` })
-          this.$store.commit('EvaluationsStore/clear')
+          this.$store.commit('EvaluationsStore/clearOne')
           this.$emit('close')
         })
         .catch((error) => {

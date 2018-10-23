@@ -19,7 +19,7 @@ const EvaluationsStore = {
     status: state => state.status
   },
   mutations: {
-    clear(state) {
+    clearOne(state) {
       state.evaluation = new Evaluation()
       return state
     },
@@ -44,6 +44,12 @@ const EvaluationsStore = {
       state.evaluations.map( el => {
         return el.id == evaluation.id ? evaluation : el
       })
+
+      state.evaluations.sync()
+      return state
+    },
+    resetOne(state) {
+      state.evaluation.reset()
       return state
     },
     updateSkills(state, data) {
@@ -92,6 +98,7 @@ const EvaluationsStore = {
             let updated = new Evaluation(Utils.transformModel(response.data.data))
 
             context.commit('replace', updated)
+            context.commit('one', updated.id)
 
             resolve(response)
           })
