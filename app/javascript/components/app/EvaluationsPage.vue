@@ -34,7 +34,7 @@
             <div class="box px-3">
               <v-layout>
                 <v-flex xs6>
-                  <v-btn 
+                  <v-btn
                     @click="select('new')"
                     :color="selected === 'new' ? 'primary' : 'grey darken-3'"
                     flat outline block
@@ -55,7 +55,7 @@
           </v-flex>
 
           <v-flex xs9>
-            <evaluation-box></evaluation-box>
+            <evaluation-box context="evaluation"></evaluation-box>
           </v-flex>
         </v-layout>
       </v-container>

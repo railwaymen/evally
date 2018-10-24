@@ -7,7 +7,7 @@ module V1
     # GET /v1/evaluations
     #
     def index
-      evaluations = current_user.evaluations.includes(:employee)
+      evaluations = current_user.evaluations.includes(:employee, :sections)
 
       render json: V1::EvaluationSerializer.new(evaluations).serialized_json, status: 200
     end

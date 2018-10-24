@@ -20,20 +20,25 @@
       </v-flex>
 
       <v-flex xs12>
-        <v-layout row wrap>
+        <v-layout v-if="evaluation.state === 'completed'" row wrap>
           <evaluation-section-box
             v-for="section in evaluation.sections_attributes"
             :section="section"
             :key="section.id"
-            editable
           ></evaluation-section-box>
+        </v-layout>
+
+        <v-layout v-else row>
+          <v-flex xs12>
+            <h4 class="no-content__header no-content__header--large">Employee has not been evaluated yet</h4>
+          </v-flex>
         </v-layout>
       </v-flex>
     </v-layout>
 
     <v-layout v-else row>
       <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">Select employee and template to create new evaluation</h4>
+        <h4 class="no-content__header no-content__header--large">Select employee to see his evaluation</h4>
       </v-flex>
     </v-layout>
   </div>
@@ -42,19 +47,16 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import EvaluationSectionBox from './EvaluationSectionBox'
+import EvaluationSectionBox from '../evaluations/EvaluationSectionBox'
 
 export default {
-  name: 'EvaluationBox',
+  name: 'EmployeeEvaluationBox',
   components: { EvaluationSectionBox },
   computed: {
     ...mapGetters({
-      evaluation: 'EvaluationsStore/evaluation',
-    }),
-
-    employee() {
-      return this.evaluation.employee
-    }
+      evaluation: 'EmployeesStore/evaluation',
+      employee: 'EmployeesStore/employee'
+    })
   }
 }
 </script>

@@ -24,7 +24,7 @@
             <v-text-field
               slot="activator"
               v-model="formattedDate"
-              label="next evaluation at"
+              label="Next evaluation at"
               append-icon="event"
               readonly
             ></v-text-field>

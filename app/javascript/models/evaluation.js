@@ -13,11 +13,11 @@ class Evaluation extends Model {
   defaults() {
     return {
       id: null,
-      state: 'draft',
+      state: 'empty',
       completed_at: null,
       template_name: '',
       sections_attributes: [],
-      editable: true
+      employee: null
     }
   }
 

@@ -13,12 +13,12 @@
       <v-list two-line subheader>
         <v-subheader>List of employees</v-subheader>
 
-        <v-list-tile v-for="employee in filteredEmployees" :key="employee.id" @click="selectEmployee(employee.id)">
+        <v-list-tile v-for="employee in filteredEmployees" :key="employee.id" @click="showEvaluation(employee.id)">
           <v-list-tile-action>
             <v-icon>person_outline</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{ `${employee.first_name} ${employee.last_name}` }}</v-list-tile-title>
+            <v-list-tile-title>{{ employeeFullname(employee) }}</v-list-tile-title>
             <v-list-tile-sub-title>{{ employee.position }}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -47,19 +47,22 @@ export default {
     }
   },
   methods: {
-    selectEmployee(employee_id) {
-      this.$store.commit('EmployeesStore/one', employee_id)
+    showEvaluation(employee_id) {
+      this.$store.dispatch('EmployeesStore/getEvaluation', employee_id)
+        .catch( error => {
+          this.flash({ error: 'Evaluation cannot be loaded due to some error: ' + error.message })
+        })
     }
   },
   computed: {
     ...mapGetters({
-      employees: 'EmployeesStore/employees',
-      status: 'EmployeesStore/status'
+      employees: 'EmployeesStore/employees'
     }),
+    
     filteredEmployees() {
       if (this.search.length > 0) {
         return this.employees.models.filter(employee => {
-          let fullname = `${employee.first_name} ${employee.last_name}`
+          let fullname = this.employeeFullname(employee)
           return fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         })
       } else {
@@ -67,13 +70,11 @@ export default {
       }
     }
   },
-  mounted() {
-    if (this.employees.models.length === 0) {
-      this.$store.dispatch('EmployeesStore/index')
-        .catch( error => {
-          this.flash({ error: 'Employees cannot be loaded due to some error: ' + error.message })
-        })
-    }
+  created() {
+    this.$store.dispatch('EmployeesStore/index')
+      .catch( error => {
+        this.flash({ error: 'Employees cannot be loaded due to some error: ' + error.message })
+      })
   }
 
 }

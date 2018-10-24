@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   end
 
   namespace :v1, defaults: { format: :json } do
-    resources :employees, only: [:index, :create, :update, :destroy]
+    resources :employees, only: [:index, :create, :update, :destroy] do
+      get 'evaluation', on: :member 
+    end
 
     resources :evaluations, only: [:index, :create, :update, :destroy]
 

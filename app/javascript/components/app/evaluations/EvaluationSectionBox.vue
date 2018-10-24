@@ -14,7 +14,7 @@
             </v-list-tile-content>
 
             <v-list-tile-action>
-              <v-rating v-model="skill.value" @input="updateSkills"></v-rating>
+              <v-rating v-model="skill.value" @input="updateSkills" :readonly="!editable"></v-rating>
             </v-list-tile-action>
           </v-list-tile>
         </v-list>
@@ -29,11 +29,13 @@
 
             <v-list-tile-action>
               <v-switch
+                v-if="editable"
                 :label="skill.value ? 'Yes' : 'No'"
                 v-model="skill.value"
                 @change="updateSkills"
                 color="success"
               ></v-switch>
+              <span v-else>{{ skill.value ? 'Yes' : 'No' }}</span>
             </v-list-tile-action>
           </v-list-tile>
         </v-list>
@@ -42,13 +44,19 @@
       <div v-if="isTextSection()" class="section-box__text">
         <div v-for="(skill, index) in section.skills" :key="index">
           <v-textarea
+            v-if="editable"
             :label="skill.name"
             v-model="skill.value"
-            name="input-7-1"
-            rows="1"
+            :name="`input-${section.id}-${index}`"
             @blur="updateSkills"
+            rows="1"
             auto-grow
           ></v-textarea>
+
+          <div v-else>
+            <h4>{{ skill.name }}</h4>
+            <p> {{ skill.value }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -60,7 +68,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'EvaluationSectionBox',
-  props: ['section'],
+  props: { section: Object, editable: Boolean },
   methods: {
     isBoolSection() {
       return this.section.group === 'bool'

@@ -32,15 +32,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'EvaluationDraftsBox',
-  data () {
-    return {
-
-    }
-  },
   methods: {
-    employeeFullname(employee) {
-      return `${employee.first_name} ${employee.last_name}`
-    },
     selectEvaluation(evaluation_id) {
       this.$store.commit('EvaluationsStore/one', evaluation_id)
     }
@@ -50,14 +42,11 @@ export default {
       drafts: 'EvaluationsStore/drafts',
     })
   },
-  mounted() {
-    if (this.drafts.models.length === 0) {
-      this.$store.dispatch('EvaluationsStore/index')
-        .catch( error => {
-          this.flash({ error: 'Draft evaluations cannot be loaded due to some error: ' + error.message })
-        })
-    }
+  created() {
+    this.$store.dispatch('EvaluationsStore/index')
+      .catch( error => {
+        this.flash({ error: 'Draft evaluations cannot be loaded due to some error: ' + error.message })
+      })
   }
-
 }
 </script>
