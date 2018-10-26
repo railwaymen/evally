@@ -77,7 +77,8 @@ export default {
   components: { CreateEvaluationForm, EvaluationBox, EvaluationDraftsBox },
   data() {
     return {
-      selected: 'new'
+      selected: 'new',
+      model: 'evaluation'
     }
   },
   methods: {
@@ -85,16 +86,16 @@ export default {
       this.selected = option
 
       if (option === 'new') {
-        this.$store.commit('EvaluationsStore/clearOne')
+        this.$store.commit('EvaluationsStore/clearDraft')
       }
     },
 
     reset() {
-      this.$store.commit('EvaluationsStore/resetOne')
+      this.$store.commit('EvaluationsStore/resetDraft')
     },
 
     saveDraft() {
-      this.$store.dispatch('EvaluationsStore/update', { evaluation: this.evaluation })
+      this.$store.dispatch('EvaluationsStore/update', { evaluation: this.evaluation.attributes })
         .then(() => {
           this.flash({ success: `Evaluation has been succefully updated` })
         })
@@ -104,16 +105,16 @@ export default {
     },
 
     remove() {
-      openerBus.openDestroyModal({ model: 'evaluation', action: 'delete', maxWidth: 500 })
+      openerBus.openDestroyModal({ model: this.model, action: 'delete', maxWidth: 500 })
     },
 
     saveEvaluation() {
-      openerBus.openFormModal({ model: 'evaluation', action: 'complete', maxWidth: 500 })
+      openerBus.openFormModal({ model: this.model, action: 'complete', maxWidth: 500 })
     }
   },
   computed: {
     ...mapGetters({
-      evaluation: 'EvaluationsStore/evaluation'
+      evaluation: 'EvaluationsStore/draft'
     })
   }
 }

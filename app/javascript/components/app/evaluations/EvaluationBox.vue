@@ -49,7 +49,7 @@ export default {
   components: { EvaluationSectionBox },
   computed: {
     ...mapGetters({
-      evaluation: 'EvaluationsStore/evaluation',
+      evaluation: 'EvaluationsStore/draft',
     }),
 
     employee() {

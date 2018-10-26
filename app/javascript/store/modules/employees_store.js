@@ -2,14 +2,12 @@ import axios from 'axios'
 
 import { Utils } from '../../lib/utils'
 import { Employee, EmployeesList } from '../../models/employee'
-import { Evaluation } from '../../models/evaluation'
 
 const EmployeesStore = {
   namespaced: true,
   state: {
     employees: new EmployeesList(),
     employee: new Employee(),
-    evaluation: new Evaluation(),
     positions: [],
     status: ''
 
@@ -17,7 +15,6 @@ const EmployeesStore = {
   getters: {
     employees: state => state.employees,
     employee: state => state.employee,
-    evaluation: state => state.evaluation,
     positions: state => state.positions,
     status: state => state.status
 
@@ -55,10 +52,6 @@ const EmployeesStore = {
       state.employees.remove({ id: id })
       state.employee = new Employee()
       return state
-    },
-    setEvaluation(state, evaluation) {
-      state.evaluation = evaluation
-      return state
     }
   },
   actions: {
@@ -70,28 +63,6 @@ const EmployeesStore = {
           .then(response => {
             let data = Utils.modelsFromResponse(response.data.data)
             context.commit('many', data)
-          })
-          .catch(error => {
-            reject(error)
-          })
-      })
-    },
-    getEvaluation(context, employee_id) {
-      let fetchURL = `v1/employees/${employee_id}/evaluation`
-
-      return new Promise((resolve, reject) => {
-        axios.get(fetchURL)
-          .then(response => {
-            let evaluation = new Evaluation({ state: 'unevaluated' })
-
-            if (response.data.data) {
-              evaluation = new Evaluation(Utils.transformModel(response.data.data))
-            }
-
-            context.commit('setEvaluation', evaluation)
-            context.commit('one', employee_id)
-
-            resolve(response)
           })
           .catch(error => {
             reject(error)
@@ -113,9 +84,9 @@ const EmployeesStore = {
           })
       })
     },
-    update(context, employee) {
+    update(context, data) {
       return new Promise((resolve, reject) => {
-        axios.put(context.state.employee.getFetchURL(), employee)
+        axios.put(context.state.employee.getFetchURL(), data)
           .then(response => {
             let updated = new Employee(Utils.transformModel(response.data.data))
 

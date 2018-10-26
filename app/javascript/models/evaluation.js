@@ -13,7 +13,7 @@ class Evaluation extends Model {
   defaults() {
     return {
       id: null,
-      state: 'empty',
+      state: 'draft',
       completed_at: null,
       template_name: '',
       sections_attributes: [],

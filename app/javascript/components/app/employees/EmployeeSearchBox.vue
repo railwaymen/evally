@@ -48,10 +48,8 @@ export default {
   },
   methods: {
     showEvaluation(employee_id) {
-      this.$store.dispatch('EmployeesStore/getEvaluation', employee_id)
-        .catch( error => {
-          this.flash({ error: 'Evaluation cannot be loaded due to some error: ' + error.message })
-        })
+      this.$store.commit('EmployeesStore/one', employee_id)
+      this.$store.commit('EvaluationsStore/oneEvaluation', employee_id)
     }
   },
   computed: {
@@ -75,7 +73,11 @@ export default {
       .catch( error => {
         this.flash({ error: 'Employees cannot be loaded due to some error: ' + error.message })
       })
-  }
 
+    this.$store.dispatch('EvaluationsStore/index')
+      .catch( error => {
+        this.flash({ error: 'Evaluations cannot be loaded due to some error: ' + error.message })
+      })
+  }
 }
 </script>

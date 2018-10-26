@@ -34,7 +34,7 @@ export default {
   name: 'EvaluationDraftsBox',
   methods: {
     selectEvaluation(evaluation_id) {
-      this.$store.commit('EvaluationsStore/one', evaluation_id)
+      this.$store.commit('EvaluationsStore/oneDraft', evaluation_id)
     }
   },
   computed: {

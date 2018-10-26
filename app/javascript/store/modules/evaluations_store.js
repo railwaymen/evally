@@ -10,21 +10,35 @@ const EvaluationsStore = {
   state: {
     evaluations: new EvaluationsList(),
     evaluation: new Evaluation(),
+    draft: new Evaluation(),
     status: ''
 
   },
   getters: {
+    evaluations: state => state.evaluastions,
     drafts: state => state.evaluations.filter(evaluation => evaluation.state === 'draft'),
+    completed: state => state.evaluations.filter(evaluation => evaluation.state === 'completed'),
     evaluation: state => state.evaluation,
+    draft: state => state.draft,
     status: state => state.status
   },
   mutations: {
-    clearOne(state) {
+    clearDraft(state) {
+      state.draft = new Evaluation()
+      return state
+    },
+    clearEvaluation(state) {
       state.evaluation = new Evaluation()
       return state
     },
-    one(state, evaluation_id) {
-      state.evaluation = state.evaluations.find({ id: evaluation_id })
+    oneDraft(state, evaluation_id) {
+      state.draft = state.evaluations.find({ id: evaluation_id })
+      return state
+    },
+    oneEvaluation(state, employee_id) {
+      // evaluations are sorted descending on backend by completed_at property
+      // find return the the most recent completed evaluation
+      state.evaluation = state.evaluations.find(e => e.state === 'completed' && e.employee.id == employee_id)
       return state
     },
     many(state, data) {
@@ -53,12 +67,12 @@ const EvaluationsStore = {
       state.evaluations.sync()
       return state
     },
-    resetOne(state) {
-      state.evaluation.reset()
+    resetDraft(state) {
+      state.draft.reset()
       return state
     },
     updateSkills(state, data) {
-      _.map(state.evaluation.section_attributes, section => {
+      _.map(state.draft.section_attributes, section => {
         if (section.id === data.sectionId) section.skills = data.skills
         return section
       })
@@ -87,7 +101,7 @@ const EvaluationsStore = {
             let evaluation = new Evaluation(Utils.transformModel(response.data.data))
 
             context.commit('push', evaluation)
-            context.commit('one', evaluation.id)
+            context.commit('oneDraft', evaluation.id)
 
             resolve(response)
           })
@@ -96,14 +110,13 @@ const EvaluationsStore = {
           })
       })
     },
-    update(context, evaluation) {
+    update(context, data) {
       return new Promise((resolve, reject) => {
-        axios.put(context.state.evaluation.getFetchURL(), evaluation)
+        axios.put(context.state.draft.getFetchURL(), data)
           .then(response => {
             let updated = new Evaluation(Utils.transformModel(response.data.data))
 
             context.commit('replace', updated)
-            context.commit('one', updated.id)
 
             resolve(response)
           })

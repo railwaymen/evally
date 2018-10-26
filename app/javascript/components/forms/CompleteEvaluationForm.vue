@@ -75,7 +75,7 @@ export default {
       this.$store.dispatch('EvaluationsStore/update', params)
         .then(() => {
           this.flash({ success: `Evaluation has been succefully completed` })
-          this.$store.commit('EvaluationsStore/clearOne')
+          this.$store.commit('EvaluationsStore/clearDraft')
           this.$emit('close')
         })
         .catch((error) => {
@@ -85,7 +85,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      evaluation: 'EvaluationsStore/evaluation'
+      evaluation: 'EvaluationsStore/draft'
     }),
 
     formattedDate: {
