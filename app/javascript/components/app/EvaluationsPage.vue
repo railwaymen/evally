@@ -31,7 +31,7 @@
         <v-layout row>
           <v-flex xs3>
 
-            <div class="box px-3">
+            <div class="box pa-4">
               <v-layout>
                 <v-flex xs6>
                   <v-btn
