@@ -53,8 +53,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
-
 import { mapGetters } from 'vuex'
 
 export default {
@@ -85,31 +83,27 @@ export default {
     }),
 
     selectableEmployees() {
-      return _.map(this.employees.models, employee => {
-        return { id: employee.id, value: `${employee.first_name} ${employee.last_name}` }
+      return this.employees.models.map(employee => {
+        return { id: employee.id, value: this.employeeFullname(employee) }
       })
     },
 
     selectableTemplates() {
-      return _.map(this.templates.models, template => {
+      return this.templates.models.map(template => {
         return { id: template.id, value: template.name }
       })
     }
   },
   mounted() {
-    if (this.employees.models.length === 0) {
-      this.$store.dispatch('EmployeesStore/index')
-        .catch( error => {
-          this.flash({ error: 'Employees cannot be loaded due to some error: ' + error.message })
-        })
-    }
+    this.$store.dispatch('EmployeesStore/index')
+      .catch( error => {
+        this.flash({ error: 'Employees cannot be loaded due to some error: ' + error.message })
+      })
 
-    if (this.templates.models.length === 0) {
-      this.$store.dispatch('TemplatesStore/index')
-        .catch( error => {
-          this.flash({ error: 'Templates cannot be loaded due to some error: ' + error.message })
-        })
-    }
+    this.$store.dispatch('TemplatesStore/index')
+      .catch( error => {
+        this.flash({ error: 'Templates cannot be loaded due to some error: ' + error.message })
+      })
   }
 }
 </script>

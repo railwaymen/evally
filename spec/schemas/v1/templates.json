@@ -16,14 +16,12 @@
 
           "attributes" : {
             "type": "object",
-            "required": ["name", "state", "evaluations_count", "sections_attributes"],
+            "required": ["name", "state", "sections_attributes"],
             "properties": {
 
               "name" : { "type" : "string" },
 
               "state" : { "enum" : ["draft", "enabled", "disabled", "removed"] },
-
-              "evaluations_count" : { "type" : "number" },
 
               "sections_attributes" : {
                 "type": "array",

@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_21_115928) do
+ActiveRecord::Schema.define(version: 2018_10_26_195910) do
 
   create_table "employees", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "position"
     t.datetime "hired_at"
-    t.datetime "last_evaluation_at"
     t.datetime "next_evaluation_at"
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -53,7 +52,6 @@ ActiveRecord::Schema.define(version: 2018_10_21_115928) do
   create_table "templates", force: :cascade do |t|
     t.string "name"
     t.integer "state", default: 0
-    t.integer "evaluations_count", default: 0
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

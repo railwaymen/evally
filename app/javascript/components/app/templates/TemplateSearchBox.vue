@@ -10,7 +10,7 @@
     </div>
 
     <div class="search-box__list">
-      <v-list two-line>
+      <v-list>
         <v-subheader>All templates</v-subheader>
 
         <v-list-tile v-for="template in filteredTemplates" :key="template.id" @click="selectTemplate(template.id)" avatar>
@@ -20,7 +20,6 @@
 
           <v-list-tile-content>
             <v-list-tile-title>{{ template.name }}</v-list-tile-title>
-            <v-list-tile-sub-title>{{ template.evaluations_count }} evaluations completed</v-list-tile-sub-title>
           </v-list-tile-content>
 
         </v-list-tile>

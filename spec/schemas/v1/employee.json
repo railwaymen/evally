@@ -14,7 +14,7 @@
 
         "attributes" : {
           "type": "object",
-          "required": ["first_name", "last_name", "position", "hired_at", "last_evaluation_at", "next_evaluation_at"],
+          "required": ["first_name", "last_name", "position", "hired_at", "next_evaluation_at"],
           "properties": {
 
             "first_name" : { "type" : "string" },
@@ -24,8 +24,6 @@
             "position" : { "type" : "string" },
 
             "hired_at" : { "type" : "string" },
-
-            "last_evaluation_at" : { "type" : ["string", "null"] },
 
             "next_evaluation_at" : { "type" : ["string", "null"] }
           }
