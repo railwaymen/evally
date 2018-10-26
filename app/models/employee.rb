@@ -1,6 +1,6 @@
 class Employee < ApplicationRecord
   belongs_to :user
-  has_many :evaluations
+  has_many :evaluations, dependent: :destroy
 
   # # Validation
   validates :first_name, presence: true

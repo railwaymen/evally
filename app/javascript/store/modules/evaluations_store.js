@@ -127,11 +127,12 @@ const EvaluationsStore = {
     },
     destroy(context) {
       return new Promise((resolve, reject) => {
-        axios.delete(context.state.evaluation.getDeleteURL())
+        axios.delete(context.state.draft.getDeleteURL())
           .then(response => {
-            let id = context.state.evaluation.id
+            let id = context.state.draft.id
 
             context.commit('remove', id)
+            context.commit('clearDraft')
 
             resolve()
           })
