@@ -10,9 +10,15 @@ class Section < ApplicationRecord
 
   validates :name, presence: true
 
-  validates :group, presence: true, inclusion: { in: Section.groups.keys }
+  validates :group, presence: true, inclusion: {
+    in: Section.groups.keys,
+    message: "'%{value}' is not a valid group"
+  }
 
-  validates :width, presence: true, inclusion: { in: Section.widths.keys }
+  validates :width, presence: true, inclusion: {
+    in: Section.widths.keys,
+    message: "'%{value}' is not a valid width"
+  }
 
   validates :position, presence: true, numericality: { only_integer: true }
 

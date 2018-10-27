@@ -31,6 +31,8 @@ module V1
     # # DELETE /v1/evaluations/:id
     #
     def destroy
+      # only draft evaluations can be destroyed directly
+
       @evaluation.destroy
       render json: {}, status: 204
     end

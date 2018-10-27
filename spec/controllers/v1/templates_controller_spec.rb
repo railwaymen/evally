@@ -136,6 +136,64 @@ RSpec.describe V1::TemplatesController, type: :controller do
     end
   end
 
+  describe '#update' do
+    let!(:template) { create(:template_with_sections) }
+    let(:user) { template.user }
+
+    let(:params) do
+      {
+        id: template.id,
+        template: {
+          name: 'Updated template',
+          state: 'draft'
+        }
+      }
+    end
+
+    context 'when unauthorized' do
+      it 'is not allowed to create template' do
+        sign_out
+
+        put :update, params: params
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      before(:each) do
+        sign_in user
+      end
+
+      it 'responds succesfully with updated template' do
+        expect do
+          put :update, params: params
+        end.to change{ template.reload.name }.to 'Updated template'
+
+        expect_success_api_response_for('template')
+      end
+
+      it 'responds with error when template not found' do
+        params['id'] = 0
+
+        expect do
+          put :update, params: params
+        end.not_to change{ template.reload.name }
+
+        expect_error_api_response(404)
+      end
+
+      it 'responds with error when template invalid' do
+        params[:template][:name] = ''
+
+        expect do
+          put :update, params: params
+        end.not_to change{ template.reload.name }
+
+        expect_error_api_response(422)
+      end
+    end
+  end
+
   describe '#destroy' do
     let(:template) { create(:template_with_sections) }
     let(:user) { template.user }

@@ -18,4 +18,9 @@ class Evaluation < ApplicationRecord
     message: 'employee\'s draft evaluation already exists'
   }, if: :draft?
 
+  validates :state, inclusion: {
+    in: Evaluation.states.keys,
+    message: "'%{value}' is not a valid state"
+  }
+
 end
