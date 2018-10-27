@@ -30,6 +30,11 @@ export default new Router({
           component: require('../components/app/DashboardPage').default,
         },
         {
+          path: 'evaluations',
+          name: 'evaluations_path',
+          component: require('../components/app/EvaluationsPage').default,
+        },
+        {
           path: 'employees',
           name: 'employees_path',
           component: require('../components/app/EmployeesPage').default,

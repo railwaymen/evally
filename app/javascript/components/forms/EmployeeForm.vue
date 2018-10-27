@@ -64,8 +64,6 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import { Employee } from '../../models/employee'
-
 export default {
   name: 'EmployeeForm',
   props: { options: Object },
@@ -84,7 +82,7 @@ export default {
       if (this.employee.validate()) {
         switch(this.options.action) {
           case 'create':
-            this.$store.dispatch('EmployeesStore/create', this.employee)
+            this.$store.dispatch('EmployeesStore/create', { employee: this.employee.attributes })
               .then(() => {
                 this.flash({ success: 'Employee has been succefully created.' })
                 this.$emit('close')
@@ -96,7 +94,7 @@ export default {
             break
 
           case 'edit':
-            this.$store.dispatch('EmployeesStore/update', this.employee)
+            this.$store.dispatch('EmployeesStore/update', { employee: this.employee.attributes })
               .then(() => {
                 this.flash({ success: 'Employee has been succefully updated' })
                 this.$emit('close')

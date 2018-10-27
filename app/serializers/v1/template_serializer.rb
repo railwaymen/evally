@@ -2,7 +2,7 @@ module V1
   class TemplateSerializer
     include FastJsonapi::ObjectSerializer
 
-    attributes :name, :state, :evaluations_count
+    attributes :name, :state
 
     attribute :sections_attributes do |template|
       # template.sections.select(:id, :name, :group, :width, :position, :skills).map(&:attributes)

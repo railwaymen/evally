@@ -16,7 +16,10 @@ class Template < ApplicationRecord
   #
   validates :name, presence: true
 
-  validates :state, presence: true, inclusion: { in: Template.states.keys }
+  validates :state, presence: true, inclusion: {
+    in: Template.states.keys,
+    message: "'%{value}' is not a valid state"
+  }
 
   # # States
   #

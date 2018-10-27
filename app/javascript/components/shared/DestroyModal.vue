@@ -36,6 +36,9 @@ export default {
         case 'employee':
           this.removeEmployee()
           break
+        case 'evaluation':
+          this.removeEvaluation()
+          break
         case 'template':
           this.removeTemplate()
           break
@@ -46,10 +49,22 @@ export default {
       this.$store.dispatch('EmployeesStore/destroy')
         .then(() => {
           this.flash({ success: 'Employee has been succesfully destroyed' })
+          this.$store.commit('EvaluationsStore/clearEvaluation')
           this.dialog = false
         })
         .catch(() => {
           this.flash({ error: 'Employee cannot be destroyed due to some error' })
+        })
+    },
+
+    removeEvaluation() {
+      this.$store.dispatch('EvaluationsStore/destroy')
+        .then(() => {
+          this.flash({ success: 'Evaluation has been succesfully destroyed' })
+          this.dialog = false
+        })
+        .catch(() => {
+          this.flash({ error: 'Evaluation cannot be destroyed due to some error' })
         })
     },
 

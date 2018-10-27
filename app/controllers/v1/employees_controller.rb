@@ -2,7 +2,7 @@ module V1
   class EmployeesController < ApplicationController
     before_action :authenticate!
 
-    before_action :set_employee, only: [:update, :destroy]
+    before_action :set_employee, only: [:evaluation, :update, :destroy]
 
     # GET /v1/employees
     #
@@ -10,6 +10,14 @@ module V1
       employees = current_user.employees.order(last_name: :asc)
 
       render json: V1::EmployeeSerializer.new(employees).serialized_json, status: 200
+    end
+
+    # GET /v1/employees/:id/evaluation
+    #
+    def evaluation
+      evaluation = @employee.evaluations.includes(:sections).completed.order(completed_at: :asc).last
+
+      render json: V1::EvaluationSerializer.new(evaluation).serialized_json, status: 200
     end
 
     # # POST /v1/employees

@@ -71,7 +71,7 @@ export default {
       if (formValid && this.status === 'new_record') {
         this.template.sections_attributes = _.map(this.sections.models, section => section.attributes )
 
-        this.$store.dispatch('TemplatesStore/create', this.template)
+        this.$store.dispatch('TemplatesStore/create', { template: this.template })
           .then(() => {
             this.flash({ success: `Template '${this.template.name}' has been succefully created` })
             this.template.editable = false
@@ -82,7 +82,7 @@ export default {
       } else if (formValid && this.status === 'record') {
         this.template.sections_attributes = _.map(this.sections.models, section => section.attributes )
 
-        this.$store.dispatch('TemplatesStore/update', this.template)
+        this.$store.dispatch('TemplatesStore/update', { template: this.template })
           .then(() => {
             this.flash({ success: `Template '${this.template.name}' has been succefully updated` })
             this.template.editable = false

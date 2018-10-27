@@ -93,11 +93,12 @@ export default {
       model: 0,
       tabs: [
         { id: 0, name: 'Start', icon: 'dashboard', path: 'dashboard_path'},
-        { id: 1, name: 'Employees', icon: 'people', path: 'employees_path'},
-        { id: 2, name: 'Templates', icon: 'list_alt', path: 'templates_path'},
-        { id: 3, name: 'Skills', icon: 'pool', path: 'skills_path'},
-        { id: 4, name: 'Archive', icon: 'archive', path: 'archive_path'},
-        { id: 5, name: 'Settings', icon: 'settings', path: 'settings_path'}
+        { id: 10, name: 'Evaluations', icon: 'assignment_turned_in', path: 'evaluations_path'},
+        { id: 20, name: 'Employees', icon: 'people', path: 'employees_path'},
+        { id: 30, name: 'Templates', icon: 'list_alt', path: 'templates_path'},
+        { id: 40, name: 'Skills', icon: 'pool', path: 'skills_path'},
+        { id: 50, name: 'Archive', icon: 'archive', path: 'archive_path'},
+        { id: 60, name: 'Settings', icon: 'settings', path: 'settings_path'}
       ],
       creators: [
         { id: 0, name: 'Employee', icon: 'person', path: 'dashboard_path' },

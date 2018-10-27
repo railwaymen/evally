@@ -2,7 +2,6 @@ FactoryBot.define do
   factory :template do |et|
     et.sequence(:name) { Faker::Lorem.word }
     state              { 'draft' }
-    evaluations_count  { 0 }
     
     user
 

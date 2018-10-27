@@ -10,16 +10,35 @@
 
         "id" : { "type" : ["string", "number"] },
 
-        "type" : { "enum" : ["template"] },
+        "type" : { "enum" : ["evaluation"] },
 
         "attributes" : {
           "type": "object",
-          "required": ["name", "state", "sections_attributes"],
+          "required": ["state", "completed_at", "template_name", "employee", "sections_attributes"],
           "properties": {
 
-            "name" : { "type" : "string" },
+            "state" : { "enum" : ["draft", "completed"] },
 
-            "state" : { "enum" : ["draft", "enabled", "disabled", "removed"] },
+            "completed_at": { "type" : ["string", "null"] },
+
+            "template_name": { "type" : "string" },
+
+            "employee": {
+              "type": "object",
+              "required": ["id", "first_name", "last_name", "position", "hired_at"],
+              "properties": {
+
+                "id" : { "type" : ["string", "number"] },
+
+                "first_name" : { "type" : "string" },
+
+                "last_name" : { "type" : "string" },
+
+                "position" : { "type" : "string" },
+
+                "hired_at" : { "type" : "string" }
+              }
+            },
 
             "sections_attributes" : {
               "type": "array",
