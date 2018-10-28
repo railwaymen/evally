@@ -14,7 +14,7 @@
             </v-list-tile-content>
 
             <v-list-tile-action>
-              <v-rating v-model="skill.value" @input="updateSkills" :readonly="!editable" hover></v-rating>
+              <v-rating v-model="skill.value" @input="updateSkills" :readonly="!editable" hover clearable></v-rating>
             </v-list-tile-action>
           </v-list-tile>
         </v-list>
