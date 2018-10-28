@@ -95,6 +95,8 @@ export default {
     },
 
     saveDraft() {
+      this.evaluation.updated_at = this.$moment().format()
+
       this.$store.dispatch('EvaluationsStore/update', { evaluation: this.evaluation.attributes })
         .then(() => {
           this.flash({ success: `Evaluation has been succefully updated` })

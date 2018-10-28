@@ -23,11 +23,13 @@
 
               "completed_at": { "type" : ["string", "null"] },
 
+              "updated_at": { "type" : "string" },
+
               "template_name": { "type" : "string" },
 
               "employee": {
                 "type": "object",
-                "required": ["id", "first_name", "last_name", "position", "hired_at"],
+                "required": ["id", "first_name", "last_name", "position", "hired_at", "next_evaluation_at"],
                 "properties": {
 
                   "id" : { "type" : ["string", "number"] },
@@ -38,7 +40,9 @@
 
                   "position" : { "type" : "string" },
 
-                  "hired_at" : { "type" : "string" }
+                  "hired_at" : { "type" : "string" },
+
+                  "next_evaluation_at" : { "type" : ["string", "null"] }
                 }
               },
 

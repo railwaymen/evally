@@ -28,6 +28,12 @@
               <h6 class="date__description">on board since</h6>
             </div>
           </v-flex>
+          <v-flex v-if="employee.next_evaluation_at" xs4>
+            <div class="date">
+              <h5 class="date__value">{{ employee.next_evaluation_at | moment("MMMM YYYY") }}</h5>
+              <h6 class="date__description">next evaluation at</h6>
+            </div>
+          </v-flex>
           <v-flex xs4>
             <div class="date">
               <h5 class="date__value">{{ evaluation.completed_at | moment("MMM DD, YYYY") }}</h5>

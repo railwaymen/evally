@@ -75,13 +75,11 @@ export default {
       return outputArray.sort((a, b) => a.name.localeCompare(b.name))
     }
   },
-  mounted() {
-    if (this.templates.models.length === 0) {
-      this.$store.dispatch('TemplatesStore/index')
-        .catch( error => {
-          this.flash({ error: 'Templates cannot be loaded due to some error: ' + error.message })
-        })
-    }
+  created() {
+    this.$store.dispatch('TemplatesStore/index')
+      .catch( error => {
+        this.flash({ error: 'Templates cannot be loaded due to some error: ' + error.message })
+      })
   }
 }
 </script>

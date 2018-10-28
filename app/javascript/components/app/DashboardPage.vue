@@ -2,7 +2,7 @@
   <section class="panel">
     <v-layout row>
       <v-flex xs6>
-        <h2 class="panel__heading">Hello Trevor!</h2>
+        <h2 class="panel__heading">Hello {{ user.first_name}}!</h2>
       </v-flex>
 
       <v-flex>
@@ -19,7 +19,7 @@
             <v-layout row>
 
               <v-flex xs6>
-                <draft-list></draft-list>
+                <drafts-list></drafts-list>
               </v-flex>
 
               <v-flex xs6>
@@ -40,16 +40,23 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import Activities from './dashboard/Activities'
-import DraftList from './dashboard/DraftList'
+import DraftsList from './dashboard/DraftsList'
 import UpcomingList from './dashboard/UpcomingList'
 
 export default {
   name: 'EvaluationPage',
   components: { 
     Activities,
-    DraftList,
+    DraftsList,
     UpcomingList
+  },
+  computed: {
+    ...mapGetters({
+      user: 'AuthStore/user'
+    })
   }
 }
 </script>
