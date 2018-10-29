@@ -6,7 +6,7 @@
 			<v-list two-line>
         <v-list-tile v-for="draft in slicedDrafts" :key="draft.id" avatar>
           <v-list-tile-content>
-            <v-list-tile-title><strong>{{ employeeFullname(draft.employee) }}</strong> as <em>{{ draft.employee.position }}</em> - {{ nextEvaluation(draft.employee) }}</v-list-tile-title>
+            <v-list-tile-title><strong>{{ employeeFullname(draft.employee) }}</strong> as <em>{{ draft.employee.position }}</em> - {{ nextEvaluationDate(draft.employee) }}</v-list-tile-title>
             <v-list-tile-sub-title>Updated {{ $moment(draft.updated_at).fromNow() }}</v-list-tile-sub-title>
           </v-list-tile-content>
 
@@ -38,11 +38,6 @@ import { mapGetters } from 'vuex'
 export default {
 	name: 'DraftsList',
 	methods: {
-		nextEvaluation(employee) {
-			let date = employee.next_evaluation_at
-			return date ? this.$moment(date).format('MMM YYYY') : 'First time'
-		},
-
 		edit(evaluation_id) {
 			this.$store.commit('EvaluationsStore/oneDraft', evaluation_id)
 			this.$router.push({ name: 'evaluations_path' })
@@ -54,14 +49,8 @@ export default {
 		}),
 
 		slicedDrafts() {
-			return this.drafts.models.slice(0, 3)
+			return this.drafts.models.slice(0, 5)
 		}
-	},
-	created() {
-    this.$store.dispatch('EvaluationsStore/index')
-      .catch( error => {
-        this.flash({ error: 'Draft evaluations cannot be loaded due to some error: ' + error.message })
-      })
-  }
+	}
 }
 </script>

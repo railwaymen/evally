@@ -1,10 +1,18 @@
 <template>
-  <div class="box">
-    <div class="box__list">
+  <div class="search-box">
+    <div class="search-box__input">
+      <v-text-field
+        v-model="search"
+        append-icon="search"
+        label="Search..."
+        box
+      ></v-text-field>
+    </div>
+    <div class="search-box__list">
       <v-list two-line subheader>
         <v-subheader>Evaluations drafts</v-subheader>
 
-        <v-list-tile v-for="draft in drafts.models" :key="draft.id" @click="selectEvaluation(draft.id)">
+        <v-list-tile v-for="draft in filteredEvaluations" :key="draft.id" @click="selectEvaluation(draft.id)">
           <v-list-tile-action>
             <v-icon>person_outline</v-icon>
           </v-list-tile-action>
@@ -14,7 +22,7 @@
           </v-list-tile-content>
         </v-list-tile>
 
-        <v-list-tile v-if="drafts.models.length == 0">
+        <v-list-tile v-if="filteredEvaluations.length == 0">
           <v-list-tile-action>
             <v-icon>error_outline</v-icon>
           </v-list-tile-action>
@@ -32,6 +40,11 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'EvaluationDraftsBox',
+  data() {
+    return {
+      search: ''
+    }
+  },
   methods: {
     selectEvaluation(evaluation_id) {
       this.$store.commit('EvaluationsStore/oneDraft', evaluation_id)
@@ -40,7 +53,18 @@ export default {
   computed: {
     ...mapGetters({
       drafts: 'EvaluationsStore/drafts',
-    })
+    }),
+
+    filteredEvaluations() {
+      if (this.search.length > 0) {
+        return this.drafts.models.filter(draft => {
+          let fullname = this.employeeFullname(draft.employee)
+          return fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        })
+      } else {
+        return this.drafts.models
+      }
+    }
   },
   created() {
     this.$store.dispatch('EvaluationsStore/index')

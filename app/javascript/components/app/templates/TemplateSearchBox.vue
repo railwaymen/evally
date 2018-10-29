@@ -15,7 +15,7 @@
 
         <v-list-tile v-for="template in filteredTemplates" :key="template.id" @click="selectTemplate(template.id)" avatar>
           <v-list-tile-avatar>
-						<v-icon>description</v-icon>
+						<v-icon>list_alt</v-icon>
 					</v-list-tile-avatar>
 
           <v-list-tile-content>
