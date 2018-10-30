@@ -57,13 +57,13 @@ export default {
   data() {
     return {
       menu1: false,
-      next_evaluation_at: this.$moment().startOf('month').add(6, 'M').format()
+      next_evaluation_at: this.$moment().add(6, 'M').format()
     }
   },
   methods: {
     saveEvaluation() {
       this.evaluation.state = 'completed'
-      this.evaluation.completed_at = this.$moment().format()
+      this.evaluation.completed_at = this.$moment().utc().format()
 
       let params = {
         evaluation: {

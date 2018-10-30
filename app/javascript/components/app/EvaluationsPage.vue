@@ -7,7 +7,11 @@
 
       <v-flex xs6>
         <div class="panel__action-bar">
-          <template v-if="evaluation.isExisting()">
+          <v-btn @click="build" color="green" flat>
+            <v-icon>add</v-icon> New evaluation
+          </v-btn>
+
+          <template v-if="draft.isExisting()">
             <v-btn @click="saveEvaluation" color="green" flat>
               <v-icon>save_alt</v-icon> Save completed
             </v-btn>
@@ -30,28 +34,7 @@
       <v-container grid-list-lg fluid>
         <v-layout row>
           <v-flex xs3>
-
-            <div class="box pa-4">
-              <v-layout>
-                <v-flex xs6>
-                  <v-btn
-                    @click="select('new')"
-                    :color="selected === 'new' ? 'primary' : 'grey darken-3'"
-                    flat outline block
-                  >New</v-btn>
-                </v-flex>
-                <v-flex xs6>
-                  <v-btn
-                    @click="select('drafts')"
-                    :color="selected === 'drafts' ? 'primary' : 'grey darken-3'"
-                    flat outline block
-                  >Drafts</v-btn>
-                </v-flex>
-              </v-layout>
-            </div>
-
-            <create-evaluation-form v-if="selected === 'new'"></create-evaluation-form>
-            <evaluation-drafts-box v-else></evaluation-drafts-box>
+            <evaluation-drafts-box></evaluation-drafts-box>
           </v-flex>
 
           <v-flex xs9>
@@ -75,27 +58,15 @@ import EvaluationDraftsBox from './evaluations/EvaluationDraftsBox'
 export default {
   name: 'EvaluationsPage',
   components: { CreateEvaluationForm, EvaluationBox, EvaluationDraftsBox },
-  data() {
-    return {
-      selected: 'new',
-      model: 'evaluation'
-    }
-  },
   methods: {
-    select(option) {
-      this.selected = option
-
-      if (option === 'new') {
-        this.$store.commit('EvaluationsStore/clearDraft')
-      }
-    },
-
     reset() {
       this.$store.commit('EvaluationsStore/resetDraft')
     },
 
     saveDraft() {
-      this.$store.dispatch('EvaluationsStore/update', { evaluation: this.evaluation.attributes })
+      this.draft.updated_at = this.$moment().format()
+
+      this.$store.dispatch('EvaluationsStore/update', { evaluation: this.draft.attributes })
         .then(() => {
           this.flash({ success: `Evaluation has been succefully updated` })
         })
@@ -104,17 +75,22 @@ export default {
         })
     },
 
+    build() {
+      this.$store.commit('EvaluationsStore/clearDraft')
+      openerBus.openFormModal({ model: 'draft', action: 'create', maxWidth: 500, redirect: false })
+    },
+
     remove() {
-      openerBus.openDestroyModal({ model: this.model, action: 'delete', maxWidth: 500 })
+      openerBus.openDestroyModal({ model: 'evaluation', action: 'delete', maxWidth: 500 })
     },
 
     saveEvaluation() {
-      openerBus.openFormModal({ model: this.model, action: 'complete', maxWidth: 500 })
+      openerBus.openFormModal({ model: 'evaluation', action: 'complete', maxWidth: 500 })
     }
   },
   computed: {
     ...mapGetters({
-      evaluation: 'EvaluationsStore/draft'
+      draft: 'EvaluationsStore/draft'
     })
   }
 }

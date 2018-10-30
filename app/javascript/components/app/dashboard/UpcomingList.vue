@@ -4,17 +4,26 @@
 
 		<div class="box__list">
 			<v-list>
-        <v-list-tile v-for="draft in drafts" :key="draft.id" avatar>
+        <v-list-tile v-for="upcoming in preparedEmployees" :key="upcoming.id" avatar>
 
           <v-list-tile-content>
-            <v-list-tile-title><strong>{{ draft.employee.fullname }}</strong> as <em>{{ draft.employee.position }}</em> - {{ draft.next_evaluation_date }}</v-list-tile-title>
+            <v-list-tile-title><strong>{{ employeeFullname(upcoming) }}</strong> as <em>{{ upcoming.position }}</em> - {{ nextEvaluationDate(upcoming) }}</v-list-tile-title>
           </v-list-tile-content>
 
 					<v-list-tile-action>
-						<v-btn color="green" icon flat>
+						<v-btn @click="newEvaluation(upcoming.id)" color="green" icon flat>
 							<v-icon>add</v-icon>
 						</v-btn>
 					</v-list-tile-action>
+        </v-list-tile>
+
+				<v-list-tile v-if="preparedEmployees.length == 0">
+          <v-list-tile-action>
+            <v-icon>done_all</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>There are no upcoming evaluations to show</v-list-tile-title>
+          </v-list-tile-content>
         </v-list-tile>
       </v-list>
 		</div>
@@ -22,67 +31,40 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
+import openerBus from '../../../lib/opener_bus'
+
 export default {
 	name: 'UpcomingList',
-	data () {
-		return {
-			drafts: [
-				{ 
-					id: 0,
-					employee: {
-						fullname: 'Kent Clark',
-						position: 'Copy writer'
-					},
-					next_evaluation_date: 'August 2018',
-					links: {
-						create: ''
-					}
-				},
-				{ 
-					id: 1,
-					employee: {
-						fullname: 'Rose Staphard',
-						position: 'Junior Project Manager'
-					},
-					next_evaluation_date: 'August 2018',
-					links: {
-						create: ''
-					}
-				},
-				{ 
-					id: 2,
-					employee: {
-						fullname: 'Wendy Craig',
-						position: 'Junior DevOps'
-					},
-					next_evaluation_date: 'September 2018',
-					links: {
-						create: ''
-					}
-				},
-				{ 
-					id: 3,
-					employee: {
-						fullname: 'Tom Walker',
-						position: 'QA'
-					},
-					next_evaluation_date: 'September 2018',
-					links: {
-						create: ''
-					}
-				},
-				{ 
-					id: 4,
-					employee: {
-						fullname: 'Le Chiffre',
-						position: 'Gambling Consultant'
-					},
-					next_evaluation_date: 'September 2018',
-					links: {
-						create: ''
-					}
-				}
-			]
+	methods: {
+		newEvaluation(employee_id) {
+			openerBus.openFormModal({ 
+				model: 'draft',
+				action: 'create',
+				maxWidth: 500,
+				employee_id: employee_id,
+				redirect: true
+			})
+			this.$store.commit('EvaluationsStore/clearDraft')
+		}
+	},
+	computed: {
+		...mapGetters({
+			employees: 'EmployeesStore/employees',
+			drafts: 'EvaluationsStore/drafts'
+		}),
+
+		preparedEmployees() {
+			let alreadyDrafted = this.drafts.models.map(evaluation => Number(evaluation.employee.id))
+
+			let prepared = this.employees.models.filter(employee => {
+				return !alreadyDrafted.includes(Number(employee.id))
+			}).sort((first, second) => {
+				return this.$moment().utc(first.next_evaluation_at).diff(this.$moment().utc(second.next_evaluation_at))
+			})
+
+			return prepared.slice(0, 5)
 		}
 	}
 }

@@ -19,7 +19,7 @@ module V1
         raise V1::ErrorResponderService.new(:invalid_record, 422, @evaluation.errors.messages)
       end
 
-      update_next_employee_evaluation_date
+      update_next_employee_evaluation_date if @evaluation.completed?
       @evaluation.save!
     end
 
@@ -28,7 +28,7 @@ module V1
     end
 
     def evaluation_params
-      @attributes.permit(:state, :completed_at, sections_attributes: [:id, skills: [:name, :value]])
+      @attributes.permit(:state, :completed_at, :updated_at, sections_attributes: [:id, skills: [:name, :value]])
     end
 
     def notify
