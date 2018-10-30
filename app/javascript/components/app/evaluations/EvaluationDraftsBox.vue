@@ -14,7 +14,7 @@
 
         <v-list-tile v-for="draft in filteredEvaluations" :key="draft.id" @click="selectEvaluation(draft.id)">
           <v-list-tile-action>
-            <v-icon>person_outline</v-icon>
+            <v-icon>assignment_turned_in</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>{{ employeeFullname(draft.employee) }}</v-list-tile-title>
