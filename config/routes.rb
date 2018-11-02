@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :employees, only: [:index, :create, :update, :destroy]
 
     resources :evaluations, only: [:index, :create, :update, :destroy]
+    get 'employees/:id/evaluation', to: 'evaluations#evaluation', as: 'empoyee_evaluation'
 
     resources :templates, only: [:index, :create, :update, :destroy]
 

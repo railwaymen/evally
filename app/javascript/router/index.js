@@ -67,13 +67,23 @@ export default new Router({
       ]
     },
     {
+      path: '/browse/:id',
+      name: 'browse_page_path',
+      component: require('../components/app/PublicEvaluationPage').default
+    },
+    {
       path: '/',
       name: 'landing_page_path',
       component: require('../components/LandingPage').default,
     },
     {
+      path: '/not_found',
+      name: 'not_found_path',
+      component: require('../components/404').default,
+    },
+    {
       path: '*',
-      redirect: '/'
+      redirect: '/not_found'
     }
   ]
 })

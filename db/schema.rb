@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_26_195910) do
+ActiveRecord::Schema.define(version: 2018_10_30_201031) do
 
   create_table "employees", force: :cascade do |t|
     t.string "first_name"
@@ -21,7 +21,9 @@ ActiveRecord::Schema.define(version: 2018_10_26_195910) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "public_token"
     t.index ["last_name"], name: "index_employees_on_last_name"
+    t.index ["public_token"], name: "index_employees_on_public_token", unique: true
     t.index ["user_id"], name: "index_employees_on_user_id"
   end
 

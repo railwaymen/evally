@@ -1,4 +1,6 @@
 class Employee < ApplicationRecord
+  has_secure_token :public_token
+
   belongs_to :user
   has_many :evaluations, dependent: :destroy
 

@@ -1,0 +1,38 @@
+.not-found {
+  position: relative
+  height: calc(100vh - 8rem)
+
+  &__image img {
+    position: absolute
+    top: -4rem
+    left: -5rem
+    height: 100vh
+    width: auto
+  }
+
+  &__content {
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+
+    .logo {
+      width: 15rem
+      height: auto
+      margin-bottom: 3rem
+    }
+
+    h1 {
+      font-size: 6.4rem
+    }
+
+    h2 {
+      font-size: 4.8rem
+    }
+
+    .homepage-link {
+      margin-top: 4rem
+      font-size: 1.6rem
+    }
+  }
+}

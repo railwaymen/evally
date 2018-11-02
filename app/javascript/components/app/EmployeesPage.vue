@@ -12,6 +12,9 @@
           </v-btn>
 
           <template v-if="employee.isExisting()">
+            <v-btn @click="permalink" flat>
+              <v-icon>link</v-icon> Permalink
+            </v-btn>
             <v-btn @click="edit" flat>
               <v-icon>edit</v-icon> Edit
             </v-btn>
@@ -55,6 +58,9 @@ export default {
     build() {
       this.$store.commit('EmployeesStore/clear')
       openerBus.openFormModal({ model: 'employee', action: 'create', maxWidth: 500 })
+    },
+    permalink() {
+      openerBus.openFormModal({ model: 'info', action: 'permalink', maxWidth: 600 })
     },
     edit() {
       openerBus.openFormModal({ model: 'employee', action: 'edit', maxWidth: 500 })

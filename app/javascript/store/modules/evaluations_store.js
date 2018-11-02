@@ -71,6 +71,10 @@ const EvaluationsStore = {
       state.draft.reset()
       return state
     },
+    single(state, data) {
+      state.evaluation = data
+      return state
+    },
     updateSkills(state, data) {
       _.map(state.draft.section_attributes, section => {
         if (section.id === data.sectionId) section.skills = data.skills
@@ -88,6 +92,23 @@ const EvaluationsStore = {
           .then(response => {
             let data = Utils.modelsFromResponse(response.data.data)
             context.commit('many', data)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+    show(context, token) {
+      return new Promise((resolve, reject) => {
+        context.commit('progress', 'loading')
+
+        let url = `/v1/employees/${token}/evaluation`
+
+        axios.get(url)
+          .then(response => {
+            let evaluation = new Evaluation(Utils.transformModel(response.data.data))
+
+            context.commit('single', evaluation)
           })
           .catch(error => {
             reject(error)
