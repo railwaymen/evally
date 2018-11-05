@@ -66,11 +66,12 @@ export default {
   components: { EvaluationSectionBox },
   computed: {
     ...mapGetters({
-      evaluation: 'EvaluationsStore/evaluation'
+      evaluation: 'EvaluationsStore/evaluation',
+      storedEmployee: 'EmployeesStore/employee'
     }),
 
     employee() {
-      return this.evaluation.employee
+      return this.storedEmployee.isExisting() ? this.storedEmployee : this.evaluation.employee
     }
   }
 }

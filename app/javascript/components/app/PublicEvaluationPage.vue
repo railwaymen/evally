@@ -33,7 +33,7 @@
             </router-link>
 
             <div class="sidebar__actions pa-4">
-              <v-btn color="primary" outline block>Download PDF</v-btn>
+              <!-- <v-btn color="primary" outline block>Download PDF</v-btn> -->
 
               <p class="homepage-link text-xs-center py-4">
                 <router-link :to="{ name: 'landing_page_path' }">Go to homepage</router-link>
@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       valid: false,
-      lastName: 'Jakubowski',
+      lastName: '',
       visible: false,
       rules: [
         v => !!v || 'Last name is required',
