@@ -8,17 +8,18 @@
       <v-card-text>
         <div class="text-xs-center">
           <p class="subheading">Copy the permalink below to share the latest {{ employee.first_name }}'s evaluation:</p>
-          <span class="body-1">{{ `${baseURL}/browse/${employee.public_token}` }}</span>
-          <v-btn icon flat>
-            <v-icon small>file_copy</v-icon>
-          </v-btn>
+          <span class="subheading">{{ link }}</span>
         </div>
       </v-card-text>
 
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="grey darken-1" flat @click="closeModal">Close</v-btn>
-        <!-- <v-btn color="green darken-1" flat @click="sendForm">{{ options.action }}</v-btn> -->
+        <v-btn color="primary" flat @click="copyLink">
+          <v-icon small>file_copy</v-icon>
+          <span class="separator"></span>
+          Copy
+        </v-btn>
       </v-card-actions>
     </v-form>
 
@@ -41,11 +42,22 @@ export default {
       this.employee.reset()
       this.$emit('close')
     },
+
+    copyLink() {
+      this.$copyText(this.link).then(() => {
+        this.flash({ success: 'Permalink has been copied to clipboard' })
+        this.$emit('close')
+      })
+    }
   },
   computed: {
     ...mapGetters({
       employee: 'EmployeesStore/employee'
-    })
+    }),
+
+    link() {
+      return `${this.baseURL}/browse/${this.employee.public_token}`
+    }
   }
 }
 </script>
