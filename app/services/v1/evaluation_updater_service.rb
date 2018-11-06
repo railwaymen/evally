@@ -16,7 +16,7 @@ module V1
       @evaluation.attributes = evaluation_params
 
       unless @evaluation.valid?
-        raise V1::ErrorResponderService.new(:invalid_record, 422, @evaluation.errors.messages)
+        raise V1::ErrorResponderService.new(:invalid_record, 422, @evaluation.errors.full_messages)
       end
 
       update_next_employee_evaluation_date if @evaluation.completed?

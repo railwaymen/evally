@@ -23,7 +23,7 @@
 
             "message": { "type": "string" },
 
-            "details": { "type": "object" }
+            "details": { "type": "array" }
           }
         }
       }

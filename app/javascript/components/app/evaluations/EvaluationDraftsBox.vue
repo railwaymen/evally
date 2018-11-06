@@ -65,12 +65,6 @@ export default {
         return this.drafts.models
       }
     }
-  },
-  created() {
-    this.$store.dispatch('EvaluationsStore/index')
-      .catch( error => {
-        this.flash({ error: 'Draft evaluations cannot be loaded due to some error: ' + error.message })
-      })
   }
 }
 </script>

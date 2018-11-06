@@ -26,7 +26,7 @@ module V1
       )
 
       unless @model.valid?
-        raise V1::ErrorResponderService.new(:invalid_record, 422, @model.errors.messages)
+        raise V1::ErrorResponderService.new(:invalid_record, 422, @model.errors.full_messages)
       end
 
       @model.save!
@@ -34,10 +34,10 @@ module V1
 
     def find_employee_and_template
       @employee ||= Employee.find_by(id: initial_params[:employee_id], user: @user)
-      raise V1::ErrorResponderService.new(:record_not_found, 404, { employee: ['does not exist'] }) unless @employee
+      raise V1::ErrorResponderService.new(:record_not_found, 404, ['Employee does not exist']) unless @employee
 
       @template ||= Template.includes(:sections).find_by(id: initial_params[:template_id], user: @user)
-      raise V1::ErrorResponderService.new(:record_not_found, 404, { template: ['does not exist'] }) unless @template
+      raise V1::ErrorResponderService.new(:record_not_found, 404, ['Template does not exist']) unless @template
     end
 
     def notify

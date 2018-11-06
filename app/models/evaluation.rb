@@ -15,7 +15,7 @@ class Evaluation < ApplicationRecord
   #
   validates :employee_id, uniqueness: {
     scope: :state,
-    message: 'employee\'s draft evaluation already exists'
+    message: 'draft evaluation already exists'
   }, if: :draft?
 
   validates :state, inclusion: {

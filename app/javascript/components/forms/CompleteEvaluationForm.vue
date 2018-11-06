@@ -78,8 +78,8 @@ export default {
           this.$store.commit('EvaluationsStore/clearDraft')
           this.$emit('close')
         })
-        .catch((error) => {
-          this.flash({ error: 'Template cannot be completed due to some error' })
+        .catch(error => {
+          this.flash({ error: 'Template cannot be completed due to some error: ' + this.renderError(error.response) })
         })
     }
   },

@@ -6,6 +6,7 @@
       :label="`New ${group} item`"
       v-model="newSkill"
       @keyup.enter.native="addSkill"
+      @click:append="addSkill"
       append-icon="keyboard_return"
       box
     ></v-text-field>
@@ -76,8 +77,10 @@ export default {
   methods: {
 
     addSkill() {
-      this.skills.push({ name: this.newSkill, value: this.groupSets[this.group].value })
-      this.newSkill = ''
+      if (this.newSkill.length > 0) {
+        this.skills.push({ name: this.newSkill, value: this.groupSets[this.group].value })
+        this.newSkill = ''
+      }
     },
 
     removeSkill(index) {

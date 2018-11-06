@@ -16,7 +16,7 @@ module V1
       @employee.attributes = employee_params
 
       unless @employee.valid?
-        raise V1::ErrorResponderService.new(:invalid_record, 422, @employee.errors.messages)
+        raise V1::ErrorResponderService.new(:invalid_record, 422, @employee.errors.full_messages)
       end
 
       @employee.save!

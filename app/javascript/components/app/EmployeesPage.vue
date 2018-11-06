@@ -73,6 +73,17 @@ export default {
     ...mapGetters({
       employee: 'EmployeesStore/employee',
     })
+  },
+  created() {
+    this.$store.dispatch('EmployeesStore/index')
+      .catch( error => {
+        this.flash({ error: 'Employees cannot be loaded due to some error: ' + this.renderError(error.response) })
+      })
+
+    this.$store.dispatch('EvaluationsStore/index')
+      .catch( error => {
+        this.flash({ error: 'Evaluations cannot be loaded due to some error: ' + this.renderError(error.response) })
+      })
   }
 }
 </script>

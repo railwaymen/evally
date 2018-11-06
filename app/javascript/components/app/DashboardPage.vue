@@ -61,12 +61,12 @@ export default {
   created() {
 		this.$store.dispatch('EmployeesStore/index')
       .catch( error => {
-        this.flash({ error: 'Employees cannot be loaded due to some error: ' + error.message })
+        this.flash({ error: 'Employees cannot be loaded due to some error: ' + this.renderError(error.response) })
       })
 
     this.$store.dispatch('EvaluationsStore/index')
       .catch( error => {
-        this.flash({ error: 'Draft evaluations cannot be loaded due to some error: ' + error.message })
+        this.flash({ error: 'Draft evaluations cannot be loaded due to some error: ' + this.renderError(error.response) })
       })
 	}
 }

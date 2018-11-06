@@ -20,7 +20,7 @@ module V1
       @model = User.new(user_params)
 
       unless @model.valid?
-        raise V1::ErrorResponderService.new(:invalid_record, 422, @model.errors.messages)
+        raise V1::ErrorResponderService.new(:invalid_record, 422, @model.errors.full_messages)
       end
 
       @model.save!

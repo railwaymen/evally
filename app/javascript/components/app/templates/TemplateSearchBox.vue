@@ -74,12 +74,6 @@ export default {
 
       return outputArray.sort((a, b) => a.name.localeCompare(b.name))
     }
-  },
-  created() {
-    this.$store.dispatch('TemplatesStore/index')
-      .catch( error => {
-        this.flash({ error: 'Templates cannot be loaded due to some error: ' + error.message })
-      })
   }
 }
 </script>
