@@ -7,7 +7,7 @@
             <div class="access-form">
               <img class="access-form__logo" src="../../assets/img/logo2_black.png" alt="Logo Evally">
 
-              <v-form ref="accessForm" v-model="valid">
+              <v-form ref="accessForm" v-model="valid" @submit.prevent="enter">
                 <v-card-text>
                   <p class="subheading">Please enter your last name to see the latest evaluation</p>
                   <v-text-field
@@ -17,7 +17,7 @@
                 </v-card-text>
 
                 <v-card-actions>
-                  <v-btn color="primary" @click="enter" outline block>Enter</v-btn>
+                  <v-btn color="primary" type="submit" outline block>Enter</v-btn>
                 </v-card-actions>
               </v-form>
             </div>

@@ -1,6 +1,6 @@
 <template>
 	<div class="box box--border-grey">
-		<h3 class="box__header text-xs-center">Activities</h3>
+		<h3 class="box__header text-xs-center">Activities (not implemented)</h3>
 
 		<div class="box__list">
 			<v-list two-line>

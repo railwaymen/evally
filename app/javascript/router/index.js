@@ -45,11 +45,6 @@ export default new Router({
           component: require('../components/app/TemplatesPage').default,
         },
         {
-          path: 'skills',
-          name: 'skills_path',
-          component: require('../components/app/SkillsPage').default,
-        },
-        {
           path: 'archive',
           name: 'archive_path',
           component: require('../components/app/ArchivePage').default,
