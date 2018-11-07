@@ -12,6 +12,9 @@
           </v-btn>
 
           <template v-if="employee.isExisting()">
+            <v-btn @click="permalink" flat>
+              <v-icon>link</v-icon> Permalink
+            </v-btn>
             <v-btn @click="edit" flat>
               <v-icon>edit</v-icon> Edit
             </v-btn>
@@ -56,6 +59,9 @@ export default {
       this.$store.commit('EmployeesStore/clear')
       openerBus.openFormModal({ model: 'employee', action: 'create', maxWidth: 500 })
     },
+    permalink() {
+      openerBus.openFormModal({ model: 'info', action: 'permalink', maxWidth: 600 })
+    },
     edit() {
       openerBus.openFormModal({ model: 'employee', action: 'edit', maxWidth: 500 })
     },
@@ -67,6 +73,17 @@ export default {
     ...mapGetters({
       employee: 'EmployeesStore/employee',
     })
+  },
+  created() {
+    this.$store.dispatch('EmployeesStore/index')
+      .catch( error => {
+        this.flash({ error: 'Employees cannot be loaded due to some error: ' + this.renderError(error.response) })
+      })
+
+    this.$store.dispatch('EvaluationsStore/index')
+      .catch( error => {
+        this.flash({ error: 'Evaluations cannot be loaded due to some error: ' + this.renderError(error.response) })
+      })
   }
 }
 </script>

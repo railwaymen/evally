@@ -3,7 +3,7 @@ module V1
 
     attr_reader :identifier, :status, :details
 
-    def initialize(identifier, status = :bad_request, details = {})
+    def initialize(identifier, status = :bad_request, details = [])
       @identifier = identifier
       @status = status
       @details = details

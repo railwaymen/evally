@@ -16,7 +16,8 @@ class Employee extends Model {
       last_name: '',
       position: '',
       hired_at: null,
-      next_evaluation_at: null
+      next_evaluation_at: null,
+      public_token: null
     }
   }
 

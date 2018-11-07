@@ -28,11 +28,9 @@ axios.interceptors.response.use(response => {
 
     router.push({ name: 'landing_page_path' })
     localStorage.clear()
-
-    return Promise.reject(new Error('Unauthorized action. Please log in.'))
-  } else {
-    return Promise.reject(error)
   }
+
+  return Promise.reject(error)
 })
 
 export default axios

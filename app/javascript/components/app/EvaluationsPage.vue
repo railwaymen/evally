@@ -70,8 +70,8 @@ export default {
         .then(() => {
           this.flash({ success: `Evaluation has been succefully updated` })
         })
-        .catch((error) => {
-          this.flash({ error: 'Template cannot be updated due to some error' })
+        .catch(error => {
+          this.flash({ error: 'Evaluation cannot be updated due to some error: ' + this.renderError(error.response) })
         })
     },
 
@@ -92,6 +92,12 @@ export default {
     ...mapGetters({
       draft: 'EvaluationsStore/draft'
     })
+  },
+  created() {
+    this.$store.dispatch('EvaluationsStore/index')
+      .catch( error => {
+        this.flash({ error: 'Draft evaluations cannot be loaded due to some error: ' + this.renderError(error.response) })
+      })
   }
 }
 </script>

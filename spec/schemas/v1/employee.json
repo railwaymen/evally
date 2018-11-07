@@ -25,7 +25,9 @@
 
             "hired_at" : { "type" : "string" },
 
-            "next_evaluation_at" : { "type" : ["string", "null"] }
+            "next_evaluation_at" : { "type" : ["string", "null"] },
+
+            "public_token" : { "type" : "string" }
           }
         }
       }

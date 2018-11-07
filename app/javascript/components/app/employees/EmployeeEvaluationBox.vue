@@ -67,8 +67,12 @@ export default {
   computed: {
     ...mapGetters({
       evaluation: 'EvaluationsStore/evaluation',
-      employee: 'EmployeesStore/employee'
-    })
+      storedEmployee: 'EmployeesStore/employee'
+    }),
+
+    employee() {
+      return this.storedEmployee.isExisting() ? this.storedEmployee : this.evaluation.employee
+    }
   }
 }
 </script>

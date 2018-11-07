@@ -88,8 +88,8 @@ export default {
           if (this.options.redirect) this.$router.push({ name: 'evaluations_path' })
           this.$emit('close')
         })
-        .catch((err) => {
-          this.flash({ error: 'Evaluation cannot be created due to some error' })
+        .catch(error => {
+          this.flash({ error: 'Evaluation cannot be created due to some error: ' + this.renderError(error.response) })
         })
     }
   },
@@ -120,13 +120,13 @@ export default {
     this.employee = this.options.employee_id
 
     this.$store.dispatch('EmployeesStore/index')
-      .catch( error => {
-        this.flash({ error: 'Employees cannot be loaded due to some error: ' + error.message })
+      .catch(error => {
+        this.flash({ error: 'Employees cannot be loaded due to some error: ' + this.renderError(error.response) })
       })
 
     this.$store.dispatch('TemplatesStore/index')
-      .catch( error => {
-        this.flash({ error: 'Templates cannot be loaded due to some error: ' + error.message })
+      .catch(error => {
+        this.flash({ error: 'Templates cannot be loaded due to some error: ' + this.renderError(error.response) })
       })
   }
 }

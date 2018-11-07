@@ -28,6 +28,10 @@ Vue.use(Vuex)
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
 
+// Vue2Clipboard
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
+
 // VueMoment
 import VueMoment from 'vue-moment'
 Vue.use(VueMoment)

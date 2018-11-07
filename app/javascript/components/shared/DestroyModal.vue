@@ -52,8 +52,8 @@ export default {
           this.$store.commit('EvaluationsStore/clearEvaluation')
           this.dialog = false
         })
-        .catch(() => {
-          this.flash({ error: 'Employee cannot be destroyed due to some error' })
+        .catch(error => {
+          this.flash({ error: 'Employee cannot be destroyes due to some error: ' + this.renderError(error.response) })
         })
     },
 
@@ -63,8 +63,8 @@ export default {
           this.flash({ success: 'Evaluation has been succesfully destroyed' })
           this.dialog = false
         })
-        .catch(() => {
-          this.flash({ error: 'Evaluation cannot be destroyed due to some error' })
+        .catch(error => {
+          this.flash({ error: 'Evaluation cannot be destroyed due to some error: ' + this.renderError(error.response) })
         })
     },
 
@@ -74,8 +74,8 @@ export default {
           this.flash({ success: 'Template has been succesfully destroyed' })
           this.dialog = false
         })
-        .catch(() => {
-          this.flash({ error: 'Template cannot be destroyed due to some error' })
+        .catch(error => {
+          this.flash({ error: 'Template cannot be destroyed due to some error: ' + this.renderError(error.response) })
         })
     }
   },

@@ -87,8 +87,8 @@ export default {
                 this.flash({ success: 'Employee has been succefully created.' })
                 this.$emit('close')
               })
-              .catch(() => {
-                this.flash({ error: 'Employee cannot be created due to some error' })
+              .catch(error => {
+                this.flash({ error: 'Employee cannot be created due to some error: ' + this.renderError(error.response) })
               })
 
             break
@@ -99,8 +99,8 @@ export default {
                 this.flash({ success: 'Employee has been succefully updated' })
                 this.$emit('close')
               })
-              .catch(() => {
-                this.flash({ error: 'Employee cannot be updated due to some error' })
+              .catch(error => {
+                this.flash({ error: 'Employee cannot be updated due to some error: ' + this.renderError(error.response) })
               })
 
             break
