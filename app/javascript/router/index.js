@@ -30,6 +30,11 @@ export default new Router({
           component: require('../components/app/DashboardPage').default,
         },
         {
+          path: 'evaluations',
+          name: 'evaluations_path',
+          component: require('../components/app/EvaluationsPage').default,
+        },
+        {
           path: 'employees',
           name: 'employees_path',
           component: require('../components/app/EmployeesPage').default,
@@ -38,11 +43,6 @@ export default new Router({
           path: 'templates',
           name: 'templates_path',
           component: require('../components/app/TemplatesPage').default,
-        },
-        {
-          path: 'skills',
-          name: 'skills_path',
-          component: require('../components/app/SkillsPage').default,
         },
         {
           path: 'archive',
@@ -62,13 +62,23 @@ export default new Router({
       ]
     },
     {
+      path: '/browse/:id',
+      name: 'browse_page_path',
+      component: require('../components/app/PublicEvaluationPage').default
+    },
+    {
       path: '/',
       name: 'landing_page_path',
       component: require('../components/LandingPage').default,
     },
     {
+      path: '/not_found',
+      name: 'not_found_path',
+      component: require('../components/404').default,
+    },
+    {
       path: '*',
-      redirect: '/'
+      redirect: '/not_found'
     }
   ]
 })

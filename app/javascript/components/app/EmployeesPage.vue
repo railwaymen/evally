@@ -12,6 +12,9 @@
           </v-btn>
 
           <template v-if="employee.isExisting()">
+            <v-btn @click="permalink" flat>
+              <v-icon>link</v-icon> Permalink
+            </v-btn>
             <v-btn @click="edit" flat>
               <v-icon>edit</v-icon> Edit
             </v-btn>
@@ -32,7 +35,7 @@
           </v-flex>
 
           <v-flex xs9>
-            <employee-card></employee-card>
+            <employee-evaluation-box></employee-evaluation-box>
           </v-flex>
         </v-layout>
       </v-container>
@@ -45,33 +48,42 @@ import { mapGetters } from 'vuex'
 
 import openerBus from '../../lib/opener_bus'
 
-import EmployeeCard from './employees/EmployeeCard'
+import EmployeeEvaluationBox from './employees/EmployeeEvaluationBox'
 import EmployeeSearchBox from './employees/EmployeeSearchBox'
 
 export default {
   name: 'EmployeesPage',
-  components: { EmployeeCard, EmployeeSearchBox },
-  data() {
-    return {
-      model: 'employee'
-    }
-  },
+  components: { EmployeeEvaluationBox, EmployeeSearchBox },
   methods: {
     build() {
       this.$store.commit('EmployeesStore/clear')
-      openerBus.openFormModal({ model: this.model, action: 'create', maxWidth: 500 })
+      openerBus.openFormModal({ model: 'employee', action: 'create', maxWidth: 500 })
+    },
+    permalink() {
+      openerBus.openFormModal({ model: 'info', action: 'permalink', maxWidth: 600 })
     },
     edit() {
-      openerBus.openFormModal({ model: this.model, action: 'edit', maxWidth: 500 })
+      openerBus.openFormModal({ model: 'employee', action: 'edit', maxWidth: 500 })
     },
     remove() {
-      openerBus.openDestroyModal({ model: this.model, action: 'delete', maxWidth: 500 })
+      openerBus.openDestroyModal({ model: 'employee', action: 'delete', maxWidth: 500 })
     }
   },
   computed: {
     ...mapGetters({
       employee: 'EmployeesStore/employee',
     })
+  },
+  created() {
+    this.$store.dispatch('EmployeesStore/index')
+      .catch( error => {
+        this.flash({ error: 'Employees cannot be loaded due to some error: ' + this.renderError(error.response) })
+      })
+
+    this.$store.dispatch('EvaluationsStore/index')
+      .catch( error => {
+        this.flash({ error: 'Evaluations cannot be loaded due to some error: ' + this.renderError(error.response) })
+      })
   }
 }
 </script>

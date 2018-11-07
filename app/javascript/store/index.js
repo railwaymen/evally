@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import AuthStore from './modules/auth_store'
 import EmployeesStore from './modules/employees_store'
+import EvaluationsStore from './modules/evaluations_store'
 import FlashStore from './modules/flash_store'
 import SectionsStore from './modules/sections_store'
 import TemplatesStore from './modules/templates_store'
@@ -13,6 +14,7 @@ export default new Vuex.Store({
   modules: {
     AuthStore,
     EmployeesStore,
+    EvaluationsStore,
     FlashStore,
     SectionsStore,
     TemplatesStore

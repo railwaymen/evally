@@ -16,7 +16,7 @@ module V1
       @template.attributes = template_params
 
       unless @template.valid?
-        raise V1::ErrorResponderService.new(:invalid_record, 422, @template.errors.messages)
+        raise V1::ErrorResponderService.new(:invalid_record, 422, @template.errors.full_messages)
       end
 
       @template.save!

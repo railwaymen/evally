@@ -10,24 +10,6 @@
 
       <v-spacer></v-spacer>
 
-      <v-menu offset-y nudge-bottom="8">
-        <v-btn slot="activator" round flat>
-          <v-icon size="24">add</v-icon>
-          <span class="separator"></span>
-          Add new
-        </v-btn>
-
-        <v-list>
-          <v-list-tile v-for="item in creators" :key="item.id" to="/">
-            <v-list-tile-title>
-              <v-icon>{{ item.icon }}</v-icon>
-              <span class="separator"></span>
-              {{ item.name }}
-            </v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
-
       <v-btn icon @click="flashNotification">
         <v-icon>notifications</v-icon>
       </v-btn>
@@ -93,16 +75,11 @@ export default {
       model: 0,
       tabs: [
         { id: 0, name: 'Start', icon: 'dashboard', path: 'dashboard_path'},
-        { id: 1, name: 'Employees', icon: 'people', path: 'employees_path'},
-        { id: 2, name: 'Templates', icon: 'list_alt', path: 'templates_path'},
-        { id: 3, name: 'Skills', icon: 'pool', path: 'skills_path'},
-        { id: 4, name: 'Archive', icon: 'archive', path: 'archive_path'},
-        { id: 5, name: 'Settings', icon: 'settings', path: 'settings_path'}
-      ],
-      creators: [
-        { id: 0, name: 'Employee', icon: 'person', path: 'dashboard_path' },
-        { id: 1, name: 'Evaluation', icon: 'how_to_reg', path: 'dashboard_path' },
-        { id: 2, name: 'Template', icon: 'list_alt', path: 'dashboard_path' }
+        { id: 10, name: 'Evaluations', icon: 'assignment_turned_in', path: 'evaluations_path'},
+        { id: 20, name: 'Employees', icon: 'people', path: 'employees_path'},
+        { id: 30, name: 'Templates', icon: 'list_alt', path: 'templates_path'},
+        { id: 40, name: 'Archive', icon: 'archive', path: 'archive_path'},
+        { id: 50, name: 'Settings', icon: 'settings', path: 'settings_path'}
       ],
       items: [
         { id: 0, name: 'Profile', icon: 'person', path: 'profile_path' }

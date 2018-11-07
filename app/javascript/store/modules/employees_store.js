@@ -84,9 +84,9 @@ const EmployeesStore = {
           })
       })
     },
-    update(context, employee) {
+    update(context, data) {
       return new Promise((resolve, reject) => {
-        axios.put(context.state.employee.getFetchURL(), employee)
+        axios.put(context.state.employee.getFetchURL(), data)
           .then(response => {
             let updated = new Employee(Utils.transformModel(response.data.data))
 

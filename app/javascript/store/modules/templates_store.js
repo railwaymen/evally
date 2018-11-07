@@ -73,9 +73,9 @@ const TemplatesStore = {
           })
       })
     },
-    create(context, template) {
+    create(context, data) {
       return new Promise((resolve, reject) => {
-        axios.post(context.state.template.getSaveURL(), template)
+        axios.post(context.state.template.getSaveURL(), data)
           .then(response => {
             let template = new Template(Utils.transformModel(response.data.data))
 
@@ -88,9 +88,9 @@ const TemplatesStore = {
           })
       })
     },
-    update(context, template) {
+    update(context, data) {
       return new Promise((resolve, reject) => {
-        axios.put(context.state.template.getFetchURL(), template)
+        axios.put(context.state.template.getFetchURL(), data)
           .then(response => {
             let updated = new Template(Utils.transformModel(response.data.data))
 
