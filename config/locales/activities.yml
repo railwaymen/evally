@@ -1,0 +1,12 @@
+en:
+  activities:
+    employee:
+      create:
+        title: 'New employee'
+        description: "Welcome to new employee '%{name}'!"
+      update:
+        title: 'Employee updated'
+        description: "Employee '%{name}' has been updated."
+      destroy:
+        title: "Employee destroyed"
+        description: "Employee '%{name}' has been destroyed."
