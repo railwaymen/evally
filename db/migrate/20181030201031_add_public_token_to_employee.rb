@@ -3,6 +3,6 @@ class AddPublicTokenToEmployee < ActiveRecord::Migration[5.2]
     add_column :employees, :public_token, :string
     add_index :employees, :public_token, unique: true
 
-    Employee.all.map(&:regenerate_public_token)
+    Employee.where(public_token: nil).map(&:regenerate_public_token)
   end
 end
