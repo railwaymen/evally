@@ -32,6 +32,8 @@ module V1
     #
     def destroy
       @employee.destroy
+      current_user.activities.create(action: 'destroy', activable: @employee, activable_name: @employee.fullname)
+
       render json: {}, status: 204
     end
 
