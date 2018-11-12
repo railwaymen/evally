@@ -27,7 +27,7 @@ module V1
     end
 
     def add_activity
-      @employee.user.activities.create(action: 'update', activable: @employee, activable_name: @employee.fullname)
+      @employee.user.activities.create!(action: 'update', activable: @employee, activable_name: @employee.fullname)
     end
 
   end

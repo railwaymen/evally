@@ -7,7 +7,7 @@ module V1
     end
 
     def call
-      @evaluation if update_evaluation && notify
+      @evaluation if update_evaluation && add_activity
     end
 
     private
@@ -31,9 +31,11 @@ module V1
       @attributes.permit(:state, :completed_at, :updated_at, sections_attributes: [:id, skills: [:name, :value]])
     end
 
-    def notify
-      # TODO: (FF) create notification to display in dashboard menu
-      true
+    def add_activity
+      @employee = @evaluation.employee
+
+      action = @evaluation.completed? ? 'complete' : 'update'
+      @employee.user.activities.create!(action: action, activable: @evaluation, activable_name: @employee.fullname)
     end
   end
 end

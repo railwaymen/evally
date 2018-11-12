@@ -23,4 +23,5 @@ class Evaluation < ApplicationRecord
     message: "'%{value}' is not a valid state"
   }
 
+  delegate :user, to: :employee
 end

@@ -8,5 +8,28 @@ en:
         title: 'Employee updated'
         description: "Employee '%{name}' has been updated."
       destroy:
-        title: "Employee destroyed"
+        title: 'Employee destroyed'
         description: "Employee '%{name}' has been destroyed."
+    template:
+      create:
+        title: 'New template'
+        description: "Template '%{name}' has been created."
+      update:
+        title: 'Template updated'
+        description: "Template '%{name}' has been updated."
+      destroy:
+        title: 'Template destroyed'
+        description: "Template '%{name}' has been destroyed."
+    evaluation:
+      create:
+        title: 'New evaluation'
+        description: "%{name}'s evaluation has been created."
+      update:
+        title: 'Evaluation draft updated'
+        description: "%{name}'s evaluation has been updated."
+      complete:
+        title: 'Evaluation completed'
+        description: "%{name}'s evaluation has been completed."
+      destroy:
+        title: 'Evaluation draft destroyed'
+        description: "%{name}'s evaluation has been destroyed."

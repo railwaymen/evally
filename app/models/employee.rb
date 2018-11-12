@@ -16,6 +16,6 @@ class Employee < ApplicationRecord
   # # Mathods
   #
   def fullname
-    [first_name, last_name].join(' ')
+    [first_name, last_name].compact.join(' ')
   end
 end

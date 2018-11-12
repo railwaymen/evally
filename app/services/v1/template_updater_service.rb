@@ -7,7 +7,7 @@ module V1
     end
 
     def call
-      @template if update_template && notify
+      @template if update_template && add_activity
     end
 
     private
@@ -26,9 +26,8 @@ module V1
       @attributes.permit(:name, :state, sections_attributes: [:id, :name, :group, :width, :position, :_destroy, skills: [:name, :value]])
     end
 
-    def notify
-      # TODO: (FF) create notification to display in dashboard menu
-      true
+    def add_activity
+      @template.user.activities.create!(action: 'update', activable: @template, activable_name: @template.name)
     end
 
   end

@@ -89,6 +89,7 @@ export default {
           this.$emit('close')
         })
         .catch(error => {
+          console.log(error.response)
           this.flash({ error: 'Evaluation cannot be created due to some error: ' + this.renderError(error.response) })
         })
     }

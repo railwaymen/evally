@@ -45,6 +45,8 @@ module V1
       # only draft evaluations can be destroyed directly
 
       @evaluation.destroy
+      current_user.activities.create(action: 'destroy', activable: @evaluation, activable_name: @evaluation.employee.fullname)
+
       render json: {}, status: 204
     end
 

@@ -3,7 +3,7 @@
 		<h3 class="box__header text-xs-center">Activities</h3>
 
 		<div class="box__list">
-			<v-list two-line>
+			<v-list :two-line="activities.models.length > 0">
         <v-list-tile v-for="activity in activities.models" :key="activity.id" avatar>
 
           <v-list-tile-content>
@@ -15,9 +15,17 @@
             <v-list-tile-action-text>{{ dateShorthand(activity.created_at) }}</v-list-tile-action-text>
 					</v-list-tile-action>
         </v-list-tile>
-      </v-list>
 
-			<a href="#" style="font-size: 1.6rem; color: black; text-align: center; display: block;">See more</a>
+				<v-list-tile v-if="activities.models.length == 0">
+          <v-list-tile-content>
+            <v-list-tile-title>No activities from today</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+				<div class="text-xs-center pt-2">
+					<v-btn flat>See more</v-btn>
+				</div>
+      </v-list>
 		</div>
 	</div>
 </template>
@@ -37,18 +45,6 @@ export default {
 			let interval
 
 			let diff = this.$moment().diff(this.$moment(date), 'seconds')
-
-			interval = Math.floor(diff / 31536000)
-			if (interval >= 1) return `${interval}Y`
-
-			interval = Math.floor(diff / 2592000)
-			if (interval >= 1) return `${interval}M`
-
-			interval = Math.floor(diff / 604800)
-			if (interval >= 1) return `${interval}w`
-
-			interval = Math.floor(diff / 86400)
-			if (interval >= 1) return `${interval}d`
 
 			interval = Math.floor(diff / 3600)
 			if (interval >= 1) return `${interval}h`
