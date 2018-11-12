@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import ActivitiesStore from './modules/activities_store'
 import AuthStore from './modules/auth_store'
 import EmployeesStore from './modules/employees_store'
 import EvaluationsStore from './modules/evaluations_store'
@@ -12,6 +13,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
+    ActivitiesStore,
     AuthStore,
     EmployeesStore,
     EvaluationsStore,

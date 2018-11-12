@@ -7,7 +7,7 @@ module V1
     end
 
     def call
-      @employee if update_employee && notify
+      @employee if update_employee && add_activity
     end
 
     private
@@ -26,9 +26,8 @@ module V1
       @attributes.permit(:first_name, :last_name, :position, :hired_at, :last_evaluation_at, :next_evaluation_at)
     end
 
-    def notify
-      # TODO: (FF) create notification to display in dashboard menu
-      true
+    def add_activity
+      @employee.user.activities.create!(action: 'update', activable: @employee, activable_name: @employee.fullname)
     end
 
   end

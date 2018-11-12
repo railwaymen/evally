@@ -12,4 +12,10 @@ class Employee < ApplicationRecord
   validates :position, presence: true
 
   validates :hired_at, presence: true
+
+  # # Mathods
+  #
+  def fullname
+    [first_name, last_name].compact.join(' ')
+  end
 end

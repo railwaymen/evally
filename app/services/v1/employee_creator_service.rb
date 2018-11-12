@@ -7,28 +7,27 @@ module V1
     end
 
     def call
-      @model if create_new_employee && notify
+      @employee if create_new_employee && add_activity
     end
 
     private
 
     def create_new_employee
-      @model = @user.employees.build(employee_params)
+      @employee = @user.employees.build(employee_params)
 
-      unless @model.valid?
-        raise V1::ErrorResponderService.new(:invalid_record, 422, @model.errors.full_messages)
+      unless @employee.valid?
+        raise V1::ErrorResponderService.new(:invalid_record, 422, @employee.errors.full_messages)
       end
 
-      @model.save!
+      @employee.save!
     end
 
     def employee_params
       @attributes.permit(:first_name, :last_name, :position, :hired_at, :last_evaluation_at, :next_evaluation_at)
     end
 
-    def notify
-      # TODO: (FF) create notification to display in dashboard menu
-      true
+    def add_activity
+      @user.activities.create!(action: 'create', activable: @employee, activable_name: @employee.fullname)
     end
 
   end

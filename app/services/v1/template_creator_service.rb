@@ -7,28 +7,27 @@ module V1
     end
 
     def call
-      @model if create_new_template && notify
+      @template if create_new_template && add_activity
     end
 
     private
 
     def create_new_template
-      @model = @user.templates.build(template_params)
+      @template = @user.templates.build(template_params)
 
-      unless @model.valid?
-        raise V1::ErrorResponderService.new(:invalid_record, 422, @model.errors.full_messages)
+      unless @template.valid?
+        raise V1::ErrorResponderService.new(:invalid_record, 422, @template.errors.full_messages)
       end
 
-      @model.save!
-    end
-
-    def notify
-      # TODO: (FF) create notification to display in dashboard menu
-      true
+      @template.save!
     end
 
     def template_params
       @attributes.permit(:name, :state, sections_attributes: [:name, :group, :width, :position, skills: [:name, :value]])
+    end
+
+    def add_activity
+      @user.activities.create!(action: 'create', activable: @template, activable_name: @template.name)
     end
   end
 end

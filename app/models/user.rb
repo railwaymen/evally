@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   include RailsJwtAuth::Authenticatable
 
+  has_many :activities, dependent: :destroy
   has_many :employees, dependent: :destroy
   has_many :evaluations, through: :employees
   has_many :templates, dependent: :destroy
