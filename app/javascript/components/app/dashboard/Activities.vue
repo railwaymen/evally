@@ -35,11 +35,6 @@ import { mapGetters } from 'vuex'
 
 export default {
 	name: 'Activities',
-	data () {
-		return {
-			date: this.$moment().utc(),
-		}
-	},
 	methods: {
 		dateShorthand(date) {
 			let interval
@@ -57,11 +52,11 @@ export default {
 	},
 	computed: {
 		...mapGetters({
-			activities: 'ActivitiesStore/activities'
+			activities: 'ActivitiesStore/todayActivities'
 		})
 	},
 	created() {
-		this.$store.dispatch('ActivitiesStore/index', this.date)
+		this.$store.dispatch('ActivitiesStore/today')
       .catch( error => {
         this.flash({ error: 'Activities cannot be loaded due to some error: ' + this.renderError(error.response) })
       })

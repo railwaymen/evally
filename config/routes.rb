@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   end
 
   namespace :v1, defaults: { format: :json } do
-    resources :activities, only: [:index]
+    resources :activities, only: [:index] do
+      get 'today', on: :collection
+    end
 
     resources :employees, only: [:index, :create, :update, :destroy]
 

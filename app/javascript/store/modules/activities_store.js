@@ -6,23 +6,24 @@ import { ActivitiesList } from '../../models/activity'
 const ActivitiesStore = {
   namespaced: true,
   state: {
-    activities: new ActivitiesList(),
-    currentDate: null,
+    allActivities: new ActivitiesList(),
+    todayActivities: new ActivitiesList(),
     status: ''
 
   },
   getters: {
-    activities: state => state.activities,
-    currentDate: state => state.currentDate,
+    allActivities: state => state.allActivities,
+    todayActivities: state => state.todayActivities,
     status: state => state.status
   },
   mutations: {
-    setCurrentDate(state, date) {
-      state.currentDate = date
+    manyAll(state, data) {
+      state.allActivities.replace(data)
+      state.status = 'ok'
       return state
     },
-    many(state, data) {
-      state.activities.replace(data)
+    manyToday(state, data) {
+      state.todayActivities.replace(data)
       state.status = 'ok'
       return state
     },
@@ -32,16 +33,28 @@ const ActivitiesStore = {
     }
   },
   actions: {
-    index(context, date) {
-      context.commit('setCurrentDate', date)
-      
+    index(context, params) {
       return new Promise((resolve, reject) => {
         context.commit('progress', 'loading')
 
-        axios.get(context.state.activities.getFetchURL(), { params: { date: date.format('DD-MM-YYYY') } })
+        axios.get('v1/activities', { params: params })
           .then(response => {
             let data = Utils.modelsFromResponse(response.data.data)
-            context.commit('many', data)
+            context.commit('manyAll', data)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+    today(context) {
+      return new Promise((resolve, reject) => {
+        context.commit('progress', 'loading')
+
+        axios.get('v1/activities/today')
+          .then(response => {
+            let data = Utils.modelsFromResponse(response.data.data)
+            context.commit('manyToday', data)
           })
           .catch(error => {
             reject(error)

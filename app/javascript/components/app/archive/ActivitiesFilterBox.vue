@@ -27,7 +27,12 @@
               label="From"
               readonly
             ></v-text-field>
-            <v-date-picker v-model="from.date" @input="from.menu = false" no-title scrollable></v-date-picker>
+            <v-date-picker
+              v-model="from.date"
+              @input="from.menu = false"
+              :max="$moment().format('YYYY-MM-DD')"
+              no-title scrollable
+            ></v-date-picker>
           </v-menu>
         </div>
       </div>
@@ -53,7 +58,12 @@
               label="To"
               readonly
             ></v-text-field>
-            <v-date-picker v-model="to.date" @input="to.menu = false" no-title scrollable></v-date-picker>
+            <v-date-picker
+              v-model="to.date"
+              @input="to.menu = false"
+              :max="$moment().format('YYYY-MM-DD')"
+              no-title scrollable
+            ></v-date-picker>
           </v-menu>
         </div>
       </div>
@@ -71,8 +81,8 @@ export default {
   name: 'ActivitiesFilterBox',
   data() {
     return {
-      from: { menu: false, date: null },
-      to: { menu: false, date: null }
+      from: { menu: false, date: this.$moment().subtract(7, 'd').format('YYYY-MM-DD') },
+      to: { menu: false, date: this.$moment().format('YYYY-MM-DD') }
     }
   }
 }
