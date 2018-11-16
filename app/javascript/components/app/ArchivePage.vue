@@ -23,6 +23,7 @@
             </v-tabs>
 
             <activities-filter-box v-if="isActivitiesView"></activities-filter-box>
+            <employees-list-box v-if="isEmployeesView"></employees-list-box>
           </v-flex>
 
           <v-flex xs9>
@@ -39,18 +40,24 @@
 import ActivitiesFilterBox from './archive/ActivitiesFilterBox'
 import ActivitiesTimelineBox from './archive/ActivitiesTimelineBox'
 
+import EmployeesListBox from './archive/EmployeesListBox'
+
 export default {
   name: 'ArchivePage',
-  components: { ActivitiesFilterBox, ActivitiesTimelineBox },
+  components: { ActivitiesFilterBox, ActivitiesTimelineBox, EmployeesListBox },
   data() {
     return {
-      currentView: 1,
+      currentView: 0,
       views: ['employees', 'activities']
     }
   },
   computed: {
     isActivitiesView() {
       return this.currentView === this.views.indexOf('activities')
+    },
+
+    isEmployeesView() {
+      return this.currentView === this.views.indexOf('employees')
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="box mt-2 pa-4">
+  <div class="box mt-4 pa-4">
 
     <v-form>
       <div class="filter">
