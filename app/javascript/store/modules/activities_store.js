@@ -8,12 +8,14 @@ const ActivitiesStore = {
   state: {
     allActivities: new ActivitiesList(),
     todayActivities: new ActivitiesList(),
+    datesRange: { from: null, to: null },
     status: ''
 
   },
   getters: {
     allActivities: state => state.allActivities,
     todayActivities: state => state.todayActivities,
+    datesRange: state => state.datesRange,
     status: state => state.status
   },
   mutations: {
@@ -30,14 +32,18 @@ const ActivitiesStore = {
     progress(state, flag) {
       state.status = flag
       return state
-    }
+    },
+    setDatesRange(state, data) {
+      state.datesRange = data
+      return state
+    },
   },
   actions: {
-    index(context, params) {
+    index(context) {
       return new Promise((resolve, reject) => {
         context.commit('progress', 'loading')
 
-        axios.get('v1/activities', { params: params })
+        axios.get('v1/activities', { params: context.state.datesRange })
           .then(response => {
             let data = Utils.modelsFromResponse(response.data.data)
             context.commit('manyAll', data)
@@ -47,6 +53,7 @@ const ActivitiesStore = {
           })
       })
     },
+
     today(context) {
       return new Promise((resolve, reject) => {
         context.commit('progress', 'loading')

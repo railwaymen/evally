@@ -1,15 +1,15 @@
 <template>
-  <div class="box pa-4">
+  <div class="box box--with-content">
     <v-timeline class="timeline" dense clipped>
 
       <template v-for="(group, key) in groupedActivities">
         <v-timeline-item hide-dot :key="key">
-          <div class="timeline__date">
-            <span class="subheading">{{ key | moment("MMMM Do, YYYY") }}</span>
-          </div>
+          <v-chip label color="primary" text-color="white">
+            {{ key | moment("MMMM Do, YYYY") }}
+          </v-chip>
         </v-timeline-item>
 
-        <v-timeline-item v-for="activity in group" :key="activity.id" small>
+        <v-timeline-item v-for="activity in group" :key="activity.id" color="grey" small>
           <div class="activity">
             <div class="activity__timing">{{ activity.created_at | moment("HH:mm") }}</div>
             <div class="activity__text">
@@ -40,13 +40,8 @@ export default {
     }
   },
   created() {
-    let params = {
-      from: this.$moment().subtract(7, 'd').format('YYYY-MM-DD'),
-      to: this.$moment().format('YYYY-MM-DD')
-    }
-
-    this.$store.dispatch('ActivitiesStore/index', params)
-      .catch( error => {
+    this.$store.dispatch('ActivitiesStore/index')
+      .catch(error => {
         this.flash({ error: 'Activities cannot be loaded due to some error: ' + this.renderError(error.response) })
       })
   }
