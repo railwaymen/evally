@@ -80,10 +80,13 @@ export default {
         this.flash({ error: 'Employees cannot be loaded due to some error: ' + this.renderError(error.response) })
       })
 
-    this.$store.dispatch('EvaluationsStore/index')
+    this.$store.dispatch('EvaluationsStore/index', { state: 'completed' })
       .catch( error => {
         this.flash({ error: 'Evaluations cannot be loaded due to some error: ' + this.renderError(error.response) })
       })
+  },
+  beforeDestroy() {
+    this.$store.commit('EvaluationsStore/clear')
   }
 }
 </script>

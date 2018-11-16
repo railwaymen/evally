@@ -19,12 +19,12 @@ module V1
         raise V1::ErrorResponderService.new(:invalid_record, 422, @evaluation.errors.full_messages)
       end
 
-      update_next_employee_evaluation_date if @evaluation.completed?
-      @evaluation.save!
-    end
+      if @evaluation.completed?
+        Evaluation.where(employee_id: @evaluation.employee_id, state: :completed).update_all(state: :archived)
+        @evaluation.employee.update!(next_evaluation_at: @attributes[:next_evaluation_at])
+      end
 
-    def update_next_employee_evaluation_date
-      @evaluation.employee.update!(next_evaluation_at: @attributes[:next_evaluation_at])
+      @evaluation.save!
     end
 
     def evaluation_params

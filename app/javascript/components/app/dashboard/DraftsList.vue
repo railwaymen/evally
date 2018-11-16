@@ -39,13 +39,13 @@ export default {
 	name: 'DraftsList',
 	methods: {
 		edit(evaluation_id) {
-			this.$store.commit('EvaluationsStore/oneDraft', evaluation_id)
+			this.$store.commit('EvaluationsStore/one', evaluation_id)
 			this.$router.push({ name: 'evaluations_path' })
 		}
 	},
 	computed: {
 		...mapGetters({
-			drafts: 'EvaluationsStore/drafts'
+			drafts: 'EvaluationsStore/evaluations'
 		}),
 
 		slicedDrafts() {

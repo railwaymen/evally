@@ -10,35 +10,25 @@ const EvaluationsStore = {
   state: {
     evaluations: new EvaluationsList(),
     evaluation: new Evaluation(),
-    draft: new Evaluation(),
     status: ''
 
   },
   getters: {
-    evaluations: state => state.evaluastions,
-    drafts: state => state.evaluations.filter(evaluation => evaluation.state === 'draft'),
-    completed: state => state.evaluations.filter(evaluation => evaluation.state === 'completed'),
+    evaluations: state => state.evaluations,
     evaluation: state => state.evaluation,
-    draft: state => state.draft,
     status: state => state.status
   },
   mutations: {
-    clearDraft(state) {
-      state.draft = new Evaluation()
-      return state
-    },
-    clearEvaluation(state) {
+    clear(state) {
       state.evaluation = new Evaluation()
       return state
     },
-    oneDraft(state, evaluation_id) {
-      state.draft = state.evaluations.find({ id: evaluation_id })
+    one(state, evaluation_id) {
+      state.evaluation = state.evaluations.find({ id: evaluation_id })
       return state
     },
-    oneEvaluation(state, employee_id) {
-      // evaluations are sorted descending on backend by completed_at property
-      // find return the the most recent completed evaluation
-      state.evaluation = state.evaluations.find(e => e.state === 'completed' && e.employee.id == employee_id)
+    oneCompleted(state, employee_id) {
+      state.evaluation = state.evaluations.find(e => e.employee.id == employee_id)
       return state
     },
     many(state, data) {
@@ -67,16 +57,16 @@ const EvaluationsStore = {
       state.evaluations.sync()
       return state
     },
-    resetDraft(state) {
-      state.draft.reset()
+    reset(state) {
+      state.evaluation.reset()
       return state
     },
-    single(state, data) {
+    public(state, data) {
       state.evaluation = data
       return state
     },
     updateSkills(state, data) {
-      _.map(state.draft.section_attributes, section => {
+      _.map(state.evaluation.section_attributes, section => {
         if (section.id === data.sectionId) section.skills = data.skills
         return section
       })
@@ -84,11 +74,11 @@ const EvaluationsStore = {
     }
   },
   actions: {
-    index(context) {
+    index(context, params) {
       return new Promise((resolve, reject) => {
         context.commit('progress', 'loading')
 
-        axios.get(context.state.evaluations.getFetchURL())
+        axios.get(context.state.evaluations.getFetchURL(), { params: params })
           .then(response => {
             let data = Utils.modelsFromResponse(response.data.data)
             context.commit('many', data)
@@ -108,7 +98,7 @@ const EvaluationsStore = {
           .then(response => {
             let evaluation = new Evaluation(Utils.transformModel(response.data.data))
 
-            context.commit('single', evaluation)
+            context.commit('public', evaluation)
           })
           .catch(error => {
             reject(error)
@@ -122,7 +112,7 @@ const EvaluationsStore = {
             let evaluation = new Evaluation(Utils.transformModel(response.data.data))
 
             context.commit('push', evaluation)
-            context.commit('oneDraft', evaluation.id)
+            context.commit('one', evaluation.id)
 
             resolve(response)
           })
@@ -133,7 +123,7 @@ const EvaluationsStore = {
     },
     update(context, data) {
       return new Promise((resolve, reject) => {
-        axios.put(context.state.draft.getFetchURL(), data)
+        axios.put(context.state.evaluation.getFetchURL(), data)
           .then(response => {
             let updated = new Evaluation(Utils.transformModel(response.data.data))
 
@@ -148,12 +138,12 @@ const EvaluationsStore = {
     },
     destroy(context) {
       return new Promise((resolve, reject) => {
-        axios.delete(context.state.draft.getDeleteURL())
+        axios.delete(context.state.evaluation.getDeleteURL())
           .then(response => {
-            let id = context.state.draft.id
+            let id = context.state.evaluation.id
 
             context.commit('remove', id)
-            context.commit('clearDraft')
+            context.commit('clear')
 
             resolve()
           })

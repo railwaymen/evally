@@ -47,12 +47,12 @@ export default {
   },
   methods: {
     selectEvaluation(evaluation_id) {
-      this.$store.commit('EvaluationsStore/oneDraft', evaluation_id)
+      this.$store.commit('EvaluationsStore/one', evaluation_id)
     }
   },
   computed: {
     ...mapGetters({
-      drafts: 'EvaluationsStore/drafts',
+      drafts: 'EvaluationsStore/evaluations',
     }),
 
     filteredEvaluations() {

@@ -49,7 +49,7 @@ export default {
   methods: {
     showEvaluation(employee_id) {
       this.$store.commit('EmployeesStore/one', employee_id)
-      this.$store.commit('EvaluationsStore/oneEvaluation', employee_id)
+      this.$store.commit('EvaluationsStore/oneCompleted', employee_id)
     }
   },
   computed: {

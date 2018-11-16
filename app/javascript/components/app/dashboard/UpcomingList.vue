@@ -46,13 +46,13 @@ export default {
 				employee_id: employee_id,
 				redirect: true
 			})
-			this.$store.commit('EvaluationsStore/clearDraft')
+			this.$store.commit('EvaluationsStore/clear')
 		}
 	},
 	computed: {
 		...mapGetters({
 			employees: 'EmployeesStore/employees',
-			drafts: 'EvaluationsStore/drafts'
+			drafts: 'EvaluationsStore/evaluations'
 		}),
 
 		preparedEmployees() {

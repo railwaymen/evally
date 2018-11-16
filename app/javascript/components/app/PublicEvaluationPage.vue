@@ -88,7 +88,7 @@ export default {
       })
   },
   beforeDestroy() {
-    this.$store.commit('EvaluationsStore/clearEvaluation')
+    this.$store.commit('EvaluationsStore/clear')
   }
 }
 </script>

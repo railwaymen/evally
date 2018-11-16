@@ -7,9 +7,13 @@ class Evaluation < ApplicationRecord
   has_many :sections, as: :sectionable, dependent: :destroy
   accepts_nested_attributes_for :sections
 
+  # # Scopes
+  #
+  scope :by_state, Proc.new { |state| where(state: state) if state.present? }
+
   # # Enums
   #
-  enum state: { draft: 0, completed: 10 }
+  enum state: { draft: 0, completed: 10, archived: 20 }
 
   # # Validations
   #

@@ -15,21 +15,21 @@
     <div class="panel__content">
       <v-container grid-list-lg fluid>
         <v-layout row>
-          <v-flex xs9>
-            <v-layout row>
+          <v-flex xs8>
+            <v-layout row wrap>
 
-              <v-flex xs6>
+              <v-flex xs12>
                 <drafts-list></drafts-list>
               </v-flex>
 
-              <v-flex xs6>
+              <v-flex xs12>
                 <upcoming-list></upcoming-list>
               </v-flex>
 
             </v-layout>
           </v-flex>
 
-          <v-flex xs3>
+          <v-flex xs4>
             <activities></activities>
           </v-flex>
 
@@ -60,12 +60,12 @@ export default {
   },
   created() {
 		this.$store.dispatch('EmployeesStore/index')
-      .catch( error => {
+      .catch(error => {
         this.flash({ error: 'Employees cannot be loaded due to some error: ' + this.renderError(error.response) })
       })
 
-    this.$store.dispatch('EvaluationsStore/index')
-      .catch( error => {
+    this.$store.dispatch('EvaluationsStore/index', { state: 'draft' })
+      .catch(error => {
         this.flash({ error: 'Draft evaluations cannot be loaded due to some error: ' + this.renderError(error.response) })
       })
 	}
