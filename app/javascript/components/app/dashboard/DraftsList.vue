@@ -4,7 +4,7 @@
 
 		<div class="box__list">
 			<v-list two-line>
-        <v-list-tile v-for="draft in slicedDrafts" :key="draft.id" avatar>
+        <v-list-tile v-for="draft in sortedDrafts" :key="draft.id" avatar>
           <v-list-tile-content>
             <v-list-tile-title><strong>{{ employeeFullname(draft.employee) }}</strong> as <em>{{ draft.employee.position }}</em> - {{ nextEvaluationDate(draft.employee) }}</v-list-tile-title>
             <v-list-tile-sub-title>Updated {{ $moment(draft.updated_at).fromNow() }}</v-list-tile-sub-title>
@@ -48,8 +48,17 @@ export default {
 			drafts: 'EvaluationsStore/evaluations'
 		}),
 
-		slicedDrafts() {
-			return this.drafts.models.slice(0, 5)
+		sortedDrafts() {
+			let sorted = this.$_(this.drafts.models)
+				.orderBy(evaluation => {
+					let employee = evaluation.employee
+
+					if (!employee.next_evaluation_at) return this.$moment().format('YYYYMMDD')
+					return this.$moment(employee.next_evaluation_at).format('YYYYMMDD')
+				})
+				.value()
+
+			return sorted.slice(0, 5)
 		}
 	}
 }
