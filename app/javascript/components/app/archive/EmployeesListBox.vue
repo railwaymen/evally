@@ -3,6 +3,7 @@
 
     <div class="search-box__input">
       <v-text-field
+        v-model="search"
         append-icon="search"
         label="Search by name"
         box
@@ -11,7 +12,7 @@
 
     <v-expansion-panel class="elevation-0">
       <v-expansion-panel-content
-        v-for="(evaluations, group) in groupedEvaluations"
+        v-for="(evaluations, group) in preparedEvaluations"
         :key="group"
       >
         <div slot="header">
@@ -61,6 +62,14 @@
           </v-card-text>
         </v-card>
       </v-expansion-panel-content>
+
+      <v-expansion-panel-content v-if="areEvaluationsEmpty" disabled>
+        <div slot="header">
+          <div class="vcard-header">
+            There are no employees to show
+          </div>
+        </div>
+      </v-expansion-panel-content>
     </v-expansion-panel>
   </div>
 </template>
@@ -70,6 +79,11 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'EmployeesListBox',
+  data() {
+    return {
+      search: ''
+    }
+  },
   methods: {
     evaluationsEmployee(evaluations) {
       return evaluations[0].employee
@@ -84,11 +98,24 @@ export default {
       evaluations: 'EvaluationsStore/evaluations'
     }),
 
-    groupedEvaluations() {
-      return this.$_.groupBy(this.evaluations.models, evaluation => {
+    preparedEvaluations() {
+      let grouped = this.$_.groupBy(this.evaluations.models, evaluation => {
         return evaluation.employee.id
       })
+
+      if (this.search.length > 0) {
+        return this.$_.pickBy(grouped, (evaluations, key) => {
+          let fullname = this.employeeFullname(evaluations[0].employee)
+          return fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        })
+      }
+
+      return grouped
     },
+
+    areEvaluationsEmpty() {
+      return Object.keys(this.preparedEvaluations).length == 0
+    }
   },
   created() {
     this.$store.dispatch('EvaluationsStore/index', { state: ['completed', 'archived'] })
