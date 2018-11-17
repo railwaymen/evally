@@ -27,7 +27,7 @@
           </v-flex>
 
           <v-flex xs9>
-            <h1 class="headline" v-if="currentView === 0">Employees</h1>
+            <employee-evaluation-box v-if="isEmployeesView"></employee-evaluation-box>
             <activities-timeline-box v-if="isActivitiesView"></activities-timeline-box>
           </v-flex>
         </v-layout>
@@ -41,10 +41,11 @@ import ActivitiesFilterBox from './archive/ActivitiesFilterBox'
 import ActivitiesTimelineBox from './archive/ActivitiesTimelineBox'
 
 import EmployeesListBox from './archive/EmployeesListBox'
+import EmployeeEvaluationBox from './employees/EmployeeEvaluationBox'
 
 export default {
   name: 'ArchivePage',
-  components: { ActivitiesFilterBox, ActivitiesTimelineBox, EmployeesListBox },
+  components: { ActivitiesFilterBox, ActivitiesTimelineBox, EmployeesListBox, EmployeeEvaluationBox },
   data() {
     return {
       currentView: 0,
@@ -59,6 +60,9 @@ export default {
     isEmployeesView() {
       return this.currentView === this.views.indexOf('employees')
     }
+  },
+  created() {
+    this.currentView = this.$route.params.tab === 'activities' ? 1 : 0
   }
 }
 </script>

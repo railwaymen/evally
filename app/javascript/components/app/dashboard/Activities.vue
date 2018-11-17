@@ -23,7 +23,7 @@
         </v-list-tile>
 
 				<div class="text-xs-center pt-2">
-					<v-btn flat>See more</v-btn>
+					<v-btn :to="{ name: 'archive_path', params: { tab: 'activities' } }" flat>See more</v-btn>
 				</div>
       </v-list>
 		</div>
