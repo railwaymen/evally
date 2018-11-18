@@ -13,8 +13,14 @@
       @close="dialog = false"
     ></create-evaluation-form>
 
+    <archive-employee-form
+      v-if="options.model === 'employee' && options.action === 'archive'"
+      :options="options"
+      @close="dialog = false"
+    ></archive-employee-form>
+
     <employee-form
-      v-if="options.model === 'employee'"
+      v-if="options.model === 'employee' && ['create', 'edit'].indexOf(options.action) !== -1"
       :options="options"
       @close="dialog = false"
     ></employee-form>
@@ -31,6 +37,7 @@
 <script>
 import openerBus from '../../lib/opener_bus'
 
+import ArchiveEmployeeForm from '../forms/ArchiveEmployeeForm'
 import CompleteEvaluationForm from '../forms/CompleteEvaluationForm'
 import CreateEvaluationForm from '../forms/CreateEvaluationForm'
 import EmployeeForm from '../forms/EmployeeForm'
@@ -39,6 +46,7 @@ import SharePermalinkForm from '../forms/SharePermalinkForm'
 export default {
   name: 'FormsModal',
   components: {
+    ArchiveEmployeeForm,
     CompleteEvaluationForm,
     CreateEvaluationForm,
     EmployeeForm,

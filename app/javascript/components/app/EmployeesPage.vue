@@ -18,6 +18,9 @@
             <v-btn @click="edit" flat>
               <v-icon>edit</v-icon> Edit
             </v-btn>
+            <v-btn @click="archive" flat>
+              <v-icon>how_to_vote</v-icon> Archive
+            </v-btn>
             <v-btn @click="remove" color="red" flat>
               <v-icon>delete</v-icon> Delete
             </v-btn>
@@ -65,6 +68,9 @@ export default {
     edit() {
       openerBus.openFormModal({ model: 'employee', action: 'edit', maxWidth: 500 })
     },
+    archive() {
+      openerBus.openFormModal({ model: 'employee', action: 'archive', maxWidth: 500 })
+    },
     remove() {
       openerBus.openDestroyModal({ model: 'employee', action: 'delete', maxWidth: 500 })
     }
@@ -75,7 +81,7 @@ export default {
     })
   },
   created() {
-    this.$store.dispatch('EmployeesStore/index')
+    this.$store.dispatch('EmployeesStore/index', { state: 'hired' })
       .catch( error => {
         this.flash({ error: 'Employees cannot be loaded due to some error: ' + this.renderError(error.response) })
       })

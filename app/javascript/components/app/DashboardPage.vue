@@ -59,7 +59,7 @@ export default {
     })
   },
   created() {
-		this.$store.dispatch('EmployeesStore/index')
+		this.$store.dispatch('EmployeesStore/index', { state: 'hired' })
       .catch(error => {
         this.flash({ error: 'Employees cannot be loaded due to some error: ' + this.renderError(error.response) })
       })

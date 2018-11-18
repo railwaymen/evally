@@ -55,11 +55,11 @@ const EmployeesStore = {
     }
   },
   actions: {
-    index(context) {
+    index(context, params) {
       return new Promise((resolve, reject) => {
         context.commit('progress', 'loading')
 
-        axios.get(context.state.employees.getFetchURL())
+        axios.get(context.state.employees.getFetchURL(), { params: params })
           .then(response => {
             let data = Utils.modelsFromResponse(response.data.data)
             context.commit('many', data)

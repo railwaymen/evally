@@ -39,8 +39,8 @@
                     <div class="vcard__date-text">since</div>
                   </v-flex>
 
-                  <v-flex xs6>
-                    <div class="vcard__date">December 31st, 2018</div>
+                  <v-flex xs6 v-if="evaluationsEmployee(evaluations).state === 'released'">
+                    <div class="vcard__date">{{ evaluationsEmployee(evaluations).released_at | moment("MMMM Do, YYYY") }}</div>
                     <div class="vcard__date-text">until</div>
                   </v-flex>
                 </v-layout>

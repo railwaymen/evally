@@ -7,7 +7,7 @@ module V1
     # GET /v1/employees
     #
     def index
-      employees = current_user.employees.order(last_name: :asc)
+      employees = current_user.employees.by_state(params[:state]).order(last_name: :asc)
 
       render json: V1::EmployeeSerializer.new(employees).serialized_json, status: 200
     end

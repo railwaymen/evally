@@ -10,6 +10,9 @@ en:
       destroy:
         title: 'Employee destroyed'
         description: "Employee '%{name}' has been destroyed."
+      archive:
+        title: 'Employee archived'
+        description: "Employee '%{name}' has been archived."
     template:
       create:
         title: 'New template'
