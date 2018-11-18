@@ -56,13 +56,15 @@ export default {
     }),
 
     filteredEvaluations() {
+      let drafts = this.drafts.models.filter(draft => draft.state === 'draft')
+
       if (this.search.length > 0) {
-        return this.drafts.models.filter(draft => {
+        return drafts.filter(draft => {
           let fullname = this.employeeFullname(draft.employee)
           return fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         })
       } else {
-        return this.drafts.models
+        return drafts
       }
     }
   }

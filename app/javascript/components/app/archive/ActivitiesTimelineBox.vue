@@ -1,6 +1,6 @@
 <template>
   <div class="box box--with-content">
-    <v-timeline class="timeline" dense clipped>
+    <v-timeline v-if="activitiesExist" class="timeline" dense clipped>
 
       <template v-for="(group, key) in groupedActivities">
         <v-timeline-item hide-dot :key="key">
@@ -20,6 +20,12 @@
         </v-timeline-item>
       </template>
     </v-timeline>
+
+    <v-layout v-else row>
+      <v-flex xs12>
+        <h4 class="no-content__header no-content__header--large">There are no activities to show</h4>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
@@ -37,6 +43,10 @@ export default {
       return this.$_.groupBy(this.activities.models, activity => {
         return this.$moment(activity.created_at).startOf('day').format()
       })
+    },
+
+    activitiesExist() {
+      return Object.keys(this.groupedActivities).length > 0
     }
   },
   created() {

@@ -49,7 +49,7 @@ export default {
       this.$store.dispatch('EmployeesStore/destroy')
         .then(() => {
           this.flash({ success: 'Employee has been succesfully destroyed' })
-          this.$store.commit('EvaluationsStore/clearEvaluation')
+          this.$store.commit('EvaluationsStore/clear')
           this.dialog = false
         })
         .catch(error => {
