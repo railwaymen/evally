@@ -10,13 +10,13 @@
 console.log('Hello World from Webpacker')
 
 import Vue from 'vue'
-import App from '../app.vue'
+import App from '@/App'
 
-import router from '../router'
-import store from '../store'
+import router from '@/router'
+import store from '@/store'
 
 // Axios
-import axios from '../lib/http_config'
+import axios from '@/lib/http_config'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
@@ -41,14 +41,14 @@ import Vue2Filters from 'vue2-filters'
 Vue.use(Vue2Filters)
 
 // Mixins
-import base_mixin from '../lib/base_mixin'
+import base_mixin from '@/lib/base_mixin'
 Vue.mixin(base_mixin)
 
 // Properties
 import _ from 'lodash'
 Vue.prototype.$_ = _
 
-import '../assets/stylesheets/application.styl'
+import '@/assets/styles/application.styl'
 
 document.addEventListener('DOMContentLoaded', () => {
 
