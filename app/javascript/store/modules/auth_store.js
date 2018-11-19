@@ -41,6 +41,7 @@ const AuthStore = {
 
             localStorage.setItem('user_token', session.jwt)
             localStorage.setItem('current_user', JSON.stringify(session.user.data.attributes))
+
             context.commit('authSuccess', session)
 
             resolve()

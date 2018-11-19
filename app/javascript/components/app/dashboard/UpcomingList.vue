@@ -46,23 +46,27 @@ export default {
 				employee_id: employee_id,
 				redirect: true
 			})
-			this.$store.commit('EvaluationsStore/clearDraft')
+			this.$store.commit('EvaluationsStore/clear')
 		}
 	},
 	computed: {
 		...mapGetters({
 			employees: 'EmployeesStore/employees',
-			drafts: 'EvaluationsStore/drafts'
+			drafts: 'EvaluationsStore/evaluations'
 		}),
 
 		preparedEmployees() {
-			let alreadyDrafted = this.drafts.models.map(evaluation => Number(evaluation.employee.id))
+			let alreadyDrafted = this.$_.map(this.drafts.models, evaluation => Number(evaluation.employee.id))
 
-			let prepared = this.employees.models.filter(employee => {
-				return !alreadyDrafted.includes(Number(employee.id))
-			}).sort((first, second) => {
-				return this.$moment().utc(first.next_evaluation_at).diff(this.$moment().utc(second.next_evaluation_at))
-			})
+			let prepared = this.$_(this.employees.models)
+				.reject(employee => {
+					return alreadyDrafted.includes(Number(employee.id))
+				})
+				.orderBy(employee => {
+					if (!employee.next_evaluation_at) return this.$moment().format('YYYYMMDD')
+					return this.$moment(employee.next_evaluation_at).format('YYYYMMDD')
+				})
+				.value()
 
 			return prepared.slice(0, 5)
 		}

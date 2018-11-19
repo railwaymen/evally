@@ -44,6 +44,10 @@ Vue.use(Vue2Filters)
 import base_mixin from '../lib/base_mixin'
 Vue.mixin(base_mixin)
 
+// Properties
+import _ from 'lodash'
+Vue.prototype.$_ = _
+
 import '../assets/stylesheets/application.styl'
 
 document.addEventListener('DOMContentLoaded', () => {

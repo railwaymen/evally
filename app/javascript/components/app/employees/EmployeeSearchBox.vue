@@ -49,7 +49,7 @@ export default {
   methods: {
     showEvaluation(employee_id) {
       this.$store.commit('EmployeesStore/one', employee_id)
-      this.$store.commit('EvaluationsStore/oneEvaluation', employee_id)
+      this.$store.commit('EvaluationsStore/oneCompleted', employee_id)
     }
   },
   computed: {
@@ -58,14 +58,16 @@ export default {
     }),
     
     filteredEmployees() {
+      let hired = this.employees.models.filter(employee => employee.state === 'hired')
+
       if (this.search.length > 0) {
-        return this.employees.models.filter(employee => {
+        return hired.filter(employee => {
           let fullname = this.employeeFullname(employee)
           return fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         })
-      } else {
-        return this.employees.models
       }
+
+      return hired
     }
   }
 }

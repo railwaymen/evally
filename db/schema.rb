@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_08_201052) do
+ActiveRecord::Schema.define(version: 2018_11_18_113050) do
 
   create_table "activities", force: :cascade do |t|
     t.string "action"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 2018_11_08_201052) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "public_token"
+    t.integer "state", default: 0
+    t.datetime "released_at"
     t.index ["last_name"], name: "index_employees_on_last_name"
     t.index ["public_token"], name: "index_employees_on_public_token", unique: true
     t.index ["user_id"], name: "index_employees_on_user_id"

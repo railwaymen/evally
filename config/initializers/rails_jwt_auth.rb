@@ -58,7 +58,7 @@ RailsJwtAuth::RenderHelper.module_eval do
         jwt: jwt,
         user: V1::UserSerializer.new(user).serializable_hash
       }
-     }, status: 201
+    }, status: 201
   end
 
 end

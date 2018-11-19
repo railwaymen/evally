@@ -5,6 +5,11 @@ class Activity < ApplicationRecord
   belongs_to :activable, polymorphic: true
   belongs_to :user
 
+  # # Scopes
+  #
+  scope :since, Proc.new { |date| where('DATE(created_at) >= ?', date) if date.present? }
+  scope :to, Proc.new { |date| where('DATE(created_at) <= ?', date) if date.present? }
+
   # # Methods
   #
   def title

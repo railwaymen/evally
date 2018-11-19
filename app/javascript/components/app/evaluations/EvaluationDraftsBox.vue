@@ -47,22 +47,24 @@ export default {
   },
   methods: {
     selectEvaluation(evaluation_id) {
-      this.$store.commit('EvaluationsStore/oneDraft', evaluation_id)
+      this.$store.commit('EvaluationsStore/one', evaluation_id)
     }
   },
   computed: {
     ...mapGetters({
-      drafts: 'EvaluationsStore/drafts',
+      drafts: 'EvaluationsStore/evaluations',
     }),
 
     filteredEvaluations() {
+      let drafts = this.drafts.models.filter(draft => draft.state === 'draft')
+
       if (this.search.length > 0) {
-        return this.drafts.models.filter(draft => {
+        return drafts.filter(draft => {
           let fullname = this.employeeFullname(draft.employee)
           return fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         })
       } else {
-        return this.drafts.models
+        return drafts
       }
     }
   }

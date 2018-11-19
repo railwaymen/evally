@@ -60,7 +60,7 @@ export default {
   components: { CreateEvaluationForm, EvaluationBox, EvaluationDraftsBox },
   methods: {
     reset() {
-      this.$store.commit('EvaluationsStore/resetDraft')
+      this.$store.commit('EvaluationsStore/reset')
     },
 
     saveDraft() {
@@ -76,7 +76,7 @@ export default {
     },
 
     build() {
-      this.$store.commit('EvaluationsStore/clearDraft')
+      this.$store.commit('EvaluationsStore/clear')
       openerBus.openFormModal({ model: 'draft', action: 'create', maxWidth: 500, redirect: false })
     },
 
@@ -90,14 +90,17 @@ export default {
   },
   computed: {
     ...mapGetters({
-      draft: 'EvaluationsStore/draft'
+      draft: 'EvaluationsStore/evaluation'
     })
   },
   created() {
-    this.$store.dispatch('EvaluationsStore/index')
+    this.$store.dispatch('EvaluationsStore/index', { state: 'draft' })
       .catch( error => {
         this.flash({ error: 'Draft evaluations cannot be loaded due to some error: ' + this.renderError(error.response) })
       })
+  },
+  beforeDestroy() {
+    this.$store.commit('EvaluationsStore/clear')
   }
 }
 </script>
