@@ -46,7 +46,7 @@
       </v-menu>
 
       <v-tabs slot="extension" v-model="model" color="white" slider-color="primary" grow>
-        <v-tab v-for="tab in tabs" :key="tab.id" :to="{ name: tab.path }" exact>
+        <v-tab v-for="tab in tabs" :key="tab.id" :to="{ name: tab.path }">
           <v-icon>{{ tab.icon }}</v-icon>
           <span class="separator"></span>
           {{ tab.name }}
@@ -79,7 +79,7 @@ export default {
         { id: 20, name: 'Employees', icon: 'people', path: 'employees_path'},
         { id: 30, name: 'Templates', icon: 'list_alt', path: 'templates_path'},
         { id: 40, name: 'Archive', icon: 'archive', path: 'archive_path'},
-        { id: 50, name: 'Settings', icon: 'settings', path: 'settings_path'}
+        { id: 50, name: 'Settings', icon: 'settings', path: 'general_settings_path'}
       ],
       items: [
         { id: 0, name: 'Profile', icon: 'person', path: 'profile_path' }

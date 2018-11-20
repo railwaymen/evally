@@ -51,8 +51,19 @@ export default new Router({
         },
         {
           path: 'settings',
-          name: 'settings_path',
           component: require('@/components/pages/Settings').default,
+          children: [
+            {
+              path: '',
+              name: 'general_settings_path',
+              component: require('@/components/settings/GeneralPanel').default,
+            },
+            {
+              path: 'evaluations',
+              name: 'evaluations_settings_path',
+              component: require('@/components/settings/EvaluationsPanel').default,
+            }
+          ]
         },
         {
           path: 'profile',
