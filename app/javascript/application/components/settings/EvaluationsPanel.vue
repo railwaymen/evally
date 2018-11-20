@@ -42,6 +42,6 @@ export default {
       value1: 6,
       option2: false
     }
-  }  
+  }
 }
 </script>

@@ -42,12 +42,11 @@ export default {
   name: 'Settings',
   data() {
     return {
-      currentPanel: 0,
       panels: [
         { id: 0, name: 'General', icon: 'language', path: 'general_settings_path' },
         { id: 10, name: 'Evaluations', icon: 'assignment_turned_in', path: 'evaluations_settings_path' }
       ]
     }
-  }  
+  }
 }
 </script>

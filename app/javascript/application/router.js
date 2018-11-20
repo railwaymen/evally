@@ -46,8 +46,19 @@ export default new Router({
         },
         {
           path: 'archive',
-          name: 'archive_path',
           component: require('@/components/pages/Archive').default,
+          children: [
+            {
+              path: '',
+              name: 'employees_archive_path',
+              component: require('@/components/employees/EmployeeEvaluationBox').default,
+            },
+            {
+              path: 'activities',
+              name: 'activities_archive_path',
+              component: require('@/components/archive/ActivitiesTimelineBox').default,
+            },
+          ]
         },
         {
           path: 'settings',

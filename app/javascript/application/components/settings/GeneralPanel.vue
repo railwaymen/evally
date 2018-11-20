@@ -5,7 +5,7 @@
     <v-form>
       <div class="settings pa-3">
         <h2 class="subheading my-3">Dashboard widgets</h2>
-      
+
         <div class="setting">
           <v-subheader>Number of draft items</v-subheader>
           <v-slider
@@ -45,6 +45,6 @@ export default {
       value1: 5,
       value2: 6
     }
-  }  
+  }
 }
 </script>

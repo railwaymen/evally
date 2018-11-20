@@ -78,7 +78,7 @@ export default {
         { id: 10, name: 'Evaluations', icon: 'assignment_turned_in', path: 'evaluations_path'},
         { id: 20, name: 'Employees', icon: 'people', path: 'employees_path'},
         { id: 30, name: 'Templates', icon: 'list_alt', path: 'templates_path'},
-        { id: 40, name: 'Archive', icon: 'archive', path: 'archive_path'},
+        { id: 40, name: 'Archive', icon: 'archive', path: 'employees_archive_path'},
         { id: 50, name: 'Settings', icon: 'settings', path: 'general_settings_path'}
       ],
       items: [
