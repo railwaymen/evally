@@ -19,8 +19,8 @@ let utils = {
 
   prepareSession(data) {
     return {
-      user: _.pick(data.session.user.data.attributes, ['email', 'first_name', 'last_name']),
-      setting: data.session.user.data.attributes.setting
+      user: _.pick(data.attributes, ['email', 'first_name', 'last_name']),
+      setting: data.attributes.setting
     }
   }
 }

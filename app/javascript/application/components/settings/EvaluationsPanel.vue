@@ -9,7 +9,7 @@
         <div class="setting">
           <v-subheader>Months to next evaluation</v-subheader>
           <v-slider
-            v-model="value1"
+            v-model="setting.default_next_evaluation_time"
             min="1"
             max="12"
             step="1"
@@ -20,14 +20,14 @@
         <h2 class="subheading my-3">Public view</h2>
         <div class="setting">
           <v-checkbox
-            v-model="option2"
-            :label="option2 ? `Enabled` : `Disabled`"
+            v-model="setting.public_view_enabled"
+            :label="setting.public_view_enabled ? `Enabled` : `Disabled`"
           ></v-checkbox>
         </div>
 
         <div class="settings__actions text-xs-right">
-          <v-btn flat>Reset</v-btn>
-          <v-btn class="primary" flat>Save</v-btn>
+          <v-btn @click="setting.reset()" flat>Reset</v-btn>
+          <v-btn @click="save" class="primary" flat>Save</v-btn>
         </div>
       </div>
     </v-form>
@@ -35,13 +35,27 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'EvaluationsPanel',
-  data() {
-    return {
-      value1: 6,
-      option2: false
+  methods: {
+    save() {
+      if (this.setting.validate()) {
+        this.$store.dispatch('AuthStore/saveSetting', { setting: this.setting.attributes })
+          .then(() => {
+            this.flash({ success: 'Settings has been succefully updated' })
+          })
+          .catch(error => {
+            this.flash({ error: 'Settings cannot be updated due to some error: ' + this.renderError(error.response) })
+          })
+      }
     }
+  },
+  computed: {
+    ...mapGetters({
+      setting: 'AuthStore/setting'
+    })
   }
 }
 </script>

@@ -60,6 +60,9 @@ module V1
     def set_employee_by_token
       @employee = Employee.find_by(public_token: params[:id])
       raise V1::ErrorResponderService.new(:record_not_found, 404) unless @employee
+
+      setting = Setting.find_by(user_id: @employee.user_id)
+      raise V1::ErrorResponderService.new(:record_not_found, 404) unless setting&.public_view_enabled?
     end
   end
 end

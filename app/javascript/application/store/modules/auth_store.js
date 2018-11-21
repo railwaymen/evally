@@ -36,6 +36,10 @@ const AuthStore = {
     progress(state, status) {
       state.status = status
       return state
+    },
+    updateSetting(state, data) {
+      state.setting = new Setting(data)
+      return state
     }
   },
 
@@ -46,12 +50,7 @@ const AuthStore = {
 
         axios.post('v1/session', credentials)
           .then(response => {
-            let session = Utils.prepareSession(response.data)
-
             localStorage.setItem('ev411y_t0k3n', response.data.session.jwt)
-            localStorage.setItem('ev411y_s3ssi0n', JSON.stringify(session))
-            context.commit('setSession', session)
-
             resolve()
           })
           .catch(error => {
@@ -71,6 +70,38 @@ const AuthStore = {
         context.commit('clearSession')
 
         resolve()
+      })
+    },
+
+    getUser(context) {
+      return new Promise((resolve, reject) => {
+        axios.get('v1/users/current')
+          .then(response => {
+            let session = Utils.prepareSession(response.data.data)
+
+            context.commit('setSession', session)
+
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+
+    saveSetting(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.put('v1/settings/current', data)
+          .then(response => {
+            let user = new User(Utils.transformModel(response.data.data))
+
+            context.commit('updateSetting', user.setting)
+
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
       })
     }
   }

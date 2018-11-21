@@ -9,7 +9,7 @@
         <div class="setting">
           <v-subheader>Number of draft items</v-subheader>
           <v-slider
-            v-model="value1"
+            v-model="setting.default_draft_items"
             min="3"
             max="12"
             step="1"
@@ -20,7 +20,7 @@
         <div class="setting">
           <v-subheader>Number of upcoming items</v-subheader>
           <v-slider
-            v-model="value2"
+            v-model="setting.default_upcoming_items"
             min="3"
             max="12"
             step="1"
@@ -29,8 +29,8 @@
         </div>
 
         <div class="settings__actions text-xs-right">
-          <v-btn flat>Reset</v-btn>
-          <v-btn class="primary" flat>Save</v-btn>
+          <v-btn @click="setting.reset()" flat>Reset</v-btn>
+          <v-btn @click="save" class="primary" flat>Save</v-btn>
         </div>
       </div>
     </v-form>
@@ -38,13 +38,27 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'GeneralPanel',
-  data() {
-    return {
-      value1: 5,
-      value2: 6
+  methods: {
+    save() {
+      if (this.setting.validate()) {
+        this.$store.dispatch('AuthStore/saveSetting', { setting: this.setting.attributes })
+          .then(() => {
+            this.flash({ success: 'Settings has been succefully updated' })
+          })
+          .catch(error => {
+            this.flash({ error: 'Settings cannot be updated due to some error: ' + this.renderError(error.response) })
+          })
+      }
     }
+  },
+  computed: {
+    ...mapGetters({
+      setting: 'AuthStore/setting'
+    })
   }
 }
 </script>

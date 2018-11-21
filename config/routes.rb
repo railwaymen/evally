@@ -18,7 +18,9 @@ Rails.application.routes.draw do
 
     resources :templates, only: [:index, :create, :update, :destroy]
 
-    resources :users, only: [:create]
+    resources :users, only: [:show, :create]
+
+    resources :settings, only: [:update]
   end
 
   # Route to hit the Vue app

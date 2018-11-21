@@ -45,7 +45,8 @@ export default {
 	},
 	computed: {
 		...mapGetters({
-			drafts: 'EvaluationsStore/evaluations'
+			drafts: 'EvaluationsStore/evaluations',
+			setting: 'AuthStore/setting'
 		}),
 
 		sortedDrafts() {
@@ -58,7 +59,7 @@ export default {
 				})
 				.value()
 
-			return sorted.slice(0, 5)
+			return sorted.slice(0, this.setting.default_draft_items)
 		}
 	}
 }
