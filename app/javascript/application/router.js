@@ -7,7 +7,7 @@ Vue.use(Router)
 
 
 const isAuthenticated = (to, from, next) => {
-  if (store.getters['AuthStore/isAuthenticated']) {
+  if (localStorage.getItem('ev411y_t0k3n')) {
     next()
   } else {
     store.commit('FlashStore/push', { error: 'You are not authorized to perform this action. Please log in.' })

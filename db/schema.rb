@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_18_113050) do
+ActiveRecord::Schema.define(version: 2018_11_20_202606) do
 
   create_table "activities", force: :cascade do |t|
     t.string "action"
@@ -63,6 +63,17 @@ ActiveRecord::Schema.define(version: 2018_11_18_113050) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_sections_on_name"
     t.index ["sectionable_type", "sectionable_id"], name: "index_sections_on_sectionable_type_and_sectionable_id"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "default_draft_items", default: 5
+    t.integer "default_upcoming_items", default: 5
+    t.integer "default_next_evaluation_time", default: 6
+    t.boolean "public_view_enabled", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_settings_on_user_id"
   end
 
   create_table "templates", force: :cascade do |t|

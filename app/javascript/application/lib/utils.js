@@ -15,6 +15,13 @@ let utils = {
 
   randomId(length) {
     return `id_${Math.random().toString(36).substring(length)}`
+  },
+
+  prepareSession(data) {
+    return {
+      user: _.pick(data.session.user.data.attributes, ['email', 'first_name', 'last_name']),
+      setting: data.session.user.data.attributes.setting
+    }
   }
 }
 

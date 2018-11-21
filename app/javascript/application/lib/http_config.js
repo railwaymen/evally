@@ -9,7 +9,7 @@ axios.interceptors.request.use(config => {
   config.baseURL = window.location.origin
   config.headers.common['Content-Type'] = 'application/json'
 
-  const token = localStorage.getItem('user_token')
+  const token = localStorage.getItem('ev411y_t0k3n')
   if (token) config.headers.common['Authorization'] = 'Bearer ' + token
 
   config.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
@@ -24,7 +24,7 @@ axios.interceptors.response.use(response => {
   return response
 }, error => {
   if (error.response.status === 401) {
-    store.commit('AuthStore/authLogout')
+    store.commit('AuthStore/clearSession')
 
     router.push({ name: 'landing_page_path' })
     localStorage.clear()

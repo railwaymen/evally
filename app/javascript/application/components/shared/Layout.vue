@@ -17,9 +17,9 @@
       <v-menu offset-y nudge-bottom="8">
         <span class="toolbar-profile" slot="activator" v-ripple>
           <v-avatar class="toolbar-profile__avatar" color="primary" size="32">
-            <span class="white--text body-1">{{ initials }}</span>
+            <span class="white--text body-1">{{ user.initials() }}</span>
           </v-avatar>
-          <span class="toolbar-profile__fullname">{{ fullname }}</span>
+          <span class="toolbar-profile__fullname">{{ user.fullname() }}</span>
           <v-icon class="toolbar-profile__arrow" size="24">
             expand_more
           </v-icon>
@@ -89,13 +89,7 @@ export default {
   computed: {
     ...mapGetters({
       user: 'AuthStore/user'
-    }),
-    fullname () {
-      return `${this.user.first_name || ''} ${this.user.last_name || ''}`
-    },
-    initials () {
-      return this.fullname.split(' ').map(n => n[0]).join('').toUpperCase()
-    }
+    })
   },
   methods: {
     flashNotification () {
