@@ -10,11 +10,11 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon @click="flashNotification">
+      <!-- <v-btn icon @click="flashNotification">
         <v-icon>notifications</v-icon>
-      </v-btn>
+      </v-btn> -->
 
-      <v-menu offset-y nudge-bottom="8">
+      <v-menu offset-y nudge-bottom="8" right>
         <span class="toolbar-profile" slot="activator" v-ripple>
           <v-avatar class="toolbar-profile__avatar" color="primary" size="32">
             <span class="white--text body-1">{{ user.initials() }}</span>
@@ -26,7 +26,7 @@
         </span>
 
         <v-list>
-          <v-list-tile v-for="item in items" :key="item.id" :to="{ name: item.path }">
+          <v-list-tile v-for="item in items" :key="item.id" :to="{ name: item.path }" exact>
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -43,7 +43,7 @@
         </v-list>
       </v-menu>
 
-      <v-tabs slot="extension" v-model="model" color="white" slider-color="primary" grow>
+      <v-tabs slot="extension" color="white" slider-color="primary" :hide-slider="canHideSlider" grow>
         <v-tab v-for="tab in tabs" :key="tab.id" :to="{ name: tab.path }" exact>
           <v-icon>{{ tab.icon }}</v-icon>
           <span class="separator"></span>
@@ -70,7 +70,6 @@ export default {
   components: { DestroyModal, FormsModal },
   data () {
     return {
-      model: 0,
       tabs: [
         { id: 0, name: 'Start', icon: 'dashboard', path: 'dashboard_path'},
         { id: 10, name: 'Evaluations', icon: 'assignment_turned_in', path: 'evaluations_path'},
@@ -86,7 +85,11 @@ export default {
   computed: {
     ...mapGetters({
       user: 'AuthStore/user'
-    })
+    }),
+
+    canHideSlider() {
+      return this.$route.path.startsWith('/app/settings')
+    }
   },
   methods: {
     flashNotification () {

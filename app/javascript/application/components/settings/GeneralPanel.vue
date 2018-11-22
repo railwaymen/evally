@@ -2,7 +2,7 @@
   <div class="box box--with-content">
     <h1 class="box__header">General settings</h1>
 
-    <v-form>
+    <v-form @submit.prevent="save">
       <div class="settings pa-3">
         <h2 class="subheading my-3">Dashboard widgets</h2>
 
@@ -30,7 +30,7 @@
 
         <div class="settings__actions text-xs-right">
           <v-btn @click="setting.reset()" flat>Reset</v-btn>
-          <v-btn @click="save" class="primary" flat>Save</v-btn>
+          <v-btn type="submit" class="primary" flat>Save</v-btn>
         </div>
       </div>
     </v-form>
@@ -45,6 +45,7 @@ export default {
   methods: {
     save() {
       if (this.setting.validate()) {
+        console.log(this.setting.attributes)
         this.$store.dispatch('AuthStore/saveSetting', { setting: this.setting.attributes })
           .then(() => {
             this.flash({ success: 'Settings has been succefully updated' })
@@ -59,6 +60,9 @@ export default {
     ...mapGetters({
       setting: 'AuthStore/setting'
     })
+  },
+  created() {
+    this.setting.reset()
   }
 }
 </script>

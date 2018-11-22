@@ -52,7 +52,7 @@ export default {
     }
   },
   created () {
-    if (this.$store.getters['AuthStore/isAuthenticated']) {
+    if (localStorage.getItem('ev411y_t0k3n')) {
       this.$router.push({ name: 'dashboard_path' })
     }
   }

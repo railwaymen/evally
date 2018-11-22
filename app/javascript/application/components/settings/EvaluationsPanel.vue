@@ -2,7 +2,7 @@
   <div class="box box--with-content">
     <h1 class="box__header">Evaluations settings</h1>
 
-    <v-form>
+    <v-form @submit.prevent="save">
       <div class="settings pa-3">
         <h2 class="subheading my-3">Default options</h2>
 
@@ -21,13 +21,13 @@
         <div class="setting">
           <v-checkbox
             v-model="setting.public_view_enabled"
-            :label="setting.public_view_enabled ? `Enabled` : `Disabled`"
+            label="Enable public view"
           ></v-checkbox>
         </div>
 
         <div class="settings__actions text-xs-right">
           <v-btn @click="setting.reset()" flat>Reset</v-btn>
-          <v-btn @click="save" class="primary" flat>Save</v-btn>
+          <v-btn type="submit" class="primary" flat>Save</v-btn>
         </div>
       </div>
     </v-form>
@@ -56,6 +56,9 @@ export default {
     ...mapGetters({
       setting: 'AuthStore/setting'
     })
+  },
+  created() {
+    this.setting.reset()
   }
 }
 </script>

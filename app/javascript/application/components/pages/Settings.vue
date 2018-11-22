@@ -17,14 +17,17 @@
 
           <v-flex xs3>
             <v-list>
-              <v-list-tile v-for="panel in panels" :key="panel.id" :to="{ name: panel.path }" exact>
-                <v-list-tile-action>
-                  <v-icon>{{ panel.icon }}</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-list-tile-title>{{ panel.name }}</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
+              <template v-for="panel in panels">
+                <v-divider v-if="panel.dividerBefore" class="my-2"></v-divider>
+                <v-list-tile :key="panel.id" :to="{ name: panel.path }" exact>
+                  <v-list-tile-action>
+                    <v-icon>{{ panel.icon }}</v-icon>
+                  </v-list-tile-action>
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{ panel.name }}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </template>
             </v-list>
           </v-flex>
 
@@ -44,7 +47,9 @@ export default {
     return {
       panels: [
         { id: 0, name: 'General', icon: 'language', path: 'general_settings_path' },
-        { id: 10, name: 'Evaluations', icon: 'assignment_turned_in', path: 'evaluations_settings_path' }
+        { id: 10, name: 'Evaluations', icon: 'assignment_turned_in', path: 'evaluations_settings_path' },
+        { id: 20, name: 'Profile', icon: 'person', path: 'profile_settings_path', dividerBefore: true },
+        { id: 30, name: 'Support', icon: 'help_outline', path: 'support_path' }
       ]
     }
   }
