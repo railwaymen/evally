@@ -16,10 +16,7 @@
           type="password"
           label="password"
         ></v-text-field>
-        <v-checkbox
-          label="remember me"
-          color="primary"
-        ></v-checkbox>
+        <!-- <v-checkbox label="remember me" color="primary"></v-checkbox> -->
       </div>
 
       <div class="landing-form__action mt-4">
@@ -27,7 +24,7 @@
       </div>
 
       <div class="landing-form__question">
-        <p>
+        <p style="display: none;">
           No account?
           <span class="primary--text" @click="openRegisterForm">Sign up</span>
         </p>
@@ -42,8 +39,8 @@ export default {
   data() {
     return {
       credentials: {
-        email: 'john.doe@example.com',
-        password: '1234qwer'
+        email: '',
+        password: ''
       },
       rules: {
         required: value => !!value || 'Required.',

@@ -33,7 +33,7 @@
 
     <v-layout v-else row>
       <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">Select employee and template to create new evaluation</h4>
+        <h4 class="no-content__header no-content__header--large">Select draft evaluation or create a new one.</h4>
       </v-flex>
     </v-layout>
   </div>

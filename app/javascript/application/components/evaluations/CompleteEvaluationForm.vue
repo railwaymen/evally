@@ -57,7 +57,7 @@ export default {
   data() {
     return {
       menu1: false,
-      next_evaluation_at: this.$moment().add(6, 'M').format()
+      next_evaluation_at: null
     }
   },
   methods: {
@@ -68,7 +68,7 @@ export default {
       let params = {
         evaluation: {
           ...this.evaluation.attributes,
-          next_evaluation_at: this.next_evaluation_at
+          next_evaluation_at: this.next_evaluation_at || this.formattedDate
         }
       }
 
@@ -85,12 +85,17 @@ export default {
   },
   computed: {
     ...mapGetters({
-      evaluation: 'EvaluationsStore/evaluation'
+      evaluation: 'EvaluationsStore/evaluation',
+      setting: 'AuthStore/setting'
     }),
 
     formattedDate: {
       get() {
-        return this.$moment(this.next_evaluation_at).format('MMMM YYYY')
+        let date = this.next_evaluation_at ?
+          this.$moment(this.next_evaluation_at) :
+          this.$moment().add(this.setting.default_next_evaluation_time, 'M')
+
+        return date.format('MMMM YYYY')
       },
 
       set(date) {

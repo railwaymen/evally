@@ -1,66 +1,107 @@
 import axios from 'axios'
 
+import { Utils } from '@/lib/utils'
+
+import { Setting } from '@/models/setting'
+import { User } from '@/models/user'
+
 const AuthStore = {
   namespaced: true,
+
   state: {
-    user: JSON.parse(localStorage.getItem('current_user')) || null,
-    token: localStorage.getItem('user_token') || '',
+    user: new User(),
+    setting: new Setting(),
     status: ''
   },
+
   getters: {
-    isAuthenticated: state => !!state.token,
-    status: state => state.status,
-    user: state => state.user
+    user: state => state.user,
+    setting: state => state.setting,
+    status: state => state.status
   },
+
   mutations: {
-    authRequest: state => {
-      state.status = 'loading'
+    setSession(state, data) {
+      state.user = new User(data.user)
+      state.setting = new Setting(data.setting)
+      state.status = 'signedIn'
+      return state
     },
-    authSuccess: (state, session) => {
-      state.status = 'authenticated'
-      state.token = session.jwt
-      state.user = session.user.data.attributes
+    clearSession(state) {
+      state.user = new User()
+      state.setting = new Setting()
+      state.status = 'signedOut'
+      return state
     },
-    authError: state => {
-      state.status = 'unauthorized'
+    progress(state, status) {
+      state.status = status
+      return state
     },
-    authLogout: state => {
-      state.status = 'logged_out'
-      state.token = ''
-      state.user = null
+    updateSetting(state, data) {
+      state.setting = new Setting(data)
+      return state
     }
   },
+
   actions: {
-    logIn: (context, payload) => {
+    logIn(context, credentials) {
       return new Promise((resolve, reject) => {
-        context.commit('authRequest')
+        context.commit('progress', 'loading')
 
-        axios.post('v1/session', payload)
+        axios.post('v1/session', credentials)
           .then(response => {
-            let session = response.data.session
-
-            localStorage.setItem('user_token', session.jwt)
-            localStorage.setItem('current_user', JSON.stringify(session.user.data.attributes))
-
-            context.commit('authSuccess', session)
-
+            localStorage.setItem('ev411y_t0k3n', response.data.session.jwt)
             resolve()
           })
           .catch(error => {
             localStorage.clear()
-            context.commit('authError')
+            context.commit('progress', 'error')
 
             reject(error)
           })
       })
     },
-    logOut: context => {
+
+    logOut(context) {
       return new Promise((resolve, reject) => {
         localStorage.clear()
+
         delete axios.defaults.headers.common['Authorization']
-        context.commit('authLogout')
+        context.commit('clearSession')
 
         resolve()
+      })
+    },
+
+    getUser(context) {
+      return new Promise((resolve, reject) => {
+        axios.get('v1/users/current')
+          .then(response => {
+            let session = Utils.prepareSession(response.data.data)
+
+            context.commit('setSession', session)
+
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+
+    saveSetting(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.put('v1/settings/current', data)
+          .then(response => {
+            let user = new User(Utils.transformModel(response.data.data))
+
+            context.commit('updateSetting', user.setting)
+
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
       })
     }
   }

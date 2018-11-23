@@ -54,7 +54,7 @@
 
     <v-layout row v-else>
       <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">Select template from the list on the left or create a new one</h4>
+        <h4 class="no-content__header no-content__header--large">Select template or create a new one.</h4>
       </v-flex>
     </v-layout>
   </div>

@@ -8,7 +8,7 @@
 
     <v-layout v-else-if="!evaluation.isExisting()" row>
       <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">Select employee to see his evaluation</h4>
+        <h4 class="no-content__header no-content__header--large">Select employee to see his latest evaluation.</h4>
       </v-flex>
     </v-layout>
 

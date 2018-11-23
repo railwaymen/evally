@@ -12,7 +12,7 @@
           </v-btn>
 
           <template v-if="employee.isExisting()">
-            <v-btn @click="permalink" flat>
+            <v-btn v-if="setting.public_view_enabled" @click="permalink" flat>
               <v-icon>link</v-icon> Permalink
             </v-btn>
             <v-btn @click="edit" flat>
@@ -78,6 +78,7 @@ export default {
   computed: {
     ...mapGetters({
       employee: 'EmployeesStore/employee',
+      setting: 'AuthStore/setting'
     })
   },
   created() {

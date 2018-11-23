@@ -15,10 +15,10 @@
       <v-container grid-list-lg fluid>
         <v-layout row>
           <v-flex xs3>
-            <v-tabs v-model="currentView" grow>
+            <v-tabs grow>
               <v-tabs-slider color="primary"></v-tabs-slider>
-              <v-tab v-for="(view, index) in views" :key="index">
-                {{ view }}
+              <v-tab v-for="view in views" :key="view.id" :to="{ name: view.path }">
+                {{ view.name }}
               </v-tab>
             </v-tabs>
 
@@ -27,8 +27,7 @@
           </v-flex>
 
           <v-flex xs9>
-            <employee-evaluation-box v-if="isEmployeesView"></employee-evaluation-box>
-            <activities-timeline-box v-if="isActivitiesView"></activities-timeline-box>
+            <router-view></router-view>
           </v-flex>
         </v-layout>
       </v-container>
@@ -38,31 +37,27 @@
 
 <script>
 import ActivitiesFilterBox from '@/components/archive/ActivitiesFilterBox'
-import ActivitiesTimelineBox from '@/components/archive/ActivitiesTimelineBox'
-
 import EmployeesListBox from '@/components/archive/EmployeesListBox'
-import EmployeeEvaluationBox from '@/components/employees/EmployeeEvaluationBox'
 
 export default {
   name: 'Archive',
-  components: { ActivitiesFilterBox, ActivitiesTimelineBox, EmployeesListBox, EmployeeEvaluationBox },
+  components: { ActivitiesFilterBox, EmployeesListBox },
   data() {
     return {
-      currentView: 0,
-      views: ['employees', 'activities']
+      views: [
+        { id: 0, name: 'Employees', path: 'employees_archive_path' },
+        { id: 10, name: 'Activities', path: 'activities_archive_path' }
+      ]
     }
   },
   computed: {
     isActivitiesView() {
-      return this.currentView === this.views.indexOf('activities')
+      return this.$route.name == 'activities_archive_path'
     },
 
     isEmployeesView() {
-      return this.currentView === this.views.indexOf('employees')
+      return this.$route.name == 'employees_archive_path'
     }
-  },
-  created() {
-    this.currentView = this.$route.params.tab === 'activities' ? 1 : 0
   }
 }
 </script>

@@ -52,7 +52,8 @@ export default {
 	computed: {
 		...mapGetters({
 			employees: 'EmployeesStore/employees',
-			drafts: 'EvaluationsStore/evaluations'
+			drafts: 'EvaluationsStore/evaluations',
+			setting: 'AuthStore/setting'
 		}),
 
 		preparedEmployees() {
@@ -68,7 +69,7 @@ export default {
 				})
 				.value()
 
-			return prepared.slice(0, 5)
+			return prepared.slice(0, this.setting.default_upcoming_items)
 		}
 	}
 }
