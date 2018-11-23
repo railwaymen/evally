@@ -7,7 +7,7 @@ module V1
     # GET /v1/evaluations
     #
     def index
-      evaluations = current_user.evaluations.includes(:employee, :sections).order('completed_at DESC, employees.next_evaluation_at ASC')
+      evaluations = current_user.evaluations.includes(:employee, :sections).by_state(params[:state]).order("employees.next_evaluation_at ASC, completed_at DESC")
 
       render json: V1::EvaluationSerializer.new(evaluations).serialized_json, status: 200
     end
@@ -45,6 +45,8 @@ module V1
       # only draft evaluations can be destroyed directly
 
       @evaluation.destroy
+      current_user.activities.create(action: 'destroy', activable: @evaluation, activable_name: @evaluation.employee.fullname)
+
       render json: {}, status: 204
     end
 
@@ -58,6 +60,9 @@ module V1
     def set_employee_by_token
       @employee = Employee.find_by(public_token: params[:id])
       raise V1::ErrorResponderService.new(:record_not_found, 404) unless @employee
+
+      setting = Setting.find_by(user_id: @employee.user_id)
+      raise V1::ErrorResponderService.new(:record_not_found, 404) unless setting&.public_view_enabled?
     end
   end
 end

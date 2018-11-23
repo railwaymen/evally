@@ -32,6 +32,8 @@ module V1
     #
     def destroy
       @template.destroy
+      current_user.activities.create(action: 'destroy', activable: @template, activable_name: @template.name)
+
       render json: {}, status: 204
     end
 

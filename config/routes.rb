@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   end
 
   namespace :v1, defaults: { format: :json } do
+    resources :activities, only: [:index] do
+      get 'today', on: :collection
+    end
+
     resources :employees, only: [:index, :create, :update, :destroy]
 
     resources :evaluations, only: [:index, :create, :update, :destroy]
@@ -14,7 +18,9 @@ Rails.application.routes.draw do
 
     resources :templates, only: [:index, :create, :update, :destroy]
 
-    resources :users, only: [:create]
+    resources :users, only: [:show, :create]
+
+    resources :settings, only: [:update]
   end
 
   # Route to hit the Vue app

@@ -1,0 +1,112 @@
+<template>
+  <section class="dashboard" style="padding-top: 10rem;">
+    <v-toolbar class="elevation-1" color="white" fixed tabs>
+
+      <v-toolbar-title>
+        <router-link class="toolbar-logo" :to="{ name: 'dashboard_path' }">
+          <img src="@/assets/img/logo2_black.png" class="toolbar-logo__img" alt="Logo Evally">
+        </router-link>
+      </v-toolbar-title>
+
+      <v-spacer></v-spacer>
+
+      <!-- <v-btn icon @click="flashNotification">
+        <v-icon>notifications</v-icon>
+      </v-btn> -->
+
+      <v-menu offset-y nudge-bottom="8" right>
+        <span class="toolbar-profile" slot="activator" v-ripple>
+          <v-avatar class="toolbar-profile__avatar" color="primary" size="32">
+            <span class="white--text body-1">{{ user.initials() }}</span>
+          </v-avatar>
+          <span class="toolbar-profile__fullname">{{ user.fullname() }}</span>
+          <v-icon class="toolbar-profile__arrow" size="24">
+            expand_more
+          </v-icon>
+        </span>
+
+        <v-list>
+          <v-list-tile v-for="item in items" :key="item.id" :to="{ name: item.path }" exact>
+            <v-list-tile-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+          </v-list-tile>
+
+          <!-- Log out list item -->
+          <v-list-tile @click="logout">
+            <v-list-tile-action>
+              <v-icon>last_page</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title>Logout</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+
+      <v-tabs slot="extension" color="white" slider-color="primary" :hide-slider="canHideSlider" grow>
+        <v-tab v-for="tab in tabs" :key="tab.id" :to="{ name: tab.path }" exact>
+          <v-icon>{{ tab.icon }}</v-icon>
+          <span class="separator"></span>
+          {{ tab.name }}
+        </v-tab>
+      </v-tabs>
+    </v-toolbar>
+
+    <router-view></router-view>
+
+    <destroy-modal></destroy-modal>
+    <forms-modal></forms-modal>
+  </section>
+</template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+import DestroyModal from '@/components/shared/DestroyModal'
+import FormsModal from '@/components/shared/FormsModal'
+
+export default {
+  name: 'Layout',
+  components: { DestroyModal, FormsModal },
+  data () {
+    return {
+      tabs: [
+        { id: 0, name: 'Start', icon: 'dashboard', path: 'dashboard_path'},
+        { id: 10, name: 'Evaluations', icon: 'assignment_turned_in', path: 'evaluations_path'},
+        { id: 20, name: 'Employees', icon: 'people', path: 'employees_path'},
+        { id: 30, name: 'Templates', icon: 'list_alt', path: 'templates_path'},
+        { id: 40, name: 'Archive', icon: 'archive', path: 'employees_archive_path'}
+      ],
+      items: [
+        { id: 0, name: 'Settings', icon: 'settings', path: 'general_settings_path'}
+      ]
+    }
+  },
+  computed: {
+    ...mapGetters({
+      user: 'AuthStore/user'
+    }),
+
+    canHideSlider() {
+      return this.$route.path.startsWith('/app/settings')
+    }
+  },
+  methods: {
+    flashNotification () {
+      this.flash({ info: Math.random() })
+    },
+    logout () {
+      this.$store.dispatch('AuthStore/logOut').then(() => {
+        this.flash({ success: 'You have been logged out succesfully' })
+        this.$router.push({ name: 'landing_page_path' })
+      })
+    }
+  },
+  created() {
+    this.$store.dispatch('AuthStore/getUser')
+      .catch(error => {
+        this.flash({ error: 'User cannot be loaded due to some error: ' + this.renderError(error.response) })
+      })
+  }
+}
+</script>

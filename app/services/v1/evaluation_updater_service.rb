@@ -7,7 +7,7 @@ module V1
     end
 
     def call
-      @evaluation if update_evaluation && notify
+      @evaluation if update_evaluation && add_activity
     end
 
     private
@@ -19,21 +19,23 @@ module V1
         raise V1::ErrorResponderService.new(:invalid_record, 422, @evaluation.errors.full_messages)
       end
 
-      update_next_employee_evaluation_date if @evaluation.completed?
-      @evaluation.save!
-    end
+      if @evaluation.completed?
+        Evaluation.where(employee_id: @evaluation.employee_id, state: :completed).update_all(state: :archived)
+        @evaluation.employee.update!(next_evaluation_at: @attributes[:next_evaluation_at])
+      end
 
-    def update_next_employee_evaluation_date
-      @evaluation.employee.update!(next_evaluation_at: @attributes[:next_evaluation_at])
+      @evaluation.save!
     end
 
     def evaluation_params
       @attributes.permit(:state, :completed_at, :updated_at, sections_attributes: [:id, skills: [:name, :value]])
     end
 
-    def notify
-      # TODO: (FF) create notification to display in dashboard menu
-      true
+    def add_activity
+      @employee = @evaluation.employee
+
+      action = @evaluation.completed? ? 'complete' : 'update'
+      @employee.user.activities.create!(action: action, activable: @evaluation, activable_name: @employee.fullname)
     end
   end
 end

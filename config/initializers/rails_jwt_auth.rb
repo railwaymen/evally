@@ -48,17 +48,3 @@ RailsJwtAuth.setup do |config|
   # url used to create email link with activation token parameter to accept invitation
   # config.accept_invitation_url = 'http://frontend.com/accept_invitation'
 end
-
-
-RailsJwtAuth::RenderHelper.module_eval do
-
-  def render_session(jwt, user)
-    render json: {
-      session: {
-        jwt: jwt,
-        user: V1::UserSerializer.new(user).serializable_hash
-      }
-     }, status: 201
-  end
-
-end
