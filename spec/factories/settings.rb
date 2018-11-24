@@ -1,9 +1,10 @@
 FactoryBot.define do
   factory :setting do
-    user nil
-    default_draft_items 1
-    default_upcoming_items 1
-    default_next_evaluation_time 1
-    public_view_enabled false
+    default_draft_items           { 4 }
+    default_upcoming_items        { 4 }
+    default_next_evaluation_time  { 6 }
+    public_view_enabled           { false }
+
+    user
   end
 end

@@ -19,9 +19,8 @@ module V1
         raise V1::ErrorResponderService.new(:invalid_record, 422, @employee.errors.full_messages)
       end
 
-      @employee.save!
-
       @employee.evaluations.draft.destroy_all unless @employee.hired?
+      @employee.save!
     end
 
     def employee_params
