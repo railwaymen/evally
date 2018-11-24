@@ -45,7 +45,6 @@ export default {
   methods: {
     save() {
       if (this.setting.validate()) {
-        console.log(this.setting.attributes)
         this.$store.dispatch('AuthStore/saveSetting', { setting: this.setting.attributes })
           .then(() => {
             this.flash({ success: 'Settings has been succefully updated' })

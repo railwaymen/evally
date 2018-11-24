@@ -4,7 +4,7 @@
 
     <v-layout row>
       <v-flex xs7>
-        <v-form class="pa-3">
+        <v-form @submit.prevent="updateUser" class="pa-3">
           <v-subheader>Basic profile information</v-subheader>
 
           <v-layout wrap row>
@@ -21,6 +21,7 @@
               <v-text-field
                 v-model="user.first_name"
                 :rules="[rules.required]"
+                maxlength="32"
                 label="First name"
               ></v-text-field>
             </v-flex>
@@ -29,14 +30,8 @@
               <v-text-field
                 v-model="user.last_name"
                 :rules="[rules.required]"
+                maxlength="32"
                 label="Last name"
-              ></v-text-field>
-            </v-flex>
-
-            <v-flex xs12>
-              <v-text-field
-                v-model="user.position"
-                label="Position"
               ></v-text-field>
             </v-flex>
           </v-layout>
@@ -49,11 +44,7 @@
       </v-flex>
 
       <v-flex xs5>
-        <div class="setting__info">
-          <v-alert :value="true" type="info" outline>
-            This information will appear on your profile.
-          </v-alert>
-        </div>
+
       </v-flex>
     </v-layout>
 
@@ -61,12 +52,13 @@
 
     <v-layout row>
       <v-flex xs7>
-        <v-form ref="userPasswordForm" class="pa-3">
+        <v-form ref="userPasswordForm" @submit.prevent="updatePassword" class="pa-3">
           <v-subheader>Change password form</v-subheader>
 
           <v-layout wrap row>
             <v-flex xs6>
               <v-text-field
+                v-model="password"
                 :rules="[rules.required, rules.min]"
                 prepend-icon="lock"
                 label="New password"
@@ -76,7 +68,7 @@
 
             <v-flex xs6>
               <v-text-field
-                :rules="[rules.required, rules.min, rules.confirmed]"
+                :rules="[rules.confirmed]"
                 label="Password confirmation"
                 type="password"
               ></v-text-field>
@@ -84,6 +76,7 @@
 
             <v-flex xs12>
               <v-text-field
+                v-model="currentPassword"
                 :rules="[rules.required, rules.min]"
                 prepend-icon="lock"
                 label="Old password"
@@ -118,17 +111,50 @@ export default {
   data() {
     return {
       password: '',
+      currentPassword: '',
       rules: {
         required: value => !!value || 'Required',
-        min: v => v.length >= 6 || 'Min 6 characters',
+        min: v => !!v && v.length >= 6 || 'Min 6 characters',
         confirmed: v => v === this.password || 'Both passwords must be the same'
       },
+    }
+  },
+  methods: {
+    updateUser() {
+      if (this.user.validate()) {
+        this.$store.dispatch('AuthStore/updateUser', { user: this.user.attributes })
+          .then(() => {
+            this.flash({ success: 'User has been succefully updated' })
+            this.user.sync()
+          })
+          .catch(error => {
+            this.flash({ error: 'User cannot be updated due to some error: ' + this.renderError(error.response) })
+          })
+      }
+    },
+
+    updatePassword() {
+      if (this.$refs.userPasswordForm.validate()) {
+        let params = { old_one: this.currentPassword, new_one: this.password }
+
+        this.$store.dispatch('AuthStore/updatePassword', { password: params })
+          .then(() => {
+            this.flash({ success: 'Pasword has been succefully changed' })
+            this.$router.push({ name: 'landing_page_path' })
+          })
+          .catch(error => {
+            this.flash({ error: 'Password cannot be changed due to some error: ' + this.renderError(error.response) })
+          })
+      }
     }
   },
   computed: {
     ...mapGetters({
       user: 'AuthStore/user'
     })
+  },
+  beforeDestroy() {
+    this.user.reset()
   }
 }
 </script>

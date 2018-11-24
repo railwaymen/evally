@@ -89,6 +89,39 @@ const AuthStore = {
       })
     },
 
+    updateUser(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.put('v1/users/current', data)
+          .then(response => {
+            let user = new User(Utils.transformModel(response.data.data))
+
+            context.commit('updateSetting', user.setting)
+
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+
+    updatePassword(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.put('v1/users/current/password', data)
+          .then(() => {
+            localStorage.clear()
+
+            delete axios.defaults.headers.common['Authorization']
+            context.commit('clearSession')
+
+            resolve()
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+
     saveSetting(context, data) {
       return new Promise((resolve, reject) => {
         axios.put('v1/settings/current', data)
