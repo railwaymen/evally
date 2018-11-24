@@ -18,7 +18,9 @@ Rails.application.routes.draw do
 
     resources :templates, only: [:index, :create, :update, :destroy]
 
-    resources :users, only: [:show, :create]
+    resources :users, only: [:show, :create, :update] do
+      put 'password', on: :member
+    end
 
     resources :settings, only: [:update]
   end

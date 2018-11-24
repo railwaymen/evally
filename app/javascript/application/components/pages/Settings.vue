@@ -18,7 +18,7 @@
           <v-flex xs3>
             <v-list>
               <template v-for="panel in panels">
-                <v-divider v-if="panel.dividerBefore" :key="panel.id" class="my-2"></v-divider>
+                <v-divider v-if="panel.dividerBefore" :key="`divider_${panel.id}`" class="my-2"></v-divider>
                 <v-list-tile :key="panel.id" :to="{ name: panel.path }" exact>
                   <v-list-tile-action>
                     <v-icon>{{ panel.icon }}</v-icon>

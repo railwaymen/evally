@@ -6,7 +6,7 @@ module V1
     end
 
     def call
-      @model if can_create_user? && create_new_user
+      @user if can_create_user? && create_new_user
     end
 
     private
@@ -17,13 +17,13 @@ module V1
     end
 
     def create_new_user
-      @model = User.new(user_params)
+      @user = User.new(user_params)
 
-      unless @model.valid?
-        raise V1::ErrorResponderService.new(:invalid_record, 422, @model.errors.full_messages)
+      unless @user.valid?
+        raise V1::ErrorResponderService.new(:invalid_record, 422, @user.errors.full_messages)
       end
 
-      @model.save!
+      @user.save!
     end
 
     def user_params
