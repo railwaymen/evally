@@ -13,14 +13,14 @@
     </v-layout>
 
     <v-layout v-else row wrap>
-      <v-flex xs6>
+      <v-flex xs12 lg6>
         <div class="employee">
           <h3 class="employee__fullname">{{ employeeFullname(employee) }}</h3>
           <h4 class="employee__position">{{ employee.position }}</h4>
         </div>
       </v-flex>
 
-      <v-flex xs6>
+      <v-flex xs12 lg6>
         <v-layout row justify-end>
           <v-flex xs4>
             <div class="date">

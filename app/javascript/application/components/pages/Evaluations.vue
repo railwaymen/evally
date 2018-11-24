@@ -1,6 +1,6 @@
 <template>
   <section class="panel">
-    <v-layout row>
+    <v-layout wrap row>
       <v-flex xs6>
         <h2 class="panel__heading">Evaluations</h2>
       </v-flex>
@@ -25,6 +25,9 @@
               <v-icon>delete</v-icon> Delete
             </v-btn>
           </template>
+        </div>
+
+        <div class="panel__action-bar">
 
         </div>
       </v-flex>
@@ -32,12 +35,12 @@
 
     <div class="panel__content">
       <v-container grid-list-lg fluid>
-        <v-layout row>
-          <v-flex xs3>
+        <v-layout wrap row>
+          <v-flex xs10 offset-xs1 lg3 offset-lg0>
             <evaluation-drafts-box></evaluation-drafts-box>
           </v-flex>
 
-          <v-flex xs9>
+          <v-flex xs12 lg9>
             <evaluation-box context="evaluation"></evaluation-box>
           </v-flex>
         </v-layout>
@@ -76,7 +79,6 @@ export default {
     },
 
     build() {
-      this.$store.commit('EvaluationsStore/clear')
       openerBus.openFormModal({ model: 'draft', action: 'create', maxWidth: 500, redirect: false })
     },
 

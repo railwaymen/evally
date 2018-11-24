@@ -1,16 +1,16 @@
 <template>
   <div class="box box--with-content evaluation">
     <v-layout v-if="evaluation.isExisting()" row wrap>
-      <v-flex xs6>
+      <v-flex xs12 lg9>
         <div class="employee">
           <h3 class="employee__fullname">{{ employeeFullname(employee) }}</h3>
           <h4 class="employee__position">{{ employee.position }}</h4>
         </div>
       </v-flex>
 
-      <v-flex xs6>
+      <v-flex xs12 lg3>
         <v-layout row justify-end>
-          <v-flex xs4>
+          <v-flex xs12>
             <div class="date">
               <h5 class="date__value">{{ employee.hired_at | moment("MMMM YYYY") }}</h5>
               <h6 class="date__description">on board since</h6>

@@ -30,12 +30,12 @@
 
     <div class="panel__content">
       <v-container grid-list-lg fluid>
-        <v-layout row>
-          <v-flex xs3>
+        <v-layout wrap row>
+          <v-flex xs10 offset-xs1 lg3 offset-lg0>
             <template-search-box></template-search-box>
           </v-flex>
 
-          <v-flex xs9>
+          <v-flex xs12 lg9>
             <template-box></template-box>
           </v-flex>
         </v-layout>
