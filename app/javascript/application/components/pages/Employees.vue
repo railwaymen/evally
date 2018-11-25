@@ -8,24 +8,34 @@
       <v-flex xs6>
         <div class="panel__action-bar">
           <v-btn @click="build" color="green" flat>
-            <v-icon>add</v-icon> New employee
+            <v-icon>add</v-icon> New
           </v-btn>
 
-          <template v-if="employee.isExisting()">
-            <v-btn v-if="setting.public_view_enabled" @click="permalink" flat>
-              <v-icon>link</v-icon> Permalink
+          <v-menu
+            :disabled="!employee.isExisting()"
+            transition="slide-y-transition"
+            offset-y bottom left
+          >
+            <v-btn :disabled="!employee.isExisting()" color="primary" slot="activator" icon flat>
+              <v-icon>more_vert</v-icon>
             </v-btn>
-            <v-btn @click="edit" flat>
-              <v-icon>edit</v-icon> Edit
-            </v-btn>
-            <v-btn @click="archive" flat>
-              <v-icon>how_to_vote</v-icon> Archive
-            </v-btn>
-            <v-btn @click="remove" color="red" flat>
-              <v-icon>delete</v-icon> Delete
-            </v-btn>
-          </template>
 
+            <v-list>
+              <v-list-tile v-if="setting.public_view_enabled" @click="permalink">
+                <v-list-tile-action>
+                  <v-icon>link</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-title>Permalink</v-list-tile-title>
+              </v-list-tile>
+
+              <v-list-tile v-for="item in menuItems" :key="`item_${item.id}`" @click="item.action">
+                <v-list-tile-action>
+                  <v-icon>{{ item.icon }}</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
         </div>
       </v-flex>
     </v-layout>
@@ -57,6 +67,15 @@ import EmployeeSearchBox from '@/components/employees/EmployeeSearchBox'
 export default {
   name: 'Employees',
   components: { EmployeeEvaluationBox, EmployeeSearchBox },
+  data() {
+    return {
+      menuItems: [
+        { id: 0, name: 'Edit', icon: 'edit', action: this.edit },
+        { id: 10, name: 'Archive', icon: 'how_to_vote', action: this.archive },
+        { id: 20, name: 'Delete', icon: 'delete', action: this.remove }
+      ]
+    }
+  },
   methods: {
     build() {
       this.$store.commit('EmployeesStore/clear')

@@ -8,22 +8,47 @@
       <v-flex>
         <div class="panel__action-bar">
           <v-btn color="green" @click="newTemplate" flat>
-            <v-icon>add</v-icon> New template
+            <v-icon>add</v-icon> New
           </v-btn>
 
-          <template v-if="template.isExisting() || status === 'new_record'">
-            <v-btn v-if="template.editable" @click="save" flat>
-              <v-icon>save_alt</v-icon> Save
-            </v-btn>
-            <v-btn v-else @click="edit" flat>
-              <v-icon>edit</v-icon> Edit
+          <v-menu
+            :disabled="!template.isExisting() && status !== 'new_record'"
+            transition="slide-y-transition"
+            offset-y bottom left
+          >
+            <v-btn
+              :disabled="!template.isExisting() && status !== 'new_record'"
+              color="primary"
+              slot="activator"
+              icon
+              flat
+            >
+              <v-icon>more_vert</v-icon>
             </v-btn>
 
-            <v-btn color="red" @click="remove" flat>
-              <v-icon>delete</v-icon> Delete
-            </v-btn>
-          </template>
+            <v-list>
+              <v-list-tile :disabled="!template.editable" @click="save">
+                <v-list-tile-action>
+                  <v-icon>save_alt</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-title>Save</v-list-tile-title>
+              </v-list-tile>
 
+              <v-list-tile :disabled="template.editable" @click="edit">
+                <v-list-tile-action>
+                  <v-icon>edit</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-title>Edit</v-list-tile-title>
+              </v-list-tile>
+
+              <v-list-tile @click="remove">
+                <v-list-tile-action>
+                  <v-icon>delete</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-title>Delete</v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
         </div>
       </v-flex>
     </v-layout>

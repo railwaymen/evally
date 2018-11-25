@@ -8,27 +8,27 @@
       <v-flex xs6>
         <div class="panel__action-bar">
           <v-btn @click="build" color="green" flat>
-            <v-icon>add</v-icon> New evaluation
+            <v-icon>add</v-icon> New
           </v-btn>
 
-          <template v-if="draft.isExisting()">
-            <v-btn @click="saveEvaluation" color="green" flat>
-              <v-icon>save_alt</v-icon> Save completed
+          <v-menu
+            :disabled="!draft.isExisting()"
+            transition="slide-y-transition"
+            offset-y bottom left
+          >
+            <v-btn :disabled="!draft.isExisting()" color="primary" slot="activator" icon flat>
+              <v-icon>more_vert</v-icon>
             </v-btn>
-            <v-btn @click="saveDraft" flat>
-              <v-icon>how_to_vote</v-icon> Save draft
-            </v-btn>
-            <v-btn @click="reset" flat>
-              <v-icon>restore</v-icon> Reset
-            </v-btn>
-            <v-btn @click="remove" color="red" flat>
-              <v-icon>delete</v-icon> Delete
-            </v-btn>
-          </template>
-        </div>
 
-        <div class="panel__action-bar">
-
+            <v-list>
+              <v-list-tile v-for="item in menuItems" :key="`item_${item.id}`" @click="item.action">
+                <v-list-tile-action>
+                  <v-icon>{{ item.icon }}</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+              </v-list-tile>
+            </v-list>
+          </v-menu>
         </div>
       </v-flex>
     </v-layout>
@@ -61,6 +61,16 @@ import EvaluationDraftsBox from '@/components/evaluations/EvaluationDraftsBox'
 export default {
   name: 'Evaluations',
   components: { CreateEvaluationForm, EvaluationBox, EvaluationDraftsBox },
+  data() {
+    return {
+      menuItems: [
+        { id: 0, name: 'Complete', icon: 'save_alt', action: this.saveEvaluation },
+        { id: 10, name: 'Save draft', icon: 'how_to_vote', action: this.saveDraft },
+        { id: 20, name: 'Reset', icon: 'restore', action: this.reset },
+        { id: 30, name: 'Delete', icon: 'delete', action: this.remove }
+      ]
+    }
+  },
   methods: {
     reset() {
       this.$store.commit('EvaluationsStore/reset')
