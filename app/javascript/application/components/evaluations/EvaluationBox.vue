@@ -13,7 +13,7 @@
           <v-flex xs12>
             <div class="date">
               <h5 class="date__value">{{ employee.hired_at | moment("MMMM YYYY") }}</h5>
-              <h6 class="date__description">on board since</h6>
+              <h6 class="date__description">hired at</h6>
             </div>
           </v-flex>
         </v-layout>

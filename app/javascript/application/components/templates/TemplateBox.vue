@@ -22,19 +22,19 @@
       <v-flex xs4 lg2>
         <div class="date">
           <h5 class="date__value">&lsaquo; date &rsaquo;</h5>
-          <h6 class="date__description">on board since</h6>
-        </div>
-      </v-flex>
-      <v-flex xs4 lg2>
-        <div class="date">
-          <h5 class="date__value">&lsaquo; date &rsaquo;</h5>
-          <h6 class="date__description">previous evaluation</h6>
+          <h6 class="date__description">hired at</h6>
         </div>
       </v-flex>
       <v-flex xs4 lg2>
         <div class="date">
           <h5 class="date__value">&lsaquo; date &rsaquo;</h5>
           <h6 class="date__description">next evaluation</h6>
+        </div>
+      </v-flex>
+      <v-flex xs4 lg2>
+        <div class="date">
+          <h5 class="date__value">&lsaquo; date &rsaquo;</h5>
+          <h6 class="date__description">completed at</h6>
         </div>
       </v-flex>
 

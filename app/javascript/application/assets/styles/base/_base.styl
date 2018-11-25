@@ -7,17 +7,33 @@
 }
 
 html {
-  font-size: 62.5%
+  font-size: 50%
+
+  +respond(md) {
+    font-size: 56.25%
+  }
+
+  +respond(lg) {
+    font-size: 62.5%
+  }
+
+  +respond(xl) {
+    font-size: 75%
+  }
 }
 
 body {
   box-sizing: border-box
-  padding: 4rem 5rem
+  padding: 5rem 1rem 4rem
   background: $white
   font-weight: 400
   font-size: 1rem
   line-height: 1.7
   color: $font-black
+
+  +respond(md) {
+    padding: 4rem 5rem
+  }
 
   .application {
     font-family: 'Muli', sans-serif !important
