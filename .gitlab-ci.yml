@@ -1,8 +1,15 @@
 before_script:
   - bundle install --path=/home/gitlab-runner/builds/shared/${CI_PROJECT_NAME}/gems
 
-deploy:
+production:
   only:
     - master
   script:
     - bundle exec cap production deploy
+
+staging:
+  stage: deploy
+  only:
+    - develop
+  script:
+    - bundle exec cap staging deploy
