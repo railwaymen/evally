@@ -3,13 +3,17 @@ import axios from 'axios'
 import { Utils } from '@/lib/utils'
 import { Template, TemplatesList } from '@/models/template'
 
+const initialState = () => ({
+  templates: new TemplatesList(),
+  template: new Template(),
+  status: ''
+})
+
 const TemplatesStore = {
   namespaced: true,
-  state: {
-    templates: new TemplatesList(),
-    template: new Template(),
-    status: ''
-  },
+
+  state: initialState(),
+
   getters: {
     templates: state => state.templates,
     template: state => state.template,
@@ -54,6 +58,10 @@ const TemplatesStore = {
     remove(state, id) {
       state.templates.remove({ id: id })
       state.template = new Template()
+      return state
+    },
+    resetState(state) {
+      state = Object.assign(state, initialState())
       return state
     }
   },

@@ -26,23 +26,7 @@
       </v-layout>
 
       <v-layout v-else row>
-        <v-flex xs3>
-          <div class="sidebar">
-            <router-link :to="{ name: 'landing_page_path' }">
-              <img class="sidebar__logo" src="@/assets/img/logo2_black.png" alt="Logo Evally">
-            </router-link>
-
-            <div class="sidebar__actions pa-4">
-              <!-- <v-btn color="primary" outline block>Download PDF</v-btn> -->
-
-              <p class="homepage-link text-xs-center py-4">
-                <router-link :to="{ name: 'landing_page_path' }">Go to homepage</router-link>
-              </p>
-            </div>
-          </div>
-        </v-flex>
-
-        <v-flex xs9>
+        <v-flex xs12>
           <employee-evaluation-box></employee-evaluation-box>
         </v-flex>
       </v-layout>

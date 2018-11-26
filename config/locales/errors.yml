@@ -8,4 +8,7 @@ en:
       message: 'Some record attributes are invalid.'
     record_not_found:
       title: 'Record not found'
-      message: 'This employee does not exist'
+      message: 'This record does not exist.'
+    unauthorized:
+      title: 'Unauthorized action'
+      message: 'You are unauthorized to perform this action.'

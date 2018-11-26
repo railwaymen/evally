@@ -3,15 +3,18 @@ import axios from 'axios'
 import { Utils } from '@/lib/utils'
 import { ActivitiesList } from '@/models/activity'
 
+const initialState = () => ({
+  allActivities: new ActivitiesList(),
+  todayActivities: new ActivitiesList(),
+  datesRange: { from: null, to: null },
+  status: ''
+})
+
 const ActivitiesStore = {
   namespaced: true,
-  state: {
-    allActivities: new ActivitiesList(),
-    todayActivities: new ActivitiesList(),
-    datesRange: { from: null, to: null },
-    status: ''
 
-  },
+  state: initialState(),
+
   getters: {
     allActivities: state => state.allActivities,
     todayActivities: state => state.todayActivities,
@@ -37,6 +40,10 @@ const ActivitiesStore = {
       state.datesRange = data
       return state
     },
+    resetState(state) {
+      state = Object.assign(state, initialState())
+      return state
+    }
   },
   actions: {
     index(context) {

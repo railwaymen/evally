@@ -13,8 +13,8 @@
 
     <div class="panel__content">
       <v-container grid-list-lg fluid>
-        <v-layout row>
-          <v-flex xs3>
+        <v-layout wrap row>
+          <v-flex xs10 offset-xs1 lg3 offset-lg0>
             <v-tabs grow>
               <v-tabs-slider color="primary"></v-tabs-slider>
               <v-tab v-for="view in views" :key="view.id" :to="{ name: view.path }">
@@ -26,7 +26,7 @@
             <employees-list-box v-if="isEmployeesView"></employees-list-box>
           </v-flex>
 
-          <v-flex xs9>
+          <v-flex xs12 lg9>
             <router-view></router-view>
           </v-flex>
         </v-layout>

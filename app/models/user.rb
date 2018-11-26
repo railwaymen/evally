@@ -17,7 +17,8 @@ class User < ApplicationRecord
 
   validates :password,
     presence: true,
-    length: { in: 6..32 }
+    length: { in: 6..32 },
+    if: ->(u) { u.password.present? }
 
   # # Callbacks
   #

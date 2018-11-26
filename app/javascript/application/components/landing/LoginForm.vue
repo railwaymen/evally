@@ -8,6 +8,7 @@
         <v-text-field
           v-model="credentials.email"
           prepend-icon="alternate_email"
+          type="email"
           label="email"
         ></v-text-field>
         <v-text-field

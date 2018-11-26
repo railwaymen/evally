@@ -29,7 +29,7 @@
 
               "employee": {
                 "type": "object",
-                "required": ["id", "first_name", "last_name", "position", "hired_at", "next_evaluation_at"],
+                "required": ["id", "first_name", "last_name", "position", "hired_at", "next_evaluation_at", "state", "released_at"],
                 "properties": {
 
                   "id" : { "type" : ["string", "number"] },
@@ -42,7 +42,11 @@
 
                   "hired_at" : { "type" : "string" },
 
-                  "next_evaluation_at" : { "type" : ["string", "null"] }
+                  "next_evaluation_at" : { "type" : ["string", "null"] },
+
+                  "state" : { "enum" : ["hired", "experienced", "released"] },
+
+                  "released_at" : { "type" : ["string", "null"] }
                 }
               },
 

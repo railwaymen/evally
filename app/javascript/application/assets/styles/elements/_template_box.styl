@@ -3,6 +3,11 @@
 
   .employee {
     font-weight: 200
+    text-align: center
+
+    +respond(lg) {
+      text-align: left
+    }
 
     &__fullname {
       font-size: 3.6rem
@@ -26,14 +31,21 @@
 
     &__value {
       font-weight: inherit
-      font-size: 2.1rem
+      font-size: 1.8rem
 
+      +respond(xl) {
+        font-size: 2.1rem
+      }
     }
 
     &__description {
       font-weight: inherit
       font-size: 1.8rem
       color: $font-gray-dark
+
+      +respond(xl) {
+        font-size: 2.1rem
+      }
     }
   }
 }

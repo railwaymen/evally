@@ -13,12 +13,12 @@
 
     <div class="panel__content">
       <v-container grid-list-lg fluid>
-        <v-layout row>
+        <v-layout wrap row>
 
-          <v-flex xs3>
+          <v-flex xs10 offset-xs1 lg3 offset-lg0>
             <v-list>
               <template v-for="panel in panels">
-                <v-divider v-if="panel.dividerBefore" class="my-2"></v-divider>
+                <v-divider v-if="panel.dividerBefore" :key="`divider_${panel.id}`" class="my-2"></v-divider>
                 <v-list-tile :key="panel.id" :to="{ name: panel.path }" exact>
                   <v-list-tile-action>
                     <v-icon>{{ panel.icon }}</v-icon>
@@ -31,7 +31,7 @@
             </v-list>
           </v-flex>
 
-          <v-flex xs9>
+          <v-flex xs12 lg9>
             <router-view></router-view>
           </v-flex>
         </v-layout>

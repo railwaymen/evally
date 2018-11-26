@@ -15,11 +15,13 @@ class User extends Model {
   }
 
   fullname() {
-    return [this.first_name, this.last_name].join(' ')
+    let fullname = [this.first_name, this.last_name].join(' ').trim()
+    return fullname || this.email
   }
 
   initials() {
-    return [this.first_name[0], this.last_name[0]].join('').toUpperCase()
+    let initials = [this.first_name[0], this.last_name[0]].join('').toUpperCase()
+    return initials || '@'
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <v-flex :xs6="section.width === 'half'" :xs12="section.width === 'full'">
+  <v-flex xs12 :lg6="section.width === 'half'" :lg12="section.width === 'full'">
     <div class="section-box">
       <h5 class="section-box__heading">
         <span>{{ section.name }}</span>
@@ -14,7 +14,14 @@
             </v-list-tile-content>
 
             <v-list-tile-action>
-              <v-rating v-model="skill.value" @input="updateSkills" :readonly="!editable" hover clearable></v-rating>
+              <v-rating
+                v-model="skill.value"
+                @input="updateSkills"
+                :readonly="!editable"
+                length="3"
+                hover
+                clearable
+              ></v-rating>
             </v-list-tile-action>
           </v-list-tile>
         </v-list>

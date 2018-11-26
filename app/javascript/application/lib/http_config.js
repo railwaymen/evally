@@ -24,7 +24,7 @@ axios.interceptors.response.use(response => {
   return response
 }, error => {
   if (error.response.status === 401) {
-    store.commit('AuthStore/clearSession')
+    store.commit('AuthStore/clearStore')
 
     router.push({ name: 'landing_page_path' })
     localStorage.clear()

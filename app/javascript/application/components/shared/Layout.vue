@@ -1,6 +1,12 @@
 <template>
   <section class="dashboard" style="padding-top: 10rem;">
-    <v-toolbar class="elevation-1" color="white" fixed tabs>
+    <v-toolbar
+      :tabs="$vuetify.breakpoint.lgAndUp"
+      class="elevation-1"
+      color="white"
+      fixed
+      scroll-off-screen
+    >
 
       <v-toolbar-title>
         <router-link class="toolbar-logo" :to="{ name: 'dashboard_path' }">
@@ -14,7 +20,7 @@
         <v-icon>notifications</v-icon>
       </v-btn> -->
 
-      <v-menu offset-y nudge-bottom="8" right>
+      <v-menu transition="slide-y-transition" offset-y>
         <span class="toolbar-profile" slot="activator" v-ripple>
           <v-avatar class="toolbar-profile__avatar" color="primary" size="32">
             <span class="white--text body-1">{{ user.initials() }}</span>
@@ -26,7 +32,18 @@
         </span>
 
         <v-list>
-          <v-list-tile v-for="item in items" :key="item.id" :to="{ name: item.path }" exact>
+          <template v-if="$vuetify.breakpoint.mdAndDown">
+            <v-list-tile v-for="tab in tabs" :key="`tab_${tab.id}`" :to="{ name: tab.path }" exact>
+              <v-list-tile-action>
+                <v-icon>{{ tab.icon }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-title>{{ tab.name }}</v-list-tile-title>
+            </v-list-tile>
+
+            <v-divider class="my-2"></v-divider>
+          </template>
+
+          <v-list-tile v-for="item in items" :key="`item_${item.id}`" :to="{ name: item.path }" exact>
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -43,8 +60,15 @@
         </v-list>
       </v-menu>
 
-      <v-tabs slot="extension" color="white" slider-color="primary" :hide-slider="canHideSlider" grow>
-        <v-tab v-for="tab in tabs" :key="tab.id" :to="{ name: tab.path }" exact>
+      <v-tabs
+        v-if="$vuetify.breakpoint.lgAndUp"
+        :hide-slider="canHideSlider"
+        slot="extension"
+        color="white"
+        slider-color="primary"
+        grow
+      >
+        <v-tab v-for="tab in tabs" :key="`tab_${tab.id}`" :to="{ name: tab.path }" exact>
           <v-icon>{{ tab.icon }}</v-icon>
           <span class="separator"></span>
           {{ tab.name }}
@@ -71,14 +95,14 @@ export default {
   data () {
     return {
       tabs: [
-        { id: 0, name: 'Start', icon: 'dashboard', path: 'dashboard_path'},
-        { id: 10, name: 'Evaluations', icon: 'assignment_turned_in', path: 'evaluations_path'},
-        { id: 20, name: 'Employees', icon: 'people', path: 'employees_path'},
-        { id: 30, name: 'Templates', icon: 'list_alt', path: 'templates_path'},
-        { id: 40, name: 'Archive', icon: 'archive', path: 'employees_archive_path'}
+        { id: 0, name: 'Start', icon: 'dashboard', path: 'dashboard_path' },
+        { id: 10, name: 'Evaluations', icon: 'assignment_turned_in', path: 'evaluations_path' },
+        { id: 20, name: 'Employees', icon: 'people', path: 'employees_path' },
+        { id: 30, name: 'Templates', icon: 'list_alt', path: 'templates_path' },
+        { id: 40, name: 'Archive', icon: 'archive', path: 'employees_archive_path' }
       ],
       items: [
-        { id: 0, name: 'Settings', icon: 'settings', path: 'general_settings_path'}
+        { id: 0, name: 'Settings', icon: 'settings', path: 'general_settings_path' }
       ]
     }
   },
