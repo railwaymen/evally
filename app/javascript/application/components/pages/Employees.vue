@@ -1,41 +1,35 @@
 <template>
   <section class="panel">
     <v-layout row>
-      <v-flex xs6>
+      <v-flex>
         <h2 class="panel__heading">Employees</h2>
       </v-flex>
 
-      <v-flex xs6>
+      <v-flex>
         <div class="panel__action-bar">
-          <v-btn @click="build" color="green" flat>
-            <v-icon>add</v-icon> New
-          </v-btn>
-
-          <v-menu
-            :disabled="!employee.isExisting()"
-            transition="slide-y-transition"
-            offset-y bottom left
-          >
-            <v-btn :disabled="!employee.isExisting()" color="primary" slot="activator" icon flat>
-              <v-icon>more_vert</v-icon>
+          <v-tooltip bottom>
+            <v-btn @click="build" color="green" slot="activator" icon flat>
+              <v-icon>add</v-icon>
             </v-btn>
+            <span>New employee</span>
+          </v-tooltip>
 
-            <v-list>
-              <v-list-tile v-if="setting.public_view_enabled" @click="permalink">
-                <v-list-tile-action>
-                  <v-icon>link</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-title>Permalink</v-list-tile-title>
-              </v-list-tile>
+          <template v-if="employee.isExisting()">
+            <v-tooltip v-if="setting.public_view_enabled" bottom>
+              <v-btn @click="permalink" slot="activator" icon flat>
+                <v-icon>link</v-icon>
+              </v-btn>
+              <span>Get permalink</span>
+            </v-tooltip>
 
-              <v-list-tile v-for="item in menuItems" :key="`item_${item.id}`" @click="item.action">
-                <v-list-tile-action>
-                  <v-icon>{{ item.icon }}</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
+            <v-tooltip v-for="item in menuItems" :key="`item_${item.id}`" bottom>
+              <v-btn @click="item.action" :color="item.color" slot="activator" icon flat>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-btn>
+              <span>{{ item.name }}</span>
+            </v-tooltip>
+          </template>
+
         </div>
       </v-flex>
     </v-layout>
@@ -70,9 +64,9 @@ export default {
   data() {
     return {
       menuItems: [
-        { id: 0, name: 'Edit', icon: 'edit', action: this.edit },
-        { id: 10, name: 'Archive', icon: 'how_to_vote', action: this.archive },
-        { id: 20, name: 'Delete', icon: 'delete', action: this.remove }
+        { id: 0, name: 'Edit employee', icon: 'edit', action: this.edit, color: 'black' },
+        { id: 10, name: 'Archive employee', icon: 'how_to_vote', action: this.archive, color: 'black' },
+        { id: 20, name: 'Delete employee', icon: 'delete', action: this.remove, color: 'red' }
       ]
     }
   },

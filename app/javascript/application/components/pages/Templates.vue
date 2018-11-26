@@ -1,54 +1,41 @@
 <template>
   <section class="panel">
     <v-layout row>
-      <v-flex xs6>
+      <v-flex>
         <h2 class="panel__heading">Templates</h2>
       </v-flex>
 
       <v-flex>
         <div class="panel__action-bar">
-          <v-btn color="green" @click="newTemplate" flat>
-            <v-icon>add</v-icon> New
-          </v-btn>
-
-          <v-menu
-            :disabled="!template.isExisting() && status !== 'new_record'"
-            transition="slide-y-transition"
-            offset-y bottom left
-          >
-            <v-btn
-              :disabled="!template.isExisting() && status !== 'new_record'"
-              color="primary"
-              slot="activator"
-              icon
-              flat
-            >
-              <v-icon>more_vert</v-icon>
+          <v-tooltip bottom>
+            <v-btn @click="newTemplate" color="green" slot="activator" icon flat>
+              <v-icon>add</v-icon>
             </v-btn>
+            <span>New template</span>
+          </v-tooltip>
 
-            <v-list>
-              <v-list-tile :disabled="!template.editable" @click="save">
-                <v-list-tile-action>
-                  <v-icon>save_alt</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-title>Save</v-list-tile-title>
-              </v-list-tile>
+          <template v-if="template.isExisting()">
+            <v-tooltip bottom>
+              <v-btn @click="save" :disabled="!template.editable" slot="activator" icon flat>
+                <v-icon>save_alt</v-icon>
+              </v-btn>
+              <span>Save template</span>
+            </v-tooltip>
 
-              <v-list-tile :disabled="template.editable" @click="edit">
-                <v-list-tile-action>
-                  <v-icon>edit</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-title>Edit</v-list-tile-title>
-              </v-list-tile>
+            <v-tooltip bottom>
+              <v-btn @click="edit" :disabled="template.editable" slot="activator" icon flat>
+                <v-icon>edit</v-icon>
+              </v-btn>
+              <span>Edit template</span>
+            </v-tooltip>
 
-              <v-list-tile @click="remove">
-                <v-list-tile-action>
-                  <v-icon>delete</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-title>Delete</v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
+            <v-tooltip bottom>
+              <v-btn @click="remove" color="red" slot="activator" icon flat>
+                <v-icon>delete</v-icon>
+              </v-btn>
+              <span>Delete template</span>
+            </v-tooltip>
+          </template>
         </div>
       </v-flex>
     </v-layout>

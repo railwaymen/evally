@@ -1,34 +1,28 @@
 <template>
   <section class="panel">
-    <v-layout wrap row>
-      <v-flex xs6>
+    <v-layout row>
+      <v-flex>
         <h2 class="panel__heading">Evaluations</h2>
       </v-flex>
 
-      <v-flex xs6>
+      <v-flex>
         <div class="panel__action-bar">
-          <v-btn @click="build" color="green" flat>
-            <v-icon>add</v-icon> New
-          </v-btn>
-
-          <v-menu
-            :disabled="!draft.isExisting()"
-            transition="slide-y-transition"
-            offset-y bottom left
-          >
-            <v-btn :disabled="!draft.isExisting()" color="primary" slot="activator" icon flat>
-              <v-icon>more_vert</v-icon>
+          <v-tooltip bottom>
+            <v-btn @click="build" color="green" slot="activator" icon flat>
+              <v-icon>add</v-icon>
             </v-btn>
+            <span>New evaluation</span>
+          </v-tooltip>
 
-            <v-list>
-              <v-list-tile v-for="item in menuItems" :key="`item_${item.id}`" @click="item.action">
-                <v-list-tile-action>
-                  <v-icon>{{ item.icon }}</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
+          <template v-if="draft.isExisting()">
+            <v-tooltip v-for="item in menuItems" :key="`item_${item.id}`" bottom>
+              <v-btn @click="item.action" :color="item.color" slot="activator" icon flat>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-btn>
+              <span>{{ item.name }}</span>
+            </v-tooltip>
+          </template>
+
         </div>
       </v-flex>
     </v-layout>
@@ -64,10 +58,10 @@ export default {
   data() {
     return {
       menuItems: [
-        { id: 0, name: 'Complete', icon: 'save_alt', action: this.saveEvaluation },
-        { id: 10, name: 'Save draft', icon: 'how_to_vote', action: this.saveDraft },
-        { id: 20, name: 'Reset', icon: 'restore', action: this.reset },
-        { id: 30, name: 'Delete', icon: 'delete', action: this.remove }
+        { id: 0, name: 'Complete evaluation', icon: 'how_to_vote', action: this.saveEvaluation, color: 'green' },
+        { id: 10, name: 'Save draft', icon: 'save_alt', action: this.saveDraft, color: 'black' },
+        { id: 20, name: 'Undo changes', icon: 'restore', action: this.reset, color: 'black' },
+        { id: 30, name: 'Delete evaluation', icon: 'delete', action: this.remove, color: 'red' }
       ]
     }
   },
