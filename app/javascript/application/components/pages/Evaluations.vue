@@ -23,6 +23,13 @@
             </v-tooltip>
           </template>
 
+          <v-tooltip class="divider-before" bottom>
+            <v-btn @click="isSidebarVisible = !isSidebarVisible" slot="activator" icon flat>
+              <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
+            </v-btn>
+            <span>{{ isSidebarVisible ? 'Hide' : 'Show' }} sidebar</span>
+          </v-tooltip>
+
         </div>
       </v-flex>
     </v-layout>
@@ -30,11 +37,11 @@
     <div class="panel__content">
       <v-container grid-list-lg fluid>
         <v-layout wrap row>
-          <v-flex xs10 offset-xs1 lg3 offset-lg0>
+          <v-flex v-if="isSidebarVisible" xs10 offset-xs1 lg3 offset-lg0>
             <evaluation-drafts-box></evaluation-drafts-box>
           </v-flex>
 
-          <v-flex xs12 lg9>
+          <v-flex xs12 :lg9="isSidebarVisible" :lg12="!isSidebarVisible">
             <evaluation-box context="evaluation"></evaluation-box>
           </v-flex>
         </v-layout>
@@ -57,6 +64,7 @@ export default {
   components: { CreateEvaluationForm, EvaluationBox, EvaluationDraftsBox },
   data() {
     return {
+      isSidebarVisible: true,
       menuItems: [
         { id: 0, name: 'Complete evaluation', icon: 'how_to_vote', action: this.saveEvaluation, color: 'green' },
         { id: 10, name: 'Save draft', icon: 'save_alt', action: this.saveDraft, color: 'black' },

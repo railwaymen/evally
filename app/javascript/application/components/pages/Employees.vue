@@ -30,6 +30,13 @@
             </v-tooltip>
           </template>
 
+          <v-tooltip class="divider-before" bottom>
+            <v-btn @click="isSidebarVisible = !isSidebarVisible" slot="activator" icon flat>
+              <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
+            </v-btn>
+            <span>{{ isSidebarVisible ? 'Hide' : 'Show' }} sidebar</span>
+          </v-tooltip>
+
         </div>
       </v-flex>
     </v-layout>
@@ -37,11 +44,11 @@
     <div class="panel__content">
       <v-container grid-list-lg fluid>
         <v-layout wrap row>
-          <v-flex xs10 offset-xs1 lg3 offset-lg0>
+          <v-flex v-if="isSidebarVisible" xs10 offset-xs1 lg3 offset-lg0>
             <employee-search-box></employee-search-box>
           </v-flex>
 
-          <v-flex xs12 lg9>
+          <v-flex xs12 :lg9="isSidebarVisible" :lg12="!isSidebarVisible">
             <employee-evaluation-box></employee-evaluation-box>
           </v-flex>
         </v-layout>
@@ -63,6 +70,7 @@ export default {
   components: { EmployeeEvaluationBox, EmployeeSearchBox },
   data() {
     return {
+      isSidebarVisible: true,
       menuItems: [
         { id: 0, name: 'Edit employee', icon: 'edit', action: this.edit, color: 'black' },
         { id: 10, name: 'Archive employee', icon: 'how_to_vote', action: this.archive, color: 'black' },
