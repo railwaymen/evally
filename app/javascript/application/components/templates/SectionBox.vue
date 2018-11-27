@@ -1,5 +1,5 @@
 <template>
-  <v-flex :xs6="section.width === 'half'" :xs12="section.width === 'full'">
+  <v-flex xs12 :md6="section.width === 'half'" :md12="section.width === 'full'">
     <div class="section-box">
       <h5 class="section-box__heading">
         <span v-if="template.editable">

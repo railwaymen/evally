@@ -11,7 +11,7 @@
           ></v-text-field>
         </div>
       </v-flex>
-      <v-flex xs6>
+      <v-flex xs12 lg6>
         <div class="employee">
           <h3 class="employee__fullname">&lsaquo; employee name &rsaquo;</h3>
           <h4 class="employee__position">&lsaquo; employee position &rsaquo;</h4>
@@ -19,22 +19,22 @@
 
       </v-flex>
 
-      <v-flex xs2>
+      <v-flex xs4 lg2>
         <div class="date">
           <h5 class="date__value">&lsaquo; date &rsaquo;</h5>
-          <h6 class="date__description">on board since</h6>
+          <h6 class="date__description">hired at</h6>
         </div>
       </v-flex>
-      <v-flex xs2>
-        <div class="date">
-          <h5 class="date__value">&lsaquo; date &rsaquo;</h5>
-          <h6 class="date__description">previous evaluation</h6>
-        </div>
-      </v-flex>
-      <v-flex xs2>
+      <v-flex xs4 lg2>
         <div class="date">
           <h5 class="date__value">&lsaquo; date &rsaquo;</h5>
           <h6 class="date__description">next evaluation</h6>
+        </div>
+      </v-flex>
+      <v-flex xs4 lg2>
+        <div class="date">
+          <h5 class="date__value">&lsaquo; date &rsaquo;</h5>
+          <h6 class="date__description">completed at</h6>
         </div>
       </v-flex>
 

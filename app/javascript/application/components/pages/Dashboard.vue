@@ -1,21 +1,15 @@
 <template>
   <section class="panel">
     <v-layout row>
-      <v-flex xs6>
+      <v-flex xs12>
         <h2 class="panel__heading">Hello {{ user.first_name }}!</h2>
-      </v-flex>
-
-      <v-flex>
-        <div class="panel__action-bar">
-
-        </div>
       </v-flex>
     </v-layout>
 
     <div class="panel__content">
       <v-container grid-list-lg fluid>
-        <v-layout row>
-          <v-flex xs8>
+        <v-layout wrap row>
+          <v-flex xs12 lg8>
             <v-layout row wrap>
 
               <v-flex xs12>
@@ -29,7 +23,7 @@
             </v-layout>
           </v-flex>
 
-          <v-flex xs4>
+          <v-flex xs12 lg4>
             <activities></activities>
           </v-flex>
 

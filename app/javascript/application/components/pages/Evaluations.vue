@@ -1,30 +1,34 @@
 <template>
   <section class="panel">
     <v-layout row>
-      <v-flex xs6>
+      <v-flex>
         <h2 class="panel__heading">Evaluations</h2>
       </v-flex>
 
-      <v-flex xs6>
+      <v-flex>
         <div class="panel__action-bar">
-          <v-btn @click="build" color="green" flat>
-            <v-icon>add</v-icon> New evaluation
-          </v-btn>
+          <v-tooltip bottom>
+            <v-btn @click="build" color="green" slot="activator" icon flat>
+              <v-icon>add</v-icon>
+            </v-btn>
+            <span>New evaluation</span>
+          </v-tooltip>
 
           <template v-if="draft.isExisting()">
-            <v-btn @click="saveEvaluation" color="green" flat>
-              <v-icon>save_alt</v-icon> Save completed
-            </v-btn>
-            <v-btn @click="saveDraft" flat>
-              <v-icon>how_to_vote</v-icon> Save draft
-            </v-btn>
-            <v-btn @click="reset" flat>
-              <v-icon>restore</v-icon> Reset
-            </v-btn>
-            <v-btn @click="remove" color="red" flat>
-              <v-icon>delete</v-icon> Delete
-            </v-btn>
+            <v-tooltip v-for="item in menuItems" :key="`item_${item.id}`" bottom>
+              <v-btn @click="item.action" :color="item.color" slot="activator" icon flat>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-btn>
+              <span>{{ item.name }}</span>
+            </v-tooltip>
           </template>
+
+          <v-tooltip class="divider-before" bottom>
+            <v-btn @click="isSidebarVisible = !isSidebarVisible" slot="activator" icon flat>
+              <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
+            </v-btn>
+            <span>{{ isSidebarVisible ? 'Hide' : 'Show' }} sidebar</span>
+          </v-tooltip>
 
         </div>
       </v-flex>
@@ -32,12 +36,12 @@
 
     <div class="panel__content">
       <v-container grid-list-lg fluid>
-        <v-layout row>
-          <v-flex xs3>
+        <v-layout wrap row>
+          <v-flex v-if="isSidebarVisible" xs10 offset-xs1 lg3 offset-lg0>
             <evaluation-drafts-box></evaluation-drafts-box>
           </v-flex>
 
-          <v-flex xs9>
+          <v-flex xs12 :lg9="isSidebarVisible" :lg12="!isSidebarVisible">
             <evaluation-box context="evaluation"></evaluation-box>
           </v-flex>
         </v-layout>
@@ -58,6 +62,17 @@ import EvaluationDraftsBox from '@/components/evaluations/EvaluationDraftsBox'
 export default {
   name: 'Evaluations',
   components: { CreateEvaluationForm, EvaluationBox, EvaluationDraftsBox },
+  data() {
+    return {
+      isSidebarVisible: true,
+      menuItems: [
+        { id: 0, name: 'Complete evaluation', icon: 'how_to_vote', action: this.saveEvaluation, color: 'green' },
+        { id: 10, name: 'Save draft', icon: 'save_alt', action: this.saveDraft, color: 'black' },
+        { id: 20, name: 'Undo changes', icon: 'restore', action: this.reset, color: 'black' },
+        { id: 30, name: 'Delete evaluation', icon: 'delete', action: this.remove, color: 'red' }
+      ]
+    }
+  },
   methods: {
     reset() {
       this.$store.commit('EvaluationsStore/reset')
@@ -76,7 +91,6 @@ export default {
     },
 
     build() {
-      this.$store.commit('EvaluationsStore/clear')
       openerBus.openFormModal({ model: 'draft', action: 'create', maxWidth: 500, redirect: false })
     },
 

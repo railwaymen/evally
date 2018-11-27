@@ -1,41 +1,53 @@
 <template>
   <section class="panel">
     <v-layout row>
-      <v-flex xs6>
+      <v-flex>
         <h2 class="panel__heading">Templates</h2>
       </v-flex>
 
       <v-flex>
         <div class="panel__action-bar">
-          <v-btn color="green" @click="newTemplate" flat>
-            <v-icon>add</v-icon> New template
-          </v-btn>
+          <v-tooltip bottom>
+            <v-btn @click="newTemplate" color="green" slot="activator" icon flat>
+              <v-icon>add</v-icon>
+            </v-btn>
+            <span>New template</span>
+          </v-tooltip>
 
-          <template v-if="template.isExisting() || status === 'new_record'">
-            <v-btn v-if="template.editable" @click="save" flat>
-              <v-icon>save_alt</v-icon> Save
-            </v-btn>
-            <v-btn v-else @click="edit" flat>
-              <v-icon>edit</v-icon> Edit
-            </v-btn>
+          <template v-if="template.isExisting()">
+            <v-tooltip bottom>
+              <v-btn @click="save" :disabled="!template.editable" slot="activator" icon flat>
+                <v-icon>save_alt</v-icon>
+              </v-btn>
+              <span>Save template</span>
+            </v-tooltip>
 
-            <v-btn color="red" @click="remove" flat>
-              <v-icon>delete</v-icon> Delete
-            </v-btn>
+            <v-tooltip bottom>
+              <v-btn @click="edit" :disabled="template.editable" slot="activator" icon flat>
+                <v-icon>edit</v-icon>
+              </v-btn>
+              <span>Edit template</span>
+            </v-tooltip>
+
+            <v-tooltip bottom>
+              <v-btn @click="remove" color="red" slot="activator" icon flat>
+                <v-icon>delete</v-icon>
+              </v-btn>
+              <span>Delete template</span>
+            </v-tooltip>
           </template>
-
         </div>
       </v-flex>
     </v-layout>
 
     <div class="panel__content">
       <v-container grid-list-lg fluid>
-        <v-layout row>
-          <v-flex xs3>
+        <v-layout wrap row>
+          <v-flex xs10 offset-xs1 lg3 offset-lg0>
             <template-search-box></template-search-box>
           </v-flex>
 
-          <v-flex xs9>
+          <v-flex xs12 lg9>
             <template-box></template-box>
           </v-flex>
         </v-layout>

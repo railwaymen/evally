@@ -3,15 +3,18 @@ import axios from 'axios'
 import { Utils } from '@/lib/utils'
 import { Employee, EmployeesList } from '@/models/employee'
 
+const initialState = () => ({
+  employees: new EmployeesList(),
+  employee: new Employee(),
+  positions: [],
+  status: ''
+})
+
 const EmployeesStore = {
   namespaced: true,
-  state: {
-    employees: new EmployeesList(),
-    employee: new Employee(),
-    positions: [],
-    status: ''
 
-  },
+  state: initialState,
+
   getters: {
     employees: state => state.employees,
     employee: state => state.employee,
@@ -51,6 +54,10 @@ const EmployeesStore = {
     remove(state, id) {
       state.employees.remove({ id: id })
       state.employee = new Employee()
+      return state
+    },
+    resetState(state) {
+      state = Object.assign(state, initialState())
       return state
     }
   },

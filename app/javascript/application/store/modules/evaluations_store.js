@@ -5,14 +5,17 @@ import { Utils } from '@/lib/utils'
 
 import { Evaluation, EvaluationsList } from '@/models/evaluation'
 
+const initialState = () => ({
+  evaluations: new EvaluationsList(),
+  evaluation: new Evaluation(),
+  status: ''
+})
+
 const EvaluationsStore = {
   namespaced: true,
-  state: {
-    evaluations: new EvaluationsList(),
-    evaluation: new Evaluation(),
-    status: ''
 
-  },
+  state: initialState(),
+
   getters: {
     evaluations: state => state.evaluations,
     evaluation: state => state.evaluation,
@@ -70,6 +73,10 @@ const EvaluationsStore = {
         if (section.id === data.sectionId) section.skills = data.skills
         return section
       })
+      return state
+    },
+    resetState(state) {
+      state = Object.assign(state, initialState())
       return state
     }
   },

@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs6>
+  <v-flex xs12 lg6>
     <div class="new-section">
       <h5 class="new-section__heading">
         <span>New section</span>

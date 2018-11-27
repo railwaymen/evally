@@ -1,10 +1,14 @@
 import { SectionsList } from '@/models/section'
 
+const initialState = () => ({
+  sections: new SectionsList()
+})
+
 const SectionsStore = {
   namespaced: true,
-  state: {
-    sections: new SectionsList()
-  },
+
+  state: initialState(),
+
   getters: {
     sections: state => state.sections
   },
@@ -35,6 +39,10 @@ const SectionsStore = {
     updateSkills(state, data) {
       let section = state.sections.find(isNaN(data.id) ? { tempId: data.id } : { id: data.id })
       if (section) section.skills = data.skills
+      return state
+    },
+    resetState(state) {
+      state = Object.assign(state, initialState())
       return state
     }
   }

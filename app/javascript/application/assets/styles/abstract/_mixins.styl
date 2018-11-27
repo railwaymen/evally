@@ -18,3 +18,32 @@ scrollbar-styling() {
     )
   }
 }
+
+/*
+ * MEDIA QUERIES MANAGER
+ *
+ * < 600        - xs - phones
+ * 600 - 960    - sm - tablets
+ * 960 - 1264   - md - laptops
+ * 1264 - 1904  - lg - desktops (default)
+ * > 1904       - xl - 4K
+ *
+ */
+
+ respond(breakpoint) {
+   if breakpoint == sm {
+     @media (min-width: 37.5em) { block }
+   }
+
+   if breakpoint == md {
+     @media (min-width: 60em) { block }
+   }
+
+   if breakpoint == lg {
+     @media (min-width: 79em) { block }
+   }
+
+   if breakpoint == xl {
+     @media (min-width: 119em) { block }
+   }
+ }

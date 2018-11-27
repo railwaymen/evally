@@ -85,11 +85,6 @@ export default new Router({
               component: require('@/components/settings/SupportPanel').default,
             }
           ]
-        },
-        {
-          path: 'profile',
-          name: 'profile_path',
-          component: require('@/components/pages/Profile').default,
         }
       ]
     },

@@ -5,14 +5,16 @@ import { Utils } from '@/lib/utils'
 import { Setting } from '@/models/setting'
 import { User } from '@/models/user'
 
+const initialState = () => ({
+  user: new User(),
+  setting: new Setting(),
+  status: ''
+})
+
 const AuthStore = {
   namespaced: true,
 
-  state: {
-    user: new User(),
-    setting: new Setting(),
-    status: ''
-  },
+  state: initialState(),
 
   getters: {
     user: state => state.user,
@@ -27,12 +29,6 @@ const AuthStore = {
       state.status = 'signedIn'
       return state
     },
-    clearSession(state) {
-      state.user = new User()
-      state.setting = new Setting()
-      state.status = 'signedOut'
-      return state
-    },
     progress(state, status) {
       state.status = status
       return state
@@ -40,6 +36,15 @@ const AuthStore = {
     updateSetting(state, data) {
       state.setting = new Setting(data)
       return state
+    },
+    resetState(state) {
+      state = Object.assign(state, initialState())
+      return state
+    },
+
+    clearStore(state) {
+      let modules = ['Activities', 'Auth', 'Employees', 'Evaluations', 'Sections', 'Templates']
+      modules.forEach(module => this.commit(`${module}Store/resetState`))
     }
   },
 
@@ -67,7 +72,7 @@ const AuthStore = {
         localStorage.clear()
 
         delete axios.defaults.headers.common['Authorization']
-        context.commit('clearSession')
+        context.commit('clearStore')
 
         resolve()
       })
@@ -82,6 +87,39 @@ const AuthStore = {
             context.commit('setSession', session)
 
             resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+
+    updateUser(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.put('v1/users/current', data)
+          .then(response => {
+            let user = new User(Utils.transformModel(response.data.data))
+
+            context.commit('updateSetting', user.setting)
+
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+
+    updatePassword(context, data) {
+      return new Promise((resolve, reject) => {
+        axios.put('v1/users/current/password', data)
+          .then(() => {
+            localStorage.clear()
+
+            delete axios.defaults.headers.common['Authorization']
+            context.commit('clearStore')
+
+            resolve()
           })
           .catch(error => {
             reject(error)

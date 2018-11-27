@@ -1,30 +1,41 @@
 <template>
   <section class="panel">
     <v-layout row>
-      <v-flex xs6>
+      <v-flex>
         <h2 class="panel__heading">Employees</h2>
       </v-flex>
 
-      <v-flex xs6>
+      <v-flex>
         <div class="panel__action-bar">
-          <v-btn @click="build" color="green" flat>
-            <v-icon>add</v-icon> New employee
-          </v-btn>
+          <v-tooltip bottom>
+            <v-btn @click="build" color="green" slot="activator" icon flat>
+              <v-icon>add</v-icon>
+            </v-btn>
+            <span>New employee</span>
+          </v-tooltip>
 
           <template v-if="employee.isExisting()">
-            <v-btn v-if="setting.public_view_enabled" @click="permalink" flat>
-              <v-icon>link</v-icon> Permalink
-            </v-btn>
-            <v-btn @click="edit" flat>
-              <v-icon>edit</v-icon> Edit
-            </v-btn>
-            <v-btn @click="archive" flat>
-              <v-icon>how_to_vote</v-icon> Archive
-            </v-btn>
-            <v-btn @click="remove" color="red" flat>
-              <v-icon>delete</v-icon> Delete
-            </v-btn>
+            <v-tooltip v-if="setting.public_view_enabled" bottom>
+              <v-btn @click="permalink" slot="activator" icon flat>
+                <v-icon>link</v-icon>
+              </v-btn>
+              <span>Get permalink</span>
+            </v-tooltip>
+
+            <v-tooltip v-for="item in menuItems" :key="`item_${item.id}`" bottom>
+              <v-btn @click="item.action" :color="item.color" slot="activator" icon flat>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-btn>
+              <span>{{ item.name }}</span>
+            </v-tooltip>
           </template>
+
+          <v-tooltip class="divider-before" bottom>
+            <v-btn @click="isSidebarVisible = !isSidebarVisible" slot="activator" icon flat>
+              <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
+            </v-btn>
+            <span>{{ isSidebarVisible ? 'Hide' : 'Show' }} sidebar</span>
+          </v-tooltip>
 
         </div>
       </v-flex>
@@ -32,12 +43,12 @@
 
     <div class="panel__content">
       <v-container grid-list-lg fluid>
-        <v-layout row>
-          <v-flex xs3>
+        <v-layout wrap row>
+          <v-flex v-if="isSidebarVisible" xs10 offset-xs1 lg3 offset-lg0>
             <employee-search-box></employee-search-box>
           </v-flex>
 
-          <v-flex xs9>
+          <v-flex xs12 :lg9="isSidebarVisible" :lg12="!isSidebarVisible">
             <employee-evaluation-box></employee-evaluation-box>
           </v-flex>
         </v-layout>
@@ -57,6 +68,16 @@ import EmployeeSearchBox from '@/components/employees/EmployeeSearchBox'
 export default {
   name: 'Employees',
   components: { EmployeeEvaluationBox, EmployeeSearchBox },
+  data() {
+    return {
+      isSidebarVisible: true,
+      menuItems: [
+        { id: 0, name: 'Edit employee', icon: 'edit', action: this.edit, color: 'black' },
+        { id: 10, name: 'Archive employee', icon: 'how_to_vote', action: this.archive, color: 'black' },
+        { id: 20, name: 'Delete employee', icon: 'delete', action: this.remove, color: 'red' }
+      ]
+    }
+  },
   methods: {
     build() {
       this.$store.commit('EmployeesStore/clear')

@@ -21,7 +21,22 @@
 
             "first_name" : { "type" : "string" },
 
-            "last_name" : { "type" : "string" }
+            "last_name" : { "type" : "string" },
+
+            "setting" : {
+              "type" : "object",
+              "required": ["default_draft_items", "default_upcoming_items", "default_next_evaluation_time", "public_view_enabled"],
+              "properties": {
+
+                "default_draft_items": { "type" : "number" },
+
+                "default_upcoming_items": { "type" : "number" },
+
+                "default_next_evaluation_time": { "type" : "number" },
+
+                "public_view_enabled": { "type" : "boolean" }
+              }
+            }
           }
         }
       }
