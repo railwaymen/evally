@@ -28,7 +28,7 @@ module V1
     end
 
     def evaluation_params
-      @attributes.permit(:state, :completed_at, :updated_at, sections_attributes: [:id, skills: [:name, :value]])
+      @attributes.permit(:state, :completed_at, :updated_at, sections_attributes: [:id, skills: [:name, :value, :needToImprove]])
     end
 
     def add_activity

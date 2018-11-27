@@ -8,7 +8,12 @@
       <!-- Rating section -->
       <div v-if="isRatingSection()" class="section-box__items">
         <v-list>
-          <v-list-tile v-for="(skill, index) in section.skills" :key="index" :class="{ 'need-to-improve': false }">
+          <v-list-tile
+            v-for="(skill, index) in section.skills"
+            :key="index"
+            :class="{ 'need-to-improve': skill.needToImprove }"
+            @dblclick="needToImprove(skill)"
+          >
             <v-list-tile-content>
               <v-list-tile-title v-text="skill.name"></v-list-tile-title>
             </v-list-tile-content>
@@ -29,7 +34,12 @@
 
       <div v-if="isBoolSection()" class="section-box__items">
         <v-list>
-          <v-list-tile v-for="(skill, index) in section.skills" :key="index" :class="{ 'need-to-improve': false }">
+          <v-list-tile
+            v-for="(skill, index) in section.skills"
+            :key="index"
+            :class="{ 'need-to-improve': skill.needToImprove }"
+            @dblclick="needToImprove(skill)"
+          >
             <v-list-tile-content>
               <v-list-tile-title v-text="skill.name"></v-list-tile-title>
             </v-list-tile-content>
@@ -41,6 +51,7 @@
                 v-model="skill.value"
                 @change="updateSkills"
                 color="success"
+                class="mt-2"
               ></v-switch>
               <span v-else>{{ skill.value ? 'Yes' : 'No' }}</span>
             </v-list-tile-action>
@@ -91,7 +102,14 @@ export default {
 
     updateSkills() {
       this.$store.commit('EvaluationsStore/updateSkills', { sectionId: this.section.id, skills: this.section.skills })
-    }
+    },
+
+    needToImprove(skill) {
+      if (this.editable) {
+        skill.needToImprove = !skill.needToImprove
+        this.updateSkills()
+      }
+    },
   }
 }
 </script>

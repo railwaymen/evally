@@ -78,7 +78,7 @@ export default {
 
     addSkill() {
       if (this.newSkill.length > 0) {
-        this.skills.push({ name: this.newSkill, value: this.groupSets[this.group].value })
+        this.skills.push({ name: this.newSkill, value: this.groupSets[this.group].value, needToImprove: false })
         this.newSkill = ''
       }
     },
