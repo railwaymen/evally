@@ -20,6 +20,10 @@ class User < ApplicationRecord
     length: { in: 6..32 },
     if: ->(u) { u.password.present? }
 
+  validates :first_name, presence: true
+
+  validates :last_name, presence: true
+
   # # Callbacks
   #
   after_create { |user| user.create_setting }

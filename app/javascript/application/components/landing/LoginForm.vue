@@ -1,5 +1,9 @@
 <template>
   <div class="landing-form">
+    <div class="landing-form__logo">
+      <img src="@/assets/img/logo2_black.png" alt="Logo Evally">
+    </div>
+
     <h3 class="landing-form__heading landing-form__heading--dark mb-4">sign in</h3>
 
     <v-form ref="loginForm" v-model="formValid" @submit.prevent="login">
@@ -17,7 +21,6 @@
           type="password"
           label="password"
         ></v-text-field>
-        <!-- <v-checkbox label="remember me" color="primary"></v-checkbox> -->
       </div>
 
       <div class="landing-form__action mt-4">
@@ -27,7 +30,7 @@
       <div class="landing-form__question">
         <p style="display: none;">
           No account?
-          <span class="primary--text" @click="openRegisterForm">Sign up</span>
+          <span class="primary--text">Sign up</span>
         </p>
       </div>
     </v-form>
@@ -47,8 +50,7 @@ export default {
         required: value => !!value || 'Required.',
         min: v => v.length >= 6 || 'Min 6 characters'
       },
-      formValid: false,
-      passVisible: false
+      formValid: false
     }
   },
   methods: {
@@ -66,9 +68,6 @@ export default {
             }
           })
       }
-    },
-    openRegisterForm () {
-      this.$emit('toggle', 'register')
     }
   }
 }
