@@ -29,7 +29,6 @@ module V1
         :last_name,
         :position,
         :hired_at,
-        :last_evaluation_at,
         :next_evaluation_at,
         :state,
         :released_at
