@@ -17,14 +17,6 @@
           ></v-slider>
         </div>
 
-        <h2 class="subheading my-3">Public view</h2>
-        <div class="setting">
-          <v-checkbox
-            v-model="setting.public_view_enabled"
-            label="Enable public view"
-          ></v-checkbox>
-        </div>
-
         <div class="settings__actions text-xs-right">
           <v-btn @click="setting.reset()" flat>Reset</v-btn>
           <v-btn type="submit" class="primary" flat>Save</v-btn>

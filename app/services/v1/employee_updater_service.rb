@@ -1,9 +1,10 @@
 module V1
   class EmployeeUpdaterService
 
-    def initialize(attributes:, employee:)
+    def initialize(attributes:, employee:, user:)
       @attributes = attributes
       @employee = employee
+      @user = user
     end
 
     def call
@@ -37,7 +38,7 @@ module V1
 
     def add_activity
       action = @employee.hired? ? 'update' : 'archive'
-      @employee.user.activities.create!(action: action, activable: @employee, activable_name: @employee.fullname)
+      @user.activities.create!(action: action, activable: @employee, activable_name: @employee.fullname)
     end
 
   end

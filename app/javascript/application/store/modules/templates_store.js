@@ -42,6 +42,7 @@ const TemplatesStore = {
       return state
     },
     push(state, data) {
+      state.template.save()
       state.templates.add(data)
       return state
     },

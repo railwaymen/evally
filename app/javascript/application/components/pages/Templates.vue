@@ -14,14 +14,14 @@
             <span>New template</span>
           </v-tooltip>
 
-          <template v-if="template.isExisting()">
-            <v-tooltip bottom>
-              <v-btn @click="save" :disabled="!template.editable" slot="activator" icon flat>
-                <v-icon>save_alt</v-icon>
-              </v-btn>
-              <span>Save template</span>
-            </v-tooltip>
+          <v-tooltip bottom v-if="template.editable">
+            <v-btn @click="save" slot="activator" icon flat>
+              <v-icon>save_alt</v-icon>
+            </v-btn>
+            <span>Save template</span>
+          </v-tooltip>
 
+          <template v-if="template.isExisting()">
             <v-tooltip bottom>
               <v-btn @click="edit" :disabled="template.editable" slot="activator" icon flat>
                 <v-icon>edit</v-icon>

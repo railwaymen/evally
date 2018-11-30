@@ -17,6 +17,6 @@ class Activity < ApplicationRecord
   end
 
   def description
-    I18n.translate("activities.#{activable_type.downcase}.#{action}.description", name: activable_name)
+    I18n.translate("activities.#{activable_type.downcase}.#{action}.description", user: user.first_name, name: activable_name)
   end
 end

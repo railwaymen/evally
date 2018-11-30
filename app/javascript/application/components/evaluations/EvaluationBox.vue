@@ -10,7 +10,7 @@
 
       <v-flex xs12 lg3>
         <v-layout row justify-end>
-          <v-flex xs4>
+          <v-flex xs12>
             <div class="date">
               <h5 class="date__value">{{ employee.hired_at | moment("MMMM YYYY") }}</h5>
               <h6 class="date__description">hired at</h6>

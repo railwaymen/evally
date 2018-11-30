@@ -150,7 +150,7 @@ export default {
 
     hiredDate: {
       get() {
-        return this.$moment(this.employee.hired_at).format('YYYY-MM-DD')
+        return this.employee.hired_at ? this.$moment(this.employee.hired_at).format('YYYY-MM-DD') : ''
       },
       
       set(date) {

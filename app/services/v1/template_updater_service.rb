@@ -1,9 +1,10 @@
 module V1
   class TemplateUpdaterService
 
-    def initialize(attributes:, template:)
+    def initialize(attributes:, template:, user:)
       @attributes = attributes
       @template = template
+      @user = user
     end
 
     def call
@@ -27,7 +28,7 @@ module V1
     end
 
     def add_activity
-      @template.user.activities.create!(action: 'update', activable: @template, activable_name: @template.name)
+      @user.activities.create!(action: 'update', activable: @template, activable_name: @template.name)
     end
 
   end

@@ -27,4 +27,5 @@ class User < ApplicationRecord
   # # Callbacks
   #
   after_create { |user| user.create_setting }
+
 end
