@@ -102,7 +102,7 @@ export default {
 
     selectableEmployees() {
       return this.employees.models.map(employee => {
-        return { id: employee.id, value: this.employeeFullname(employee) }
+        return { id: employee.id, value: employee.fullname() }
       })
     },
 

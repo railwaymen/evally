@@ -4,8 +4,8 @@ export default {
       this.$store.commit('FlashStore/push', message)
     },
 
-    employeeFullname(employee) {
-      return [employee.first_name, employee.last_name].join(' ')
+    fullname(employee) {
+      return [employee.first_name, employee.last_name].join(' ').trim()
     },
 
     nextEvaluationDate(employee) {

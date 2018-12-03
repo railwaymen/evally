@@ -19,7 +19,7 @@
           <div class="vcard-header">
             <v-icon>person_outline</v-icon>
             <span class="separator"></span>
-            {{ employeeFullname(evaluationsEmployee(evaluations)) }}
+            {{ fullname(evaluationsEmployee(evaluations)) }}
           </div>
         </div>
 
@@ -105,7 +105,7 @@ export default {
 
       if (this.search.length > 0) {
         return this.$_.pickBy(grouped, (evaluations, key) => {
-          let fullname = this.employeeFullname(evaluations[0].employee)
+          let fullname = this.fullname(evaluations[0].employee)
           return fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         })
       }

@@ -7,7 +7,7 @@
         <v-list-tile v-for="upcoming in preparedEmployees" :key="upcoming.id" avatar>
 
           <v-list-tile-content>
-            <v-list-tile-title><strong>{{ employeeFullname(upcoming) }}</strong> as <em>{{ upcoming.position }}</em> - {{ nextEvaluationDate(upcoming) }}</v-list-tile-title>
+            <v-list-tile-title><strong>{{ upcoming.fullname() }}</strong> as <em>{{ upcoming.position }}</em> - {{ nextEvaluationDate(upcoming) }}</v-list-tile-title>
           </v-list-tile-content>
 
 					<v-list-tile-action>

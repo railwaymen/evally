@@ -2,7 +2,7 @@
   <div class="box box--with-content evaluation">
     <v-layout v-if="!evaluation" row>
       <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">{{ employeeFullname(employee) }} has not been evaluated yet</h4>
+        <h4 class="no-content__header no-content__header--large">{{ fullname(employee) }} has not been evaluated yet</h4>
       </v-flex>
     </v-layout>
 
@@ -15,7 +15,7 @@
     <v-layout v-else row wrap>
       <v-flex xs12 lg6>
         <div class="employee">
-          <h3 class="employee__fullname">{{ employeeFullname(employee) }}</h3>
+          <h3 class="employee__fullname">{{ fullname(employee) }}</h3>
           <h4 class="employee__position">{{ employee.position }}</h4>
         </div>
       </v-flex>
