@@ -121,6 +121,10 @@ export default {
       .catch(error => {
         this.flash({ error: 'Templates cannot be loaded due to some error: ' + this.renderError(error.response) })
       })
+  },
+
+  beforeDestroy() {
+    this.$store.commit('TemplatesStore/clear')
   }
 }
 </script>

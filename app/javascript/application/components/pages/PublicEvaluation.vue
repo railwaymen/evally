@@ -19,7 +19,7 @@
           </div>
 
           <div class="auth-form__action mt-4">
-            <v-btn color="primary" type="submit" outline block>Enter</v-btn>
+            <v-btn color="primary" type="submit" outline block round>Enter</v-btn>
           </div>
         </v-form>
       </div>
@@ -49,8 +49,8 @@ export default {
       lastName: '',
       visible: false,
       rules: [
-        v => !!v || 'Last name is required',
-        v => (v && v === this.evaluation.employee.last_name) || 'Last name is not correct. Try again'
+        v => !!v || 'Field is required',
+        v => (v && v === this.evaluation.employee.last_name) || 'Text is not correct. Try again'
       ]
     }
   },

@@ -17,10 +17,13 @@ const TemplatesStore = {
   getters: {
     templates: state => state.templates,
     template: state => state.template,
-    editable: state => state.editable,
     status: state => state.status
   },
   mutations: {
+    clear(state) {
+      state.template = new Template()
+      return state
+    },
     newTemplate(state) {
       state.template = new Template({ editable: true })
       state.status = 'new_record'
