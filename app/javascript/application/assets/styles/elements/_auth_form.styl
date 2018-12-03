@@ -1,11 +1,9 @@
-.landing-form {
+.auth-form {
   width: 90%
-  position: absolute
-  top: 40%
+  position: relative
   left: 50%
-  transform: translate(-50%, -40%)
+  transform: translateX(-50%)
   background: #fff
-  box-shadow: 0 .5rem 1rem rgba($black, .25)
   padding: 4rem 5rem
   border-radius: .5rem
 
@@ -32,6 +30,12 @@
     &--dark {
       color: $font-gray
     }
+  }
+
+  &__info {
+    text-align: center
+    font-size: 1.8rem
+    font-weight: 200  
   }
 
   &__question {

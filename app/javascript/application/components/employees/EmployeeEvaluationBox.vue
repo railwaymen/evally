@@ -22,19 +22,19 @@
 
       <v-flex xs12 lg6>
         <v-layout row justify-end>
-          <v-flex xs4>
+          <v-flex lg4>
             <div class="date">
               <h5 class="date__value">{{ employee.hired_at | moment("MMMM YYYY") }}</h5>
               <h6 class="date__description">hired at</h6>
             </div>
           </v-flex>
-          <v-flex v-if="employee.next_evaluation_at && $route.name !== 'browse_page_path'" xs4>
+          <v-flex v-if="employee.next_evaluation_at && $route.name !== 'browse_page_path'" lg4>
             <div class="date">
               <h5 class="date__value">{{ employee.next_evaluation_at | moment("MMMM YYYY") }}</h5>
               <h6 class="date__description">next evaluation</h6>
             </div>
           </v-flex>
-          <v-flex xs4>
+          <v-flex lg4>
             <div class="date">
               <h5 class="date__value">{{ evaluation.completed_at | moment("MMM DD, YYYY") }}</h5>
               <h6 class="date__description">completed at</h6>

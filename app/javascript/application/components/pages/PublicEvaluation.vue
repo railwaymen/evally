@@ -1,36 +1,37 @@
 <template>
-  <section class="public-evaluation" v-if="evaluation.isExisting()">
-    <v-container>
-      <v-layout v-if="!visible" align-center justify-center row fill-height>
-        <v-flex xs3>
-          <v-card class="pa-4">
-            <div class="access-form">
-              <img class="access-form__logo" src="@/assets/img/logo2_black.png" alt="Logo Evally">
+  <section class="public-section" v-if="evaluation.isExisting()">
+    <div class="public-section__bg"></div>
 
-              <v-form ref="accessForm" v-model="valid" @submit.prevent="enter">
-                <v-card-text>
-                  <p class="subheading">Please enter your last name to see the latest evaluation</p>
-                  <v-text-field
-                    v-model="lastName"
-                    :rules="rules"
-                  ></v-text-field>
-                </v-card-text>
+    <div class="public-section__content">
+      <div class="auth-form elevation-2" v-if="!visible">
+        <div class="auth-form__logo">
+          <img src="@/assets/img/logo2_black.png" alt="Logo Evally">
+        </div>
 
-                <v-card-actions>
-                  <v-btn color="primary" type="submit" outline block>Enter</v-btn>
-                </v-card-actions>
-              </v-form>
-            </div>
-          </v-card>
-        </v-flex>
-      </v-layout>
+        <p class="auth-form__info">Please enter your last name to see the latest evaluation</p>
 
-      <v-layout v-else row>
-        <v-flex xs12>
-          <employee-evaluation-box></employee-evaluation-box>
-        </v-flex>
-      </v-layout>
-    </v-container>
+        <v-form ref="accessForm" v-model="valid" @submit.prevent="enter">
+          <div class="auth-form__group">
+            <v-text-field
+              v-model="lastName"
+              :rules="rules"
+            ></v-text-field>
+          </div>
+
+          <div class="auth-form__action mt-4">
+            <v-btn color="primary" type="submit" outline block>Enter</v-btn>
+          </div>
+        </v-form>
+      </div>
+
+      <v-container fluid v-else>
+        <v-layout row>
+          <v-flex xs12>
+            <employee-evaluation-box class="elevation-2"></employee-evaluation-box>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </div>
   </section>
 </template>
 

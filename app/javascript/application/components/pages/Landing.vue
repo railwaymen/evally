@@ -1,6 +1,10 @@
 <template>
-  <section class="landing-section">
-    <login-form></login-form>
+  <section class="public-section">
+    <div class="public-section__bg"></div>
+
+    <div class="public-section__content">
+      <login-form></login-form>
+    </div>
   </section>
 </template>
 
