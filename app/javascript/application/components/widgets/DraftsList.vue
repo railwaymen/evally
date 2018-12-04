@@ -6,7 +6,7 @@
 			<v-list two-line>
         <v-list-tile v-for="draft in sortedDrafts" :key="draft.id" avatar>
           <v-list-tile-content>
-            <v-list-tile-title><strong>{{ employeeFullname(draft.employee) }}</strong> as <em>{{ draft.employee.position }}</em> - {{ nextEvaluationDate(draft.employee) }}</v-list-tile-title>
+            <v-list-tile-title><strong>{{ fullname(draft.employee) }}</strong> as <em>{{ draft.employee.position }}</em> - {{ nextEvaluationDate(draft.employee) }}</v-list-tile-title>
             <v-list-tile-sub-title>Updated {{ $moment(draft.updated_at).fromNow() }}</v-list-tile-sub-title>
           </v-list-tile-content>
 

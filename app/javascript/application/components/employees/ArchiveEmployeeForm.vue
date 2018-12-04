@@ -6,10 +6,10 @@
 
     <v-form>
       <v-card-text>
-        <v-alert :value="true" type="warning" class="text-xs-center">
+        <v-alert :value="true" type="warning" class="text-xs-center" outline>
           This action cannot be undo. All drafted evaluations of the employee will be destroyed!
         </v-alert>
-        <p class="subheading pt-3 text-xs-center">Please, provide the reason to {{ options.action }} the {{ options.model }}:</p>
+        <p class="subheading pt-3">Please, provide the reason to {{ options.action }} the {{ options.model }}:</p>
 
         <v-form ref="archiveEmployee">
           <v-radio-group v-model="state" class="pt-3 text-xs-center" row>

@@ -23,7 +23,7 @@ module V1
     end
 
     def template_params
-      @attributes.permit(:name, :state, sections_attributes: [:name, :group, :width, :position, skills: [:name, :value]])
+      @attributes.permit(:name, :state, sections_attributes: [:name, :group, :width, :position, skills: [:name, :value, :needToImprove]])
     end
 
     def add_activity

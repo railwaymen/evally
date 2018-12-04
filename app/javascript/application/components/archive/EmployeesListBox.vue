@@ -10,67 +10,69 @@
       ></v-text-field>
     </div>
 
-    <v-expansion-panel class="elevation-0">
-      <v-expansion-panel-content
-        v-for="(evaluations, group) in preparedEvaluations"
-        :key="group"
-      >
-        <div slot="header">
-          <div class="vcard-header">
-            <v-icon>person_outline</v-icon>
-            <span class="separator"></span>
-            {{ employeeFullname(evaluationsEmployee(evaluations)) }}
-          </div>
-        </div>
-
-        <v-card>
-          <v-card-text>
-            <div class="vcard pa-2">
-              <div class="vcard__info">
-                <h3 class="vcard__title">Position</h3>
-                <div class="vcard__position">{{ evaluationsEmployee(evaluations).position }}</div>
-              </div>
-
-              <div class="vcard__info">
-                <h3 class="vcard__title">Cooperation</h3>
-                <v-layout row>
-                  <v-flex xs6>
-                    <div class="vcard__date">{{ evaluationsEmployee(evaluations).hired_at | moment("MMMM Do, YYYY") }}</div>
-                    <div class="vcard__date-text">since</div>
-                  </v-flex>
-
-                  <v-flex xs6 v-if="evaluationsEmployee(evaluations).state === 'released'">
-                    <div class="vcard__date">{{ evaluationsEmployee(evaluations).released_at | moment("MMMM Do, YYYY") }}</div>
-                    <div class="vcard__date-text">until</div>
-                  </v-flex>
-                </v-layout>
-              </div>
-
-              <div class="vcard__evaluations">
-                <v-list two-line subheader>
-                  <v-subheader>List of evaluations ({{ evaluations.length }})</v-subheader>
-
-                  <v-list-tile v-for="evaluation in evaluations" :key="evaluation.id" @click="showEvaluation(evaluation.id)">
-                    <v-list-tile-content>
-                      <v-list-tile-title>{{ evaluation.template_name }}</v-list-tile-title>
-                      <v-list-tile-sub-title>{{ evaluation.completed_at | moment('MMMM YYYY') }}</v-list-tile-sub-title>
-                    </v-list-tile-content>
-                  </v-list-tile>
-                </v-list>
-              </div>
+    <div class="search-box__list">
+      <v-expansion-panel class="elevation-0">
+        <v-expansion-panel-content
+          v-for="(evaluations, group) in preparedEvaluations"
+          :key="group"
+        >
+          <div slot="header">
+            <div class="vcard-header">
+              <v-icon>person_outline</v-icon>
+              <span class="separator"></span>
+              {{ fullname(evaluationsEmployee(evaluations)) }}
             </div>
-          </v-card-text>
-        </v-card>
-      </v-expansion-panel-content>
-
-      <v-expansion-panel-content v-if="areEvaluationsEmpty" disabled>
-        <div slot="header">
-          <div class="vcard-header">
-            There are no employees to show
           </div>
-        </div>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
+
+          <v-card>
+            <v-card-text>
+              <div class="vcard pa-2">
+                <div class="vcard__info">
+                  <h3 class="vcard__title">Position</h3>
+                  <div class="vcard__position">{{ evaluationsEmployee(evaluations).position }}</div>
+                </div>
+
+                <div class="vcard__info">
+                  <h3 class="vcard__title">Cooperation</h3>
+                  <v-layout row>
+                    <v-flex xs6>
+                      <div class="vcard__date">{{ evaluationsEmployee(evaluations).hired_at | moment("MMMM Do, YYYY") }}</div>
+                      <div class="vcard__date-text">since</div>
+                    </v-flex>
+
+                    <v-flex xs6 v-if="evaluationsEmployee(evaluations).state === 'released'">
+                      <div class="vcard__date">{{ evaluationsEmployee(evaluations).released_at | moment("MMMM Do, YYYY") }}</div>
+                      <div class="vcard__date-text">until</div>
+                    </v-flex>
+                  </v-layout>
+                </div>
+
+                <div class="vcard__evaluations">
+                  <v-list two-line subheader>
+                    <v-subheader>List of evaluations ({{ evaluations.length }})</v-subheader>
+
+                    <v-list-tile v-for="evaluation in evaluations" :key="evaluation.id" @click="showEvaluation(evaluation.id)">
+                      <v-list-tile-content>
+                        <v-list-tile-title>{{ evaluation.template_name }}</v-list-tile-title>
+                        <v-list-tile-sub-title>{{ evaluation.completed_at | moment('MMMM YYYY') }}</v-list-tile-sub-title>
+                      </v-list-tile-content>
+                    </v-list-tile>
+                  </v-list>
+                </div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-expansion-panel-content>
+
+        <v-expansion-panel-content v-if="areEvaluationsEmpty" disabled>
+          <div slot="header">
+            <div class="vcard-header">
+              There are no employees to show
+            </div>
+          </div>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </div>
   </div>
 </template>
 
@@ -105,7 +107,7 @@ export default {
 
       if (this.search.length > 0) {
         return this.$_.pickBy(grouped, (evaluations, key) => {
-          let fullname = this.employeeFullname(evaluations[0].employee)
+          let fullname = this.fullname(evaluations[0].employee)
           return fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         })
       }

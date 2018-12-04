@@ -7,7 +7,7 @@ module V1
     # GET /v1/evaluations
     #
     def index
-      evaluations = current_user.evaluations.includes(:employee, :sections).by_state(params[:state]).order("employees.next_evaluation_at ASC, completed_at DESC")
+      evaluations = Evaluation.includes(:employee, :sections).by_state(params[:state]).order("employees.next_evaluation_at ASC, completed_at DESC")
 
       render json: V1::EvaluationSerializer.new(evaluations).serialized_json, status: 200
     end
@@ -34,7 +34,7 @@ module V1
     # # PUT /v1/evaluations/:id
     #
     def update
-      evaluation = V1::EvaluationUpdaterService.new(attributes: params[:evaluation], evaluation: @evaluation).call
+      evaluation = V1::EvaluationUpdaterService.new(attributes: params[:evaluation], evaluation: @evaluation, user: current_user).call
 
       render json: V1::EvaluationSerializer.new(evaluation).serialized_json, status: 200
     end
@@ -53,7 +53,7 @@ module V1
     private
 
     def set_evaluation
-      @evaluation = current_user.evaluations.draft.find_by(id: params[:id])
+      @evaluation = Evaluation.draft.find_by(id: params[:id])
       raise V1::ErrorResponderService.new(:record_not_found, 404) unless @evaluation
     end
 
@@ -61,8 +61,9 @@ module V1
       @employee = Employee.find_by(public_token: params[:id])
       raise V1::ErrorResponderService.new(:record_not_found, 404) unless @employee
 
-      setting = Setting.find_by(user_id: @employee.user_id)
-      raise V1::ErrorResponderService.new(:record_not_found, 404) unless setting&.public_view_enabled?
+      # ON HOLD
+      # setting = Setting.find_by(user_id: @employee.user_id)
+      # raise V1::ErrorResponderService.new(:record_not_found, 404) unless setting&.public_view_enabled?
     end
   end
 end

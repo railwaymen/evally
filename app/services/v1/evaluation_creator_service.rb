@@ -33,10 +33,10 @@ module V1
     end
 
     def find_employee_and_template
-      @employee ||= Employee.find_by(id: initial_params[:employee_id], user: @user)
+      @employee ||= Employee.find_by(id: initial_params[:employee_id])
       raise V1::ErrorResponderService.new(:record_not_found, 404, ['Employee does not exist']) unless @employee
 
-      @template ||= Template.includes(:sections).find_by(id: initial_params[:template_id], user: @user)
+      @template ||= Template.includes(:sections).find_by(id: initial_params[:template_id])
       raise V1::ErrorResponderService.new(:record_not_found, 404, ['Template does not exist']) unless @template
     end
 

@@ -7,13 +7,16 @@
 
       <!-- Rating section -->
       <div v-if="isRatingSection()" class="section-box__items">
-        <v-list>
-          <v-list-tile v-for="(skill, index) in section.skills" :key="index" :class="{ 'need-to-improve': false }">
-            <v-list-tile-content>
-              <v-list-tile-title v-text="skill.name"></v-list-tile-title>
-            </v-list-tile-content>
+        <div class="skills">
+          <div
+            v-for="(skill, index) in section.skills"
+            :key="index"
+            :class="['skill', { 'need-to-improve': skill.needToImprove }]"
+            @dblclick="needToImprove(skill)"
+          >
+            <div class="skill__name">{{ skill.name }}</div>
 
-            <v-list-tile-action>
+            <div class="skill__action">
               <v-rating
                 v-model="skill.value"
                 @input="updateSkills"
@@ -22,30 +25,34 @@
                 hover
                 clearable
               ></v-rating>
-            </v-list-tile-action>
-          </v-list-tile>
-        </v-list>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div v-if="isBoolSection()" class="section-box__items">
-        <v-list>
-          <v-list-tile v-for="(skill, index) in section.skills" :key="index" :class="{ 'need-to-improve': false }">
-            <v-list-tile-content>
-              <v-list-tile-title v-text="skill.name"></v-list-tile-title>
-            </v-list-tile-content>
+        <div class="skills">
+          <div
+            v-for="(skill, index) in section.skills"
+            :key="index"
+            :class="['skill', { 'need-to-improve': skill.needToImprove }]"
+            @dblclick="needToImprove(skill)"
+          >
+            <div class="skill__name">{{ skill.name }}</div>
 
-            <v-list-tile-action>
+            <div class="skill__action">
               <v-switch
                 v-if="editable"
                 :label="skill.value ? 'Yes' : 'No'"
                 v-model="skill.value"
                 @change="updateSkills"
                 color="success"
+                class="mt-1"
               ></v-switch>
               <span v-else>{{ skill.value ? 'Yes' : 'No' }}</span>
-            </v-list-tile-action>
-          </v-list-tile>
-        </v-list>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div v-if="isTextSection()" class="section-box__text">
@@ -91,7 +98,14 @@ export default {
 
     updateSkills() {
       this.$store.commit('EvaluationsStore/updateSkills', { sectionId: this.section.id, skills: this.section.skills })
-    }
+    },
+
+    needToImprove(skill) {
+      if (this.editable) {
+        skill.needToImprove = !skill.needToImprove
+        this.updateSkills()
+      }
+    },
   }
 }
 </script>

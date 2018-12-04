@@ -7,7 +7,7 @@ module V1
     # GET /v1/employees
     #
     def index
-      employees = current_user.employees.by_state(params[:state]).order(last_name: :asc)
+      employees = Employee.by_state(params[:state]).order(last_name: :asc)
 
       render json: V1::EmployeeSerializer.new(employees).serialized_json, status: 200
     end
@@ -23,7 +23,7 @@ module V1
     # # PUT /v1/employees/:id
     #
     def update
-      employee = V1::EmployeeUpdaterService.new(attributes: params[:employee], employee: @employee).call
+      employee = V1::EmployeeUpdaterService.new(attributes: params[:employee], employee: @employee, user: current_user).call
 
       render json: V1::EmployeeSerializer.new(employee).serialized_json, status: 200
     end
@@ -40,7 +40,7 @@ module V1
     private
 
     def set_employee
-      @employee = current_user.employees.find_by(id: params[:id])
+      @employee = Employee.find_by(id: params[:id])
       raise V1::ErrorResponderService.new(:record_not_found, 404) unless @employee
     end
 

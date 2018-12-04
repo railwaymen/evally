@@ -8,7 +8,6 @@ import { required, string } from 'vue-mc/validation'
  */
 class Employee extends Model {
 
-  // Default attributes that define the "empty" state.
   defaults() {
     return {
       id: null,
@@ -32,13 +31,17 @@ class Employee extends Model {
     }
   }
 
-
   routes() {
     return {
       save: '/v1/employees',
       fetch: '/v1/employees/{id}',
       delete: '/v1/employees/{id}'
     }
+  }
+
+
+  fullname() {
+    return [this.first_name, this.last_name].join(' ').trim()
   }
 }
 

@@ -17,7 +17,7 @@
             <v-icon>assignment_turned_in</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{ employeeFullname(draft.employee) }}</v-list-tile-title>
+            <v-list-tile-title>{{ fullname(draft.employee) }}</v-list-tile-title>
             <v-list-tile-sub-title>based on '{{ draft.template_name }}' template</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -60,7 +60,7 @@ export default {
 
       if (this.search.length > 0) {
         return drafts.filter(draft => {
-          let fullname = this.employeeFullname(draft.employee)
+          let fullname = this.fullname(draft.employee)
           return fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         })
       } else {
