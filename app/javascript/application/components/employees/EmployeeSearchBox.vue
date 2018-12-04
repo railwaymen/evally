@@ -18,7 +18,7 @@
             <v-icon>person_outline</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{ employeeFullname(employee) }}</v-list-tile-title>
+            <v-list-tile-title>{{ employee.fullname() }}</v-list-tile-title>
             <v-list-tile-sub-title>{{ employee.position }}</v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -62,7 +62,7 @@ export default {
 
       if (this.search.length > 0) {
         return hired.filter(employee => {
-          let fullname = this.employeeFullname(employee)
+          let fullname = employee.fullname()
           return fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1
         })
       }

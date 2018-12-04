@@ -12,7 +12,30 @@
     ></v-text-field>
 
     <div class="form-box__items form-box__items--scrollable">
-      <v-list>
+      <div class="skills">
+        <draggable v-model="mutableSkills" :options="draggableOptions">
+          <div v-for="(skill, index) in mutableSkills" :key="index" class="skill drag-item">
+            <div class="skill__action">
+              <v-icon style="padding: 6px;">{{ groupSets[group].icon }}</v-icon>
+            </div>
+
+            <div class="skill__name">{{ skill.name }}</div>
+
+            <div class="skill__action">
+              <div v-if="template.editable">
+                <v-btn class="drag-btn ma-0" icon flat>
+                  <v-icon>drag_indicator</v-icon>
+                </v-btn>
+                <v-btn class="ma-0" icon flat @click="removeSkill(index)">
+                  <v-icon>close</v-icon>
+                </v-btn>
+              </div>
+            </div>
+          </div>
+        </draggable>
+      </div>
+
+      <!-- <v-list>
         <draggable v-model="mutableSkills" :options="draggableOptions">
           <v-list-tile v-for="(skill, index) in mutableSkills" :key="index" class="drag-item">
             <v-list-tile-action >
@@ -36,7 +59,7 @@
             </v-list-tile-action>
           </v-list-tile>
         </draggable>
-      </v-list>
+      </v-list> -->
     </div>
   </div>
 </template>
@@ -78,7 +101,7 @@ export default {
 
     addSkill() {
       if (this.newSkill.length > 0) {
-        this.skills.push({ name: this.newSkill, value: this.groupSets[this.group].value })
+        this.skills.push({ name: this.newSkill, value: this.groupSets[this.group].value, needToImprove: false })
         this.newSkill = ''
       }
     },

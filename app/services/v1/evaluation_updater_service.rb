@@ -1,9 +1,10 @@
 module V1
   class EvaluationUpdaterService
 
-    def initialize(attributes:, evaluation:)
+    def initialize(attributes:, evaluation:, user:)
       @attributes = attributes
       @evaluation = evaluation
+      @user = user
     end
 
     def call
@@ -28,14 +29,14 @@ module V1
     end
 
     def evaluation_params
-      @attributes.permit(:state, :completed_at, :updated_at, sections_attributes: [:id, skills: [:name, :value]])
+      @attributes.permit(:state, :completed_at, :updated_at, sections_attributes: [:id, skills: [:name, :value, :needToImprove]])
     end
 
     def add_activity
       @employee = @evaluation.employee
 
       action = @evaluation.completed? ? 'complete' : 'update'
-      @employee.user.activities.create!(action: action, activable: @evaluation, activable_name: @employee.fullname)
+      @user.activities.create!(action: action, activable: @evaluation, activable_name: @employee.fullname)
     end
   end
 end

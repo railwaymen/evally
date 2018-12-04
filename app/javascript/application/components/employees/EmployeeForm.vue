@@ -28,11 +28,40 @@
         ></v-combobox>
 
         <v-menu
-          ref="menu"
+          ref="hiredMenu"
           :close-on-content-click="false"
-          v-model="menu"
+          v-model="hiredMenu"
           :nudge-right="40"
-          :return-value.sync="employee.hired_at"
+          lazy
+          :return-value.sync="hiredDate"
+          transition="scale-transition"
+          offset-y
+          full-width
+          min-width="290px"
+        >
+          <v-text-field
+            slot="activator"
+            v-model="hiredDate"
+            :error-messages="employee.errors.hired_at"
+            label="On board since"
+            prepend-icon="event"
+            readonly
+          ></v-text-field>
+          <v-date-picker
+            v-model="hiredDate"
+            @input="$refs.hiredMenu.save(employee.hired_at)"
+            no-title
+            scrollable
+          ></v-date-picker>
+        </v-menu>
+
+        <v-menu
+          v-if="employee.next_evaluation_at"
+          ref="nextMenu"
+          :close-on-content-click="false"
+          v-model="nextMenu"
+          :nudge-right="40"
+          :return-value.sync="nextDate"
           lazy
           transition="scale-transition"
           offset-y
@@ -41,13 +70,17 @@
         >
           <v-text-field
             slot="activator"
-            v-model="employee.hired_at"
-            :error-messages="employee.errors.hired_at"
-            label="On board since"
+            v-model="nextDate"
+            label="Next evaluation at"
             prepend-icon="event"
             readonly
           ></v-text-field>
-          <v-date-picker v-model="employee.hired_at" @input="$refs.menu.save(employee.hired_at)" no-title scrollable></v-date-picker>
+          <v-date-picker
+            type="month"
+            v-model="nextDate"
+            @input="$refs.nextMenu.save(employee.next_evaluation_at)"
+            :min="$moment().format()"
+            no-title scrollable></v-date-picker>
         </v-menu>
       </v-card-text>
 
@@ -69,7 +102,8 @@ export default {
   props: { options: Object },
   data() {
     return {
-      menu: false
+      hiredMenu: false,
+      nextMenu: false
     }
   },
   methods: {
@@ -112,7 +146,27 @@ export default {
     ...mapGetters({
       employee: 'EmployeesStore/employee',
       positions: 'EmployeesStore/positions'
-    })
+    }),
+
+    hiredDate: {
+      get() {
+        return this.employee.hired_at ? this.$moment(this.employee.hired_at).format('YYYY-MM-DD') : ''
+      },
+      
+      set(date) {
+        this.employee.hired_at = this.$moment(date, 'YYYY-MM-DD').format()
+      }
+    },
+
+    nextDate: {
+      get() {
+        return this.$moment(this.employee.next_evaluation_at).format('YYYY-MM')
+      },
+      
+      set(date) {
+        this.employee.next_evaluation_at = this.$moment(date, 'YYYY-MM').format()
+      }
+    }
   }
 }
 </script>

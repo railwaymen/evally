@@ -1,10 +1,14 @@
 <template>
-  <div class="landing-form">
-    <h3 class="landing-form__heading landing-form__heading--dark mb-4">sign in</h3>
+  <div class="auth-form elevation-2">
+    <div class="auth-form__logo">
+      <img src="@/assets/img/logo2_black.png" alt="Logo Evally">
+    </div>
+
+    <h3 class="auth-form__heading auth-form__heading--dark mb-4">sign in</h3>
 
     <v-form ref="loginForm" v-model="formValid" @submit.prevent="login">
 
-      <div class="landing-form__group">
+      <div class="auth-form__group">
         <v-text-field
           v-model="credentials.email"
           prepend-icon="alternate_email"
@@ -17,17 +21,16 @@
           type="password"
           label="password"
         ></v-text-field>
-        <!-- <v-checkbox label="remember me" color="primary"></v-checkbox> -->
       </div>
 
-      <div class="landing-form__action mt-4">
+      <div class="auth-form__action mt-4">
         <v-btn color="primary" type="submit" flat outline round block>Sign in</v-btn>
       </div>
 
-      <div class="landing-form__question">
+      <div class="auth-form__question">
         <p style="display: none;">
           No account?
-          <span class="primary--text" @click="openRegisterForm">Sign up</span>
+          <span class="primary--text">Sign up</span>
         </p>
       </div>
     </v-form>
@@ -47,8 +50,7 @@ export default {
         required: value => !!value || 'Required.',
         min: v => v.length >= 6 || 'Min 6 characters'
       },
-      formValid: false,
-      passVisible: false
+      formValid: false
     }
   },
   methods: {
@@ -66,9 +68,6 @@ export default {
             }
           })
       }
-    },
-    openRegisterForm () {
-      this.$emit('toggle', 'register')
     }
   }
 }

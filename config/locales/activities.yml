@@ -3,36 +3,36 @@ en:
     employee:
       create:
         title: 'New employee'
-        description: "Welcome to new employee '%{name}'!"
+        description: "Welcome to new employee %{name}!"
       update:
         title: 'Employee updated'
-        description: "Employee '%{name}' has been updated."
+        description: "%{user} updated %{name}'s profile."
       destroy:
-        title: 'Employee destroyed'
-        description: "Employee '%{name}' has been destroyed."
+        title: 'Employee deleted'
+        description: "%{user} removed %{name}'s profile."
       archive:
         title: 'Employee archived'
-        description: "Employee '%{name}' has been archived."
+        description: "%{user} archived %{name}'s profile."
     template:
       create:
         title: 'New template'
-        description: "Template '%{name}' has been created."
+        description: "%{user} created template %{name}."
       update:
         title: 'Template updated'
-        description: "Template '%{name}' has been updated."
+        description: "%{user} updated template %{name}."
       destroy:
-        title: 'Template destroyed'
-        description: "Template '%{name}' has been destroyed."
+        title: 'Template deleted'
+        description: "%{user} removed template %{name}."
     evaluation:
       create:
         title: 'New evaluation'
-        description: "%{name}'s evaluation has been created."
+        description: "%{user} created %{name}'s evaluation."
       update:
         title: 'Evaluation draft updated'
-        description: "%{name}'s evaluation has been updated."
+        description: "%{user} updated %{name}'s evaluation draft."
       complete:
         title: 'Evaluation completed'
-        description: "%{name}'s evaluation has been completed."
+        description: "%{user} completed %{name}'s evaluation."
       destroy:
-        title: 'Evaluation draft destroyed'
-        description: "%{name}'s evaluation has been destroyed."
+        title: 'Evaluation draft deleted'
+        description: "%{user} removed %{name}'s evaluation draft."

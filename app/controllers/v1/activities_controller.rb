@@ -5,7 +5,7 @@ module V1
     # GET /v1/activities
     #
     def index
-      activities = current_user.activities.since(params[:from]).to(params[:to]).order(created_at: :desc)
+      activities = Activity.includes(:user).since(params[:from]).to(params[:to]).order(created_at: :desc)
 
       render json: V1::ActivitySerializer.new(activities).serialized_json, status: 200
     end
@@ -14,7 +14,7 @@ module V1
     #
     def today
       date = Time.now.utc
-      activities = current_user.activities.where(created_at: date.midnight..date.end_of_day).order(created_at: :desc)
+      activities = Activity.includes(:user).where(created_at: date.midnight..date.end_of_day).order(created_at: :desc)
 
       render json: V1::ActivitySerializer.new(activities).serialized_json, status: 200
     end

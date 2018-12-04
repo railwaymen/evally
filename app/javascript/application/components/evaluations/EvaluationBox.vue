@@ -3,7 +3,7 @@
     <v-layout v-if="evaluation.isExisting()" row wrap>
       <v-flex xs12 lg9>
         <div class="employee">
-          <h3 class="employee__fullname">{{ employeeFullname(employee) }}</h3>
+          <h3 class="employee__fullname">{{ fullname(employee) }}</h3>
           <h4 class="employee__position">{{ employee.position }}</h4>
         </div>
       </v-flex>
