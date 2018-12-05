@@ -3,7 +3,11 @@
 		<h3 class="box__header text-xs-center">Activities</h3>
 
 		<div class="box__list">
-			<v-list :two-line="activities.models.length > 0">
+			<div v-if="isLoading" class="box__loader">
+				<v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
+			</div>
+
+			<v-list v-else :two-line="activities.models.length > 0">
         <v-list-tile v-for="activity in activities.models" :key="activity.id" avatar>
 
           <v-list-tile-content>
@@ -52,7 +56,8 @@ export default {
 	},
 	computed: {
 		...mapGetters({
-			activities: 'ActivitiesStore/todayActivities'
+			activities: 'ActivitiesStore/todayActivities',
+			status: 'ActivitiesStore/status'
 		})
 	},
 	created() {

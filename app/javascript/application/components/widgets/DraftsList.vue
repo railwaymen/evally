@@ -3,7 +3,11 @@
 		<h3 class="box__header">Drafts</h3>
 
 		<div class="box__list">
-			<v-list two-line>
+			<div v-if="isLoading" class="box__loader">
+				<v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
+			</div>
+
+			<v-list v-else two-line>
         <v-list-tile v-for="draft in sortedDrafts" :key="draft.id" avatar>
           <v-list-tile-content>
             <v-list-tile-title><strong>{{ fullname(draft.employee) }}</strong> as <em>{{ draft.employee.position }}</em> - {{ nextEvaluationDate(draft.employee) }}</v-list-tile-title>
@@ -46,6 +50,7 @@ export default {
 	computed: {
 		...mapGetters({
 			drafts: 'EvaluationsStore/evaluations',
+			status: 'EvaluationsStore/status',
 			setting: 'AuthStore/setting'
 		}),
 

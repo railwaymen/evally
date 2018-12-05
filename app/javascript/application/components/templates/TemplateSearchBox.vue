@@ -13,26 +13,31 @@
       <v-list>
         <v-subheader>All templates</v-subheader>
 
-        <v-list-tile v-for="template in filteredTemplates" :key="template.id" @click="selectTemplate(template.id)" avatar>
-          <v-list-tile-avatar>
-						<v-icon>list_alt</v-icon>
-					</v-list-tile-avatar>
+        <div v-if="isLoading" class="box__loader">
+          <v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
+        </div>
 
-          <v-list-tile-content>
-            <v-list-tile-title>{{ template.name }}</v-list-tile-title>
-          </v-list-tile-content>
+        <template v-else>
+          <v-list-tile v-for="template in filteredTemplates" :key="template.id" @click="selectTemplate(template.id)" avatar>
+            <v-list-tile-avatar>
+              <v-icon>list_alt</v-icon>
+            </v-list-tile-avatar>
 
-        </v-list-tile>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ template.name }}</v-list-tile-title>
+            </v-list-tile-content>
 
-        <v-list-tile v-if="filteredTemplates.length == 0">
-          <v-list-tile-action>
-            <v-icon>error_outline</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>There are no templates to show</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+          </v-list-tile>
 
+          <v-list-tile v-if="filteredTemplates.length == 0">
+            <v-list-tile-action>
+              <v-icon>error_outline</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>There are no templates to show</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </template>
       </v-list>
     </div>
   </div>
@@ -59,7 +64,8 @@ export default {
   computed: {
     ...mapGetters({
       templates: 'TemplatesStore/templates',
-      template: 'TemplatesStore/template'
+      template: 'TemplatesStore/template',
+      status: 'TemplatesStore/status'
     }),
     filteredTemplates() {
       let outputArray = []

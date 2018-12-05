@@ -13,24 +13,30 @@
       <v-list two-line subheader>
         <v-subheader>List of employees</v-subheader>
 
-        <v-list-tile v-for="employee in filteredEmployees" :key="employee.id" @click="showEvaluation(employee.id)">
-          <v-list-tile-action>
-            <v-icon>person_outline</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{ employee.fullname() }}</v-list-tile-title>
-            <v-list-tile-sub-title>{{ employee.position }}</v-list-tile-sub-title>
-          </v-list-tile-content>
-        </v-list-tile>
+        <div v-if="isLoading" class="box__loader">
+          <v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
+        </div>
 
-        <v-list-tile v-if="filteredEmployees.length == 0">
-          <v-list-tile-action>
-            <v-icon>error_outline</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>There are no employees to show</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+        <template v-else>
+          <v-list-tile v-for="employee in filteredEmployees" :key="employee.id" @click="showEvaluation(employee.id)">
+            <v-list-tile-action>
+              <v-icon>person_outline</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ employee.fullname() }}</v-list-tile-title>
+              <v-list-tile-sub-title>{{ employee.position }}</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+
+          <v-list-tile v-if="filteredEmployees.length == 0">
+            <v-list-tile-action>
+              <v-icon>error_outline</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>There are no employees to show</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </template>
       </v-list>
     </div>
   </div>
@@ -54,7 +60,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      employees: 'EmployeesStore/employees'
+      employees: 'EmployeesStore/employees',
+      status: 'EmployeesStore/status'
     }),
     
     filteredEmployees() {

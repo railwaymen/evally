@@ -3,7 +3,11 @@
 		<h3 class="box__header">Upcoming</h3>
 
 		<div class="box__list">
-			<v-list>
+			<div v-if="isLoading" class="box__loader">
+				<v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
+			</div>
+
+			<v-list v-else>
         <v-list-tile v-for="upcoming in preparedEmployees" :key="upcoming.id" avatar>
 
           <v-list-tile-content>
@@ -53,6 +57,7 @@ export default {
 		...mapGetters({
 			employees: 'EmployeesStore/employees',
 			drafts: 'EvaluationsStore/evaluations',
+			status: 'EvaluationsStore/status',
 			setting: 'AuthStore/setting'
 		}),
 

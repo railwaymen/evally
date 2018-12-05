@@ -21,5 +21,11 @@ export default {
         return errorResponse.statusText
       }
     }
+  },
+  computed: {
+
+    isLoading() {
+			return this.status === 'loading'
+    }
   }
 }

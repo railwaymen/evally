@@ -1,6 +1,10 @@
 <template>
   <div class="box box--with-content">
-    <v-timeline v-if="activitiesExist" class="timeline" dense clipped>
+    <div v-if="isLoading" class="box__loader">
+      <v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
+    </div>
+
+    <v-timeline v-else-if="activitiesExist" class="timeline" dense clipped>
 
       <template v-for="(group, key) in groupedActivities">
         <v-timeline-item hide-dot :key="key">
@@ -36,7 +40,8 @@ export default {
   name: 'ActivitiesTimelineBox',
   computed: {
     ...mapGetters({
-      activities: 'ActivitiesStore/allActivities'
+      activities: 'ActivitiesStore/allActivities',
+      status: 'ActivitiesStore/status'
     }),
 
     groupedActivities() {

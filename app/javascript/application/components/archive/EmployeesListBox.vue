@@ -11,7 +11,13 @@
     </div>
 
     <div class="search-box__list">
-      <v-expansion-panel class="elevation-0">
+      <v-subheader>All employees & evaluations</v-subheader>
+
+      <div v-if="isLoading" class="box__loader">
+        <v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
+      </div>
+
+      <v-expansion-panel v-else class="elevation-0">
         <v-expansion-panel-content
           v-for="(evaluations, group) in preparedEvaluations"
           :key="group"
@@ -97,7 +103,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      evaluations: 'EvaluationsStore/evaluations'
+      evaluations: 'EvaluationsStore/evaluations',
+      status: 'EvaluationsStore/status'
     }),
 
     preparedEvaluations() {
