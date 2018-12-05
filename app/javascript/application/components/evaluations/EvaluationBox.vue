@@ -1,6 +1,12 @@
 <template>
   <div class="box box--with-content evaluation">
-    <v-layout v-if="evaluation.isExisting()" row wrap>
+    <v-layout v-if="!evaluation || !evaluation.isExisting()" row>
+      <v-flex xs12>
+        <h4 class="no-content__header no-content__header--large">Select draft evaluation or create a new one.</h4>
+      </v-flex>
+    </v-layout>
+
+    <v-layout v-else row wrap>
       <v-flex xs12 lg9>
         <div class="employee">
           <h3 class="employee__fullname">{{ fullname(employee) }}</h3>
@@ -28,12 +34,6 @@
             editable
           ></evaluation-section-box>
         </v-layout>
-      </v-flex>
-    </v-layout>
-
-    <v-layout v-else row>
-      <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">Select draft evaluation or create a new one.</h4>
       </v-flex>
     </v-layout>
   </div>

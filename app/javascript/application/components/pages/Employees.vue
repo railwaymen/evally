@@ -15,7 +15,7 @@
           </v-tooltip>
 
           <template v-if="employee.isExisting()">
-            <v-tooltip v-if="setting.public_view_enabled" bottom>
+            <v-tooltip bottom>
               <v-btn @click="permalink" slot="activator" icon flat>
                 <v-icon>link</v-icon>
               </v-btn>
