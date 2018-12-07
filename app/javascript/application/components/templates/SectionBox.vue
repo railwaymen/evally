@@ -22,7 +22,7 @@
           <span>{{ isHalfWidth ? `Full width` : `Half width` }}</span>
         </v-tooltip>
 
-        <v-btn flat icon>
+        <v-btn class="drag-section-btn" flat icon>
           <v-icon>drag_indicator</v-icon>
         </v-btn>
 

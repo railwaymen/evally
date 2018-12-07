@@ -23,7 +23,7 @@
 
             <div class="skill__action">
               <div v-if="template.editable">
-                <v-btn class="drag-btn ma-0" icon flat>
+                <v-btn class="drag-item-btn ma-0" icon flat>
                   <v-icon>drag_indicator</v-icon>
                 </v-btn>
                 <v-btn class="ma-0" icon flat @click="removeSkill(index)">
@@ -52,7 +52,7 @@ export default {
       newSkill: '',
       draggableOptions: {
         draggable: '.drag-item',
-        handle: '.drag-btn',
+        handle: '.drag-item-btn',
         animation: 300
       },
       groupSets: {
