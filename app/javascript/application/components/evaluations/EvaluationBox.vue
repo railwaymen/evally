@@ -22,7 +22,7 @@
       <v-flex xs12>
         <v-layout row wrap>
           <evaluation-section-box
-            v-for="section in evaluation.sections_attributes"
+            v-for="section in sections"
             :section="section"
             :key="section.id"
             editable
@@ -54,6 +54,10 @@ export default {
 
     employee() {
       return this.evaluation.employee
+    },
+
+    sections() {
+      return this.$_.orderBy(this.evaluation.sections_attributes, 'position')
     }
   }
 }
