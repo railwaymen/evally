@@ -39,14 +39,15 @@
       </v-flex>
 
       <v-flex xs12>
-        <v-layout row wrap>
+        <draggable element="v-layout" :list="sections.models" :options="draggableOptions" @end="updatePositions" row wrap>
           <section-box
             v-for="(section, index) in sections.models"
             v-if="!section._destroy"
             :key="index"
             :section.sync="section"
+            class="drag-section"
           ></section-box>
-        </v-layout>
+        </draggable>
       </v-flex>
 
       <new-section-form v-if="template.editable"></new-section-form>
@@ -63,12 +64,32 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import Draggable from 'vuedraggable'
+
 import NewSectionForm from '@/components/templates/NewSectionForm'
 import SectionBox from '@/components/templates/SectionBox'
 
 export default {
   name: 'EmployeeCard',
-  components: { NewSectionForm, SectionBox },
+  components: { Draggable, NewSectionForm, SectionBox },
+  data() {
+    return {
+      draggableOptions: {
+        draggable: '.drag-section',
+        handle: '.drag-section-btn',
+        animation: 300
+      }
+    }
+  },
+  methods: {
+    updatePositions() {
+      this.$_.map(this.sections.models, (section, index) => {
+        section.set('position', index)
+      })
+
+      this.$store.commit('SectionsStore/many', this.sections.models)
+    }
+  },
   computed: {
     ...mapGetters({
       template: 'TemplatesStore/template',

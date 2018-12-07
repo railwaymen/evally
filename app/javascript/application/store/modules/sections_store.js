@@ -36,6 +36,11 @@ const SectionsStore = {
       }
       return state
     },
+    resize(state, data) {
+      let section = state.sections.find(isNaN(data.id) ? { tempId: data.id } : { id: data.id })
+      if (section) section.width = data.width
+      return state
+    },
     updateSkills(state, data) {
       let section = state.sections.find(isNaN(data.id) ? { tempId: data.id } : { id: data.id })
       if (section) section.skills = data.skills

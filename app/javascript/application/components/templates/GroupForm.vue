@@ -23,7 +23,7 @@
 
             <div class="skill__action">
               <div v-if="template.editable">
-                <v-btn class="drag-btn ma-0" icon flat>
+                <v-btn class="drag-item-btn ma-0" icon flat>
                   <v-icon>drag_indicator</v-icon>
                 </v-btn>
                 <v-btn class="ma-0" icon flat @click="removeSkill(index)">
@@ -34,32 +34,6 @@
           </div>
         </draggable>
       </div>
-
-      <!-- <v-list>
-        <draggable v-model="mutableSkills" :options="draggableOptions">
-          <v-list-tile v-for="(skill, index) in mutableSkills" :key="index" class="drag-item">
-            <v-list-tile-action >
-              <v-icon>{{ groupSets[group].icon }}</v-icon>
-            </v-list-tile-action>
-
-            <v-list-tile-content>
-              <v-list-tile-title>{{ skill.name }}</v-list-tile-title>
-            </v-list-tile-content>
-
-            <v-list-tile-action >
-              <div v-if="template.editable">
-                <v-btn class="drag-btn" icon flat>
-                  <v-icon>drag_indicator</v-icon>
-                </v-btn>
-                <span class="separator"></span>
-                <v-btn icon flat @click="removeSkill(index)">
-                  <v-icon>close</v-icon>
-                </v-btn>
-              </div>
-            </v-list-tile-action>
-          </v-list-tile>
-        </draggable>
-      </v-list> -->
     </div>
   </div>
 </template>
@@ -78,7 +52,7 @@ export default {
       newSkill: '',
       draggableOptions: {
         draggable: '.drag-item',
-        handle: '.drag-btn',
+        handle: '.drag-item-btn',
         animation: 300
       },
       groupSets: {
