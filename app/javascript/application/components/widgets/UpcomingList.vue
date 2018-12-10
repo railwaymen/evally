@@ -1,6 +1,6 @@
 <template>
 	<div class="box box--border-primary">
-		<h3 class="box__header">Upcoming</h3>
+		<h3 class="box__header">{{ $t('dashboard.upcoming.title') }}</h3>
 
 		<div class="box__list">
 			<div v-if="isLoading" class="box__loader">
@@ -11,13 +11,20 @@
         <v-list-tile v-for="upcoming in preparedEmployees" :key="upcoming.id" avatar>
 
           <v-list-tile-content>
-            <v-list-tile-title><strong>{{ upcoming.fullname() }}</strong> as <em>{{ upcoming.position }}</em> - {{ nextEvaluationDate(upcoming) }}</v-list-tile-title>
+            <v-list-tile-title>
+							<strong>{{ upcoming.fullname() }}</strong>
+							{{ $t('dashboard.common.as') }}
+							<em>{{ upcoming.position }}</em> - {{ nextEvaluationDate(upcoming) }}
+						</v-list-tile-title>
           </v-list-tile-content>
 
 					<v-list-tile-action>
-						<v-btn @click="newEvaluation(upcoming.id)" color="green" icon flat>
-							<v-icon>add</v-icon>
-						</v-btn>
+						<v-tooltip bottom>
+							<v-btn @click="newEvaluation(upcoming.id)" slot="activator" color="green" icon flat>
+								<v-icon>add</v-icon>
+							</v-btn>
+							<span>{{ $t('dashboard.upcoming.new_tooltip') }}</span>
+						</v-tooltip>
 					</v-list-tile-action>
         </v-list-tile>
 

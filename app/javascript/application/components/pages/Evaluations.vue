@@ -2,7 +2,7 @@
   <section class="panel">
     <v-layout row>
       <v-flex>
-        <h2 class="panel__heading">Evaluations</h2>
+        <h2 class="panel__heading">{{ $t('evaluations.title') }}</h2>
       </v-flex>
 
       <v-flex>
@@ -11,7 +11,7 @@
             <v-btn @click="build" color="green" slot="activator" icon flat>
               <v-icon>add</v-icon>
             </v-btn>
-            <span>New evaluation</span>
+            <span>{{ $t('evaluations.buttons.add_new') }}</span>
           </v-tooltip>
 
           <template v-if="draft.isExisting()">
@@ -19,7 +19,7 @@
               <v-btn @click="item.action" :color="item.color" slot="activator" icon flat>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-btn>
-              <span>{{ item.name }}</span>
+              <span>{{ $t(`evaluations.buttons.${item.name}`) }}</span>
             </v-tooltip>
           </template>
 
@@ -27,7 +27,7 @@
             <v-btn @click="isSidebarVisible = !isSidebarVisible" slot="activator" icon flat>
               <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
             </v-btn>
-            <span>{{ isSidebarVisible ? 'Hide' : 'Show' }} sidebar</span>
+            <span>{{ isSidebarVisible ? $t('evaluations.buttons.hide') : $t('evaluations.buttons.show') }} sidebar</span>
           </v-tooltip>
 
         </div>
@@ -66,10 +66,10 @@ export default {
     return {
       isSidebarVisible: true,
       menuItems: [
-        { id: 0, name: 'Complete evaluation', icon: 'how_to_vote', action: this.saveEvaluation, color: 'green' },
-        { id: 10, name: 'Save draft', icon: 'save_alt', action: this.saveDraft, color: 'black' },
-        { id: 20, name: 'Undo changes', icon: 'restore', action: this.reset, color: 'black' },
-        { id: 30, name: 'Delete evaluation', icon: 'delete', action: this.remove, color: 'red' }
+        { id: 0, name: 'complete_evaluation', icon: 'how_to_vote', action: this.saveEvaluation, color: 'green' },
+        { id: 10, name: 'save_draft', icon: 'save_alt', action: this.saveDraft, color: 'black' },
+        { id: 20, name: 'reset', icon: 'restore', action: this.reset, color: 'black' },
+        { id: 30, name: 'delete_evaluation', icon: 'delete', action: this.remove, color: 'red' }
       ]
     }
   },
@@ -83,10 +83,10 @@ export default {
 
       this.$store.dispatch('EvaluationsStore/update', { evaluation: this.draft.attributes })
         .then(() => {
-          this.flash({ success: `Evaluation has been succefully updated` })
+          this.flash({ success: this.$t('evaluations.flashes.save.success') })
         })
         .catch(error => {
-          this.flash({ error: 'Evaluation cannot be updated due to some error: ' + this.renderError(error.response) })
+          this.flash({ error: this.$t('evaluations.flashes.save.error', { reason: this.renderError(error.response) }) })
         })
     },
 

@@ -10,7 +10,7 @@ export default {
 
     nextEvaluationDate(employee) {
 			let date = employee.next_evaluation_at
-			return date ? this.$moment(date).format('MMM YYYY') : 'First time'
+			return date ? this.$moment(date).format('MMM YYYY') : this.$t('dashboard.common.first_time')
     },
 
     renderError(errorResponse) {

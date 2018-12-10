@@ -1,6 +1,6 @@
 <template>
 	<div class="box box--border-primary">
-		<h3 class="box__header">Drafts</h3>
+		<h3 class="box__header">{{ $t('dashboard.drafts.title') }}</h3>
 
 		<div class="box__list">
 			<div v-if="isLoading" class="box__loader">
@@ -10,15 +10,22 @@
 			<v-list v-else two-line>
         <v-list-tile v-for="draft in sortedDrafts" :key="draft.id" avatar>
           <v-list-tile-content>
-            <v-list-tile-title><strong>{{ fullname(draft.employee) }}</strong> as <em>{{ draft.employee.position }}</em> - {{ nextEvaluationDate(draft.employee) }}</v-list-tile-title>
-            <v-list-tile-sub-title>Updated {{ $moment(draft.updated_at).fromNow() }}</v-list-tile-sub-title>
+            <v-list-tile-title>
+							<strong>{{ fullname(draft.employee) }}</strong>
+							{{ $t('dashboard.common.as') }}
+							<em>{{ draft.employee.position }}</em> - {{ nextEvaluationDate(draft.employee) }}
+						</v-list-tile-title>
+            <v-list-tile-sub-title>{{ $t('dashboard.drafts.updated', { date: $moment(draft.updated_at).fromNow() }) }}</v-list-tile-sub-title>
           </v-list-tile-content>
 
 					<v-list-tile-action>
 						<div class="">
-							<v-btn @click="edit(draft.id)" color="grey" flat icon>
-								<v-icon>edit</v-icon>
-							</v-btn>
+							<v-tooltip bottom>
+								<v-btn @click="edit(draft.id)" slot="activator" color="grey" flat icon>
+									<v-icon>edit</v-icon>
+								</v-btn>
+								<span>{{ $t('dashboard.drafts.edit_tooltip') }}</span>
+							</v-tooltip>
 						</div>
 					</v-list-tile-action>
         </v-list-tile>

@@ -1,18 +1,18 @@
 <template>
   <v-dialog v-model="dialog" persistent :max-width="options.maxWidth">
-    <v-card class="pa-3">
+    <v-card class="pa-3" v-if="!!options">
       <v-card-title>
-        <span class="headline">Delete {{ options.model }}</span>
+        <span class="headline">{{ $t(`destroy_modals.${options.model || 'default'}.title`) }}</span>
       </v-card-title>
 
       <v-card-text>
-        <p class="subheading">Are you sure you want to delete this {{ options.model }}?</p>
+        <p class="subheading">{{ $t(`destroy_modals.${options.model || 'default'}.confirm`) }}</p>
       </v-card-text>
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="grey darken-1" flat @click="dialog = false">Cancel</v-btn>
-        <v-btn color="red darken-1" flat @click="destroy">{{ options.action }}</v-btn>
+        <v-btn color="grey darken-1" flat @click="dialog = false">{{ $t('buttons.cancel') }}</v-btn>
+        <v-btn color="red darken-1" flat @click="destroy">{{ $t('buttons.delete') }}</v-btn>
       </v-card-actions>
 
     </v-card>
@@ -60,11 +60,11 @@ export default {
     removeEvaluation() {
       this.$store.dispatch('EvaluationsStore/destroy')
         .then(() => {
-          this.flash({ success: 'Evaluation has been succesfully destroyed' })
+          this.flash({ success: this.$t('evaluations.flashes.delete.success') })
           this.dialog = false
         })
         .catch(error => {
-          this.flash({ error: 'Evaluation cannot be destroyed due to some error: ' + this.renderError(error.response) })
+          this.flash({ error: this.$t('evaluations.flashes.delete.error', { reason: this.renderError(error.response) }) })
         })
     },
 

@@ -4,13 +4,13 @@
       <v-text-field
         v-model="search"
         append-icon="search"
-        label="Search..."
+        :label="$t('evaluations.sidebar.search')"
         box
       ></v-text-field>
     </div>
     <div class="search-box__list">
       <v-list two-line subheader>
-        <v-subheader>Evaluations drafts</v-subheader>
+        <v-subheader>{{ $t('evaluations.sidebar.subheader') }}</v-subheader>
 
         <div v-if="isLoading" class="box__loader">
           <v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
@@ -23,7 +23,7 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>{{ fullname(draft.employee) }}</v-list-tile-title>
-              <v-list-tile-sub-title>based on '{{ draft.template_name }}' template</v-list-tile-sub-title>
+              <v-list-tile-sub-title>{{ $t('evaluations.sidebar.subtitle', { name: draft.template_name }) }}</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
 
@@ -32,7 +32,7 @@
               <v-icon>error_outline</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>There are no evaluations drafts</v-list-tile-title>
+              <v-list-tile-title>{{ $t('evaluations.sidebar.no_items') }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </template>

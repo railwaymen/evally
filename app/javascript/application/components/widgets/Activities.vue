@@ -1,6 +1,6 @@
 <template>
 	<div class="box box--border-grey">
-		<h3 class="box__header text-xs-center">Activities</h3>
+		<h3 class="box__header text-xs-center">{{ $t('dashboard.activities.title') }}</h3>
 
 		<div class="box__list">
 			<div v-if="isLoading" class="box__loader">
@@ -22,12 +22,12 @@
 
 				<v-list-tile v-if="activities.models.length == 0">
           <v-list-tile-content>
-            <v-list-tile-title>No activities from today</v-list-tile-title>
+            <v-list-tile-title>{{ $t('dashboard.activities.no_activities') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
 				<div class="text-xs-center pt-2">
-					<v-btn :to="{ name: 'activities_archive_path' }" flat>See more</v-btn>
+					<v-btn :to="{ name: 'activities_archive_path' }" flat>{{ $t('dashboard.activities.see_more') }}</v-btn>
 				</div>
       </v-list>
 		</div>

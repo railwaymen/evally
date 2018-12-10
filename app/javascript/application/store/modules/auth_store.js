@@ -86,7 +86,7 @@ const AuthStore = {
 
             context.commit('setSession', session)
 
-            resolve(response)
+            resolve(session)
           })
           .catch(error => {
             reject(error)
