@@ -1,10 +1,15 @@
 const messages = {
   en: {
     buttons: {
+      archive: 'Archive',
       cancel: 'Cancel',
       complete: 'Complete',
+      copy: 'Copy',
       create: 'Create',
-      delete: 'Delete'
+      delete: 'Delete',
+      edit: 'Edit',
+      hide: 'Hide',
+      show: 'Show'
     },
     destroy_modals: {
       default: {
@@ -24,16 +29,75 @@ const messages = {
         confirm: 'Are you sure you want to delete this template?'
       }
     },
+    employees: {
+      title: 'Employees',
+      buttons: {
+        add_new: 'New employee',
+        permalink: 'Permalink',
+        edit: 'Edit employee',
+        archive: 'Archive employee',
+        delete: 'Delete employee'
+      },
+      flashes: {
+        archive: {
+          success: 'Employee has been succefully archived.',
+          error: 'Employee cannot be archived due to some error: {reason}'
+        },
+        create: {
+          success: 'Employee has been succefully created.',
+          error: 'Employee cannot be created due to some error: {reason}'
+        },
+        edit: {
+          success: 'Employee has been succefully updated.',
+          error: 'Employee cannot be updated due to some error: {reason}'
+        },
+        fetch: {
+          error: 'Employees cannot be loaded due to some error: {reason}'
+        },
+        delete: {
+          success: 'Evaluation has been succefully deleted.',
+          error: 'Evaluation cannot be destroyed due to some error: {reason}'
+        }
+      },
+      forms: {
+        archive: {
+          title: 'Archive employee',
+          warning: 'This action cannot be undo. All drafted evaluations of the employee will be destroyed!',
+          text: 'Please, provide the reason to archive the employee: ',
+          too_experienced: 'Too experienced',
+          released: 'Released',
+          released_at: 'Released at'
+        },
+        permalink: {
+          title: 'Share permalink',
+          text: 'Copy the permalink below to share the latest evaluation:'
+        },
+        create_title: 'Create employee',
+        edit_title: 'Edit employee',
+        first_name: 'First name',
+        last_name: 'Last name',
+        position: 'Position',
+        hired_at: 'On board since',
+        next_review: 'Next review'
+      },
+      messages: {
+        select: 'Select employee to see his latest evaluation.',
+        not_evaluated: '{name} has not been evaluated yet.'
+      },
+      sidebar: {
+        search: 'Search ...',
+        subheader: 'List of employees',
+        no_items: 'There are no employees'
+      }
+    },
     evaluations: {
       title: 'Evaluations',
       buttons: {
         add_new: 'New evaluation',
-        complete_evaluation: 'Complete evaluation',
+        complete: 'Complete evaluation',
         save_draft: 'Save draft',
         reset: 'Undo changes',
-        delete_evaluation: 'Delete evaluation',
-        hide: 'Hide',
-        show: 'Show'
+        delete: 'Delete evaluation'
       },
       flashes: {
         create: {
@@ -70,7 +134,9 @@ const messages = {
         template_label: 'Template',
         bool_no: 'No',
         bool_yes: 'Yes',
-        hired_at: 'hired at'
+        hired_at: 'hired at',
+        next_review: 'next review',
+        completed_at: 'completed at'
       },
       message: 'Select draft evaluation or create a new one.',
       sidebar: {
@@ -114,10 +180,15 @@ const messages = {
 
   pl: {
     buttons: {
+      archive: 'Archiwizuj',
       cancel: 'Anuluj',
       complete: 'Zakończ',
+      copy: 'Skopiuj',
       create: 'Utwórz',
-      delete: 'Usuń'
+      delete: 'Usuń',
+      edit: 'Edytuj',
+      hide: 'Ukryj',
+      show: 'Pokaż'
     },
     destroy_modals: {
       default: {
@@ -137,16 +208,75 @@ const messages = {
         confirm: 'Czy na pewno chcesz usunąć ten szablon?'
       }
     },
+    employees: {
+      title: 'Pracownicy',
+      buttons: {
+        add_new: 'Nowy pracownik',
+        permalink: 'Permalink',
+        edit: 'Edytuj pracownika',
+        archive: 'Przenieś do archiwum',
+        delete: 'Usuń pracownika'
+      },
+      forms: {
+        archive: {
+          title: 'Przenieś do archiwum',
+          warning: 'Nie ma możliwości cofnięcia tej akcji. Wszystkie szkice ocen tego pracownika zostaną usunięte!',
+          text: 'Proszę podać powód przeniesienia pracownika do archiwum: ',
+          too_experienced: 'Bogate doświadczenie',
+          released: 'Koniec współpracy',
+          released_at: 'Współpraca zakończona'
+        },
+        permalink: {
+          title: 'Udostępnij link',
+          text: 'Skopiuj link z dostępem do aktualnej oceny tego pracownika:'
+        },
+        create_title: 'Utwórz pracownika',
+        edit_title: 'Edytuj pracownika',
+        first_name: 'Imię',
+        last_name: 'Nazwisko',
+        position: 'Stanowisko',
+        hired_at: 'Zatrudniony od',
+        next_review: 'Następne review'
+      },
+      flashes: {
+        archive: {
+          success: 'Pracownik został pomyślnie zarchiwizowany.',
+          error: 'Wystąpił błąd podczas archiwizowania pracownika: {reason}'
+        },
+        create: {
+          success: 'Pracownik został pomyślnie dodany.',
+          error: 'Wystąpił błąd podczas dodawania pracownika: {reason}'
+        },
+        edit: {
+          success: 'Pracownik został pomyślnie zapisany.',
+          error: 'Wystąpił błąd podczas zapisywania pracownika: {reason}'
+        },
+        fetch: {
+          error: 'Wystąpił błąd podczas wczytywania pracowników: {reason}'
+        },
+        delete: {
+          success: 'Pracownik został pomyślnie usunięty.',
+          error: 'Wystąpił błąd podczas usuwania pracownika: {reason}'
+        }
+      },
+      messages: {
+        select: 'Wybierz pracownika z listy, aby zobaczyć jego aktualną ocenę.',
+        not_evaluated: '{name} nie został jeszcze oceniony.'
+      },
+      sidebar: {
+        search: 'Szukaj ...',
+        subheader: 'Lista pracowników',
+        no_items: 'Brak pracowników'
+      }
+    },
     evaluations: {
       title: 'Oceny',
       buttons: {
         add_new: 'Nowa ocena',
-        complete_evaluation: 'Zakończ ocenę',
+        complete: 'Zakończ ocenę',
         save_draft: 'Zapisz szkic',
         reset: 'Cofnij zmiany',
-        delete_evaluation: 'Usuń ocenę',
-        hide: 'Ukryj',
-        show: 'Pokaż'
+        delete: 'Usuń ocenę'
       },
       flashes: {
         create: {
@@ -184,6 +314,8 @@ const messages = {
         bool_no: 'Nie',
         bool_yes: 'Tak',
         hired_at: 'zatrudniono',
+        next_review: 'następne review',
+        completed_at: 'zakończono'
       },
       message: 'Wybierz szkic oceny z listy lub stwórz nowy.',
       sidebar: {

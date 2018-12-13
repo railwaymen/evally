@@ -2,7 +2,7 @@
   <section class="panel">
     <v-layout row>
       <v-flex>
-        <h2 class="panel__heading">Employees</h2>
+        <h2 class="panel__heading">{{ $t('employees.title') }}</h2>
       </v-flex>
 
       <v-flex>
@@ -11,7 +11,7 @@
             <v-btn @click="build" color="green" slot="activator" icon flat>
               <v-icon>add</v-icon>
             </v-btn>
-            <span>New employee</span>
+            <span>{{ $t('employees.buttons.add_new') }}</span>
           </v-tooltip>
 
           <template v-if="employee.isExisting()">
@@ -19,14 +19,14 @@
               <v-btn @click="permalink" slot="activator" icon flat>
                 <v-icon>link</v-icon>
               </v-btn>
-              <span>Get permalink</span>
+              <span>{{ $t('employees.buttons.permalink') }}</span>
             </v-tooltip>
 
             <v-tooltip v-for="item in menuItems" :key="`item_${item.id}`" bottom>
               <v-btn @click="item.action" :color="item.color" slot="activator" icon flat>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-btn>
-              <span>{{ item.name }}</span>
+              <span>{{ $t(`employees.buttons.${item.name}`) }}</span>
             </v-tooltip>
           </template>
 
@@ -34,7 +34,7 @@
             <v-btn @click="isSidebarVisible = !isSidebarVisible" slot="activator" icon flat>
               <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
             </v-btn>
-            <span>{{ isSidebarVisible ? 'Hide' : 'Show' }} sidebar</span>
+            <span>{{ isSidebarVisible ? $t('buttons.hide') : $t('buttons.show') }} sidebar</span>
           </v-tooltip>
 
         </div>
@@ -72,9 +72,9 @@ export default {
     return {
       isSidebarVisible: true,
       menuItems: [
-        { id: 0, name: 'Edit employee', icon: 'edit', action: this.edit, color: 'black' },
-        { id: 10, name: 'Archive employee', icon: 'how_to_vote', action: this.archive, color: 'black' },
-        { id: 20, name: 'Delete employee', icon: 'delete', action: this.remove, color: 'red' }
+        { id: 0, name: 'edit', icon: 'edit', action: this.edit, color: 'black' },
+        { id: 10, name: 'archive', icon: 'how_to_vote', action: this.archive, color: 'black' },
+        { id: 20, name: 'delete', icon: 'delete', action: this.remove, color: 'red' }
       ]
     }
   },
@@ -90,7 +90,7 @@ export default {
       openerBus.openFormModal({ model: 'employee', action: 'edit', maxWidth: 500 })
     },
     archive() {
-      openerBus.openFormModal({ model: 'employee', action: 'archive', maxWidth: 500 })
+      openerBus.openFormModal({ model: 'employee', action: 'archive', maxWidth: 600 })
     },
     remove() {
       openerBus.openDestroyModal({ model: 'employee', action: 'delete', maxWidth: 500 })
@@ -104,13 +104,13 @@ export default {
   },
   created() {
     this.$store.dispatch('EmployeesStore/index', { state: 'hired' })
-      .catch( error => {
-        this.flash({ error: 'Employees cannot be loaded due to some error: ' + this.renderError(error.response) })
+      .catch(error => {
+        this.flash({ error: this.$t('employees.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
 
     this.$store.dispatch('EvaluationsStore/index', { state: 'completed' })
-      .catch( error => {
-        this.flash({ error: 'Evaluations cannot be loaded due to some error: ' + this.renderError(error.response) })
+      .catch(error => {
+        this.flash({ error: this.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
   },
   beforeDestroy() {

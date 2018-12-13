@@ -48,12 +48,12 @@ export default {
     removeEmployee() {
       this.$store.dispatch('EmployeesStore/destroy')
         .then(() => {
-          this.flash({ success: 'Employee has been succesfully destroyed' })
+          this.flash({ success: this.$t('employees.flashes.delete.success') })
           this.$store.commit('EvaluationsStore/clear')
           this.dialog = false
         })
         .catch(error => {
-          this.flash({ error: 'Employee cannot be destroyes due to some error: ' + this.renderError(error.response) })
+          this.flash({ error: this.$t('employees.flashes.delete.error', { reason: this.renderError(error.response) }) })
         })
     },
 

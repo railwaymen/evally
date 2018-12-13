@@ -27,7 +27,7 @@
             <v-btn @click="isSidebarVisible = !isSidebarVisible" slot="activator" icon flat>
               <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
             </v-btn>
-            <span>{{ isSidebarVisible ? $t('evaluations.buttons.hide') : $t('evaluations.buttons.show') }} sidebar</span>
+            <span>{{ isSidebarVisible ? $t('buttons.hide') : $t('buttons.show') }} sidebar</span>
           </v-tooltip>
 
         </div>
@@ -66,10 +66,10 @@ export default {
     return {
       isSidebarVisible: true,
       menuItems: [
-        { id: 0, name: 'complete_evaluation', icon: 'how_to_vote', action: this.saveEvaluation, color: 'green' },
+        { id: 0, name: 'complete', icon: 'how_to_vote', action: this.saveEvaluation, color: 'green' },
         { id: 10, name: 'save_draft', icon: 'save_alt', action: this.saveDraft, color: 'black' },
         { id: 20, name: 'reset', icon: 'restore', action: this.reset, color: 'black' },
-        { id: 30, name: 'delete_evaluation', icon: 'delete', action: this.remove, color: 'red' }
+        { id: 30, name: 'delete', icon: 'delete', action: this.remove, color: 'red' }
       ]
     }
   },

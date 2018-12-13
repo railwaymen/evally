@@ -1,7 +1,7 @@
 <template>
   <v-card class="pa-4">
     <v-card-title>
-      <span class="headline">{{ options.action | capitalize }} {{ options.model }}</span>
+      <span class="headline">{{ $t(`employees.forms.${options.action}_title`) }}</span>
     </v-card-title>
 
     <v-form>
@@ -9,13 +9,13 @@
         <v-text-field
           v-model="employee.first_name"
           :error-messages="employee.errors.first_name"
-          label="First name"
+          :label="$t('employees.forms.first_name')"
         ></v-text-field>
 
         <v-text-field
           v-model="employee.last_name"
           :error-messages="employee.errors.last_name"
-          label="Last name"
+          :label="$t('employees.forms.last_name')"
         ></v-text-field>
 
         <v-combobox
@@ -24,7 +24,7 @@
           :items="positions"
           append-icon="expand_more"
           chips
-          label="Position"
+          :label="$t('employees.forms.position')"
         ></v-combobox>
 
         <v-menu
@@ -43,7 +43,7 @@
             slot="activator"
             v-model="hiredDate"
             :error-messages="employee.errors.hired_at"
-            label="On board since"
+            :label="$t('employees.forms.hired_at')"
             prepend-icon="event"
             readonly
           ></v-text-field>
@@ -71,7 +71,7 @@
           <v-text-field
             slot="activator"
             v-model="nextDate"
-            label="Next evaluation at"
+            :label="$t('employees.forms.next_review')"
             prepend-icon="event"
             readonly
           ></v-text-field>
@@ -86,8 +86,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="grey darken-1" flat @click="closeModal">Cancel</v-btn>
-        <v-btn color="green darken-1" flat @click="sendForm">{{ options.action }}</v-btn>
+        <v-btn color="grey darken-1" flat @click="closeModal">{{ $t('buttons.cancel') }}</v-btn>
+        <v-btn color="green darken-1" flat @click="sendForm">{{ $t(`buttons.${options.action}`) }}</v-btn>
       </v-card-actions>
     </v-form>
 
@@ -118,11 +118,11 @@ export default {
           case 'create':
             this.$store.dispatch('EmployeesStore/create', { employee: this.employee.attributes })
               .then(() => {
-                this.flash({ success: 'Employee has been succefully created.' })
+                this.flash({ success: this.$t('employees.flashes.create.success') })
                 this.$emit('close')
               })
               .catch(error => {
-                this.flash({ error: 'Employee cannot be created due to some error: ' + this.renderError(error.response) })
+                this.flash({ error: this.$t('employees.flashes.create.error', { reason: this.renderError(error.response) }) })
               })
 
             break
@@ -130,11 +130,11 @@ export default {
           case 'edit':
             this.$store.dispatch('EmployeesStore/update', { employee: this.employee.attributes })
               .then(() => {
-                this.flash({ success: 'Employee has been succefully updated' })
+                this.flash({ success: this.$t('employees.flashes.edit.success') })
                 this.$emit('close')
               })
               .catch(error => {
-                this.flash({ error: 'Employee cannot be updated due to some error: ' + this.renderError(error.response) })
+                this.flash({ error: this.$t('employees.flashes.edit.error', { reason: this.renderError(error.response) }) })
               })
 
             break

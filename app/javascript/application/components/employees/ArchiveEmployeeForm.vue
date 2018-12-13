@@ -1,20 +1,20 @@
 <template>
   <v-card class="pa-4">
     <v-card-title>
-      <span class="headline">{{ options.action | capitalize }} {{ options.model }}</span>
+      <span class="headline">{{ $t('employees.forms.archive.title') }}</span>
     </v-card-title>
 
     <v-form>
       <v-card-text>
         <v-alert :value="true" type="warning" class="text-xs-center" outline>
-          This action cannot be undo. All drafted evaluations of the employee will be destroyed!
+          {{ $t('employees.forms.archive.warning') }}
         </v-alert>
-        <p class="subheading pt-3">Please, provide the reason to {{ options.action }} the {{ options.model }}:</p>
+        <p class="subheading pt-3">{{ $t('employees.forms.archive.text') }}</p>
 
         <v-form ref="archiveEmployee">
           <v-radio-group v-model="state" class="pt-3 text-xs-center" row>
-            <v-radio label="Too experienced" value="experienced"></v-radio>
-            <v-radio label="Released" value="released"></v-radio>
+            <v-radio :label="$t('employees.forms.archive.too_experienced')" value="experienced"></v-radio>
+            <v-radio :label="$t('employees.forms.archive.released')" value="released"></v-radio>
           </v-radio-group>
 
           <div v-if="isReleasedSet" class="date">
@@ -33,7 +33,7 @@
               <v-text-field
                 slot="activator"
                 v-model="released_at"
-                label="Released at"
+                :label="$t('employees.forms.archive.released_at')"
                 append-icon="event"
                 readonly
               ></v-text-field>
@@ -50,8 +50,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="grey darken-1" flat @click="cancel">Cancel</v-btn>
-        <v-btn color="green darken-1" @click="archiveEmployee" :disabled="isBtnDisabled" flat>{{ options.action }}</v-btn>
+        <v-btn color="grey darken-1" flat @click="cancel">{{ $t('buttons.cancel') }}</v-btn>
+        <v-btn color="green darken-1" @click="archiveEmployee" :disabled="isBtnDisabled" flat>{{ $t('buttons.archive') }}</v-btn>
       </v-card-actions>
     </v-form>
 
@@ -83,11 +83,11 @@ export default {
 
       this.$store.dispatch('EmployeesStore/update', { employee: this.employee.attributes })
         .then(() => {
-          this.flash({ success: 'Employee has been succefully archived' })
+          this.flash({ success: this.$t('employees.flashes.archive.success') })
           this.$emit('close')
         })
         .catch(error => {
-          this.flash({ error: 'Employee cannot be updated due to some error: ' + this.renderError(error.response) })
+          this.flash({ error: this.$t('employees.flashes.archive.error', { reason: this.renderError(error.response) }) })
         })
     }
   },
