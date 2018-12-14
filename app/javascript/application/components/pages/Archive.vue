@@ -2,7 +2,7 @@
   <section class="panel">
     <v-layout row>
       <v-flex xs6>
-        <h2 class="panel__heading">Archive</h2>
+        <h2 class="panel__heading">{{ $t('archive.title') }}</h2>
       </v-flex>
 
       <v-flex>
@@ -18,7 +18,7 @@
             <v-tabs grow>
               <v-tabs-slider color="primary"></v-tabs-slider>
               <v-tab v-for="view in views" :key="view.id" :to="{ name: view.path }">
-                {{ view.name }}
+                {{ $t(`archive.sidebar.tabs.${view.name}`) }}
               </v-tab>
             </v-tabs>
 
@@ -45,8 +45,8 @@ export default {
   data() {
     return {
       views: [
-        { id: 0, name: 'Employees', path: 'employees_archive_path' },
-        { id: 10, name: 'Activities', path: 'activities_archive_path' }
+        { id: 0, name: 'employees', path: 'employees_archive_path' },
+        { id: 10, name: 'activities', path: 'activities_archive_path' }
       ]
     }
   },

@@ -45,7 +45,7 @@ export default {
 
     copyLink() {
       this.$copyText(this.link).then(() => {
-        this.flash({ success: 'Permalink has been copied to clipboard' })
+        this.flash({ success: this.$t('employees.flashes.permalink.success') })
         this.$emit('close')
       })
     }

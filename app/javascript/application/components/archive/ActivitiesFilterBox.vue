@@ -4,7 +4,7 @@
     <v-form>
       <div class="filter">
         <div class="filter__title">
-          <h3>Filter by date</h3>
+          <h3>{{ $t('archive.sidebar.filter_title') }}</h3>
         </div>
 
         <div class="filter__icon pa-2">
@@ -24,7 +24,7 @@
             <v-text-field
               slot="activator"
               v-model="datesRange.from"
-              label="From"
+              :label="$t('archive.sidebar.date_from')"
               readonly
             ></v-text-field>
             <v-date-picker
@@ -55,7 +55,7 @@
             <v-text-field
               slot="activator"
               v-model="datesRange.to"
-              label="To"
+              :label="$t('archive.sidebar.date_to')"
               readonly
             ></v-text-field>
             <v-date-picker
@@ -69,8 +69,8 @@
       </div>
 
       <div class="filter-actions text-xs-right">
-        <v-btn @click="resetFilter" flat>Reset</v-btn>
-        <v-btn @click="refilter" color="primary" flat>Filter</v-btn>
+        <v-btn @click="resetFilter" flat>{{ $t('buttons.reset') }}</v-btn>
+        <v-btn @click="refilter" color="primary" flat>{{ $t('buttons.filter') }}</v-btn>
       </div>
     </v-form>
   </div>
@@ -95,7 +95,7 @@ export default {
 
       this.$store.dispatch('ActivitiesStore/index')
         .catch(error => {
-          this.flash({ error: 'Activities cannot be loaded due to some error: ' + this.renderError(error.response) })
+          this.flash({ error: this.$t('activities.flashes.fetch.error', { reason: this.renderError(error.response) }) })
         })
     },
     resetFilter() {

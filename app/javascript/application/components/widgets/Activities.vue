@@ -63,7 +63,7 @@ export default {
 	created() {
 		this.$store.dispatch('ActivitiesStore/today')
       .catch( error => {
-        this.flash({ error: 'Activities cannot be loaded due to some error: ' + this.renderError(error.response) })
+        this.flash({ error: this.$t('activities.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
 	}
 }

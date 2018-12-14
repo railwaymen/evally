@@ -9,7 +9,7 @@
       <template v-for="(group, key) in groupedActivities">
         <v-timeline-item hide-dot :key="key">
           <v-chip label color="primary" text-color="white">
-            {{ key | moment("MMMM Do, YYYY") }}
+            {{ key | moment("MMMM D, YYYY") }}
           </v-chip>
         </v-timeline-item>
 
@@ -27,7 +27,7 @@
 
     <v-layout v-else row>
       <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">There are no activities to show</h4>
+        <h4 class="no-content__header no-content__header--large">{{ $t('archive.messages.no_activities') }}</h4>
       </v-flex>
     </v-layout>
   </div>
@@ -57,7 +57,7 @@ export default {
   created() {
     this.$store.dispatch('ActivitiesStore/index')
       .catch(error => {
-        this.flash({ error: 'Activities cannot be loaded due to some error: ' + this.renderError(error.response) })
+        this.flash({ error: this.$t('activities.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
   }
 }

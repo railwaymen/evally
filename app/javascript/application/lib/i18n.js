@@ -8,7 +8,9 @@ const messages = {
       create: 'Create',
       delete: 'Delete',
       edit: 'Edit',
+      filter: 'Filter',
       hide: 'Hide',
+      reset: 'Reset',
       show: 'Show'
     },
     destroy_modals: {
@@ -27,6 +29,30 @@ const messages = {
       template: {
         title: 'Delete template',
         confirm: 'Are you sure you want to delete this template?'
+      }
+    },
+    archive: {
+      title: 'Archive',
+      sidebar: {
+        search: 'Search ...',
+        subheader: 'All employees & evaluations',
+        evaluations_subheader: 'List of evaluations ({count})',
+        no_items: 'There are no employees',
+        tabs: {
+          employees: 'Employees',
+          activities: 'Activities'
+        },
+        filter_title: 'Filter by date',
+        date_from: 'From',
+        date_to: 'To'
+      },
+      messages: {
+        no_activities: 'There are no activities to show.'
+      },
+      flashes: {
+        fetch: {
+          error: 'Activities cannot be loaded due to some error: {reason}'
+        }
       }
     },
     employees: {
@@ -57,6 +83,9 @@ const messages = {
         delete: {
           success: 'Evaluation has been succefully deleted.',
           error: 'Evaluation cannot be destroyed due to some error: {reason}'
+        },
+        permalink: {
+          success: 'Permalink has been copied to clipboard.'
         }
       },
       forms: {
@@ -78,7 +107,10 @@ const messages = {
         last_name: 'Last name',
         position: 'Position',
         hired_at: 'On board since',
-        next_review: 'Next review'
+        next_review: 'Next review',
+        cooperation: 'Cooperation',
+        since: 'since',
+        to: 'to'
       },
       messages: {
         select: 'Select employee to see his latest evaluation.',
@@ -254,7 +286,9 @@ const messages = {
       create: 'Utwórz',
       delete: 'Usuń',
       edit: 'Edytuj',
+      filter: 'Filtruj',
       hide: 'Ukryj',
+      reset: 'Resetuj',
       show: 'Pokaż'
     },
     destroy_modals: {
@@ -273,6 +307,30 @@ const messages = {
       template: {
         title: 'Usuń szablon',
         confirm: 'Czy na pewno chcesz usunąć ten szablon?'
+      }
+    },
+    archive: {
+      title: 'Archiwum',
+      sidebar: {
+        search: 'Szukaj ...',
+        subheader: 'Pracownicy i oceny',
+        evaluations_subheader: 'Lista ocen ({count})',
+        no_items: 'Brak pracowników',
+        tabs: {
+          employees: 'Pracownicy',
+          activities: 'Aktywności'
+        },
+        filter_title: 'Filtruj wg dat',
+        date_from: 'Od dnia',
+        date_to: 'Do dnia'
+      },
+      messages: {
+        no_activities: 'Brak aktywności w wybranych dniach.'
+      },
+      flashes: {
+        fetch: {
+          error: 'Wystąpił błąd podczas wczytywania aktywności: {reason}'
+        }
       }
     },
     employees: {
@@ -303,7 +361,10 @@ const messages = {
         last_name: 'Nazwisko',
         position: 'Stanowisko',
         hired_at: 'Zatrudniony od',
-        next_review: 'Następne review'
+        next_review: 'Następne review',
+        cooperation: 'Współpraca',
+        since: 'od',
+        to: 'do'
       },
       flashes: {
         archive: {
@@ -324,6 +385,9 @@ const messages = {
         delete: {
           success: 'Pracownik został pomyślnie usunięty.',
           error: 'Wystąpił błąd podczas usuwania pracownika: {reason}'
+        },
+        permalink: {
+          success: 'Link został skopiowany do schowka.'
         }
       },
       messages: {

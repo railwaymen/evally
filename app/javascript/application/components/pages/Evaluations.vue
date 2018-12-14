@@ -110,7 +110,7 @@ export default {
   created() {
     this.$store.dispatch('EvaluationsStore/index', { state: 'draft' })
       .catch( error => {
-        this.flash({ error: 'Draft evaluations cannot be loaded due to some error: ' + this.renderError(error.response) })
+        this.flash({ error: this.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
   },
   beforeDestroy() {
