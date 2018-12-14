@@ -71,11 +71,11 @@ export default {
     removeTemplate() {
       this.$store.dispatch('TemplatesStore/destroy')
         .then(() => {
-          this.flash({ success: 'Template has been succesfully destroyed' })
+          this.flash({ success: this.$t('templates.flashes.delete.success') })
           this.dialog = false
         })
         .catch(error => {
-          this.flash({ error: 'Template cannot be destroyed due to some error: ' + this.renderError(error.response) })
+          this.flash({ error: this.$t('templates.flashes.delete.error', { reason: this.renderError(error.response) }) })
         })
     }
   },

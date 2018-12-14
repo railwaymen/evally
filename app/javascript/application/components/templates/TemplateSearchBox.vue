@@ -4,14 +4,14 @@
       <v-text-field
         v-model="search"
         append-icon="search"
-        label="Search ..."
+        :label="$t('templates.sidebar.search')"
         box
       ></v-text-field>
     </div>
 
     <div class="search-box__list">
       <v-list>
-        <v-subheader>All templates</v-subheader>
+        <v-subheader>{{ $t('templates.sidebar.subheader') }}</v-subheader>
 
         <div v-if="isLoading" class="box__loader">
           <v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
@@ -34,7 +34,7 @@
               <v-icon>error_outline</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>There are no templates to show</v-list-tile-title>
+              <v-list-tile-title>{{ $t('templates.sidebar.no_items') }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </template>

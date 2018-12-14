@@ -2,25 +2,25 @@
   <v-flex xs12 lg6>
     <div class="new-section">
       <h5 class="new-section__heading">
-        <span>New section</span>
+        <span>{{ $t('templates.forms.new_section.title') }}</span>
       </h5>
 
       <v-form class="pa-3">
-        <span class="new-section__label">Width:</span>
+        <span class="new-section__label">{{ $t('templates.forms.new_section.width.subheader') }}</span>
         <v-radio-group v-model="width" row>
-          <v-radio label="Half" value="half"></v-radio>
-          <v-radio label="Full" value="full"></v-radio>
+          <v-radio :label="$t('templates.forms.new_section.width.half')" value="half"></v-radio>
+          <v-radio :label="$t('templates.forms.new_section.width.full')" value="full"></v-radio>
         </v-radio-group>
 
-        <span class="new-section__label">Type:</span>
+        <span class="new-section__label">{{ $t('templates.forms.new_section.type.subheader') }}</span>
         <v-radio-group v-model="group" row>
-          <v-radio label="Rating" value="rating"></v-radio>
-          <v-radio label="Yes/No" value="bool"></v-radio>
-          <v-radio label="Text" value="text"></v-radio>
+          <v-radio :label="$t('templates.forms.new_section.type.rating')" value="rating"></v-radio>
+          <v-radio :label="$t('templates.forms.new_section.type.boolean')" value="bool"></v-radio>
+          <v-radio :label="$t('templates.forms.new_section.type.text')" value="text"></v-radio>
         </v-radio-group>
 
         <v-btn color="primary" @click="addSection" block large dark outline>
-          <v-icon>add</v-icon>  Add section
+          <v-icon>add</v-icon>  {{ $t('templates.forms.new_section.button') }}
         </v-btn>
       </v-form>
     </div>

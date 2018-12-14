@@ -105,7 +105,7 @@ const messages = {
           error: 'Evaluation cannot be created due to some error: {reason}'
         },
         fetch: {
-          error: 'Evaluation cannot be loaded due to some error: {reason}'
+          error: 'Evaluations cannot be loaded due to some error: {reason}'
         },
         save: {
           success: 'Evaluation has been succefully updated.',
@@ -144,6 +144,73 @@ const messages = {
         subheader: 'Evaluations drafts',
         subtitle: 'based on \'{name}\' template',
         no_items: 'There are no evaluations drafts'
+      }
+    },
+    templates: {
+      title: 'Templates',
+      buttons: {
+        add_new: 'New template',
+        edit: 'Edit template',
+        save: 'Save template',
+        delete: 'Delete evaluation'
+      },
+      flashes: {
+        create: {
+          success: 'Template has been succefully created.',
+          error: 'Template cannot be created due to some error: {reason}'
+        },
+        fetch: {
+          error: 'Templates cannot be loaded due to some error: {reason}'
+        },
+        save: {
+          success: 'Template has been succefully updated.',
+          error: 'Template cannot be updated due to some error: {reason}'
+        },
+        delete: {
+          success: 'Template has been succefully deleted.',
+          error: 'Template cannot be destroyed due to some error: {reason}'
+        }
+      },
+      forms: {
+        template_name: 'Template name',
+        section_title: 'Section title',
+        buttons: {
+          full_width: 'Full width',
+          half_width: 'Half width',
+          delete: 'Delete section'
+        },
+        inputs: {
+          text: 'New text item',
+          rating: 'New rating item',
+          bool: 'New boolean item'
+        },
+        new_section: {
+          title: 'New section',
+          width: {
+            subheader: 'Width: ',
+            full: 'Full',
+            half: 'Half'
+          },
+          type: {
+            subheader: 'Type: ',
+            rating: 'Rating',
+            boolean: 'Yes/No',
+            text: 'Text'
+          },
+          button: 'Add section'
+        }
+      },
+      messages: {
+        select: 'Select a template or create a new one.',
+      },
+      placeholders: {
+        name: 'employee name',
+        position: 'employee position'
+      },
+      sidebar: {
+        search: 'Search ...',
+        subheader: 'All templates',
+        no_items: 'There are no templates'
       }
     },
     dashboard: {
@@ -323,6 +390,73 @@ const messages = {
         subheader: 'Szkice ocen',
         subtitle: 'według szablonu \'{name}\'',
         no_items: 'Brak szkiców ocen'
+      }
+    },
+    templates: {
+      title: 'Szablony',
+      buttons: {
+        add_new: 'Nowy szablon',
+        edit: 'Edytuj szablon',
+        save: 'Zapisz szablon',
+        delete: 'Usuń szablon'
+      },
+      flashes: {
+        create: {
+          success: 'Szablon został pomyślnie stworzony.',
+          error: 'Wystąpił błąd podczas tworzenia szablonu: {reason}'
+        },
+        fetch: {
+          error: 'Wystąpił błąd podczas wczytywania szablonów: {reason}'
+        },
+        save: {
+          success: 'Szalon został pomyślnie zapisany.',
+          error: 'Wystąpił błąd podczas zapisywania szablonu: {reason}'
+        },
+        delete: {
+          success: 'Szablon został pomyślnie usunięty.',
+          error: 'Wystąpił błąd podczas usuwania szablonu: {reason}'
+        }
+      },
+      forms: {
+        template_name: 'Nazwa szablonu',
+        section_title: 'Tytuł sekcji',
+        buttons: {
+          full_width: 'Szeroka',
+          half_width: 'Wąska',
+          delete: 'Usuń sekcję'
+        },
+        inputs: {
+          text: 'Nowa pozycja tekstowa',
+          rating: 'Nowa pozycja ratingowa',
+          bool: 'Nowa pozycja prawda/fałsz'
+        },
+        new_section: {
+          title: 'Nowa sekcja',
+          width: {
+            subheader: 'Szerokość: ',
+            full: 'Szeroka',
+            half: 'Wąska'
+          },
+          type: {
+            subheader: 'Typ: ',
+            rating: 'Ratingowy',
+            boolean: 'Prawda/fałsz',
+            text: 'Tekstowy'
+          },
+          button: 'Dodaj sekcję'
+        }
+      },
+      messages: {
+        select: 'Wybierz szablon z listy lub stwórz nowy.',
+      },
+      placeholders: {
+        name: 'Imię Nazwisko',
+        position: 'stanowisko'
+      },
+      sidebar: {
+        search: 'Szukaj ...',
+        subheader: 'Wszystkie szalobny',
+        no_items: 'Brak szablonów'
       }
     },
     dashboard: {

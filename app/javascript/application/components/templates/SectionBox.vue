@@ -6,7 +6,7 @@
           <v-text-field
             v-model="section.name"
             :error-messages="section.errors.name"
-            label="Section title"
+            :label="$t('templates.forms.section_title')"
             outline
           ></v-text-field>
         </span>
@@ -19,7 +19,7 @@
           <v-btn @click="resize(section)" slot="activator" flat icon>
             <v-icon class="rotateZ90">{{ isHalfWidth ? `unfold_more` : `unfold_less` }}</v-icon>
           </v-btn>
-          <span>{{ isHalfWidth ? `Full width` : `Half width` }}</span>
+          <span>{{ isHalfWidth ? $t('templates.forms.buttons.full_width') : $t('templates.forms.buttons.half_width') }}</span>
         </v-tooltip>
 
         <v-btn class="drag-section-btn" flat icon>
@@ -30,7 +30,7 @@
           <v-btn @click="remove(section)" slot="activator" flat icon>
             <v-icon>delete</v-icon>
           </v-btn>
-          <span>Delete</span>
+          <span>{{ $t('templates.forms.buttons.delete') }}</span>
         </v-tooltip>
       </div>
 

@@ -127,7 +127,7 @@ export default {
 
     this.$store.dispatch('TemplatesStore/index')
       .catch(error => {
-        this.flash({ error: 'Templates cannot be loaded due to some error: ' + this.renderError(error.response) })
+        this.flash({ error: this.$t('templates.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
   }
 }
