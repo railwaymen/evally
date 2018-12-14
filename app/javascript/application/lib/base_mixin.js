@@ -20,6 +20,11 @@ export default {
       } else {
         return errorResponse.statusText
       }
+    },
+
+    updateLocale(locale) {
+      this.$i18n.locale = locale
+      this.$moment.locale(locale)
     }
   },
   computed: {

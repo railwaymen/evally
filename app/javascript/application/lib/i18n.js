@@ -3,6 +3,7 @@ const messages = {
     buttons: {
       archive: 'Archive',
       cancel: 'Cancel',
+      change_pass: 'Change password',
       complete: 'Complete',
       copy: 'Copy',
       create: 'Create',
@@ -11,6 +12,7 @@ const messages = {
       filter: 'Filter',
       hide: 'Hide',
       reset: 'Reset',
+      save: 'Save',
       show: 'Show'
     },
     destroy_modals: {
@@ -178,6 +180,69 @@ const messages = {
         no_items: 'There are no evaluations drafts'
       }
     },
+    settings: {
+      title: 'Settings',
+      sidebar: {
+        general: 'General',
+        evaluations: 'Evaluations',
+        profile: 'Profile',
+        support: 'Support'
+      },
+      flashes: {
+        save_setting: {
+          success: 'Settings have been succefully saved.',
+          error: 'Settings cannot be saved due to some error: {reason}'
+        },
+        update_user: {
+          success: 'User profile has been succefully saved.',
+          error: 'User profile cannot be saved due to some error: {reason}'
+        },
+        update_pass: {
+          success: 'Passowrd has been succefully changed.',
+          error: 'Password cannot be changed due to some error: {reason}'
+        }
+      },
+      general: {
+        title: 'General settings',
+        language: {
+          subheader: 'Language',
+          polish: 'Polish',
+          english: 'English'
+        },
+        widgets: {
+          subheader: 'Dashboard widgets',
+          draft_items: 'Number of draft items',
+          upcoming_items: 'Number of upcoming items'
+        }
+      },
+      evaluations: {
+        title: 'Evaluations settings',
+        defaults: {
+          subheader: 'Default options',
+          next_review_offset: 'Months to next review [months]'
+        }
+      },
+      profile: {
+        title: 'Profile settings',
+        basic: {
+          subheader: 'Basic profile information',
+          email: 'Email',
+          first_name: 'First name',
+          last_name: 'Last name'
+        },
+        password: {
+          subheader: 'Change password',
+          warning: 'You will be logged out after successful password change.',
+          new_pass: 'New password',
+          old_pass: 'Old password',
+          confirm_pass: 'Password confirmation'
+        }
+      },
+      support: {
+        title: 'Support',
+        text: 'Soon ...'
+      }
+    },
     templates: {
       title: 'Templates',
       buttons: {
@@ -281,6 +346,7 @@ const messages = {
     buttons: {
       archive: 'Archiwizuj',
       cancel: 'Anuluj',
+      change_pass: 'Zmień hasło',
       complete: 'Zakończ',
       copy: 'Skopiuj',
       create: 'Utwórz',
@@ -289,6 +355,7 @@ const messages = {
       filter: 'Filtruj',
       hide: 'Ukryj',
       reset: 'Resetuj',
+      save: 'Zapisz',
       show: 'Pokaż'
     },
     destroy_modals: {
@@ -454,6 +521,69 @@ const messages = {
         subheader: 'Szkice ocen',
         subtitle: 'według szablonu \'{name}\'',
         no_items: 'Brak szkiców ocen'
+      }
+    },
+    settings: {
+      title: 'Ustawienia',
+      sidebar: {
+        general: 'Ogólne',
+        evaluations: 'Moduł ocen',
+        profile: 'Profil',
+        support: 'Wsparcie'
+      },
+      flashes: {
+        save_setting: {
+          success: 'Ustawienia zostały pomyślnie zapisane.',
+          error: 'Wystąpił błąd podczas zapisywania ustawień: {reason}'
+        },
+        update_user: {
+          success: 'Profil użytkownika został pomyślnie zapisany.',
+          error: 'Wystąpił błąd podczas zapisu profilu użytkownika: {reason}'
+        },
+        update_pass: {
+          success: 'Hasło zostało pomyślnie zmienione.',
+          error: 'Wystąpił błąd podczas zmiany hasła: {reason}'
+        }
+      },
+      general: {
+        title: 'Ustawienia ogólne',
+        language: {
+          subheader: 'Język',
+          polish: 'polski',
+          english: 'angielski'
+        },
+        widgets: {
+          subheader: 'Widgety ',
+          draft_items: 'Ilość pozycji szkiców',
+          upcoming_items: 'Ilość pozycji nadchodzących ocen'
+        }
+      },
+      evaluations: {
+        title: 'Ustawienia modułu ocen',
+        defaults: {
+          subheader: 'Domyślne opcje',
+          next_review_offset: 'Okres do następnego review [mies]'
+        }
+      },
+      profile: {
+        title: 'Ustawienia profilu',
+        basic: {
+          subheader: 'Podstawowe informacje',
+          email: 'Email',
+          first_name: 'Imię',
+          last_name: 'Nazwisko'
+        },
+        password: {
+          subheader: 'Zmiana hasła',
+          warning: 'Po pomyślnej zmianie hasłą nastąpi wylogowanie użytkownika.',
+          new_pass: 'Nowe hasło',
+          old_pass: 'Stare hasło',
+          confirm_pass: 'Potwierdzenie hasła'
+        }
+      },
+      support: {
+        title: 'Wsparcie',
+        text: 'Wkrótce ...'
       }
     },
     templates: {

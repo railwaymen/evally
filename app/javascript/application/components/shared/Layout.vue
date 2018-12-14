@@ -129,8 +129,7 @@ export default {
   created() {
     this.$store.dispatch('AuthStore/getUser')
       .then(session => {
-        this.$i18n.locale = session.setting.lang
-        this.$moment.locale(session.setting.lang)
+        this.updateLocale(session.setting.lang)
       })
       .catch(error => {
         this.flash({ error: 'User cannot be loaded due to some error: ' + this.renderError(error.response) })

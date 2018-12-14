@@ -28,7 +28,7 @@ pl:
         title: 'Nowa ocena'
         description: "%{user} utworzył ocenę pracownika %{name}."
       update:
-        title: 'Edytowano szkid oceny'
+        title: 'Edytowano szkic oceny'
         description: "%{user} zaktualizował ocenę pracownika %{name}"
       complete:
         title: 'Zakończono ocenę'

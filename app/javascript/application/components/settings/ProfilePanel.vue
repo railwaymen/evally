@@ -1,18 +1,18 @@
 <template>
   <div class="box box--with-content">
-    <h1 class="box__header">Profile settings</h1>
+    <h1 class="box__header">{{ $t('settings.profile.title') }}</h1>
 
     <v-layout wrap row>
       <v-flex xs12 lg7>
         <v-form @submit.prevent="updateUser" class="pa-3">
-          <v-subheader>Basic profile information</v-subheader>
+          <h2 class="subheading my-3">{{ $t('settings.profile.basic.subheader') }}</h2>
 
           <v-layout wrap row>
             <v-flex xs12>
               <v-text-field
                 v-model="user.email"
                 prepend-icon="alternate_email"
-                label="Email"
+                :label="$t('settings.profile.basic.email')"
                 disabled
               ></v-text-field>
             </v-flex>
@@ -22,7 +22,7 @@
                 v-model="user.first_name"
                 :rules="[rules.required]"
                 maxlength="32"
-                label="First name"
+                :label="$t('settings.profile.basic.first_name')"
               ></v-text-field>
             </v-flex>
 
@@ -31,14 +31,14 @@
                 v-model="user.last_name"
                 :rules="[rules.required]"
                 maxlength="32"
-                label="Last name"
+                :label="$t('settings.profile.basic.last_name')"
               ></v-text-field>
             </v-flex>
           </v-layout>
 
           <div class="settings__actions text-xs-right">
-            <v-btn @click="user.reset()" flat>Reset</v-btn>
-            <v-btn type="submit" class="primary" flat>Save</v-btn>
+            <v-btn @click="user.reset()" flat>{{ $t('buttons.reset') }}</v-btn>
+            <v-btn type="submit" class="primary" flat>{{ $t('buttons.save') }}</v-btn>
           </div>
         </v-form>
       </v-flex>
@@ -49,7 +49,7 @@
     <v-layout wrap row>
       <v-flex xs12 lg7>
         <v-form ref="userPasswordForm" @submit.prevent="updatePassword" class="pa-3">
-          <v-subheader>Change password form</v-subheader>
+          <h2 class="subheading my-3">{{ $t('settings.profile.password.subheader') }}</h2>
 
           <v-layout wrap row>
             <v-flex xs12 md6>
@@ -57,7 +57,7 @@
                 v-model="password"
                 :rules="[rules.required, rules.min]"
                 prepend-icon="lock"
-                label="New password"
+                :label="$t('settings.profile.password.new_pass')"
                 type="password"
               ></v-text-field>
             </v-flex>
@@ -65,7 +65,7 @@
             <v-flex xs12 md6>
               <v-text-field
                 :rules="[rules.confirmed]"
-                label="Password confirmation"
+                :label="$t('settings.profile.password.confirm_pass')"
                 type="password"
               ></v-text-field>
             </v-flex>
@@ -75,15 +75,15 @@
                 v-model="currentPassword"
                 :rules="[rules.required, rules.min]"
                 prepend-icon="lock"
-                label="Old password"
+                :label="$t('settings.profile.password.old_pass')"
                 type="password"
               ></v-text-field>
             </v-flex>
           </v-layout>
 
           <div class="settings__actions text-xs-right">
-            <v-btn @click="$refs.userPasswordForm.reset()" flat>Reset</v-btn>
-            <v-btn type="submit" class="primary" flat>Change password</v-btn>
+            <v-btn @click="$refs.userPasswordForm.reset()" flat>{{ $t('buttons.reset') }}</v-btn>
+            <v-btn type="submit" class="primary" flat>{{ $t('buttons.change_pass') }}</v-btn>
           </div>
         </v-form>
       </v-flex>
@@ -91,7 +91,7 @@
       <v-flex xs12 lg5>
         <div class="setting__info">
           <v-alert :value="true" type="warning" outline>
-            You will be logged out after successful password change.
+            {{ $t('settings.profile.password.warning') }}
           </v-alert>
         </div>
       </v-flex>
@@ -120,11 +120,11 @@ export default {
       if (this.user.validate()) {
         this.$store.dispatch('AuthStore/updateUser', { user: this.user.attributes })
           .then(() => {
-            this.flash({ success: 'User has been succefully updated' })
+            this.flash({ success: this.$t('settings.flashes.update_user.success') })
             this.user.sync()
           })
           .catch(error => {
-            this.flash({ error: 'User cannot be updated due to some error: ' + this.renderError(error.response) })
+            this.flash({ error: this.$t('settings.flashes.update_user.error', { reason: this.renderError(error.response) }) })
           })
       }
     },
@@ -135,11 +135,11 @@ export default {
 
         this.$store.dispatch('AuthStore/updatePassword', { password: params })
           .then(() => {
-            this.flash({ success: 'Pasword has been succefully changed' })
+            this.flash({ success: this.$t('settings.flashes.update_pass.success') })
             this.$router.push({ name: 'landing_page_path' })
           })
           .catch(error => {
-            this.flash({ error: 'Password cannot be changed due to some error: ' + this.renderError(error.response) })
+            this.flash({ error: this.$t('settings.flashes.update_pass.error', { reason: this.renderError(error.response) }) })
           })
       }
     }
