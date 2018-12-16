@@ -48,34 +48,34 @@ export default {
     removeEmployee() {
       this.$store.dispatch('EmployeesStore/destroy')
         .then(() => {
-          this.flash({ success: this.$t('employees.flashes.delete.success') })
+          this.flash({ success: this.$root.$t('employees.flashes.delete.success') })
           this.$store.commit('EvaluationsStore/clear')
           this.dialog = false
         })
         .catch(error => {
-          this.flash({ error: this.$t('employees.flashes.delete.error', { reason: this.renderError(error.response) }) })
+          this.flash({ error: this.$root.$t('employees.flashes.delete.error', { reason: this.renderError(error.response) }) })
         })
     },
 
     removeEvaluation() {
       this.$store.dispatch('EvaluationsStore/destroy')
         .then(() => {
-          this.flash({ success: this.$t('evaluations.flashes.delete.success') })
+          this.flash({ success: this.$root.$t('evaluations.flashes.delete.success') })
           this.dialog = false
         })
         .catch(error => {
-          this.flash({ error: this.$t('evaluations.flashes.delete.error', { reason: this.renderError(error.response) }) })
+          this.flash({ error: this.$root.$t('evaluations.flashes.delete.error', { reason: this.renderError(error.response) }) })
         })
     },
 
     removeTemplate() {
       this.$store.dispatch('TemplatesStore/destroy')
         .then(() => {
-          this.flash({ success: this.$t('templates.flashes.delete.success') })
+          this.flash({ success: this.$root.$t('templates.flashes.delete.success') })
           this.dialog = false
         })
         .catch(error => {
-          this.flash({ error: this.$t('templates.flashes.delete.error', { reason: this.renderError(error.response) }) })
+          this.flash({ error: this.$root.$t('templates.flashes.delete.error', { reason: this.renderError(error.response) }) })
         })
     }
   },

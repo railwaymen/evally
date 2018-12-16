@@ -36,10 +36,10 @@ export default {
       if (this.setting.validate()) {
         this.$store.dispatch('AuthStore/saveSetting', { setting: this.setting.attributes })
           .then(() => {
-            this.flash({ success: this.$t('settings.flashes.save_setting.success') })
+            this.flash({ success: this.$root.$t('settings.flashes.save_setting.success') })
           })
           .catch(error => {
-            this.flash({ error: this.$t('settings.flashes.save_setting.error', { reason: this.renderError(error.response) }) })
+            this.flash({ error: this.$root.$t('settings.flashes.save_setting.error', { reason: this.renderError(error.response) }) })
           })
       }
     }

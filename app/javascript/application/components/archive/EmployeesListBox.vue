@@ -129,7 +129,7 @@ export default {
   created() {
     this.$store.dispatch('EvaluationsStore/index', { state: ['completed', 'archived'] })
       .catch( error => {
-        this.flash({ error: this.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
+        this.flash({ error: this.$root.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
   },
   beforeDestroy() {

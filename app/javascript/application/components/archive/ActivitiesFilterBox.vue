@@ -97,7 +97,7 @@ export default {
 
       this.$store.dispatch('ActivitiesStore/index')
         .catch(error => {
-          this.flash({ error: this.$t('activities.flashes.fetch.error', { reason: this.renderError(error.response) }) })
+          this.flash({ error: this.$root.$t('activities.flashes.fetch.error', { reason: this.renderError(error.response) }) })
         })
     },
     resetFilter() {

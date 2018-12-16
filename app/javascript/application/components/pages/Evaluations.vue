@@ -83,10 +83,10 @@ export default {
 
       this.$store.dispatch('EvaluationsStore/update', { evaluation: this.draft.attributes })
         .then(() => {
-          this.flash({ success: this.$t('evaluations.flashes.save.success') })
+          this.flash({ success: this.$root.$t('evaluations.flashes.save.success') })
         })
         .catch(error => {
-          this.flash({ error: this.$t('evaluations.flashes.save.error', { reason: this.renderError(error.response) }) })
+          this.flash({ error: this.$root.$t('evaluations.flashes.save.error', { reason: this.renderError(error.response) }) })
         })
     },
 
@@ -109,8 +109,8 @@ export default {
   },
   created() {
     this.$store.dispatch('EvaluationsStore/index', { state: 'draft' })
-      .catch( error => {
-        this.flash({ error: this.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
+      .catch(error => {
+        this.flash({ error: this.$root.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
   },
   beforeDestroy() {

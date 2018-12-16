@@ -105,12 +105,12 @@ export default {
   created() {
     this.$store.dispatch('EmployeesStore/index', { state: 'hired' })
       .catch(error => {
-        this.flash({ error: this.$t('employees.flashes.fetch.error', { reason: this.renderError(error.response) }) })
+        this.flash({ error: this.$root.$t('employees.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
 
     this.$store.dispatch('EvaluationsStore/index', { state: 'completed' })
       .catch(error => {
-        this.flash({ error: this.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
+        this.flash({ error: this.$root.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
   },
   beforeDestroy() {

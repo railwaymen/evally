@@ -84,13 +84,13 @@ export default {
 
       this.$store.dispatch('EvaluationsStore/create', initialData)
         .then(() => {
-          this.flash({ success: this.$t('evaluations.flashes.create.success') })
+          this.flash({ success: this.$root.$t('evaluations.flashes.create.success') })
           if (this.options.redirect) this.$router.push({ name: 'evaluations_path' })
           this.$emit('close')
         })
         .catch(error => {
           console.log(error.response)
-          this.flash({ error: this.$t('evaluations.flashes.create.error', { reason: this.renderError(error.response) }) })
+          this.flash({ error: this.$root.$t('evaluations.flashes.create.error', { reason: this.renderError(error.response) }) })
         })
     }
   },
@@ -122,12 +122,12 @@ export default {
 
     this.$store.dispatch('EmployeesStore/index', { state: 'hired' })
       .catch(error => {
-        this.flash({ error: this.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
+        this.flash({ error: this.$root.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
 
     this.$store.dispatch('TemplatesStore/index')
       .catch(error => {
-        this.flash({ error: this.$t('templates.flashes.fetch.error', { reason: this.renderError(error.response) }) })
+        this.flash({ error: this.$root.$t('templates.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
   }
 }

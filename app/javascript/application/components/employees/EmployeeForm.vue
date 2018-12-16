@@ -120,11 +120,11 @@ export default {
           case 'create':
             this.$store.dispatch('EmployeesStore/create', { employee: this.employee.attributes })
               .then(() => {
-                this.flash({ success: this.$t('employees.flashes.create.success') })
+                this.flash({ success: this.$root.$t('employees.flashes.create.success') })
                 this.$emit('close')
               })
               .catch(error => {
-                this.flash({ error: this.$t('employees.flashes.create.error', { reason: this.renderError(error.response) }) })
+                this.flash({ error: this.$root.$t('employees.flashes.create.error', { reason: this.renderError(error.response) }) })
               })
 
             break
@@ -132,11 +132,11 @@ export default {
           case 'edit':
             this.$store.dispatch('EmployeesStore/update', { employee: this.employee.attributes })
               .then(() => {
-                this.flash({ success: this.$t('employees.flashes.edit.success') })
+                this.flash({ success: this.$root.$t('employees.flashes.edit.success') })
                 this.$emit('close')
               })
               .catch(error => {
-                this.flash({ error: this.$t('employees.flashes.edit.error', { reason: this.renderError(error.response) }) })
+                this.flash({ error: this.$root.$t('employees.flashes.edit.error', { reason: this.renderError(error.response) }) })
               })
 
             break

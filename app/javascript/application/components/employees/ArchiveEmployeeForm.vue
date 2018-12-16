@@ -85,11 +85,11 @@ export default {
 
       this.$store.dispatch('EmployeesStore/update', { employee: this.employee.attributes })
         .then(() => {
-          this.flash({ success: this.$t('employees.flashes.archive.success') })
+          this.flash({ success: this.$root.$t('employees.flashes.archive.success') })
           this.$emit('close')
         })
         .catch(error => {
-          this.flash({ error: this.$t('employees.flashes.archive.error', { reason: this.renderError(error.response) }) })
+          this.flash({ error: this.$root.$t('employees.flashes.archive.error', { reason: this.renderError(error.response) }) })
         })
     }
   },

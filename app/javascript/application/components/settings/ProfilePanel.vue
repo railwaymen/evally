@@ -115,11 +115,11 @@ export default {
       if (this.user.validate()) {
         this.$store.dispatch('AuthStore/updateUser', { user: this.user.attributes })
           .then(() => {
-            this.flash({ success: this.$t('settings.flashes.update_user.success') })
+            this.flash({ success: this.$root.$t('settings.flashes.update_user.success') })
             this.user.sync()
           })
           .catch(error => {
-            this.flash({ error: this.$t('settings.flashes.update_user.error', { reason: this.renderError(error.response) }) })
+            this.flash({ error: this.$root.$t('settings.flashes.update_user.error', { reason: this.renderError(error.response) }) })
           })
       }
     },
@@ -130,11 +130,11 @@ export default {
 
         this.$store.dispatch('AuthStore/updatePassword', { password: params })
           .then(() => {
-            this.flash({ success: this.$t('settings.flashes.update_pass.success') })
+            this.flash({ success: this.$root.$t('settings.flashes.update_pass.success') })
             this.$router.push({ name: 'landing_page_path' })
           })
           .catch(error => {
-            this.flash({ error: this.$t('settings.flashes.update_pass.error', { reason: this.renderError(error.response) }) })
+            this.flash({ error: this.$root.$t('settings.flashes.update_pass.error', { reason: this.renderError(error.response) }) })
           })
       }
     },

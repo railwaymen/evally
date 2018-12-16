@@ -87,22 +87,22 @@ export default {
 
         this.$store.dispatch('TemplatesStore/create', { template: this.template })
           .then(() => {
-            this.flash({ success: this.$t('templates.flashes.create.success') })
+            this.flash({ success: this.$root.$t('templates.flashes.create.success') })
             this.template.editable = false
           })
           .catch(error => {
-            this.flash({ error: this.$t('templates.flashes.create.error', { reason: this.renderError(error.response) }) })
+            this.flash({ error: this.$root.$t('templates.flashes.create.error', { reason: this.renderError(error.response) }) })
           })
       } else if (formValid && this.status === 'record') {
         this.template.sections_attributes = _.map(this.sections.models, section => section.attributes )
 
         this.$store.dispatch('TemplatesStore/update', { template: this.template })
           .then(() => {
-            this.flash({ success: this.$t('templates.flashes.save.success') })
+            this.flash({ success: this.$root.$t('templates.flashes.save.success') })
             this.template.editable = false
           })
           .catch(error => {
-            this.flash({ error: this.$t('templates.flashes.save.error', { reason: this.renderError(error.response) }) })
+            this.flash({ error: this.$root.$t('templates.flashes.save.error', { reason: this.renderError(error.response) }) })
           })
       }
     },
@@ -121,7 +121,7 @@ export default {
   created() {
     this.$store.dispatch('TemplatesStore/index')
       .catch(error => {
-        this.flash({ error: this.$t('templates.flashes.fetch.error', { reason: this.renderError(error.response) }) })
+        this.flash({ error: this.$root.$t('templates.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
   },
 

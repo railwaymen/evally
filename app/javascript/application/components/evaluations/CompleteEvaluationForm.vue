@@ -78,12 +78,12 @@ export default {
 
       this.$store.dispatch('EvaluationsStore/update', params)
         .then(() => {
-          this.flash({ success: this.$t('evaluations.flashes.complete.success') })
+          this.flash({ success: this.$root.$t('evaluations.flashes.complete.success') })
           this.$store.commit('EvaluationsStore/clear')
           this.$emit('close')
         })
         .catch(error => {
-          this.flash({ error: this.$t('evaluations.flashes.complete.error', { reason: this.renderError(error.response) }) })
+          this.flash({ error: this.$root.$t('evaluations.flashes.complete.error', { reason: this.renderError(error.response) }) })
         })
     }
   },
