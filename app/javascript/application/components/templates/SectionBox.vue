@@ -5,7 +5,7 @@
         <span v-if="template.editable">
           <v-text-field
             v-model="section.name"
-            :error-messages="section.errors.name"
+            :rules="[vRequired, vIsString]"
             :label="$t('templates.forms.section_title')"
             outline
           ></v-text-field>

@@ -24,7 +24,16 @@ Vue.use(Vuex)
 
 // Vuetify
 import Vuetify from 'vuetify'
-Vue.use(Vuetify)
+
+import Ven from 'vuetify/lib/locale/en'
+import Vpl from 'vuetify/lib/locale/pl'
+
+Vue.use(Vuetify, {
+  lang: {
+    locales: { en: Ven, pl: Vpl },
+    current: 'en'
+  }
+})
 
 // Vue2Clipboard
 import VueClipboard from 'vue-clipboard2'
@@ -50,12 +59,13 @@ Vue.mixin(base_mixin)
 import VueI18n from 'vue-i18n'
 Vue.use(VueI18n)
 
-import messages from '@/lib/i18n'
+import english from '@/locale/en'
+import polish from '@/locale/pl'
 
 const i18n = new VueI18n({
   locale: 'en',
   fallbackLocale: 'en',
-  messages, // set locale messages
+  messages: { en: english, pl: polish }
 })
 
 // Properties

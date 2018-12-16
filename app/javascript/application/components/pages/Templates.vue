@@ -48,7 +48,9 @@
           </v-flex>
 
           <v-flex xs12 lg9>
-            <template-box></template-box>
+            <v-form ref="templateForm">
+              <template-box></template-box>
+            </v-form>
           </v-flex>
         </v-layout>
       </v-container>
@@ -78,7 +80,7 @@ export default {
     },
 
     save() {
-      let formValid = this.template.validate() && _.every(this.sections.models, section => section.validate() )
+      let formValid = this.$refs.templateForm.validate()
 
       if (formValid && this.status === 'new_record') {
         this.template.sections_attributes = _.map(this.sections.models, section => section.attributes )

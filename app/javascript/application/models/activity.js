@@ -5,7 +5,6 @@ import { Model, Collection } from 'vue-mc'
  */
 class Activity extends Model {
 
-  // Default attributes that define the "empty" state.
   defaults() {
     return {
       id: null,
@@ -21,17 +20,15 @@ class Activity extends Model {
  */
 class ActivitiesList extends Collection {
 
-    // Model that is contained in this collection.
-    model() {
-      return Activity
-    }
+  model() {
+    return Activity
+  }
 
-    // Route configuration
-    routes() {
-      return {
-        fetch: '/v1/activities',
-      }
+  routes() {
+    return {
+      fetch: '/v1/activities',
     }
+  }
 }
 
 export { Activity, ActivitiesList }

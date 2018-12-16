@@ -35,6 +35,7 @@
               type="month"
               v-model="next_evaluation_at"
               @input="$refs.menu1.save(next_evaluation_at)"
+              :locale="$i18n.locale"
               :min="$moment().format()"
               no-title scrollable></v-date-picker>
           </v-menu>

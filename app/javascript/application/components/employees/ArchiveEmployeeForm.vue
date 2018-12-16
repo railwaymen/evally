@@ -34,12 +34,14 @@
                 slot="activator"
                 v-model="released_at"
                 :label="$t('employees.forms.archive.released_at')"
+                :rules="[vRequired]"
                 append-icon="event"
                 readonly
               ></v-text-field>
               <v-date-picker
                 v-model="released_at"
                 @input="$refs.menu2.save(released_at)"
+                :locale="$i18n.locale"
                 :max="$moment().format()"
                 no-title scrollable></v-date-picker>
             </v-menu>

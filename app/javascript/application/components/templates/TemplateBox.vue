@@ -7,7 +7,7 @@
             :label="$t('templates.forms.template_name')"
             v-model="template.name"
             :disabled="!template.editable"
-            :error-messages="template.errors.name"
+            :rules="[vRequired]"
           ></v-text-field>
         </div>
       </v-flex>

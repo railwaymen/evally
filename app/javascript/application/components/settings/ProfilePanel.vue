@@ -20,7 +20,7 @@
             <v-flex xs12 md6>
               <v-text-field
                 v-model="user.first_name"
-                :rules="[rules.required]"
+                :rules="[vRequired]"
                 maxlength="32"
                 :label="$t('settings.profile.basic.first_name')"
               ></v-text-field>
@@ -29,7 +29,7 @@
             <v-flex xs12 md6>
               <v-text-field
                 v-model="user.last_name"
-                :rules="[rules.required]"
+                :rules="[vRequired]"
                 maxlength="32"
                 :label="$t('settings.profile.basic.last_name')"
               ></v-text-field>
@@ -55,7 +55,7 @@
             <v-flex xs12 md6>
               <v-text-field
                 v-model="password"
-                :rules="[rules.required, rules.min]"
+                :rules="[vRequired, vMin6]"
                 prepend-icon="lock"
                 :label="$t('settings.profile.password.new_pass')"
                 type="password"
@@ -64,7 +64,7 @@
 
             <v-flex xs12 md6>
               <v-text-field
-                :rules="[rules.confirmed]"
+                :rules="[vConfirmed, vMin6]"
                 :label="$t('settings.profile.password.confirm_pass')"
                 type="password"
               ></v-text-field>
@@ -73,7 +73,7 @@
             <v-flex xs12>
               <v-text-field
                 v-model="currentPassword"
-                :rules="[rules.required, rules.min]"
+                :rules="[vRequired, vMin6]"
                 prepend-icon="lock"
                 :label="$t('settings.profile.password.old_pass')"
                 type="password"
@@ -107,12 +107,7 @@ export default {
   data() {
     return {
       password: '',
-      currentPassword: '',
-      rules: {
-        required: value => !!value || 'Required',
-        min: v => !!v && v.length >= 6 || 'Min 6 characters',
-        confirmed: v => v === this.password || 'Both passwords must be the same'
-      },
+      currentPassword: ''
     }
   },
   methods: {
@@ -142,6 +137,10 @@ export default {
             this.flash({ error: this.$t('settings.flashes.update_pass.error', { reason: this.renderError(error.response) }) })
           })
       }
+    },
+
+    vConfirmed(val) {
+      return val === this.password || this.$t('validation.confirmed')
     }
   },
   computed: {

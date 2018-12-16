@@ -30,6 +30,7 @@
             <v-date-picker
               v-model="datesRange.from"
               @input="menus.from = false"
+              :locale="$i18n.locale"
               :max="$moment().format('YYYY-MM-DD')"
               no-title scrollable
             ></v-date-picker>
@@ -61,6 +62,7 @@
             <v-date-picker
               v-model="datesRange.to"
               @input="menus.to = false"
+              :locale="$i18n.locale"
               :max="$moment().format('YYYY-MM-DD')"
               no-title scrollable
             ></v-date-picker>

@@ -1,15 +1,10 @@
 import { Model, Collection } from 'vue-mc'
 
-// Validation rules
-import { required, string } from 'vue-mc/validation'
-
-
 /**
  * Template model
  */
 class Template extends Model {
 
-  // Default attributes that define the "empty" state.
   defaults() {
     return {
       id: null,
@@ -18,12 +13,6 @@ class Template extends Model {
       evaluations_count: 0,
       sections_attributes: [],
       editable: false
-    }
-  }
-
-  validation() {
-    return {
-      name: required.and(string).format("This field is required"),
     }
   }
 
@@ -42,16 +31,15 @@ class Template extends Model {
  */
 class TemplatesList extends Collection {
 
-    // Model that is contained in this collection.
-    model() {
-      return Template
-    }
+  model() {
+    return Template
+  }
 
-    routes() {
-      return {
-        fetch: '/v1/templates',
-      }
+  routes() {
+    return {
+      fetch: '/v1/templates',
     }
+  }
 }
 
 export { Template, TemplatesList }
