@@ -4,7 +4,7 @@
       <img src="@/assets/img/logo2_black.png" alt="Logo Evally">
     </div>
 
-    <h3 class="auth-form__heading auth-form__heading--dark mb-4">sign in</h3>
+    <h3 class="auth-form__heading auth-form__heading--dark mb-4">Sign in</h3>
 
     <v-form ref="loginForm" v-model="formValid" @submit.prevent="login">
 
@@ -13,13 +13,13 @@
           v-model="credentials.email"
           prepend-icon="alternate_email"
           type="email"
-          label="email"
+          label="Email"
         ></v-text-field>
         <v-text-field
           v-model="credentials.password"
           prepend-icon="lock"
           type="password"
-          label="password"
+          label="Password"
         ></v-text-field>
       </div>
 

@@ -1,0 +1,61 @@
+pl:
+  activerecord:
+    attributes:
+      employee:
+        first_name: 'imię'
+        last_name: 'nazwisko'
+        position: 'stanowisko'
+        hired_at: 'zatrudniono'
+        user: 'użytkownik'
+      evaluation:
+        state: 'status'
+        employee_id: 'pracownik'
+        employee: 'pracownik'
+      section:
+        name: 'nazwa'
+        group: 'typ'
+        width: 'szerokość'
+        position: 'pozycja'
+        skills: 'umiejętności'
+        sectionable: model sekcyjny
+      setting:
+        lang: 'język'
+        user: 'użytkownik'
+      template:
+        name: 'nazwa'
+        state: 'status'
+        user: 'użytkownik'
+      user:
+        first_name: 'imię'
+        last_name: 'nazwisko'
+        email: 'email'
+        password: 'hasło'
+    errors:
+      messages:
+        blank: 'nie może być pustą wartością'
+        draft_exists: 'posiada już szkic oceny'
+        invalid: 'ma nieprawidłowy format'
+        invalid_email_format: 'posiada niepoprawny format'
+        invalid_inclusion: "'%{value}' jest niepoprawny(a)"
+        name_and_value: 'muszą mieć nazwę i wartość'
+        not_a_number: 'nie jest liczbą'
+        not_an_integer: 'musi być liczbą całkowitą'
+        required: 'musi istnieć'
+        skills_array: 'muszą być typem Array'
+        too_long:
+          few: jest za długie (maksymalnie %{count} znaki)
+          many: jest za długie (maksymalnie %{count} znaków)
+          one: jest za długie (maksymalnie jeden znak)
+          other: jest za długie (maksymalnie %{count} znaków)
+        too_short:
+          few: jest za krótkie (przynajmniej %{count} znaki)
+          many: jest za krótkie (przynajmniej %{count} znaków)
+          one: jest za krótkie (przynajmniej jeden znak)
+          other: jest za krótkie (przynajmniej %{count} znaków)
+    models:
+      employee: 'Pracownik'
+      evaluation: 'Ocena'
+      section: 'Sekcja'
+      setting: 'Ustawienie'
+      template: 'Szablon'
+      user: 'Użytkownik'

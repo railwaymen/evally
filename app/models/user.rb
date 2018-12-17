@@ -13,7 +13,7 @@ class User < ApplicationRecord
   validates :email,
     presence: true,
     uniqueness: true,
-    format: { with: RailsJwtAuth.email_regex, message: 'has invalid format' }
+    format: { with: RailsJwtAuth.email_regex }
 
   validates :password,
     presence: true,

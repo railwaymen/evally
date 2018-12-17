@@ -43,8 +43,6 @@ Vue.use(VueClipboard)
 import VueMoment from 'vue-moment'
 import moment from 'moment'
 
-require('moment/locale/pl')
-
 Vue.use(VueMoment, { moment })
 
 // Vue2Filters

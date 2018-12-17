@@ -3,6 +3,6 @@ class Setting < ApplicationRecord
 
   validates :lang, presence: true, inclusion: {
     in: ['en', 'pl'],
-    message: "'%{value}' is not a valid language"
+    message: :invalid_inclusion
   }
 end
