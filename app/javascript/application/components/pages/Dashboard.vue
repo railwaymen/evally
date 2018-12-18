@@ -2,7 +2,7 @@
   <section class="panel">
     <v-layout row>
       <v-flex xs12>
-        <h2 class="panel__heading">Hello {{ user.first_name }}!</h2>
+        <h2 class="panel__heading">{{ $t('dashboard.title', { name: user.first_name }) }}</h2>
       </v-flex>
     </v-layout>
 
@@ -55,12 +55,12 @@ export default {
   created() {
 		this.$store.dispatch('EmployeesStore/index', { state: 'hired' })
       .catch(error => {
-        this.flash({ error: 'Employees cannot be loaded due to some error: ' + this.renderError(error.response) })
+        this.flash({ error: this.$t('employees.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
 
     this.$store.dispatch('EvaluationsStore/index', { state: 'draft' })
       .catch(error => {
-        this.flash({ error: 'Draft evaluations cannot be loaded due to some error: ' + this.renderError(error.response) })
+        this.flash({ error: this.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
 	}
 }

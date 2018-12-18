@@ -1,7 +1,7 @@
 <template>
   <v-card class="pa-4">
     <v-card-title>
-      <span class="headline">{{ options.action | capitalize }} {{ options.model }}</span>
+      <span class="headline">{{ $t('evaluations.forms.create_title') }}</span>
     </v-card-title>
 
     <v-form ref="newEvaluationForm">
@@ -13,7 +13,7 @@
                 <v-icon color="white" v-if="employee">done</v-icon>
                 <span v-else>1</span>
               </v-avatar>
-              <span class="step__text black--text">Select employee</span>
+              <span class="step__text black--text">{{ $t('evaluations.forms.select_employee') }}</span>
             </v-chip>
           </div>
 
@@ -23,7 +23,7 @@
               :items="selectableEmployees"
               item-value="id"
               item-text="value"
-              label="Employee"
+              :label="$t('evaluations.forms.employee_label')"
             ></v-select>
           </div>
         </div>
@@ -34,7 +34,7 @@
               <v-icon color="white" v-if="template">done</v-icon>
               <span v-else>2</span>
             </v-avatar>
-            <span class="step__text black--text">Select template</span>
+            <span class="step__text black--text">{{ $t('evaluations.forms.select_template') }}</span>
           </v-chip>
 
           <div class="step__content">
@@ -43,7 +43,7 @@
               :items="selectableTemplates"
               item-value="id"
               item-text="value"
-              label="Template"
+              :label="$t('evaluations.forms.template_label')"
             ></v-select>
           </div>
         </div>
@@ -51,8 +51,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="grey darken-1" flat @click="closeModal">Cancel</v-btn>
-        <v-btn color="green darken-1" flat @click="sendForm" :disabled="!(employee && template)">{{ options.action }}</v-btn>
+        <v-btn color="grey darken-1" flat @click="closeModal">{{ $t('buttons.cancel') }}</v-btn>
+        <v-btn color="green darken-1" flat @click="sendForm" :disabled="!(employee && template)">{{ $t('buttons.create') }}</v-btn>
       </v-card-actions>
     </v-form>
 
@@ -84,13 +84,13 @@ export default {
 
       this.$store.dispatch('EvaluationsStore/create', initialData)
         .then(() => {
-          this.flash({ success: 'Evaluation has been succefully created.' })
+          this.flash({ success: this.$root.$t('evaluations.flashes.create.success') })
           if (this.options.redirect) this.$router.push({ name: 'evaluations_path' })
           this.$emit('close')
         })
         .catch(error => {
           console.log(error.response)
-          this.flash({ error: 'Evaluation cannot be created due to some error: ' + this.renderError(error.response) })
+          this.flash({ error: this.$root.$t('evaluations.flashes.create.error', { reason: this.renderError(error.response) }) })
         })
     }
   },
@@ -122,12 +122,12 @@ export default {
 
     this.$store.dispatch('EmployeesStore/index', { state: 'hired' })
       .catch(error => {
-        this.flash({ error: 'Employees cannot be loaded due to some error: ' + this.renderError(error.response) })
+        this.flash({ error: this.$root.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
 
     this.$store.dispatch('TemplatesStore/index')
       .catch(error => {
-        this.flash({ error: 'Templates cannot be loaded due to some error: ' + this.renderError(error.response) })
+        this.flash({ error: this.$root.$t('templates.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
   }
 }

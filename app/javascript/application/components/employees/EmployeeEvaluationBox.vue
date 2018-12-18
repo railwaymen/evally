@@ -2,13 +2,13 @@
   <div class="box box--with-content evaluation">
     <v-layout v-if="!evaluation" row>
       <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">{{ fullname(employee) }} has not been evaluated yet</h4>
+        <h4 class="no-content__header no-content__header--large">{{ $t('employees.messages.not_evaluated', { name: fullname(employee) }) }}</h4>
       </v-flex>
     </v-layout>
 
     <v-layout v-else-if="!evaluation.isExisting()" row>
       <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">Select employee to see his latest evaluation.</h4>
+        <h4 class="no-content__header no-content__header--large">{{ $t('employees.messages.select') }}</h4>
       </v-flex>
     </v-layout>
 
@@ -25,19 +25,19 @@
           <v-flex lg4>
             <div class="date">
               <h5 class="date__value">{{ employee.hired_at | moment("MMMM YYYY") }}</h5>
-              <h6 class="date__description">hired at</h6>
+              <h6 class="date__description">{{ $t('evaluations.forms.hired_at') }}</h6>
             </div>
           </v-flex>
           <v-flex v-if="employee.next_evaluation_at && $route.name !== 'browse_page_path'" lg4>
             <div class="date">
               <h5 class="date__value">{{ employee.next_evaluation_at | moment("MMMM YYYY") }}</h5>
-              <h6 class="date__description">next evaluation</h6>
+              <h6 class="date__description">{{ $t('evaluations.forms.next_review') }}</h6>
             </div>
           </v-flex>
           <v-flex lg4>
             <div class="date">
               <h5 class="date__value">{{ evaluation.completed_at | moment("MMM DD, YYYY") }}</h5>
-              <h6 class="date__description">completed at</h6>
+              <h6 class="date__description">{{ $t('evaluations.forms.completed_at') }}</h6>
             </div>
           </v-flex>
         </v-layout>

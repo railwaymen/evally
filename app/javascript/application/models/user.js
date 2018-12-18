@@ -1,6 +1,5 @@
 import { Model, Collection } from 'vue-mc'
 
-
 /**
  * User model
  */

@@ -4,10 +4,16 @@ class ApplicationController < ActionController::Base
 
   include RailsJwtAuth::WardenHelper
 
+  before_action :set_locale
+
   private
 
   def render_error_response(error)
     render json: V1::ErrorSerializer.new(error).serialized_json, status: error.status
+  end
+
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
   end
 
 end

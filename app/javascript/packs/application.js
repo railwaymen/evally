@@ -24,7 +24,16 @@ Vue.use(Vuex)
 
 // Vuetify
 import Vuetify from 'vuetify'
-Vue.use(Vuetify)
+
+import Ven from 'vuetify/lib/locale/en'
+import Vpl from 'vuetify/lib/locale/pl'
+
+Vue.use(Vuetify, {
+  lang: {
+    locales: { en: Ven, pl: Vpl },
+    current: 'en'
+  }
+})
 
 // Vue2Clipboard
 import VueClipboard from 'vue-clipboard2'
@@ -32,7 +41,9 @@ Vue.use(VueClipboard)
 
 // VueMoment
 import VueMoment from 'vue-moment'
-Vue.use(VueMoment)
+import moment from 'moment'
+
+Vue.use(VueMoment, { moment })
 
 // Vue2Filters
 import Vue2Filters from 'vue2-filters'
@@ -41,6 +52,19 @@ Vue.use(Vue2Filters)
 // Mixins
 import base_mixin from '@/lib/base_mixin'
 Vue.mixin(base_mixin)
+
+// Internationalization
+import VueI18n from 'vue-i18n'
+Vue.use(VueI18n)
+
+import english from '@/locale/en'
+import polish from '@/locale/pl'
+
+const i18n = new VueI18n({
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages: { en: english, pl: polish }
+})
 
 // Properties
 import _ from 'lodash'
@@ -55,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (el != null) {
     const app = new Vue({
       el,
+      i18n,
       router,
       store,
       render: h => h(App)

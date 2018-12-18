@@ -59,7 +59,7 @@ const AuthStore = {
             resolve()
           })
           .catch(error => {
-            localStorage.clear()
+            localStorage.removeItem('ev411y_t0k3n')
             context.commit('progress', 'error')
 
             reject(error)
@@ -69,7 +69,7 @@ const AuthStore = {
 
     logOut(context) {
       return new Promise((resolve, reject) => {
-        localStorage.clear()
+        localStorage.removeItem('ev411y_t0k3n')
 
         delete axios.defaults.headers.common['Authorization']
         context.commit('clearStore')
@@ -84,9 +84,10 @@ const AuthStore = {
           .then(response => {
             let session = Utils.prepareSession(response.data.data)
 
+            localStorage.setItem('ev411y_l4ng', session.setting.lang || 'en')
             context.commit('setSession', session)
 
-            resolve(response)
+            resolve(session)
           })
           .catch(error => {
             reject(error)
@@ -114,7 +115,7 @@ const AuthStore = {
       return new Promise((resolve, reject) => {
         axios.put('v1/users/current/password', data)
           .then(() => {
-            localStorage.clear()
+            localStorage.removeItem('ev411y_t0k3n')
 
             delete axios.defaults.headers.common['Authorization']
             context.commit('clearStore')
@@ -133,9 +134,10 @@ const AuthStore = {
           .then(response => {
             let user = new User(Utils.transformModel(response.data.data))
 
+            localStorage.setItem('ev411y_l4ng', user.setting.lang || 'en')
             context.commit('updateSetting', user.setting)
 
-            resolve(response)
+            resolve(user.setting)
           })
           .catch(error => {
             reject(error)

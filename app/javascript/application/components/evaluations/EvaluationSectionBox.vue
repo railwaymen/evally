@@ -43,13 +43,13 @@
             <div class="skill__action">
               <v-switch
                 v-if="editable"
-                :label="skill.value ? 'Yes' : 'No'"
+                :label="skill.value ? $t('evaluations.forms.bool_yes') : $t('evaluations.forms.bool_no')"
                 v-model="skill.value"
                 @change="updateSkills"
                 color="success"
                 class="mt-1"
               ></v-switch>
-              <span v-else>{{ skill.value ? 'Yes' : 'No' }}</span>
+              <span v-else>{{ skill.value ? $t('evaluations.forms.bool_yes') : $t('evaluations.forms.bool_no') }}</span>
             </div>
           </div>
         </div>

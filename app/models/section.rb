@@ -12,12 +12,12 @@ class Section < ApplicationRecord
 
   validates :group, presence: true, inclusion: {
     in: Section.groups.keys,
-    message: "'%{value}' is not a valid group"
+    message: :invalid_inclusion
   }
 
   validates :width, presence: true, inclusion: {
     in: Section.widths.keys,
-    message: "'%{value}' is not a valid width"
+    message: :invalid_inclusion
   }
 
   validates :position, presence: true, numericality: { only_integer: true }
@@ -32,9 +32,9 @@ class Section < ApplicationRecord
     def skills_format
       if skills.is_a?(Array)
         all_skills_valid = skills.all? { |s| s.key?('name') && s.key?('value') }
-        errors.add(:skills, 'must have name and value') unless all_skills_valid
+        errors.add(:skills, :name_and_value) unless all_skills_valid
       else
-        errors.add(:skills, 'must be an Array of skills')
+        errors.add(:skills, :skills_array)
       end
     end
 end

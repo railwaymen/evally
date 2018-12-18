@@ -1,6 +1,12 @@
 <template>
   <div class="box box--with-content evaluation">
-    <v-layout v-if="evaluation.isExisting()" row wrap>
+    <v-layout v-if="!evaluation || !evaluation.isExisting()" row>
+      <v-flex xs12>
+        <h4 class="no-content__header no-content__header--large">{{ $t('evaluations.message') }}</h4>
+      </v-flex>
+    </v-layout>
+
+    <v-layout v-else row wrap>
       <v-flex xs12 lg9>
         <div class="employee">
           <h3 class="employee__fullname">{{ fullname(employee) }}</h3>
@@ -13,7 +19,7 @@
           <v-flex xs12>
             <div class="date">
               <h5 class="date__value">{{ employee.hired_at | moment("MMMM YYYY") }}</h5>
-              <h6 class="date__description">hired at</h6>
+              <h6 class="date__description">{{ $t('evaluations.forms.hired_at') }}</h6>
             </div>
           </v-flex>
         </v-layout>
@@ -28,12 +34,6 @@
             editable
           ></evaluation-section-box>
         </v-layout>
-      </v-flex>
-    </v-layout>
-
-    <v-layout v-else row>
-      <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">Select draft evaluation or create a new one.</h4>
       </v-flex>
     </v-layout>
   </div>

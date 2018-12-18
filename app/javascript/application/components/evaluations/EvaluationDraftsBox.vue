@@ -4,32 +4,38 @@
       <v-text-field
         v-model="search"
         append-icon="search"
-        label="Search..."
+        :label="$t('evaluations.sidebar.search')"
         box
       ></v-text-field>
     </div>
     <div class="search-box__list">
       <v-list two-line subheader>
-        <v-subheader>Evaluations drafts</v-subheader>
+        <v-subheader>{{ $t('evaluations.sidebar.subheader') }}</v-subheader>
 
-        <v-list-tile v-for="draft in filteredEvaluations" :key="draft.id" @click="selectEvaluation(draft.id)">
-          <v-list-tile-action>
-            <v-icon>assignment_turned_in</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{ fullname(draft.employee) }}</v-list-tile-title>
-            <v-list-tile-sub-title>based on '{{ draft.template_name }}' template</v-list-tile-sub-title>
-          </v-list-tile-content>
-        </v-list-tile>
+        <div v-if="isLoading" class="box__loader">
+          <v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
+        </div>
 
-        <v-list-tile v-if="filteredEvaluations.length == 0">
-          <v-list-tile-action>
-            <v-icon>error_outline</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>There are no evaluations drafts</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+        <template v-else>
+          <v-list-tile v-for="draft in filteredEvaluations" :key="draft.id" @click="selectEvaluation(draft.id)">
+            <v-list-tile-action>
+              <v-icon>assignment_turned_in</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ fullname(draft.employee) }}</v-list-tile-title>
+              <v-list-tile-sub-title>{{ $t('evaluations.sidebar.subtitle', { name: draft.template_name }) }}</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+
+          <v-list-tile v-if="filteredEvaluations.length == 0">
+            <v-list-tile-action>
+              <v-icon>error_outline</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ $t('evaluations.sidebar.no_items') }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </template>
       </v-list>
     </div>
   </div>
@@ -53,6 +59,7 @@ export default {
   computed: {
     ...mapGetters({
       drafts: 'EvaluationsStore/evaluations',
+      status: 'EvaluationsStore/status'
     }),
 
     filteredEvaluations() {

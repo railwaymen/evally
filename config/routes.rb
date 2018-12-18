@@ -1,33 +1,36 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'pages#index'
-
-  scope :v1, defaults: { format: :json } do
-    resource :session, controller: 'rails_jwt_auth/sessions', only: [:create, :destroy]
-  end
-
-  namespace :v1, defaults: { format: :json } do
-    resources :activities, only: [:index] do
-      get 'today', on: :collection
+  
+  scope '(:locale)', locale: /en|pl/ do
+    scope :v1, defaults: { format: :json } do
+      resource :session, controller: 'rails_jwt_auth/sessions', only: [:create, :destroy]
     end
 
-    resources :employees, only: [:index, :create, :update, :destroy]
+    namespace :v1, defaults: { format: :json } do
+      resources :activities, only: [:index] do
+        get 'today', on: :collection
+      end
 
-    resources :evaluations, only: [:index, :create, :update, :destroy]
-    get 'employees/:id/evaluation', to: 'evaluations#evaluation', as: 'empoyee_evaluation'
+      resources :employees, only: [:index, :create, :update, :destroy]
 
-    resources :templates, only: [:index, :create, :update, :destroy]
+      resources :evaluations, only: [:index, :create, :update, :destroy]
+      get 'employees/:id/evaluation', to: 'evaluations#evaluation', as: 'empoyee_evaluation'
 
-    resources :users, only: [:show, :create, :update] do
-      put 'password', on: :member
+      resources :templates, only: [:index, :create, :update, :destroy]
+
+      resources :users, only: [:show, :create, :update] do
+        put 'password', on: :member
+      end
+
+      resources :settings, only: [:update]
     end
 
-    resources :settings, only: [:update]
+    # Route to hit the Vue app
+    get '/*path', to: 'pages#index', format: false
+
   end
-
-  # Route to hit the Vue app
-  get '/*path', to: 'pages#index', format: false
-
+  
   # resources :invitations, controller: 'rails_jwt_auth/invitations', only: [:create, :update]
   # resource :password, controller: 'rails_jwt_auth/passwords', only: [:create, :update]
   # resource :confirmation, controller: 'rails_jwt_auth/confirmations', only: [:create, :update]

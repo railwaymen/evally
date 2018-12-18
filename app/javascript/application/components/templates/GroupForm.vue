@@ -3,7 +3,7 @@
     <v-text-field
       v-if="template.editable"
       class="form-box__create-field"
-      :label="`New ${group} item`"
+      :label="$t(`templates.forms.inputs.${group}`)"
       v-model="newSkill"
       @keyup.enter.native="addSkill"
       @click:append="addSkill"
