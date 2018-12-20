@@ -2,7 +2,7 @@
   <section class="panel">
     <v-layout row>
       <v-flex xs6>
-        <h2 class="panel__heading">Settings</h2>
+        <h2 class="panel__heading">{{ $t('settings.title') }}</h2>
       </v-flex>
 
       <v-flex>
@@ -24,7 +24,7 @@
                     <v-icon>{{ panel.icon }}</v-icon>
                   </v-list-tile-action>
                   <v-list-tile-content>
-                    <v-list-tile-title>{{ panel.name }}</v-list-tile-title>
+                    <v-list-tile-title>{{ $t(`settings.sidebar.${panel.name}`) }}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
               </template>
@@ -46,10 +46,10 @@ export default {
   data() {
     return {
       panels: [
-        { id: 0, name: 'General', icon: 'language', path: 'general_settings_path' },
-        { id: 10, name: 'Evaluations', icon: 'assignment_turned_in', path: 'evaluations_settings_path' },
-        { id: 20, name: 'Profile', icon: 'person', path: 'profile_settings_path', dividerBefore: true },
-        { id: 30, name: 'Support', icon: 'help_outline', path: 'support_path' }
+        { id: 0, name: 'general', icon: 'language', path: 'general_settings_path' },
+        { id: 10, name: 'evaluations', icon: 'assignment_turned_in', path: 'evaluations_settings_path' },
+        { id: 20, name: 'profile', icon: 'person', path: 'profile_settings_path', dividerBefore: true },
+        { id: 30, name: 'support', icon: 'help_outline', path: 'support_path' }
       ]
     }
   }

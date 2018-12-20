@@ -1,5 +1,5 @@
 class Template < ApplicationRecord
-  include AASM
+  # include AASM
 
   # # Associations
   #
@@ -18,28 +18,7 @@ class Template < ApplicationRecord
 
   validates :state, presence: true, inclusion: {
     in: Template.states.keys,
-    message: "'%{value}' is not a valid state"
+    message: :invalid_inclusion
   }
-
-  # # States
-  #
-  aasm column: :state, enum: true do
-    state :draft, :initial => true
-    state :enabled
-    state :disabled
-    state :removed
-
-    event :enable do
-      transitions from: [:draft, :disabled], to: :enable
-    end
-
-    event :disable do
-      transitions from: :enabled, to: :disabled
-    end
-
-    event :remove do
-      transitions from: [:draft, :enabled, :disabled], to: :removed
-    end
-  end
 
 end

@@ -1,8 +1,5 @@
 import { Model, Collection } from 'vue-mc'
 
-// Validation rules
-import { required, string } from 'vue-mc/validation'
-
 /**
  * Employee model
  */
@@ -22,15 +19,6 @@ class Employee extends Model {
     }
   }
 
-  validation() {
-    return {
-      first_name: required.and(string).format("This field is required"),
-      last_name: required.and(string).format("This field is required"),
-      position: required.and(string).format("This field is required"),
-      hired_at: required.and(string).format("This field is required")
-    }
-  }
-
   routes() {
     return {
       save: '/v1/employees',
@@ -38,7 +26,6 @@ class Employee extends Model {
       delete: '/v1/employees/{id}'
     }
   }
-
 
   fullname() {
     return [this.first_name, this.last_name].join(' ').trim()
@@ -50,17 +37,15 @@ class Employee extends Model {
  */
 class EmployeesList extends Collection {
 
-    // Model that is contained in this collection.
-    model() {
-      return Employee
-    }
+  model() {
+    return Employee
+  }
 
-    // Route configuration
-    routes() {
-      return {
-        fetch: '/v1/employees',
-      }
+  routes() {
+    return {
+      fetch: '/v1/employees',
     }
+  }
 }
 
 export { Employee, EmployeesList }

@@ -1,30 +1,30 @@
 <template>
   <v-card class="pa-4">
     <v-card-title>
-      <span class="headline">{{ options.action | capitalize }} {{ options.model }}</span>
+      <span class="headline">{{ $t(`employees.forms.${options.action}_title`) }}</span>
     </v-card-title>
 
-    <v-form>
+    <v-form ref="employeeForm">
       <v-card-text>
         <v-text-field
           v-model="employee.first_name"
-          :error-messages="employee.errors.first_name"
-          label="First name"
+          :rules="[vRequired, vIsString]"
+          :label="$t('employees.forms.first_name')"
         ></v-text-field>
 
         <v-text-field
           v-model="employee.last_name"
-          :error-messages="employee.errors.last_name"
-          label="Last name"
+          :rules="[vRequired, vIsString]"
+          :label="$t('employees.forms.last_name')"
         ></v-text-field>
 
         <v-combobox
           v-model="employee.position"
-          :error-messages="employee.errors.position"
+          :rules="[vRequired, vIsString]"
           :items="positions"
           append-icon="expand_more"
           chips
-          label="Position"
+          :label="$t('employees.forms.position')"
         ></v-combobox>
 
         <v-menu
@@ -42,14 +42,15 @@
           <v-text-field
             slot="activator"
             v-model="hiredDate"
-            :error-messages="employee.errors.hired_at"
-            label="On board since"
+            :rules="[vRequired, vIsString]"
+            :label="$t('employees.forms.hired_at')"
             prepend-icon="event"
             readonly
           ></v-text-field>
           <v-date-picker
             v-model="hiredDate"
             @input="$refs.hiredMenu.save(employee.hired_at)"
+            :locale="$i18n.locale"
             no-title
             scrollable
           ></v-date-picker>
@@ -71,7 +72,7 @@
           <v-text-field
             slot="activator"
             v-model="nextDate"
-            label="Next evaluation at"
+            :label="$t('employees.forms.next_review')"
             prepend-icon="event"
             readonly
           ></v-text-field>
@@ -79,6 +80,7 @@
             type="month"
             v-model="nextDate"
             @input="$refs.nextMenu.save(employee.next_evaluation_at)"
+            :locale="$i18n.locale"
             :min="$moment().format()"
             no-title scrollable></v-date-picker>
         </v-menu>
@@ -86,8 +88,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="grey darken-1" flat @click="closeModal">Cancel</v-btn>
-        <v-btn color="green darken-1" flat @click="sendForm">{{ options.action }}</v-btn>
+        <v-btn color="grey darken-1" flat @click="closeModal">{{ $t('buttons.cancel') }}</v-btn>
+        <v-btn color="green darken-1" flat @click="sendForm">{{ $t(`buttons.${options.action}`) }}</v-btn>
       </v-card-actions>
     </v-form>
 
@@ -113,16 +115,16 @@ export default {
     },
 
     sendForm() {
-      if (this.employee.validate()) {
+      if (this.$refs.employeeForm.validate()) {
         switch(this.options.action) {
           case 'create':
             this.$store.dispatch('EmployeesStore/create', { employee: this.employee.attributes })
               .then(() => {
-                this.flash({ success: 'Employee has been succefully created.' })
+                this.flash({ success: this.$root.$t('employees.flashes.create.success') })
                 this.$emit('close')
               })
               .catch(error => {
-                this.flash({ error: 'Employee cannot be created due to some error: ' + this.renderError(error.response) })
+                this.flash({ error: this.$root.$t('employees.flashes.create.error', { reason: this.renderError(error.response) }) })
               })
 
             break
@@ -130,11 +132,11 @@ export default {
           case 'edit':
             this.$store.dispatch('EmployeesStore/update', { employee: this.employee.attributes })
               .then(() => {
-                this.flash({ success: 'Employee has been succefully updated' })
+                this.flash({ success: this.$root.$t('employees.flashes.edit.success') })
                 this.$emit('close')
               })
               .catch(error => {
-                this.flash({ error: 'Employee cannot be updated due to some error: ' + this.renderError(error.response) })
+                this.flash({ error: this.$root.$t('employees.flashes.edit.error', { reason: this.renderError(error.response) }) })
               })
 
             break
@@ -154,7 +156,8 @@ export default {
       },
       
       set(date) {
-        this.employee.hired_at = this.$moment(date, 'YYYY-MM-DD').format()
+        let hiredAt = this.$moment(date, 'YYYY-MM-DD')
+        this.employee.hired_at = hiredAt.isValid() ? hiredAt.format() : ''
       }
     },
 
@@ -164,7 +167,8 @@ export default {
       },
       
       set(date) {
-        this.employee.next_evaluation_at = this.$moment(date, 'YYYY-MM').format()
+        let nextEvaluationAt = this.$moment(date, 'YYYY-MM')
+        this.employee.next_evaluation_at = nextEvaluationAt.isValid() ? nextEvaluationAt.format() : ''
       }
     }
   }

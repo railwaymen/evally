@@ -1,13 +1,13 @@
 <template>
   <div class="box box--with-content">
-    <h1 class="box__header">Evaluations settings</h1>
+    <h1 class="box__header">{{ $t('settings.evaluations.title') }}</h1>
 
     <v-form @submit.prevent="save">
       <div class="settings pa-3">
-        <h2 class="subheading my-3">Default options</h2>
+        <h2 class="subheading my-3">{{ $t('settings.evaluations.defaults.subheader') }}</h2>
 
         <div class="setting">
-          <v-subheader>Months to next evaluation</v-subheader>
+          <v-subheader>{{ $t('settings.evaluations.defaults.next_review_offset') }}</v-subheader>
           <v-slider
             v-model="setting.default_next_evaluation_time"
             min="1"
@@ -18,8 +18,8 @@
         </div>
 
         <div class="settings__actions text-xs-right">
-          <v-btn @click="setting.reset()" flat>Reset</v-btn>
-          <v-btn type="submit" class="primary" flat>Save</v-btn>
+          <v-btn @click="setting.reset()" flat>{{ $t('buttons.reset') }}</v-btn>
+          <v-btn type="submit" class="primary" flat>{{ $t('buttons.save') }}</v-btn>
         </div>
       </div>
     </v-form>
@@ -36,10 +36,10 @@ export default {
       if (this.setting.validate()) {
         this.$store.dispatch('AuthStore/saveSetting', { setting: this.setting.attributes })
           .then(() => {
-            this.flash({ success: 'Settings has been succefully updated' })
+            this.flash({ success: this.$root.$t('settings.flashes.save_setting.success') })
           })
           .catch(error => {
-            this.flash({ error: 'Settings cannot be updated due to some error: ' + this.renderError(error.response) })
+            this.flash({ error: this.$root.$t('settings.flashes.save_setting.error', { reason: this.renderError(error.response) }) })
           })
       }
     }

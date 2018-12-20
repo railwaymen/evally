@@ -5,13 +5,19 @@
       <v-text-field
         v-model="search"
         append-icon="search"
-        label="Search by name"
+        :label="$t('archive.sidebar.search')"
         box
       ></v-text-field>
     </div>
 
     <div class="search-box__list">
-      <v-expansion-panel class="elevation-0">
+      <v-subheader>{{ $t('archive.sidebar.subheader') }}</v-subheader>
+
+      <div v-if="isLoading" class="box__loader">
+        <v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
+      </div>
+
+      <v-expansion-panel v-else class="elevation-0">
         <v-expansion-panel-content
           v-for="(evaluations, group) in preparedEvaluations"
           :key="group"
@@ -28,28 +34,28 @@
             <v-card-text>
               <div class="vcard pa-2">
                 <div class="vcard__info">
-                  <h3 class="vcard__title">Position</h3>
+                  <h3 class="vcard__title">{{ $t('employees.forms.position') }}</h3>
                   <div class="vcard__position">{{ evaluationsEmployee(evaluations).position }}</div>
                 </div>
 
                 <div class="vcard__info">
-                  <h3 class="vcard__title">Cooperation</h3>
+                  <h3 class="vcard__title">{{ $t('employees.forms.cooperation') }}</h3>
                   <v-layout row>
                     <v-flex xs6>
-                      <div class="vcard__date">{{ evaluationsEmployee(evaluations).hired_at | moment("MMMM Do, YYYY") }}</div>
-                      <div class="vcard__date-text">since</div>
+                      <div class="vcard__date">{{ evaluationsEmployee(evaluations).hired_at | moment("MMMM D, YYYY") }}</div>
+                      <div class="vcard__date-text">{{ $t('employees.forms.since') }}</div>
                     </v-flex>
 
                     <v-flex xs6 v-if="evaluationsEmployee(evaluations).state === 'released'">
-                      <div class="vcard__date">{{ evaluationsEmployee(evaluations).released_at | moment("MMMM Do, YYYY") }}</div>
-                      <div class="vcard__date-text">until</div>
+                      <div class="vcard__date">{{ evaluationsEmployee(evaluations).released_at | moment("MMMM D, YYYY") }}</div>
+                      <div class="vcard__date-text">{{ $t('employees.forms.to') }}</div>
                     </v-flex>
                   </v-layout>
                 </div>
 
                 <div class="vcard__evaluations">
                   <v-list two-line subheader>
-                    <v-subheader>List of evaluations ({{ evaluations.length }})</v-subheader>
+                    <v-subheader>{{ $t('archive.sidebar.evaluations_subheader', { count: evaluations.length }) }}</v-subheader>
 
                     <v-list-tile v-for="evaluation in evaluations" :key="evaluation.id" @click="showEvaluation(evaluation.id)">
                       <v-list-tile-content>
@@ -67,7 +73,7 @@
         <v-expansion-panel-content v-if="areEvaluationsEmpty" disabled>
           <div slot="header">
             <div class="vcard-header">
-              There are no employees to show
+              {{ $t('archive.sidebar.no_items')}}
             </div>
           </div>
         </v-expansion-panel-content>
@@ -97,7 +103,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      evaluations: 'EvaluationsStore/evaluations'
+      evaluations: 'EvaluationsStore/evaluations',
+      status: 'EvaluationsStore/status'
     }),
 
     preparedEvaluations() {
@@ -122,7 +129,7 @@ export default {
   created() {
     this.$store.dispatch('EvaluationsStore/index', { state: ['completed', 'archived'] })
       .catch( error => {
-        this.flash({ error: 'Evaluations cannot be loaded due to some error: ' + this.renderError(error.response) })
+        this.flash({ error: this.$root.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
   },
   beforeDestroy() {

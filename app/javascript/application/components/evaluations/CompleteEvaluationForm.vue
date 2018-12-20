@@ -1,12 +1,15 @@
 <template>
   <v-card class="pa-4">
     <v-card-title>
-      <span class="headline">{{ options.action | capitalize }} {{ options.model }}</span>
+      <span class="headline">{{ $t('evaluations.forms.complete.title') }}</span>
     </v-card-title>
 
     <v-form>
       <v-card-text>
-        <p class="subheading text-xs-center">Are you sure you want to complete this {{ options.model }}?<br>This action <b>cannot</b> be undo.</p>
+        <p class="subheading text-xs-center">
+          {{ $t('evaluations.forms.complete.question') }}<br>
+          {{ $t('evaluations.forms.complete.warning') }}
+        </p>
 
         <div class="date">
           <v-menu
@@ -24,7 +27,7 @@
             <v-text-field
               slot="activator"
               v-model="formattedDate"
-              label="Next evaluation at"
+              :label="$t('evaluations.forms.complete.next_label')"
               append-icon="event"
               readonly
             ></v-text-field>
@@ -32,6 +35,7 @@
               type="month"
               v-model="next_evaluation_at"
               @input="$refs.menu1.save(next_evaluation_at)"
+              :locale="$i18n.locale"
               :min="$moment().format()"
               no-title scrollable></v-date-picker>
           </v-menu>
@@ -40,8 +44,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="grey darken-1" flat @click="$emit('close')">Cancel</v-btn>
-        <v-btn color="green darken-1" flat @click="saveEvaluation">{{ options.action }}</v-btn>
+        <v-btn color="grey darken-1" flat @click="$emit('close')">{{ $t('buttons.cancel') }}</v-btn>
+        <v-btn color="green darken-1" flat @click="saveEvaluation">{{ $t('buttons.complete') }}</v-btn>
       </v-card-actions>
     </v-form>
 
@@ -74,12 +78,12 @@ export default {
 
       this.$store.dispatch('EvaluationsStore/update', params)
         .then(() => {
-          this.flash({ success: `Evaluation has been succefully completed` })
+          this.flash({ success: this.$root.$t('evaluations.flashes.complete.success') })
           this.$store.commit('EvaluationsStore/clear')
           this.$emit('close')
         })
         .catch(error => {
-          this.flash({ error: 'Template cannot be completed due to some error: ' + this.renderError(error.response) })
+          this.flash({ error: this.$root.$t('evaluations.flashes.complete.error', { reason: this.renderError(error.response) }) })
         })
     }
   },

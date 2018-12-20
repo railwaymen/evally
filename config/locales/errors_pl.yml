@@ -1,0 +1,14 @@
+pl:
+  errors:
+    bad_request:
+      title: 'Błąd zapytania'
+      message: 'Zapytanie jest błędne.'
+    invalid_record:
+      title: 'Błąd validacji'
+      message: 'Rekord zawiera niepoprawne atrybuty.'
+    record_not_found:
+      title: 'Nie znaleziono'
+      message: 'Ten rekord nie istnieje.'
+    unauthorized:
+      title: 'Brak autoryzacji'
+      message: 'Nie jesteś upoważniony do wykonania tej akcji.'

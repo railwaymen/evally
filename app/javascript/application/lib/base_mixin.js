@@ -10,7 +10,7 @@ export default {
 
     nextEvaluationDate(employee) {
 			let date = employee.next_evaluation_at
-			return date ? this.$moment(date).format('MMM YYYY') : 'First time'
+			return date ? this.$moment(date).format('MMM YYYY') : this.$t('dashboard.common.first_time')
     },
 
     renderError(errorResponse) {
@@ -20,6 +20,30 @@ export default {
       } else {
         return errorResponse.statusText
       }
+    },
+
+    updateLocale(locale) {
+      this.$i18n.locale = locale
+      this.$vuetify.lang.current = locale
+      this.$moment.locale(locale)
+    },
+
+    vIsString(val) {
+      return this.$_.isString(val) || this.$t('validation.isString')
+    },
+
+    vMin6(val) {
+      return !!val && val.length >= 6 || this.$t('validation.min6')
+    },
+
+    vRequired(val) {
+      return !!val || this.$t('validation.required')
+    }
+  },
+  computed: {
+
+    isLoading() {
+			return this.status === 'loading'
     }
   }
 }

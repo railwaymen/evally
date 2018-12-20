@@ -1,0 +1,38 @@
+pl:
+  activities:
+    employee:
+      create:
+        title: 'Nowy pracownik'
+        description: "Dodano nowego pracownika: %{name}!"
+      update:
+        title: 'Edytowano pracownika'
+        description: "%{user} zaktualizował profil pracownika %{name}."
+      destroy:
+        title: 'Usunięto pracownika'
+        description: "%{user} usunął profil pracownika %{name}."
+      archive:
+        title: 'Zarchiwizowano pracownika'
+        description: "%{user} zarchiwizował profil pracownika %{name}"
+    template:
+      create:
+        title: 'Nowy szablon'
+        description: "%{user} utworzył szablon %{name}."
+      update:
+        title: 'Edytowano szablon'
+        description: "%{user} zaktualizował szablon %{name}."
+      destroy:
+        title: 'Usunięto szablon'
+        description: "%{user} usunął szablon %{name}."
+    evaluation:
+      create:
+        title: 'Nowa ocena'
+        description: "%{user} utworzył ocenę pracownika %{name}."
+      update:
+        title: 'Edytowano szkic oceny'
+        description: "%{user} zaktualizował ocenę pracownika %{name}"
+      complete:
+        title: 'Zakończono ocenę'
+        description: "%{user} zakończył ocenę pracownika %{name}."
+      destroy:
+        title: 'Usunięto szkic oceny'
+        description: "%{user} usunął szkic oceny pracownika %{name}."

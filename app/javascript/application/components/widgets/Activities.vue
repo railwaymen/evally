@@ -1,9 +1,13 @@
 <template>
 	<div class="box box--border-grey">
-		<h3 class="box__header text-xs-center">Activities</h3>
+		<h3 class="box__header text-xs-center">{{ $t('dashboard.activities.title') }}</h3>
 
 		<div class="box__list">
-			<v-list :two-line="activities.models.length > 0">
+			<div v-if="isLoading" class="box__loader">
+				<v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
+			</div>
+
+			<v-list v-else :two-line="activities.models.length > 0">
         <v-list-tile v-for="activity in activities.models" :key="activity.id" avatar>
 
           <v-list-tile-content>
@@ -18,12 +22,12 @@
 
 				<v-list-tile v-if="activities.models.length == 0">
           <v-list-tile-content>
-            <v-list-tile-title>No activities from today</v-list-tile-title>
+            <v-list-tile-title>{{ $t('dashboard.activities.no_activities') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
 				<div class="text-xs-center pt-2">
-					<v-btn :to="{ name: 'activities_archive_path' }" flat>See more</v-btn>
+					<v-btn :to="{ name: 'activities_archive_path' }" flat>{{ $t('dashboard.activities.see_more') }}</v-btn>
 				</div>
       </v-list>
 		</div>
@@ -52,13 +56,14 @@ export default {
 	},
 	computed: {
 		...mapGetters({
-			activities: 'ActivitiesStore/todayActivities'
+			activities: 'ActivitiesStore/todayActivities',
+			status: 'ActivitiesStore/status'
 		})
 	},
 	created() {
 		this.$store.dispatch('ActivitiesStore/today')
       .catch( error => {
-        this.flash({ error: 'Activities cannot be loaded due to some error: ' + this.renderError(error.response) })
+        this.flash({ error: this.$t('activities.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
 	}
 }

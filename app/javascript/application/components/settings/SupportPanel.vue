@@ -1,10 +1,10 @@
 <template>
   <div class="box box--with-content">
-    <h1 class="box__header">Support</h1>
+    <h1 class="box__header">{{ $t('settings.support.title') }}</h1>
 
     <v-form>
       <div class="settings pa-3">
-        <h2 class="subheading my-3">Soon...</h2>
+        <h2 class="subheading my-3">{{ $t('settings.support.text') }}</h2>
 
         
       </div>

@@ -1,15 +1,10 @@
 import { Model, Collection } from 'vue-mc'
 
-// Validation rules
-import { required, string } from 'vue-mc/validation'
-
-
 /**
  * Evaluation model
  */
 class Evaluation extends Model {
 
-  // Default attributes that define the "empty" state.
   defaults() {
     return {
       id: null,
@@ -35,7 +30,6 @@ class Evaluation extends Model {
  */
 class EvaluationsList extends Collection {
 
-  // Model that is contained in this collection.
   model() {
     return Evaluation
   }

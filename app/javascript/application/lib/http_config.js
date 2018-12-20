@@ -6,7 +6,7 @@ import router from '../router'
 // Request interceptor
 axios.interceptors.request.use(config => {
 
-  config.baseURL = window.location.origin
+  config.baseURL = `${window.location.origin}/${localStorage.getItem('ev411y_l4ng') || 'en'}`
   config.headers.common['Content-Type'] = 'application/json'
 
   const token = localStorage.getItem('ev411y_t0k3n')
@@ -27,7 +27,7 @@ axios.interceptors.response.use(response => {
     store.commit('AuthStore/clearStore')
 
     router.push({ name: 'landing_page_path' })
-    localStorage.clear()
+    localStorage.removeItem('ev411y_t0k3n')
   }
 
   return Promise.reject(error)

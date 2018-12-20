@@ -2,7 +2,7 @@
   <section class="panel">
     <v-layout row>
       <v-flex>
-        <h2 class="panel__heading">Templates</h2>
+        <h2 class="panel__heading">{{ $t('templates.title') }}</h2>
       </v-flex>
 
       <v-flex>
@@ -11,14 +11,14 @@
             <v-btn @click="newTemplate" color="green" slot="activator" icon flat>
               <v-icon>add</v-icon>
             </v-btn>
-            <span>New template</span>
+            <span>{{ $t('templates.buttons.add_new') }}</span>
           </v-tooltip>
 
           <v-tooltip bottom v-if="template.editable">
             <v-btn @click="save" slot="activator" icon flat>
               <v-icon>save_alt</v-icon>
             </v-btn>
-            <span>Save template</span>
+            <span>{{ $t('templates.buttons.save') }}</span>
           </v-tooltip>
 
           <template v-if="template.isExisting()">
@@ -26,14 +26,14 @@
               <v-btn @click="edit" :disabled="template.editable" slot="activator" icon flat>
                 <v-icon>edit</v-icon>
               </v-btn>
-              <span>Edit template</span>
+              <span>{{ $t('templates.buttons.edit') }}</span>
             </v-tooltip>
 
             <v-tooltip bottom>
               <v-btn @click="remove" color="red" slot="activator" icon flat>
                 <v-icon>delete</v-icon>
               </v-btn>
-              <span>Delete template</span>
+              <span>{{ $t('templates.buttons.delete') }}</span>
             </v-tooltip>
           </template>
         </div>
@@ -48,7 +48,9 @@
           </v-flex>
 
           <v-flex xs12 lg9>
-            <template-box></template-box>
+            <v-form ref="templateForm">
+              <template-box></template-box>
+            </v-form>
           </v-flex>
         </v-layout>
       </v-container>
@@ -78,29 +80,29 @@ export default {
     },
 
     save() {
-      let formValid = this.template.validate() && _.every(this.sections.models, section => section.validate() )
+      let formValid = this.$refs.templateForm.validate()
 
       if (formValid && this.status === 'new_record') {
         this.template.sections_attributes = _.map(this.sections.models, section => section.attributes )
 
         this.$store.dispatch('TemplatesStore/create', { template: this.template })
           .then(() => {
-            this.flash({ success: `Template '${this.template.name}' has been succefully created` })
+            this.flash({ success: this.$root.$t('templates.flashes.create.success') })
             this.template.editable = false
           })
           .catch(error => {
-            this.flash({ error: 'Template cannot be created due to some error: ' + this.renderError(error.response) })
+            this.flash({ error: this.$root.$t('templates.flashes.create.error', { reason: this.renderError(error.response) }) })
           })
       } else if (formValid && this.status === 'record') {
         this.template.sections_attributes = _.map(this.sections.models, section => section.attributes )
 
         this.$store.dispatch('TemplatesStore/update', { template: this.template })
           .then(() => {
-            this.flash({ success: `Template '${this.template.name}' has been succefully updated` })
+            this.flash({ success: this.$root.$t('templates.flashes.save.success') })
             this.template.editable = false
           })
           .catch(error => {
-            this.flash({ error: 'Template cannot be updated due to some error: ' + this.renderError(error.response) })
+            this.flash({ error: this.$root.$t('templates.flashes.save.error', { reason: this.renderError(error.response) }) })
           })
       }
     },
@@ -119,7 +121,7 @@ export default {
   created() {
     this.$store.dispatch('TemplatesStore/index')
       .catch(error => {
-        this.flash({ error: 'Templates cannot be loaded due to some error: ' + this.renderError(error.response) })
+        this.flash({ error: this.$root.$t('templates.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
   },
 

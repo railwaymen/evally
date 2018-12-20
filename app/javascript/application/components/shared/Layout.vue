@@ -37,7 +37,7 @@
               <v-list-tile-action>
                 <v-icon>{{ tab.icon }}</v-icon>
               </v-list-tile-action>
-              <v-list-tile-title>{{ tab.name }}</v-list-tile-title>
+              <v-list-tile-title>{{ $t(`navbar.${tab.name}`) }}</v-list-tile-title>
             </v-list-tile>
 
             <v-divider class="my-2"></v-divider>
@@ -47,7 +47,7 @@
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
-            <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+            <v-list-tile-title>{{ $t(`navbar.${item.name}`) }}</v-list-tile-title>
           </v-list-tile>
 
           <!-- Log out list item -->
@@ -55,7 +55,7 @@
             <v-list-tile-action>
               <v-icon>last_page</v-icon>
             </v-list-tile-action>
-            <v-list-tile-title>Logout</v-list-tile-title>
+            <v-list-tile-title>{{ $t('navbar.logout') }}</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
@@ -71,7 +71,7 @@
         <v-tab v-for="tab in tabs" :key="`tab_${tab.id}`" :to="{ name: tab.path }" exact>
           <v-icon>{{ tab.icon }}</v-icon>
           <span class="separator"></span>
-          {{ tab.name }}
+          {{ $t(`navbar.${tab.name}`) }}
         </v-tab>
       </v-tabs>
     </v-toolbar>
@@ -95,14 +95,14 @@ export default {
   data () {
     return {
       tabs: [
-        { id: 0, name: 'Start', icon: 'dashboard', path: 'dashboard_path' },
-        { id: 10, name: 'Evaluations', icon: 'assignment_turned_in', path: 'evaluations_path' },
-        { id: 20, name: 'Employees', icon: 'people', path: 'employees_path' },
-        { id: 30, name: 'Templates', icon: 'list_alt', path: 'templates_path' },
-        { id: 40, name: 'Archive', icon: 'archive', path: 'employees_archive_path' }
+        { id: 0, name: 'dashboard', icon: 'dashboard', path: 'dashboard_path' },
+        { id: 10, name: 'evaluations', icon: 'assignment_turned_in', path: 'evaluations_path' },
+        { id: 20, name: 'employees', icon: 'people', path: 'employees_path' },
+        { id: 30, name: 'templates', icon: 'list_alt', path: 'templates_path' },
+        { id: 40, name: 'archive', icon: 'archive', path: 'employees_archive_path' }
       ],
       items: [
-        { id: 0, name: 'Settings', icon: 'settings', path: 'general_settings_path' }
+        { id: 0, name: 'settings', icon: 'settings', path: 'general_settings_path' }
       ]
     }
   },
@@ -128,6 +128,9 @@ export default {
   },
   created() {
     this.$store.dispatch('AuthStore/getUser')
+      .then(session => {
+        this.updateLocale(session.setting.lang)
+      })
       .catch(error => {
         this.flash({ error: 'User cannot be loaded due to some error: ' + this.renderError(error.response) })
       })

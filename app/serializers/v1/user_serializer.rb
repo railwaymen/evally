@@ -9,7 +9,8 @@ module V1
         'default_draft_items',
         'default_upcoming_items',
         'default_next_evaluation_time',
-        'public_view_enabled'
+        'public_view_enabled',
+        'lang'
       )
     end
 

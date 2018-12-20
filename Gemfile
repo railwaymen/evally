@@ -81,7 +81,7 @@ group :development do
 end
 
 # AASM is a continuation of the acts-as-state-machine rails plugin
-gem 'aasm', '~> 5.0', '>= 5.0.1'
+# gem 'aasm', '~> 5.0', '>= 5.0.1'
 
 # Build JSON APIs with ease.
 gem 'fast_jsonapi', '~> 1.3'
