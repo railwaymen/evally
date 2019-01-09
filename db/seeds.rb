@@ -8,11 +8,8 @@
 
 # # ================= User =====================
 
-user_attributes = {
-  email: 'admin@example.com',
-  password: 'password',
-  first_name: 'Admin',
-  last_name: 'Example'
-}
-
-User.find_or_create!(user_attributes)
+User.find_or_create_by!(email: 'admin@example.com') do |u|
+  u.password = 'password'
+  u.first_name = 'John'
+  u.last_name = 'Doe'
+end

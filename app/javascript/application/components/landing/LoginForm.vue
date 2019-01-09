@@ -15,6 +15,8 @@
           type="email"
           label="Email"
         ></v-text-field>
+      </div>
+      <div class="auth-form__group">
         <v-text-field
           v-model="credentials.password"
           prepend-icon="lock"

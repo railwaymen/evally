@@ -29,6 +29,12 @@ default: &default
     - .jpeg
     - .jpg
 
+cypress:
+  <<: *default
+
+  compile: false
+  cache_manifest: true
+
 development:
   <<: *default
   compile: true
