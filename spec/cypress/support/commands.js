@@ -24,18 +24,33 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('login', (email, password) => {
-  let email_input = '.auth-form input[type="email"]'
-  let password_input = '.auth-form input[type="password"]'
-  let submit_btn = '.auth-form button[type="submit"]'
+Cypress.Commands.add('loginUI', (email, password) => {
+  cy.visit('/')
 
-  cy.get(email_input)
+  cy.get('[data-cy="email"]')
+    .find('input')
     .type(email)
     .should('have.value', email)
 
-  cy.get(password_input)
+    cy.get('[data-cy="password"]')
+    .find('input')
     .type(password)
     .should('have.value', password)
 
-  cy.get(submit_btn).click()
+    cy.get('[data-cy="submit"]').find('button').click()
+})
+
+Cypress.Commands.add('loginAPI', (email, password) => {
+  cy.request({
+    method: 'POST',
+    url: '/en/v1/session',
+    body: {
+      email: email,
+      password: password,
+    }
+  })
+  .then((resp) => {
+    window.localStorage.setItem('ev411y_t0k3n', resp.body.session.jwt)
+  })
+
 })
