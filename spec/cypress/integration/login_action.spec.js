@@ -8,7 +8,7 @@ context('Login action', () => {
     it('expects to load page succesfully', () => {
       cy.contains('Sign in')
 
-      cy.get('.auth-form__logo').find('img').should('have.attr', 'alt', 'Logo Evally') 
+      cy.get('[data-cy=evally_logo]').find('img').should('have.attr', 'alt', 'Logo Evally') 
     })
 
     it('expects to redirect back if unauthorized', () => {
@@ -21,15 +21,12 @@ context('Login action', () => {
 
   describe('Action form', () => {
     it('expects to return invalid credentials message', () => {
-      cy.login('fake@example.com', 'password')
+      cy.loginUI('fake@example.com', 'password')
       cy.contains('Invalid credentials, please try again.')
     })
 
     it('expects to log in succesfully', () => {
-      cy.login('admin@example.com', 'password')
-      cy.url().should('include', '/app/start')
-
-      cy.contains('Hello John!')
+      cy.loginUI('admin@example.com', 'password')
       cy.contains('You have been logged in succesfully.')
     })
 
