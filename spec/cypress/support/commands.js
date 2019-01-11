@@ -54,3 +54,15 @@ Cypress.Commands.add('loginAPI', (email, password) => {
   })
 
 })
+
+Cypress.Commands.add('openEmployeeForm', () => {
+  cy.url().should('include', '/app/employees')
+
+  cy.get('[data-cy="btn-new"]').click()
+  cy.get('[data-cy="employee-form"]').should('be.visible')
+})
+
+Cypress.Commands.add('checkFlash', (message) => {
+  cy.get('[data-cy="flash"]').should('be.visible').contains(message)
+})
+

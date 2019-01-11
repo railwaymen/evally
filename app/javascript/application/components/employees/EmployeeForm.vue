@@ -4,18 +4,20 @@
       <span class="headline">{{ $t(`employees.forms.${options.action}_title`) }}</span>
     </v-card-title>
 
-    <v-form ref="employeeForm">
+    <v-form ref="employeeForm" data-cy="employee-form">
       <v-card-text>
         <v-text-field
           v-model="employee.first_name"
           :rules="[vRequired, vIsString]"
           :label="$t('employees.forms.first_name')"
+          data-cy="employee-first_name"
         ></v-text-field>
 
         <v-text-field
           v-model="employee.last_name"
           :rules="[vRequired, vIsString]"
           :label="$t('employees.forms.last_name')"
+          data-cy="employee-last_name"
         ></v-text-field>
 
         <v-combobox
@@ -25,6 +27,7 @@
           append-icon="expand_more"
           chips
           :label="$t('employees.forms.position')"
+          data-cy="employee-position"
         ></v-combobox>
 
         <v-menu
@@ -45,6 +48,7 @@
             :rules="[vRequired, vIsString]"
             :label="$t('employees.forms.hired_at')"
             prepend-icon="event"
+            data-cy="employee-hired_at"
             readonly
           ></v-text-field>
           <v-date-picker
@@ -88,8 +92,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="grey darken-1" flat @click="closeModal">{{ $t('buttons.cancel') }}</v-btn>
-        <v-btn color="green darken-1" flat @click="sendForm">{{ $t(`buttons.${options.action}`) }}</v-btn>
+        <v-btn color="grey darken-1" flat @click="closeModal" data-cy="employee-cancel">{{ $t('buttons.cancel') }}</v-btn>
+        <v-btn color="green darken-1" flat @click="sendForm" data-cy="employee-submit">{{ $t(`buttons.${options.action}`) }}</v-btn>
       </v-card-actions>
     </v-form>
 

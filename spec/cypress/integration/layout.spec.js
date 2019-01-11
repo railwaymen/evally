@@ -67,7 +67,7 @@ context('Layout', () => {
 
       cy.get('[data-cy="li-logout"]').click()
       cy.url().should('eq', Cypress.config().baseUrl + '/')
-      cy.contains('You have been logged out succesfully')
+      cy.checkFlash('You have been logged out succesfully')
     })
   })
 })
