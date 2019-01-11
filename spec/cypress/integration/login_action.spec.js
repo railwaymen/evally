@@ -15,19 +15,19 @@ context('Login action', () => {
       cy.visit('/app')
       cy.url().should('eq', Cypress.config().baseUrl + '/')
 
-      cy.contains('You are not authorized to perform this action. Please log in.')
+      cy.checkFlash('You are not authorized to perform this action. Please log in.')
     })
   })
 
   describe('Action form', () => {
     it('expects to return invalid credentials message', () => {
       cy.loginUI('fake@example.com', 'password')
-      cy.contains('Invalid credentials, please try again.')
+      cy.checkFlash('Invalid credentials, please try again.')
     })
 
     it('expects to log in succesfully', () => {
       cy.loginUI('admin@example.com', 'password')
-      cy.contains('You have been logged in succesfully.')
+      cy.checkFlash('You have been logged in succesfully.')
     })
 
   })

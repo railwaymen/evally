@@ -5,11 +5,12 @@
         v-model="search"
         append-icon="search"
         :label="$t('employees.sidebar.search')"
+        data-cy="employees-search"
         box
       ></v-text-field>
     </div>
 
-    <div class="search-box__list">
+    <div class="search-box__list" data-cy="employees-list">
       <v-list two-line subheader>
         <v-subheader>{{ $t('employees.sidebar.subheader') }}</v-subheader>
 
