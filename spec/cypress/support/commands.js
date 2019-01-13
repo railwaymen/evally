@@ -55,14 +55,41 @@ Cypress.Commands.add('loginAPI', (email, password) => {
 
 })
 
-Cypress.Commands.add('openEmployeeForm', () => {
-  cy.url().should('include', '/app/employees')
-
-  cy.get('[data-cy="btn-new"]').click()
-  cy.get('[data-cy="employee-form"]').should('be.visible')
-})
-
 Cypress.Commands.add('checkFlash', (message) => {
   cy.get('[data-cy="flash"]').should('be.visible').contains(message)
+})
+
+Cypress.Commands.add('submitEmployee', (employee, action) => {
+  cy.url().should('include', '/app/employees')
+
+  // Open dialog
+  cy.get('[data-cy="employee-form"]').should('be.visible')
+
+  // Fill first name
+  if (!!employee.first_name) {
+    cy.get('[data-cy="employee-first_name"]')
+      .type(employee.first_name)
+      .should('have.value', employee.first_name)
+  }
+
+  // Fill last name
+  if (!!employee.last_name) {
+    cy.get('[data-cy="employee-last_name"]')
+      .type(employee.last_name)
+      .should('have.value', employee.last_name)
+  }
+
+  if (action === 'create') {
+    // Fill position
+    cy.get('[data-cy="employee-position"]').click()
+    cy.get('.v-list__tile').first().click()
+    
+    // Select current date
+    cy.get('[data-cy="employee-hired_at"]').click()
+    cy.get('.v-picker--date').should('be.visible')
+    cy.get('.v-picker--date').find('.v-btn--outline').click()
+  }
+  // Press submit
+  cy.get('[data-cy="employee-submit"]').click()
 })
 

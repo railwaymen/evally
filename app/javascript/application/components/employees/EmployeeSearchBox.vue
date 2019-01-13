@@ -19,7 +19,7 @@
         </div>
 
         <template v-else>
-          <v-list-tile v-for="employee in filteredEmployees" :key="employee.id" @click="showEvaluation(employee.id)">
+          <v-list-tile v-for="employee in filteredEmployees" :key="employee.id" @click="showEvaluation(employee.id)" data-cy="employee-list-item">
             <v-list-tile-action>
               <v-icon>person_outline</v-icon>
             </v-list-tile-action>

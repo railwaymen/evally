@@ -13,3 +13,22 @@ User.find_or_create_by!(email: 'admin@example.com') do |u|
   u.first_name = 'John'
   u.last_name = 'Doe'
 end
+
+
+if Rails.env.cypress?
+  require 'faker'
+
+  current_user = User.last
+
+  ['Jan Kowalski', 'John Smith', 'Paul Walker'].each do |employee|
+    Employee.create!(
+      first_name: employee.split.first,
+      last_name: employee.split.last,
+      position: Faker::Job.title,
+      hired_at: Faker::Date.between(1.year.ago, Time.now),
+      user: current_user
+    )
+  end
+
+
+end
