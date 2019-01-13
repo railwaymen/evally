@@ -23,7 +23,7 @@
             </v-tooltip>
 
             <v-tooltip v-for="item in menuItems" :key="`item_${item.id}`" bottom>
-              <v-btn @click="item.action" :color="item.color" slot="activator" :data-cy="`btn-${action}`" icon flat>
+              <v-btn @click="item.action" :color="item.color" slot="activator" :data-cy="`btn-${item.action.name.split(' ')[1]}`" icon flat>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-btn>
               <span>{{ $t(`employees.buttons.${item.name}`) }}</span>
@@ -31,7 +31,7 @@
           </template>
 
           <v-tooltip class="divider-before" bottom>
-            <v-btn @click="isSidebarVisible = !isSidebarVisible" slot="activator" icon flat>
+            <v-btn @click="isSidebarVisible = !isSidebarVisible" slot="activator" data-cy="btn-sidebar-toggle" icon flat>
               <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
             </v-btn>
             <span>{{ isSidebarVisible ? $t('buttons.hide') : $t('buttons.show') }} sidebar</span>

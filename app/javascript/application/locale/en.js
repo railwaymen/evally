@@ -82,8 +82,8 @@ export default {
         error: 'Employees cannot be loaded due to some error: {reason}'
       },
       delete: {
-        success: 'Evaluation has been succefully deleted.',
-        error: 'Evaluation cannot be destroyed due to some error: {reason}'
+        success: 'Employee has been succefully deleted.',
+        error: 'Employee cannot be destroyed due to some error: {reason}'
       },
       permalink: {
         success: 'Permalink has been copied to clipboard.'
