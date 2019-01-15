@@ -9,6 +9,7 @@
     "@kazupon/vue-i18n-loader": "^0.3.0",
     "@rails/webpacker": "3.5.5",
     "axios": "^0.18.0",
+    "moment": "^2.23.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue": "^2.5.21",
