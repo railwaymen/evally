@@ -5,11 +5,12 @@
         v-model="search"
         append-icon="search"
         :label="$t('employees.sidebar.search')"
+        data-cy="employees-search"
         box
       ></v-text-field>
     </div>
 
-    <div class="search-box__list">
+    <div class="search-box__list" data-cy="employees-list">
       <v-list two-line subheader>
         <v-subheader>{{ $t('employees.sidebar.subheader') }}</v-subheader>
 
@@ -18,7 +19,7 @@
         </div>
 
         <template v-else>
-          <v-list-tile v-for="employee in filteredEmployees" :key="employee.id" @click="showEvaluation(employee.id)">
+          <v-list-tile v-for="employee in filteredEmployees" :key="employee.id" @click="showEvaluation(employee.id)" data-cy="employee-list-item">
             <v-list-tile-action>
               <v-icon>person_outline</v-icon>
             </v-list-tile-action>

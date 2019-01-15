@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-4">
+  <v-card class="pa-4" data-cy="permalink-dialog">
     <v-card-title>
       <span class="headline">{{ $t('employees.forms.permalink.title') }}</span>
     </v-card-title>
@@ -15,7 +15,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="grey darken-1" flat @click="closeModal">{{ $t('buttons.cancel') }}</v-btn>
-        <v-btn color="primary" flat @click="copyLink">
+        <v-btn color="primary" flat @click="copyLink" data-cy="btn-copy">
           <v-icon small>file_copy</v-icon>
           <span class="separator"></span>
           {{ $t('buttons.copy') }}

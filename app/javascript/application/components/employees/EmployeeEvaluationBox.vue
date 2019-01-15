@@ -1,5 +1,5 @@
 <template>
-  <div class="box box--with-content evaluation">
+  <div class="box box--with-content evaluation" data-cy="evaluation-box">
     <v-layout v-if="!evaluation" row>
       <v-flex xs12>
         <h4 class="no-content__header no-content__header--large">{{ $t('employees.messages.not_evaluated', { name: fullname(employee) }) }}</h4>

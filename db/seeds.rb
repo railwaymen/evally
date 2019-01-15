@@ -8,49 +8,27 @@
 
 # # ================= User =====================
 
-current_user = User.find_or_create_by(email: 'john.doe@example.com') do |user|
-  user.password = '1234qwer'
-  user.first_name = 'John'
-  user.last_name = 'Doe'
+User.find_or_create_by!(email: 'admin@example.com') do |u|
+  u.password = 'password'
+  u.first_name = 'John'
+  u.last_name = 'Doe'
 end
 
-puts 'john.doe@example.com'
 
-# # ============== Employees ===================
+if Rails.env.cypress?
+  require 'faker'
 
-5.times do
-  Employee.create(
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    position: Faker::Job.title,
-    hired_at: Faker::Date.between(1.month.ago, Time.now),
-    user: current_user
-  )
-end
+  current_user = User.last
 
-# # ============= Template ===================
-
-5.times do
-  template = Template.create(
-    name: Faker::Lorem.words(2).join(' ').capitalize,
-    state: 'draft',
-    user: current_user
-  )
-
-  3.times do |n|
-    skills = [
-      { name: Faker::Lorem.words(2).join(' ').capitalize, value: nil },
-      { name: Faker::Lorem.words(2).join(' ').capitalize, value: nil },
-      { name: Faker::Lorem.words(2).join(' ').capitalize, value: nil }
-    ]
-
-    Section.create(
-      name: Faker::Lorem.word.capitalize,
-      group: ['bool', 'rating', 'text'].sample,
-      width: 'half',
-      position: n,
-      skills: skills,
-      sectionable: template
+  ['Jan Kowalski', 'John Smith', 'Paul Walker'].each do |employee|
+    Employee.create!(
+      first_name: employee.split.first,
+      last_name: employee.split.last,
+      position: Faker::Job.title,
+      hired_at: Faker::Date.between(1.year.ago, Time.now),
+      user: current_user
     )
   end
+
+
 end
