@@ -336,6 +336,7 @@ export default {
     employees: 'Employees',
     templates: 'Templates',
     archive: 'Archive',
+    overview: 'Overview',
     settings: 'Settings',
     logout: 'Logout'
   },

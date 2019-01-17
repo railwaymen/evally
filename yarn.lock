@@ -3270,6 +3270,16 @@ he@^1.1.0:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
+highcharts-vue@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/highcharts-vue/-/highcharts-vue-1.2.0.tgz#13ec436eae14fb1ec361033fce9ca66f0a9fbb12"
+  integrity sha512-S44yU56BcN6hOJk2PFXGokaG2HYeMS3fr/Gq8i+0Wf6tUY9Mak/c3WOkKvnQIEC8pO2HoU2gPZXPN2SMmWX9qA==
+
+highcharts@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-7.0.1.tgz#0c6ad096559aca723bc95276bce02b9790c444e8"
+  integrity sha512-dB+BuvIt6q2e4M0MgBClOA5FbNqfOpq/hoqQOLBVBSCqXOoCHd2fgEPFuruuyTf6KqiaIKjbRJ4JZd1fImEBYg==
+
 hmac-drbg@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hmac-drbg/-/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"

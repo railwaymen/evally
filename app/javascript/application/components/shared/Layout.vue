@@ -99,7 +99,8 @@ export default {
         { id: 10, name: 'evaluations', icon: 'assignment_turned_in', path: 'evaluations_path' },
         { id: 20, name: 'employees', icon: 'people', path: 'employees_path' },
         { id: 30, name: 'templates', icon: 'list_alt', path: 'templates_path' },
-        { id: 40, name: 'archive', icon: 'archive', path: 'employees_archive_path' }
+        { id: 40, name: 'archive', icon: 'archive', path: 'employees_archive_path' },
+        { id: 50, name: 'overview', icon: 'track_changes', path: 'overview_path' }
       ],
       items: [
         { id: 0, name: 'settings', icon: 'settings', path: 'general_settings_path' }
