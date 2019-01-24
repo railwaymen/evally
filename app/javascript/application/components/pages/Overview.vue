@@ -40,10 +40,16 @@
 <script>
 import EmployeesBrowser from '@/components/overview/EmployeesBrowser'
 import EmployeesChart from '@/components/overview/EmployeesChart'
-import EmploymentTime from '@/components/overview/EmploymentTime'
+import EmploymentTime from '@/components/widgets/EmploymentTime'
 
 export default {
   name: 'Overview',
-  components: { EmployeesChart, EmploymentTime, EmployeesBrowser }
+  components: { EmployeesChart, EmploymentTime, EmployeesBrowser },
+  created() {
+    this.$store.dispatch('EmployeesStore/index')
+      .catch(error => {
+        this.flash({ error: this.$root.$t('employees.flashes.fetch.error', { reason: this.renderError(error.response) }) })
+      })
+  }
 }
 </script>
