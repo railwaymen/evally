@@ -1,6 +1,6 @@
 module V1
   class UsersController < RailsJwtAuth::RegistrationsController
-    before_action :authenticate!, except: :create
+    before_action :authenticate!
 
     # # GET /v1/users/:_
     #
