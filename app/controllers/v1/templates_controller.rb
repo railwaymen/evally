@@ -9,7 +9,7 @@ module V1
     def index
       templates = Template.includes(:sections).order(name: :asc)
 
-      render json: V1::TemplateSerializer.new(templates).serialized_json, status: 200
+      render json: V1::TemplateSerializer.render(templates), status: 200
     end
 
     # POST /v1/templates
@@ -17,7 +17,7 @@ module V1
     def create
       template = V1::TemplateCreatorService.new(attributes: params[:template], user: current_user).call
 
-      render json: V1::TemplateSerializer.new(template).serialized_json, status: 200
+      render json: V1::TemplateSerializer.render(template), status: 200
     end
 
     # # PUT /v1/templates/:id
@@ -25,7 +25,7 @@ module V1
     def update
       template = V1::TemplateUpdaterService.new(attributes: params[:template], template: @template, user: current_user).call
 
-      render json: V1::TemplateSerializer.new(template).serialized_json, status: 200
+      render json: V1::TemplateSerializer.render(template), status: 200
     end
 
     # # DELETE /v1/template/:id

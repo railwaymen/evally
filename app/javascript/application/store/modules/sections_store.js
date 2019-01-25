@@ -14,7 +14,7 @@ const SectionsStore = {
   },
   mutations: {
     clear(state) {
-      state.sections = new SectionsList()
+      state.sections.clear()
       return state
     },
     many(state, data) {
@@ -23,22 +23,6 @@ const SectionsStore = {
     },
     push(state, data) {
       state.sections.add(data)
-      return state
-    },
-    markAsRemoved(state, id) {
-      if (isNaN(id)) {
-        state.sections.remove({ tempId: id })
-      } else {
-        state.sections.map(section => {
-          if (section.id === id) section._destroy = 1
-          return section
-        })
-      }
-      return state
-    },
-    resize(state, data) {
-      let section = state.sections.find(isNaN(data.id) ? { tempId: data.id } : { id: data.id })
-      if (section) section.width = data.width
       return state
     },
     updateSkills(state, data) {

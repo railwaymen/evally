@@ -1,6 +1,6 @@
 <template>
   <div class="box box--with-content template">
-    <v-layout v-if="template.isExisting() || status == 'new_record'" row wrap>
+    <v-layout v-if="template.isVisible()" row wrap>
       <v-flex xs12>
         <div class="template__name">
           <v-text-field
@@ -42,7 +42,7 @@
         <draggable element="v-layout" :list="sections.models" :options="draggableOptions" @end="updatePositions" row wrap>
           <section-box
             v-for="(section, index) in sections.models"
-            v-if="!section._destroy"
+            v-show="!section._destroy"
             :key="index"
             :section.sync="section"
             class="drag-section"
@@ -83,10 +83,7 @@ export default {
   },
   methods: {
     updatePositions() {
-      this.$_.map(this.sections.models, (section, index) => {
-        section.set('position', index)
-      })
-
+      this.sections.map((section, index) => section.set('position', index))
       this.$store.commit('SectionsStore/many', this.sections.models)
     }
   },
