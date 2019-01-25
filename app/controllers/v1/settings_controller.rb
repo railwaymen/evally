@@ -7,7 +7,7 @@ module V1
     def update
       current_user.setting.update(setting_params)
 
-      render json: V1::UserSerializer.new(current_user).serialized_json, status: 200
+      render json: V1::UserSerializer.render(current_user), status: 200
     end
 
     private

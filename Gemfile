@@ -85,6 +85,7 @@ end
 
 # Build JSON APIs with ease.
 gem 'fast_jsonapi', '~> 1.3'
+gem 'blueprinter', '~> 0.12.0'
 
 # JWT User Authentication
 gem 'rails_jwt_auth', '~> 0.23.0'
