@@ -1,21 +1,21 @@
 <template>
   <div class="box box--with-content evaluation" data-cy="evaluation-box">
-    <v-layout v-if="!evaluation" row>
+    <v-layout v-if="!employee.isExisting()" row>
       <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">{{ $t('employees.messages.not_evaluated', { name: fullname(employee) }) }}</h4>
+        <h4 class="no-content__header no-content__header--large">{{ $t('employees.messages.select') }}</h4>
       </v-flex>
     </v-layout>
 
-    <v-layout v-else-if="!evaluation.isExisting()" row>
+    <v-layout v-else-if="!isEvaluationPresent" row>
       <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">{{ $t('employees.messages.select') }}</h4>
+        <h4 class="no-content__header no-content__header--large">{{ $t('employees.messages.not_evaluated', { name: employee.fullname() }) }}</h4>
       </v-flex>
     </v-layout>
 
     <v-layout v-else row wrap>
       <v-flex xs12 lg6>
         <div class="employee">
-          <h3 class="employee__fullname">{{ fullname(employee) }}</h3>
+          <h3 class="employee__fullname">{{ employee.fullname() }}</h3>
           <h4 class="employee__position">{{ employee.position }}</h4>
         </div>
       </v-flex>
@@ -66,12 +66,15 @@ export default {
   components: { EvaluationSectionBox },
   computed: {
     ...mapGetters({
-      evaluation: 'EvaluationsStore/evaluation',
-      storedEmployee: 'EmployeesStore/employee'
+      employee: 'EmployeesStore/employee'
     }),
 
-    employee() {
-      return this.storedEmployee.isExisting() ? this.storedEmployee : this.evaluation.employee
+    evaluation() {
+      return this.employee.evaluation
+    },
+
+    isEvaluationPresent() {
+      return !!this.evaluation.id
     }
   }
 }

@@ -83,23 +83,26 @@ export default {
       this.$store.commit('EmployeesStore/clear')
       openerBus.openFormModal({ model: 'employee', action: 'create', maxWidth: 500 })
     },
+
     permalink() {
       openerBus.openFormModal({ model: 'info', action: 'permalink', maxWidth: 600 })
     },
+
     edit() {
       openerBus.openFormModal({ model: 'employee', action: 'edit', maxWidth: 500 })
     },
+
     archive() {
       openerBus.openFormModal({ model: 'employee', action: 'archive', maxWidth: 600 })
     },
+
     remove() {
       openerBus.openDestroyModal({ model: 'employee', action: 'delete', maxWidth: 500 })
     }
   },
   computed: {
     ...mapGetters({
-      employee: 'EmployeesStore/employee',
-      setting: 'AuthStore/setting'
+      employee: 'EmployeesStore/employee'
     })
   },
   created() {
@@ -107,14 +110,9 @@ export default {
       .catch(error => {
         this.flash({ error: this.$root.$t('employees.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
-
-    this.$store.dispatch('EvaluationsStore/index', { state: 'completed' })
-      .catch(error => {
-        this.flash({ error: this.$root.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
-      })
   },
   beforeDestroy() {
-    this.$store.commit('EvaluationsStore/clear')
+    this.$store.commit('EmployeesStore/clear')
   }
 }
 </script>
