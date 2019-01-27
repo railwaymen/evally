@@ -1,16 +1,6 @@
-class V1::ActivitySerializer
-  include FastJsonapi::ObjectSerializer
-  
-  attribute :title do |activity|
-    activity.title
-  end
+module V1
+  class ActivitySerializer < Blueprinter::Base
+    fields :title, :description, :created_at
 
-  attribute :description do |activity|
-    activity.description
   end
-
-  attribute :created_at do |activity|
-    activity.created_at.iso8601
-  end
-   
 end

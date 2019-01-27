@@ -16,7 +16,12 @@
           </v-list-tile-content>
 
 					<v-list-tile-action>
-            <v-list-tile-action-text>{{ dateShorthand(activity.created_at) }}</v-list-tile-action-text>
+            <v-list-tile-action-text>
+							<v-tooltip bottom>
+								<span slot="activator">{{ dateShorthand(activity.created_at) }}</span>
+								<span>{{ activity.created_at | moment('HH:mm') }}</span>
+							</v-tooltip>
+						</v-list-tile-action-text>
 					</v-list-tile-action>
         </v-list-tile>
 
