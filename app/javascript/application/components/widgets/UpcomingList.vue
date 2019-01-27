@@ -63,7 +63,7 @@ export default {
 	computed: {
 		...mapGetters({
 			employees: 'EmployeesStore/employees',
-			drafts: 'EvaluationsStore/evaluations',
+			drafts: 'EvaluationsStore/evaluationsDrafts',
 			status: 'EvaluationsStore/status',
 			setting: 'AuthStore/setting'
 		}),

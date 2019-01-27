@@ -75,15 +75,16 @@ export default {
   },
   methods: {
     reset() {
-      this.$store.commit('EvaluationsStore/reset')
+      this.draft.reset()
     },
 
     saveDraft() {
-      this.draft.updated_at = this.$moment().format()
+      this.draft.set('updated_at', this.$moment().format())
 
-      this.$store.dispatch('EvaluationsStore/update', { evaluation: this.draft.attributes })
+      this.$store.dispatch('EvaluationsStore/update', { evaluation: this.draft.withoutEmployee() })
         .then(() => {
           this.flash({ success: this.$root.$t('evaluations.flashes.save.success') })
+          this.draft.sync()
         })
         .catch(error => {
           this.flash({ error: this.$root.$t('evaluations.flashes.save.error', { reason: this.renderError(error.response) }) })

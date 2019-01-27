@@ -9,7 +9,7 @@ module V1
     def index
       evaluations = Evaluation.includes(:employee, :sections).by_state(params[:state]).order("employees.next_evaluation_at ASC, completed_at DESC")
 
-      render json: V1::EvaluationSerializer.new(evaluations).serialized_json, status: 200
+      render json: V1::EvaluationSerializer.render(evaluations), status: 200
     end
 
     # GET /v1/employees/:id/evaluation
@@ -20,7 +20,7 @@ module V1
       evaluation = @employee.evaluations.includes(:employee, :sections).completed.order(completed_at: :asc).last
       raise V1::ErrorResponderService.new(:record_not_found, 404) unless evaluation
 
-      render json: V1::EvaluationSerializer.new(evaluation).serialized_json, status: 200
+      render json: V1::EvaluationSerializer.render(evaluation), status: 200
     end
 
     # POST /v1/evaluations
@@ -28,7 +28,7 @@ module V1
     def create
       evaluation = V1::EvaluationCreatorService.new(attributes: params[:evaluation], user: current_user).call
 
-      render json: V1::EvaluationSerializer.new(evaluation).serialized_json, status: 200
+      render json: V1::EvaluationSerializer.render(evaluation), status: 200
     end
 
     # # PUT /v1/evaluations/:id
@@ -36,7 +36,7 @@ module V1
     def update
       evaluation = V1::EvaluationUpdaterService.new(attributes: params[:evaluation], evaluation: @evaluation, user: current_user).call
 
-      render json: V1::EvaluationSerializer.new(evaluation).serialized_json, status: 200
+      render json: V1::EvaluationSerializer.render(evaluation), status: 200
     end
 
     # # DELETE /v1/evaluations/:id

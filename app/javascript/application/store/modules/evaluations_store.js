@@ -18,20 +18,21 @@ const EvaluationsStore = {
 
   getters: {
     evaluations: state => state.evaluations,
+    evaluationsDrafts: state => state.evaluations.filter(e => e.state === 'draft'),
     evaluation: state => state.evaluation,
     status: state => state.status
   },
   mutations: {
     clear(state) {
-      state.evaluation = new Evaluation()
+      state.evaluation.clear()
       return state
     },
-    one(state, evaluation_id) {
-      state.evaluation = state.evaluations.find({ id: evaluation_id })
+    pick(state, id) {
+      state.evaluation = state.evaluations.find({ id: id })
       return state
     },
-    oneCompleted(state, employee_id) {
-      state.evaluation = state.evaluations.find(e => e.employee.id == employee_id)
+    one(state, data) {
+      state.evaluation = new Evaluation(data)
       return state
     },
     many(state, data) {
@@ -43,29 +44,14 @@ const EvaluationsStore = {
       state.evaluations.add(data)
       return state
     },
-    progress(state, flag) {
-      state.status = flag
-      return state
-    },
     remove(state, id) {
       state.evaluations.remove({ id: id })
-      state.evaluation = new Evaluation()
+      state.evaluation.clear()
       return state
     },
     replace(state, evaluation) {
-      state.evaluations.map( el => {
-        return el.id == evaluation.id ? evaluation : el
-      })
-
-      state.evaluations.sync()
-      return state
-    },
-    reset(state) {
-      state.evaluation.reset()
-      return state
-    },
-    public(state, data) {
-      state.evaluation = data
+      state.evaluations.remove({ id: evaluation.id })
+      state.evaluations.add(evaluation)
       return state
     },
     updateSkills(state, data) {
@@ -73,6 +59,10 @@ const EvaluationsStore = {
         if (section.id === data.sectionId) section.skills = data.skills
         return section
       })
+      return state
+    },
+    progress(state, flag) {
+      state.status = flag
       return state
     },
     resetState(state) {
@@ -87,8 +77,8 @@ const EvaluationsStore = {
 
         axios.get(context.state.evaluations.getFetchURL(), { params: params })
           .then(response => {
-            let data = Utils.modelsFromResponse(response.data.data)
-            context.commit('many', data)
+            context.commit('many', response.data)
+            resolve()
           })
           .catch(error => {
             reject(error)
@@ -99,13 +89,10 @@ const EvaluationsStore = {
       return new Promise((resolve, reject) => {
         context.commit('progress', 'loading')
 
-        let url = `/v1/employees/${token}/evaluation`
-
-        axios.get(url)
+        axios.get(`/v1/employees/${token}/evaluation`)
           .then(response => {
-            let evaluation = new Evaluation(Utils.transformModel(response.data.data))
-
-            context.commit('public', evaluation)
+            context.commit('one', response.data)
+            resolve()
           })
           .catch(error => {
             reject(error)
@@ -114,14 +101,14 @@ const EvaluationsStore = {
     },
     create(context, initialData) {
       return new Promise((resolve, reject) => {
-        axios.post(context.state.evaluation.getSaveURL(), initialData)
+        axios.post(context.state.evaluations.getFetchURL(), initialData)
           .then(response => {
-            let evaluation = new Evaluation(Utils.transformModel(response.data.data))
+            let evaluation = new Evaluation(response.data)
 
             context.commit('push', evaluation)
-            context.commit('one', evaluation.id)
+            context.commit('pick', evaluation.id)
 
-            resolve(response)
+            resolve()
           })
           .catch(error => {
             reject(error)
@@ -132,11 +119,8 @@ const EvaluationsStore = {
       return new Promise((resolve, reject) => {
         axios.put(context.state.evaluation.getFetchURL(), data)
           .then(response => {
-            let updated = new Evaluation(Utils.transformModel(response.data.data))
-
-            context.commit('replace', updated)
-
-            resolve(response)
+            context.commit('replace', new Evaluation(response.data))
+            resolve()
           })
           .catch(error => {
             reject(error)
@@ -145,13 +129,9 @@ const EvaluationsStore = {
     },
     destroy(context) {
       return new Promise((resolve, reject) => {
-        axios.delete(context.state.evaluation.getDeleteURL())
-          .then(response => {
-            let id = context.state.evaluation.id
-
-            context.commit('remove', id)
-            context.commit('clear')
-
+        axios.delete(context.state.evaluation.getFetchURL())
+          .then(() => {
+            context.commit('remove', context.state.evaluation.id)
             resolve()
           })
           .catch(error => {

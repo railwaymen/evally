@@ -25,11 +25,6 @@ const SectionsStore = {
       state.sections.add(data)
       return state
     },
-    updateSkills(state, data) {
-      let section = state.sections.find(isNaN(data.id) ? { tempId: data.id } : { id: data.id })
-      if (section) section.skills = data.skills
-      return state
-    },
     resetState(state) {
       state = Object.assign(state, initialState())
       return state
