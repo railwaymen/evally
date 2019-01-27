@@ -1,22 +1,20 @@
 module V1
-  class ErrorSerializer
-    include FastJsonapi::ObjectSerializer
+  class ErrorSerializer < Blueprinter::Base
+    identifier :identifier
 
-    set_id :identifier
-
-    attribute :code do |error|
+    field :code do |error|
       Rack::Utils.status_code(error.status)
     end
 
-    attribute :title do |error|
+    field :title do |error|
       error.translated_payload[:title]
     end
 
-    attribute :message do |error|
+    field :message do |error|
       error.translated_payload[:message]
     end
 
-    attribute :details do |error|
+    field :details do |error|
       error.details
     end
   end

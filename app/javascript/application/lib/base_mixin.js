@@ -14,9 +14,9 @@ export default {
     },
 
     renderError(errorResponse) {
-      if (typeof errorResponse.data.data === 'object') {
-        let details = errorResponse.data.data.attributes.details.join(', ')
-        return details !== "" ? details : errorResponse.data.data.attributes.message
+      if (typeof errorResponse.data === 'object') {
+        let details = errorResponse.data.details.join(', ')
+        return details !== "" ? details : errorResponse.data.message
       } else {
         return errorResponse.statusText
       }

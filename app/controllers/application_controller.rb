@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   private
 
   def render_error_response(error)
-    render json: V1::ErrorSerializer.new(error).serialized_json, status: error.status
+    render json: V1::ErrorSerializer.render(error), status: error.status
   end
 
   def set_locale
