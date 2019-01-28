@@ -17,12 +17,12 @@
         </div>
 
         <template v-else>
-          <v-list-tile v-for="draft in filteredEvaluations" :key="draft.id" @click="selectEvaluation(draft.id)">
+          <v-list-tile v-for="draft in filteredEvaluations" :key="draft.id" @click="pickEvaluation(draft.id)">
             <v-list-tile-action>
               <v-icon>assignment_turned_in</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>{{ fullname(draft.employee) }}</v-list-tile-title>
+              <v-list-tile-title>{{ draft.employeeName() }}</v-list-tile-title>
               <v-list-tile-sub-title>{{ $t('evaluations.sidebar.subtitle', { name: draft.template_name }) }}</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -52,26 +52,25 @@ export default {
     }
   },
   methods: {
-    selectEvaluation(evaluation_id) {
-      this.$store.commit('EvaluationsStore/one', evaluation_id)
+    pickEvaluation(id) {
+      this.$store.commit('EvaluationsStore/pick', id)
+      this.$store.commit('SectionsStore/many', this.evaluation.sections_attributes)
     }
   },
   computed: {
     ...mapGetters({
-      drafts: 'EvaluationsStore/evaluations',
+      drafts: 'EvaluationsStore/evaluationsDrafts',
+      evaluation: 'EvaluationsStore/evaluation',
       status: 'EvaluationsStore/status'
     }),
 
     filteredEvaluations() {
-      let drafts = this.drafts.models.filter(draft => draft.state === 'draft')
-
       if (this.search.length > 0) {
-        return drafts.filter(draft => {
-          let fullname = this.fullname(draft.employee)
-          return fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        return this.drafts.models.filter(draft => {
+          return draft.employeeName().toLowerCase().indexOf(this.search.toLowerCase()) > -1
         })
       } else {
-        return drafts
+        return this.drafts.models
       }
     }
   }

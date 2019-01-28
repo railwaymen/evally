@@ -7,9 +7,9 @@ module V1
     # GET /v1/employees
     #
     def index
-      employees = Employee.by_state(params[:state]).order(last_name: :asc)
+      employees = Employee.includes(:latest_evaluation).by_state(params[:state]).order(last_name: :asc)
 
-      render json: V1::EmployeeSerializer.new(employees).serialized_json, status: 200
+      render json: V1::EmployeeSerializer.render(employees, view: :evaluated), status: 200
     end
 
     # # POST /v1/employees
@@ -17,7 +17,7 @@ module V1
     def create
       employee = V1::EmployeeCreatorService.new(attributes: params[:employee], user: current_user).call
 
-      render json: V1::EmployeeSerializer.new(employee).serialized_json, status: 200
+      render json: V1::EmployeeSerializer.render(employee, view: :evaluated), status: 200
     end
 
     # # PUT /v1/employees/:id
@@ -25,7 +25,7 @@ module V1
     def update
       employee = V1::EmployeeUpdaterService.new(attributes: params[:employee], employee: @employee, user: current_user).call
 
-      render json: V1::EmployeeSerializer.new(employee).serialized_json, status: 200
+      render json: V1::EmployeeSerializer.render(employee, view: :evaluated), status: 200
     end
 
     # # DELETE /v1/employees/:id

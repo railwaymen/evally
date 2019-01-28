@@ -1,6 +1,10 @@
 {
   "name": "evally",
   "private": true,
+  "scripts": {
+    "cypress:open": "cypress open -P spec",
+    "cypress:run": "cypress run -P spec"
+  },
   "dependencies": {
     "@kazupon/vue-i18n-loader": "^0.3.0",
     "@rails/webpacker": "3.5",

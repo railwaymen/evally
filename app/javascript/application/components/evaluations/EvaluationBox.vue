@@ -1,15 +1,9 @@
 <template>
   <div class="box box--with-content evaluation">
-    <v-layout v-if="!evaluation || !evaluation.isExisting()" row>
-      <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">{{ $t('evaluations.message') }}</h4>
-      </v-flex>
-    </v-layout>
-
-    <v-layout v-else row wrap>
+    <v-layout v-if="evaluation.isExisting()" row wrap>
       <v-flex xs12 lg9>
         <div class="employee">
-          <h3 class="employee__fullname">{{ fullname(employee) }}</h3>
+          <h3 class="employee__fullname">{{ evaluation.employeeName() }}</h3>
           <h4 class="employee__position">{{ employee.position }}</h4>
         </div>
       </v-flex>
@@ -34,6 +28,12 @@
             editable
           ></evaluation-section-box>
         </v-layout>
+      </v-flex>
+    </v-layout>
+
+    <v-layout v-else row>
+      <v-flex xs12>
+        <h4 class="no-content__header no-content__header--large">{{ $t('evaluations.message') }}</h4>
       </v-flex>
     </v-layout>
   </div>

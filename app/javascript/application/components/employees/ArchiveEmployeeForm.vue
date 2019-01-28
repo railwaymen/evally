@@ -80,20 +80,20 @@ export default {
     },
 
     archiveEmployee() {
-      this.employee.state = this.state
-      if (this.state === 'released') this.employee.released_at = this.released_at
+      this.employee.set('state', this.state)
+      if (this.state === 'released') this.employee.set('released_at', this.released_at)
 
-      this.$store.dispatch('EmployeesStore/update', { employee: this.employee.attributes })
+      this.$store.dispatch('EmployeesStore/update', { employee: this.employee.withoutEvaluation() })
         .then(() => {
           this.flash({ success: this.$root.$t('employees.flashes.archive.success') })
 
           this.$store.commit('EmployeesStore/clear')
-          this.$store.commit('EvaluationsStore/clear')
 
           this.$emit('close')
         })
         .catch(error => {
           this.flash({ error: this.$root.$t('employees.flashes.archive.error', { reason: this.renderError(error.response) }) })
+          this.employee.reset()
         })
     }
   },

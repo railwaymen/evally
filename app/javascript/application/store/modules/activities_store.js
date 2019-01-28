@@ -52,8 +52,8 @@ const ActivitiesStore = {
 
         axios.get('v1/activities', { params: context.state.datesRange })
           .then(response => {
-            let data = Utils.modelsFromResponse(response.data.data)
-            context.commit('manyAll', data)
+            context.commit('manyAll', response.data)
+            resolve()
           })
           .catch(error => {
             reject(error)
@@ -67,8 +67,8 @@ const ActivitiesStore = {
 
         axios.get('v1/activities/today')
           .then(response => {
-            let data = Utils.modelsFromResponse(response.data.data)
-            context.commit('manyToday', data)
+            context.commit('manyToday', response.data)
+            resolve()
           })
           .catch(error => {
             reject(error)

@@ -20,15 +20,14 @@ const EmployeesStore = {
     employee: state => state.employee,
     positions: state => state.positions,
     status: state => state.status
-
   },
   mutations: {
     clear(state) {
-      state.employee = new Employee()
+      state.employee.clear()
       return state
     },
-    one(state, employee_id) {
-      state.employee = state.employees.find({ id: employee_id })
+    pick(state, id) {
+      state.employee = state.employees.find({ id: id })
       return state
     },
     many(state, data) {
@@ -41,19 +40,18 @@ const EmployeesStore = {
       state.employees.add(data)
       return state
     },
-    progress(state, flag) {
-      state.status = flag
-      return state
-    },
     replace(state, employee) {
-      state.employees.map( el => {
-        return el.id == employee.id ? employee : el
-      })
+      state.employees.remove({ id: employee.id })
+      state.employees.add(employee)
       return state
     },
     remove(state, id) {
       state.employees.remove({ id: id })
-      state.employee = new Employee()
+      state.employee.clear()
+      return state
+    },
+    progress(state, flag) {
+      state.status = flag
       return state
     },
     resetState(state) {
@@ -68,23 +66,20 @@ const EmployeesStore = {
 
         axios.get(context.state.employees.getFetchURL(), { params: params })
           .then(response => {
-            let data = Utils.modelsFromResponse(response.data.data)
-            context.commit('many', data)
+            context.commit('many', response.data)
+            resolve()
           })
           .catch(error => {
             reject(error)
           })
       })
     },
-    create(context, employee) {
+    create(context, data) {
       return new Promise((resolve, reject) => {
-        axios.post(context.state.employee.getSaveURL(), employee)
+        axios.post(context.state.employees.getFetchURL(), data)
           .then(response => {
-            let employee = new Employee(Utils.transformModel(response.data.data))
-
-            context.commit('push', employee)
-
-            resolve(response)
+            context.commit('push', new Employee(response.data))
+            resolve()
           })
           .catch(error => {
             reject(error)
@@ -95,11 +90,11 @@ const EmployeesStore = {
       return new Promise((resolve, reject) => {
         axios.put(context.state.employee.getFetchURL(), data)
           .then(response => {
-            let updated = new Employee(Utils.transformModel(response.data.data))
+            let employee = new Employee(response.data)
 
-            context.commit('replace', updated)
+            employee.isHired() ? context.commit('replace', employee) : context.commit('remove', employee.id)
 
-            resolve(response)
+            resolve()
           })
           .catch(error => {
             reject(error)
@@ -108,12 +103,9 @@ const EmployeesStore = {
     },
     destroy(context) {
       return new Promise((resolve, reject) => {
-        axios.delete(context.state.employee.getDeleteURL())
-          .then(response => {
-            let id = context.state.employee.id
-
-            context.commit('remove', id)
-
+        axios.delete(context.state.employee.getFetchURL())
+          .then(() => {
+            context.commit('remove', context.state.employee.id)
             resolve()
           })
           .catch(error => {

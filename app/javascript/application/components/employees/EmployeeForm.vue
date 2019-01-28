@@ -119,33 +119,34 @@ export default {
     },
 
     sendForm() {
-      if (this.$refs.employeeForm.validate()) {
-        switch(this.options.action) {
-          case 'create':
-            this.$store.dispatch('EmployeesStore/create', { employee: this.employee.attributes })
-              .then(() => {
-                this.flash({ success: this.$root.$t('employees.flashes.create.success') })
-                this.$emit('close')
-              })
-              .catch(error => {
-                this.flash({ error: this.$root.$t('employees.flashes.create.error', { reason: this.renderError(error.response) }) })
-              })
+      if (!this.$refs.employeeForm.validate()) return
 
-            break
+      switch(this.options.action) {
+        case 'create':
+          this.$store.dispatch('EmployeesStore/create', { employee: this.employee.withoutEvaluation() })
+            .then(() => {
+              this.flash({ success: this.$root.$t('employees.flashes.create.success') })
+              this.$emit('close')
+            })
+            .catch(error => {
+              this.flash({ error: this.$root.$t('employees.flashes.create.error', { reason: this.renderError(error.response) }) })
+            })
 
-          case 'edit':
-            this.$store.dispatch('EmployeesStore/update', { employee: this.employee.attributes })
-              .then(() => {
-                this.flash({ success: this.$root.$t('employees.flashes.edit.success') })
-                this.$emit('close')
-              })
-              .catch(error => {
-                this.flash({ error: this.$root.$t('employees.flashes.edit.error', { reason: this.renderError(error.response) }) })
-              })
+          break
 
-            break
-        }
+        case 'edit':
+          this.$store.dispatch('EmployeesStore/update', { employee: this.employee.withoutEvaluation() })
+            .then(() => {
+              this.flash({ success: this.$root.$t('employees.flashes.edit.success') })
+              this.$emit('close')
+            })
+            .catch(error => {
+              this.flash({ error: this.$root.$t('employees.flashes.edit.error', { reason: this.renderError(error.response) }) })
+            })
+
+          break
       }
+
     }
   },
   computed: {

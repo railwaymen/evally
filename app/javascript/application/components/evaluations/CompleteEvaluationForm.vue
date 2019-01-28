@@ -66,12 +66,12 @@ export default {
   },
   methods: {
     saveEvaluation() {
-      this.evaluation.state = 'completed'
-      this.evaluation.completed_at = this.$moment().utc().format()
+      this.evaluation.set('state', 'completed')
+      this.evaluation.set('completed_at', this.$moment().utc().format())
 
       let params = {
         evaluation: {
-          ...this.evaluation.attributes,
+          ...this.evaluation.withoutEmployee(),
           next_evaluation_at: this.next_evaluation_at || this.formattedDate
         }
       }

@@ -8,7 +8,7 @@
       <v-flex>
         <div class="panel__action-bar">
           <v-tooltip bottom>
-            <v-btn @click="newTemplate" color="green" slot="activator" icon flat>
+            <v-btn @click="addNew" color="green" slot="activator" icon flat>
               <v-icon>add</v-icon>
             </v-btn>
             <span>{{ $t('templates.buttons.add_new') }}</span>
@@ -70,36 +70,35 @@ export default {
   name: 'Templates',
   components: { TemplateBox, TemplateSearchBox },
   methods: {
-    newTemplate() {
+    addNew() {
       this.$store.commit('SectionsStore/clear')
-      this.$store.commit('TemplatesStore/newTemplate')
+      this.$store.commit('TemplatesStore/one', { editable: true })
     },
 
     edit() {
-      this.$store.commit('TemplatesStore/edit')
+      this.template.set('editable', true)
     },
 
     save() {
-      let formValid = this.$refs.templateForm.validate()
+      if (!this.$refs.templateForm.validate()) return
+      this.template.sections_attributes = this.sections.map(section => section.attributes)
 
-      if (formValid && this.status === 'new_record') {
-        this.template.sections_attributes = _.map(this.sections.models, section => section.attributes )
+      if (this.template.isDraft()) {
+        this.template.set('state', 'created')
 
         this.$store.dispatch('TemplatesStore/create', { template: this.template })
           .then(() => {
             this.flash({ success: this.$root.$t('templates.flashes.create.success') })
-            this.template.editable = false
+            this.template.set('editable', false)
           })
           .catch(error => {
             this.flash({ error: this.$root.$t('templates.flashes.create.error', { reason: this.renderError(error.response) }) })
           })
-      } else if (formValid && this.status === 'record') {
-        this.template.sections_attributes = _.map(this.sections.models, section => section.attributes )
-
+      } else if (this.template.isCreated()) {
         this.$store.dispatch('TemplatesStore/update', { template: this.template })
           .then(() => {
             this.flash({ success: this.$root.$t('templates.flashes.save.success') })
-            this.template.editable = false
+            this.template.set('editable', false)
           })
           .catch(error => {
             this.flash({ error: this.$root.$t('templates.flashes.save.error', { reason: this.renderError(error.response) }) })

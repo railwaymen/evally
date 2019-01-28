@@ -10,7 +10,7 @@ class Template < ApplicationRecord
 
   # # Enums
   #
-  enum state: { draft: 0, enabled: 10, disabled: 20, removed: 30 }
+  enum state: { draft: 0, created: 10 }
 
   # # Validation
   #

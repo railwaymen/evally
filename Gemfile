@@ -83,8 +83,8 @@ end
 # AASM is a continuation of the acts-as-state-machine rails plugin
 # gem 'aasm', '~> 5.0', '>= 5.0.1'
 
-# Build JSON APIs with ease.
-gem 'fast_jsonapi', '~> 1.3'
+# JSON Object Presenter for Ruby
+gem 'blueprinter', '~> 0.12.0'
 
 # JWT User Authentication
 gem 'rails_jwt_auth', '~> 0.23.0'

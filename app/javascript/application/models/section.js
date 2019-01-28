@@ -16,6 +16,14 @@ class Section extends Model {
       _destroy: 0
     }
   }
+
+  isHalfWidth() {
+    return this.width === 'half'
+  }
+
+  isFullWidth() {
+    return this.width === 'full'
+  }
 }
 
 /**

@@ -1,18 +1,7 @@
 module V1
-  class UserSerializer
-    include FastJsonapi::ObjectSerializer
+  class UserSerializer < Blueprinter::Base
+    fields :email, :first_name, :last_name
 
-    attributes :email, :first_name, :last_name
-
-    attribute :setting do |user|
-      user.setting.attributes.slice(
-        'default_draft_items',
-        'default_upcoming_items',
-        'default_next_evaluation_time',
-        'public_view_enabled',
-        'lang'
-      )
-    end
-
+    association :setting, blueprint: V1::SettingSerializer, default: {}
   end
 end

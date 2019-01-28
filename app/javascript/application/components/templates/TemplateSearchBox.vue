@@ -18,7 +18,7 @@
         </div>
 
         <template v-else>
-          <v-list-tile v-for="template in filteredTemplates" :key="template.id" @click="selectTemplate(template.id)" avatar>
+          <v-list-tile v-for="template in filteredTemplates" :key="template.id" @click="pickTemplate(template.id)" avatar>
             <v-list-tile-avatar>
               <v-icon>list_alt</v-icon>
             </v-list-tile-avatar>
@@ -54,10 +54,8 @@ export default {
     }
   },
   methods: {
-    selectTemplate(template_id) {
-      // this.template.reset()
-
-      this.$store.commit('TemplatesStore/one', template_id)
+    pickTemplate(id) {
+      this.$store.commit('TemplatesStore/pick', id)
       this.$store.commit('SectionsStore/many', this.template.sections_attributes)
     }
   },
@@ -67,6 +65,7 @@ export default {
       template: 'TemplatesStore/template',
       status: 'TemplatesStore/status'
     }),
+
     filteredTemplates() {
       let outputArray = []
 

@@ -21,7 +21,7 @@
 					<v-list-tile-action>
 						<div class="">
 							<v-tooltip bottom>
-								<v-btn @click="edit(draft.id)" slot="activator" color="grey" flat icon>
+								<v-btn @click="editEvaluation(draft.id)" slot="activator" color="grey" flat icon>
 									<v-icon>edit</v-icon>
 								</v-btn>
 								<span>{{ $t('dashboard.drafts.edit_tooltip') }}</span>
@@ -49,14 +49,14 @@ import { mapGetters } from 'vuex'
 export default {
 	name: 'DraftsList',
 	methods: {
-		edit(evaluation_id) {
-			this.$store.commit('EvaluationsStore/one', evaluation_id)
+		editEvaluation(id) {
+			this.$store.commit('EvaluationsStore/pick', id)
 			this.$router.push({ name: 'evaluations_path' })
 		}
 	},
 	computed: {
 		...mapGetters({
-			drafts: 'EvaluationsStore/evaluations',
+			drafts: 'EvaluationsStore/evaluationsDrafts',
 			status: 'EvaluationsStore/status',
 			setting: 'AuthStore/setting'
 		}),
