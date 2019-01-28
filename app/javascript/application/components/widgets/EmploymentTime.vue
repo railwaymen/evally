@@ -56,9 +56,8 @@ export default {
     }
   },
   methods: {
-    showProfile(employee_id) {
-      this.$store.commit('EmployeesStore/one', employee_id)
-      this.$store.commit('EvaluationsStore/oneCompleted', employee_id)
+    showProfile(id) {
+      this.$store.commit('EmployeesStore/pick', id)
 
       this.$router.push({ name: 'employees_path' })
     },
