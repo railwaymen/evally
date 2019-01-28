@@ -30,6 +30,16 @@
           data-cy="employee-position"
         ></v-combobox>
 
+        <v-combobox
+          v-model="employee.group"
+          :rules="[vRequired, vIsString]"
+          :items="groups"
+          append-icon="expand_more"
+          chips
+          :label="$t('employees.forms.group')"
+          data-cy="employee-group"
+        ></v-combobox>
+
         <v-menu
           ref="hiredMenu"
           :close-on-content-click="false"
@@ -152,7 +162,8 @@ export default {
   computed: {
     ...mapGetters({
       employee: 'EmployeesStore/employee',
-      positions: 'EmployeesStore/positions'
+      positions: 'EmployeesStore/positions',
+      groups: 'EmployeesStore/groups'
     }),
 
     hiredDate: {

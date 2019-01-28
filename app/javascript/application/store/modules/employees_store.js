@@ -6,7 +6,6 @@ import { Employee, EmployeesList } from '@/models/employee'
 const initialState = () => ({
   employees: new EmployeesList(),
   employee: new Employee(),
-  positions: [],
   status: ''
 })
 
@@ -18,7 +17,8 @@ const EmployeesStore = {
   getters: {
     employees: state => state.employees,
     employee: state => state.employee,
-    positions: state => state.positions,
+    positions: state => Utils.pluckAttribute(state.employees.models, 'position'), //state.positions,
+    groups: state => Utils.pluckAttribute(state.employees.models, 'group'), //state.groups,
     status: state => state.status
   },
   mutations: {
@@ -32,7 +32,8 @@ const EmployeesStore = {
     },
     many(state, data) {
       state.employees.replace(data)
-      state.positions = Utils.collectPositions(data)
+      // state.positions = Utils.pluckAttribute(data, 'position')
+      // state.groups = Utils.pluckAttribute(data, 'group')
       state.status = 'ok'
       return state
     },
