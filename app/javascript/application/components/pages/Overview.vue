@@ -39,7 +39,7 @@
 
 <script>
 import EmployeesBrowser from '@/components/overview/EmployeesBrowser'
-import EmployeesChart from '@/components/overview/EmployeesChart'
+import EmployeesChart from '@/components/widgets/EmployeesChart'
 import EmploymentTime from '@/components/widgets/EmploymentTime'
 
 export default {

@@ -12,7 +12,9 @@ Rails.application.routes.draw do
         get 'today', on: :collection
       end
 
-      resources :employees, only: [:index, :create, :update, :destroy]
+      resources :employees, only: [:index, :create, :update, :destroy] do
+        get 'chart', on: :collection
+      end
 
       resources :evaluations, only: [:index, :create, :update, :destroy]
       get 'employees/:id/evaluation', to: 'evaluations#evaluation', as: 'empoyee_evaluation'
