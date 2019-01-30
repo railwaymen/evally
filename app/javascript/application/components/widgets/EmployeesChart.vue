@@ -68,13 +68,29 @@ export default {
         },
         title: false,
         xAxis: {
-          type: 'category'
+          type: 'category',
+          labels: {
+            style: {
+              fontSize: '1.4rem',
+              fontFamily: 'Muli, sans-serif'
+            }
+          }
         },
         yAxis: {
           allowDecimals: false,
           min: 0,
           title: {
-            text: 'People'
+            text: 'People',
+            style: {
+              fontSize: '1.4rem',
+              fontFamily: 'Muli, sans-serif'
+            }
+          },
+          labels: {
+            style: {
+              fontSize: '1.4rem',
+              fontFamily: 'Muli, sans-serif'
+            }
           }
         },
         legend: {
