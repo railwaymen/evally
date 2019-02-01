@@ -1,0 +1,25 @@
+version: '3'
+services:
+  db:
+    image: postgres:10.3-alpine
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  api:
+    build: .
+    command: bundle exec rails s -b localhost -p 3000
+    volumes:
+      - .:/app
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+  web:
+    build: .
+    command: ./bin/webpack-dev-server
+    volumes:
+      - .:/app
+    ports:
+      - '3035:3035'
+
+volumes:
+  postgres:
