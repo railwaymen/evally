@@ -5,11 +5,11 @@ RUN apk update && apk add build-base nodejs yarn postgresql-dev && apk add --upd
 RUN mkdir /app
 WORKDIR /app
 
-COPY Gemfile Gemfile.lock ./
+COPY Gemfile Gemfile.lock yarn.lock ./
+
 RUN bundle install --binstubs
+RUN yarn install
 
 COPY . .
 
-EXPOSE 3000
-
-CMD puma -C config/puma.rb
+CMD ["rails", "server"]
