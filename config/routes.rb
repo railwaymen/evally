@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
       resources :employees, only: [:index, :create, :update, :destroy] do
         get 'chart', on: :collection
+        post 'search', on: :collection
+        get 'skills', on: :collection
       end
 
       resources :evaluations, only: [:index, :create, :update, :destroy]

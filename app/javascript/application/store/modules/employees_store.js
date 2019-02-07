@@ -32,8 +32,6 @@ const EmployeesStore = {
     },
     many(state, data) {
       state.employees.replace(data)
-      // state.positions = Utils.pluckAttribute(data, 'position')
-      // state.groups = Utils.pluckAttribute(data, 'group')
       state.status = 'ok'
       return state
     },

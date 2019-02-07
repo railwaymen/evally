@@ -34,7 +34,7 @@
                   <v-btn @click="showProfile(employee.id)" slot="activator" color="grey" flat icon>
                     <v-icon>person</v-icon>
                   </v-btn>
-                  <span>See profile</span>
+                  <span>View profile</span>
                 </v-tooltip>
               </div>
             </v-list-tile-action>

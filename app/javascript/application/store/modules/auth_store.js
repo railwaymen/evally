@@ -43,7 +43,7 @@ const AuthStore = {
     },
 
     clearStore(state) {
-      let modules = ['Activities', 'Auth', 'Employees', 'Evaluations', 'Sections', 'Templates']
+      let modules = ['Activities', 'Auth', 'Browser', 'Employees', 'Evaluations', 'Sections', 'Templates']
       modules.forEach(module => this.commit(`${module}Store/resetState`))
     }
   },

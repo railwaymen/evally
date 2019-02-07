@@ -3,28 +3,52 @@
 		<h3 class="box__header">Browse</h3>
 
     <div class="box__body">
-      <v-form class="browser-form">
+      <v-form ref="employeesBrowserForm" @submit.prevent="search" class="browser-form">
         <v-layout row wrap>
           <v-flex xs5>
-            <v-combobox
-              v-model="select"
-              :items="items"
+            <v-select
+              @input="selectSkill"
+              :items="skillItems"
+              :rules="[vRequired]"
+              item-text="name"
               chips
+              return-object
               label="Skill"
-            ></v-combobox>
+            >
+              <template slot="selection" slot-scope="data">
+                <v-chip :selected="data.selected">
+                  {{ data.item.name }}
+                </v-chip>
+              </template>
+
+              <template slot="item" slot-scope="data">
+                {{ data.item.name }}
+              </template>
+            </v-select>
           </v-flex>
 
           <v-flex xs5>
-            <div class="browser-form__grade">
-              <span class="browser-form__grade--prefix">with minimum</span>
-              <v-rating class="d-inline-block" v-model="rating" length="3"></v-rating>
+            <div v-show="query.group === 'rating'" class="browser-form__grade">
+              <v-btn-toggle v-model="query.comparator" class="elevation-0">
+                <v-btn value="lteq" large flat class="px-3 mx-1">&#8924;</v-btn>
+                <v-btn value="eq" large flat class="px-3 mx-1">&#61;</v-btn>
+                <v-btn value="gteq" large flat class="px-3 mx-1">&#8925;</v-btn>
+              </v-btn-toggle>
+              <v-rating class="d-inline-block" v-model="query.value" length="3"></v-rating>
               <span class="browser-form__grade--suffix">stars</span>
+            </div>
+
+            <div v-show="query.group === 'bool'" class="browser-form__grade">
+              <v-btn-toggle v-model="query.value" class="elevation-0">
+                <v-btn :value="false" large flat class="px-3 mx-1">No</v-btn>
+                <v-btn :value="true" large flat class="px-3 mx-1">Yes</v-btn>
+              </v-btn-toggle>
             </div>
           </v-flex>
 
           <v-flex xs2>
             <div class="browser-form__action">
-              <v-btn color="primary" block flat>Search</v-btn>
+              <v-btn color="primary" type="submit" block flat>Search</v-btn>
             </div>
           </v-flex>
         </v-layout>
@@ -33,17 +57,14 @@
       <div class="py-4">
         <v-data-table
           :headers="headers"
-          :items="desserts"
+          :items="results.models"
         >
           <template slot="items" slot-scope="props">
-            <td>{{ props.item.name }}</td>
+            <td>{{ props.item.fullname() }}</td>
             <td class="text-xs-center">{{ props.item.position }}</td>
-            <td class="text-xs-center">{{ props.item.experience }}</td>
+            <td class="text-xs-center">{{ employment(props.item.hired_at) }}</td>
             <td class="text-xs-center">
-              <v-chip v-for="(project, index) in props.item.projects" :key="index" label>{{ project }}</v-chip>
-            </td>
-            <td class="text-xs-center">
-              <v-rating length="3" :value="props.item.skill"></v-rating>
+              <v-rating length="3" :value="props.item.skill.value"></v-rating>
             </td>
             <td class="text-xs-center">
               <v-icon
@@ -60,53 +81,75 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'EmployeesBrowser',
   data() {
     return {
-      select: null,
-      rating: null,
-      items: ['Ruby', 'Android', 'English', 'Spanish'],
       headers: [
-        {
-          text: 'Employee name',
-          align: 'left',
-          sortable: false,
-          value: 'name'
-        },
+        { text: 'Employee name', align: 'left', value: 'name' },
         { text: 'Position', value: 'position', align: 'center' },
         { text: 'Experience', value: 'experience', align: 'center' },
-        { text: 'Current projects', value: 'projects', align: 'center' },
         { text: 'Skill', value: 'skill', align: 'center' },
         { text: 'Actions', value: 'name' }
-      ],
-      desserts: [
-        {
-          value: false,
-          name: 'Joe Hart',
-          position: 'Ruby Developer',
-          experience: '2 years 324 days',
-          projects: ['Rocket', 'Dixi', 'BitCoiner'],
-          skill: 3
-        },
-        {
-          value: false,
-          name: 'Rick Smith',
-          position: 'Ruby Developer',
-          experience: '2 years 34 days',
-          projects: ['Rocket', 'Foggy'],
-          skill: 2
-        },
-        {
-          value: false,
-          name: 'Frank Moore',
-          position: 'Junior Ruby Developer',
-          experience: '1 year',
-          projects: ['Teddy'],
-          skill: 1
-        }
       ]
     }
-  }  
+  },
+  methods: {
+    search() {
+      if (this.$refs.employeesBrowserForm.validate()) {
+        console.log(this.query)
+
+        this.$store.dispatch('BrowserStore/search', { query: this.query })
+          .catch(error => {
+            this.flash({ error: 'Browser error' })
+          })
+      }
+    },
+
+    selectSkill(skill) {
+      if (skill.group === 'bool') {
+        this.query.comparator = 'eq'
+        this.query.value = true
+      }
+
+      this.query.name = skill.name
+      this.query.group = skill.group
+    },
+
+    employment(hired_at) {
+      let diff = this.$moment().diff(hired_at, 'days')
+
+      let days = diff % 365
+      let years = Math.floor(diff / 365)
+
+      let result = [days, this.daysSuffix(days)]
+      if (years > 0) result.unshift(years, this.yearsSuffix(years), 'and')
+
+      return result.join(' ')
+    },
+
+    daysSuffix(n) {
+      return n === 1 ? 'day' : 'days'
+    },
+
+    yearsSuffix(n) {
+      return n === 1 ? 'year' : 'years'
+    }
+  },
+  computed: {
+    ...mapGetters({
+      skillItems: 'BrowserStore/skills',
+      results: 'BrowserStore/results',
+      query: 'BrowserStore/query'
+    })
+  },
+  created() {
+    this.$store.dispatch('BrowserStore/skills')
+      .catch(error => {
+        this.flash({ error: 'Skills error' })
+      })
+  },  
 }
 </script>
