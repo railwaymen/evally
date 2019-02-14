@@ -5,13 +5,10 @@ module V1
       rating_skills = Section.rating.pluck(:skills).flatten.collect{ |skill| { name: skill['name'], group: 'rating' } }.uniq
       bool_skills = Section.bool.pluck(:skills).flatten.collect{ |skill| { name: skill['name'], group: 'bool' } }.uniq
 
-      [
-        { header: 'Rating' },
-        *rating_skills,
-        { divider: true },
-        { header: 'True/false' },
-        *bool_skills
-      ] # Output form necessary for frontend purpose
+      {
+        rating: rating_skills,
+        bool: bool_skills
+      }
     end
   end
 end

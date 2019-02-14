@@ -1,19 +1,42 @@
 .browser-form {
-  
-  &__grade {
-    text-align: center
-    line-height: 3.5rem
-    font-size: 2.1rem
-    font-weight: 100
-    padding-top: 1.8rem
+  display: flex
+  flex-wrap: wrap
+  align-items: center
 
-    &--prefix,
-    &--suffix {
-      padding: .5rem
+  &__skill {
+    flex-shrink: 0
+    min-width: 24rem
+    width: 100%
+
+    +respond(md) {
+      max-width: 45%
+    }
+
+    +respond(xl) {
+      max-width: 60%
     }
   }
 
+  &__buttons {
+    flex: 1 1 auto
+    text-align: left
+
+    +respond(md) {
+      text-align: center
+    }
+  }
+
+  &__comparator {
+    display: inline-block
+  }
+
+  &__value {
+    display: inline-block
+    transform: translate(1rem, 1rem)
+  }
+
   &__action {
-    margin-top: 2.1rem  
+    flex-shrink: 0
+    width: 10rem  
   }
 }

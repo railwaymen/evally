@@ -4,54 +4,53 @@
 
     <div class="box__body">
       <v-form ref="employeesBrowserForm" @submit.prevent="search" class="browser-form">
-        <v-layout row wrap>
-          <v-flex xs5>
-            <v-select
-              @input="selectSkill"
-              :items="skillItems"
-              :rules="[vRequired]"
-              item-text="name"
-              chips
-              return-object
-              label="Skill"
-            >
-              <template slot="selection" slot-scope="data">
-                <v-chip :selected="data.selected">
-                  {{ data.item.name }}
-                </v-chip>
-              </template>
+        <v-select
+          @input="selectSkill"
+          :items="skillItems"
+          :rules="[vRequired]"
+          item-text="name"
+          chips
+          return-object
+          label="Skill"
+          class="browser-form__skill"
+        >
+          <template slot="selection" slot-scope="data">
+            <v-chip :selected="data.selected">
+              {{ data.item.name }}
+            </v-chip>
+          </template>
 
-              <template slot="item" slot-scope="data">
-                {{ data.item.name }}
-              </template>
-            </v-select>
-          </v-flex>
+          <template slot="item" slot-scope="data">
+            {{ data.item.name }}
+          </template>
+        </v-select>
 
-          <v-flex xs5>
-            <div v-show="query.group === 'rating'" class="browser-form__grade">
-              <v-btn-toggle v-model="query.comparator" class="elevation-0">
-                <v-btn value="lteq" large flat class="px-3 mx-1">&#8924;</v-btn>
-                <v-btn value="eq" large flat class="px-3 mx-1">&#61;</v-btn>
-                <v-btn value="gteq" large flat class="px-3 mx-1">&#8925;</v-btn>
-              </v-btn-toggle>
-              <v-rating class="d-inline-block" v-model="query.value" length="3"></v-rating>
-              <span class="browser-form__grade--suffix">stars</span>
-            </div>
+        <div v-show="query.group === 'rating'" class="browser-form__buttons">
+          <div class="browser-form__comparator">
+            <v-btn-toggle v-model="query.comparator" class="elevation-0">
+              <v-btn value="lteq" large flat class="px-3 mx-1">&#8924;</v-btn>
+              <v-btn value="eq" large flat class="px-3 mx-1">&#61;</v-btn>
+              <v-btn value="gteq" large flat class="px-3 mx-1">&#8925;</v-btn>
+            </v-btn-toggle>
+          </div>
 
-            <div v-show="query.group === 'bool'" class="browser-form__grade">
-              <v-btn-toggle v-model="query.value" class="elevation-0">
-                <v-btn :value="false" large flat class="px-3 mx-1">No</v-btn>
-                <v-btn :value="true" large flat class="px-3 mx-1">Yes</v-btn>
-              </v-btn-toggle>
-            </div>
-          </v-flex>
+          <div class="browser-form__value">
+            <v-rating v-show="query.group === 'rating'" v-model="query.value" length="3"></v-rating>
+          </div>
+        </div>
 
-          <v-flex xs2>
-            <div class="browser-form__action">
-              <v-btn color="primary" type="submit" block flat>Search</v-btn>
-            </div>
-          </v-flex>
-        </v-layout>
+        <div v-show="query.group === 'bool'" class="browser-form__buttons">
+          <div class="browser-form__value">
+            <v-btn-toggle v-show="query.group === 'bool'" v-model="query.value" class="elevation-0">
+              <v-btn :value="0" large flat class="px-3 mx-1">No</v-btn>
+              <v-btn :value="1" large flat class="px-3 mx-1">Yes</v-btn>
+            </v-btn-toggle>
+          </div>
+        </div>
+
+        <div class="browser-form__action">
+          <v-btn color="primary" type="submit" block flat>Search</v-btn>
+        </div>
       </v-form>
 
       <div class="py-4">
@@ -64,7 +63,10 @@
             <td class="text-xs-center">{{ props.item.position }}</td>
             <td class="text-xs-center">{{ employment(props.item.hired_at) }}</td>
             <td class="text-xs-center">
-              <v-rating length="3" :value="props.item.skill.value"></v-rating>
+              <v-rating v-if="isRating(props.item.skill.value)" length="3" :value="props.item.skill.value"></v-rating>
+              <span v-if="isBool(props.item.skill.value)">
+                {{ props.item.skill.value ? `Yes` : `No` }}
+              </span>
             </td>
             <td class="text-xs-center">
               <v-icon
@@ -99,7 +101,6 @@ export default {
   methods: {
     search() {
       if (this.$refs.employeesBrowserForm.validate()) {
-        console.log(this.query)
 
         this.$store.dispatch('BrowserStore/search', { query: this.query })
           .catch(error => {
@@ -111,7 +112,7 @@ export default {
     selectSkill(skill) {
       if (skill.group === 'bool') {
         this.query.comparator = 'eq'
-        this.query.value = true
+        this.query.value = 1
       }
 
       this.query.name = skill.name
@@ -136,19 +137,48 @@ export default {
 
     yearsSuffix(n) {
       return n === 1 ? 'year' : 'years'
+    },
+
+    isBool(val) {
+      return this.$_.isBoolean(val)
+    },
+
+    isRating(val) {
+      return this.$_.isNumber(val)
     }
   },
   computed: {
     ...mapGetters({
-      skillItems: 'BrowserStore/skills',
+      skills: 'BrowserStore/skills',
       results: 'BrowserStore/results',
       query: 'BrowserStore/query'
-    })
+    }),
+
+    skillItems() {
+      let ratingsExist = this.skills.rating && this.skills.rating.length > 0
+      let boolsExist = this.skills.bool && this.skills.bool.length > 0
+
+      let output = []
+
+      if (ratingsExist) {
+        output.push({ header: 'Rating' }, ...this.skills.rating)
+      }
+
+      if (ratingsExist && boolsExist) {
+        output.push({ divider: true })
+      }
+
+      if (boolsExist) {
+        output.push({ header: 'Yes / No' }, ...this.skills.bool)
+      }
+
+      return output
+    }
   },
   created() {
     this.$store.dispatch('BrowserStore/skills')
       .catch(error => {
-        this.flash({ error: 'Skills error' })
+        this.flash({ error: 'Skills cannot be loaded due to some error.' })
       })
   },  
 }

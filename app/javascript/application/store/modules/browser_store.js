@@ -3,7 +3,7 @@ import axios from 'axios'
 import { EmployeesList } from '@/models/employee'
 
 const initialState = () => ({
-  skills: [],
+  skills: {},
   results: new EmployeesList(),
   query: {
     group: 'rating',
