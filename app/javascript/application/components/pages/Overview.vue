@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import EmployeesBrowser from '@/components/overview/EmployeesBrowser'
+import EmployeesBrowser from '@/components/widgets/EmployeesBrowser'
 import EmployeesChart from '@/components/widgets/EmployeesChart'
 import EmploymentTime from '@/components/widgets/EmploymentTime'
 
