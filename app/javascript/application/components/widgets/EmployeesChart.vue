@@ -51,10 +51,9 @@ export default {
     }),
 
     orderedGroups() {
-      let newGroups = this.groups.sort((a, b) => {
+      return this.groups.sort((a, b) => {
         return a.localeCompare(b)
       })
-      return _.filter(newGroups, name => name !== 'Unassigned').concat(['Unassigned'])
     },
 
     isDataEmpty() {
