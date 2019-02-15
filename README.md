@@ -1,4 +1,4 @@
-# Evally [![version](https://img.shields.io/badge/version-0.2-green.svg)]
+# Evally ![version](https://img.shields.io/badge/version-0.2-green.svg)
 A simple web application for managing periodic skills evaluations of employees.
 
 [![forthebadge](http://forthebadge.com/images/badges/made-with-ruby.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/made-with-vue.svg)](http://forthebadge.com)
