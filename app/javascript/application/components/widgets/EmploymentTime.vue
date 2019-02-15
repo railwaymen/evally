@@ -6,6 +6,10 @@
       <v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
     </div>
 
+    <div v-else-if="sortedEmployees.length < 2" class="employment">
+      <p class="employment__no-data">You have not enough employees to present this data.</p>
+    </div>
+
     <div v-else class="employment">
       <div class="employment__average">
         <h3>{{ averageEmployment() }}</h3>
