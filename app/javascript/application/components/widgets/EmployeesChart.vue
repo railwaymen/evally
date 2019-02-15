@@ -1,6 +1,6 @@
 <template>
   <div class="box box--border-primary">
-		<h3 class="box__header">Employees</h3>
+		<h3 class="box__header">{{ $t('widgets.employees_chart.title') }}</h3>
 
     <div class="box__body">
       <div v-if="isDataEmpty" class="box__loader">
@@ -79,7 +79,7 @@ export default {
           allowDecimals: false,
           min: 0,
           title: {
-            text: 'People',
+            text: this.$t('widgets.employees_chart.x_axis_label'),
             style: {
               fontSize: '1.4rem',
               fontFamily: 'Muli, sans-serif'
@@ -96,7 +96,7 @@ export default {
           enabled: false
         },
         series: [{
-          name: 'Employees',
+          name: this.$t('widgets.employees_chart.title'),
           data: this.data[this.currentGroup],
           maxPointWidth: 50
         }]

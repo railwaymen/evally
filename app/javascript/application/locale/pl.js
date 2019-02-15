@@ -350,6 +350,10 @@ export default {
         years: 'lat'
       },
       view_profile: 'Zobacz profil'
+    },
+    employees_chart: {
+      title: 'Pracownicy',
+      x_axis_label: 'Osoby'
     }
   },
   navbar: {

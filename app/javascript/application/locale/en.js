@@ -350,6 +350,10 @@ export default {
         years: 'years'
       },
       view_profile: 'View profile'
+    },
+    employees_chart: {
+      title: 'Employees',
+      x_axis_label: 'People'
     }
   },
   navbar: {
