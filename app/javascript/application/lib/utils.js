@@ -1,16 +1,10 @@
 import _ from 'lodash'
 
 let utils = {
-  transformModel(model) {
-    return _.merge({id: model.id}, model.attributes)
-  },
+  chartColors: ['#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a'],
 
-  modelsFromResponse(data) {
-    return _.map(data, this.transformModel)
-  },
-
-  collectPositions(data) {
-    return _.uniq(_.map(data, 'position'))
+  pluckAttribute(data, attribute) {
+    return _.filter(_.uniq(_.map(data, attribute)), Boolean)
   },
 
   randomId(length) {

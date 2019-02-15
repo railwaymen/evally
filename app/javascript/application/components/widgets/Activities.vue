@@ -2,7 +2,7 @@
 	<div class="box box--border-grey">
 		<h3 class="box__header text-xs-center">{{ $t('dashboard.activities.title') }}</h3>
 
-		<div class="box__list">
+		<div class="box__body">
 			<div v-if="isLoading" class="box__loader">
 				<v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
 			</div>

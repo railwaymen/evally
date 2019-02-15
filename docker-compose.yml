@@ -1,0 +1,37 @@
+version: '3'
+services:
+  db:
+    image: postgres:10.6-alpine
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  webpacker:
+    build: .
+    command: ./bin/webpack-dev-server
+    volumes:
+      - .:/app
+    ports:
+      - '3035:3035'
+    user: ${CURRENT_USER}
+
+  app:
+    build: .
+    command: rails s
+    volumes:
+      - .:/app
+    ports:
+      - '3000:3000'
+    user: ${CURRENT_USER}
+    depends_on:
+      - db
+      - webpacker
+
+volumes:
+  postgres:
+
+# CURRENT_USER=$(id -u):$(id -g) need to be set in .bashrc / .zshrc to guarantee files creation as non-roor user
+
+# # Useful commands
+
+# docker-compose up -> start project
+# docker-compose run app <command> -> run command like 'rails c' inside app container

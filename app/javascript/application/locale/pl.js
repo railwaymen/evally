@@ -83,6 +83,7 @@ export default {
       first_name: 'Imię',
       last_name: 'Nazwisko',
       position: 'Stanowisko',
+      group: 'Grupa',
       hired_at: 'Zatrudniony od',
       next_review: 'Następne review',
       cooperation: 'Współpraca',
@@ -336,6 +337,7 @@ export default {
     employees: 'Pracownicy',
     templates: 'Szablony',
     archive: 'Archiwum',
+    overview: 'Przegląd',
     settings: 'Ustawienia',
     logout: 'Wyloguj'
   },

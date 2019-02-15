@@ -23,6 +23,9 @@ class Employee < ApplicationRecord
 
   validates :hired_at, presence: true
 
+  
+  attr_accessor :skill
+
   # # Methods
   #
   def fullname

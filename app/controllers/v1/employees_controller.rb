@@ -12,6 +12,26 @@ module V1
       render json: V1::EmployeeSerializer.render(employees, view: :evaluated), status: 200
     end
 
+    # GET /v1/employees/chart
+    #
+    def chart
+      render json: V1::EmployeesChartDataProvider.call, status: 200
+    end
+
+    # GET /v1/employees/search
+    #
+    def search
+      employees = V1::EmployeesSearchDataProvider.new(params[:query]).call
+
+      render json: V1::EmployeeSerializer.render(employees, view: :evaluated), status: 200
+    end
+
+    # GET /v1/employees/skills
+    #
+    def skills
+      render json: V1::EmployeesSkillsListProvider.call, status: 200
+    end
+
     # # POST /v1/employees
     #
     def create

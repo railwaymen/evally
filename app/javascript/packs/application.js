@@ -66,6 +66,10 @@ const i18n = new VueI18n({
   messages: { en: english, pl: polish }
 })
 
+// Highcharts
+import HighchartsVue from 'highcharts-vue'
+Vue.use(HighchartsVue)
+
 // Properties
 import _ from 'lodash'
 Vue.prototype.$_ = _

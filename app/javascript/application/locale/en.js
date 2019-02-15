@@ -107,6 +107,7 @@ export default {
       first_name: 'First name',
       last_name: 'Last name',
       position: 'Position',
+      group: 'Group',
       hired_at: 'On board since',
       next_review: 'Next review',
       cooperation: 'Cooperation',
@@ -336,6 +337,7 @@ export default {
     employees: 'Employees',
     templates: 'Templates',
     archive: 'Archive',
+    overview: 'Overview',
     settings: 'Settings',
     logout: 'Logout'
   },

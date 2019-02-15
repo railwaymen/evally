@@ -29,6 +29,7 @@ module V1
         :first_name,
         :last_name,
         :position,
+        :group,
         :hired_at,
         :next_evaluation_at,
         :state,
