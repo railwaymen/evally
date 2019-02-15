@@ -331,6 +331,27 @@ export default {
       see_more: 'Więcej'
     }
   },
+  widgets: {
+    employment: {
+      title: 'Czas zatrudnienia',
+      no_data_info: 'Brak wystarczającej liczby pracowników.',
+      average: 'średnio',
+      buttons: {
+        shortest: 'najkrótszy',
+        longest: 'najdłuższy'
+      },
+      list_items: {
+        as: 'jako',
+        works: 'pracuje od',
+        day: 'dnia',
+        days: 'dni',
+        and: 'i',
+        year: 'roku',
+        years: 'lat'
+      },
+      view_profile: 'Zobacz profil'
+    }
+  },
   navbar: {
     dashboard: 'Kokpit',
     evaluations: 'Oceny',

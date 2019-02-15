@@ -331,6 +331,27 @@ export default {
       see_more: 'See more'
     }
   },
+  widgets: {
+    employment: {
+      title: 'Employment time',
+      no_data_info: 'You have not enough employees to present this data.',
+      average: 'average',
+      buttons: {
+        shortest: 'shortest',
+        longest: 'longest'
+      },
+      list_items: {
+        as: 'as',
+        works: 'works',
+        day: 'day',
+        days: 'days',
+        and: 'and',
+        year: 'year',
+        years: 'years'
+      },
+      view_profile: 'View profile'
+    }
+  },
   navbar: {
     dashboard: 'Dashboard',
     evaluations: 'Evaluations',
