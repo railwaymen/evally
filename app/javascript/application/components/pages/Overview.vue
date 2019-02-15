@@ -2,7 +2,7 @@
   <section class="panel">
     <v-layout row>
       <v-flex xs12>
-        <h2 class="panel__heading">Overview</h2>
+        <h2 class="panel__heading">{{ $t('overview.title') }}</h2>
       </v-flex>
     </v-layout>
 

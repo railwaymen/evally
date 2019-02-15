@@ -279,7 +279,7 @@ export default {
       inputs: {
         text: 'Nowa pozycja tekstowa',
         rating: 'Nowa pozycja ratingowa',
-        bool: 'Nowa pozycja prawda/fałsz'
+        bool: 'Nowa pozycja prawda / fałsz'
       },
       new_section: {
         title: 'Nowa sekcja',
@@ -291,7 +291,7 @@ export default {
         type: {
           subheader: 'Typ: ',
           rating: 'Ratingowy',
-          boolean: 'Prawda/fałsz',
+          boolean: 'Prawda / fałsz',
           text: 'Tekstowy'
         },
         button: 'Dodaj sekcję'
@@ -331,6 +331,9 @@ export default {
       see_more: 'Więcej'
     }
   },
+  overview: {
+    title: 'Przegląd'
+  },
   widgets: {
     employment: {
       title: 'Czas zatrudnienia',
@@ -353,7 +356,37 @@ export default {
     },
     employees_chart: {
       title: 'Pracownicy',
-      x_axis_label: 'Osoby'
+      x_axis_label: 'Osoby',
+      errors: {
+        fetch: 'Wystąpił błąd podczas wczytywania danych: {reason}'
+      }
+    },
+    employees_browser: {
+      title: 'Wyszukaj',
+      errors: {
+        fetch: 'Wystąpił błąd podczas wczytywania listy umiejętności: {reason}',
+        browse: 'Wystąpił błąd podczas wyszukiwania pracowników: {reason}'
+      },
+      form: {
+        skill_input: 'Umiejętność',
+        rating: 'Rating',
+        yes_no: 'Prawda / fałsz',
+        yes: 'Tak',
+        no: 'Nie',
+        search: 'Szukaj'
+      },
+      table: {
+        headers: {
+          employee_name: 'Imię i nazwisko',
+          position: 'Stanowisko',
+          experience: 'Pracuje od',
+          skill: 'Poziom',
+          actions: 'Akcje'
+        },
+        buttons: {
+          view_profile: 'Zobacz profil'
+        }
+      }
     }
   },
   navbar: {

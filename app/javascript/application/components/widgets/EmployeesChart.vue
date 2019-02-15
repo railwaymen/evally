@@ -120,7 +120,7 @@ export default {
         this.data = response.data
       })
       .catch(error => {
-        this.flash({ error: 'Charts data cannot be loaded due to some error.' })
+        this.flash({ error: this.$root.$t('widgets.employees_chart.errors.fetch', { reason: this.renderError(error.response) }) })
       })
   }
 }
