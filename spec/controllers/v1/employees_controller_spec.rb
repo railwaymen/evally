@@ -25,13 +25,13 @@ RSpec.describe V1::EmployeesController, type: :controller do
         expect_success_api_response_for('employees')
       end
 
-      it 'expects to return only current_user employees' do
+      it 'expects to return all employees' do
         expect do
           create(:user_with_employees)
         end.to change(Employee, :count).from(5).to(10)
 
         get :index
-        expect(json_response['data'].count).to eq user.employees.count
+        expect(json_response.count).to eq Employee.count
       end
     end
   end
@@ -94,7 +94,7 @@ RSpec.describe V1::EmployeesController, type: :controller do
       it 'responds succesfully with updated employee' do
         expect do
           put :update, params: params
-        end.to change{ employee.reload.first_name }.to 'Szczepan'
+        end.to change { employee.reload.first_name }.to 'Szczepan'
 
         expect_success_api_response_for('employee')
       end
@@ -104,7 +104,7 @@ RSpec.describe V1::EmployeesController, type: :controller do
 
         expect do
           put :update, params: params
-        end.not_to change{ employee.reload.first_name }
+        end.not_to change { employee.reload.first_name }
 
         expect_error_api_response(404)
       end
@@ -114,7 +114,7 @@ RSpec.describe V1::EmployeesController, type: :controller do
 
         expect do
           put :update, params: params
-        end.not_to change{ employee.reload.first_name }
+        end.not_to change { employee.reload.first_name }
 
         expect_error_api_response(422)
       end
@@ -141,7 +141,7 @@ RSpec.describe V1::EmployeesController, type: :controller do
       it 'responds with error when employee not found' do
         expect do
           delete :destroy, params: { id: 0 }
-        end.not_to change{ user.employees.count }
+        end.not_to change { user.employees.count }
 
         expect_error_api_response(404)
       end
@@ -149,7 +149,7 @@ RSpec.describe V1::EmployeesController, type: :controller do
       it 'deletes employee and rsponds with 204' do
         expect do
           delete :destroy, params: { id: employee.id }
-        end.to change{ user.employees.count }.by -1
+        end.to change { user.employees.count }.by(-1)
 
         expect(response).to have_http_status 204
       end

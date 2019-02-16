@@ -1,0 +1,48 @@
+AllCops:
+  TargetRubyVersion: 2.5
+  Exclude:
+    - 'vendor/gems/**/*'
+    - 'db/migrate/*'
+    - 'db/schema.rb'
+    - 'bin/*'
+    - 'tmp/*'
+    - 'node_modules/**/*'
+    - 'Gemfile'
+
+BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+    - 'config/environments/*.rb'
+    - 'config/routes.rb'
+
+LineLength:
+  Enabled: true
+  Max: 120
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false
+
+MethodLength:
+  Enabled: true
+  Max: 25
+
+Style/BlockComments:
+  Enabled: false
+
+Style/ExpandPathArguments:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 20
+
+Layout/AlignParameters:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
