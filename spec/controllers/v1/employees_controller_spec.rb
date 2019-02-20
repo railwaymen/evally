@@ -1,11 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe V1::EmployeesController, type: :controller do
-
   let(:user) { create(:user_with_employees) }
 
-  describe '#index'do
-
+  describe '#index' do
     context 'when unauthorized' do
       it 'expectes to return 401 response' do
         sign_out
@@ -152,6 +150,56 @@ RSpec.describe V1::EmployeesController, type: :controller do
         end.to change { user.employees.count }.by(-1)
 
         expect(response).to have_http_status 204
+      end
+    end
+  end
+
+  describe '#chart' do
+    let(:user) { create(:user) }
+
+    context 'when unauthorized' do
+      it 'is not allowed to get chart data' do
+        sign_out
+
+        get :chart
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      before(:each) { sign_in user }
+
+      it 'returns empty hash if no data' do
+        get :chart
+        expect(response).to have_http_status 200
+
+        expect(json_response).to be_blank
+      end
+
+      it 'returns data with specified template' do
+        [
+          { group: 'Ruby', position: 'Ruby Developer', amount: 2 },
+          { group: 'Ruby', position: 'Senior Ruby Developer', amount: 3 },
+          { group: 'Ruby', position: 'Junior Ruby Developer', amount: 1 },
+          { group: 'Android', position: 'Senior Android Developer', amount: 4 },
+          { group: 'Android', position: 'Android Developer', amount: 2 },
+          { group: 'Support', position: 'Office Manager', amount: 1 }
+        ].each do |set|
+          set[:amount].times { create(:employee, group: set[:group], position: set[:position]) }
+        end
+
+        get :chart
+        expect(response).to have_http_status 200
+
+        expect(json_response['Android']).to contain_exactly(
+          ['Android Developer', 2], ['Senior Android Developer', 4]
+        )
+
+        expect(json_response['Ruby']).to contain_exactly(
+          ['Junior Ruby Developer', 1], ['Ruby Developer', 2], ['Senior Ruby Developer', 3]
+        )
+
+        expect(json_response['Support']).to contain_exactly(['Office Manager', 1])
       end
     end
   end
