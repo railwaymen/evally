@@ -236,4 +236,81 @@ RSpec.describe V1::EmployeesController, type: :controller do
       end
     end
   end
+
+  describe '#search' do
+    let(:user) { create(:user) }
+
+    context 'when unauthorized' do
+      it 'is not allowed to get unique skills list' do
+        sign_out
+
+        get :search, params: { query: { group: 'rating', name: 'Photoshop', comparator: 'eq', value: 1 } }
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      let(:employee_1) { create(:employee, user: user) }
+      let(:employee_2) { create(:employee, user: user) }
+
+      before(:each) { sign_in user }
+
+      it 'returns empty array if no employees' do
+        get :search, params: { query: { group: 'rating', name: 'Photoshop', comparator: 'eq', value: 1 } }
+
+        expect(response).to have_http_status 200
+        expect(json_response).to be_blank
+      end
+
+      it 'returns found employees' do
+        evaluation_one = create(:evaluation, :completed, employee: employee_1)
+
+        create(
+          :section,
+          :rating,
+          sectionable: evaluation_one,
+          skills: [
+            { name: 'Photoshop', value: 1, needToImprove: false },
+            { name: 'Illustrator', value: 3, needToImprove: false }
+          ]
+        )
+
+        create(
+          :section,
+          :bool,
+          sectionable: evaluation_one,
+          skills: [
+            { name: 'Time', value: false, needToImprove: false }
+          ]
+        )
+
+        evaluation_two = create(:evaluation, :completed, employee: employee_2)
+
+        create(
+          :section,
+          :rating,
+          sectionable: evaluation_two,
+          skills: [
+            { name: 'Photoshop', value: 2, needToImprove: false },
+            { name: 'Illustrator', value: 3, needToImprove: false }
+          ]
+        )
+
+        create(
+          :section,
+          :bool,
+          sectionable: evaluation_two,
+          skills: [
+            { name: 'Time', value: true, needToImprove: false }
+          ]
+        )
+
+        query = { group: 'rating', name: 'Photoshop', comparator: 'eq', value: 1 }
+
+        get :search, params: { query: query }
+
+        expect_success_api_response_for('employees')
+      end
+    end
+  end
 end

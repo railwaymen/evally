@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :evaluation do
     employee
-    state             { 'draft' }
-    template_name     { |n| "Template no.#{n}" }
+    state                     { 'draft' }
+    sequence(:template_name)  { |n| "Template no.#{n}" }
 
     trait :completed do
       state           { 'completed' }

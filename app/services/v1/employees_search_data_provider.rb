@@ -1,6 +1,5 @@
 module V1
   class EmployeesSearchDataProvider
-
     attr_reader :query
 
     def initialize(query)
@@ -14,9 +13,9 @@ module V1
         .where('sections.skills @> ?', [{ name: query_params[:name] }].to_json)
 
       employees.select do |employee|
-        skill = employee.latest_evaluation.sections.collect(&:skills).flatten.find{ |s| s["name"] == query_params[:name] }
-        
-        if correct_value?(skill["value"])
+        skill = employee.latest_evaluation.sections.collect(&:skills).flatten.find { |s| s['name'] == query_params[:name] }
+
+        if correct_value?(skill['value'])
           employee.skill = skill
         end
       end
