@@ -203,4 +203,37 @@ RSpec.describe V1::EmployeesController, type: :controller do
       end
     end
   end
+
+  describe '#skills' do
+    let(:user) { create(:user) }
+
+    context 'when unauthorized' do
+      it 'is not allowed to get unique skills list' do
+        sign_out
+
+        get :skills
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      let!(:template) { create(:draft_template, name: 'S1') }
+      let!(:evaluation) { create(:evaluation_with_sections, :completed) }
+
+      it 'returns list of unique skills' do
+        sign_in user
+
+        get :skills
+        expect(response).to have_http_status 200
+
+        expect(json_response['rating']).to contain_exactly(
+          'Photoshop', 'Illustrator', 'CorelDraw', 'Paint', 'Visual Code'
+        )
+
+        expect(json_response['bool']).to contain_exactly(
+          'Time', 'Cooperation', 'Relations'
+        )
+      end
+    end
+  end
 end

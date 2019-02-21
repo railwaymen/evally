@@ -61,12 +61,14 @@
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["name", "value"],
+              "required": ["name", "value", "needToImprove"],
               "properties": {
 
                 "name": { "type" : "string" },
 
-                "value": { "type" : ["string", "number", "boolean"] }
+                "value": { "type" : ["string", "number", "boolean"] },
+
+                "needToImprove": { "enum" : ["true", "false", true, false] }
               }
             }
           }

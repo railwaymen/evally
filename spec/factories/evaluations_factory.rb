@@ -10,12 +10,39 @@ FactoryBot.define do
     end
 
     factory :evaluation_with_sections do
-      transient do
-        sections_count { 3 }
-      end
+      after(:create) do |ev|
+        create(
+          :section,
+          :rating,
+          sectionable: ev,
+          skills: [
+            { name: 'Photoshop', value: 1, needToImprove: false },
+            { name: 'Illustrator', value: 2, needToImprove: false },
+            { name: 'CorelDraw', value: 3, needToImprove: false },
+            { name: 'Paint', value: 0, needToImprove: false }
+          ]
+        )
 
-      after(:create) do |template, faktory|
-        create_list(:section, faktory.sections_count, sectionable: template)
+        create(
+          :section,
+          :bool,
+          sectionable: ev,
+          skills: [
+            { name: 'Time', value: false, needToImprove: false },
+            { name: 'Cooperation', value: true, needToImprove: false },
+            { name: 'Relations', value: false, needToImprove: false }
+          ]
+        )
+
+        create(
+          :section,
+          :text,
+          sectionable: ev,
+          skills: [
+            { name: 'Competitions', value: 'Lorem ipsum', needToImprove: false },
+            { name: 'Tutorials', value: '', needToImprove: false }
+          ]
+        )
       end
     end
   end
