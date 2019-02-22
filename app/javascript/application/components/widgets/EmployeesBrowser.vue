@@ -34,7 +34,7 @@
           </div>
 
           <div class="browser-form__value">
-            <v-rating v-show="query.group === 'rating'" v-model="query.value" length="3"></v-rating>
+            <v-rating v-show="query.group === 'rating'" v-model="query.value" length="3" hover clearable></v-rating>
           </div>
         </div>
 
@@ -219,8 +219,8 @@ export default {
       .catch(error => {
         this.flash({ error: this.$root.$t('widgets.employees_browser.errors.fetch', { reason: this.renderError(error.response) }) })
       })
-    
+
     this.query = this.$store.getters['BrowserStore/query']
-  },  
+  },
 }
 </script>
