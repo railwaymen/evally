@@ -24,7 +24,7 @@ module V1
     private
 
     def correct_value?(skill_value)
-      val = query_params[:group] == 'rating' ? query_params[:value] : query_params[:value] == 1
+      val = query_params[:group] == 'rating' ? query_params[:value].to_i : query_params[:value].to_i == 1
 
       case query_params[:comparator]
         when 'gteq' then val &.<= skill_value

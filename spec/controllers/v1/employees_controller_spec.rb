@@ -253,18 +253,10 @@ RSpec.describe V1::EmployeesController, type: :controller do
       let(:employee_1) { create(:employee, user: user) }
       let(:employee_2) { create(:employee, user: user) }
 
-      before(:each) { sign_in user }
+      let!(:evaluation_one) { create(:evaluation, :completed, employee: employee_1) }
+      let!(:evaluation_two) { create(:evaluation, :completed, employee: employee_2) }
 
-      it 'returns empty array if no employees' do
-        get :search, params: { query: { group: 'rating', name: 'Photoshop', comparator: 'eq', value: 1 } }
-
-        expect(response).to have_http_status 200
-        expect(json_response).to be_blank
-      end
-
-      it 'returns found employees' do
-        evaluation_one = create(:evaluation, :completed, employee: employee_1)
-
+      let!(:evaluation_one_rating_section) do
         create(
           :section,
           :rating,
@@ -274,7 +266,9 @@ RSpec.describe V1::EmployeesController, type: :controller do
             { name: 'Illustrator', value: 3, needToImprove: false }
           ]
         )
+      end
 
+      let!(:evaluation_one_bool_section) do
         create(
           :section,
           :bool,
@@ -283,9 +277,9 @@ RSpec.describe V1::EmployeesController, type: :controller do
             { name: 'Time', value: false, needToImprove: false }
           ]
         )
+      end
 
-        evaluation_two = create(:evaluation, :completed, employee: employee_2)
-
+      let!(:evaluation_two_rating_section) do
         create(
           :section,
           :rating,
@@ -295,7 +289,9 @@ RSpec.describe V1::EmployeesController, type: :controller do
             { name: 'Illustrator', value: 3, needToImprove: false }
           ]
         )
+      end
 
+      let!(:evaluation_two_bool_section) do
         create(
           :section,
           :bool,
@@ -304,12 +300,77 @@ RSpec.describe V1::EmployeesController, type: :controller do
             { name: 'Time', value: true, needToImprove: false }
           ]
         )
+      end
 
-        query = { group: 'rating', name: 'Photoshop', comparator: 'eq', value: 1 }
+      before(:each) { sign_in user }
 
-        get :search, params: { query: query }
+      it 'returns empty array if no employees with skill' do
+        get :search, params: { query: { group: 'rating', name: 'Unknown', comparator: 'eq', value: 1 } }
 
-        expect_success_api_response_for('employees')
+        expect(response).to have_http_status 200
+        expect(json_response).to be_blank
+      end
+
+      it 'returns correct employees', :aggregate_failures do
+        aggregate_failures 'with Photoshop star equal to 1' do
+          query = { group: 'rating', name: 'Photoshop', comparator: 'eq', value: 1 }
+
+          get :search, params: { query: query }
+
+          expect_success_api_response_for('employees')
+          expect(json_response.length).to eq 1
+
+          expect(json_response.first['id']).to eq employee_1.id
+        end
+
+        aggregate_failures 'with Photoshop star greater than 1' do
+          query = { group: 'rating', name: 'Photoshop', comparator: 'gteq', value: 1 }
+
+          get :search, params: { query: query }
+
+          expect_success_api_response_for('employees')
+          expect(json_response.length).to eq 2
+        end
+
+        aggregate_failures 'with Illustrator star equal to 3' do
+          query = { group: 'rating', name: 'Illustrator', comparator: 'eq', value: 3 }
+
+          get :search, params: { query: query }
+
+          expect_success_api_response_for('employees')
+          expect(json_response.length).to eq 2
+        end
+
+        aggregate_failures 'with Illustrator star lower than 2' do
+          query = { group: 'rating', name: 'Illustrator', comparator: 'lteq', value: 2 }
+
+          get :search, params: { query: query }
+
+          expect_success_api_response_for('employees')
+          expect(json_response.length).to eq 0
+        end
+
+        aggregate_failures 'with Time equal to true' do
+          query = { group: 'bool', name: 'Time', comparator: 'eq', value: 1 } # true -> 1
+
+          get :search, params: { query: query }
+
+          expect_success_api_response_for('employees')
+          expect(json_response.length).to eq 1
+
+          expect(json_response.first['id']).to eq employee_2.id
+        end
+
+        aggregate_failures 'with Time equal to false' do
+          query = { group: 'bool', name: 'Time', comparator: 'eq', value: 0 } # false -> 0
+
+          get :search, params: { query: query }
+
+          expect_success_api_response_for('employees')
+          expect(json_response.length).to eq 1
+
+          expect(json_response.first['id']).to eq employee_1.id
+        end
       end
     end
   end

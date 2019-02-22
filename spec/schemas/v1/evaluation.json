@@ -36,7 +36,9 @@
 
         "state" : { "enum" : ["hired", "experienced", "released"] },
 
-        "released_at" : { "type" : ["string", "null"] }
+        "released_at" : { "type" : ["string", "null"] },
+
+        "skill" : { "type" : ["object", "null"] }
       }
     },
 
