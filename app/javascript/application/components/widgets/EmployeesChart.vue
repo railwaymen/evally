@@ -1,6 +1,6 @@
 <template>
   <div class="box box--border-primary">
-		<h3 class="box__header">Employees</h3>
+		<h3 class="box__header">{{ $t('widgets.employees_chart.title') }}</h3>
 
     <div class="box__body">
       <div v-if="isDataEmpty" class="box__loader">
@@ -51,10 +51,9 @@ export default {
     }),
 
     orderedGroups() {
-      let newGroups = this.groups.sort((a, b) => {
+      return this.groups.sort((a, b) => {
         return a.localeCompare(b)
       })
-      return _.filter(newGroups, name => name !== 'Unassigned').concat(['Unassigned'])
     },
 
     isDataEmpty() {
@@ -80,7 +79,7 @@ export default {
           allowDecimals: false,
           min: 0,
           title: {
-            text: 'People',
+            text: this.$t('widgets.employees_chart.x_axis_label'),
             style: {
               fontSize: '1.4rem',
               fontFamily: 'Muli, sans-serif'
@@ -97,7 +96,7 @@ export default {
           enabled: false
         },
         series: [{
-          name: 'Employees',
+          name: this.$t('widgets.employees_chart.title'),
           data: this.data[this.currentGroup],
           maxPointWidth: 50
         }]
@@ -121,7 +120,7 @@ export default {
         this.data = response.data
       })
       .catch(error => {
-        this.flash({ error: 'Charts data cannot be loaded due to some error.' })
+        this.flash({ error: this.$root.$t('widgets.employees_chart.errors.fetch', { reason: this.renderError(error.response) }) })
       })
   }
 }

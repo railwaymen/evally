@@ -8,13 +8,13 @@ module V1
       render json: V1::UserSerializer.render(current_user), status: 200
     end
 
-    # # POST /v1/users
+    # # POST /v1/users :ON_HOLD
     #
-    def create
-      user = V1::UserCreatorService.new(attributes: params[:user]).call
+    # def create
+    #   user = V1::UserCreatorService.new(attributes: params[:user]).call
 
-      render json: V1::UserSerializer.render(user), status: 200
-    end
+    #   render json: V1::UserSerializer.render(user), status: 200
+    # end
 
     # # PUT /v1/users/:_
     #

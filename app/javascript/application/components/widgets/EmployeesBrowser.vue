@@ -1,6 +1,6 @@
 <template>
   <div class="box box--border-primary">
-		<h3 class="box__header">Browse</h3>
+		<h3 class="box__header">{{ $t('widgets.employees_browser.title') }}</h3>
 
     <div class="box__body">
       <v-form ref="employeesBrowserForm" @submit.prevent="search" class="browser-form">
@@ -10,7 +10,7 @@
           v-model="query.name"
           :items="skillItems"
           :rules="[vRequired]"
-          label="Skill"
+          :label="$t('widgets.employees_browser.form.skill_input')"
           chips
         >
           <template slot="selection" slot-scope="data">
@@ -34,21 +34,21 @@
           </div>
 
           <div class="browser-form__value">
-            <v-rating v-show="query.group === 'rating'" v-model="query.value" length="3"></v-rating>
+            <v-rating v-show="query.group === 'rating'" v-model="query.value" length="3" hover clearable></v-rating>
           </div>
         </div>
 
         <div v-show="query.group === 'bool'" class="browser-form__buttons">
           <div class="browser-form__value">
             <v-btn-toggle v-show="query.group === 'bool'" v-model="query.value" class="elevation-0">
-              <v-btn :value="0" large flat class="px-3 mx-1">No</v-btn>
-              <v-btn :value="1" large flat class="px-3 mx-1">Yes</v-btn>
+              <v-btn :value="0" large flat class="px-3 mx-1">{{ $t('widgets.employees_browser.form.no') }}</v-btn>
+              <v-btn :value="1" large flat class="px-3 mx-1">{{ $t('widgets.employees_browser.form.yes') }}</v-btn>
             </v-btn-toggle>
           </div>
         </div>
 
         <div class="browser-form__action">
-          <v-btn color="primary" type="submit" block flat>Search</v-btn>
+          <v-btn color="primary" type="submit" block flat>{{ $t('widgets.employees_browser.form.search') }}</v-btn>
         </div>
       </v-form>
 
@@ -67,7 +67,7 @@
             <td class="text-xs-center">
               <v-rating v-if="isRating(props.item.skill.value)" length="3" :value="props.item.skill.value" readonly></v-rating>
               <span v-if="isBool(props.item.skill.value)">
-                {{ props.item.skill.value ? `Yes` : `No` }}
+                {{ props.item.skill.value ? $t('widgets.employees_browser.form.yes') : $t('widgets.employees_browser.form.no') }}
               </span>
             </td>
             <td>
@@ -75,7 +75,7 @@
                 <v-btn @click="showProfile(props.item.id)" slot="activator" color="grey" flat icon>
                   <v-icon>person</v-icon>
                 </v-btn>
-                <span>View profile</span>
+                <span>{{ $t('widgets.employees_browser.table.buttons.view_profile') }}</span>
               </v-tooltip>
             </td>
           </template>
@@ -99,11 +99,11 @@ export default {
         value: 0
       },
       headers: [
-        { text: 'Employee name', align: 'left', value: 'name' },
-        { text: 'Position', value: 'position', align: 'center' },
-        { text: 'Experience', value: 'experience', align: 'center' },
-        { text: 'Skill', value: 'skill', align: 'center' },
-        { text: 'Actions', value: 'name', sortable: false }
+        { text: this.$t('widgets.employees_browser.table.headers.employee_name'), align: 'left', value: 'name' },
+        { text: this.$t('widgets.employees_browser.table.headers.position'), value: 'position', align: 'center' },
+        { text: this.$t('widgets.employees_browser.table.headers.experience'), value: 'experience', align: 'center' },
+        { text: this.$t('widgets.employees_browser.table.headers.skill'), value: 'skill', align: 'center' },
+        { text: this.$t('widgets.employees_browser.table.headers.actions'), value: 'name', sortable: false }
       ]
     }
   },
@@ -112,7 +112,7 @@ export default {
       if (this.$refs.employeesBrowserForm.validate()) {
         this.$store.dispatch('BrowserStore/search', { query: this.query })
           .catch(error => {
-            this.flash({ error: 'Browser error' })
+            this.flash({ error: this.$root.$t('widgets.employees_browser.errors.browse', { reason: this.renderError(error.response) }) })
           })
       }
     },
@@ -142,17 +142,17 @@ export default {
       let years = Math.floor(diff / 365)
 
       let result = [days, this.daysSuffix(days)]
-      if (years > 0) result.unshift(years, this.yearsSuffix(years), 'and')
+      if (years > 0) result.unshift(years, this.yearsSuffix(years), this.$t('widgets.employment.list_items.and'))
 
       return result.join(' ')
     },
 
     daysSuffix(n) {
-      return n === 1 ? 'day' : 'days'
+      return n === 1 ? this.$t('widgets.employment.list_items.day') : this.$t('widgets.employment.list_items.days')
     },
 
     yearsSuffix(n) {
-      return n === 1 ? 'year' : 'years'
+      return n === 1 ? this.$t('widgets.employment.list_items.year') : this.$t('widgets.employment.list_items.years')
     },
 
     isBool(val) {
@@ -200,7 +200,7 @@ export default {
       let output = []
 
       if (this.skills.rating.length > 0) {
-        output.push({ header: 'Rating' }, ...this.skills.rating)
+        output.push({ header: this.$t('widgets.employees_browser.form.rating') }, ...this.skills.rating)
       }
 
       if (this.skills.rating.length > 0 && this.skills.bool.length > 0) {
@@ -208,7 +208,7 @@ export default {
       }
 
       if (this.skills.bool.length > 0) {
-        output.push({ header: 'Yes / No' }, ...this.skills.bool)
+        output.push({ header: this.$t('widgets.employees_browser.form.yes_no') }, ...this.skills.bool)
       }
 
       return output
@@ -217,10 +217,10 @@ export default {
   created() {
     this.$store.dispatch('BrowserStore/skills')
       .catch(error => {
-        this.flash({ error: 'Skills cannot be loaded due to some error.' })
+        this.flash({ error: this.$root.$t('widgets.employees_browser.errors.fetch', { reason: this.renderError(error.response) }) })
       })
-    
+
     this.query = this.$store.getters['BrowserStore/query']
-  },  
+  },
 }
 </script>

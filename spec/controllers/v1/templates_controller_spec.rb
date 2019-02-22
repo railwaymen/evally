@@ -42,8 +42,8 @@ RSpec.describe V1::TemplatesController, type: :controller do
             width: 'half',
             position: 0,
             skills: [
-              { name: 'Skill 1', value: false },
-              { name: 'Skill 2', value: true }
+              { name: 'Skill 1', value: false, needToImprove: false },
+              { name: 'Skill 2', value: true, needToImprove: false }
             ]
           },
           {
@@ -52,8 +52,8 @@ RSpec.describe V1::TemplatesController, type: :controller do
             width: 'half',
             position: 1,
             skills: [
-              { name: 'Skill 3', value: 0 },
-              { name: 'Skill 4', value: 5 }
+              { name: 'Skill 3', value: 0, needToImprove: false },
+              { name: 'Skill 4', value: 5, needToImprove: false }
             ]
           }
         ]
@@ -123,7 +123,7 @@ RSpec.describe V1::TemplatesController, type: :controller do
         end
 
         aggregate_failures 'when section skill does not have value key' do
-          template_params[:sections_attributes][2] = attributes_for(:section,skills: [{ name: 'Lorem ...' }])
+          template_params[:sections_attributes][2] = attributes_for(:section, skills: [{ name: 'Lorem ...' }])
           expect(template_params[:sections_attributes].count).to eq 3
 
           expect do

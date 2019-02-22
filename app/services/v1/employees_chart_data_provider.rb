@@ -9,7 +9,7 @@ module V1
         input.each { |group, counted_position| (output[group] ||= []) << counted_position }
       end
 
-      grouped_result.as_json
+      grouped_result.sort.to_h.as_json
     end
   end
 end

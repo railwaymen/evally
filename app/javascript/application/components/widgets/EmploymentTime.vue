@@ -1,31 +1,35 @@
 <template>
   <div class="box box--border-primary">
-		<h3 class="box__header">Employment time</h3>
+		<h3 class="box__header">{{ $t('widgets.employment.title') }}</h3>
 
     <div v-if="isLoading" class="box__loader">
       <v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
     </div>
 
+    <div v-else-if="sortedEmployees.length < 2" class="employment">
+      <p class="employment__no-data">{{ $t('widgets.employment.no_data_info') }}</p>
+    </div>
+
     <div v-else class="employment">
       <div class="employment__average">
         <h3>{{ averageEmployment() }}</h3>
-        <p>avarage</p>
+        <p>{{ $t('widgets.employment.average') }}</p>
       </div>
 
       <div class="box__body">
         <div class="text-xs-center">
-          <v-btn @click="order = 'desc'" :color="activeBtnColor('desc')" flat>Shortest</v-btn>
-          <v-btn @click="order = 'asc'" :color="activeBtnColor('asc')" flat>Longest</v-btn>
+          <v-btn @click="order = 'desc'" :color="activeBtnColor('desc')" flat>{{ $t('widgets.employment.buttons.shortest') }}</v-btn>
+          <v-btn @click="order = 'asc'" :color="activeBtnColor('asc')" flat>{{ $t('widgets.employment.buttons.longest') }}</v-btn>
         </div>
         <v-list two-line>
           <v-list-tile v-for="(employee, index) in sortedEmployees" :key="employee.id" avatar>
             <v-list-tile-content>
               <v-list-tile-title>
                 {{ index + 1 }}. <strong>{{ employee.fullname() }}</strong>
-                {{ $t('dashboard.common.as') }}
+                {{ $t('widgets.employment.list_items.as') }}
                 <em>{{ employee.position }}</em>
               </v-list-tile-title>
-              <v-list-tile-sub-title>works {{ employment(employee.hired_at) }}</v-list-tile-sub-title>
+              <v-list-tile-sub-title>{{ `${$t('widgets.employment.list_items.works')} ${employment(employee.hired_at)}` }}</v-list-tile-sub-title>
             </v-list-tile-content>
 
             <v-list-tile-action>
@@ -34,7 +38,7 @@
                   <v-btn @click="showProfile(employee.id)" slot="activator" color="grey" flat icon>
                     <v-icon>person</v-icon>
                   </v-btn>
-                  <span>View profile</span>
+                  <span>{{ $t('widgets.employment.view_profile') }}</span>
                 </v-tooltip>
               </div>
             </v-list-tile-action>
@@ -69,7 +73,7 @@ export default {
       let years = Math.floor(diff / 365)
 
       let result = [days, this.daysSuffix(days)]
-      if (years > 0) result.unshift(years, this.yearsSuffix(years), 'and')
+      if (years > 0) result.unshift(years, this.yearsSuffix(years), this.$t('widgets.employment.list_items.and'))
 
       return result.join(' ')
     },
@@ -96,11 +100,11 @@ export default {
     },
 
     daysSuffix(n) {
-      return n === 1 ? 'day' : 'days'
+      return n === 1 ? this.$t('widgets.employment.list_items.day') : this.$t('widgets.employment.list_items.days')
     },
 
     yearsSuffix(n) {
-      return n === 1 ? 'year' : 'years'
+      return n === 1 ? this.$t('widgets.employment.list_items.year') : this.$t('widgets.employment.list_items.years')
     },
 
     activeBtnColor(order) {

@@ -331,6 +331,64 @@ export default {
       see_more: 'See more'
     }
   },
+  overview: {
+    title: 'Overview'
+  },
+  widgets: {
+    employment: {
+      title: 'Employment time',
+      no_data_info: 'You have not enough employees to present this data.',
+      average: 'average',
+      buttons: {
+        shortest: 'shortest',
+        longest: 'longest'
+      },
+      list_items: {
+        as: 'as',
+        works: 'works',
+        day: 'day',
+        days: 'days',
+        and: 'and',
+        year: 'year',
+        years: 'years'
+      },
+      view_profile: 'View profile'
+    },
+    employees_chart: {
+      title: 'Employees',
+      x_axis_label: 'People',
+      errors: {
+        fetch: 'Charts data cannot be loaded due to some error: {reason}'
+      }
+    },
+    employees_browser: {
+      title: 'Browse',
+      errors: {
+        fetch: 'Skills cannot be loaded due to some error: {reason}',
+        browse: 'Employees cannot be found due to some error: {reason}'
+      },
+      form: {
+        skill_input: 'Skill',
+        rating: 'Rating',
+        yes_no: 'Yes / No',
+        yes: 'Yes',
+        no: 'No',
+        search: 'Search'
+      },
+      table: {
+        headers: {
+          employee_name: 'Employee name',
+          position: 'Position',
+          experience: 'Experience',
+          skill: 'Skill',
+          actions: 'Actions'
+        },
+        buttons: {
+          view_profile: 'View profile'
+        }
+      }
+    }
+  },
   navbar: {
     dashboard: 'Dashboard',
     evaluations: 'Evaluations',

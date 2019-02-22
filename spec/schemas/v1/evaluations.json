@@ -1,86 +1,78 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "type": "object",
-  "required": ["data"],
-  "properties" : {
-    "data": {
-      "type": "array",
-      "items": {
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "state", "completed_at", "template_name", "employee", "sections_attributes"],
+    "properties": {
+      "id" : { "type" : ["string", "number"] },
+
+      "state" : { "enum" : ["draft", "completed"] },
+
+      "completed_at": { "type" : ["string", "null"] },
+
+      "updated_at": { "type" : "string" },
+
+      "template_name": { "type" : "string" },
+
+      "employee": {
         "type": "object",
-        "required": ["id", "type", "attributes"],
+        "required": ["id", "first_name", "last_name", "position", "group", "hired_at", "next_evaluation_at", "public_token", "state", "released_at"],
         "properties": {
 
           "id" : { "type" : ["string", "number"] },
 
-          "type" : { "enum" : ["evaluation"] },
+          "first_name" : { "type" : "string" },
 
-          "attributes" : {
-            "type": "object",
-            "required": ["state", "completed_at", "template_name", "employee", "sections_attributes"],
-            "properties": {
+          "last_name" : { "type" : "string" },
 
-              "state" : { "enum" : ["draft", "completed"] },
+          "position" : { "type" : "string" },
 
-              "completed_at": { "type" : ["string", "null"] },
+          "group" : { "type" : "string" },
 
-              "updated_at": { "type" : "string" },
+          "hired_at" : { "type" : "string" },
 
-              "template_name": { "type" : "string" },
+          "next_evaluation_at" : { "type" : ["string", "null"] },
 
-              "employee": {
+          "public_token" : { "type" : "string" },
+
+          "state" : { "enum" : ["hired", "experienced", "released"] },
+
+          "released_at" : { "type" : ["string", "null"] },
+
+          "skill" : { "type" : ["object", "null"] }
+        }
+      },
+
+      "sections_attributes" : {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["id", "name", "group", "width", "position", "skills"],
+          "properties": {
+
+            "id" : { "type" : ["string", "number"] },
+
+            "name": { "type" : "string" },
+
+            "group": { "enum" : ["rating", "bool", "text"] },
+
+            "width": { "enum" : ["full", "half"] },
+
+            "position": { "type" : "number" },
+
+            "skills": {
+              "type": "array",
+              "items": {
                 "type": "object",
-                "required": ["id", "first_name", "last_name", "position", "hired_at", "next_evaluation_at", "state", "released_at"],
+                "required": ["name", "value", "needToImprove"],
                 "properties": {
 
-                  "id" : { "type" : ["string", "number"] },
+                  "name": { "type" : "string" },
 
-                  "first_name" : { "type" : "string" },
+                  "value": { "type" : ["string", "number", "boolean"] },
 
-                  "last_name" : { "type" : "string" },
-
-                  "position" : { "type" : "string" },
-
-                  "hired_at" : { "type" : "string" },
-
-                  "next_evaluation_at" : { "type" : ["string", "null"] },
-
-                  "state" : { "enum" : ["hired", "experienced", "released"] },
-
-                  "released_at" : { "type" : ["string", "null"] }
-                }
-              },
-
-              "sections_attributes" : {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "required": ["id", "name", "group", "width", "position", "skills"],
-                  "properties": {
-
-                    "id" : { "type" : ["string", "number"] },
-
-                    "name": { "type" : "string" },
-
-                    "group": { "enum" : ["rating", "bool", "text"] },
-
-                    "width": { "enum" : ["full", "half"] },
-
-                    "position": { "type" : "number" },
-
-                    "skills": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": ["name", "value"],
-                        "properties": {
-
-                          "name": { "type" : "string" },
-
-                          "value": { "type" : ["string", "number", "boolean"] }
-                        }
-                      }
-                    }
-                  }
+                  "needToImprove": { "enum" : ["true", "false", true, false] }
                 }
               }
             }
