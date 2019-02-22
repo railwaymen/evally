@@ -5,11 +5,12 @@
         v-model="search"
         append-icon="search"
         :label="$t('employees.sidebar.search')"
+        data-cy="employees-search"
         box
       ></v-text-field>
     </div>
 
-    <div class="search-box__list">
+    <div class="search-box__list" data-cy="employees-list">
       <v-list two-line subheader>
         <v-subheader>{{ $t('employees.sidebar.subheader') }}</v-subheader>
 
@@ -18,7 +19,7 @@
         </div>
 
         <template v-else>
-          <v-list-tile v-for="employee in filteredEmployees" :key="employee.id" @click="showEvaluation(employee.id)">
+          <v-list-tile v-for="employee in filteredEmployees" :key="employee.id" @click="pickEmployee(employee.id)" data-cy="employee-list-item">
             <v-list-tile-action>
               <v-icon>person_outline</v-icon>
             </v-list-tile-action>
@@ -53,9 +54,9 @@ export default {
     }
   },
   methods: {
-    showEvaluation(employee_id) {
-      this.$store.commit('EmployeesStore/one', employee_id)
-      this.$store.commit('EvaluationsStore/oneCompleted', employee_id)
+    pickEmployee(id) {
+      this.$store.commit('EmployeesStore/pick', id)
+      // this.$store.commit('EvaluationsStore/oneCompleted', employee_id)
     }
   },
   computed: {
@@ -65,16 +66,17 @@ export default {
     }),
     
     filteredEmployees() {
-      let hired = this.employees.models.filter(employee => employee.state === 'hired')
+      let output = []
 
       if (this.search.length > 0) {
-        return hired.filter(employee => {
-          let fullname = employee.fullname()
-          return fullname.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+        output = this.employees.models.filter(employee => {
+          return employee.fullname().toLowerCase().indexOf(this.search.toLowerCase()) > -1
         })
+      } else {
+        output = this.employees.models
       }
 
-      return hired
+      return output.sort((a, b) => a.last_name.localeCompare(b.last_name))
     }
   }
 }

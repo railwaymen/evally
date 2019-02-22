@@ -1,0 +1,7 @@
+{
+  "baseUrl": "http://localhost:3002",
+  "watchForFileChanges": false,
+  "viewportWidth": 1280,
+  "viewportHeight": 800,
+  "video": false
+}

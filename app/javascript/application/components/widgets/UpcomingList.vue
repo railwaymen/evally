@@ -2,7 +2,7 @@
 	<div class="box box--border-primary">
 		<h3 class="box__header">{{ $t('dashboard.upcoming.title') }}</h3>
 
-		<div class="box__list">
+		<div class="box__body">
 			<div v-if="isLoading" class="box__loader">
 				<v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
 			</div>
@@ -63,7 +63,7 @@ export default {
 	computed: {
 		...mapGetters({
 			employees: 'EmployeesStore/employees',
-			drafts: 'EvaluationsStore/evaluations',
+			drafts: 'EvaluationsStore/evaluationsDrafts',
 			status: 'EvaluationsStore/status',
 			setting: 'AuthStore/setting'
 		}),

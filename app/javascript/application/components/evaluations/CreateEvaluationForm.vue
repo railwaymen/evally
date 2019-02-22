@@ -86,10 +86,10 @@ export default {
         .then(() => {
           this.flash({ success: this.$root.$t('evaluations.flashes.create.success') })
           if (this.options.redirect) this.$router.push({ name: 'evaluations_path' })
+          this.$refs.newEvaluationForm.reset()
           this.$emit('close')
         })
         .catch(error => {
-          console.log(error.response)
           this.flash({ error: this.$root.$t('evaluations.flashes.create.error', { reason: this.renderError(error.response) }) })
         })
     }

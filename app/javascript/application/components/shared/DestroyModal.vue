@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialog" persistent :max-width="options.maxWidth">
-    <v-card class="pa-3" v-if="!!options">
+    <v-card class="pa-3" v-if="!!options" data-cy="delete-modal">
       <v-card-title>
         <span class="headline">{{ $t(`destroy_modals.${options.model || 'default'}.title`) }}</span>
       </v-card-title>
@@ -11,8 +11,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="grey darken-1" flat @click="dialog = false">{{ $t('buttons.cancel') }}</v-btn>
-        <v-btn color="red darken-1" flat @click="destroy">{{ $t('buttons.delete') }}</v-btn>
+        <v-btn color="grey darken-1" flat @click="dialog = false" data-cy="btn-cancel">{{ $t('buttons.cancel') }}</v-btn>
+        <v-btn color="red darken-1" flat @click="destroy" data-cy="btn-delete">{{ $t('buttons.delete') }}</v-btn>
       </v-card-actions>
 
     </v-card>

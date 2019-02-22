@@ -43,7 +43,7 @@ const AuthStore = {
     },
 
     clearStore(state) {
-      let modules = ['Activities', 'Auth', 'Employees', 'Evaluations', 'Sections', 'Templates']
+      let modules = ['Activities', 'Auth', 'Browser', 'Employees', 'Evaluations', 'Sections', 'Templates']
       modules.forEach(module => this.commit(`${module}Store/resetState`))
     }
   },
@@ -82,7 +82,7 @@ const AuthStore = {
       return new Promise((resolve, reject) => {
         axios.get('v1/users/current')
           .then(response => {
-            let session = Utils.prepareSession(response.data.data)
+            let session = Utils.prepareSession(response.data)
 
             localStorage.setItem('ev411y_l4ng', session.setting.lang || 'en')
             context.commit('setSession', session)
@@ -99,7 +99,7 @@ const AuthStore = {
       return new Promise((resolve, reject) => {
         axios.put('v1/users/current', data)
           .then(response => {
-            let user = new User(Utils.transformModel(response.data.data))
+            let user = new User(response.data)
 
             context.commit('updateSetting', user.setting)
 
@@ -132,7 +132,7 @@ const AuthStore = {
       return new Promise((resolve, reject) => {
         axios.put('v1/settings/current', data)
           .then(response => {
-            let user = new User(Utils.transformModel(response.data.data))
+            let user = new User(response.data)
 
             localStorage.setItem('ev411y_l4ng', user.setting.lang || 'en')
             context.commit('updateSetting', user.setting)

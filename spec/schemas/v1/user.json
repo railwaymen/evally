@@ -1,44 +1,27 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
-  "required": ["data"],
+  "required": ["email", "first_name", "last_name"],
   "properties" : {
-    "data": {
-      "type": "object",
-      "required": ["id", "type", "attributes"],
+    "email" : { "type" : "string" },
+
+    "first_name" : { "type" : "string" },
+
+    "last_name" : { "type" : "string" },
+
+    "setting" : {
+      "type" : "object",
+      "required": ["default_draft_items", "default_upcoming_items", "default_next_evaluation_time", "public_view_enabled", "lang"],
       "properties": {
+        "default_draft_items": { "type" : "number" },
 
-        "id" : { "type" : ["string", "number"] },
+        "default_upcoming_items": { "type" : "number" },
 
-        "type" : { "enum" : ["user"] },
+        "default_next_evaluation_time": { "type" : "number" },
 
-        "attributes" : {
-          "type": "object",
-          "required": ["email", "first_name", "last_name"],
-          "properties": {
+        "public_view_enabled": { "type" : "boolean" },
 
-            "email" : { "type" : "string" },
-
-            "first_name" : { "type" : "string" },
-
-            "last_name" : { "type" : "string" },
-
-            "setting" : {
-              "type" : "object",
-              "required": ["default_draft_items", "default_upcoming_items", "default_next_evaluation_time", "public_view_enabled"],
-              "properties": {
-
-                "default_draft_items": { "type" : "number" },
-
-                "default_upcoming_items": { "type" : "number" },
-
-                "default_next_evaluation_time": { "type" : "number" },
-
-                "public_view_enabled": { "type" : "boolean" }
-              }
-            }
-          }
-        }
+        "lang": { "type" : "string" }
       }
     }
   }

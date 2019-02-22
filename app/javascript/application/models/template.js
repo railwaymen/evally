@@ -10,17 +10,26 @@ class Template extends Model {
       id: null,
       name: '',
       state: 'draft',
-      evaluations_count: 0,
       sections_attributes: [],
       editable: false
     }
   }
 
+  isCreated() {
+    return this.state === 'created'
+  }
+
+  isDraft() {
+    return this.state === 'draft'
+  }
+
+  isVisible() {
+    return (this.editable && this.isDraft()) || this.isCreated()
+  }
+
   routes() {
     return {
-      save: '/v1/templates',
-      fetch: '/v1/templates/{id}',
-      delete: '/v1/templates/{id}'
+      fetch: '/v1/templates/{id}'
     }
   }
 

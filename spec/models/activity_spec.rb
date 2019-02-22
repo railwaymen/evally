@@ -15,7 +15,7 @@ RSpec.describe Activity, type: :model do
     end
 
     it 'expects to render correct description' do
-      expect(activity.description).to eq "Welcome to new employee '#{employee.first_name}'!"
+      expect(activity.description).to eq "Welcome to new employee #{employee.first_name}!"
     end
   end
 end

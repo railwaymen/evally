@@ -11,24 +11,44 @@ class Employee extends Model {
       first_name: '',
       last_name: '',
       position: '',
+      group: 'Unassigned',
       hired_at: null,
       next_evaluation_at: null,
       public_token: null,
       state: 'hired',
-      released_at: null
-    }
-  }
-
-  routes() {
-    return {
-      save: '/v1/employees',
-      fetch: '/v1/employees/{id}',
-      delete: '/v1/employees/{id}'
+      released_at: null,
+      evaluation: {}
     }
   }
 
   fullname() {
     return [this.first_name, this.last_name].join(' ').trim()
+  }
+
+  haveEvaluation() {
+    return !!this.evaluation.id
+  }
+
+  isExperienced() {
+    return this.state === 'experienced'
+  }
+
+  isHired() {
+    return this.state === 'hired'
+  }
+
+  isReleased() {
+    return this.state === 'released'
+  }
+
+  withoutEvaluation() {
+    return _.omit(this.attributes, 'evaluation')
+  }
+
+  routes() {
+    return {
+      fetch: '/v1/employees/{id}'
+    }
   }
 }
 

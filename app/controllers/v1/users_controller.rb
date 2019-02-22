@@ -5,23 +5,23 @@ module V1
     # # GET /v1/users/:_
     #
     def show
-      render json: V1::UserSerializer.new(current_user).serialized_json, status: 200
+      render json: V1::UserSerializer.render(current_user), status: 200
     end
 
-    # # POST /v1/users
+    # # POST /v1/users :ON_HOLD
     #
-    def create
-      user = V1::UserCreatorService.new(attributes: params[:user]).call
+    # def create
+    #   user = V1::UserCreatorService.new(attributes: params[:user]).call
 
-      render json: V1::UserSerializer.new(user).serialized_json, status: 200
-    end
+    #   render json: V1::UserSerializer.render(user), status: 200
+    # end
 
     # # PUT /v1/users/:_
     #
     def update
       user = V1::UserUpdaterService.new(attributes: params[:user], user: current_user).call
 
-      render json: V1::UserSerializer.new(user).serialized_json, status: 200
+      render json: V1::UserSerializer.render(user), status: 200
     end
 
     # # PUT /v1/users/:_/password

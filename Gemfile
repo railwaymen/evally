@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.5.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
@@ -62,7 +62,7 @@ group :development, :test do
   gem 'simplecov', '~> 0.16.1'
 
   # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
+  # gem 'sqlite3'
 end
 
 group :development do
@@ -83,8 +83,8 @@ end
 # AASM is a continuation of the acts-as-state-machine rails plugin
 # gem 'aasm', '~> 5.0', '>= 5.0.1'
 
-# Build JSON APIs with ease.
-gem 'fast_jsonapi', '~> 1.3'
+# JSON Object Presenter for Ruby
+gem 'blueprinter', '~> 0.12.0'
 
 # JWT User Authentication
 gem 'rails_jwt_auth', '~> 0.23.0'

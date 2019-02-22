@@ -57,7 +57,7 @@
                   <v-list two-line subheader>
                     <v-subheader>{{ $t('archive.sidebar.evaluations_subheader', { count: evaluations.length }) }}</v-subheader>
 
-                    <v-list-tile v-for="evaluation in evaluations" :key="evaluation.id" @click="showEvaluation(evaluation.id)">
+                    <v-list-tile v-for="evaluation in evaluations" :key="evaluation.id" @click="pickEvaluation(evaluation.id)">
                       <v-list-tile-content>
                         <v-list-tile-title>{{ evaluation.template_name }}</v-list-tile-title>
                         <v-list-tile-sub-title>{{ evaluation.completed_at | moment('MMMM YYYY') }}</v-list-tile-sub-title>
@@ -97,8 +97,8 @@ export default {
       return evaluations[0].employee
     },
 
-    showEvaluation(evaluation_id) {
-      this.$store.commit('EvaluationsStore/one', evaluation_id)
+    pickEvaluation(id) {
+      this.$store.commit('EvaluationsStore/pick', id)
     }
   },
   computed: {
@@ -128,7 +128,7 @@ export default {
   },
   created() {
     this.$store.dispatch('EvaluationsStore/index', { state: ['completed', 'archived'] })
-      .catch( error => {
+      .catch(error => {
         this.flash({ error: this.$root.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
   },

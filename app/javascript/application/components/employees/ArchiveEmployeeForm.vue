@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-4">
+  <v-card class="pa-4" data-cy="archive-modal">
     <v-card-title>
       <span class="headline">{{ $t('employees.forms.archive.title') }}</span>
     </v-card-title>
@@ -13,8 +13,8 @@
 
         <v-form ref="archiveEmployee">
           <v-radio-group v-model="state" class="pt-3 text-xs-center" row>
-            <v-radio :label="$t('employees.forms.archive.too_experienced')" value="experienced"></v-radio>
-            <v-radio :label="$t('employees.forms.archive.released')" value="released"></v-radio>
+            <v-radio :label="$t('employees.forms.archive.too_experienced')" value="experienced" data-cy="radio-experienced"></v-radio>
+            <v-radio :label="$t('employees.forms.archive.released')" value="released" data-cy="radio-released"></v-radio>
           </v-radio-group>
 
           <div v-if="isReleasedSet" class="date">
@@ -52,8 +52,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="grey darken-1" flat @click="cancel">{{ $t('buttons.cancel') }}</v-btn>
-        <v-btn color="green darken-1" @click="archiveEmployee" :disabled="isBtnDisabled" flat>{{ $t('buttons.archive') }}</v-btn>
+        <v-btn color="grey darken-1" flat @click="cancel" data-cy="btn-cancel">{{ $t('buttons.cancel') }}</v-btn>
+        <v-btn color="green darken-1" @click="archiveEmployee" :disabled="isBtnDisabled" data-cy="btn-submit" flat>{{ $t('buttons.archive') }}</v-btn>
       </v-card-actions>
     </v-form>
 
@@ -80,16 +80,20 @@ export default {
     },
 
     archiveEmployee() {
-      this.employee.state = this.state
-      if (this.state === 'released') this.employee.released_at = this.released_at
+      this.employee.set('state', this.state)
+      if (this.state === 'released') this.employee.set('released_at', this.released_at)
 
-      this.$store.dispatch('EmployeesStore/update', { employee: this.employee.attributes })
+      this.$store.dispatch('EmployeesStore/update', { employee: this.employee.withoutEvaluation() })
         .then(() => {
           this.flash({ success: this.$root.$t('employees.flashes.archive.success') })
+
+          this.$store.commit('EmployeesStore/clear')
+
           this.$emit('close')
         })
         .catch(error => {
           this.flash({ error: this.$root.$t('employees.flashes.archive.error', { reason: this.renderError(error.response) }) })
+          this.employee.reset()
         })
     }
   },

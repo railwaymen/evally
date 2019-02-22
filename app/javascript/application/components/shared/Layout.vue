@@ -21,19 +21,19 @@
       </v-btn> -->
 
       <v-menu transition="slide-y-transition" offset-y>
-        <span class="toolbar-profile" slot="activator" v-ripple>
+        <span class="toolbar-profile" slot="activator" data-cy="profile-btn" v-ripple>
           <v-avatar class="toolbar-profile__avatar" color="primary" size="32">
-            <span class="white--text body-1">{{ user.initials() }}</span>
+            <span class="white--text body-1" data-cy="profile-initials">{{ user.initials() }}</span>
           </v-avatar>
-          <span class="toolbar-profile__fullname">{{ user.fullname() }}</span>
+          <span class="toolbar-profile__fullname" data-cy="profile-fullname">{{ user.fullname() }}</span>
           <v-icon class="toolbar-profile__arrow" size="24">
             expand_more
           </v-icon>
         </span>
 
-        <v-list>
+        <v-list class="toolbar-menu" data-cy="profile-menu">
           <template v-if="$vuetify.breakpoint.mdAndDown">
-            <v-list-tile v-for="tab in tabs" :key="`tab_${tab.id}`" :to="{ name: tab.path }" exact>
+            <v-list-tile v-for="tab in tabs" :key="`tab-${tab.id}`" :to="{ name: tab.path }" exact>
               <v-list-tile-action>
                 <v-icon>{{ tab.icon }}</v-icon>
               </v-list-tile-action>
@@ -43,7 +43,7 @@
             <v-divider class="my-2"></v-divider>
           </template>
 
-          <v-list-tile v-for="item in items" :key="`item_${item.id}`" :to="{ name: item.path }" exact>
+          <v-list-tile v-for="item in items" :key="`item_${item.id}`"  :data-cy="`li-${item.name}`" :to="{ name: item.path }" exact>
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -51,7 +51,7 @@
           </v-list-tile>
 
           <!-- Log out list item -->
-          <v-list-tile @click="logout">
+          <v-list-tile @click="logout" data-cy="li-logout">
             <v-list-tile-action>
               <v-icon>last_page</v-icon>
             </v-list-tile-action>
@@ -68,7 +68,7 @@
         slider-color="primary"
         grow
       >
-        <v-tab v-for="tab in tabs" :key="`tab_${tab.id}`" :to="{ name: tab.path }" exact>
+        <v-tab v-for="tab in tabs" :key="`tab_${tab.id}`" :data-cy="`tab-${tab.name}`" :to="{ name: tab.path }" exact>
           <v-icon>{{ tab.icon }}</v-icon>
           <span class="separator"></span>
           {{ $t(`navbar.${tab.name}`) }}
@@ -99,7 +99,8 @@ export default {
         { id: 10, name: 'evaluations', icon: 'assignment_turned_in', path: 'evaluations_path' },
         { id: 20, name: 'employees', icon: 'people', path: 'employees_path' },
         { id: 30, name: 'templates', icon: 'list_alt', path: 'templates_path' },
-        { id: 40, name: 'archive', icon: 'archive', path: 'employees_archive_path' }
+        { id: 40, name: 'archive', icon: 'archive', path: 'employees_archive_path' },
+        { id: 50, name: 'overview', icon: 'track_changes', path: 'overview_path' }
       ],
       items: [
         { id: 0, name: 'settings', icon: 'settings', path: 'general_settings_path' }
@@ -121,7 +122,7 @@ export default {
     },
     logout () {
       this.$store.dispatch('AuthStore/logOut').then(() => {
-        this.flash({ success: 'You have been logged out succesfully' })
+        this.flash({ success: 'You have been logged out succesfully.' })
         this.$router.push({ name: 'landing_page_path' })
       })
     }

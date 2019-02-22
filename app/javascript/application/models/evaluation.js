@@ -12,15 +12,29 @@ class Evaluation extends Model {
       completed_at: null,
       template_name: '',
       sections_attributes: [],
-      employee: null
+      employee: {}
     }
+  }
+
+  employeeName() {
+    return [this.employee.first_name, this.employee.last_name].join(' ').trim()
+  }
+
+  isCompleted() {
+    return !!this.completed_at && this.state === 'completed'
+  }
+
+  isDraft() {
+    return !this.completed_at && this.state === 'draft'
+  }
+
+  withoutEmployee() {
+    return _.omit(this.attributes, 'employee')
   }
 
   routes() {
     return {
-      save: '/v1/evaluations',
-      fetch: '/v1/evaluations/{id}',
-      delete: '/v1/evaluations/{id}'
+      fetch: '/v1/evaluations/{id}'
     }
   }
 }

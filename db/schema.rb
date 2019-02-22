@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_08_230505) do
+ActiveRecord::Schema.define(version: 2019_02_03_132701) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "activities", force: :cascade do |t|
     t.string "action"
@@ -36,6 +39,8 @@ ActiveRecord::Schema.define(version: 2018_12_08_230505) do
     t.string "public_token"
     t.integer "state", default: 0
     t.datetime "released_at"
+    t.string "group", default: "Unassigned"
+    t.index ["group"], name: "index_employees_on_group"
     t.index ["last_name"], name: "index_employees_on_last_name"
     t.index ["public_token"], name: "index_employees_on_public_token", unique: true
     t.index ["user_id"], name: "index_employees_on_user_id"
@@ -56,11 +61,11 @@ ActiveRecord::Schema.define(version: 2018_12_08_230505) do
     t.integer "group"
     t.integer "width"
     t.integer "position"
-    t.json "skills", default: []
     t.string "sectionable_type"
     t.integer "sectionable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "skills", default: []
     t.index ["name"], name: "index_sections_on_name"
     t.index ["sectionable_type", "sectionable_id"], name: "index_sections_on_sectionable_type_and_sectionable_id"
   end

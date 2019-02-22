@@ -4,6 +4,8 @@ class Employee < ApplicationRecord
   belongs_to :user
   has_many :evaluations, dependent: :destroy
 
+  has_one :latest_evaluation, -> { completed.order(completed_at: :desc) }, class_name: 'Evaluation', foreign_key: :employee_id
+
   # # Scopes
   #
   scope :by_state, Proc.new { |state| where(state: state) if state.present? }
@@ -20,6 +22,9 @@ class Employee < ApplicationRecord
   validates :position, presence: true
 
   validates :hired_at, presence: true
+
+  
+  attr_accessor :skill
 
   # # Methods
   #

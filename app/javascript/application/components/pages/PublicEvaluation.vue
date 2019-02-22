@@ -19,7 +19,7 @@
           </div>
 
           <div class="auth-form__action mt-4">
-            <v-btn color="primary" type="submit" outline block round>Enter</v-btn>
+            <v-btn color="primary" type="submit" :disabled="!valid" outline block round>Enter</v-btn>
           </div>
         </v-form>
       </div>
@@ -66,7 +66,7 @@ export default {
   },
   created() {
     this.$store.dispatch('EvaluationsStore/show', this.$route.params.id)
-      .catch( error => {
+      .catch(error => {
         if (error.response && error.response.status === 404) {
           this.$router.push({ name: 'not_found_path' })
         }

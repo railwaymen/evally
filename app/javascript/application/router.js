@@ -61,6 +61,11 @@ export default new Router({
           ]
         },
         {
+          path: 'overview',
+          name: 'overview_path',
+          component: require('@/components/pages/Overview').default,
+        },
+        {
           path: 'settings',
           component: require('@/components/pages/Settings').default,
           children: [

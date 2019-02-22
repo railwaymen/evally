@@ -1,4 +1,4 @@
-# Evally 
+# Evally ![version](https://img.shields.io/badge/version-0.2-green.svg)
 A simple web application for managing periodic skills evaluations of employees.
 
 [![forthebadge](http://forthebadge.com/images/badges/made-with-ruby.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/made-with-vue.svg)](http://forthebadge.com)
@@ -26,12 +26,15 @@ A few of the things you can do with Evally:
 - track upcoming evaluations
 - archive users activities
 - share the latest evaluation by unique and protected link
+- search employees by skills
+- collect employees sorted by the longest and the shortes employment time
+- present employees on chart by groups and positions
 - use one of two available languages: polish, english
 
 ## Requirements
 
 - Ruby 2.5.0+
-- PostgreSQL 9.6+
+- PostgreSQL 10.6+
 - Node.js 6.14.4+
 - Yarn 1.x+
 
@@ -58,29 +61,40 @@ yarn install
 Update db/seeds.rb file to provide credentials for user who will be created during database setup (look at next step).
 
 ```ruby
-user_attributes = {
-  email: 'admin@example.com',
-  password: 'password',
-  first_name: 'Admin',
-  last_name: 'Example'
-}
+User.find_or_create_by!(email: 'admin@example.com') do |u|
+  u.password = 'password'
+  u.first_name = 'John'
+  u.last_name = 'Doe'
+end
 ```
 
 ##### 4. Create and setup the database
 
 Run the following commands to create and setup the database.
 
-```ruby
+```bash
 bundle exec rake db:create
 bundle exec rake db:setup
 ```
 
 ##### 5. Start the Rails server
 
-You can start the rails server using the command given below.
+You can start the rails server in two ways given below:
 
-```ruby
+1. using ~ rails server ~ command
+```bash
 bundle exec rails s
+```
+2. using ~ docker compose ~ command
+```bash
+docker-compose up
+```
+
+IMPORTANT!
+
+Before running docker container set environment variable as below to ensure files to be created by non admin user:
+```bash
+CURRENT_USER=$(id -u):$(id -g)
 ```
 
 And now you can visit the site with the URL http://localhost:3000

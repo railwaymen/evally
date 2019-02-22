@@ -1,13 +1,9 @@
 module V1
-  class TemplateSerializer
-    include FastJsonapi::ObjectSerializer
+  class TemplateSerializer < Blueprinter::Base
+    identifier :id
 
-    attributes :name, :state
+    fields :name, :state
 
-    attribute :sections_attributes do |template|
-      # template.sections.select(:id, :name, :group, :width, :position, :skills).map(&:attributes)
-      template.sections.map{ |section| section.attributes.slice('id', 'name', 'group', 'width', 'position', 'skills') }
-    end
-
+    association :sections, name: :sections_attributes, blueprint: V1::SectionSerializer, default: []
   end
 end

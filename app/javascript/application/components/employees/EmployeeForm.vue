@@ -4,18 +4,20 @@
       <span class="headline">{{ $t(`employees.forms.${options.action}_title`) }}</span>
     </v-card-title>
 
-    <v-form ref="employeeForm">
+    <v-form ref="employeeForm" data-cy="employee-form">
       <v-card-text>
         <v-text-field
           v-model="employee.first_name"
           :rules="[vRequired, vIsString]"
           :label="$t('employees.forms.first_name')"
+          data-cy="employee-first_name"
         ></v-text-field>
 
         <v-text-field
           v-model="employee.last_name"
           :rules="[vRequired, vIsString]"
           :label="$t('employees.forms.last_name')"
+          data-cy="employee-last_name"
         ></v-text-field>
 
         <v-combobox
@@ -25,6 +27,17 @@
           append-icon="expand_more"
           chips
           :label="$t('employees.forms.position')"
+          data-cy="employee-position"
+        ></v-combobox>
+
+        <v-combobox
+          v-model="employee.group"
+          :rules="[vRequired, vIsString]"
+          :items="groups"
+          append-icon="expand_more"
+          chips
+          :label="$t('employees.forms.group')"
+          data-cy="employee-group"
         ></v-combobox>
 
         <v-menu
@@ -45,6 +58,7 @@
             :rules="[vRequired, vIsString]"
             :label="$t('employees.forms.hired_at')"
             prepend-icon="event"
+            data-cy="employee-hired_at"
             readonly
           ></v-text-field>
           <v-date-picker
@@ -88,8 +102,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="grey darken-1" flat @click="closeModal">{{ $t('buttons.cancel') }}</v-btn>
-        <v-btn color="green darken-1" flat @click="sendForm">{{ $t(`buttons.${options.action}`) }}</v-btn>
+        <v-btn color="grey darken-1" flat @click="closeModal" data-cy="employee-cancel">{{ $t('buttons.cancel') }}</v-btn>
+        <v-btn color="green darken-1" flat @click="sendForm" data-cy="employee-submit">{{ $t(`buttons.${options.action}`) }}</v-btn>
       </v-card-actions>
     </v-form>
 
@@ -115,39 +129,41 @@ export default {
     },
 
     sendForm() {
-      if (this.$refs.employeeForm.validate()) {
-        switch(this.options.action) {
-          case 'create':
-            this.$store.dispatch('EmployeesStore/create', { employee: this.employee.attributes })
-              .then(() => {
-                this.flash({ success: this.$root.$t('employees.flashes.create.success') })
-                this.$emit('close')
-              })
-              .catch(error => {
-                this.flash({ error: this.$root.$t('employees.flashes.create.error', { reason: this.renderError(error.response) }) })
-              })
+      if (!this.$refs.employeeForm.validate()) return
 
-            break
+      switch(this.options.action) {
+        case 'create':
+          this.$store.dispatch('EmployeesStore/create', { employee: this.employee.withoutEvaluation() })
+            .then(() => {
+              this.flash({ success: this.$root.$t('employees.flashes.create.success') })
+              this.$emit('close')
+            })
+            .catch(error => {
+              this.flash({ error: this.$root.$t('employees.flashes.create.error', { reason: this.renderError(error.response) }) })
+            })
 
-          case 'edit':
-            this.$store.dispatch('EmployeesStore/update', { employee: this.employee.attributes })
-              .then(() => {
-                this.flash({ success: this.$root.$t('employees.flashes.edit.success') })
-                this.$emit('close')
-              })
-              .catch(error => {
-                this.flash({ error: this.$root.$t('employees.flashes.edit.error', { reason: this.renderError(error.response) }) })
-              })
+          break
 
-            break
-        }
+        case 'edit':
+          this.$store.dispatch('EmployeesStore/update', { employee: this.employee.withoutEvaluation() })
+            .then(() => {
+              this.flash({ success: this.$root.$t('employees.flashes.edit.success') })
+              this.$emit('close')
+            })
+            .catch(error => {
+              this.flash({ error: this.$root.$t('employees.flashes.edit.error', { reason: this.renderError(error.response) }) })
+            })
+
+          break
       }
+
     }
   },
   computed: {
     ...mapGetters({
       employee: 'EmployeesStore/employee',
-      positions: 'EmployeesStore/positions'
+      positions: 'EmployeesStore/positions',
+      groups: 'EmployeesStore/groups'
     }),
 
     hiredDate: {
