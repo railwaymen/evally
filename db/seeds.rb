@@ -14,21 +14,18 @@ User.find_or_create_by!(email: 'admin@example.com') do |u|
   u.last_name = 'Doe'
 end
 
-
-if Rails.env.cypress?
+if Rails.env.development?
   require 'faker'
 
   current_user = User.last
 
-  ['Jan Kowalski', 'John Smith', 'Paul Walker'].each do |employee|
+  5.times do
     Employee.create!(
-      first_name: employee.split.first,
-      last_name: employee.split.last,
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
       position: Faker::Job.title,
       hired_at: Faker::Date.between(1.year.ago, Time.now),
       user: current_user
     )
   end
-
-
 end
