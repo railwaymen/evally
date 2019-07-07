@@ -8,7 +8,7 @@
   "dependencies": {
     "@kazupon/vue-i18n-loader": "^0.3.0",
     "@rails/webpacker": "3.5.5",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "highcharts": "^7.0.1",
     "highcharts-vue": "^1.2.0",
     "moment": "^2.23.0",
@@ -26,7 +26,7 @@
     "vue-turbolinks": "^2.0.3",
     "vue2-filters": "^0.3.0",
     "vuedraggable": "^2.17.0",
-    "vuetify": "^1.4.0",
+    "vuetify": "^1.5.16",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
