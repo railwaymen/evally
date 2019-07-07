@@ -44,7 +44,7 @@ export default {
     },
 
     copyLink() {
-      this.$copyText(this.link).then(() => {
+      this.$copyText(this.link, this.$el).then(() => {
         this.flash({ success: this.$root.$t('employees.flashes.permalink.success') })
         this.$emit('close')
       })

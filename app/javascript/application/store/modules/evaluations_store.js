@@ -24,7 +24,7 @@ const EvaluationsStore = {
   },
   mutations: {
     clear(state) {
-      state.evaluation.clear()
+      state.evaluation = new Evaluation()
       return state
     },
     pick(state, id) {

@@ -39,7 +39,14 @@
       </v-flex>
 
       <v-flex xs12>
-        <draggable element="v-layout" :list="sections.models" :options="draggableOptions" @end="updatePositions" row wrap>
+        <draggable
+          class="layout row wrap"
+          :list="sections.models"
+          handle=".drag-section-btn"
+          draggable=".drag-section"
+          animation="300"
+          @end="updatePositions"
+        >
           <section-box
             v-for="(section, index) in sections.models"
             v-show="!section._destroy"
@@ -72,15 +79,6 @@ import SectionBox from '@/components/templates/SectionBox'
 export default {
   name: 'EmployeeCard',
   components: { Draggable, NewSectionForm, SectionBox },
-  data() {
-    return {
-      draggableOptions: {
-        draggable: '.drag-section',
-        handle: '.drag-section-btn',
-        animation: 300
-      }
-    }
-  },
   methods: {
     updatePositions() {
       this.sections.map((section, index) => section.set('position', index))
