@@ -346,8 +346,8 @@ export default {
       list_items: {
         as: 'as',
         works: 'works',
-        day: 'day',
-        days: 'days',
+        month: 'month',
+        months: 'months',
         and: 'and',
         year: 'year',
         years: 'years'

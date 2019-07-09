@@ -346,8 +346,8 @@ export default {
       list_items: {
         as: 'jako',
         works: 'pracuje od',
-        day: 'dnia',
-        days: 'dni',
+        month: 'miesiąca',
+        months: 'miesięcy',
         and: 'i',
         year: 'roku',
         years: 'lat'
