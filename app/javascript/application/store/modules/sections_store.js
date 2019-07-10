@@ -14,7 +14,7 @@ const SectionsStore = {
   },
   mutations: {
     clear(state) {
-      state.sections = new Section()
+      state.sections = new SectionsList()
       return state
     },
     many(state, data) {

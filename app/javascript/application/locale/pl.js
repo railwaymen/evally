@@ -346,11 +346,9 @@ export default {
       list_items: {
         as: 'jako',
         works: 'pracuje od',
-        month: 'miesiąca',
-        months: 'miesięcy',
+        month: 'miesiąca | miesięcy',
         and: 'i',
-        year: 'roku',
-        years: 'lat'
+        year: 'roku | lat'
       },
       view_profile: 'Zobacz profil'
     },

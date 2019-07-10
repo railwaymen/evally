@@ -29,7 +29,7 @@
                 {{ $t('widgets.employment.list_items.as') }}
                 <em>{{ employee.position }}</em>
               </v-list-tile-title>
-              <v-list-tile-sub-title>{{ `${$t('widgets.employment.list_items.works')} ${employment(employee.hired_at)}` }}</v-list-tile-sub-title>
+              <v-list-tile-sub-title>{{ employment(employee.hired_at) }}</v-list-tile-sub-title>
             </v-list-tile-content>
 
             <v-list-tile-action>
@@ -52,8 +52,11 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import employment from '@/lib/mixins/employment'
+
 export default {
   name: 'EmploymentTime',
+  mixins: [employment],
   data() {
     return {
       order: 'desc'
@@ -64,18 +67,6 @@ export default {
       this.$store.commit('EmployeesStore/pick', id)
 
       this.$router.push({ name: 'employees_path' })
-    },
-
-    employment(hired_at) {
-      let diff = this.$moment().diff(hired_at, 'months')
-
-      let months = diff % 12
-      let years = Math.floor(diff / 12)
-
-      let result = [months, this.monthsSuffix(months)]
-      if (years > 0) result.unshift(years, this.yearsSuffix(years), this.$t('widgets.employment.list_items.and'))
-
-      return result.join(' ')
     },
 
     averageEmployment() {
@@ -93,18 +84,10 @@ export default {
         years = Math.floor(average / 12)
       }
 
-      let result = [months, this.monthsSuffix(months)]
-      if (years > 0) result.unshift(years, this.yearsSuffix(years))
+      let result = [months, this.$tc('widgets.employment.list_items.month', months)]
+      if (years > 0) result.unshift(years, this.$tc('widgets.employment.list_items.year', years))
 
       return result.join(' ')
-    },
-
-    monthsSuffix(n) {
-      return n === 1 ? this.$t('widgets.employment.list_items.month') : this.$t('widgets.employment.list_items.months')
-    },
-
-    yearsSuffix(n) {
-      return n === 1 ? this.$t('widgets.employment.list_items.year') : this.$t('widgets.employment.list_items.years')
     },
 
     activeBtnColor(order) {
