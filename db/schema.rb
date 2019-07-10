@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 2019_02_03_132701) do
     t.string "action"
     t.string "activable_name"
     t.string "activable_type"
-    t.integer "activable_id"
-    t.integer "user_id"
+    t.bigint "activable_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["activable_type", "activable_id"], name: "index_activities_on_activable_type_and_activable_id"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2019_02_03_132701) do
     t.string "position"
     t.datetime "hired_at"
     t.datetime "next_evaluation_at"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "public_token"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2019_02_03_132701) do
   end
 
   create_table "evaluations", force: :cascade do |t|
-    t.integer "employee_id"
+    t.bigint "employee_id"
     t.integer "state", default: 0
     t.datetime "completed_at"
     t.datetime "created_at", null: false
@@ -61,17 +61,17 @@ ActiveRecord::Schema.define(version: 2019_02_03_132701) do
     t.integer "group"
     t.integer "width"
     t.integer "position"
+    t.jsonb "skills", default: []
     t.string "sectionable_type"
-    t.integer "sectionable_id"
+    t.bigint "sectionable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.jsonb "skills", default: []
     t.index ["name"], name: "index_sections_on_name"
     t.index ["sectionable_type", "sectionable_id"], name: "index_sections_on_sectionable_type_and_sectionable_id"
   end
 
   create_table "settings", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.integer "default_draft_items", default: 5
     t.integer "default_upcoming_items", default: 5
     t.integer "default_next_evaluation_time", default: 6
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2019_02_03_132701) do
   create_table "templates", force: :cascade do |t|
     t.string "name"
     t.integer "state", default: 0
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_templates_on_name"
@@ -103,4 +103,9 @@ ActiveRecord::Schema.define(version: 2019_02_03_132701) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "activities", "users"
+  add_foreign_key "employees", "users"
+  add_foreign_key "evaluations", "employees"
+  add_foreign_key "settings", "users"
+  add_foreign_key "templates", "users"
 end
