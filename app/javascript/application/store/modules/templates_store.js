@@ -20,7 +20,7 @@ const TemplatesStore = {
   },
   mutations: {
     clear(state) {
-      state.template.clear()
+      state.template = new Template()
       return state
     },
     one(state, data) {

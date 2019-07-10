@@ -1,4 +1,4 @@
-import { SectionsList } from '@/models/section'
+import { Section, SectionsList } from '@/models/section'
 
 const initialState = () => ({
   sections: new SectionsList()
@@ -14,7 +14,7 @@ const SectionsStore = {
   },
   mutations: {
     clear(state) {
-      state.sections.clear()
+      state.sections = new SectionsList()
       return state
     },
     many(state, data) {

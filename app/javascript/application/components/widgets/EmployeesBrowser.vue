@@ -88,8 +88,11 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import employment from '@/lib/mixins/employment'
+
 export default {
   name: 'EmployeesBrowser',
+  mixins: [employment],
   data() {
     return {
       query: {
@@ -133,26 +136,6 @@ export default {
       this.$router.push({ name: 'employees_path' })
 
       this.$vuetify.goTo(0)
-    },
-
-    employment(hired_at) {
-      let diff = this.$moment().diff(hired_at, 'days')
-
-      let days = diff % 365
-      let years = Math.floor(diff / 365)
-
-      let result = [days, this.daysSuffix(days)]
-      if (years > 0) result.unshift(years, this.yearsSuffix(years), this.$t('widgets.employment.list_items.and'))
-
-      return result.join(' ')
-    },
-
-    daysSuffix(n) {
-      return n === 1 ? this.$t('widgets.employment.list_items.day') : this.$t('widgets.employment.list_items.days')
-    },
-
-    yearsSuffix(n) {
-      return n === 1 ? this.$t('widgets.employment.list_items.year') : this.$t('widgets.employment.list_items.years')
     },
 
     isBool(val) {

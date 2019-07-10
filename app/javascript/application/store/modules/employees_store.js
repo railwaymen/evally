@@ -23,7 +23,7 @@ const EmployeesStore = {
   },
   mutations: {
     clear(state) {
-      state.employee.clear()
+      state.employee = new Employee()
       return state
     },
     pick(state, id) {

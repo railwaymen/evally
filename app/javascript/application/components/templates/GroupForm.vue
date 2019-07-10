@@ -13,7 +13,12 @@
 
     <div class="form-box__items form-box__items--scrollable">
       <div class="skills">
-        <draggable v-model="section.skills" :options="draggableOptions">
+        <draggable
+          v-model="section.skills"
+          draggable='.drag-item'
+          handle='.drag-item-btn'
+          animation="300"
+        >
           <div v-for="(skill, index) in section.skills" :key="index" class="skill drag-item">
             <div class="skill__action">
               <v-icon style="padding: 6px;">{{ groupSets[section.group].icon }}</v-icon>
@@ -50,11 +55,6 @@ export default {
   data() {
     return {
       newSkill: '',
-      draggableOptions: {
-        draggable: '.drag-item',
-        handle: '.drag-item-btn',
-        animation: 300
-      },
       groupSets: {
         'rating': {
           value: 0,

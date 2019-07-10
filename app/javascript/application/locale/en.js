@@ -345,12 +345,10 @@ export default {
       },
       list_items: {
         as: 'as',
-        works: 'works',
-        day: 'day',
-        days: 'days',
+        works: 'works for',
+        month: 'month | months',
         and: 'and',
-        year: 'year',
-        years: 'years'
+        year: 'year | years'
       },
       view_profile: 'View profile'
     },
