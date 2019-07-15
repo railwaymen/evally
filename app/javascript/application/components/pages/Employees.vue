@@ -4,17 +4,6 @@
       <v-flex>
         <h2 class="panel__heading">{{ $t('employees.title') }}</h2>
       </v-flex>
-
-      <v-flex>
-        <div class="panel__action-bar">
-          <v-tooltip bottom>
-            <v-btn @click="show" color="green" slot="activator" data-cy="btn-new" icon flat>
-              <v-icon>add</v-icon>
-            </v-btn>
-            <span>{{ $t('employees.buttons.add_new') }}</span>
-          </v-tooltip>
-        </div>
-      </v-flex>
     </v-layout>
 
     <div class="panel__content">
