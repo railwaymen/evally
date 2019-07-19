@@ -2,18 +2,7 @@
   <section class="panel">
     <v-layout row>
       <v-flex>
-        <h2 class="panel__heading">{{ $t('employees.title') }}</h2>
-      </v-flex>
-
-      <v-flex>
-        <div class="panel__action-bar">
-          <v-tooltip bottom>
-            <v-btn @click="show" color="green" slot="activator" data-cy="btn-new" icon flat>
-              <v-icon>add</v-icon>
-            </v-btn>
-            <span>{{ $t('employees.buttons.add_new') }}</span>
-          </v-tooltip>
-        </div>
+        <h2 @click="show" class="panel__heading">{{ $t('employees.title') }}</h2>
       </v-flex>
     </v-layout>
 
