@@ -2,7 +2,7 @@
   <section class="panel">
     <v-layout row>
       <v-flex>
-        <h2 @click="show" class="panel__heading">{{ $t('employees.title') }}</h2>
+        <h2 class="panel__heading">{{ $t('employees.title') }}</h2>
       </v-flex>
     </v-layout>
 
@@ -22,11 +22,6 @@ import EmployeesTable from '@/components/employees/EmployeesTable'
 export default {
   name: 'Employees',
   components: { EmployeesTable },
-  methods: {
-    show() {
-      console.log(this.employees.models)
-    }
-  },
   computed: {
     ...mapGetters({
       employees: 'EmployeesStore/employees',

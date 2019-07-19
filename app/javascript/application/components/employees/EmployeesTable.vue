@@ -33,7 +33,7 @@
 
               <td class="text-xs-right">
                 <v-tooltip bottom>
-                  <v-btn slot="activator" color="grey" flat icon>
+                  <v-btn slot="activator" color="grey" :to="{ name: 'employee_path', params: { id: props.item.id } }" flat icon>
                     <v-icon>person</v-icon>
                   </v-btn>
                   <span>Show profile</span>

@@ -40,6 +40,11 @@ export default new Router({
           component: require('@/components/pages/Employees').default,
         },
         {
+          path: 'employees/:id',
+          name: 'employee_path',
+          component: require('@/components/pages/Employee').default,
+        },
+        {
           path: 'templates',
           name: 'templates_path',
           component: require('@/components/pages/Templates').default,

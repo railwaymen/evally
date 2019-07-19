@@ -12,6 +12,15 @@ module V1
       render json: V1::EmployeeSerializer.render(employees, view: :evaluated), status: 200
     end
 
+    # GET /v1/employees/:id
+    #
+    def show
+      employee = Employee.includes(:latest_evaluation).hired.find_by(id: params[:id])
+      raise V1::ErrorResponderService.new(:record_not_found, 404) unless employee
+
+      render json: V1::EmployeeSerializer.render(employee, view: :evaluated), status: 200
+    end
+
     # GET /v1/employees/chart
     #
     def chart
