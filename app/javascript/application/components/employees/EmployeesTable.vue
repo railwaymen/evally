@@ -29,7 +29,9 @@
               <td class="text-xs-center">{{ props.item.position }}</td>
               <td class="text-xs-center">{{ props.item.group }}</td>
               <td class="text-xs-center">{{ props.item.hired_at | moment("MMMM YYYY") }}</td>
-              <td class="text-xs-center">{{ props.item.evaluation.completed_at | moment("MMM DD, YYYY") }}</td>
+              <td class="text-xs-center">
+                {{ props.item.evaluation.completed_at ? $moment(props.item.evaluation.completed_at).format("MMM DD, YYYY") : '---' }}
+              </td>
 
               <td class="text-xs-right">
                 <v-tooltip bottom>

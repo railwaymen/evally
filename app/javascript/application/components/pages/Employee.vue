@@ -7,28 +7,12 @@
 
       <v-flex>
         <div class="panel__action-bar">
-          <v-tooltip class="divider-after" bottom>
-            <v-btn slot="activator" data-cy="btn-sidebar-toggle" :to="{ name: 'employees_path' }" icon flat exact>
-              <v-icon>undo</v-icon>
+          <v-tooltip v-for="item in menuItems" :key="`item_${item.id}`" bottom>
+            <v-btn @click="item.action" :color="item.color" slot="activator" :data-cy="`btn-${item.action.name.split(' ')[1]}`" icon flat>
+              <v-icon>{{ item.icon }}</v-icon>
             </v-btn>
-            <span>Back</span>
+            <span>{{ $t(`employees.buttons.${item.name}`) }}</span>
           </v-tooltip>
-
-          <template v-if="employee.isExisting()">
-            <v-tooltip bottom>
-              <v-btn @click="permalink" slot="activator" data-cy="btn-permalink" icon flat>
-                <v-icon>link</v-icon>
-              </v-btn>
-              <span>{{ $t('employees.buttons.permalink') }}</span>
-            </v-tooltip>
-
-            <v-tooltip v-for="item in menuItems" :key="`item_${item.id}`" bottom>
-              <v-btn @click="item.action" :color="item.color" slot="activator" :data-cy="`btn-${item.action.name.split(' ')[1]}`" icon flat>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-btn>
-              <span>{{ $t(`employees.buttons.${item.name}`) }}</span>
-            </v-tooltip>
-          </template>
         </div>
       </v-flex>
     </v-layout>
@@ -53,9 +37,11 @@ export default {
   data() {
     return {
       menuItems: [
-        { id: 0, name: 'edit', icon: 'edit', action: this.edit, color: 'black' },
-        { id: 10, name: 'archive', icon: 'how_to_vote', action: this.archive, color: 'black' },
-        { id: 20, name: 'delete', icon: 'delete', action: this.remove, color: 'red' }
+        { id: 0, name: 'back', icon: 'undo', action: this.back, color: 'black' },
+        { id: 1, name: 'permalink', icon: 'link', action: this.permalink, color: 'black' },
+        { id: 2, name: 'edit', icon: 'edit', action: this.edit, color: 'black' },
+        { id: 3, name: 'archive', icon: 'how_to_vote', action: this.archive, color: 'black' },
+        { id: 4, name: 'delete', icon: 'delete', action: this.remove, color: 'red' }
       ]
     }
   },
@@ -74,6 +60,11 @@ export default {
 
     remove() {
       openerBus.openDestroyModal({ model: 'employee', action: 'delete', maxWidth: 500 })
+    },
+
+    back() {
+      this.$store.commit('EvaluationsStore/clear')
+      this.$router.push({ name: 'employees_path' })
     }
   },
   computed: {
