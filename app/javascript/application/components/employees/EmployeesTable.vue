@@ -10,12 +10,6 @@
         />
       </v-flex>
 
-      <v-flex xs8>
-        <div class="employees__actions">
-          <v-btn @click="build" color="green" flat>New employee</v-btn>
-        </div>
-      </v-flex>
-
       <v-flex xs12>
         <div class="employees__table">
           <v-data-table
@@ -76,11 +70,6 @@ export default {
     }
   },
   methods: {
-    build() {
-      this.$store.commit('EmployeesStore/clear')
-      openerBus.openFormModal({ model: 'employee', action: 'create', maxWidth: 500 })
-    },
-
     edit(employee_id) {
       this.$store.commit('EmployeesStore/pick', employee_id)
       openerBus.openFormModal({ model: 'employee', action: 'edit', maxWidth: 500 })
