@@ -29,7 +29,7 @@
                 {{ $t('widgets.employment.list_items.as') }}
                 <em>{{ employee.position }}</em>
               </v-list-tile-title>
-              <v-list-tile-sub-title>{{ `${$t('widgets.employment.list_items.works')} ${employment(employee.hired_at)}` }}</v-list-tile-sub-title>
+              <v-list-tile-sub-title>{{ employment(employee.hired_at) }}</v-list-tile-sub-title>
             </v-list-tile-content>
 
             <v-list-tile-action>
@@ -52,8 +52,11 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import employment from '@/lib/mixins/employment'
+
 export default {
   name: 'EmploymentTime',
+  mixins: [employment],
   data() {
     return {
       order: 'desc'
@@ -66,45 +69,34 @@ export default {
       this.$router.push({ name: 'employees_path' })
     },
 
-    employment(hired_at) {
-      let diff = this.$moment().diff(hired_at, 'days')
-
-      let days = diff % 365
-      let years = Math.floor(diff / 365)
-
-      let result = [days, this.daysSuffix(days)]
-      if (years > 0) result.unshift(years, this.yearsSuffix(years), this.$t('widgets.employment.list_items.and'))
-
-      return result.join(' ')
-    },
-
     averageEmployment() {
-      let daysDurations = _.map(this.employees.models, employee => {
-        return this.$moment().diff(employee.hired_at, 'days')
+      let monthsDurations = _.map(this.employees.models, employee => {
+        return this.$moment().diff(employee.hired_at, 'months')
       })
 
-      let days = 0
+      let months = 0
       let years = 0
 
-      if (daysDurations.length > 0) {
-        let average = Math.floor(daysDurations.reduce((a, b) => a + b) / daysDurations.length)
+      if (monthsDurations.length > 0) {
+        let average = Math.floor(monthsDurations.reduce((a, b) => a + b) / monthsDurations.length)
 
-        days = average % 365
-        years = Math.floor(average / 365)
+        months = average % 12
+        years = Math.floor(average / 12)
       }
 
-      let result = [days, this.daysSuffix(days)]
-      if (years > 0) result.unshift(years, this.yearsSuffix(years))
+      // up to 1 year
+      if (years === 0 && months >= 0) return [months, this.$tc('widgets.employment.list_items.month', months)].join(' ')
 
-      return result.join(' ')
-    },
+      // full years case
+      if (years > 0 && months === 0) return [years, this.$tc('widgets.employment.list_items.year', years)].join(' ')
 
-    daysSuffix(n) {
-      return n === 1 ? this.$t('widgets.employment.list_items.day') : this.$t('widgets.employment.list_items.days')
-    },
-
-    yearsSuffix(n) {
-      return n === 1 ? this.$t('widgets.employment.list_items.year') : this.$t('widgets.employment.list_items.years')
+      return [
+        years,
+        this.$tc('widgets.employment.list_items.year', years),
+        this.$t('widgets.employment.list_items.and'),
+        months,
+        this.$tc('widgets.employment.list_items.month', months)
+      ].join(' ')
     },
 
     activeBtnColor(order) {

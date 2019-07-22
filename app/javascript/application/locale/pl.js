@@ -60,6 +60,7 @@ export default {
     title: 'Pracownicy',
     buttons: {
       add_new: 'Nowy pracownik',
+      back: 'Wstecz',
       permalink: 'Permalink',
       edit: 'Edytuj pracownika',
       archive: 'Przenieś do archiwum',
@@ -118,10 +119,19 @@ export default {
       select: 'Wybierz pracownika z listy, aby zobaczyć jego aktualną ocenę.',
       not_evaluated: '{name} nie został jeszcze oceniony.'
     },
-    sidebar: {
-      search: 'Szukaj ...',
-      subheader: 'Lista pracowników',
-      no_items: 'Brak pracowników'
+    table: {
+      headers: {
+        employee_name: 'Pracownik',
+        position: 'Stanowisko',
+        team: 'Zespół',
+        hired_at: 'Pracuje od',
+        last_evaluation: 'Ostatnia ocena'
+      },
+      actions: {
+        view_profile: 'Pokaż profil',
+        edit: 'Edytuj'
+      },
+      search: 'Szukaj ...'
     }
   },
   evaluations: {
@@ -346,11 +356,9 @@ export default {
       list_items: {
         as: 'jako',
         works: 'pracuje od',
-        day: 'dnia',
-        days: 'dni',
+        month: 'miesiąca | miesięcy',
         and: 'i',
-        year: 'roku',
-        years: 'lat'
+        year: 'roku | lat'
       },
       view_profile: 'Zobacz profil'
     },

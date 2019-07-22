@@ -60,6 +60,7 @@ export default {
     title: 'Employees',
     buttons: {
       add_new: 'New employee',
+      back: 'Go back',
       permalink: 'Permalink',
       edit: 'Edit employee',
       archive: 'Archive employee',
@@ -118,10 +119,19 @@ export default {
       select: 'Select employee to see his latest evaluation.',
       not_evaluated: '{name} has not been evaluated yet.'
     },
-    sidebar: {
-      search: 'Search ...',
-      subheader: 'List of employees',
-      no_items: 'There are no employees'
+    table: {
+      headers: {
+        employee_name: 'Employee name',
+        position: 'Position',
+        team: 'Team',
+        hired_at: 'Hired at',
+        last_evaluation: 'Last evaluation'
+      },
+      actions: {
+        view_profile: 'Show profile',
+        edit: 'Edit'
+      },
+      search: 'Search ...'
     }
   },
   evaluations: {
@@ -345,12 +355,10 @@ export default {
       },
       list_items: {
         as: 'as',
-        works: 'works',
-        day: 'day',
-        days: 'days',
+        works: 'works for',
+        month: 'month | months',
         and: 'and',
-        year: 'year',
-        years: 'years'
+        year: 'year | years'
       },
       view_profile: 'View profile'
     },

@@ -4,7 +4,7 @@
       <span class="headline">{{ $t(`employees.forms.${options.action}_title`) }}</span>
     </v-card-title>
 
-    <v-form ref="employeeForm" data-cy="employee-form">
+    <v-form ref="employeeForm" data-cy="employee-form" lazy-validation>
       <v-card-text>
         <v-text-field
           v-model="employee.first_name"
@@ -125,6 +125,8 @@ export default {
   methods: {
     closeModal() {
       this.employee.reset()
+
+      this.$refs.employeeForm.resetValidation()
       this.$emit('close')
     },
 

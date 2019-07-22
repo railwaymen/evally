@@ -51,6 +51,7 @@ export default {
           this.flash({ success: this.$root.$t('employees.flashes.delete.success') })
           this.$store.commit('EvaluationsStore/clear')
           this.dialog = false
+          this.$router.push({ name: 'employees_path' })
         })
         .catch(error => {
           this.flash({ error: this.$root.$t('employees.flashes.delete.error', { reason: this.renderError(error.response) }) })

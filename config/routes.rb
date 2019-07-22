@@ -12,7 +12,7 @@ Rails.application.routes.draw do
         get 'today', on: :collection
       end
 
-      resources :employees, only: [:index, :create, :update, :destroy] do
+      resources :employees, only: [:index, :show, :create, :update, :destroy] do
         get 'chart', on: :collection
         post 'search', on: :collection
         get 'skills', on: :collection
