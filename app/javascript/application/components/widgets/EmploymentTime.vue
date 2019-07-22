@@ -84,10 +84,19 @@ export default {
         years = Math.floor(average / 12)
       }
 
-      let result = [months, this.$tc('widgets.employment.list_items.month', months)]
-      if (years > 0) result.unshift(years, this.$tc('widgets.employment.list_items.year', years))
+      // up to 1 year
+      if (years === 0 && months >= 0) return [months, this.$tc('widgets.employment.list_items.month', months)].join(' ')
 
-      return result.join(' ')
+      // full years case
+      if (years > 0 && months === 0) return [years, this.$tc('widgets.employment.list_items.year', years)].join(' ')
+
+      return [
+        years,
+        this.$tc('widgets.employment.list_items.year', years),
+        this.$t('widgets.employment.list_items.and'),
+        months,
+        this.$tc('widgets.employment.list_items.month', months)
+      ].join(' ')
     },
 
     activeBtnColor(order) {
