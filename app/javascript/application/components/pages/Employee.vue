@@ -64,7 +64,7 @@ export default {
 
     back() {
       this.$store.commit('EvaluationsStore/clear')
-      this.$router.push({ name: 'employees_path' })
+      this.$router.back()
     }
   },
   computed: {

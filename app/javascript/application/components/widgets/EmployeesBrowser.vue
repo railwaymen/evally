@@ -72,7 +72,7 @@
             </td>
             <td>
               <v-tooltip bottom>
-                <v-btn @click="showProfile(props.item.id)" slot="activator" color="grey" flat icon>
+                <v-btn :to="{ name: 'employee_path', params: { id: props.item.id } }" slot="activator" color="grey" flat icon>
                   <v-icon>person</v-icon>
                 </v-btn>
                 <span>{{ $t('widgets.employees_browser.table.buttons.view_profile') }}</span>
@@ -129,13 +129,6 @@ export default {
         this.query.group = 'rating'
         this.query.value = 0
       }
-    },
-
-    showProfile(id) {
-      this.$store.commit('EmployeesStore/pick', id)
-      this.$router.push({ name: 'employees_path' })
-
-      this.$vuetify.goTo(0)
     },
 
     isBool(val) {
