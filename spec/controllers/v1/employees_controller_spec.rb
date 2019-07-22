@@ -34,6 +34,35 @@ RSpec.describe V1::EmployeesController, type: :controller do
     end
   end
 
+  describe '#show' do
+    let(:employee) { user.employees.last }
+
+    context 'when unauthorized' do
+      it 'expectes to return 401 response' do
+        sign_out
+
+        get :show, params: { id: employee.id }
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      before(:each) do
+        sign_in user
+      end
+
+      it 'responds succesfully' do
+        get :show, params: { id: employee.id }
+        expect_success_api_response_for('employee')
+      end
+
+      it 'responds with not found error' do
+        get :show, params: { id: 0 }
+        expect_error_api_response(404)
+      end
+    end
+  end
+
   describe '#create' do
     let(:employee_params) { attributes_for(:employee) }
 

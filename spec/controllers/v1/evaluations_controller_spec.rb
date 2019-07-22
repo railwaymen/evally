@@ -28,6 +28,23 @@ RSpec.describe V1::EvaluationsController, type: :controller do
     end
   end
 
+  describe '#evaluation' do
+    let(:employee) { create(:employee) }
+    let(:evaluation) { create(:evaluation_with_sections, state: 'completed', employee: employee) }
+
+    it 'responds succesfully' do
+      evaluation
+
+      get :evaluation, params: { id: employee.public_token }
+      expect_success_api_response_for('evaluation')
+    end
+
+    it 'respond with not found error' do
+      get :evaluation, params: { id: 'random_token' }
+      expect_error_api_response(404)
+    end
+  end
+
   describe '#create' do
     let(:user) { create(:user) }
 
