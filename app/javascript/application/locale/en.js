@@ -60,6 +60,7 @@ export default {
     title: 'Employees',
     buttons: {
       add_new: 'New employee',
+      back: 'Go back',
       permalink: 'Permalink',
       edit: 'Edit employee',
       archive: 'Archive employee',

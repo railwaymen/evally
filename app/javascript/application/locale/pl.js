@@ -60,6 +60,7 @@ export default {
     title: 'Pracownicy',
     buttons: {
       add_new: 'Nowy pracownik',
+      back: 'Wstecz',
       permalink: 'Permalink',
       edit: 'Edytuj pracownika',
       archive: 'Przenieś do archiwum',

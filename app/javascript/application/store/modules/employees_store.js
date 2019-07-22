@@ -30,6 +30,10 @@ const EmployeesStore = {
       state.employee = state.employees.find({ id: id })
       return state
     },
+    one(state, data) {
+      state.employee = new Employee(data)
+      return state
+    },
     many(state, data) {
       state.employees.replace(data)
       state.status = 'ok'
@@ -66,6 +70,20 @@ const EmployeesStore = {
         axios.get(context.state.employees.getFetchURL(), { params: params })
           .then(response => {
             context.commit('many', response.data)
+            resolve()
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+    show(context, employee_id) {
+      return new Promise((resolve, reject) => {
+        context.commit('progress', 'loading')
+
+        axios.get(`/v1/employees/${employee_id}`)
+          .then(response => {
+            context.commit('one', response.data)
             resolve()
           })
           .catch(error => {
