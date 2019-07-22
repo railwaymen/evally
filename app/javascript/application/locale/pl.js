@@ -119,10 +119,19 @@ export default {
       select: 'Wybierz pracownika z listy, aby zobaczyć jego aktualną ocenę.',
       not_evaluated: '{name} nie został jeszcze oceniony.'
     },
-    sidebar: {
-      search: 'Szukaj ...',
-      subheader: 'Lista pracowników',
-      no_items: 'Brak pracowników'
+    table: {
+      headers: {
+        employee_name: 'Pracownik',
+        position: 'Stanowisko',
+        team: 'Zespół',
+        hired_at: 'Pracuje od',
+        last_evaluation: 'Ostatnia ocena'
+      },
+      actions: {
+        view_profile: 'Pokaż profil',
+        edit: 'Edytuj'
+      },
+      search: 'Szukaj ...'
     }
   },
   evaluations: {

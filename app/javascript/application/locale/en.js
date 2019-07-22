@@ -119,10 +119,19 @@ export default {
       select: 'Select employee to see his latest evaluation.',
       not_evaluated: '{name} has not been evaluated yet.'
     },
-    sidebar: {
-      search: 'Search ...',
-      subheader: 'List of employees',
-      no_items: 'There are no employees'
+    table: {
+      headers: {
+        employee_name: 'Employee name',
+        position: 'Position',
+        team: 'Team',
+        hired_at: 'Hired at',
+        last_evaluation: 'Last evaluation'
+      },
+      actions: {
+        view_profile: 'Show profile',
+        edit: 'Edit'
+      },
+      search: 'Search ...'
     }
   },
   evaluations: {

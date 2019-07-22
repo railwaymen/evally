@@ -5,7 +5,7 @@
         <v-text-field
           v-model="search"
           append-icon="search"
-          :label="$t('employees.sidebar.search')"
+          :label="$t('employees.table.search')"
           data-cy="employees-search"
         />
       </v-flex>
@@ -32,14 +32,14 @@
                   <v-btn slot="activator" color="grey" :to="{ name: 'employee_path', params: { id: props.item.id } }" flat icon>
                     <v-icon>person</v-icon>
                   </v-btn>
-                  <span>Show profile</span>
+                  <span>{{ $t('employees.table.actions.view_profile') }}</span>
                 </v-tooltip>
 
                 <v-tooltip bottom>
                   <v-btn @click="edit(props.item.id)" slot="activator" color="grey" flat icon>
                     <v-icon>edit</v-icon>
                   </v-btn>
-                  <span>Edit</span>
+                  <span>{{ $t('employees.table.actions.edit') }}</span>
                 </v-tooltip>
               </td>
             </template>
@@ -60,11 +60,11 @@ export default {
     return {
       search: '',
       headers: [
-        { text: 'Employee name', value: 'last_name' },
-        { text: 'Position', value: 'position', align: 'center' },
-        { text: 'Team', value: 'group', align: 'center' },
-        { text: 'Hired', value: 'hired_at', align: 'center' },
-        { text: 'Last evaluation', value: 'evaluation.completed_at', align: 'center' },
+        { text: this.$t('employees.table.headers.employee_name'), value: 'last_name' },
+        { text: this.$t('employees.table.headers.position'), value: 'position', align: 'center' },
+        { text: this.$t('employees.table.headers.team'), value: 'group', align: 'center' },
+        { text: this.$t('employees.table.headers.hired_at'), value: 'hired_at', align: 'center' },
+        { text: this.$t('employees.table.headers.last_evaluation'), value: 'evaluation.completed_at', align: 'center' },
         { text: '', sortable: false, width: '220' }
       ]
     }
