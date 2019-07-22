@@ -74,6 +74,7 @@ export default {
   },
   created() {
     this.$store.dispatch('EmployeesStore/show', this.$route.params.id)
+      .then(() => this.$vuetify.goTo(0))
       .catch(error => {
         this.flash({ error: this.$root.$t('employees.flashes.fetch.error', { reason: this.renderError(error.response) }) })
       })
