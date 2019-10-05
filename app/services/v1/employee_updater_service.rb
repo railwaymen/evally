@@ -33,7 +33,8 @@ module V1
         :hired_at,
         :next_evaluation_at,
         :state,
-        :released_at
+        :released_at,
+        :position_set_at
       )
     end
 

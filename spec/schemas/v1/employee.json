@@ -23,6 +23,8 @@
 
     "released_at" : { "type" : ["string", "null"] },
 
+    "position_set_at" : { "type" : ["string", "null"] },
+
     "evaluation" : { "type" : "object" },
 
     "skill" : { "type" : ["object", "null"] }
