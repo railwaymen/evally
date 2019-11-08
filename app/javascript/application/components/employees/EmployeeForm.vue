@@ -21,7 +21,7 @@
         ></v-text-field>
 
         <v-combobox
-          v-model="employee.position"
+          v-model="employeePosition"
           :rules="[vRequired, vIsString]"
           :items="positions"
           append-icon="expand_more"
@@ -219,6 +219,17 @@ export default {
       set(date) {
         let nextEvaluationAt = this.$moment(date, 'YYYY-MM')
         this.employee.next_evaluation_at = nextEvaluationAt.isValid() ? nextEvaluationAt.format() : ''
+      }
+    },
+
+    employeePosition: {
+      get() {
+        return this.employee.position
+      },
+
+      set(position) {
+        this.employee.position = position
+        this.employee.position_set_at = ''
       }
     },
 

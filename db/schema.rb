@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_05_190731) do
+ActiveRecord::Schema.define(version: 2019_10_05_193204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,16 @@ ActiveRecord::Schema.define(version: 2019_10_05_190731) do
     t.datetime "updated_at", null: false
     t.string "template_name"
     t.index ["employee_id"], name: "index_evaluations_on_employee_id"
+  end
+
+  create_table "position_changes", force: :cascade do |t|
+    t.string "previous_position", null: false
+    t.string "current_position", null: false
+    t.date "changed_at", null: false
+    t.bigint "employee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_position_changes_on_employee_id"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -107,6 +117,7 @@ ActiveRecord::Schema.define(version: 2019_10_05_190731) do
   add_foreign_key "activities", "users"
   add_foreign_key "employees", "users"
   add_foreign_key "evaluations", "employees"
+  add_foreign_key "position_changes", "employees"
   add_foreign_key "settings", "users"
   add_foreign_key "templates", "users"
 end
