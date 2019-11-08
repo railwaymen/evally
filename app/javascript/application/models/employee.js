@@ -18,7 +18,8 @@ class Employee extends Model {
       state: 'hired',
       released_at: null,
       position_set_at: null,
-      evaluation: {}
+      evaluation: {},
+      position_changes: [],
     }
   }
 

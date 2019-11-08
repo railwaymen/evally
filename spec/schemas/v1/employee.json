@@ -27,6 +27,8 @@
 
     "evaluation" : { "type" : "object" },
 
+    "position_changes" : { "type" : "array" },
+
     "skill" : { "type" : ["object", "null"] }
   }
 }

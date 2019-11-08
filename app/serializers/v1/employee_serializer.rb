@@ -21,6 +21,8 @@ module V1
 
     view :evaluated do
       association :latest_evaluation, name: :evaluation, blueprint: V1::EvaluationSerializer, default: {}
+
+      association :position_changes, blueprint: V1::PositionChangeSerializer, default: []
     end
   end
 end
