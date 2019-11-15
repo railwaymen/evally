@@ -22,7 +22,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
 
 # Middleware that will make Rack-based apps CORS compatible
-gem 'rack-cors', '~> 1.0', '>= 1.0.2'
+gem 'rack-cors', '~> 1.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
