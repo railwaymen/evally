@@ -19,7 +19,15 @@
 
     <div class="panel__content">
       <v-container grid-list-lg fluid>
-        <employee-evaluation-box></employee-evaluation-box>
+        <v-layout wrap row>
+          <v-flex xs10 offset-xs1 lg3 offset-lg0>
+            <positions-history />
+          </v-flex>
+
+          <v-flex xs12 lg9>
+            <employee-evaluation-box />
+          </v-flex>
+        </v-layout>
       </v-container>
     </div>
   </section>
@@ -30,10 +38,11 @@ import { mapGetters } from 'vuex'
 import openerBus from '@/lib/opener_bus'
 
 import EmployeeEvaluationBox from '@/components/employees/EmployeeEvaluationBox'
+import PositionsHistory from '@/components/employees/PositionsHistory'
 
 export default {
   name: 'Employee',
-  components: { EmployeeEvaluationBox },
+  components: { EmployeeEvaluationBox, PositionsHistory },
   data() {
     return {
       menuItems: [
@@ -81,4 +90,3 @@ export default {
   }
 }
 </script>
-

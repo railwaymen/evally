@@ -3,6 +3,7 @@ class Employee < ApplicationRecord
 
   belongs_to :user
   has_many :evaluations, dependent: :destroy
+  has_many :position_changes, dependent: :destroy
 
   has_one :latest_evaluation, -> { completed.order(completed_at: :desc) }, class_name: 'Evaluation', foreign_key: :employee_id
 
@@ -23,12 +24,12 @@ class Employee < ApplicationRecord
 
   validates :hired_at, presence: true
 
-  
+
   attr_accessor :skill
 
   # # Methods
   #
   def fullname
-    [first_name, last_name].compact.join(' ')
+    [first_name, last_name].join(' ')
   end
 end

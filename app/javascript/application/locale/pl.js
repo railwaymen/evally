@@ -84,6 +84,7 @@ export default {
       first_name: 'Imię',
       last_name: 'Nazwisko',
       position: 'Stanowisko',
+      position_set_at: 'Stanowisko od',
       group: 'Grupa',
       hired_at: 'Zatrudniony od',
       next_review: 'Następne review',
@@ -123,6 +124,7 @@ export default {
       headers: {
         employee_name: 'Pracownik',
         position: 'Stanowisko',
+        position_set_at: 'Stanowisko od',
         team: 'Zespół',
         hired_at: 'Pracuje od',
         last_evaluation: 'Ostatnia ocena'

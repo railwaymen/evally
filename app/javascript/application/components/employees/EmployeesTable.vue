@@ -21,6 +21,7 @@
             <template v-slot:items="props">
               <td>{{ props.item.fullname() }}</td>
               <td class="text-xs-center">{{ props.item.position }}</td>
+              <td class="text-xs-center">{{ props.item.position_set_at | moment("MMMM YYYY") }}</td>
               <td class="text-xs-center">{{ props.item.group }}</td>
               <td class="text-xs-center">{{ props.item.hired_at | moment("MMMM YYYY") }}</td>
               <td class="text-xs-center">
@@ -62,6 +63,7 @@ export default {
       headers: [
         { text: this.$t('employees.table.headers.employee_name'), value: 'last_name' },
         { text: this.$t('employees.table.headers.position'), value: 'position', align: 'center' },
+        { text: this.$t('employees.table.headers.position_set_at'), value: 'position_set_at', align: 'center' },
         { text: this.$t('employees.table.headers.team'), value: 'group', align: 'center' },
         { text: this.$t('employees.table.headers.hired_at'), value: 'hired_at', align: 'center' },
         { text: this.$t('employees.table.headers.last_evaluation'), value: 'evaluation.completed_at', align: 'center' },

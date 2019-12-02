@@ -21,7 +21,7 @@
         ></v-text-field>
 
         <v-combobox
-          v-model="employee.position"
+          v-model="employeePosition"
           :rules="[vRequired, vIsString]"
           :items="positions"
           append-icon="expand_more"
@@ -29,6 +29,37 @@
           :label="$t('employees.forms.position')"
           data-cy="employee-position"
         ></v-combobox>
+
+        <v-menu
+          v-if="options.action === 'edit'"
+          ref="positionDateMenu"
+          :close-on-content-click="false"
+          v-model="positionDateMenu"
+          :nudge-right="40"
+          lazy
+          :return-value.sync="positionDate"
+          transition="scale-transition"
+          offset-y
+          full-width
+          min-width="290px"
+        >
+          <v-text-field
+            slot="activator"
+            v-model="positionDate"
+            :rules="[vRequired, vIsString]"
+            :label="$t('employees.forms.position_set_at')"
+            prepend-icon="event"
+            data-cy="employee-position_set_at"
+            readonly
+          ></v-text-field>
+          <v-date-picker
+            v-model="positionDate"
+            @input="$refs.positionDateMenu.save(employee.position_set_at)"
+            :locale="$i18n.locale"
+            no-title
+            scrollable
+          ></v-date-picker>
+        </v-menu>
 
         <v-combobox
           v-model="employee.group"
@@ -119,7 +150,8 @@ export default {
   data() {
     return {
       hiredMenu: false,
-      nextMenu: false
+      nextMenu: false,
+      positionDateMenu: false
     }
   },
   methods: {
@@ -172,7 +204,7 @@ export default {
       get() {
         return this.employee.hired_at ? this.$moment(this.employee.hired_at).format('YYYY-MM-DD') : ''
       },
-      
+
       set(date) {
         let hiredAt = this.$moment(date, 'YYYY-MM-DD')
         this.employee.hired_at = hiredAt.isValid() ? hiredAt.format() : ''
@@ -183,10 +215,32 @@ export default {
       get() {
         return this.$moment(this.employee.next_evaluation_at).format('YYYY-MM')
       },
-      
+
       set(date) {
         let nextEvaluationAt = this.$moment(date, 'YYYY-MM')
         this.employee.next_evaluation_at = nextEvaluationAt.isValid() ? nextEvaluationAt.format() : ''
+      }
+    },
+
+    employeePosition: {
+      get() {
+        return this.employee.position
+      },
+
+      set(position) {
+        this.employee.position = position
+        this.employee.position_set_at = ''
+      }
+    },
+
+    positionDate: {
+      get() {
+        return this.employee.position_set_at ? this.$moment(this.employee.position_set_at).format('YYYY-MM-DD') : ''
+      },
+
+      set(date) {
+        let positionSetAt = this.$moment(date, 'YYYY-MM-DD')
+        this.employee.position_set_at = positionSetAt.isValid() ? positionSetAt.format() : ''
       }
     }
   }

@@ -17,7 +17,9 @@ class Employee extends Model {
       public_token: null,
       state: 'hired',
       released_at: null,
-      evaluation: {}
+      position_set_at: null,
+      evaluation: {},
+      position_changes: [],
     }
   }
 
