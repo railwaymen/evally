@@ -126,6 +126,14 @@ RSpec.describe V1::EmployeesController, type: :controller do
         expect_success_api_response_for('employee')
       end
 
+      it 'expects to log position change' do
+        expect do
+          put :update, params: { id: employee.id, employee: { position: 'New position', position_set_at: Date.today } }
+        end.to change { employee.reload.position_changes.count }.by(1)
+
+        expect_success_api_response_for('employee')
+      end
+
       it 'responds with error when employee not found' do
         params[:id] = 0
 

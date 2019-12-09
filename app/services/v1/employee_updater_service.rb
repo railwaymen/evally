@@ -20,8 +20,12 @@ module V1
         raise V1::ErrorResponderService.new(:invalid_record, 422, @employee.errors.full_messages)
       end
 
-      @employee.evaluations.draft.destroy_all unless @employee.hired?
-      @employee.save!
+      ActiveRecord::Base.transaction do
+        @employee.evaluations.draft.destroy_all unless @employee.hired?
+        log_position_change if @employee.position_changed?
+
+        @employee.save!
+      end
     end
 
     def employee_params
@@ -33,7 +37,8 @@ module V1
         :hired_at,
         :next_evaluation_at,
         :state,
-        :released_at
+        :released_at,
+        :position_set_at
       )
     end
 
@@ -42,5 +47,12 @@ module V1
       @user.activities.create!(action: action, activable: @employee, activable_name: @employee.fullname)
     end
 
+    def log_position_change
+      @employee.position_changes.create!(
+        previous_position: @employee.position_was,
+        current_position: @employee.position,
+        changed_at: employee_params[:position_set_at]
+      )
+    end
   end
 end
