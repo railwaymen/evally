@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception, unless: -> { Rails.env.production? || request.format.json? }
+  protect_from_forgery with: :exception, unless: lambda {
+    Rails.env.production? || request.format.json?
+  }
+
   rescue_from V1::ErrorResponderService, with: :render_error_response
 
   include RailsJwtAuth::WardenHelper
@@ -15,5 +20,4 @@ class ApplicationController < ActionController::Base
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
   end
-
 end

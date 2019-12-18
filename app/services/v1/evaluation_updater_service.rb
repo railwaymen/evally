@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module V1
   class EvaluationUpdaterService
-
     def initialize(attributes:, evaluation:, user:)
       @attributes = attributes
       @evaluation = evaluation
@@ -21,22 +22,36 @@ module V1
       end
 
       if @evaluation.completed?
-        Evaluation.where(employee_id: @evaluation.employee_id, state: :completed).update_all(state: :archived)
+        archive_previous_evaluations
         @evaluation.employee.update!(next_evaluation_at: @attributes[:next_evaluation_at])
       end
 
       @evaluation.save!
     end
 
+    def archive_previous_evaluations
+      Evaluation.where(employee_id: @evaluation.employee_id, state: :completed)
+                .update_all(state: :archived)
+    end
+
     def evaluation_params
-      @attributes.permit(:state, :completed_at, :updated_at, sections_attributes: [:id, skills: [:name, :value, :needToImprove]])
+      @attributes.permit(
+        :state,
+        :completed_at,
+        :updated_at,
+        sections_attributes: [:id, skills: %i[name value needToImprove]]
+      )
     end
 
     def add_activity
       @employee = @evaluation.employee
 
       action = @evaluation.completed? ? 'complete' : 'update'
-      @user.activities.create!(action: action, activable: @evaluation, activable_name: @employee.fullname)
+      @user.activities.create!(
+        action: action,
+        activable: @evaluation,
+        activable_name: @employee.fullname
+      )
     end
   end
 end

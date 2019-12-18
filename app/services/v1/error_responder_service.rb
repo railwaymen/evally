@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module V1
   class ErrorResponderService < StandardError
-
     attr_reader :identifier, :status, :details
 
     def initialize(identifier, status = :bad_request, details = [])

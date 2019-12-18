@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module V1
   class TemplateUpdaterService
-
     def initialize(attributes:, template:, user:)
       @attributes = attributes
       @template = template
@@ -24,12 +25,21 @@ module V1
     end
 
     def template_params
-      @attributes.permit(:name, :state, sections_attributes: [:id, :name, :group, :width, :position, :_destroy, skills: [:name, :value, :needToImprove]])
+      @attributes.permit(
+        :name,
+        :state,
+        sections_attributes: [
+          :id, :name, :group, :width, :position, :_destroy, skills: %i[name value needToImpsrove]
+        ]
+      )
     end
 
     def add_activity
-      @user.activities.create!(action: 'update', activable: @template, activable_name: @template.name)
+      @user.activities.create!(
+        action: 'update',
+        activable: @template,
+        activable_name: @template.name
+      )
     end
-
   end
 end

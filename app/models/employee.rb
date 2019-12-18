@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Employee < ApplicationRecord
   has_secure_token :public_token
 
@@ -5,11 +7,13 @@ class Employee < ApplicationRecord
   has_many :evaluations, dependent: :destroy
   has_many :position_changes, dependent: :destroy
 
-  has_one :latest_evaluation, -> { completed.order(completed_at: :desc) }, class_name: 'Evaluation', foreign_key: :employee_id
+  has_one :latest_evaluation, lambda {
+    completed.order(completed_at: :desc)
+  }, class_name: 'Evaluation', foreign_key: :employee_id, inverse_of: :employee
 
   # # Scopes
   #
-  scope :by_state, Proc.new { |state| where(state: state) if state.present? }
+  scope :by_state, proc { |state| where(state: state) if state.present? }
 
   # # Enums
   #
@@ -23,7 +27,6 @@ class Employee < ApplicationRecord
   validates :position, presence: true
 
   validates :hired_at, presence: true
-
 
   attr_accessor :skill
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module V1
   class PositionChangeSerializer < Blueprinter::Base
     identifier :id

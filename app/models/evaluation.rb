@@ -1,5 +1,6 @@
-class Evaluation < ApplicationRecord
+# frozen_string_literal: true
 
+class Evaluation < ApplicationRecord
   # # Associations
   #
   belongs_to :employee
@@ -9,7 +10,7 @@ class Evaluation < ApplicationRecord
 
   # # Scopes
   #
-  scope :by_state, Proc.new { |state| where(state: state) if state.present? }
+  scope :by_state, proc { |state| where(state: state) if state.present? }
 
   # # Enums
   #

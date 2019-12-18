@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module V1
   class SettingsController < ApplicationController
     before_action :authenticate!
@@ -7,7 +9,7 @@ module V1
     def update
       current_user.setting.update(setting_params)
 
-      render json: V1::UserSerializer.render(current_user), status: 200
+      render json: V1::UserSerializer.render(current_user), status: :ok
     end
 
     private

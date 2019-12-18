@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiHelpers
   def expect_success_api_response_for(resource)
     expect(response).to have_http_status 200

@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe V1::TemplatesController, type: :controller do
-
   describe '#index' do
     let(:user) { create(:user) }
 
@@ -112,7 +113,9 @@ RSpec.describe V1::TemplatesController, type: :controller do
         end
 
         aggregate_failures 'when section skill does not have name key' do
-          template_params[:sections_attributes][2] = attributes_for(:section, skills: [{ value: 0 }])
+          template_params[:sections_attributes][2] = attributes_for(
+            :section, skills: [{ value: 0 }]
+          )
           expect(template_params[:sections_attributes].count).to eq 3
 
           expect do
@@ -123,7 +126,9 @@ RSpec.describe V1::TemplatesController, type: :controller do
         end
 
         aggregate_failures 'when section skill does not have value key' do
-          template_params[:sections_attributes][2] = attributes_for(:section, skills: [{ name: 'Lorem ...' }])
+          template_params[:sections_attributes][2] = attributes_for(
+            :section, skills: [{ name: 'Lorem ...' }]
+          )
           expect(template_params[:sections_attributes].count).to eq 3
 
           expect do
@@ -167,7 +172,7 @@ RSpec.describe V1::TemplatesController, type: :controller do
       it 'responds succesfully with updated template' do
         expect do
           put :update, params: params
-        end.to change{ template.reload.name }.to 'Updated template'
+        end.to change { template.reload.name }.to 'Updated template'
 
         expect_success_api_response_for('template')
       end
@@ -177,7 +182,7 @@ RSpec.describe V1::TemplatesController, type: :controller do
 
         expect do
           put :update, params: params
-        end.not_to change{ template.reload.name }
+        end.not_to change { template.reload.name }
 
         expect_error_api_response(404)
       end
@@ -187,7 +192,7 @@ RSpec.describe V1::TemplatesController, type: :controller do
 
         expect do
           put :update, params: params
-        end.not_to change{ template.reload.name }
+        end.not_to change { template.reload.name }
 
         expect_error_api_response(422)
       end
@@ -201,12 +206,12 @@ RSpec.describe V1::TemplatesController, type: :controller do
     context 'when unauthorized' do
       it 'is not allowed to destroy template' do
         sign_out
-  
+
         delete :destroy, params: { id: template.id }
         expect(response).to have_http_status 401
       end
     end
-    
+
     context 'when authorized' do
       before(:each) do
         sign_in user
@@ -215,7 +220,7 @@ RSpec.describe V1::TemplatesController, type: :controller do
       it 'responds with error when template not found' do
         expect do
           delete :destroy, params: { id: 0 }
-        end.not_to change{ user.templates.count }
+        end.not_to change { user.templates.count }
 
         expect_error_api_response(404)
       end
@@ -223,7 +228,7 @@ RSpec.describe V1::TemplatesController, type: :controller do
       it 'deletes template and rsponds with 204' do
         expect do
           delete :destroy, params: { id: template.id }
-        end.to change{ user.templates.count }.by(-1).and change(Section, :count).by -3
+        end.to change { user.templates.count }.by(-1).and change(Section, :count).by(-3)
 
         expect(response).to have_http_status 204
       end

@@ -1,48 +1,61 @@
-AllCops:
-  TargetRubyVersion: 2.5
-  Exclude:
-    - 'vendor/gems/**/*'
-    - 'db/migrate/*'
-    - 'db/schema.rb'
-    - 'bin/*'
-    - 'tmp/*'
-    - 'node_modules/**/*'
-    - 'Gemfile'
+require:
+  - rubocop-rails
 
-BlockLength:
-  Exclude:
-    - 'spec/**/*.rb'
-    - 'config/environments/*.rb'
-    - 'config/routes.rb'
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+    - staging
 
-LineLength:
-  Enabled: true
-  Max: 120
+Style/Encoding:
+  Enabled: false
 
 Style/Documentation:
   Enabled: false
 
-Style/FrozenStringLiteralComment:
-  Enabled: false
+Metrics/LineLength:
+  Max: 100
 
 Bundler/OrderedGems:
   Enabled: false
 
-MethodLength:
+Rails:
   Enabled: true
-  Max: 25
 
-Style/BlockComments:
-  Enabled: false
-
-Style/ExpandPathArguments:
-  Enabled: false
-
-Metrics/AbcSize:
-  Max: 20
-
-Layout/AlignParameters:
-  Enabled: false
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
 
 Lint/AmbiguousBlockAssociation:
   Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Metrics/AbcSize:
+  Exclude:
+    - app/controllers/**/*
+
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - lib/tasks/*
+    - config/initializers/*
+    - config/routes*
+    - Guardfile
+    - db/**/*
+    - vendor/**/*
+    - static/**/*
+    - bin/**/*
+    - config.ru
+    - config/boot.rb
+    - config/environment.rb
+    - config/application.rb
+    - config/environments/**
+    - config/routes.rb
+    - Rakefile
+    - spec/spec_helper.rb
+    - spec/rails_helper.rb
+    - node_modules/**/*
+  CacheRootDirectory: tmp/

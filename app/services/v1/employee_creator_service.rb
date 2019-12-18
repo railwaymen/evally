@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module V1
   class EmployeeCreatorService
-
     def initialize(attributes:, user:)
       @attributes = attributes
       @user = user
@@ -35,8 +36,11 @@ module V1
     end
 
     def add_activity
-      @user.activities.create!(action: 'create', activable: @employee, activable_name: @employee.fullname)
+      @user.activities.create!(
+        action: 'create',
+        activable: @employee,
+        activable_name: @employee.fullname
+      )
     end
-
   end
 end

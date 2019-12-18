@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module V1
   class TemplateCreatorService
-
     def initialize(attributes:, user:)
       @attributes = attributes
       @user = user
@@ -23,11 +24,21 @@ module V1
     end
 
     def template_params
-      @attributes.permit(:name, :state, sections_attributes: [:name, :group, :width, :position, skills: [:name, :value, :needToImprove]])
+      @attributes.permit(
+        :name,
+        :state,
+        sections_attributes: [
+          :name, :group, :width, :position, skills: %i[name value needToImprove]
+        ]
+      )
     end
 
     def add_activity
-      @user.activities.create!(action: 'create', activable: @template, activable_name: @template.name)
+      @user.activities.create!(
+        action: 'create',
+        activable: @template,
+        activable_name: @template.name
+      )
     end
   end
 end

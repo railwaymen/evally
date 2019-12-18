@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module V1
   class PasswordUpdaterService
-
     def initialize(attributes:, user:)
       @attributes = attributes
       @user = user
@@ -14,6 +15,7 @@ module V1
 
     def user_authenticated?
       return true if @user.authenticate(password_params[:old_one])
+
       raise V1::ErrorResponderService.new(:invalid_record, 422, ['Invalid password'])
     end
 
@@ -30,6 +32,5 @@ module V1
     def password_params
       @attributes.permit(:old_one, :new_one)
     end
-
   end
 end

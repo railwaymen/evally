@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe V1::EmployeesController, type: :controller do
@@ -128,7 +130,13 @@ RSpec.describe V1::EmployeesController, type: :controller do
 
       it 'expects to log position change' do
         expect do
-          put :update, params: { id: employee.id, employee: { position: 'New position', position_set_at: Date.today } }
+          put :update, params: {
+            id: employee.id,
+            employee: {
+              position: 'New position',
+              position_set_at: Date.current
+            }
+          }
         end.to change { employee.reload.position_changes.count }.by(1)
 
         expect_success_api_response_for('employee')
@@ -281,7 +289,15 @@ RSpec.describe V1::EmployeesController, type: :controller do
       it 'is not allowed to get unique skills list' do
         sign_out
 
-        get :search, params: { query: { group: 'rating', name: 'Photoshop', comparator: 'eq', value: 1 } }
+        get :search, params: {
+          query: {
+            group: 'rating',
+            name: 'Photoshop',
+            comparator: 'eq',
+            value: 1
+          }
+        }
+
         expect(response).to have_http_status 401
       end
     end
@@ -342,7 +358,14 @@ RSpec.describe V1::EmployeesController, type: :controller do
       before(:each) { sign_in user }
 
       it 'returns empty array if no employees with skill' do
-        get :search, params: { query: { group: 'rating', name: 'Unknown', comparator: 'eq', value: 1 } }
+        get :search, params: {
+          query: {
+            group: 'rating',
+            name: 'Unknown',
+            comparator: 'eq',
+            value: 1
+          }
+        }
 
         expect(response).to have_http_status 200
         expect(json_response).to be_blank

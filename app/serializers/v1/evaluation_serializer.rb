@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module V1
   class EvaluationSerializer < Blueprinter::Base
     identifier :id

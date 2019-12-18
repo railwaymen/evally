@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module V1
   class UserCreatorService
-
     def initialize(attributes:)
       @attributes = attributes
     end
@@ -29,6 +30,5 @@ module V1
     def user_params
       @attributes.permit(:email, :password, :first_name, :last_name)
     end
-
   end
 end

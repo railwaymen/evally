@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module V1
   class ErrorSerializer < Blueprinter::Base
     identifier :identifier
@@ -14,8 +16,6 @@ module V1
       error.translated_payload[:message]
     end
 
-    field :details do |error|
-      error.details
-    end
+    fields :details
   end
 end

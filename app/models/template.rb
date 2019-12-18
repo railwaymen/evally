@@ -1,6 +1,6 @@
-class Template < ApplicationRecord
-  # include AASM
+# frozen_string_literal: true
 
+class Template < ApplicationRecord
   # # Associations
   #
   belongs_to :user
@@ -20,5 +20,4 @@ class Template < ApplicationRecord
     in: Template.states.keys,
     message: :invalid_inclusion
   }
-
 end

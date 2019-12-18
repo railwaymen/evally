@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module V1
   class EmployeeUpdaterService
-
     def initialize(attributes:, employee:, user:)
       @attributes = attributes
       @employee = employee
@@ -30,21 +31,18 @@ module V1
 
     def employee_params
       @attributes.permit(
-        :first_name,
-        :last_name,
-        :position,
-        :group,
-        :hired_at,
-        :next_evaluation_at,
-        :state,
-        :released_at,
-        :position_set_at
+        :first_name, :last_name, :position, :group, :hired_at, :next_evaluation_at, :state,
+        :released_at, :position_set_at
       )
     end
 
     def add_activity
       action = @employee.hired? ? 'update' : 'archive'
-      @user.activities.create!(action: action, activable: @employee, activable_name: @employee.fullname)
+      @user.activities.create!(
+        action: action,
+        activable: @employee,
+        activable_name: @employee.fullname
+      )
     end
 
     def log_position_change

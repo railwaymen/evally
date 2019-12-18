@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :position_change do
     previous_position   { 'Junior Manager' }

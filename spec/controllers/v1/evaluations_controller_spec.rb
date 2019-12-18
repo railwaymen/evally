@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe V1::EvaluationsController, type: :controller do
-
   describe '#index' do
     let(:user) { create(:user) }
 
@@ -16,7 +17,9 @@ RSpec.describe V1::EvaluationsController, type: :controller do
 
     context 'when authorized' do
       before(:each) do
-        2.times { create(:evaluation_with_sections, :completed, employee: create(:employee, user: user)) }
+        2.times do
+          create(:evaluation_with_sections, :completed, employee: create(:employee, user: user))
+        end
       end
 
       it 'responds succesfully with evaluations list (with sections and employees)' do
@@ -77,7 +80,8 @@ RSpec.describe V1::EvaluationsController, type: :controller do
       it 'responds succesfully with new draft evaluation' do
         expect do
           post :create, params: evaluation_params
-        end.to change(user.evaluations, :count).by(1).and change(Section, :count).by(template.sections.count)
+        end.to(change(user.evaluations, :count).by(1))
+          .and(change(Section, :count).by(template.sections.count))
 
         expect(user.evaluations.last.state).to eq 'draft'
         expect_success_api_response_for('evaluation')
@@ -157,18 +161,18 @@ RSpec.describe V1::EvaluationsController, type: :controller do
 
         expect do
           put :update, params: params
-        end.to change{ evaluation.sections.first.skills.first['value'] }.to 'New value'
+        end.to change { evaluation.sections.first.skills.first['value'] }.to 'New value'
 
         expect_success_api_response_for('evaluation')
       end
 
       it 'responds with error', :aggregate_failures do
         aggregate_failures 'when evaluation does not exist' do
-          params = { id: 0, evaluation: { state: 'completed'} }
+          params = { id: 0, evaluation: { state: 'completed' } }
 
           expect do
             put :update, params: params
-          end.not_to change{ evaluation.reload.state }
+          end.not_to change { evaluation.reload.state }
 
           expect_error_api_response(404)
         end
@@ -178,7 +182,7 @@ RSpec.describe V1::EvaluationsController, type: :controller do
 
           expect do
             put :update, params: params
-          end.not_to change{ evaluation.reload.state }
+          end.not_to change { evaluation.reload.state }
 
           expect_error_api_response(422)
         end
@@ -211,7 +215,8 @@ RSpec.describe V1::EvaluationsController, type: :controller do
 
         expect do
           delete :destroy, params: { id: evaluation.id }
-        end.to change{ employee.evaluations.count }.by(-1).and change(Section, :count).by sections_count
+        end.to(change { employee.evaluations.count }.by(-1))
+          .and change(Section, :count).by sections_count
 
         expect(response).to have_http_status 204
       end
@@ -221,7 +226,7 @@ RSpec.describe V1::EvaluationsController, type: :controller do
 
         expect do
           delete :destroy, params: { id: evaluation.id }
-        end.not_to change{ employee.evaluations.count }
+        end.not_to change { employee.evaluations.count }
 
         expect_error_api_response(404)
       end
