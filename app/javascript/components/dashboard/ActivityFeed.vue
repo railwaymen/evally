@@ -1,0 +1,55 @@
+<template>
+  <div class="box box--border-primary">
+		<h3 class="box__header">{{ $t('dashboard.activities.title') }}</h3>
+
+		<div class="box__body">
+			<div v-if="loading" class="box__loader">
+				<v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
+			</div>
+
+      <v-list v-else two-line>
+        <v-list-tile v-for="activity in activities.models" :key="activity.id" avatar>
+          <v-list-tile v-if="activities.isEmpty">
+            <v-list-tile-content>
+              <v-list-tile-title>{{ $t('dashboard.activities.no_activities') }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+
+          <v-list-tile-content>
+            <v-list-tile-title>{{ activity.title }}</v-list-tile-title>
+						<v-list-tile-sub-title>{{ activity.description }}</v-list-tile-sub-title>
+          </v-list-tile-content>
+
+					<v-list-tile-action>
+            <v-list-tile-action-text>
+							<v-tooltip bottom>
+								<span slot="activator">{{ activity.shortCreatedAtFromNow }}</span>
+								<span>{{ activity.createdAt }}</span>
+							</v-tooltip>
+						</v-list-tile-action-text>
+					</v-list-tile-action>
+        </v-list-tile>
+      </v-list>
+		</div>
+  </div>
+</template>
+
+<script>
+import { ActivitiesList } from '@models/activity'
+
+export default {
+  name: 'ActivityFeed',
+  props: {
+    loading: {
+      type: Boolean,
+      required: true,
+      default: true
+    },
+    activities: {
+      type: ActivitiesList,
+      required: true,
+      default: () => new ActivitiesList()
+    }
+  }
+}
+</script>

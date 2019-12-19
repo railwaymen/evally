@@ -1,0 +1,61 @@
+<template>
+  <div class="box box--border-primary">
+		<h3 class="box__header">{{ $t('dashboard.upcoming.title') }}</h3>
+
+		<div class="box__body">
+      <div v-if="loading" class="box__loader">
+				<v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
+			</div>
+
+      <v-list v-else>
+        <v-list-tile v-if="employees.isEmpty">
+          <v-list-tile-action>
+            <v-icon>done_all</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>There are no upcoming evaluations to show</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
+        <v-list-tile v-for="employee in employees.models" :key="employee.id" avatar>
+          <v-list-tile-content>
+            <v-list-tile-title>
+							<strong>{{ employee.fullname }}</strong>
+							{{ $t('dashboard.common.as') }}
+							<em>{{ employee.position }}</em> - {{ employee.nextEvaluationAt }}
+						</v-list-tile-title>
+          </v-list-tile-content>
+
+          <v-list-tile-action>
+						<v-tooltip bottom>
+							<v-btn slot="activator" color="green" icon flat>
+								<v-icon>add</v-icon>
+							</v-btn>
+							<span>{{ $t('dashboard.upcoming.new_tooltip') }}</span>
+						</v-tooltip>
+					</v-list-tile-action>
+        </v-list-tile>
+      </v-list>
+    </div>
+  </div>
+</template>
+
+<script>
+import { EmployeesList } from '@models/employee'
+
+export default {
+  name: 'UpcomingList',
+  props: {
+    employees: {
+      type: EmployeesList,
+      required: true,
+      default: () => new EmployeesList()
+    },
+    loading: {
+      type: Boolean,
+      required: true,
+      default: true
+    }
+  }
+}
+</script>

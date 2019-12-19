@@ -27,7 +27,7 @@ export default new Router({
         {
           path: 'start',
           name: 'dashboard_path',
-          component: require('@/components/pages/Dashboard').default,
+          component: () => import(/* webpackChunkName: 'dashboard' */ '@views/Dashboard'),
         },
         {
           path: 'evaluations',
