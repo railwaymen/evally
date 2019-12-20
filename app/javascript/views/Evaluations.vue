@@ -28,7 +28,7 @@
     <div class="panel__content">
       <v-container grid-list-lg fluid>
         <v-layout wrap row>
-          <v-flex v-if="isSidebarVisible" xs10 offset-xs1 lg3 offset-lg0>
+          <v-flex v-show="isSidebarVisible" xs10 offset-xs1 lg3 offset-lg0>
             <drafts-sidebar
               :drafts="drafts"
               :loading="loading"

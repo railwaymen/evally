@@ -31,6 +31,10 @@ class Evaluation extends Model {
     return moment(this.updated_at).fromNow()
   }
 
+  get path() {
+    return { name: 'evaluation_path', params: { id: this.id } }
+  }
+
   static get routes() {
     return {
       draftsEvaluations: '/v2/evaluations/drafts'

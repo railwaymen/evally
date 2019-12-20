@@ -17,10 +17,7 @@
         </div>
 
         <template v-else>
-          <v-list-tile v-for="draft in searchedDrafts" :key="draft.id">
-            <v-list-tile-action>
-              <v-icon>assignment_turned_in</v-icon>
-            </v-list-tile-action>
+          <v-list-tile v-for="draft in searchedDrafts" :key="draft.id" :to="draft.path">
             <v-list-tile-content>
               <v-list-tile-title>{{ draft.employeeFullname }}</v-list-tile-title>
               <v-list-tile-sub-title>{{ $t('evaluations.sidebar.subtitle', { name: draft.template_name }) }}</v-list-tile-sub-title>
