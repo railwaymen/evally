@@ -32,6 +32,10 @@ Rails.application.routes.draw do
 
     namespace :v2, defaults: { format: :json } do
       resource :dashboard, controller: 'dashboard', only: :show
+
+      resources :evaluations, only: [] do
+        get :drafts, on: :collection
+      end
     end
 
     # Route to hit the Vue app

@@ -12,7 +12,7 @@ module V2
       Employee.order(next_evaluation_at: :desc).limit(setting.default_upcoming_items || 5)
     end
 
-    def evaluations
+    def drafts
       drafts_scope.order(updated_at: :desc).limit(setting.default_draft_items || 5)
     end
 
@@ -23,7 +23,7 @@ module V2
     private
 
     def drafts_scope
-      V2::Dashboard::DraftsQuery.call
+      V2::EvaluationDraftsQuery.call
     end
   end
 end

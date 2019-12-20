@@ -8,7 +8,7 @@
 			</div>
 
       <v-list v-else two-line>
-        <v-list-tile v-if="evaluations.isEmpty">
+        <v-list-tile v-if="drafts.isEmpty">
           <v-list-tile-action>
             <v-icon>done_all</v-icon>
           </v-list-tile-action>
@@ -17,14 +17,14 @@
           </v-list-tile-content>
         </v-list-tile>
 
-        <v-list-tile v-for="evaluation in evaluations.models" :key="evaluation.id" avatar>
+        <v-list-tile v-for="draft in drafts.models" :key="draft.id" avatar>
           <v-list-tile-content>
             <v-list-tile-title>
-							<strong>{{ evaluation.employeeFullname }}</strong>
+							<strong>{{ draft.employeeFullname }}</strong>
 							{{ $t('dashboard.common.as') }}
-							<em>{{ evaluation.employee_position }}</em> - {{ evaluation.nextEvaluationAt }}
+							<em>{{ draft.employee_position }}</em> - {{ draft.nextEvaluationAt }}
 						</v-list-tile-title>
-            <v-list-tile-sub-title>{{ $t('dashboard.drafts.updated', { date: evaluation.updatedAtFromNow }) }}</v-list-tile-sub-title>
+            <v-list-tile-sub-title>{{ $t('dashboard.drafts.updated', { date: draft.updatedAtFromNow }) }}</v-list-tile-sub-title>
           </v-list-tile-content>
 
 					<v-list-tile-action>
@@ -54,7 +54,7 @@ export default {
       required: true,
       default: true
     },
-    evaluations: {
+    drafts: {
       type: EvaluationsList,
       required: true,
       default: () => new EvaluationsList()

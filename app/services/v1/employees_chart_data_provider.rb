@@ -14,7 +14,7 @@ module V1
       grouped_result.sort.to_h.as_json
     end
 
-    def employees_select
+    def self.employees_select
       Employee.where.not(state: :released).select(
         '"group", "position", COUNT("position") AS "position_count"'
       )

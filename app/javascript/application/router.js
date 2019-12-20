@@ -32,7 +32,14 @@ export default new Router({
         {
           path: 'evaluations',
           name: 'evaluations_path',
-          component: require('@/components/pages/Evaluations').default,
+          component: () => import(/* webpackChunkName: 'evaluations' */ '@views/Evaluations'),
+          children: [
+            {
+              path: ':id',
+              name: 'evaluation_path',
+              component: () => import(/* webpackChunkName: 'evaluation' */ '@views/Evaluation'),
+            }
+          ]
         },
         {
           path: 'employees',

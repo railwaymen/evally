@@ -14,7 +14,7 @@
 
               <v-flex xs12>
                 <drafts-list
-                  :evaluations="evaluations"
+                  :drafts="drafts"
                   :loading="loading"
                 />
               </v-flex>
@@ -63,7 +63,7 @@ export default {
   data: () => ({
     loading: true,
     employees: new EmployeesList(),
-    evaluations: new EvaluationsList(),
+    drafts: new EvaluationsList(),
     activities: new ActivitiesList()
   }),
   computed: {
@@ -74,10 +74,10 @@ export default {
   created() {
     this.$http.get('/v2/dashboard')
       .then(response => {
-        const { employees, evaluations, activities } = response.data
+        const { employees, drafts, activities } = response.data
 
         this.employees = new EmployeesList(employees)
-        this.evaluations = new EvaluationsList(evaluations)
+        this.drafts = new EvaluationsList(drafts)
         this.activities = new ActivitiesList(activities)
       })
       .finally(() => {

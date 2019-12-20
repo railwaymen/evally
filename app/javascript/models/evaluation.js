@@ -6,10 +6,13 @@ class Evaluation extends Model {
   get defaults() {
     return {
       id: null,
+      employee_id: null,
       employee_first_name: '',
       employee_last_name: '',
       employee_position: '',
       next_evaluation_at: '',
+      state: '',
+      template_name: '',
       updated_at: ''
     }
   }
@@ -26,6 +29,12 @@ class Evaluation extends Model {
 
   get updatedAtFromNow() {
     return moment(this.updated_at).fromNow()
+  }
+
+  static get routes() {
+    return {
+      draftsEvaluations: '/v2/evaluations/drafts'
+    }
   }
 }
 
