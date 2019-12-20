@@ -17,7 +17,7 @@ class Employee < ApplicationRecord
 
   # # Enums
   #
-  enum state: { hired: 0, experienced: 10, released: 20 }
+  enum state: { hired: 'hired', experienced: 'experienced', released: 'released' }
 
   # # Validation
   validates :first_name, presence: true

@@ -14,7 +14,7 @@ class Evaluation < ApplicationRecord
 
   # # Enums
   #
-  enum state: { draft: 0, completed: 10, archived: 20 }
+  enum state: { draft: 'draft', completed: 'completed', archived: 'archived' }
 
   # # Validations
   #
