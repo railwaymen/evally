@@ -5,9 +5,18 @@ module V2
     before_action :authenticate!
 
     def drafts
-      drafts = V2::EvaluationDraftsQuery.call
+      drafts = V2::EvaluationsQuery.call(Evaluation.draft)
 
-      render json: V2::EvaluationDraftSerializer.render(drafts), status: :ok
+      render json: V2::EvaluationSerializer.render(drafts), status: :ok
+    end
+
+    def show
+      evaluation = V2::EvaluationsQuery.call.find_by(id: params[:id])
+      raise V1::ErrorResponderService.new(:record_not_found, 404) unless evaluation
+
+      presenter = V2::EvaluationPresenter.new(evaluation)
+
+      render json: V2::Views::EvaluationView.render(presenter), status: :ok
     end
   end
 end

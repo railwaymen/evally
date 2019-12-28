@@ -5,7 +5,7 @@ module V2
     class DashboardView < Blueprinter::Base
       association :employees, blueprint: V2::EmployeeSerializer, default: []
 
-      association :drafts, blueprint: V2::EvaluationDraftSerializer, default: []
+      association :drafts, blueprint: V2::EvaluationSerializer, default: []
 
       association :activities, blueprint: V2::ActivitySerializer, default: []
     end

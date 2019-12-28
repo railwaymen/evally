@@ -23,7 +23,7 @@ module V2
     private
 
     def drafts_scope
-      V2::EvaluationDraftsQuery.call
+      V2::EvaluationsQuery.call
     end
   end
 end
