@@ -5,7 +5,7 @@ module V2
     before_action :authenticate!
 
     def drafts
-      drafts = V2::EvaluationsQuery.call(Evaluation.draft)
+      drafts = V2::EvaluationsQuery.call(Evaluation.draft).order(updated_at: :desc)
 
       render json: V2::EvaluationSerializer.render(drafts), status: :ok
     end

@@ -33,7 +33,7 @@
 
         <v-list class="toolbar-menu" data-cy="profile-menu">
           <template v-if="$vuetify.breakpoint.mdAndDown">
-            <v-list-tile v-for="tab in tabs" :key="`tab-${tab.id}`" :to="{ name: tab.path }" exact>
+            <v-list-tile v-for="tab in tabs" :key="`tab-${tab.id}`" :to="{ name: tab.path }">
               <v-list-tile-action>
                 <v-icon>{{ tab.icon }}</v-icon>
               </v-list-tile-action>
@@ -43,7 +43,7 @@
             <v-divider class="my-2"></v-divider>
           </template>
 
-          <v-list-tile v-for="item in items" :key="`item_${item.id}`"  :data-cy="`li-${item.name}`" :to="{ name: item.path }" exact>
+          <v-list-tile v-for="item in items" :key="`item_${item.id}`"  :data-cy="`li-${item.name}`" :to="{ name: item.path }">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -68,7 +68,7 @@
         slider-color="primary"
         grow
       >
-        <v-tab v-for="tab in tabs" :key="`tab_${tab.id}`" :data-cy="`tab-${tab.name}`" :to="{ name: tab.path }" exact>
+        <v-tab v-for="tab in tabs" :key="`tab_${tab.id}`" :data-cy="`tab-${tab.name}`" :to="{ name: tab.path }">
           <v-icon>{{ tab.icon }}</v-icon>
           <span class="separator"></span>
           {{ $t(`navbar.${tab.name}`) }}

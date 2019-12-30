@@ -10,6 +10,7 @@ class Evaluation extends Model {
       employee_first_name: '',
       employee_last_name: '',
       employee_position: '',
+      employee_hired_at: '',
       next_evaluation_at: '',
       state: '',
       template_name: '',
@@ -19,6 +20,10 @@ class Evaluation extends Model {
 
   get employeeFullname() {
     return [this.employee_first_name, this.employee_last_name].join(' ')
+  }
+
+  get employeeHiredAt() {
+    return moment(this.employee_hired_at).format('MMMM YYYY')
   }
 
   get nextEvaluationAt() {
@@ -37,7 +42,8 @@ class Evaluation extends Model {
 
   static get routes() {
     return {
-      draftsEvaluations: '/v2/evaluations/drafts'
+      draftsEvaluations: '/v2/evaluations/drafts',
+      evaluationPath: id => `/v2/evaluations/${id}`
     }
   }
 }

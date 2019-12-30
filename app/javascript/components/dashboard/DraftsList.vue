@@ -30,7 +30,7 @@
 					<v-list-tile-action>
 						<div class="">
 							<v-tooltip bottom>
-								<v-btn slot="activator" color="grey" flat icon>
+								<v-btn :to="draft.path" slot="activator" color="grey" flat icon>
 									<v-icon>edit</v-icon>
 								</v-btn>
 								<span>{{ $t('dashboard.drafts.edit_tooltip') }}</span>

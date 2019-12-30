@@ -39,7 +39,9 @@
             <div v-if="$route.name === 'evaluations_path'" class="box box--with-content">
               <v-layout row>
                 <v-flex xs12>
-                  <h4 class="no-content__header no-content__header--large">{{ $t('evaluations.message') }}</h4>
+                  <h4 class="no-content__header no-content__header--large">
+                    {{ $t('evaluations.message') }}
+                  </h4>
                 </v-flex>
               </v-layout>
             </div>
