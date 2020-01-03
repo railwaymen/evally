@@ -36,6 +36,10 @@ const EvaluationsStore = {
       state.loading = status
       return state
     },
+    replace(state, section) {
+      state.sections.replace(section)
+      return state
+    },
     resetState(state) {
       state = Object.assign(state, initialState())
       return state

@@ -53,6 +53,10 @@ class List {
     ))
   }
 
+  replace(item) {
+    this.models = this.models.map(model => Number(model.id) === Number(item.id) ? item : model)
+  }
+
   remove(id) {
     this.models = this.models.filter(model => Number(mmodel.id) !== Number(id))
   }

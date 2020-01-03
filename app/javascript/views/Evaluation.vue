@@ -1,6 +1,6 @@
 <template>
   <div class="box box--with-content evaluation">
-    <v-layout row wrap>
+    <v-layout v-if="evaluation.isPersisted" row wrap>
       <v-flex xs12 lg9>
         <div class="employee">
           <h3 class="employee__fullname">{{ evaluation.employeeFullname }}</h3>
@@ -18,6 +18,23 @@
           </v-flex>
         </v-layout>
       </v-flex>
+
+      <v-flex xs12>
+        <v-layout row wrap>
+          <section-box
+            v-for="section in sections.models"
+            :section="section"
+            :key="section.id"
+            :editable="evaluation.editable"
+          />
+        </v-layout>
+      </v-flex>
+    </v-layout>
+
+    <v-layout v-else row>
+      <v-flex xs12>
+        <h4 class="no-content__header no-content__header--large">Evaluation does not exist</h4>
+      </v-flex>
     </v-layout>
   </div>
 </template>
@@ -25,29 +42,27 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import SectionBox from '@components/evaluations/SectionBox'
+
 export default {
   name: 'Evaluation',
-  methods: {
-    fetchEvaluation(id) {
-      this.$store.dispatch('EvaluationsStore/show', id)
-        .catch(error => {
-          this.flash({ error: this.$root.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
-        })
-    }
-  },
+  components: { SectionBox },
   computed: {
     ...mapGetters({
       evaluation: 'EvaluationsStore/evaluation',
       sections: 'EvaluationsStore/sections',
     })
   },
-  created() {
-    this.fetchEvaluation(this.$route.params.id)
-  },
-  beforeRouteUpdate(to, _from, next) {
-    this.fetchEvaluation(to.params.id)
-
-    next()
-  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to, from) {
+        this.$store.dispatch('EvaluationsStore/show', to.params.id)
+          .catch(error => {
+            this.flash({ error: this.$root.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
+          })
+      }
+    }
+  }
 }
 </script>
