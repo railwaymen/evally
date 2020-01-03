@@ -33,6 +33,6 @@ class Employee < ApplicationRecord
   # # Methods
   #
   def fullname
-    [first_name, last_name].join(' ')
+    [first_name, last_name].join(' ').split
   end
 end

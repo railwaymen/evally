@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     namespace :v2, defaults: { format: :json } do
       resource :dashboard, controller: 'dashboard', only: :show
 
-      resources :evaluations, only: :show do
+      resources :evaluations, only: %i[show update] do
         get :drafts, on: :collection
       end
     end

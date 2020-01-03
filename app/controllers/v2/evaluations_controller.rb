@@ -11,12 +11,33 @@ module V2
     end
 
     def show
-      evaluation = V2::EvaluationsQuery.call.find_by(id: params[:id])
-      raise V1::ErrorResponderService.new(:record_not_found, 404) unless evaluation
-
       presenter = V2::EvaluationPresenter.new(evaluation)
 
       render json: V2::Views::EvaluationView.render(presenter), status: :ok
+    end
+
+    def update
+      form = V2::EvaluationUpdateForm.new(
+        evaluation,
+        params: update_params,
+        user: current_user
+      ).call
+
+      presenter = V2::EvaluationPresenter.new(form.evaluation)
+      render json: V2::Views::EvaluationView.render(presenter), status: :ok
+    end
+
+    private
+
+    def evaluation
+      @evaluation = V2::EvaluationsQuery.call.find_by(id: params[:id])
+      raise V1::ErrorResponderService.new(:record_not_found, 404) unless @evaluation
+
+      @evaluation
+    end
+
+    def update_params
+      params.require(:evaluation).permit(sections: [:id, skills: %i[name value needToImprove]])
     end
   end
 end

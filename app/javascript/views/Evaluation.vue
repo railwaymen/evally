@@ -33,7 +33,9 @@
 
     <v-layout v-else row>
       <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">Evaluation does not exist</h4>
+        <h4 class="no-content__header no-content__header--large">
+          {{ $t('evaluations.message') }}
+        </h4>
       </v-flex>
     </v-layout>
   </div>
@@ -58,9 +60,6 @@ export default {
       immediate: true,
       handler(to, from) {
         this.$store.dispatch('EvaluationsStore/show', to.params.id)
-          .catch(error => {
-            this.flash({ error: this.$root.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
-          })
       }
     }
   }

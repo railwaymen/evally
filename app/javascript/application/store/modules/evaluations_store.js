@@ -49,28 +49,41 @@ const EvaluationsStore = {
     drafts(context) {
       context.commit('inProgress', true)
 
-      return new Promise((resolve, reject) => {
-        http.get(Evaluation.routes.draftsEvaluations)
-          .then(response => {
-            context.commit('list', response.data)
-            resolve()
-          })
-          .catch(error => {
-            reject(error)
-          })
-      })
+      http.get(Evaluation.routes.draftsEvaluations)
+        .then(response => {
+          context.commit('list', response.data)
+        })
+        .catch(() => {
+          context.commit('FlashStore/push', { error: 'Error :('}, { root: true })
+        })
     },
     show(context, id) {
-      return new Promise((resolve, reject) => {
-        http.get(Evaluation.routes.evaluationPath(id))
-          .then(response => {
-            context.commit('item', response.data)
-            resolve()
-          })
-          .catch(error => {
-            reject(error)
-          })
-      })
+      http.get(Evaluation.routes.evaluationPath(id))
+        .then(response => {
+          context.commit('item', response.data)
+        })
+        .catch(() => {
+          context.commit('FlashStore/push', { error: 'Error :('}, { root: true })
+        })
+    },
+    update(context) {
+      const { evaluation, sections } = context.state;
+
+      const params = {
+        evaluation: {
+          sections: sections.models
+        }
+      }
+
+      http.put(Evaluation.routes.evaluationPath(evaluation.id), params)
+        .then(response => {
+          context.commit('item', response.data)
+
+          context.commit('FlashStore/push', { success: 'Updated :)' }, { root: true })
+        })
+        .catch(() => {
+          context.commit('FlashStore/push', { error: 'Error :('}, { root: true })
+        })
     }
   }
 }

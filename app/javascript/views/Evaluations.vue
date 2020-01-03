@@ -14,6 +14,13 @@
             <span>{{ $t('evaluations.buttons.add_new') }}</span>
           </v-tooltip>
 
+          <v-tooltip bottom>
+            <v-btn @click="update" color="green" slot="activator" icon flat>
+              <v-icon>save_alt</v-icon>
+            </v-btn>
+            <span>{{ $t('evaluations.buttons.save_draft') }}</span>
+          </v-tooltip>
+
           <v-tooltip class="divider-before" bottom>
             <v-btn @click="toggleSidebar" slot="activator" icon flat>
               <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
@@ -55,7 +62,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import DraftsSidebar from '@components/evaluations/DraftsSidebar'
 
@@ -70,7 +77,11 @@ export default {
   methods: {
     toggleSidebar() {
       this.isSidebarVisible = !this.isSidebarVisible
-    }
+    },
+    ...mapActions({
+      fetchDrafts: 'EvaluationsStore/drafts',
+      update: 'EvaluationsStore/update'
+    })
   },
   computed: {
     ...mapGetters({
@@ -79,10 +90,7 @@ export default {
     })
   },
   created() {
-    this.$store.dispatch('EvaluationsStore/drafts')
-      .catch(error => {
-        this.flash({ error: this.$root.$t('evaluations.flashes.fetch.error', { reason: this.renderError(error.response) }) })
-      })
+    this.fetchDrafts()
   },
   beforeDestroy() {
     this.$store.commit('EvaluationsStore/resetState')
