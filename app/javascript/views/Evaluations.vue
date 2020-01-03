@@ -15,7 +15,14 @@
           </v-tooltip>
 
           <v-tooltip bottom>
-            <v-btn @click="update" color="green" slot="activator" icon flat>
+            <v-btn @click="openCompleteForm" color="green" slot="activator" icon flat>
+              <v-icon>how_to_vote</v-icon>
+            </v-btn>
+            <span>{{ $t('evaluations.buttons.complete') }}</span>
+          </v-tooltip>
+
+          <v-tooltip bottom>
+            <v-btn @click="update" color="black" slot="activator" icon flat>
               <v-icon>save_alt</v-icon>
             </v-btn>
             <span>{{ $t('evaluations.buttons.save_draft') }}</span>
@@ -63,7 +70,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { DialogsBus } from '@utils/dialogs_bus'
 
+import CompleteForm from '@components/evaluations/CompleteForm'
 import DraftsSidebar from '@components/evaluations/DraftsSidebar'
 
 export default {
@@ -77,6 +86,12 @@ export default {
   methods: {
     toggleSidebar() {
       this.isSidebarVisible = !this.isSidebarVisible
+    },
+    openCompleteForm() {
+      DialogsBus.$emit('openFormsDialog', {
+        innerComponent: CompleteForm,
+        props: {}
+      })
     },
     ...mapActions({
       fetchDrafts: 'EvaluationsStore/drafts',

@@ -1,8 +1,5 @@
-import { Model, Collection } from 'vue-mc'
+import { Model } from 'vue-mc'
 
-/**
- * Setting model
- */
 class Setting extends Model {
 
   defaults() {

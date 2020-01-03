@@ -71,6 +71,7 @@ const EvaluationsStore = {
 
       const params = {
         evaluation: {
+          state: 'draft',
           sections: sections.models
         }
       }

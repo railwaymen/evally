@@ -10,6 +10,7 @@ module V2
       @evaluation = evaluation
       @user = user
 
+      @evaluation.state = params[:state]
       @evaluation.sections_attributes = params[:sections]
     end
 

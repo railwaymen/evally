@@ -79,7 +79,8 @@
     <router-view></router-view>
 
     <destroy-modal></destroy-modal>
-    <forms-modal></forms-modal>
+
+    <forms-dialog />
   </section>
 </template>
 
@@ -87,11 +88,11 @@
 import { mapGetters } from 'vuex'
 
 import DestroyModal from '@/components/shared/DestroyModal'
-import FormsModal from '@/components/shared/FormsModal'
+import FormsDialog from '@components/shared/FormsDialog'
 
 export default {
   name: 'Layout',
-  components: { DestroyModal, FormsModal },
+  components: { DestroyModal, FormsDialog },
   data () {
     return {
       tabs: [
