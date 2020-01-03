@@ -22,6 +22,11 @@ const EvaluationsStore = {
     loading: state => state.loading
   },
   mutations: {
+    clear(state) {
+      state.evaluation = new Evaluation()
+      state.sections = new SectionsList()
+      return state
+    },
     list(state, data) {
       state.evaluations = new EvaluationsList(data)
       state.loading = false

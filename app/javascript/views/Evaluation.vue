@@ -62,6 +62,9 @@ export default {
         this.$store.dispatch('EvaluationsStore/show', to.params.id)
       }
     }
+  },
+  beforeDestroy() {
+    this.$store.commit('EvaluationsStore/clear')
   }
 }
 </script>

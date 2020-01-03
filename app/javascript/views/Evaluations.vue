@@ -8,28 +8,66 @@
       <v-flex>
         <div class="panel__action-bar">
           <v-tooltip bottom>
-            <v-btn color="green" slot="activator" icon flat>
+            <v-btn
+              color="green"
+              slot="activator"
+              icon
+              flat
+            >
               <v-icon>add</v-icon>
             </v-btn>
             <span>{{ $t('evaluations.buttons.add_new') }}</span>
           </v-tooltip>
 
           <v-tooltip bottom>
-            <v-btn @click="openCompleteForm" color="green" slot="activator" icon flat>
+            <v-btn
+              @click="openCompleteForm"
+              :disabled="evaluation.isNewRecord"
+              color="green"
+              slot="activator"
+              icon
+              flat
+            >
               <v-icon>how_to_vote</v-icon>
             </v-btn>
             <span>{{ $t('evaluations.buttons.complete') }}</span>
           </v-tooltip>
 
           <v-tooltip bottom>
-            <v-btn @click="update" color="black" slot="activator" icon flat>
+            <v-btn
+              @click="update"
+              :disabled="evaluation.isNewRecord"
+              color="black"
+              slot="activator"
+              icon
+              flat
+            >
               <v-icon>save_alt</v-icon>
             </v-btn>
             <span>{{ $t('evaluations.buttons.save_draft') }}</span>
           </v-tooltip>
 
+          <v-tooltip bottom>
+            <v-btn
+              @click="reset"
+              :disabled="evaluation.isNewRecord"
+              color="black"
+              slot="activator"
+              icon
+              flat
+            >
+              <v-icon>restore</v-icon>
+            </v-btn>
+            <span>{{ $t('evaluations.buttons.reset') }}</span>
+          </v-tooltip>
+
           <v-tooltip class="divider-before" bottom>
-            <v-btn @click="toggleSidebar" slot="activator" icon flat>
+            <v-btn
+              @click="toggleSidebar"
+              slot="activator"
+              icon
+              flat
+            >
               <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
             </v-btn>
             <span>{{ isSidebarVisible ? $t('buttons.hide') : $t('buttons.show') }} sidebar</span>
@@ -87,6 +125,9 @@ export default {
     toggleSidebar() {
       this.isSidebarVisible = !this.isSidebarVisible
     },
+    reset() {
+      this.$store.dispatch('EvaluationsStore/show', this.evaluation.id)
+    },
     openCompleteForm() {
       DialogsBus.$emit('openFormsDialog', {
         innerComponent: CompleteForm,
@@ -101,6 +142,7 @@ export default {
   computed: {
     ...mapGetters({
       drafts: 'EvaluationsStore/evaluations',
+      evaluation: 'EvaluationsStore/evaluation',
       loading: 'EvaluationsStore/loading',
     })
   },
