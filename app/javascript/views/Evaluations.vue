@@ -156,7 +156,7 @@ export default {
     },
     ...mapActions({
       fetchDrafts: 'EvaluationsStore/drafts',
-      update: 'EvaluationsStore/update'
+      update: 'EvaluationsStore/update',
     })
   },
   computed: {

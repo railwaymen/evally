@@ -26,9 +26,6 @@ class Section < ApplicationRecord
 
   validate :skills_format, unless: proc { |section| section.skills.blank? }
 
-  # # Scopes
-  default_scope { order(position: :asc) }
-
   private
 
   def skills_format

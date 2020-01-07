@@ -17,13 +17,9 @@ module V2
     end
 
     def update
-      form = V2::EvaluationUpdateForm.new(
-        evaluation,
-        params: update_params,
-        user: current_user
-      ).call
+      update_form.save
+      presenter = V2::EvaluationPresenter.new(update_form.evaluation)
 
-      presenter = V2::EvaluationPresenter.new(form.evaluation)
       render json: V2::Views::EvaluationView.render(presenter), status: :ok
     end
 
@@ -44,15 +40,23 @@ module V2
     private
 
     def evaluation
-      @evaluation ||= V2::EvaluationsQuery.call.find_by(id: params[:id])
+      @evaluation ||= V2::EvaluationsQuery.call(Evaluation.draft).find_by(id: params[:id])
       raise V1::ErrorResponderService.new(:record_not_found, 404) unless @evaluation
 
       @evaluation
     end
 
+    def update_form
+      @update_form ||= V2::EvaluationUpdateForm.new(
+        evaluation,
+        params: update_params,
+        user: current_user
+      )
+    end
+
     def update_params
       params.require(:evaluation).permit(
-        :state, sections: [:id, skills: %i[name value needToImprove]]
+        :state, :next_evaluation_at, sections: [:id, skills: %i[name value needToImprove]]
       )
     end
   end

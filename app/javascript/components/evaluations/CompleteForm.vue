@@ -4,7 +4,7 @@
       <span class="headline">{{ $t('evaluations.forms.complete.title') }}</span>
     </v-card-title>
 
-    <v-form>
+    <v-form @submit.prevent="complete">
       <v-card-text>
         <p class="subheading text-xs-center">
           {{ $t('evaluations.forms.complete.question') }}<br>
@@ -26,7 +26,7 @@
             <template v-slot:activator="{ on }">
               <v-text-field
                 :value="$moment(computedDate).format('MMMM YYYY')"
-                label="Picker in menu"
+                :label="$t('evaluations.forms.complete.next_label')"
                 prepend-icon="event"
                 readonly
                 v-on="on"
@@ -47,7 +47,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="grey darken-1" flat @click="closeDialog">{{ $t('buttons.cancel') }}</v-btn>
-        <v-btn color="green darken-1" flat>{{ $t('buttons.complete') }}</v-btn>
+        <v-btn type="submit" color="green darken-1" flat>{{ $t('buttons.complete') }}</v-btn>
       </v-card-actions>
     </v-form>
   </v-card>
@@ -67,6 +67,12 @@ export default {
   methods: {
     closeDialog() {
       this.$emit('closeDialog')
+    },
+    complete() {
+      this.$store.dispatch(
+        'EvaluationsStore/complete',
+        { nextEvaluationDate: this.computedDate.format('YYYY-MM') }
+      ).finally(() => this.closeDialog())
     }
   },
   computed: {

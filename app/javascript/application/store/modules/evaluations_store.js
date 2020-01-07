@@ -46,9 +46,9 @@ const EvaluationsStore = {
       return state
     },
     remove(state, id) {
-      state.evaluations.remove(id)
       state.evaluation = new Evaluation()
       state.sections = new SectionsList()
+      state.evaluations.remove(id)
       return state
     },
     resetState(state) {
@@ -82,7 +82,6 @@ const EvaluationsStore = {
 
       const params = {
         evaluation: {
-          state: 'draft',
           sections: sections.models
         }
       }
@@ -92,6 +91,27 @@ const EvaluationsStore = {
           context.commit('item', response.data)
 
           context.commit('FlashStore/push', { success: 'Updated :)' }, { root: true })
+        })
+        .catch(() => {
+          context.commit('FlashStore/push', { error: 'Error :('}, { root: true })
+        })
+    },
+    complete(context, { nextEvaluationDate }) {
+      const { evaluation, sections } = context.state;
+
+      const params = {
+        evaluation: {
+          state: 'completed',
+          next_evaluation_at: nextEvaluationDate,
+          sections: sections.models
+        }
+      }
+
+      http.put(Evaluation.routes.evaluationPath(evaluation.id), params)
+        .then(() => {
+          context.commit('remove', evaluation.id)
+
+          context.commit('FlashStore/push', { success: 'Completed :)' }, { root: true })
         })
         .catch(() => {
           context.commit('FlashStore/push', { error: 'Error :('}, { root: true })
