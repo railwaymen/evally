@@ -78,21 +78,20 @@
 
     <router-view></router-view>
 
-    <destroy-modal></destroy-modal>
-
     <forms-dialog />
+    <confirm-dialog />
   </section>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
-import DestroyModal from '@/components/shared/DestroyModal'
 import FormsDialog from '@components/shared/FormsDialog'
+import ConfirmDialog from '@components/shared/ConfirmDialog'
 
 export default {
   name: 'Layout',
-  components: { DestroyModal, FormsDialog },
+  components: { ConfirmDialog, FormsDialog },
   data () {
     return {
       tabs: [

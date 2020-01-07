@@ -61,6 +61,20 @@
             <span>{{ $t('evaluations.buttons.reset') }}</span>
           </v-tooltip>
 
+          <v-tooltip bottom>
+            <v-btn
+              @click="openDeleteConfirm"
+              :disabled="evaluation.isNewRecord"
+              color="red"
+              slot="activator"
+              icon
+              flat
+            >
+              <v-icon>delete</v-icon>
+            </v-btn>
+            <span>{{ $t('evaluations.buttons.delete') }}</span>
+          </v-tooltip>
+
           <v-tooltip class="divider-before" bottom>
             <v-btn
               @click="toggleSidebar"
@@ -111,6 +125,7 @@ import { mapGetters, mapActions } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import CompleteForm from '@components/evaluations/CompleteForm'
+import DeleteConfirm from '@components/evaluations/DeleteConfirm'
 import DraftsSidebar from '@components/evaluations/DraftsSidebar'
 
 export default {
@@ -132,6 +147,11 @@ export default {
       DialogsBus.$emit('openFormsDialog', {
         innerComponent: CompleteForm,
         props: {}
+      })
+    },
+    openDeleteConfirm() {
+      DialogsBus.$emit('openConfirmDialog', {
+        innerComponent: DeleteConfirm
       })
     },
     ...mapActions({

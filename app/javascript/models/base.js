@@ -58,7 +58,7 @@ class List {
   }
 
   remove(id) {
-    this.models = this.models.filter(model => Number(mmodel.id) !== Number(id))
+    this.models = this.models.filter(model => Number(model.id) !== Number(id))
   }
 }
 

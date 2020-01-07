@@ -45,6 +45,12 @@ const EvaluationsStore = {
       state.sections.replace(section)
       return state
     },
+    remove(state, id) {
+      state.evaluations.remove(id)
+      state.evaluation = new Evaluation()
+      state.sections = new SectionsList()
+      return state
+    },
     resetState(state) {
       state = Object.assign(state, initialState())
       return state
@@ -86,6 +92,19 @@ const EvaluationsStore = {
           context.commit('item', response.data)
 
           context.commit('FlashStore/push', { success: 'Updated :)' }, { root: true })
+        })
+        .catch(() => {
+          context.commit('FlashStore/push', { error: 'Error :('}, { root: true })
+        })
+    },
+    destroy(context) {
+      const { evaluation } = context.state;
+
+      http.delete(Evaluation.routes.evaluationPath(evaluation.id))
+        .then(() => {
+          context.commit('remove', evaluation.id)
+
+          context.commit('FlashStore/push', { success: 'Destroyed :)' }, { root: true })
         })
         .catch(() => {
           context.commit('FlashStore/push', { error: 'Error :('}, { root: true })

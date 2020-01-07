@@ -27,10 +27,24 @@ module V2
       render json: V2::Views::EvaluationView.render(presenter), status: :ok
     end
 
+    def destroy
+      ActiveRecord::Base.transaction do
+        evaluation.destroy!
+
+        current_user.activities.create!(
+          action: 'destroy',
+          activable: evaluation,
+          activable_name: evaluation.employee.fullname
+        )
+      end
+
+      head :no_content
+    end
+
     private
 
     def evaluation
-      @evaluation = V2::EvaluationsQuery.call.find_by(id: params[:id])
+      @evaluation ||= V2::EvaluationsQuery.call.find_by(id: params[:id])
       raise V1::ErrorResponderService.new(:record_not_found, 404) unless @evaluation
 
       @evaluation
