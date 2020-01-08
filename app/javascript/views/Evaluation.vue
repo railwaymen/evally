@@ -51,20 +51,20 @@ export default {
   components: { SectionBox },
   computed: {
     ...mapGetters({
-      evaluation: 'EvaluationsStore/evaluation',
-      sections: 'EvaluationsStore/sections',
+      evaluation: 'DraftsModule/draft',
+      sections: 'DraftsModule/sections',
     })
   },
   watch: {
     $route: {
       immediate: true,
       handler(to, from) {
-        this.$store.dispatch('EvaluationsStore/show', to.params.id)
+        this.$store.dispatch('DraftsModule/show', to.params.id)
       }
     }
   },
   beforeDestroy() {
-    this.$store.commit('EvaluationsStore/clear')
+    this.$store.commit('DraftsModule/clear')
   }
 }
 </script>

@@ -42,8 +42,8 @@ class Evaluation extends Model {
 
   static get routes() {
     return {
-      draftsEvaluations: '/v2/evaluations/drafts',
-      evaluationPath: id => `/v2/evaluations/${id}`
+      draftsPath: '/v2/drafts',
+      draftPath: id => `/v2/drafts/${id}`
     }
   }
 }

@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 module V2
-  class EvaluationUpdateForm
-    attr_reader :evaluation
+  class DraftUpdateForm
+    attr_reader :draft
 
-    def initialize(evaluation, params:, user:)
-      @evaluation = evaluation
+    def initialize(draft, params:, user:)
+      @draft = draft
       @params = params
       @user = user
 
-      @evaluation.assign_attributes(
+      @draft.assign_attributes(
         state: resolve_state,
         completed_at: resolve_completed_at,
         sections_attributes: params[:sections]
@@ -17,38 +17,38 @@ module V2
     end
 
     def save
-      validate_evaluation!
+      validate_draft!
 
       ActiveRecord::Base.transaction do
-        create_activity! if @evaluation.changed?
-        save_next_evaluation_date! if @evaluation.completed?
+        create_activity! if @draft.changed?
+        save_next_evaluation_date! if @draft.completed?
 
-        @evaluation.save!
+        @draft.save!
       end
     end
 
     private
 
-    def validate_evaluation!
-      return if @evaluation.valid?
+    def validate_draft!
+      return if @draft.valid?
 
-      raise V1::ErrorResponderService.new(:invalid_record, 422, @evaluation.errors.full_messages)
+      raise V1::ErrorResponderService.new(:invalid_record, 422, @draft.errors.full_messages)
     end
 
     def create_activity!
       @user.activities.create!(
         action: resolve_action,
-        activable: @evaluation,
+        activable: @draft,
         activable_name: employee.fullname
       )
     end
 
     def employee
-      @employee ||= @evaluation.employee
+      @employee ||= @draft.employee
     end
 
     def resolve_action
-      @evaluation.completed? ? :complete : :update
+      @draft.completed? ? :complete : :update
     end
 
     def resolve_completed_at

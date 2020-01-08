@@ -42,7 +42,7 @@ export default {
       this.$emit('closeDialog')
     },
     destroy() {
-      this.$store.dispatch('EvaluationsStore/destroy')
+      this.$store.dispatch('DraftsModule/destroy')
         .finally(this.closeDialog)
     }
   }

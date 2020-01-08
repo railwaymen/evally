@@ -100,7 +100,7 @@ export default {
     section: {
       deep: true,
       handler(fresh, _old) {
-        this.$store.commit('EvaluationsStore/replace', fresh)
+        this.$store.commit('DraftsModule/replace', fresh)
       }
     }
   }
