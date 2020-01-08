@@ -9,6 +9,7 @@
         <div class="panel__action-bar">
           <v-tooltip bottom>
             <v-btn
+              @click="openCreateForm"
               color="green"
               slot="activator"
               icon
@@ -125,6 +126,7 @@ import { mapGetters, mapActions } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import CompleteForm from '@components/evaluations/CompleteForm'
+import CreateForm from '@components/evaluations/CreateForm'
 import DeleteConfirm from '@components/evaluations/DeleteConfirm'
 import DraftsSidebar from '@components/evaluations/DraftsSidebar'
 
@@ -143,10 +145,14 @@ export default {
     reset() {
       this.$store.dispatch('EvaluationsStore/show', this.evaluation.id)
     },
+    openCreateForm() {
+      DialogsBus.$emit('openFormsDialog', {
+        innerComponent: CreateForm
+      })
+    },
     openCompleteForm() {
       DialogsBus.$emit('openFormsDialog', {
-        innerComponent: CompleteForm,
-        props: {}
+        innerComponent: CompleteForm
       })
     },
     openDeleteConfirm() {

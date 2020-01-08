@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-4">
+  <v-card class="pa-3">
     <v-card-title>
       <span class="headline">{{ $t('evaluations.forms.complete.title') }}</span>
     </v-card-title>
@@ -45,7 +45,7 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-spacer></v-spacer>
+        <v-spacer />
         <v-btn color="grey darken-1" flat @click="closeDialog">{{ $t('buttons.cancel') }}</v-btn>
         <v-btn type="submit" color="green darken-1" flat>{{ $t('buttons.complete') }}</v-btn>
       </v-card-actions>
