@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     namespace :v2, defaults: { format: :json } do
       resource :dashboard, controller: 'dashboard', only: :show
 
-      resources :drafts, only: %i[index show update destroy]
+      resources :drafts, only: %i[index show create update destroy]
     end
 
     # Route to hit the Vue app

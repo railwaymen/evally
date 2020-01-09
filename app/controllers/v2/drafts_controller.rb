@@ -16,6 +16,13 @@ module V2
       render json: V2::Views::DraftView.render(presenter), status: :ok
     end
 
+    def create
+      create_form.save
+      presenter = V2::EvaluationPresenter.new(create_form.draft)
+
+      render json: V2::Views::DraftView.render(presenter), status: :ok
+    end
+
     def update
       update_form.save
       presenter = V2::EvaluationPresenter.new(update_form.draft)
@@ -50,12 +57,23 @@ module V2
       @draft
     end
 
+    def create_form
+      @create_form ||= V2::DraftCreateForm.new(
+        create_params,
+        user: current_user
+      )
+    end
+
     def update_form
       @update_form ||= V2::DraftUpdateForm.new(
         draft,
         params: update_params,
         user: current_user
       )
+    end
+
+    def create_params
+      params.require(:draft).permit(:employee_id, :template_id)
     end
 
     def update_params
