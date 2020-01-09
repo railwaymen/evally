@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module V2
-  class DraftUpdateForm
-    attr_reader :draft
-
+  class DraftCreateForm
     def initialize(params, user:)
       @params = params
       @user = user
@@ -13,14 +11,18 @@ module V2
       build_draft && validate_draft!
 
       ActiveRecord::Base.transaction do
-        create_activity!
         @draft.save!
+        create_activity!
       end
+    end
+
+    def draft
+      V2::EvaluationsQuery.call(Evaluation.draft).find_by(id: @draft.id)
     end
 
     private
 
-    def build_draft!
+    def build_draft
       @draft ||= begin
         return latest_evaluation.dup if @params[:use_latest]
 
@@ -70,6 +72,14 @@ module V2
       template.sections.collect do |section|
         section.attributes.slice('name', 'group', 'width', 'position', 'skills')
       end
+    end
+
+    def create_activity!
+      @user.activities.create!(
+        action: 'create',
+        activable: @draft,
+        activable_name: employee.fullname
+      )
     end
   end
 end

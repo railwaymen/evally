@@ -4,7 +4,7 @@
       <span class="headline">{{ $t('evaluations.forms.create_title') }}</span>
     </v-card-title>
 
-    <v-form>
+    <v-form @submit.prevent="create">
       <v-card-text>
         <div class="step">
           <div class="step__header">
@@ -20,9 +20,9 @@
           <div class="step__content">
             <v-select
               v-model="employeeId"
-              :items="[]"
+              :items="employees.models"
               item-value="id"
-              item-text="value"
+              item-text="fullname"
               :label="$t('evaluations.forms.employee_label')"
             />
           </div>
@@ -31,8 +31,8 @@
         <div class="step">
           <div class="step__header">
             <v-chip color="white" disabled>
-              <v-avatar :class="[employeeId || latestTemplate ? 'success' : 'grey darken-4', 'white--text']">
-                <v-icon color="white" v-if="employeeId || latestTemplate">done</v-icon>
+              <v-avatar :class="[templateId || useLatest ? 'success' : 'grey darken-4', 'white--text']">
+                <v-icon color="white" v-if="templateId || useLatest">done</v-icon>
                 <span v-else>2</span>
               </v-avatar>
               <span class="step__text black--text">{{ $t('evaluations.forms.select_template') }}</span>
@@ -42,15 +42,15 @@
           <div class="step__buttons">
             <div class="text-xs-center">
               <v-btn
-                @click="useLatest(true)"
-                :input-value="latestTemplate"
+                @click="setUseLatest(true)"
+                :input-value="useLatest"
                 flat
               >
                 Latest Template
               </v-btn>
 
               <v-btn
-                @click="useLatest(false)"
+                @click="setUseLatest(false)"
                 :input-value="newTemplate"
                 flat
               >
@@ -63,9 +63,9 @@
             <v-select
               v-if="newTemplate"
               v-model="templateId"
-              :items="[]"
+              :items="templates.models"
               item-value="id"
-              item-text="value"
+              item-text="name"
               :label="$t('evaluations.forms.template_label')"
             />
           </div>
@@ -86,7 +86,7 @@
           type="submit"
           color="green darken-1"
           flat
-          disabled
+          :disabled="!formCompleted"
         >
           {{ $t('buttons.create') }}
         </v-btn>
@@ -96,26 +96,49 @@
 </template>
 
 <script>
+import { EmployeesList } from '@models/employee'
+import { TemplatesList } from '@models/template'
+
 export default {
   name: 'CreateForm',
+  props: {
+    employees: {
+      type: EmployeesList,
+      required: true,
+      default: () => new EmployeesList()
+    },
+    templates: {
+      type: TemplatesList,
+      required: true,
+      default: () => new TemplatesList()
+    }
+  },
   data() {
     return {
       employeeId: null,
       templateId: null,
-      latestTemplate: null
+      useLatest: null
     }
   },
   computed: {
     newTemplate() {
-      return this.latestTemplate === false
+      return this.useLatest === false
+    },
+    formCompleted() {
+      return this.employeeId && (!!this.useLatest || !!this.templateId)
     }
   },
   methods: {
     closeDialog() {
       this.$emit('closeDialog')
     },
-    useLatest(val) {
-      this.latestTemplate = val
+    setUseLatest(val) {
+      this.useLatest = val
+      this.templateId = null
+    },
+    create() {
+      this.$store.dispatch('DraftsModule/create', this.$data)
+        .then(() => this.closeDialog())
     }
   }
 }

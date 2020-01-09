@@ -44,7 +44,7 @@ class List {
   }
 
   add(attributes) {
-    this.models.push(new (this.model)(attributes))
+    this.models.unshift(new (this.model)(attributes))
   }
 
   refresh(attributes) {

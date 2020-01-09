@@ -5,9 +5,9 @@ module V2
     before_action :authenticate!
 
     def index
-      drafts = V2::EvaluationsQuery.call(drafts_scope).order(updated_at: :desc)
+      presenter = V2::DraftsPresenter.new
 
-      render json: V2::EvaluationSerializer.render(drafts), status: :ok
+      render json: V2::Views::DraftsView.render(presenter), status: :ok
     end
 
     def show

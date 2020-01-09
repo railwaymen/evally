@@ -147,7 +147,11 @@ export default {
     },
     openCreateForm() {
       DialogsBus.$emit('openFormsDialog', {
-        innerComponent: CreateForm
+        innerComponent: CreateForm,
+        props: {
+          employees: this.employees,
+          templates: this.templates
+        }
       })
     },
     openCompleteForm() {
@@ -161,7 +165,7 @@ export default {
       })
     },
     ...mapActions({
-      fetchDrafts: 'DraftsModule/index',
+      fetchData: 'DraftsModule/index',
       update: 'DraftsModule/update',
     })
   },
@@ -169,11 +173,13 @@ export default {
     ...mapGetters({
       drafts: 'DraftsModule/drafts',
       evaluation: 'DraftsModule/draft',
+      employees: 'DraftsModule/employees',
+      templates: 'DraftsModule/templates',
       loading: 'DraftsModule/loading',
     })
   },
   created() {
-    this.fetchDrafts()
+    this.fetchData()
   },
   beforeDestroy() {
     this.$store.commit('DraftsModule/resetState')

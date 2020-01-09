@@ -1,12 +1,16 @@
 import http from '@/lib/http_config'
 
 import { Evaluation, EvaluationsList } from '@models/evaluation'
+import { EmployeesList } from '@models/employee'
+import { TemplatesList } from '@models/template'
 import { SectionsList } from '@models/section'
 
 const initialState = () => ({
   drafts: new EvaluationsList(),
   draft: new Evaluation(),
   sections: new SectionsList(),
+  employees: new EmployeesList(),
+  templates: new TemplatesList(),
   loading: true
 })
 
@@ -19,6 +23,8 @@ const DraftsModule = {
     drafts: state => state.drafts,
     draft: state => state.draft,
     sections: state => state.sections,
+    employees: state => state.employees,
+    templates: state => state.templates,
     loading: state => state.loading
   },
   mutations: {
@@ -27,8 +33,10 @@ const DraftsModule = {
       state.sections = new SectionsList()
       return state
     },
-    list(state, data) {
-      state.drafts = new EvaluationsList(data)
+    list(state, { drafts, employees, templates }) {
+      state.drafts = new EvaluationsList(drafts)
+      state.employees = new EmployeesList(employees)
+      state.templates = new TemplatesList(templates)
       state.loading = false
       return state
     },
@@ -39,6 +47,10 @@ const DraftsModule = {
     },
     inProgress(state, status) {
       state.loading = status
+      return state
+    },
+    add(state, data) {
+      state.drafts.add(data)
       return state
     },
     replace(state, section) {
@@ -72,6 +84,25 @@ const DraftsModule = {
       http.get(Evaluation.routes.draftPath(id))
         .then(response => {
           context.commit('item', response.data)
+        })
+        .catch(() => {
+          context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+        })
+    },
+    create(context, { employeeId, templateId, useLatest }) {
+      const params = {
+        draft: {
+          employee_id: employeeId,
+          template_id: templateId,
+          use_latest: useLatest
+        }
+      }
+
+      http.post(Evaluation.routes.draftsPath, params)
+        .then(response => {
+          context.commit('add', response.data.draft)
+
+          context.commit('FlashStore/push', { success: 'Created :)' }, { root: true })
         })
         .catch(() => {
           context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
