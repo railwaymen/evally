@@ -20,6 +20,10 @@ module V2
       Activity.includes(:user).order(created_at: :desc).limit(5)
     end
 
+    def templates
+      Template.order(name: :asc)
+    end
+
     private
 
     def drafts_scope

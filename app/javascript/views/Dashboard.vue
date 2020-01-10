@@ -22,6 +22,7 @@
               <v-flex xs12>
                 <upcoming-list
                   :employees="employees"
+                  :templates="templates"
                   :loading="loading"
                 />
               </v-flex>
@@ -48,6 +49,7 @@ import { mapGetters } from 'vuex'
 import { EmployeesList } from '@models/employee'
 import { EvaluationsList } from '@models/evaluation'
 import { ActivitiesList } from '@models/activity'
+import { TemplatesList } from '@models/template'
 
 import DraftsList from '@components/dashboard/DraftsList'
 import UpcomingList from '@components/dashboard/UpcomingList'
@@ -64,7 +66,8 @@ export default {
     loading: true,
     employees: new EmployeesList(),
     drafts: new EvaluationsList(),
-    activities: new ActivitiesList()
+    activities: new ActivitiesList(),
+    templates: new TemplatesList()
   }),
   computed: {
     ...mapGetters({
@@ -74,11 +77,12 @@ export default {
   created() {
     this.$http.get('/v2/dashboard')
       .then(response => {
-        const { employees, drafts, activities } = response.data
+        const { employees, drafts, activities, templates } = response.data
 
         this.employees = new EmployeesList(employees)
         this.drafts = new EvaluationsList(drafts)
         this.activities = new ActivitiesList(activities)
+        this.templates = new TemplatesList(templates)
       })
       .finally(() => {
         this.loading = false

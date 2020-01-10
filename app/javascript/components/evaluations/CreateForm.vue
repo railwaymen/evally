@@ -24,6 +24,7 @@
               item-value="id"
               item-text="fullname"
               :label="$t('evaluations.forms.employee_label')"
+              :disabled="defaultEmployee.isPersisted"
             />
           </div>
         </div>
@@ -96,7 +97,7 @@
 </template>
 
 <script>
-import { EmployeesList } from '@models/employee'
+import { Employee, EmployeesList } from '@models/employee'
 import { TemplatesList } from '@models/template'
 
 export default {
@@ -104,18 +105,23 @@ export default {
   props: {
     employees: {
       type: EmployeesList,
-      required: true,
+      required: false,
       default: () => new EmployeesList()
     },
     templates: {
       type: TemplatesList,
       required: true,
       default: () => new TemplatesList()
+    },
+    defaultEmployee: {
+      type: Employee,
+      required: false,
+      default: new Employee()
     }
   },
   data() {
     return {
-      employeeId: null,
+      employeeId: this.defaultEmployee.id,
       templateId: null,
       useLatest: null
     }
@@ -140,6 +146,11 @@ export default {
       this.$store.dispatch('DraftsModule/create', this.$data)
         .then(() => this.closeDialog())
     }
+  },
+  created() {
+    if (this.defaultEmployee.isNewRecord) return
+
+    this.employees.add(this.defaultEmployee)
   }
 }
 </script>

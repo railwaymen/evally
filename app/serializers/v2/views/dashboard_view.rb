@@ -8,6 +8,8 @@ module V2
       association :drafts, blueprint: V2::EvaluationSerializer, default: []
 
       association :activities, blueprint: V2::ActivitySerializer, default: []
+
+      association :templates, blueprint: V2::TemplateSerializer, default: []
     end
   end
 end

@@ -28,7 +28,13 @@
 
           <v-list-tile-action>
 						<v-tooltip bottom>
-							<v-btn slot="activator" color="green" icon flat>
+							<v-btn
+                @click="openCreateForm(employee)"
+                slot="activator"
+                color="green"
+                icon
+                flat
+              >
 								<v-icon>add</v-icon>
 							</v-btn>
 							<span>{{ $t('dashboard.upcoming.new_tooltip') }}</span>
@@ -41,7 +47,12 @@
 </template>
 
 <script>
+import { DialogsBus } from '@utils/dialogs_bus'
+
 import { EmployeesList } from '@models/employee'
+import { TemplatesList } from '@models/template'
+
+import CreateForm from '@components/evaluations/CreateForm'
 
 export default {
   name: 'UpcomingList',
@@ -51,11 +62,27 @@ export default {
       required: true,
       default: () => new EmployeesList()
     },
+    templates: {
+      type: TemplatesList,
+      required: true,
+      default: () => new TemplatesList()
+    },
     loading: {
       type: Boolean,
       required: true,
       default: true
     }
+  },
+  methods: {
+    openCreateForm(employee) {
+      DialogsBus.$emit('openFormsDialog', {
+        innerComponent: CreateForm,
+        props: {
+          templates: this.templates,
+          defaultEmployee: employee
+        }
+      })
+    },
   }
 }
 </script>

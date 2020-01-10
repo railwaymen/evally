@@ -71,6 +71,8 @@ module V2
     end
 
     def resolve_template_name
+      return if template.blank?
+
       template.is_a?(Template) ? template.name : template.template_name
     end
 
