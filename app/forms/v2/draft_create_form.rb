@@ -23,13 +23,11 @@ module V2
     private
 
     def build_draft
-      @draft ||= begin
-        return latest_evaluation.dup if @params[:use_latest]
-
-        employee.evaluations.build(template_name: template.name, sections_attributes: sections)
-      end
-
-      @draft.assign_attributes(state: :draft, completed_at: nil)
+      @draft ||= employee.evaluations.build(
+        state: :draft,
+        template_name: resolve_template_name,
+        sections_attributes: sections
+      )
     end
 
     def validate_draft!
@@ -59,13 +57,21 @@ module V2
     end
 
     def template
-      @template ||= Template.find_by(id: @params[:template_id])
+      @template ||= lambda do
+        return latest_evaluation if @params[:use_latest]
+
+        Template.find_by(id: @params[:template_id])
+      end.call
 
       unless @template
         raise V1::ErrorResponderService.new(:record_not_found, 404, ['Template does not exist'])
       end
 
       @template
+    end
+
+    def resolve_template_name
+      template.is_a?(Template) ? template.name : template.template_name
     end
 
     def sections

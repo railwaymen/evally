@@ -73,7 +73,7 @@ module V2
     end
 
     def create_params
-      params.require(:draft).permit(:employee_id, :template_id)
+      params.require(:draft).permit(:employee_id, :template_id, :use_latest)
     end
 
     def update_params
