@@ -23,5 +23,5 @@ class User < ApplicationRecord
 
   # # Callbacks
   #
-  after_create(&:create_setting)
+  after_create :create_setting
 end
