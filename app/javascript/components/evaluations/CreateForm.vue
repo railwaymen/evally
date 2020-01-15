@@ -116,7 +116,7 @@ export default {
     defaultEmployee: {
       type: Employee,
       required: false,
-      default: new Employee()
+      default: () => new Employee()
     }
   },
   data() {
@@ -144,7 +144,11 @@ export default {
     },
     create() {
       this.$store.dispatch('DraftsModule/create', this.$data)
-        .then(() => this.closeDialog())
+        .then(data => {
+          this.closeDialog()
+
+          this.$router.push({ name: 'evaluation_path', params: { id: data.id } })
+        })
     }
   },
   created() {

@@ -2,6 +2,8 @@
 
 module V2
   class DraftCreateForm
+    attr_reader :draft
+
     def initialize(params, user:)
       @params = params
       @user = user
@@ -16,14 +18,10 @@ module V2
       end
     end
 
-    def draft
-      V2::EvaluationsQuery.call(Evaluation.draft).find_by(id: @draft.id)
-    end
-
     private
 
     def build_draft
-      @draft ||= employee.evaluations.build(
+      @draft = employee.evaluations.build(
         state: :draft,
         template_name: resolve_template_name,
         sections_attributes: sections

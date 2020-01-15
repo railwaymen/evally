@@ -98,15 +98,21 @@ const DraftsModule = {
         }
       }
 
-      http.post(Evaluation.routes.draftsPath, params)
-        .then(response => {
-          context.commit('add', response.data.draft)
+      return new Promise((resolve, _reject) => {
+        http.post(Evaluation.routes.draftsPath, params)
+          .then(response => {
+            const { draft } = response.data
 
-          context.commit('FlashStore/push', { success: 'Created :)' }, { root: true })
-        })
-        .catch(() => {
-          context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
-        })
+            context.commit('add', draft)
+            context.commit('FlashStore/push', { success: 'Created :)' }, { root: true })
+
+            resolve(draft)
+          })
+          .catch((error) => {
+            console.log(error)
+            context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          })
+      })
     },
     update(context) {
       const { draft, sections } = context.state;
@@ -117,15 +123,19 @@ const DraftsModule = {
         }
       }
 
-      http.put(Evaluation.routes.draftPath(draft.id), params)
-        .then(response => {
-          context.commit('item', response.data)
+      return new Promise((resolve, _reject) => {
+        http.put(Evaluation.routes.draftPath(draft.id), params)
+          .then(response => {
+            context.commit('item', response.data)
+            context.commit('FlashStore/push', { success: 'Updated :)' }, { root: true })
 
-          context.commit('FlashStore/push', { success: 'Updated :)' }, { root: true })
-        })
-        .catch(() => {
-          context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
-        })
+            resolve()
+          })
+          .catch(() => {
+            context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          })
+      })
+
     },
     complete(context, { nextEvaluationDate }) {
       const { draft, sections } = context.state;
@@ -138,15 +148,18 @@ const DraftsModule = {
         }
       }
 
-      http.put(Evaluation.routes.draftPath(draft.id), params)
-        .then(() => {
-          context.commit('remove', draft.id)
+      return new Promise((resolve, _reject) => {
+        http.put(Evaluation.routes.draftPath(draft.id), params)
+          .then(() => {
+            context.commit('remove', draft.id)
+            context.commit('FlashStore/push', { success: 'Completed :)' }, { root: true })
 
-          context.commit('FlashStore/push', { success: 'Completed :)' }, { root: true })
-        })
-        .catch(() => {
-          context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
-        })
+            resolve()
+          })
+          .catch(() => {
+            context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          })
+      })
     },
     destroy(context) {
       const { draft } = context.state;

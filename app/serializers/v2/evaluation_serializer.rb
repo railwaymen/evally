@@ -4,7 +4,26 @@ module V2
   class EvaluationSerializer < Blueprinter::Base
     identifier :id
 
-    fields :state, :template_name, :updated_at, :employee_id, :employee_first_name,
-           :employee_last_name, :employee_position, :employee_hired_at, :next_evaluation_at
+    fields :state, :template_name, :updated_at, :employee_id
+
+    field :employee_first_name do |ev, _options|
+      ev.employee.first_name
+    end
+
+    field :employee_last_name do |ev, _options|
+      ev.employee.last_name
+    end
+
+    field :employee_position do |ev, _options|
+      ev.employee.position
+    end
+
+    field :employee_hired_at do |ev, _options|
+      ev.employee.hired_at
+    end
+
+    field :next_evaluation_at do |ev, _options|
+      ev.employee.next_evaluation_at
+    end
   end
 end

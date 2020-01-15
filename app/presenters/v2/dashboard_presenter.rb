@@ -27,7 +27,7 @@ module V2
     private
 
     def drafts_scope
-      V2::EvaluationsQuery.call(Evaluation.draft)
+      Evaluation.draft.includes(:employee)
     end
   end
 end

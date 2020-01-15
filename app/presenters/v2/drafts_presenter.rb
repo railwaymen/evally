@@ -3,7 +3,7 @@
 module V2
   class DraftsPresenter
     def drafts
-      V2::EvaluationsQuery.call(Evaluation.draft).order(updated_at: :desc)
+      Evaluation.draft.includes(:employee).order(updated_at: :desc)
     end
 
     def employees
