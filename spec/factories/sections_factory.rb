@@ -1,14 +1,20 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :section do |s|
-    s.sequence(:name)     { |n| "Section no.#{n}" }
-    group                 { 'text' }
-    width                 { 'full' }
-    s.sequence(:position) { |n| n }
+  factory :section do
+    sequence(:name)     { |n| "Section no.#{n}" }
+    group               { 'text' }
+    width               { 'full' }
+    sequence(:position) { |n| n }
 
     skills do
-      [{ name: 'Description', value: 'Lorem ipsum dolor sit amet ...', needToImprove: false }]
+      [
+        {
+          name: 'Description',
+          value: 'Lorem ipsum dolor sit amet ...',
+          needToImprove: false
+        }
+      ]
     end
 
     trait :rating do

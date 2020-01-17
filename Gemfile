@@ -13,7 +13,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
 gem 'rack-cors', '~> 1.0', '>= 1.0.2'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'blueprinter', '~> 0.12.0'
+gem 'blueprinter', '~> 0.22.0'
 gem 'rails_jwt_auth', '~> 0.23.0'
 
 group :development, :test do
@@ -24,6 +24,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails', '~> 4.11'
   gem 'faker', '~> 1.9.1'
+  gem 'json_spec', '~> 1.1'
   gem 'json-schema', '~> 2.8'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.8'

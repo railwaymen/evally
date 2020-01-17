@@ -12,8 +12,4 @@ module ApiHelpers
     expect(response.content_type).to eq 'application/json'
     expect(response).to match_response_schema('error')
   end
-
-  def json_response
-    JSON.parse(response.body)
-  end
 end

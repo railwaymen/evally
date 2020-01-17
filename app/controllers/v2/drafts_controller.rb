@@ -20,7 +20,7 @@ module V2
       create_form.save
       presenter = V2::EvaluationPresenter.new(create_form.draft)
 
-      render json: V2::Views::DraftView.render(presenter), status: :ok
+      render json: V2::Views::DraftView.render(presenter), status: :created
     end
 
     def update
