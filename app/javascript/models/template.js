@@ -7,6 +7,12 @@ class Template extends Model {
       name: ''
     }
   }
+
+  static get routes() {
+    return {
+      templatesPath: '/v2/templates'
+    }
+  }
 }
 
 class TemplatesList extends List {

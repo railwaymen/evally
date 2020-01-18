@@ -54,7 +54,7 @@ export default new Router({
         {
           path: 'templates',
           name: 'templates_path',
-          component: require('@/components/pages/Templates').default,
+          component: () => import(/* webpackChunkName: 'templates' */ '@views/Templates'),
         },
         {
           path: 'archive',

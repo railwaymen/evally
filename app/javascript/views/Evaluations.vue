@@ -96,7 +96,7 @@
       <v-container grid-list-lg fluid>
         <v-layout wrap row>
           <v-flex v-show="isSidebarVisible" xs10 offset-xs1 lg3 offset-lg0>
-            <drafts-sidebar
+            <drafts-search-list
               :drafts="drafts"
               :loading="loading"
             />
@@ -128,11 +128,11 @@ import { DialogsBus } from '@utils/dialogs_bus'
 import CompleteForm from '@components/evaluations/CompleteForm'
 import CreateForm from '@components/evaluations/CreateForm'
 import DeleteConfirm from '@components/evaluations/DeleteConfirm'
-import DraftsSidebar from '@components/evaluations/DraftsSidebar'
+import DraftsSearchList from '@components/evaluations/DraftsSearchList'
 
 export default {
   name: 'Evaluations',
-  components: { DraftsSidebar },
+  components: { DraftsSearchList },
   data() {
     return {
       isSidebarVisible: true

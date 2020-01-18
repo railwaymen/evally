@@ -7,9 +7,9 @@ import BrowserStore from '@/store/modules/browser_store'
 import EmployeesStore from '@/store/modules/employees_store'
 import FlashStore from '@/store/modules/flash_store'
 import SectionsStore from '@/store/modules/sections_store'
-import TemplatesStore from '@/store/modules/templates_store'
 
 import DraftsModule from '@store/modules/drafts_module'
+import TemplatesModule from '@store/modules/templates_module'
 
 Vue.use(Vuex)
 
@@ -21,8 +21,8 @@ export default new Vuex.Store({
     EmployeesStore,
     FlashStore,
     SectionsStore,
-    TemplatesStore,
 
-    DraftsModule
+    DraftsModule,
+    TemplatesModule
   }
 })
