@@ -55,6 +55,13 @@ export default new Router({
           path: 'templates',
           name: 'templates_path',
           component: () => import(/* webpackChunkName: 'templates' */ '@views/Templates'),
+          children: [
+            {
+              path: ':id',
+              name: 'template_path',
+              component: () => import(/* webpackChunkName: 'template' */ '@views/Template'),
+            }
+          ]
         },
         {
           path: 'archive',

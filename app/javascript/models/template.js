@@ -4,13 +4,19 @@ class Template extends Model {
   get defaults() {
     return {
       id: null,
-      name: ''
+      name: '',
+      editable: false
     }
+  }
+
+  get path() {
+    return { name: 'template_path', params: { id: this.id } }
   }
 
   static get routes() {
     return {
-      templatesPath: '/v2/templates'
+      templatesPath: '/v2/templates',
+      templatePath: id => `/v2/templates/${id}`
     }
   }
 }

@@ -21,12 +21,9 @@
           <v-list-tile
             v-for="template in searchedTemplates"
             :key="template.id"
+            :to="template.path"
             avatar
           >
-            <v-list-tile-avatar>
-              <v-icon>list_alt</v-icon>
-            </v-list-tile-avatar>
-
             <v-list-tile-content>
               <v-list-tile-title>{{ template.name }}</v-list-tile-title>
             </v-list-tile-content>

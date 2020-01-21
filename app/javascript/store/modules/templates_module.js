@@ -23,9 +23,31 @@ const TemplatesModule = {
   },
 
   mutations: {
+    clear(state) {
+      state.template = new Template()
+      state.sections = new SectionsList()
+      return state
+    },
+    edit(state) {
+      state.template.set('editable', true)
+      return state
+    },
     list(state, templates) {
       state.templates = new TemplatesList(templates)
       state.loading = false
+      return state
+    },
+    item(state, { template, sections }) {
+      state.template = new Template(template)
+      state.sections = new SectionsList(sections)
+      return state
+    },
+    inProgress(state, status) {
+      state.loading = status
+      return state
+    },
+    sectionsList(state, sectionsList) {
+      state.sections = sectionsList
       return state
     },
     resetState(state) {
@@ -45,6 +67,27 @@ const TemplatesModule = {
         .catch(() => {
           context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
         })
+    },
+    show(context, id) {
+      if (id === 'new') {
+        context.commit('item', { template: { editable: true }, sections: [] })
+
+        return
+      }
+
+      http.get(Template.routes.templatePath(id))
+        .then(response => {
+          context.commit('item', response.data)
+        })
+        .catch(() => {
+          context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+        })
+    },
+    create(context) {
+      console.log('Create: ', context.state)
+    },
+    update(context) {
+      console.log('Update: ', context.state)
     }
   }
 }

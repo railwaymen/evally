@@ -109,7 +109,6 @@ const DraftsModule = {
             resolve(draft)
           })
           .catch((error) => {
-            console.log(error)
             context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
           })
       })

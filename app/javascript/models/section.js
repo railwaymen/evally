@@ -7,7 +7,8 @@ class Section extends Model {
       group: '',
       name: '',
       position: null,
-      skills: []
+      skills: [],
+      _destroy: 0
     }
   }
 
@@ -29,6 +30,35 @@ class Section extends Model {
 
   get isText() {
     return this.group === 'text'
+  }
+
+  get groupData() {
+    switch (this.group) {
+      case 'rating':
+        return {
+          name: 'rating',
+          defaultValue: 0,
+          icon: 'star'
+        }
+      case 'bool':
+        return {
+          name: 'bool',
+          defaultValue: false,
+          icon: 'exposure'
+        }
+      case 'text':
+        return {
+          name: 'text',
+          defaultValue: '',
+          icon: 'title'
+        }
+      default:
+        return {
+          name: null,
+          defaultValue: null,
+          icon: null
+        }
+    }
   }
 }
 
