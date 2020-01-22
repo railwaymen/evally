@@ -24,6 +24,7 @@
             <v-btn
               @click="save"
               slot="activator"
+              :disabled="!template.editable"
               icon
               flat
             >
@@ -36,6 +37,7 @@
             <v-btn
               @click="edit"
               slot="activator"
+              :disabled="template.isNewRecord"
               icon
               flat
             >
@@ -45,7 +47,13 @@
           </v-tooltip>
 
           <v-tooltip bottom>
-            <v-btn color="red" slot="activator" icon flat>
+            <v-btn
+              color="red"
+              slot="activator"
+              :disabled="template.isNewRecord"
+              icon
+              flat
+            >
               <v-icon>delete</v-icon>
             </v-btn>
             <span>{{ $t('templates.buttons.delete') }}</span>
@@ -93,10 +101,14 @@ export default {
   components: { TemplatesSearchList },
   methods: {
     edit() {
-      this.$store.commit('TemplatesModule/edit')
+      this.$store.commit('TemplatesModule/setEditable')
     },
     save() {
-      this.template.isPersisted ? this.update() : this.create()
+      this.template.isPersisted
+        ? this.update()
+        : this.create().then((data) => {
+          this.$router.push({ name: 'template_path', params: { id: data.id } })
+        })
     },
     ...mapActions({
       fetchData: 'TemplatesModule/index',
@@ -113,6 +125,9 @@ export default {
   },
   created() {
     this.fetchData()
+  },
+  beforeDestroy() {
+    this.$store.commit('TemplatesModule/resetState')
   }
 }
 </script>

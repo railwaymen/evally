@@ -23,30 +23,34 @@ const TemplatesModule = {
   },
 
   mutations: {
-    clear(state) {
+    resetItem(state) {
       state.template = new Template()
       state.sections = new SectionsList()
       return state
     },
-    edit(state) {
-      state.template.set('editable', true)
+    setEditable(state, value = true) {
+      state.template.set('editable', value)
       return state
     },
-    list(state, templates) {
+    addToList(state, data) {
+      state.templates.add(data)
+      return state
+    },
+    setList(state, templates) {
       state.templates = new TemplatesList(templates)
       state.loading = false
       return state
     },
-    item(state, { template, sections }) {
+    setItem(state, { template, sections }) {
       state.template = new Template(template)
       state.sections = new SectionsList(sections)
       return state
     },
-    inProgress(state, status) {
+    setLoading(state, status) {
       state.loading = status
       return state
     },
-    sectionsList(state, sectionsList) {
+    setSections(state, sectionsList) {
       state.sections = sectionsList
       return state
     },
@@ -58,36 +62,73 @@ const TemplatesModule = {
 
   actions: {
     index(context) {
-      context.commit('inProgress', true)
+      context.commit('setLoading', true)
 
       http.get(Template.routes.templatesPath)
         .then(response => {
-          context.commit('list', response.data)
+          context.commit('setList', response.data)
         })
         .catch(() => {
           context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
         })
+        .finally(() => context.commit('setLoading', false))
     },
     show(context, id) {
       if (id === 'new') {
-        context.commit('item', { template: { editable: true }, sections: [] })
+        context.commit('setItem', { template: { editable: true }, sections: [] })
+      } else {
+        http.get(Template.routes.templatePath(id))
+          .then(response => {
+            context.commit('setItem', response.data)
+          })
+          .catch(() => {
+            context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          })
+      }
+    },
+    create(context) {
+      const { template, sections } = context.state;
 
-        return
+      const params = {
+        template: {
+          ...template.attributes,
+          sections: sections.models
+        }
       }
 
-      http.get(Template.routes.templatePath(id))
+      return new Promise((resolve, _reject) => {
+        http.post(Template.routes.templatesPath, params)
+          .then(response => {
+            const { data } = response
+
+            context.commit('addToList', data.template)
+            context.commit('FlashStore/push', { success: 'Created :)' }, { root: true })
+
+            resolve(data.template)
+          })
+          .catch(() => {
+            context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          })
+      })
+    },
+    update(context) {
+      const { template, sections } = context.state
+
+      const params = {
+        template: {
+          ...template.attributes,
+          sections: sections.models
+        }
+      }
+
+      http.put(Template.routes.templatePath(template.id), params)
         .then(response => {
-          context.commit('item', response.data)
+          context.commit('setItem', response.data)
+          context.commit('FlashStore/push', { success: 'Updated :)' }, { root: true })
         })
         .catch(() => {
           context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
         })
-    },
-    create(context) {
-      console.log('Create: ', context.state)
-    },
-    update(context) {
-      console.log('Update: ', context.state)
     }
   }
 }

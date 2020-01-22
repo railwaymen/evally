@@ -81,7 +81,7 @@ export default {
     sections: {
       deep: true,
       handler(newSections, _prevSections) {
-        this.$store.commit('TemplatesModule/sectionsList', newSections)
+        this.$store.commit('TemplatesModule/setSections', newSections)
       }
     }
   },

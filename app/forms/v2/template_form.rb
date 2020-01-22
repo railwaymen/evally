@@ -40,7 +40,7 @@ module V2
     end
 
     def resolved_activity_action
-      @template.new_record? ? 'create' : 'udpate'
+      @template.new_record? ? 'create' : 'update'
     end
   end
 end
