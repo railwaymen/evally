@@ -6,12 +6,11 @@ module V2
 
     def initialize(template, params:, user:)
       @template = template
-      @params = params
       @user = user
 
       @template.assign_attributes(
-        sections_attributes: @params.delete(:sections),
-        **@parans
+        sections_attributes: params[:sections],
+        name: params[:name]
       )
     end
 

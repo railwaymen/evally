@@ -35,6 +35,16 @@ module JsonSpecHelpers
       skills: section.skills
     }
   end
+
+  def template_schema(template)
+    {
+      template: {
+        id: template.id,
+        name: template.name
+      },
+      sections: template.sections.map(&method(:section_schema))
+    }.to_json
+  end
 end
 
 RSpec.configure do |config|

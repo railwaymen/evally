@@ -34,7 +34,7 @@ Rails.application.routes.draw do
       resource :dashboard, controller: 'dashboard', only: :show
 
       resources :drafts, only: %i[index show create update destroy]
-      resources :templates, only: %i[index show]
+      resources :templates, only: %i[index show create update destroy]
     end
 
     # Route to hit the Vue app

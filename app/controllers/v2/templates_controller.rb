@@ -64,7 +64,7 @@ module V2
     def update_form
       @update_form ||= V2::TemplateForm.new(
         template,
-        params: update_aprams,
+        params: update_params,
         user: current_user
       )
     end
