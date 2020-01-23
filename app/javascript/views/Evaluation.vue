@@ -64,7 +64,7 @@ export default {
     }
   },
   beforeDestroy() {
-    this.$store.commit('DraftsModule/clear')
+    this.$store.commit('DraftsModule/resetItem')
   }
 }
 </script>

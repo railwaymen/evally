@@ -28,39 +28,38 @@ const DraftsModule = {
     loading: state => state.loading
   },
   mutations: {
-    clear(state) {
-      state.draft = new Evaluation()
-      state.sections = new SectionsList()
+    addToList(state, data) {
+      state.drafts.add(data)
       return state
     },
-    list(state, { drafts, employees, templates }) {
-      state.drafts = new EvaluationsList(drafts)
-      state.employees = new EmployeesList(employees)
-      state.templates = new TemplatesList(templates)
-      state.loading = false
-      return state
-    },
-    item(state, { draft, sections }) {
+    setItem(state, { draft, sections }) {
       state.draft = new Evaluation(draft)
       state.sections = new SectionsList(sections)
       return state
     },
-    inProgress(state, status) {
+    setList(state, { drafts, employees, templates }) {
+      state.drafts = new EvaluationsList(drafts)
+      state.employees = new EmployeesList(employees)
+      state.templates = new TemplatesList(templates)
+      return state
+    },
+    setLoading(state, status) {
       state.loading = status
       return state
     },
-    add(state, data) {
-      state.drafts.add(data)
-      return state
-    },
-    replace(state, section) {
-      state.sections.replace(section)
-      return state
-    },
-    remove(state, id) {
+    removeFromList(state, id) {
       state.draft = new Evaluation()
       state.sections = new SectionsList()
       state.drafts.remove(id)
+      return state
+    },
+    replaceSection(state, section) {
+      state.sections.replace(section)
+      return state
+    },
+    resetItem(state) {
+      state.draft = new Evaluation()
+      state.sections = new SectionsList()
       return state
     },
     resetState(state) {
@@ -69,27 +68,28 @@ const DraftsModule = {
     }
   },
   actions: {
-    index(context) {
-      context.commit('inProgress', true)
+    index({ commit }) {
+      commit('setLoading', true)
 
       http.get(Evaluation.routes.draftsPath)
         .then(response => {
-          context.commit('list', response.data)
+          commit('setList', response.data)
         })
         .catch(() => {
-          context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          commit('FlashStore/push', { error: 'Error :(' }, { root: true })
         })
+        .finally(() => commit('setLoading', false))
     },
-    show(context, id) {
+    show({ commit }, id) {
       http.get(Evaluation.routes.draftPath(id))
         .then(response => {
-          context.commit('item', response.data)
+          commit('setItem', response.data)
         })
         .catch(() => {
-          context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          commit('FlashStore/push', { error: 'Error :(' }, { root: true })
         })
     },
-    create(context, { employeeId, templateId, useLatest }) {
+    create({ commit }, { employeeId, templateId, useLatest }) {
       const params = {
         draft: {
           employee_id: employeeId,
@@ -98,23 +98,23 @@ const DraftsModule = {
         }
       }
 
-      return new Promise((resolve, _reject) => {
+      return new Promise(resolve => {
         http.post(Evaluation.routes.draftsPath, params)
           .then(response => {
-            const { draft } = response.data
+            const { data } = response
 
-            context.commit('add', draft)
-            context.commit('FlashStore/push', { success: 'Created :)' }, { root: true })
+            commit('addToList', data.draft)
+            commit('FlashStore/push', { success: 'Created :)' }, { root: true })
 
-            resolve(draft)
+            resolve(data)
           })
-          .catch((error) => {
-            context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          .catch(() => {
+            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
           })
       })
     },
-    update(context) {
-      const { draft, sections } = context.state;
+    update({ state, commit }) {
+      const { draft, sections } = state;
 
       const params = {
         draft: {
@@ -122,22 +122,22 @@ const DraftsModule = {
         }
       }
 
-      return new Promise((resolve, _reject) => {
+      return new Promise(resolve => {
         http.put(Evaluation.routes.draftPath(draft.id), params)
           .then(response => {
-            context.commit('item', response.data)
-            context.commit('FlashStore/push', { success: 'Updated :)' }, { root: true })
+            commit('setItem', response.data)
+            commit('FlashStore/push', { success: 'Updated :)' }, { root: true })
 
             resolve()
           })
           .catch(() => {
-            context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
           })
       })
 
     },
-    complete(context, { nextEvaluationDate }) {
-      const { draft, sections } = context.state;
+    complete({ state, commit }, { nextEvaluationDate }) {
+      const { draft, sections } = state;
 
       const params = {
         draft: {
@@ -147,30 +147,30 @@ const DraftsModule = {
         }
       }
 
-      return new Promise((resolve, _reject) => {
+      return new Promise(resolve => {
         http.put(Evaluation.routes.draftPath(draft.id), params)
           .then(() => {
-            context.commit('remove', draft.id)
-            context.commit('FlashStore/push', { success: 'Completed :)' }, { root: true })
+            commit('removeFromList', draft.id)
+            commit('FlashStore/push', { success: 'Completed :)' }, { root: true })
 
             resolve()
           })
           .catch(() => {
-            context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
           })
       })
     },
-    destroy(context) {
-      const { draft } = context.state;
+    destroy({ state, commit }) {
+      const { draft } = state;
 
       http.delete(Evaluation.routes.draftPath(draft.id))
         .then(() => {
-          context.commit('remove', draft.id)
+          commit('removeFromList', draft.id)
 
-          context.commit('FlashStore/push', { success: 'Destroyed :)' }, { root: true })
+          commit('FlashStore/push', { success: 'Destroyed :)' }, { root: true })
         })
         .catch(() => {
-          context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          commit('FlashStore/push', { error: 'Error :(' }, { root: true })
         })
     }
   }

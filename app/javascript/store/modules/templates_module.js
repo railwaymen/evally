@@ -23,27 +23,22 @@ const TemplatesModule = {
   },
 
   mutations: {
-    resetItem(state) {
-      state.template = new Template()
-      state.sections = new SectionsList()
+    addToList(state, data) {
+      state.templates.add(data)
       return state
     },
     setEditable(state, value = true) {
       state.template.set('editable', value)
       return state
     },
-    addToList(state, data) {
-      state.templates.add(data)
+    setItem(state, { template, sections }) {
+      state.template = new Template(template)
+      state.sections = new SectionsList(sections)
       return state
     },
     setList(state, templates) {
       state.templates = new TemplatesList(templates)
       state.loading = false
-      return state
-    },
-    setItem(state, { template, sections }) {
-      state.template = new Template(template)
-      state.sections = new SectionsList(sections)
       return state
     },
     setLoading(state, status) {
@@ -58,6 +53,11 @@ const TemplatesModule = {
       state.template = new Template()
       state.sections = new SectionsList()
       state.templates.remove(id)
+      return state
+    },
+    resetItem(state) {
+      state.template = new Template()
+      state.sections = new SectionsList()
       return state
     },
     resetState(state) {
