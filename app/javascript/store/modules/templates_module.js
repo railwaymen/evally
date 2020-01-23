@@ -54,6 +54,12 @@ const TemplatesModule = {
       state.sections = sectionsList
       return state
     },
+    removeFromList(state, id) {
+      state.template = new Template()
+      state.sections = new SectionsList()
+      state.templates.remove(id)
+      return state
+    },
     resetState(state) {
       state = Object.assign(state, initialState())
       return state
@@ -61,33 +67,33 @@ const TemplatesModule = {
   },
 
   actions: {
-    index(context) {
-      context.commit('setLoading', true)
+    index({ commit }) {
+      commit('setLoading', true)
 
       http.get(Template.routes.templatesPath)
         .then(response => {
-          context.commit('setList', response.data)
+          commit('setList', response.data)
         })
         .catch(() => {
-          context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          commit('FlashStore/push', { error: 'Error :(' }, { root: true })
         })
-        .finally(() => context.commit('setLoading', false))
+        .finally(() => commit('setLoading', false))
     },
-    show(context, id) {
+    show({ commit }, id) {
       if (id === 'new') {
-        context.commit('setItem', { template: { editable: true }, sections: [] })
+        commit('setItem', { template: { editable: true }, sections: [] })
       } else {
         http.get(Template.routes.templatePath(id))
           .then(response => {
-            context.commit('setItem', response.data)
+            commit('setItem', response.data)
           })
           .catch(() => {
-            context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
           })
       }
     },
-    create(context) {
-      const { template, sections } = context.state;
+    create({ state, commit }) {
+      const { template, sections } = state;
 
       const params = {
         template: {
@@ -96,23 +102,23 @@ const TemplatesModule = {
         }
       }
 
-      return new Promise((resolve, _reject) => {
+      return new Promise(resolve => {
         http.post(Template.routes.templatesPath, params)
           .then(response => {
             const { data } = response
 
-            context.commit('addToList', data.template)
-            context.commit('FlashStore/push', { success: 'Created :)' }, { root: true })
+            commit('addToList', data.template)
+            commit('FlashStore/push', { success: 'Created :)' }, { root: true })
 
-            resolve(data.template)
+            resolve(data)
           })
           .catch(() => {
-            context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
           })
       })
     },
-    update(context) {
-      const { template, sections } = context.state
+    update({ state, commit }) {
+      const { template, sections } = state
 
       const params = {
         template: {
@@ -121,14 +127,36 @@ const TemplatesModule = {
         }
       }
 
-      http.put(Template.routes.templatePath(template.id), params)
-        .then(response => {
-          context.commit('setItem', response.data)
-          context.commit('FlashStore/push', { success: 'Updated :)' }, { root: true })
-        })
-        .catch(() => {
-          context.commit('FlashStore/push', { error: 'Error :(' }, { root: true })
-        })
+      return new Promise(resolve => {
+        http.put(Template.routes.templatePath(template.id), params)
+          .then(response => {
+            const { data } = response
+
+            commit('setItem', data)
+            commit('FlashStore/push', { success: 'Updated :)' }, { root: true })
+
+            resolve(data)
+          })
+          .catch(() => {
+            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          })
+      })
+    },
+    destroy({ state, commit }) {
+      const { template } = state
+
+      return new Promise(resolve => {
+        http.delete(Template.routes.templatePath(template.id))
+          .then(() => {
+            commit('removeFromList', template.id)
+            commit('FlashStore/push', { success: 'Destroyed :)' }, { root: true })
+
+            resolve()
+          })
+          .catch(() => {
+            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          })
+      })
     }
   }
 }

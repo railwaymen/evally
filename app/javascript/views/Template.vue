@@ -8,6 +8,7 @@
               :label="$t('templates.forms.template_name')"
               v-model="template.name"
               :disabled="!template.editable"
+              :rules="[vRequired]"
             />
           </div>
         </v-flex>
@@ -84,6 +85,6 @@ export default {
         this.$store.commit('TemplatesModule/setSections', newSections)
       }
     }
-  },
+  }
 }
 </script>

@@ -48,6 +48,7 @@
 
           <v-tooltip bottom>
             <v-btn
+              @click="openDeleteConfirm"
               color="red"
               slot="activator"
               :disabled="template.isNewRecord"
@@ -93,7 +94,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { DialogsBus } from '@utils/dialogs_bus'
 
+import DeleteConfirm from '@components/templates/DeleteConfirm'
 import TemplatesSearchList from '@components/templates/TemplatesSearchList'
 
 export default {
@@ -103,12 +106,18 @@ export default {
     edit() {
       this.$store.commit('TemplatesModule/setEditable')
     },
+    redirectToTemplate() {
+      this.$router.push({ name: 'template_path', params: { id: data.id } })
+    },
     save() {
       this.template.isPersisted
         ? this.update()
-        : this.create().then((data) => {
-          this.$router.push({ name: 'template_path', params: { id: data.id } })
-        })
+        : this.create().then(this.redirectToTemplate)
+    },
+    openDeleteConfirm() {
+      DialogsBus.$emit('openConfirmDialog', {
+        innerComponent: DeleteConfirm
+      })
     },
     ...mapActions({
       fetchData: 'TemplatesModule/index',

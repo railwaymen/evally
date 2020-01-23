@@ -22,6 +22,7 @@
             <v-text-field
               v-model="section.name"
               :label="$t('templates.forms.section_title')"
+              :rules="[vRequired]"
               outline
             />
           </span>
