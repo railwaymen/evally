@@ -1,42 +1,23 @@
 .browser-form {
   display: flex
   flex-wrap: wrap
-  align-items: center
+  align-items: baseline
 
   &__skill {
-    flex-shrink: 0
-    min-width: 24rem
-    width: 100%
-
-    +respond(md) {
-      max-width: 45%
-    }
-
-    +respond(xl) {
-      max-width: 60%
-    }
-  }
-
-  &__buttons {
-    flex: 1 1 auto
-    text-align: left
-
-    +respond(md) {
-      text-align: center
-    }
+    width: 50%
+    height: 8rem
   }
 
   &__comparator {
-    display: inline-block
+    margin: 0 3rem
   }
 
   &__value {
-    display: inline-block
-    transform: translate(1rem, 1rem)
+    margin: 0 3rem
+    transform: translateY(.6rem)
   }
 
   &__action {
-    flex-shrink: 0
-    width: 10rem  
+    margin-left: auto
   }
 }

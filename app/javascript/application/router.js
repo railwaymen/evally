@@ -44,12 +44,24 @@ export default new Router({
         {
           path: 'employees',
           name: 'employees_path',
-          component: require('@/components/pages/Employees').default,
-        },
-        {
-          path: 'employees/:id',
-          name: 'employee_path',
-          component: require('@/components/pages/Employee').default,
+          component: () => import(/* webpackChunkName: 'employees' */ '@views/Employees'),
+          children: [
+            {
+              path: 'search',
+              name: 'employees_search_path',
+              component: () => import(/* webpackChunkName: 'employees_search' */ '@views/EmployeesSearch'),
+            },
+            {
+              path: 'overview',
+              name: 'employees_overview_path',
+              component: () => import(/* webpackChunkName: 'employees_overview' */ '@views/EmployeesOverview'),
+            },
+            {
+              path: ':id',
+              name: 'employee_path',
+              component: () => import(/* webpackChunkName: 'employee' */ '@views/Employee'),
+            }
+          ]
         },
         {
           path: 'templates',
