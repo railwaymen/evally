@@ -18,7 +18,19 @@
           :loading="loading"
         >
           <template #items="props">
-            <td>{{ props.item.fullname }}</td>
+            <td :style="{ padding: '0 5px' }">
+              <v-tooltip right>
+                <v-btn slot="activator" icon flat>
+                  <v-icon size="15">edit</v-icon>
+                </v-btn>
+                <span>Edit</span>
+              </v-tooltip>
+            </td>
+            <td>
+              <router-link :to="{ name: 'employee_path', params: { id: props.item.id }}">
+                {{ props.item.fullname }}
+              </router-link>
+            </td>
             <td class="text-xs-center">
               <v-tooltip left>
                 <template #activator="{ on }">
@@ -42,7 +54,7 @@
 import { EmployeesList } from '@models/employee'
 
 export default {
-  name: 'EmployeesTable',
+  name: 'BasicTable',
   props: {
     loading: {
       type: Boolean,
@@ -59,6 +71,10 @@ export default {
     return {
       search: '',
       headers: [
+        {
+          sortable: false,
+          value: null,
+        },
         {
           text: this.$t('employees.table.headers.employee_name'),
           value: 'fullname'

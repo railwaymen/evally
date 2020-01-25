@@ -53,7 +53,7 @@
     <div class="panel__content">
       <v-container grid-list-lg fluid>
         <div class="box box--with-content">
-          <employees-table
+          <basic-table
             v-if="$route.name === 'employees_path'"
             :employees="employees"
             :loading="loading"
@@ -69,11 +69,11 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import EmployeesTable from '@components/employees/EmployeesTable'
+import BasicTable from '@components/employees/BasicTable'
 
 export default {
   name: 'Employees',
-  components: { EmployeesTable },
+  components: { BasicTable },
   methods: {
     ...mapActions({
       fetchData: 'EmployeesModule/index'
