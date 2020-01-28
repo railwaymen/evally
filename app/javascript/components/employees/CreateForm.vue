@@ -4,7 +4,7 @@
       <span class="headline">{{ $t('employees.forms.create_title') }}</span>
     </v-card-title>
 
-    <v-form @submit.prevent="save">
+    <v-form ref="employeeForm" @submit.prevent="save">
       <v-card-text>
         <v-layout row wrap>
           <v-flex class="px-3" xs12 lg6>
@@ -12,13 +12,13 @@
 
             <v-text-field
               v-model="localEmployee.first_name"
-              :rules="[vRequired, vIsString]"
+              :rules="[vRequired]"
               :label="$t('employees.forms.first_name')"
             />
 
             <v-text-field
               v-model="localEmployee.last_name"
-              :rules="[vRequired, vIsString]"
+              :rules="[vRequired]"
               :label="$t('employees.forms.last_name')"
             />
 
@@ -34,6 +34,7 @@
             <v-combobox
               v-model="localEmployee.group"
               :items="this.groups"
+              :rules="[vRequired]"
               append-icon="expand_more"
               chips
               :label="$t('employees.forms.group')"
@@ -190,6 +191,8 @@ export default {
       this.$emit('closeDialog')
     },
     save() {
+      if (!this.$refs.employeeForm.validate()) return
+
       (this.localEmployee.isPersisted ? this.update : this.create)(this.localEmployee)
         .then(this.closeDialog)
     },

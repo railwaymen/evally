@@ -24,6 +24,10 @@ const EmployeesModule = {
       state.employees.add(data)
       return state
     },
+    refreshListItem(state, data) {
+      state.employees.refresh(data)
+      return state
+    },
     setList(state, employees) {
       state.employees = new EmployeesList(employees)
       state.loading = false
@@ -73,7 +77,24 @@ const EmployeesModule = {
       })
     },
     update({ commit }, employee) {
-      console.log('Update: ', employee)
+      const params = {
+        employee: employee.attributes
+      }
+
+      return new Promise(resolve => {
+        http.put(Employee.routes.employeePath(employee.id), params)
+          .then(response => {
+            const { data } = response
+
+            commit('refreshListItem', data)
+            commit('FlashStore/push', { success: 'Updated :)' }, { root: true })
+
+            resolve(data)
+          })
+          .catch(() => {
+            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          })
+      })
     }
   }
 }
