@@ -19,9 +19,22 @@ module JsonSpecHelpers
         employee_last_name: employee.last_name,
         employee_position: employee.position,
         employee_hired_at: employee.hired_at.to_s,
-        next_evaluation_at: employee.next_evaluation_at,
+        next_evaluation_at: employee.next_evaluation_at
       },
       sections: draft.sections.map(&method(:section_schema))
+    }.to_json
+  end
+
+  def employee_schema(employee)
+    {
+      first_name: employee.first_name,
+      last_name: employee.last_name,
+      state: employee.state,
+      position: employee.position,
+      group: employee.group,
+      hired_at: employee.hired_at.to_s,
+      position_set_at: employee.position_set_at || employee.hired_at,
+      next_evaluation_at: employee.next_evaluation_at
     }.to_json
   end
 

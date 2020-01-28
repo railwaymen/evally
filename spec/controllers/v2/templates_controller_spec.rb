@@ -16,7 +16,7 @@ RSpec.describe V2::TemplatesController, type: :controller do
     end
 
     context 'when authorized' do
-      it 'responds with empty drafts, employees and templates' do
+      it 'responds with empty templates' do
         sign_in user
         get :index
 
@@ -182,7 +182,7 @@ RSpec.describe V2::TemplatesController, type: :controller do
 
       it 'responds with new section' do
         template = FactoryBot.create(:template)
-        section = FactoryBot.create(:section, sectionable: template)
+        FactoryBot.create(:section, sectionable: template)
 
         params = {
           id: template.id,

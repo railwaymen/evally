@@ -20,7 +20,12 @@
           <template #items="props">
             <td :style="{ padding: '0 5px' }">
               <v-tooltip right>
-                <v-btn slot="activator" icon flat>
+                <v-btn
+                  @click="$emit('edit', props.item.id)"
+                  slot="activator"
+                  icon
+                  flat
+                >
                   <v-icon size="15">edit</v-icon>
                 </v-btn>
                 <span>Edit</span>

@@ -4,6 +4,7 @@ import { Employee, EmployeesList } from '@models/employee'
 
 const initialState = () => ({
   employees: new EmployeesList(),
+  employee: new Employee(),
   loading: true
 })
 
@@ -14,10 +15,15 @@ const EmployeesModule = {
 
   getters: {
     employees: state => state.employees,
+    employee: state => state.employee,
     loading: state => state.loading
   },
 
   mutations: {
+    addToList(state, data) {
+      state.employees.add(data)
+      return state
+    },
     setList(state, employees) {
       state.employees = new EmployeesList(employees)
       state.loading = false
@@ -45,6 +51,29 @@ const EmployeesModule = {
           commit('FlashStore/push', { error: 'Error :(' }, { root: true })
         })
         .finally(() => commit('setLoading', false))
+    },
+    create({ commit }, employee) {
+      const params = {
+        employee: employee.attributes
+      }
+
+      return new Promise(resolve => {
+        http.post(Employee.routes.employeesPath, params)
+          .then(response => {
+            const { data } = response
+
+            commit('addToList', data)
+            commit('FlashStore/push', { success: 'Created :)' }, { root: true })
+
+            resolve(data)
+          })
+          .catch(() => {
+            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          })
+      })
+    },
+    update({ commit }, employee) {
+      console.log('Update: ', employee)
     }
   }
 }

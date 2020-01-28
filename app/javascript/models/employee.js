@@ -10,10 +10,10 @@ class Employee extends Model {
       last_name: '',
       position: '',
       group: '',
-      hired_at: '',
-      position_set_at: '',
-      next_evaluation_at: '',
-      latest_evaluation_date: ''
+      hired_at: null,
+      position_set_at: null,
+      next_evaluation_at: null,
+      latest_evaluation_date: null
     };
   }
 
@@ -40,9 +40,20 @@ class Employee extends Model {
     return [this.first_name, this.last_name].join(' ')
   }
 
-  get hiredAt () {
+  get hiredAt() {
     return moment(this.hired_at).format('MMMM YYYY')
   }
+
+  // === hired at datepicker getter & setter
+  get hiredDate() {
+    return this.hired_at ? moment(this.hired_at).format('YYYY-MM-DD') : ''
+  }
+
+  set hiredDate(date) {
+    const mDate = moment(date, 'YYYY-MM-DD')
+    this.hired_at = mDate.isValid() ? mDate.format() : ''
+  }
+  // ===
 
   get latestEvaluationDate() {
     if (!this.latest_evaluation_date) return '---'
@@ -56,9 +67,31 @@ class Employee extends Model {
     return moment(this.next_evaluation_at).format('MMM YYYY')
   }
 
+  // === next evaluation at datepicker getter & setter
+  get nextEvaluationDate() {
+    return this.next_evaluation_at ? moment(this.next_evaluation_at).format('YYYY-MM') : ''
+  }
+
+  set nextEvaluationDate(date) {
+    const mDate = moment(date, 'YYYY-MM')
+    this.next_evaluation_at = mDate.isValid() ? mDate.format() : ''
+  }
+  // ===
+
   get positionSetAt () {
     return moment(this.position_set_at).format('MMMM YYYY')
   }
+
+  // === position set at datepicker getter & setter
+  get positionSetDate() {
+    return this.position_set_at ? moment(this.position_set_at).format('YYYY-MM-DD') : ''
+  }
+
+  set positionSetDate(date) {
+    const mDate = moment(date, 'YYYY-MM-DD')
+    this.position_set_at = mDate.isValid() ? mDate.format() : ''
+  }
+  // ===
 
   static get routes() {
     return {

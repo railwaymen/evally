@@ -15,7 +15,7 @@
           <v-menu
             ref="menu"
             v-model="menu"
-            :close-on-content-click="false"
+            :close-on-content-click="true"
             :nudge-right="40"
             lazy
             transition="scale-transition"
@@ -34,7 +34,6 @@
             </template>
             <v-date-picker
               v-model="date"
-              @change="menu = false"
               :locale="$i18n.locale"
               type="month"
               no-title

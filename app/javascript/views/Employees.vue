@@ -38,6 +38,7 @@
       <div class="header__actions">
         <v-tooltip bottom>
           <v-btn
+            @click="openCreateForm"
             color="green"
             slot="activator"
             icon
@@ -57,6 +58,7 @@
             v-if="$route.name === 'employees_path'"
             :employees="employees"
             :loading="loading"
+            @edit="openUpdateForm"
           />
 
           <router-view v-else />
@@ -68,18 +70,52 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { DialogsBus } from '@utils/dialogs_bus'
+
+import { Employee } from '@models/employee'
 
 import BasicTable from '@components/employees/BasicTable'
+import CreateForm from '@components/employees/CreateForm'
+
+import { pluckUniq } from '@utils/helpers'
 
 export default {
   name: 'Employees',
   components: { BasicTable },
   methods: {
+    openCreateForm() {
+      DialogsBus.$emit('openFormsDialog', {
+        innerComponent: CreateForm,
+        maxWidth: 800,
+        props: {
+          positions: this.positions,
+          groups: this.groups,
+          employee: new Employee()
+        }
+      })
+    },
+    openUpdateForm(id) {
+      DialogsBus.$emit('openFormsDialog', {
+        innerComponent: CreateForm,
+        maxWidth: 800,
+        props: {
+          positions: this.positions,
+          groups: this.groups,
+          employee: this.employees.findById(id)
+        }
+      })
+    },
     ...mapActions({
       fetchData: 'EmployeesModule/index'
     })
   },
   computed: {
+    positions() {
+      return pluckUniq(this.employees.models, 'position')
+    },
+    groups() {
+      return pluckUniq(this.employees.models, 'group')
+    },
     ...mapGetters({
       employees: 'EmployeesModule/employees',
       loading: 'EmployeesModule/loading',
