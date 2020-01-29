@@ -28,6 +28,10 @@ const EmployeesModule = {
       state.employees.refresh(data)
       return state
     },
+    setItem(state, { employee, evaluations, position_changes }) {
+      state.employee = new Employee(employee)
+      return state
+    },
     setList(state, employees) {
       state.employees = new EmployeesList(employees)
       state.loading = false
@@ -35,6 +39,10 @@ const EmployeesModule = {
     },
     setLoading(state, status) {
       state.loading = status
+      return state
+    },
+    resetItem(state) {
+      state.employee = new Employee()
       return state
     },
     resetState(state) {
@@ -55,6 +63,15 @@ const EmployeesModule = {
           commit('FlashStore/push', { error: 'Error :(' }, { root: true })
         })
         .finally(() => commit('setLoading', false))
+    },
+    show({ commit }, id) {
+      http.get(Employee.routes.employeePath(id))
+        .then(response => {
+          commit('setItem', response.data)
+        })
+        .catch(() => {
+          commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+        })
     },
     create({ commit }, employee) {
       const params = {

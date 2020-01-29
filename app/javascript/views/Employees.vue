@@ -53,16 +53,16 @@
 
     <div class="panel__content">
       <v-container grid-list-lg fluid>
-        <div class="box box--with-content">
-          <basic-table
-            v-if="$route.name === 'employees_path'"
-            :employees="employees"
-            :loading="loading"
-            @edit="openUpdateForm"
-          />
 
-          <router-view v-else />
-        </div>
+        <basic-table
+          v-if="$route.name === 'employees_path'"
+          :employees="employees"
+          :loading="loading"
+          @edit="openUpdateForm"
+        />
+
+        <router-view v-else />
+
       </v-container>
     </div>
   </section>
