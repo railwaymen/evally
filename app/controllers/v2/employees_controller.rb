@@ -10,6 +10,12 @@ module V2
       render json: V2::EmployeeSerializer.render(employees, view: :index), status: :ok
     end
 
+    def show
+      presenter = V2::EmployeePresenter.new(employee)
+
+      render json: V2::Views::EmployeeView.render(presenter), status: :ok
+    end
+
     def create
       create_form.save
 
