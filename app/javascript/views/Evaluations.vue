@@ -1,96 +1,93 @@
 <template>
   <section class="panel">
-    <v-layout row>
-      <v-flex>
-        <h2 class="panel__heading">{{ $t('evaluations.title') }}</h2>
-      </v-flex>
+    <div class="panel__row">
+      <div class="panel__name">
+        <h2>{{ $t('evaluations.title') }}</h2>
+      </div>
 
-      <v-flex>
-        <div class="panel__action-bar">
-          <v-tooltip bottom>
-            <v-btn
-              @click="openCreateForm"
-              color="green"
-              slot="activator"
-              icon
-              flat
-            >
-              <v-icon>add</v-icon>
-            </v-btn>
-            <span>{{ $t('evaluations.buttons.add_new') }}</span>
-          </v-tooltip>
+      <div class="panel__actions">
+        <v-tooltip bottom>
+          <v-btn
+            @click="openCreateForm"
+            color="green"
+            slot="activator"
+            icon
+            flat
+          >
+            <v-icon>add</v-icon>
+          </v-btn>
+          <span>{{ $t('evaluations.buttons.add_new') }}</span>
+        </v-tooltip>
 
-          <v-tooltip bottom>
-            <v-btn
-              @click="openCompleteForm"
-              :disabled="evaluation.isNewRecord"
-              color="green"
-              slot="activator"
-              icon
-              flat
-            >
-              <v-icon>how_to_vote</v-icon>
-            </v-btn>
-            <span>{{ $t('evaluations.buttons.complete') }}</span>
-          </v-tooltip>
+        <v-tooltip bottom>
+          <v-btn
+            @click="openCompleteForm"
+            :disabled="evaluation.isNewRecord"
+            color="green"
+            slot="activator"
+            icon
+            flat
+          >
+            <v-icon>how_to_vote</v-icon>
+          </v-btn>
+          <span>{{ $t('evaluations.buttons.complete') }}</span>
+        </v-tooltip>
 
-          <v-tooltip bottom>
-            <v-btn
-              @click="update"
-              :disabled="evaluation.isNewRecord"
-              color="black"
-              slot="activator"
-              icon
-              flat
-            >
-              <v-icon>save_alt</v-icon>
-            </v-btn>
-            <span>{{ $t('evaluations.buttons.save_draft') }}</span>
-          </v-tooltip>
+        <v-tooltip bottom>
+          <v-btn
+            @click="update"
+            :disabled="evaluation.isNewRecord"
+            color="black"
+            slot="activator"
+            icon
+            flat
+          >
+            <v-icon>save_alt</v-icon>
+          </v-btn>
+          <span>{{ $t('evaluations.buttons.save_draft') }}</span>
+        </v-tooltip>
 
-          <v-tooltip bottom>
-            <v-btn
-              @click="reset"
-              :disabled="evaluation.isNewRecord"
-              color="black"
-              slot="activator"
-              icon
-              flat
-            >
-              <v-icon>restore</v-icon>
-            </v-btn>
-            <span>{{ $t('evaluations.buttons.reset') }}</span>
-          </v-tooltip>
+        <v-tooltip bottom>
+          <v-btn
+            @click="reset"
+            :disabled="evaluation.isNewRecord"
+            color="black"
+            slot="activator"
+            icon
+            flat
+          >
+            <v-icon>restore</v-icon>
+          </v-btn>
+          <span>{{ $t('evaluations.buttons.reset') }}</span>
+        </v-tooltip>
 
-          <v-tooltip bottom>
-            <v-btn
-              @click="openDeleteConfirm"
-              :disabled="evaluation.isNewRecord"
-              color="red"
-              slot="activator"
-              icon
-              flat
-            >
-              <v-icon>delete</v-icon>
-            </v-btn>
-            <span>{{ $t('evaluations.buttons.delete') }}</span>
-          </v-tooltip>
+        <v-tooltip bottom>
+          <v-btn
+            @click="openDeleteConfirm"
+            :disabled="evaluation.isNewRecord"
+            color="red"
+            slot="activator"
+            icon
+            flat
+          >
+            <v-icon>delete</v-icon>
+          </v-btn>
+          <span>{{ $t('evaluations.buttons.delete') }}</span>
+        </v-tooltip>
 
-          <v-tooltip class="divider-before" bottom>
-            <v-btn
-              @click="toggleSidebar"
-              slot="activator"
-              icon
-              flat
-            >
-              <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
-            </v-btn>
-            <span>{{ isSidebarVisible ? $t('buttons.hide') : $t('buttons.show') }} sidebar</span>
-          </v-tooltip>
-
-        </div>
-      </v-flex>
-    </v-layout>
+        <v-tooltip bottom>
+          <v-btn
+            @click="toggleSidebar"
+            slot="activator"
+            icon
+            flat
+          >
+            <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
+          </v-btn>
+          <span>{{ isSidebarVisible ? $t('buttons.hide') : $t('buttons.show') }} sidebar</span>
+        </v-tooltip>
+      </div>
+    </div>
 
     <div class="panel__content">
       <v-container grid-list-lg fluid>
@@ -103,10 +100,10 @@
           </v-flex>
 
           <v-flex xs12 :lg9="isSidebarVisible" :lg12="!isSidebarVisible">
-            <div v-if="$route.name === 'evaluations_path'" class="box box--with-content">
+            <div v-if="$route.name === 'evaluations_path'" class="box">
               <v-layout row>
                 <v-flex xs12>
-                  <h4 class="no-content__header no-content__header--large">
+                  <h4 class="box__header">
                     {{ $t('evaluations.message') }}
                   </h4>
                 </v-flex>

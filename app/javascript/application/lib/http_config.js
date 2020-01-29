@@ -26,7 +26,7 @@ axios.interceptors.response.use(response => {
   if (error.response.status === 401) {
     store.commit('AuthStore/clearStore')
 
-    router.push({ name: 'landing_page_path' })
+    router.push({ name: 'login_path' })
     localStorage.removeItem('ev411y_t0k3n')
   }
 

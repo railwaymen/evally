@@ -1,57 +1,56 @@
 <template>
-  <div class="box box--with-content">
+  <div class="box">
     <v-layout row wrap>
-      <v-flex xs3>
+      <v-flex xs6>
         <v-text-field
           v-model="search"
           append-icon="search"
           :label="$t('employees.table.search')"
+          box
         />
       </v-flex>
 
       <v-flex xs12>
-        <div class="employees__table">
-          <v-data-table
-            :headers="headers"
-            :items="employees.models"
-            :search="search"
-            :rows-per-page-items="perPageItems"
-            :loading="loading"
-          >
-            <template #items="props">
-              <td :style="{ padding: '0 5px' }">
-                <v-tooltip right>
-                  <v-btn
-                    @click="$emit('edit', props.item.id)"
-                    slot="activator"
-                    icon
-                    flat
-                  >
-                    <v-icon size="15">edit</v-icon>
-                  </v-btn>
-                  <span>Edit</span>
-                </v-tooltip>
-              </td>
-              <td>
-                <router-link :to="{ name: 'employee_path', params: { id: props.item.id }}">
-                  {{ props.item.fullname }}
-                </router-link>
-              </td>
-              <td class="text-xs-center">
-                <v-tooltip left>
-                  <template #activator="{ on }">
-                    <span v-on="on">{{ props.item.hiredAt }}</span>
-                  </template>
-                  <span>{{ props.item.employmentTime }}</span>
-                </v-tooltip>
-              </td>
-              <td class="text-xs-center">{{ props.item.group }}</td>
-              <td class="text-xs-center">{{ props.item.position }}</td>
-              <td class="text-xs-center">{{ props.item.positionSetAt }}</td>
-              <td class="text-xs-center">{{ props.item.latestEvaluationDate }}</td>
-            </template>
-          </v-data-table>
-        </div>
+        <v-data-table
+          :headers="headers"
+          :items="employees.models"
+          :search="search"
+          :rows-per-page-items="perPageItems"
+          :loading="loading"
+        >
+          <template #items="props">
+            <td :style="{ padding: '0 5px' }">
+              <v-tooltip right>
+                <v-btn
+                  @click="$emit('edit', props.item.id)"
+                  slot="activator"
+                  icon
+                  flat
+                >
+                  <v-icon size="15">edit</v-icon>
+                </v-btn>
+                <span>Edit</span>
+              </v-tooltip>
+            </td>
+            <td>
+              <router-link :to="{ name: 'employee_path', params: { id: props.item.id }}">
+                {{ props.item.fullname }}
+              </router-link>
+            </td>
+            <td class="text-xs-center">
+              <v-tooltip left>
+                <template #activator="{ on }">
+                  <span v-on="on">{{ props.item.hiredAt }}</span>
+                </template>
+                <span>{{ props.item.employmentTime }}</span>
+              </v-tooltip>
+            </td>
+            <td class="text-xs-center">{{ props.item.group }}</td>
+            <td class="text-xs-center">{{ props.item.position }}</td>
+            <td class="text-xs-center">{{ props.item.positionSetAt }}</td>
+            <td class="text-xs-center">{{ props.item.latestEvaluationDate }}</td>
+          </template>
+        </v-data-table>
       </v-flex>
     </v-layout>
   </div>

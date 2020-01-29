@@ -1,11 +1,11 @@
 <template>
   <section class="panel">
-    <div class="header">
-      <div class="header__name">
+    <div class="panel__row">
+      <div class="panel__name">
         <h2>{{ $t('employees.title') }}</h2>
       </div>
 
-      <div class="header__nav">
+      <div class="panel__nav">
         <v-btn
           color="primary"
           :to="{ name: 'employees_path' }"
@@ -35,7 +35,7 @@
         </v-btn>
       </div>
 
-      <div class="header__actions">
+      <div class="panel__actions">
         <v-tooltip bottom>
           <v-btn
             @click="openCreateForm"

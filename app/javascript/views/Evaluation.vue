@@ -1,11 +1,9 @@
 <template>
-  <div class="box box--with-content evaluation">
+  <div class="box evaluation">
     <v-layout v-if="evaluation.isPersisted" row wrap>
       <v-flex xs12 lg9>
-        <div class="employee">
-          <h3 class="employee__fullname">{{ evaluation.employeeFullname }}</h3>
-          <h4 class="employee__position">{{ evaluation.employee_position }}</h4>
-        </div>
+        <h3 class="evaluation__fullname">{{ evaluation.employeeFullname }}</h3>
+        <h4 class="evaluation__position">{{ evaluation.employee_position }}</h4>
       </v-flex>
 
       <v-flex xs12 lg3>
@@ -33,7 +31,7 @@
 
     <v-layout v-else row>
       <v-flex xs12>
-        <h4 class="no-content__header no-content__header--large">
+        <h4 class="box__header">
           {{ $t('evaluations.message') }}
         </h4>
       </v-flex>

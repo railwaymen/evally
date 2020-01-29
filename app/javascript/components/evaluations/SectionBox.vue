@@ -1,59 +1,55 @@
 <template>
   <v-flex xs12 :lg6="section.isHalf" :lg12="section.isFull">
-    <div class="section-box">
-      <h5 class="section-box__heading">
+    <div class="section">
+      <h5 class="section__header">
         <span>{{ section.name }}</span>
       </h5>
 
-      <div v-if="section.isRating" class="section-box__items">
-        <div class="skills">
-          <div
-            v-for="(skill, index) in section.skills"
-            :key="index"
-            :class="['skill', { 'need-to-improve': skill.needToImprove }]"
-            @dblclick="needToImprove(skill)"
-          >
-            <div class="skill__name">{{ skill.name }}</div>
+      <div v-if="section.isRating" class="section__items">
+        <div
+          v-for="(skill, index) in section.skills"
+          :key="index"
+          :class="['skill', { 'need-to-improve': skill.needToImprove }]"
+          @dblclick="needToImprove(skill)"
+        >
+          <div class="skill__name">{{ skill.name }}</div>
 
-            <div class="skill__action">
-              <v-rating
-                v-model="skill.value"
-                :readonly="!editable"
-                length="3"
-                hover
-                clearable
-              />
-            </div>
+          <div class="skill__action">
+            <v-rating
+              v-model="skill.value"
+              :readonly="!editable"
+              length="3"
+              hover
+              clearable
+            />
           </div>
         </div>
       </div>
 
-      <div v-if="section.isBool" class="section-box__items">
-        <div class="skills">
-          <div
-            v-for="(skill, index) in section.skills"
-            :key="index"
-            :class="['skill', { 'need-to-improve': skill.needToImprove }]"
-            @dblclick="needToImprove(skill)"
-          >
-            <div class="skill__name">{{ skill.name }}</div>
+      <div v-if="section.isBool" class="section__items">
+        <div
+          v-for="(skill, index) in section.skills"
+          :key="index"
+          :class="['skill', { 'need-to-improve': skill.needToImprove }]"
+          @dblclick="needToImprove(skill)"
+        >
+          <div class="skill__name">{{ skill.name }}</div>
 
-            <div class="skill__action">
-              <v-switch
-                v-if="editable"
-                :label="skill.value ? $t('evaluations.forms.bool_yes') : $t('evaluations.forms.bool_no')"
-                v-model="skill.value"
-                color="success"
-                class="mt-1"
-              />
+          <div class="skill__action">
+            <v-switch
+              v-if="editable"
+              :label="skill.value ? $t('evaluations.forms.bool_yes') : $t('evaluations.forms.bool_no')"
+              v-model="skill.value"
+              color="success"
+              class="mt-1"
+            />
 
-              <span v-else>{{ skill.value ? $t('evaluations.forms.bool_yes') : $t('evaluations.forms.bool_no') }}</span>
-            </div>
+            <span v-else>{{ skill.value ? $t('evaluations.forms.bool_yes') : $t('evaluations.forms.bool_no') }}</span>
           </div>
         </div>
       </div>
 
-      <div v-if="section.isText" class="section-box__text">
+      <div v-if="section.isText" class="section__text">
         <div v-for="(skill, index) in section.skills" :key="index">
           <v-textarea
             v-if="editable"

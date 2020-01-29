@@ -16,8 +16,8 @@
       class="drag-section"
       xs12
     >
-      <div class="section-box">
-        <h5 class="section-box__heading">
+      <div class="section">
+        <h5 class="section__header">
           <span v-if="editable">
             <v-text-field
               v-model="section.name"
@@ -30,7 +30,7 @@
           <span v-else>{{ section.name }}</span>
         </h5>
 
-        <div class="section-box__actions" v-if="editable">
+        <div class="section__actions" v-if="editable">
           <v-tooltip bottom>
             <v-btn
               @click="resize(section.id, index)"

@@ -1,5 +1,5 @@
 <template>
-  <div class="box box--with-content template">
+  <div class="box template">
     <v-form ref="templateForm">
       <v-layout row wrap>
         <v-flex xs12>
@@ -14,14 +14,12 @@
         </v-flex>
 
         <v-flex xs12 lg6>
-          <div class="employee">
-            <h3 class="employee__fullname">
-              &lsaquo; {{ $t('templates.placeholders.name') }} &rsaquo;
-            </h3>
-            <h4 class="employee__position">
-              &lsaquo; {{ $t('templates.placeholders.position') }} &rsaquo;
-            </h4>
-          </div>
+          <h3 class="evaluation__fullname">
+            &lsaquo; {{ $t('templates.placeholders.name') }} &rsaquo;
+          </h3>
+          <h4 class="evaluation__position">
+            &lsaquo; {{ $t('templates.placeholders.position') }} &rsaquo;
+          </h4>
         </v-flex>
 
         <v-flex xs6 lg3>

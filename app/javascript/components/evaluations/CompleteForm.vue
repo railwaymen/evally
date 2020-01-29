@@ -11,36 +11,35 @@
           {{ $t('evaluations.forms.complete.warning') }}
         </p>
 
-        <div class="date">
-          <v-menu
-            ref="menu"
-            v-model="menu"
-            :close-on-content-click="true"
-            :nudge-right="40"
-            lazy
-            transition="scale-transition"
-            offset-y
-            full-width
-            min-width="290px"
-          >
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                :value="$moment(computedDate).format('MMMM YYYY')"
-                :label="$t('evaluations.forms.complete.next_label')"
-                prepend-icon="event"
-                readonly
-                v-on="on"
-              />
-            </template>
-            <v-date-picker
-              v-model="date"
-              :locale="$i18n.locale"
-              type="month"
-              no-title
-              scrollable
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="true"
+          :nudge-right="40"
+          lazy
+          transition="scale-transition"
+          offset-y
+          full-width
+          min-width="290px"
+        >
+          <template v-slot:activator="{ on }">
+            <v-text-field
+              class="mt-4"
+              :value="$moment(computedDate).format('MMMM YYYY')"
+              :label="$t('evaluations.forms.complete.next_label')"
+              prepend-icon="event"
+              readonly
+              v-on="on"
             />
-          </v-menu>
-        </div>
+          </template>
+          <v-date-picker
+            v-model="date"
+            :locale="$i18n.locale"
+            type="month"
+            no-title
+            scrollable
+          />
+        </v-menu>
       </v-card-text>
 
       <v-card-actions>

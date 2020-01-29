@@ -131,7 +131,7 @@ export default {
         this.$store.dispatch('AuthStore/updatePassword', { password: params })
           .then(() => {
             this.flash({ success: this.$root.$t('settings.flashes.update_pass.success') })
-            this.$router.push({ name: 'landing_page_path' })
+            this.$router.push({ name: 'login_path' })
           })
           .catch(error => {
             this.flash({ error: this.$root.$t('settings.flashes.update_pass.error', { reason: this.renderError(error.response) }) })

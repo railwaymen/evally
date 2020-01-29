@@ -1,10 +1,10 @@
 <template>
   <section class="panel">
-    <v-layout row>
-      <v-flex xs12>
-        <h2 class="panel__heading">{{ $t('dashboard.title', { name: user.first_name }) }}</h2>
-      </v-flex>
-    </v-layout>
+    <div class="panel__row">
+      <div class="panel__name">
+        <h2>{{ $t('dashboard.title', { name: user.first_name }) }}</h2>
+      </div>
+    </div>
 
     <div class="panel__content">
       <v-container grid-list-lg fluid>

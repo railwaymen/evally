@@ -21,7 +21,7 @@ export default new Router({
   routes: [
     {
       path: '/app',
-      component: require('@/components/shared/Layout').default,
+      component: () => import(/* webpackChunkName: 'layout_base' */ '@views/Base'),
       beforeEnter: isAuthenticated,
       children: [
         {
@@ -76,27 +76,6 @@ export default new Router({
           ]
         },
         {
-          path: 'archive',
-          component: require('@/components/pages/Archive').default,
-          children: [
-            {
-              path: 'employees',
-              name: 'employees_archive_path',
-              component: require('@/components/employees/EmployeeEvaluationBox').default,
-            },
-            {
-              path: 'activities',
-              name: 'activities_archive_path',
-              component: require('@/components/archive/ActivitiesTimelineBox').default,
-            },
-          ]
-        },
-        {
-          path: 'overview',
-          name: 'overview_path',
-          component: require('@/components/pages/Overview').default,
-        },
-        {
           path: 'settings',
           component: require('@/components/pages/Settings').default,
           children: [
@@ -131,8 +110,8 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'landing_page_path',
-      component: require('@/components/pages/Landing').default,
+      name: 'login_path',
+      component: () => import(/* webpackChunkName: 'login' */ '@views/Login'),
     },
     {
       path: '/not_found',

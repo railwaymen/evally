@@ -1,0 +1,61 @@
+.section {
+  margin-top: 4rem
+  position: relative
+
+  &__header {
+    font-size: 1.8rem
+    font-weight: 400
+    position: relative
+
+    span {
+      display: inline-block
+      background-color: #ffffff
+      padding: 1rem 2rem
+      margin-left: 3rem
+      position: relative
+      width: 20rem
+      z-index: 10
+    }
+
+    &::after {
+      content: ""
+      height: 1px
+      width: 75%
+      display: block
+      background-color: $font-black
+      position: absolute
+      top: 50%
+      z-index: 5
+    }
+  }
+
+  &__actions {
+    position: absolute
+    z-index: 10
+    top: 1.5rem
+    right: 0
+    background: #ffffff
+  }
+
+  &__items {
+    margin: 2rem 2rem 0 0
+  }
+
+  &__text p {
+    font-size: 1.6rem
+    font-weight: 200
+    margin-top: 0.5rem
+    white-space: pre-line
+  }
+
+  &__text h4 {
+    font-weight: inherit
+    font-size: 1.6rem
+    margin-top: 1rem
+    color: $font-gray-dark
+  }
+
+  .need-to-improve {
+    background-color: $background-light
+  }
+}

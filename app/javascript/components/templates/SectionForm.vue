@@ -1,17 +1,17 @@
 <template>
-  <div class="new-section">
-    <h5 class="new-section__heading">
+  <div class="section-form">
+    <h5 class="section-form__header">
       <span>{{ $t('templates.forms.new_section.title') }}</span>
     </h5>
 
     <v-form @submit.prevent="addSection" class="pa-3">
-      <span class="new-section__label">{{ $t('templates.forms.new_section.width.subheader') }}</span>
+      <span class="section-form__label">{{ $t('templates.forms.new_section.width.subheader') }}</span>
       <v-radio-group v-model="section.width" row>
         <v-radio :label="$t('templates.forms.new_section.width.half')" value="half"></v-radio>
         <v-radio :label="$t('templates.forms.new_section.width.full')" value="full"></v-radio>
       </v-radio-group>
 
-      <span class="new-section__label">{{ $t('templates.forms.new_section.type.subheader') }}</span>
+      <span class="section-form__label">{{ $t('templates.forms.new_section.type.subheader') }}</span>
       <v-radio-group v-model="section.group" row>
         <v-radio :label="$t('templates.forms.new_section.type.rating')" value="rating"></v-radio>
         <v-radio :label="$t('templates.forms.new_section.type.boolean')" value="bool"></v-radio>

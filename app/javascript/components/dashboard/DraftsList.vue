@@ -1,9 +1,9 @@
 <template>
-  <div class="box box--border-primary">
-		<h3 class="box__header">{{ $t('dashboard.drafts.title') }}</h3>
+  <div class="widget widget--border-primary">
+		<h3 class="widget__header">{{ $t('dashboard.drafts.title') }}</h3>
 
-		<div class="box__body">
-			<div v-if="loading" class="box__loader">
+		<div class="widget__body">
+			<div v-if="loading" class="widget__loader">
 				<v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
 			</div>
 

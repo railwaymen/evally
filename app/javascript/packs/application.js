@@ -74,7 +74,7 @@ Vue.use(HighchartsVue)
 import _ from 'lodash'
 Vue.prototype.$_ = _
 
-import '@/assets/styles/application.styl'
+import '@assets/styles/application.styl'
 
 document.addEventListener('DOMContentLoaded', () => {
 
