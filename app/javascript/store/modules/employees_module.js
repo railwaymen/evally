@@ -1,10 +1,14 @@
 import http from '@/lib/http_config'
 
 import { Employee, EmployeesList } from '@models/employee'
+import { EvaluationsList } from '@models/evaluation'
+import { PositionChangesList } from '@models/position_change'
 
 const initialState = () => ({
   employees: new EmployeesList(),
   employee: new Employee(),
+  evaluations: new EvaluationsList(),
+  positionChanges: new PositionChangesList(),
   loading: true
 })
 
@@ -16,6 +20,8 @@ const EmployeesModule = {
   getters: {
     employees: state => state.employees,
     employee: state => state.employee,
+    evaluations: state => state.evaluations,
+    positionChanges: state => state.positionChanges,
     loading: state => state.loading
   },
 
@@ -30,6 +36,8 @@ const EmployeesModule = {
     },
     setItem(state, { employee, evaluations, position_changes }) {
       state.employee = new Employee(employee)
+      state.evaluations = new EvaluationsList(evaluations)
+      state.positionChanges = new PositionChangesList(position_changes)
       return state
     },
     setList(state, employees) {
@@ -43,6 +51,8 @@ const EmployeesModule = {
     },
     resetItem(state) {
       state.employee = new Employee()
+      state.evaluations = new EvaluationsList()
+      state.positionChanges = new PositionChangesList()
       return state
     },
     resetState(state) {

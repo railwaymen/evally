@@ -10,12 +10,17 @@ class Evaluation extends Model {
       employee_first_name: '',
       employee_last_name: '',
       employee_position: '',
-      employee_hired_at: '',
-      next_evaluation_at: '',
+      employee_hired_at: null,
+      next_evaluation_at: null,
+      completed_at: '',
       state: '',
       template_name: '',
-      updated_at: ''
+      updated_at: null
     }
+  }
+
+  get completedAt() {
+    return moment(this.completed_at).format('MMM DD, YYYY')
   }
 
   get employeeFullname() {
