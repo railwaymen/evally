@@ -1,14 +1,14 @@
 <template>
   <v-card class="pa-3">
     <v-card-title>
-      <span class="headline">{{ $t('evaluations.forms.complete.title') }}</span>
+      <span class="headline">{{ $t('components.drafts.completeForm.title') }}</span>
     </v-card-title>
 
     <v-form @submit.prevent="complete">
       <v-card-text>
         <p class="subheading text-xs-center">
-          {{ $t('evaluations.forms.complete.question') }}<br>
-          {{ $t('evaluations.forms.complete.warning') }}
+          {{ $t('components.drafts.completeForm.question') }}<br>
+          {{ $t('components.drafts.completeForm.warning') }}
         </p>
 
         <v-menu
@@ -26,7 +26,7 @@
             <v-text-field
               class="mt-4"
               :value="$moment(computedDate).format('MMMM YYYY')"
-              :label="$t('evaluations.forms.complete.next_label')"
+              :label="$t('components.drafts.completeForm.nextEvaluation')"
               prepend-icon="event"
               readonly
               v-on="on"
@@ -44,8 +44,21 @@
 
       <v-card-actions>
         <v-spacer />
-        <v-btn color="grey darken-1" flat @click="closeDialog">{{ $t('buttons.cancel') }}</v-btn>
-        <v-btn type="submit" color="green darken-1" flat>{{ $t('buttons.complete') }}</v-btn>
+
+        <v-btn
+          @click="closeDialog"
+          color="grey darken-1"
+          flat
+        >
+          {{ $t('shared.buttons.cancel') }}
+        </v-btn>
+        <v-btn
+          type="submit"
+          color="green darken-1"
+          flat
+        >
+          {{ $t('shared.buttons.complete') }}
+        </v-btn>
       </v-card-actions>
     </v-form>
   </v-card>

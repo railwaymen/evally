@@ -4,13 +4,13 @@
       <v-text-field
         v-model="search"
         append-icon="search"
-        :label="$t('evaluations.sidebar.search')"
+        :label="$t('components.drafts.sidebar.search')"
         box
       />
     </div>
     <div class="sidebar__list">
       <v-list two-line subheader>
-        <v-subheader>{{ $t('evaluations.sidebar.subheader') }}</v-subheader>
+        <v-subheader>{{ $t('components.drafts.sidebar.subheader') }}</v-subheader>
 
         <div v-if="loading" class="sidebar__loader">
           <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
@@ -21,7 +21,7 @@
             <v-list-tile-content>
               <v-list-tile-title>{{ draft.employeeFullname }}</v-list-tile-title>
               <v-list-tile-sub-title>
-                {{ $t('evaluations.sidebar.subtitle', { name: draft.template_name }) }}
+                {{ $t('components.drafts.sidebar.subtitle', { name: draft.template_name }) }}
               </v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -31,7 +31,7 @@
               <v-icon>error_outline</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>{{ $t('evaluations.sidebar.no_items') }}</v-list-tile-title>
+              <v-list-tile-title>{{ $t('components.drafts.sidebar.noContent') }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </template>

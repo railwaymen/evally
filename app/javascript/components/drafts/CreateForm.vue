@@ -1,7 +1,7 @@
 <template>
   <v-card class="pa-3">
     <v-card-title>
-      <span class="headline">{{ $t('evaluations.forms.create_title') }}</span>
+      <span class="headline">{{ $t('components.drafts.createForm.title') }}</span>
     </v-card-title>
 
     <v-form @submit.prevent="create">
@@ -13,7 +13,9 @@
                 <v-icon color="white" v-if="employeeId">done</v-icon>
                 <span v-else>1</span>
               </v-avatar>
-              <span class="step__text black--text">{{ $t('evaluations.forms.select_employee') }}</span>
+              <span class="step__text black--text">
+                {{ $t('components.drafts.createForm.selectEmployee') }}
+              </span>
             </v-chip>
           </div>
 
@@ -23,7 +25,7 @@
               :items="employees.models"
               item-value="id"
               item-text="fullname"
-              :label="$t('evaluations.forms.employee_label')"
+              :label="$t('components.drafts.createForm.employeeLabel')"
               :disabled="defaultEmployee.isPersisted"
             />
           </div>
@@ -36,7 +38,9 @@
                 <v-icon color="white" v-if="templateId || useLatest">done</v-icon>
                 <span v-else>2</span>
               </v-avatar>
-              <span class="step__text black--text">{{ $t('evaluations.forms.select_template') }}</span>
+              <span class="step__text black--text">
+                {{ $t('components.drafts.createForm.selectTemplate') }}
+              </span>
             </v-chip>
           </div>
 
@@ -47,7 +51,7 @@
                 :input-value="useLatest"
                 flat
               >
-                Latest Template
+                {{ $t('components.drafts.createForm.latestTemplate') }}
               </v-btn>
 
               <v-btn
@@ -55,7 +59,7 @@
                 :input-value="newTemplate"
                 flat
               >
-                New Template
+                {{ $t('components.drafts.createForm.newTemplate') }}
               </v-btn>
             </div>
           </div>
@@ -67,7 +71,7 @@
               :items="templates.models"
               item-value="id"
               item-text="name"
-              :label="$t('evaluations.forms.template_label')"
+              :label="$t('components.drafts.createForm.templateLabel')"
             />
           </div>
         </div>
@@ -80,7 +84,7 @@
           color="grey darken-1"
           flat
         >
-          {{ $t('buttons.cancel') }}
+          {{ $t('shared.buttons.cancel') }}
         </v-btn>
 
         <v-btn
@@ -89,7 +93,7 @@
           flat
           :disabled="!formCompleted"
         >
-          {{ $t('buttons.create') }}
+          {{ $t('shared.buttons.create') }}
         </v-btn>
       </v-card-actions>
     </v-form>

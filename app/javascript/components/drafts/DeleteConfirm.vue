@@ -1,11 +1,11 @@
 <template>
   <v-card class="pa-3" data-cy="delete-modal">
     <v-card-title>
-      <span class="headline">{{ $t('destroy_modals.evaluation.title') }}</span>
+      <span class="headline">{{ $t('components.drafts.deleteConfirm.title') }}</span>
     </v-card-title>
 
     <v-card-text>
-      <p class="subheading">{{ $t('destroy_modals.evaluation.confirm') }}</p>
+      <p class="subheading">{{ $t('components.drafts.deleteConfirm.body') }}</p>
     </v-card-text>
 
     <v-card-actions>
@@ -16,7 +16,7 @@
         data-cy="btn-cancel"
         flat
       >
-        {{ $t('buttons.cancel') }}
+        {{ $t('shared.buttons.cancel') }}
       </v-btn>
 
       <v-btn
@@ -25,7 +25,7 @@
         data-cy="btn-delete"
         flat
       >
-        {{ $t('buttons.delete') }}
+        {{ $t('shared.buttons.delete') }}
       </v-btn>
     </v-card-actions>
 

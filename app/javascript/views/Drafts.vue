@@ -2,7 +2,7 @@
   <section class="panel">
     <div class="panel__row">
       <div class="panel__name">
-        <h2>{{ $t('evaluations.title') }}</h2>
+        <h2>{{ $t('views.drafts.title') }}</h2>
       </div>
 
       <div class="panel__actions">
@@ -16,7 +16,7 @@
           >
             <v-icon>add</v-icon>
           </v-btn>
-          <span>{{ $t('evaluations.buttons.add_new') }}</span>
+          <span>{{ $t('shared.tooltips.addNew') }}</span>
         </v-tooltip>
 
         <v-tooltip bottom>
@@ -30,7 +30,7 @@
           >
             <v-icon>how_to_vote</v-icon>
           </v-btn>
-          <span>{{ $t('evaluations.buttons.complete') }}</span>
+          <span>{{ $t('shared.tooltips.complete') }}</span>
         </v-tooltip>
 
         <v-tooltip bottom>
@@ -44,7 +44,7 @@
           >
             <v-icon>save_alt</v-icon>
           </v-btn>
-          <span>{{ $t('evaluations.buttons.save_draft') }}</span>
+          <span>{{ $t('shared.tooltips.save') }}</span>
         </v-tooltip>
 
         <v-tooltip bottom>
@@ -58,7 +58,7 @@
           >
             <v-icon>restore</v-icon>
           </v-btn>
-          <span>{{ $t('evaluations.buttons.reset') }}</span>
+          <span>{{ $t('shared.tooltips.reset') }}</span>
         </v-tooltip>
 
         <v-tooltip bottom>
@@ -72,7 +72,7 @@
           >
             <v-icon>delete</v-icon>
           </v-btn>
-          <span>{{ $t('evaluations.buttons.delete') }}</span>
+          <span>{{ $t('shared.tooltips.delete') }}</span>
         </v-tooltip>
 
         <v-tooltip bottom>
@@ -84,7 +84,9 @@
           >
             <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
           </v-btn>
-          <span>{{ isSidebarVisible ? $t('buttons.hide') : $t('buttons.show') }} sidebar</span>
+          <span>
+            {{ isSidebarVisible ? $t('shared.tooltips.hideSidebar') : $t('shared.tooltips.showSidebar') }}
+          </span>
         </v-tooltip>
       </div>
     </div>
@@ -100,11 +102,11 @@
           </v-flex>
 
           <v-flex xs12 :lg9="isSidebarVisible" :lg12="!isSidebarVisible">
-            <div v-if="$route.name === 'evaluations_path'" class="box">
+            <div v-if="$route.name === 'drafts_path'" class="box">
               <v-layout row>
                 <v-flex xs12>
                   <h4 class="box__header">
-                    {{ $t('evaluations.message') }}
+                    {{ $t('views.drafts.instruction') }}
                   </h4>
                 </v-flex>
               </v-layout>
