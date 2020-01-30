@@ -22,7 +22,7 @@
         <v-tooltip bottom>
           <v-btn
             @click="openCompleteForm"
-            :disabled="evaluation.isNewRecord"
+            :disabled="draft.isNewRecord"
             color="green"
             slot="activator"
             icon
@@ -36,7 +36,7 @@
         <v-tooltip bottom>
           <v-btn
             @click="update"
-            :disabled="evaluation.isNewRecord"
+            :disabled="draft.isNewRecord"
             color="black"
             slot="activator"
             icon
@@ -50,7 +50,7 @@
         <v-tooltip bottom>
           <v-btn
             @click="reset"
-            :disabled="evaluation.isNewRecord"
+            :disabled="draft.isNewRecord"
             color="black"
             slot="activator"
             icon
@@ -64,7 +64,7 @@
         <v-tooltip bottom>
           <v-btn
             @click="openDeleteConfirm"
-            :disabled="evaluation.isNewRecord"
+            :disabled="draft.isNewRecord"
             color="red"
             slot="activator"
             icon
@@ -122,10 +122,10 @@
 import { mapGetters, mapActions } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
-import CompleteForm from '@components/evaluations/CompleteForm'
-import CreateForm from '@components/evaluations/CreateForm'
-import DeleteConfirm from '@components/evaluations/DeleteConfirm'
-import DraftsSearchList from '@components/evaluations/DraftsSearchList'
+import CompleteForm from '@components/drafts/CompleteForm'
+import CreateForm from '@components/drafts/CreateForm'
+import DeleteConfirm from '@components/drafts/DeleteConfirm'
+import DraftsSearchList from '@components/drafts/DraftsSearchList'
 
 export default {
   name: 'Evaluations',
@@ -140,7 +140,7 @@ export default {
       this.isSidebarVisible = !this.isSidebarVisible
     },
     reset() {
-      this.$store.dispatch('DraftsModule/show', this.evaluation.id)
+      this.$store.dispatch('DraftsModule/show', this.draft.id)
     },
     openCreateForm() {
       DialogsBus.$emit('openFormsDialog', {
@@ -169,7 +169,7 @@ export default {
   computed: {
     ...mapGetters({
       drafts: 'DraftsModule/drafts',
-      evaluation: 'DraftsModule/draft',
+      draft: 'DraftsModule/draft',
       employees: 'DraftsModule/employees',
       templates: 'DraftsModule/templates',
       loading: 'DraftsModule/loading',

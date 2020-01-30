@@ -31,14 +31,14 @@
         <v-list two-line subheader>
           <v-list-tile v-for="evaluation in evaluations.models" :key="evaluation.id">
             <v-list-tile-content>
-              <v-list-tile-title class="body-1">{{ evaluation.template_name }}</v-list-tile-title>
+              <v-list-tile-title>{{ evaluation.template_name }}</v-list-tile-title>
               <v-list-tile-sub-title>{{ evaluation.completedAt }}</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
 
           <v-list-tile v-if="evaluations.isEmpty">
             <v-list-tile-content>
-              <v-list-tile-title class="body-1">No evaluations yet</v-list-tile-title>
+              <v-list-tile-title>No evaluations yet</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -54,7 +54,7 @@
         <v-list two-line>
           <v-list-tile v-for="positionChange in positionChanges.models" :key="positionChange.id">
             <v-list-tile-content>
-              <v-list-tile-title class="body-1">
+              <v-list-tile-title>
                 {{ positionChange.current_position }}
               </v-list-tile-title>
 
@@ -70,7 +70,7 @@
 
           <v-list-tile v-if="positionChanges.isEmpty">
             <v-list-tile-content>
-              <v-list-tile-title class="body-1">No position changes yet</v-list-tile-title>
+              <v-list-tile-title>No position changes yet</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>

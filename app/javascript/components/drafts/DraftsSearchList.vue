@@ -17,7 +17,7 @@
         </div>
 
         <template v-else>
-          <v-list-tile v-for="draft in searchedDrafts" :key="draft.id" :to="draft.path">
+          <v-list-tile v-for="draft in searchedDrafts" :key="draft.id" :to="draft.draftPath">
             <v-list-tile-content>
               <v-list-tile-title>{{ draft.employeeFullname }}</v-list-tile-title>
               <v-list-tile-sub-title>

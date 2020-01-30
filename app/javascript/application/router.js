@@ -30,14 +30,14 @@ export default new Router({
           component: () => import(/* webpackChunkName: 'dashboard' */ '@views/Dashboard'),
         },
         {
-          path: 'evaluations',
-          name: 'evaluations_path',
-          component: () => import(/* webpackChunkName: 'evaluations' */ '@views/Evaluations'),
+          path: 'drafts',
+          name: 'drafts_path',
+          component: () => import(/* webpackChunkName: 'drafts' */ '@views/Drafts'),
           children: [
             {
               path: ':id',
-              name: 'evaluation_path',
-              component: () => import(/* webpackChunkName: 'evaluation' */ '@views/Evaluation'),
+              name: 'draft_path',
+              component: () => import(/* webpackChunkName: 'draft' */ '@views/Draft'),
             }
           ]
         },

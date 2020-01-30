@@ -91,7 +91,7 @@ export default {
     return {
       tabs: [
         { id: 0, name: 'dashboard', icon: 'dashboard', path: 'dashboard_path' },
-        { id: 10, name: 'evaluations', icon: 'assignment_turned_in', path: 'evaluations_path' },
+        { id: 10, name: 'evaluations', icon: 'assignment_turned_in', path: 'drafts_path' },
         { id: 20, name: 'employees', icon: 'people', path: 'employees_path' },
         { id: 30, name: 'templates', icon: 'list_alt', path: 'templates_path' }
       ],

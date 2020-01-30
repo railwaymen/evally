@@ -41,8 +41,8 @@ class Evaluation extends Model {
     return moment(this.updated_at).fromNow()
   }
 
-  get path() {
-    return { name: 'evaluation_path', params: { id: this.id } }
+  get draftPath() {
+    return { name: 'draft_path', params: { id: this.id } }
   }
 
   static get routes() {
