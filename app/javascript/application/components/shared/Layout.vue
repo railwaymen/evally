@@ -10,7 +10,7 @@
 
       <v-toolbar-title>
         <router-link class="toolbar-logo" :to="{ name: 'dashboard_path' }">
-          <img src="@/assets/img/logo2_black.png" class="toolbar-logo__img" alt="Logo Evally">
+          <img src="@assets/images/logo_black.png" class="toolbar-logo__img" alt="Logo Evally">
         </router-link>
       </v-toolbar-title>
 

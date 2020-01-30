@@ -1,7 +1,7 @@
 <template>
   <div class="auth-form elevation-2">
     <div class="auth-form__logo" data-cy="evally_logo">
-      <img src="@/assets/img/logo2_black.png" alt="Logo Evally">
+      <img src="@assets/images/logo_black.png" alt="Logo Evally">
     </div>
 
     <h3 class="auth-form__heading auth-form__heading--dark mb-4">Sign in</h3>

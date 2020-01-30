@@ -5,7 +5,7 @@
     <div class="public-section__content">
       <div class="auth-form elevation-2" v-if="!visible">
         <div class="auth-form__logo">
-          <img src="@/assets/img/logo2_black.png" alt="Logo Evally">
+          <img src="@assets/images/logo_black.png" alt="Logo Evally">
         </div>
 
         <p class="auth-form__info">Please enter your last name to see the latest evaluation</p>
