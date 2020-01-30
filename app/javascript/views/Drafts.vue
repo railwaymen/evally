@@ -128,7 +128,7 @@ import DeleteConfirm from '@components/drafts/DeleteConfirm'
 import DraftsSearchList from '@components/drafts/DraftsSearchList'
 
 export default {
-  name: 'Evaluations',
+  name: 'Drafts',
   components: { DraftsSearchList },
   data() {
     return {

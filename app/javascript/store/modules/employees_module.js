@@ -1,13 +1,16 @@
 import http from '@/lib/http_config'
 
 import { Employee, EmployeesList } from '@models/employee'
-import { EvaluationsList } from '@models/evaluation'
+import { Evaluation, EvaluationsList } from '@models/evaluation'
+import { SectionsList } from '@models/section'
 import { PositionChangesList } from '@models/position_change'
 
 const initialState = () => ({
   employees: new EmployeesList(),
   employee: new Employee(),
   evaluations: new EvaluationsList(),
+  evaluation: new Evaluation(),
+  sections: new SectionsList(),
   positionChanges: new PositionChangesList(),
   loading: true
 })
@@ -21,6 +24,8 @@ const EmployeesModule = {
     employees: state => state.employees,
     employee: state => state.employee,
     evaluations: state => state.evaluations,
+    evaluation: state => state.evaluation,
+    sections: state => state.sections,
     positionChanges: state => state.positionChanges,
     loading: state => state.loading
   },
@@ -32,6 +37,11 @@ const EmployeesModule = {
     },
     refreshListItem(state, data) {
       state.employees.refresh(data)
+      return state
+    },
+    setEvaluation(state, { evaluation, sections }) {
+      state.evaluation = new Evaluation(evaluation)
+      state.sections = new SectionsList(sections)
       return state
     },
     setItem(state, { employee, evaluations, position_changes }) {
@@ -47,6 +57,11 @@ const EmployeesModule = {
     },
     setLoading(state, status) {
       state.loading = status
+      return state
+    },
+    resetEvaluation(state) {
+      state.evaluation = new Evaluation()
+      state.sections = new SectionsList()
       return state
     },
     resetItem(state) {
@@ -78,6 +93,15 @@ const EmployeesModule = {
       http.get(Employee.routes.employeePath(id))
         .then(response => {
           commit('setItem', response.data)
+        })
+        .catch(() => {
+          commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+        })
+    },
+    showEvaluation({ commit }, id) {
+      http.get(Evaluation.routes.evaluationPath(id))
+        .then(response => {
+          commit('setEvaluation', response.data)
         })
         .catch(() => {
           commit('FlashStore/push', { error: 'Error :(' }, { root: true })

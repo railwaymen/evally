@@ -14,6 +14,7 @@ module JsonSpecHelpers
         state: draft.state,
         template_name: draft.template_name,
         updated_at: draft.updated_at.to_s,
+        completed_at: draft.completed_at ? draft.completed_at.to_s : nil,
         employee_id: draft.employee_id,
         employee_first_name: employee.first_name,
         employee_last_name: employee.last_name,
@@ -22,6 +23,27 @@ module JsonSpecHelpers
         next_evaluation_at: employee.next_evaluation_at
       },
       sections: draft.sections.map(&method(:section_schema))
+    }.to_json
+  end
+
+  def evaluation_schema(evaluation) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    employee = evaluation.employee
+
+    {
+      evaluation: {
+        id: evaluation.id,
+        state: evaluation.state,
+        template_name: evaluation.template_name,
+        updated_at: evaluation.updated_at.to_s,
+        completed_at: evaluation.completed_at.to_s,
+        employee_id: evaluation.employee_id,
+        employee_first_name: employee.first_name,
+        employee_last_name: employee.last_name,
+        employee_position: employee.position,
+        employee_hired_at: employee.hired_at.to_s,
+        next_evaluation_at: employee.next_evaluation_at
+      },
+      sections: evaluation.sections.map(&method(:section_schema))
     }.to_json
   end
 

@@ -33,7 +33,7 @@
               </v-tooltip>
             </td>
             <td>
-              <router-link :to="{ name: 'employee_path', params: { id: props.item.id }}">
+              <router-link :to="{ name: 'employee_path', params: { employeeId: props.item.id }}">
                 {{ props.item.fullname }}
               </router-link>
             </td>

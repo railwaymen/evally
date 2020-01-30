@@ -34,7 +34,11 @@ Rails.application.routes.draw do
       resource :dashboard, controller: 'dashboard', only: :show
 
       resources :drafts, only: %i[index show create update destroy]
-      resources :employees, only: %i[index show create update]
+
+      resources :employees, only: %i[index show create update], shallow: true do
+        resources :evaluations, only: :show
+      end
+
       resources :templates, only: %i[index show create update destroy]
     end
 

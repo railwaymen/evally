@@ -57,9 +57,16 @@ export default new Router({
               component: () => import(/* webpackChunkName: 'employees_overview' */ '@views/EmployeesOverview'),
             },
             {
-              path: ':id',
+              path: ':employeeId',
               name: 'employee_path',
               component: () => import(/* webpackChunkName: 'employee' */ '@views/Employee'),
+              children: [
+                {
+                  path: 'evaluation/:id',
+                  name: 'employee_evaluation_path',
+                  component: () => import(/* webpackChunkName: 'employee_evaluation' */ '@views/Evaluation')
+                }
+              ]
             }
           ]
         },

@@ -39,13 +39,8 @@ export default {
       positionChanges: 'EmployeesModule/positionChanges'
     })
   },
-  watch: {
-    $route: {
-      immediate: true,
-      handler(to, from) {
-        this.$store.dispatch('EmployeesModule/show', to.params.id)
-      }
-    }
+  created() {
+    this.$store.dispatch('EmployeesModule/show', this.$route.params.employeeId)
   },
   beforeDestroy() {
     this.$store.commit('EmployeesModule/resetItem')

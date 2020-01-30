@@ -29,7 +29,7 @@
         </template>
 
         <v-list two-line subheader>
-          <v-list-tile v-for="evaluation in evaluations.models" :key="evaluation.id">
+          <v-list-tile v-for="evaluation in evaluations.models" :key="evaluation.id" :to="evaluation.path">
             <v-list-tile-content>
               <v-list-tile-title>{{ evaluation.template_name }}</v-list-tile-title>
               <v-list-tile-sub-title>{{ evaluation.completedAt }}</v-list-tile-sub-title>

@@ -45,10 +45,21 @@ class Evaluation extends Model {
     return { name: 'draft_path', params: { id: this.id } }
   }
 
+  get path() {
+    return {
+      name: 'employee_evaluation_path',
+      params: {
+        employeeId: this.employee_id,
+        id: this.id
+      }
+    }
+  }
+
   static get routes() {
     return {
       draftsPath: '/v2/drafts',
-      draftPath: id => `/v2/drafts/${id}`
+      draftPath: id => `/v2/drafts/${id}`,
+      evaluationPath: id => `/v2/evaluations/${id}`
     }
   }
 }
