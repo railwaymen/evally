@@ -2,7 +2,7 @@
   <section class="panel">
     <div class="panel__row">
       <div class="panel__name">
-        <h2>{{ $t('dashboard.title', { name: user.first_name }) }}</h2>
+        <h2>{{ $t('views.dashboard.title', { name: user.first_name }) }}</h2>
       </div>
     </div>
 
@@ -31,7 +31,7 @@
           </v-flex>
 
           <v-flex xs12 lg4>
-            <activity-feed
+            <activities-feed
               :activities="activities"
               :loading="loading"
             />
@@ -46,21 +46,21 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import { EmployeesList } from '@models/employee'
+import { Employee, EmployeesList } from '@models/employee'
 import { EvaluationsList } from '@models/evaluation'
 import { ActivitiesList } from '@models/activity'
 import { TemplatesList } from '@models/template'
 
 import DraftsList from '@components/dashboard/DraftsList'
 import UpcomingList from '@components/dashboard/UpcomingList'
-import ActivityFeed from '@components/dashboard/ActivityFeed'
+import ActivitiesFeed from '@components/dashboard/ActivitiesFeed'
 
 export default {
   name: 'Dashboard',
   components: {
     DraftsList,
     UpcomingList,
-    ActivityFeed
+    ActivitiesFeed
   },
   data: () => ({
     loading: true,

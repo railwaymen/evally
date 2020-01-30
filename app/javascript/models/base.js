@@ -1,3 +1,5 @@
+import i18n from '@locales/i18n'
+
 class Model {
   constructor(attributes = {}) {
     _.defaultsDeep(this, attributes, { ...this.defaults })
@@ -27,6 +29,10 @@ class Model {
 
   set(property, value) {
     _.set(this, property, value)
+  }
+
+  get i18n() {
+    return i18n
   }
 }
 

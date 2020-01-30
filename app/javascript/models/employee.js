@@ -21,19 +21,27 @@ class Employee extends Model {
     const diff = moment().diff(this.hired_at, 'months')
 
     // fresh employee case
-    if (diff === 0) return 'just started'
+    if (diff === 0) return this.i18n.t('models.employee.justStarted')
 
     const months = diff % 12
     const years = Math.floor(diff / 12)
-    const output = ['works']
+    const output = [this.i18n.t('models.employee.works')]
 
-    // up to 1 year
-    if (years === 0 && months > 0) return output.concat([months, 'months']).join(' ')
+    // only months case
+    if (years === 0 && months > 0) {
+      return output.concat([this.i18n.tc('models.employee.month', months, { n: months })]).join(' ')
+    }
 
     // full years case
-    if (years > 0 && months === 0) return output.concat([years, 'years']).join(' ')
+    if (years > 0 && months === 0) {
+      return output.concat([this.i18n.tc('models.employee.year', years, { n: years })]).join(' ')
+    }
 
-    return output.concat([years, 'years', 'and', months, 'months']).join(' ')
+    return output.concat([
+      this.i18n.tc('models.employee.year', years, { n: years }),
+      this.i18n.t('models.employee.and'),
+      this.i18n.tc('models.employee.month', months, { n: months })
+    ]).join(' ')
   }
 
   get fullname() {
@@ -62,7 +70,7 @@ class Employee extends Model {
   }
 
   get nextEvaluationAt() {
-    if (!this.next_evaluation_at) return 'First time'
+    if (!this.next_evaluation_at) return this.i18n.t('models.employee.firstTime')
 
     return moment(this.next_evaluation_at).format('MMM YYYY')
   }

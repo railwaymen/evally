@@ -54,17 +54,7 @@ import base_mixin from '@/lib/base_mixin'
 Vue.mixin(base_mixin)
 
 // Internationalization
-import VueI18n from 'vue-i18n'
-Vue.use(VueI18n)
-
-import english from '@/locale/en'
-import polish from '@/locale/pl'
-
-const i18n = new VueI18n({
-  locale: 'en',
-  fallbackLocale: 'en',
-  messages: { en: english, pl: polish }
-})
+import i18n from '@locales/i18n'
 
 // Highcharts
 import HighchartsVue from 'highcharts-vue'

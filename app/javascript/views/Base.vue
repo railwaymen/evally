@@ -32,7 +32,7 @@
               <v-list-tile-action>
                 <v-icon>{{ tab.icon }}</v-icon>
               </v-list-tile-action>
-              <v-list-tile-title>{{ $t(`navbar.${tab.name}`) }}</v-list-tile-title>
+              <v-list-tile-title>{{ $t(`shared.navbar.${tab.name}`) }}</v-list-tile-title>
             </v-list-tile>
 
             <v-divider class="my-2" />
@@ -42,7 +42,7 @@
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
-            <v-list-tile-title>{{ $t(`navbar.${item.name}`) }}</v-list-tile-title>
+            <v-list-tile-title>{{ $t(`shared.navbar.${item.name}`) }}</v-list-tile-title>
           </v-list-tile>
 
           <!-- Log out list item -->
@@ -50,7 +50,7 @@
             <v-list-tile-action>
               <v-icon>last_page</v-icon>
             </v-list-tile-action>
-            <v-list-tile-title>{{ $t('navbar.logout') }}</v-list-tile-title>
+            <v-list-tile-title>{{ $t('shared.navbar.logout') }}</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
@@ -66,7 +66,7 @@
         <v-tab v-for="tab in tabs" :key="`tab_${tab.id}`" :data-cy="`tab-${tab.name}`" :to="{ name: tab.path }">
           <v-icon>{{ tab.icon }}</v-icon>
           <span class="separator" />
-          {{ $t(`navbar.${tab.name}`) }}
+          {{ $t(`shared.navbar.${tab.name}`) }}
         </v-tab>
       </v-tabs>
     </v-toolbar>
@@ -91,7 +91,7 @@ export default {
     return {
       tabs: [
         { id: 0, name: 'dashboard', icon: 'dashboard', path: 'dashboard_path' },
-        { id: 10, name: 'evaluations', icon: 'assignment_turned_in', path: 'drafts_path' },
+        { id: 10, name: 'drafts', icon: 'assignment_turned_in', path: 'drafts_path' },
         { id: 20, name: 'employees', icon: 'people', path: 'employees_path' },
         { id: 30, name: 'templates', icon: 'list_alt', path: 'templates_path' }
       ],

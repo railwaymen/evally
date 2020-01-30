@@ -1,6 +1,8 @@
 <template>
   <div class="widget widget--border-primary">
-		<h3 class="widget__header">{{ $t('dashboard.upcoming.title') }}</h3>
+		<h3 class="widget__header">
+      {{ $t('components.dashboard.upcoming.title') }}
+    </h3>
 
 		<div class="widget__body">
       <div v-if="loading" class="widget__loader">
@@ -21,7 +23,7 @@
           <v-list-tile-content>
             <v-list-tile-title>
 							<strong>{{ employee.fullname }}</strong>
-							{{ $t('dashboard.common.as') }}
+							{{ $t('components.dashboard.upcoming.as') }}
 							<em>{{ employee.position }}</em> - {{ employee.nextEvaluationAt }}
 						</v-list-tile-title>
           </v-list-tile-content>
@@ -37,7 +39,7 @@
               >
 								<v-icon>add</v-icon>
 							</v-btn>
-							<span>{{ $t('dashboard.upcoming.new_tooltip') }}</span>
+							<span>{{ $t('shared.tooltips.create') }}</span>
 						</v-tooltip>
 					</v-list-tile-action>
         </v-list-tile>
