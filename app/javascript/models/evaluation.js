@@ -47,7 +47,7 @@ class Evaluation extends Model {
 
   get path() {
     return {
-      name: 'employee_evaluation_path',
+      name: 'evaluation_path',
       params: {
         employeeId: this.employee_id,
         id: this.id

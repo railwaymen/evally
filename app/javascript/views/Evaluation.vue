@@ -1,6 +1,6 @@
 <template>
   <div class="box evaluation">
-    <v-layout row wrap>
+    <v-layout v-if="evaluation.isPersisted" row wrap>
       <v-flex xs12 lg9>
         <h3 class="evaluation__fullname">{{ evaluation.employeeFullname }}</h3>
         <h4 class="evaluation__position">{{ evaluation.employee_position }}</h4>
@@ -25,6 +25,14 @@
             :key="section.id"
           />
         </v-layout>
+      </v-flex>
+    </v-layout>
+
+    <v-layout v-else row>
+      <v-flex xs12>
+        <h4 class="box__header">
+          Select evaluation from list to see details.
+        </h4>
       </v-flex>
     </v-layout>
   </div>

@@ -52,7 +52,7 @@ import { DialogsBus } from '@utils/dialogs_bus'
 import { EmployeesList } from '@models/employee'
 import { TemplatesList } from '@models/template'
 
-import CreateForm from '@components/evaluations/CreateForm'
+import CreateForm from '@components/drafts/CreateForm'
 
 export default {
   name: 'UpcomingList',

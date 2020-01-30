@@ -147,7 +147,7 @@ export default {
         .then(data => {
           this.closeDialog()
 
-          this.$router.push({ name: 'evaluation_path', params: { id: data.draft.id } })
+          this.$router.push({ name: 'draft_path', params: { id: data.draft.id } })
         })
     }
   },
