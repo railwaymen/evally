@@ -3,7 +3,7 @@
     <v-text-field
       v-if="editable"
       class="form-box__create-field"
-      :label="$t(`templates.forms.inputs.${groupData.name}`)"
+      :label="$t(`components.templates.sectionItemsList.label.${groupData.name}`)"
       v-model="skillName"
       @keyup.enter.native="addSkill"
       @click:append="addSkill"

@@ -34,7 +34,9 @@
           <div class="skill__name">{{ skill.name }}</div>
 
           <div class="skill__action">
-            <span >{{ skill.value ? $t('evaluations.forms.bool_yes') : $t('evaluations.forms.bool_no') }}</span>
+            <span>
+              {{ skill.value ? $t('components.evaluations.staticSection.yes') : $t('components.evaluations.staticSection.no') }}
+            </span>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@
   <section class="panel">
     <div class="panel__row">
       <div class="panel__name">
-        <h2>{{ $t('employees.title') }}</h2>
+        <h2>{{ $t('views.employees.title') }}</h2>
       </div>
 
       <div class="panel__nav">
@@ -12,7 +12,7 @@
           exact
           flat
         >
-          List
+          {{ $t('views.employees.nav.list') }}
         </v-btn>
 
 
@@ -22,7 +22,7 @@
           exact
           flat
         >
-          Search
+          {{ $t('views.employees.nav.search') }}
         </v-btn>
 
         <v-btn
@@ -31,7 +31,7 @@
           exact
           flat
         >
-          Overview
+          {{ $t('views.employees.nav.overview') }}
         </v-btn>
       </div>
 
@@ -46,14 +46,13 @@
           >
             <v-icon>add</v-icon>
           </v-btn>
-          <span>{{ $t('employees.buttons.add_new') }}</span>
+          <span>{{ $t('shared.tooltips.addNew') }}</span>
         </v-tooltip>
       </div>
     </div>
 
     <div class="panel__content">
       <v-container grid-list-lg fluid>
-
         <basic-table
           v-if="$route.name === 'employees_path'"
           :employees="employees"
@@ -62,7 +61,6 @@
         />
 
         <router-view v-else />
-
       </v-container>
     </div>
   </section>

@@ -5,6 +5,7 @@ export default {
       create: 'Create',
       delete: 'Delete',
       complete: 'Complete',
+      search: 'Search',
     },
     tooltips: {
       edit: 'Edit',
@@ -16,6 +17,8 @@ export default {
       delete: 'Delete',
       hideSidebar: 'Hide Sidebar',
       showSidebar: 'Show Sidebar',
+      fullWidth: 'Full Width',
+      halfWidth: 'Half Width',
     },
     navbar: {
       dashboard: 'Dashboard',
@@ -46,7 +49,7 @@ export default {
     },
     drafts: {
       sidebar: {
-        search: 'Search',
+        search: 'Search ...',
         subheader: 'Evaluations In Progress',
         subtitle: 'based on \'{name}\' template',
         noContent: 'There are no drafts to show'
@@ -74,6 +77,87 @@ export default {
         latestTemplate: 'Latest template',
         newTemplate: 'New template',
       }
+    },
+    employees: {
+      table: {
+        search: 'Search ...',
+        cols: {
+          name: 'Name',
+          hiredAt: 'Hired Date',
+          group: 'Group',
+          position: 'Position',
+          positionSetAt: 'Promotion Date',
+          latestEvaluationAt: 'Latest Evaluation Date',
+        }
+      },
+      createForm: {
+        title: 'Create Employee',
+        general: 'General Information',
+        dates: 'Dates',
+        firstName: 'First Name',
+        lastName: 'Last Name',
+        position: 'Position',
+        group: 'Group',
+        hiredAt: 'Hired Date',
+        positionSetAt: 'Promotion Date',
+        nextEvaluationAt: 'Next Evaluation Date'
+      },
+      sidebar: {
+        group: 'Group',
+        hiredAt: 'Hired Date',
+        nextEvaluationAt: 'Next Evaluation Date',
+        completedEvaluations: {
+          title: 'Completed Evaluations',
+          noContent: 'No evaluations yet'
+        },
+        positionChanges: {
+          title: 'Position Changes',
+          previous: 'Previous: {name}',
+          noContent: 'No position changes yet',
+        }
+      }
+    },
+    evaluations: {
+      staticSection: {
+        yes: 'Yes',
+        no: 'No',
+      }
+    },
+    templates: {
+      sidebar: {
+        search: 'Search ...',
+        subheader: 'Available Templates',
+        noContent: 'There are no templates to show'
+      },
+      deleteConfirm: {
+        title: 'Delete Template',
+        body: 'Are you sure you want to delete this template?'
+      },
+      sectionForm: {
+        title: 'New Section',
+        width: {
+          title: 'Width',
+          full: 'Full',
+          half: 'Half',
+        },
+        group: {
+          title: 'Type',
+          rating: 'Rating',
+          bool: 'Yes/No',
+          text: 'Text',
+        },
+        button: 'Add Section'
+      },
+      sectionItemsList: {
+        label: {
+          rating: 'New Rating Item',
+          bool: 'New Bool Item',
+          text: 'New Text Item',
+        }
+      },
+      sectionComposer: {
+        title: 'Section Title'
+      }
     }
   },
   models: {
@@ -92,10 +176,52 @@ export default {
     },
     drafts: {
       title: 'Drafts',
-      instruction: 'Select draft from list or create a new one'
+      instruction: 'Select draft from list or create a new one',
     },
     draft: {
-      hiredAt: 'On Board Since'
+      hiredAt: 'On Board Since',
+    },
+    employees: {
+      title: 'Employees',
+      nav: {
+        list: 'List',
+        search: 'Search',
+        overview: 'Overview',
+      }
+    },
+    employee: {
+      instruction: 'Select evaluation from list to see details'
+    },
+    employeesSearch: {
+      label: 'Skill Name',
+      table: {
+        cols: {
+          name: 'Name',
+          skill: 'Skill',
+          hiredAt: 'Hired Date',
+          group: 'Group',
+          position: 'Position',
+          positionSetAt: 'Promotion Date',
+          latestEvaluationAt: 'Latest Evaluation Date',
+        }
+      }
+    },
+    evaluation: {
+      hiredAt: 'Hired Date',
+      completedAt: 'Completion Date',
+    },
+    template: {
+      label: 'Template Name',
+      placeholder: {
+        name: 'Employee Name',
+        position: 'Position',
+        hiredAt: 'Hired Date',
+        completedAt: 'Completion Date',
+      }
+    },
+    templates: {
+      title: 'Templates',
+      instruction: 'Select template from list or create a new one',
     }
   }
 }

@@ -1,25 +1,25 @@
 <template>
   <v-card class="pa-3">
     <v-card-title>
-      <span class="headline">{{ $t('employees.forms.create_title') }}</span>
+      <span class="headline">{{ $t('components.employees.createForm.title') }}</span>
     </v-card-title>
 
     <v-form ref="employeeForm" @submit.prevent="save">
       <v-card-text>
         <v-layout row wrap>
           <v-flex class="px-3" xs12 lg6>
-            <h3 class="subheading">General Information</h3>
+            <h3 class="subheading">{{ $t('components.employees.createForm.general') }}</h3>
 
             <v-text-field
               v-model="localEmployee.first_name"
               :rules="[vRequired]"
-              :label="$t('employees.forms.first_name')"
+              :label="$t('components.employees.createForm.firstName')"
             />
 
             <v-text-field
               v-model="localEmployee.last_name"
               :rules="[vRequired]"
-              :label="$t('employees.forms.last_name')"
+              :label="$t('components.employees.createForm.lastName')"
             />
 
             <v-combobox
@@ -28,7 +28,7 @@
               :rules="[vRequired]"
               append-icon="expand_more"
               chips
-              :label="$t('employees.forms.position')"
+              :label="$t('components.employees.createForm.position')"
             />
 
             <v-combobox
@@ -37,12 +37,12 @@
               :rules="[vRequired]"
               append-icon="expand_more"
               chips
-              :label="$t('employees.forms.group')"
+              :label="$t('components.employees.createForm.group')"
             />
           </v-flex>
 
           <v-flex class="px-3" xs12 lg6>
-            <h3 class="subheading">Key Dates</h3>
+            <h3 class="subheading">{{ $t('components.employees.createForm.dates') }}</h3>
 
             <v-menu
               ref="hiredAtPicker"
@@ -58,7 +58,7 @@
               <template v-slot:activator="{ on }">
                 <v-text-field
                   :value="localEmployee.hiredDate"
-                  :label="$t('employees.forms.hired_at')"
+                  :label="$t('components.employees.createForm.hiredAt')"
                   prepend-icon="event"
                   readonly
                   v-on="on"
@@ -86,7 +86,7 @@
               <template v-slot:activator="{ on }">
                 <v-text-field
                   :value="localEmployee.positionSetDate"
-                  :label="$t('employees.forms.position_set_at')"
+                  :label="$t('components.employees.createForm.positionSetAt')"
                   prepend-icon="event"
                   readonly
                   v-on="on"
@@ -114,7 +114,7 @@
               <template v-slot:activator="{ on }">
                 <v-text-field
                   :value="localEmployee.nextEvaluationDate"
-                  :label="$t('employees.forms.next_review')"
+                  :label="$t('components.employees.createForm.nextEvaluationAt')"
                   prepend-icon="event"
                   readonly
                   v-on="on"
@@ -139,7 +139,7 @@
           color="grey darken-1"
           flat
         >
-          {{ $t('buttons.cancel') }}
+          {{ $t('shared.buttons.cancel') }}
         </v-btn>
 
         <v-btn
@@ -147,7 +147,7 @@
           color="green darken-1"
           flat
         >
-          {{ $t('buttons.create') }}
+          {{ $t('shared.buttons.create') }}
         </v-btn>
       </v-card-actions>
     </v-form>

@@ -1,20 +1,23 @@
 <template>
   <div class="box evaluation">
     <v-layout v-if="evaluation.isPersisted" row wrap>
-      <v-flex xs12 lg9>
+      <v-flex xs12 lg6>
         <h3 class="evaluation__fullname">{{ evaluation.employeeFullname }}</h3>
         <h4 class="evaluation__position">{{ evaluation.employee_position }}</h4>
       </v-flex>
 
       <v-flex xs12 lg3>
-        <v-layout row justify-end>
-          <v-flex xs12>
-            <div class="date">
-              <h5 class="date__value">{{ evaluation.employeeHiredAt }}</h5>
-              <h6 class="date__description">{{ $t('evaluations.forms.hired_at') }}</h6>
-            </div>
-          </v-flex>
-        </v-layout>
+        <div class="date">
+          <h5 class="date__value">{{ evaluation.employeeHiredAt }}</h5>
+          <h6 class="date__description">{{ $t('views.evaluation.hiredAt') }}</h6>
+        </div>
+      </v-flex>
+
+      <v-flex xs12 lg3>
+        <div class="date">
+          <h5 class="date__value">{{ evaluation.completedAt }}</h5>
+          <h6 class="date__description">{{ $t('views.evaluation.completedAt') }}</h6>
+        </div>
       </v-flex>
 
       <v-flex xs12>
@@ -31,7 +34,7 @@
     <v-layout v-else row>
       <v-flex xs12>
         <h4 class="box__header">
-          Select evaluation from list to see details.
+          {{ $t() }}
         </h4>
       </v-flex>
     </v-layout>

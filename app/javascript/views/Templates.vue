@@ -2,7 +2,7 @@
   <section class="panel">
     <div class="panel__row">
       <div class="panel__name">
-        <h2>{{ $t('templates.title') }}</h2>
+        <h2>{{ $t('views.templates.title') }}</h2>
       </div>
 
       <div class="panel__actions">
@@ -16,7 +16,7 @@
           >
             <v-icon>add</v-icon>
           </v-btn>
-          <span>{{ $t('templates.buttons.add_new') }}</span>
+          <span>{{ $t('shared.tooltips.addNew') }}</span>
         </v-tooltip>
 
         <v-tooltip bottom>
@@ -29,7 +29,7 @@
           >
             <v-icon>save_alt</v-icon>
           </v-btn>
-          <span>{{ $t('templates.buttons.save') }}</span>
+          <span>{{ $t('shared.tooltips.save') }}</span>
         </v-tooltip>
 
         <v-tooltip bottom>
@@ -42,7 +42,7 @@
           >
             <v-icon>edit</v-icon>
           </v-btn>
-          <span>{{ $t('templates.buttons.edit') }}</span>
+          <span>{{ $t('shared.tooltips.edit') }}</span>
         </v-tooltip>
 
         <v-tooltip bottom>
@@ -56,7 +56,7 @@
           >
             <v-icon>delete</v-icon>
           </v-btn>
-          <span>{{ $t('templates.buttons.delete') }}</span>
+          <span>{{ $t('shared.tooltips.delete') }}</span>
         </v-tooltip>
       </div>
     </div>
@@ -76,7 +76,7 @@
               <v-layout row>
                 <v-flex xs12>
                   <h4 class="box__header">
-                    {{ $t('templates.messages.select') }}
+                    {{ $t('views.templates.instruction') }}
                   </h4>
                 </v-flex>
               </v-layout>

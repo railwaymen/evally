@@ -5,7 +5,7 @@
         <v-text-field
           v-model="search"
           append-icon="search"
-          :label="$t('employees.table.search')"
+          :label="$t('components.employees.table.search')"
           box
         />
       </v-flex>
@@ -29,7 +29,7 @@
                 >
                   <v-icon size="15">edit</v-icon>
                 </v-btn>
-                <span>Edit</span>
+                <span>{{ $t('shared.tooltips.edit') }}</span>
               </v-tooltip>
             </td>
             <td>
@@ -82,31 +82,31 @@ export default {
           value: null,
         },
         {
-          text: this.$t('employees.table.headers.employee_name'),
+          text: this.$t('components.employees.table.cols.name'),
           value: 'fullname'
         },
         {
-          text: this.$t('employees.table.headers.hired_at'),
+          text: this.$t('components.employees.table.cols.hiredAt'),
           value: 'hired_at',
           align: 'center'
         },
         {
-          text: this.$t('employees.table.headers.team'),
+          text: this.$t('components.employees.table.cols.group'),
           value: 'group',
           align: 'center'
         },
         {
-          text: this.$t('employees.table.headers.position'),
+          text: this.$t('components.employees.table.cols.position'),
           value: 'position',
           align: 'center'
         },
         {
-          text: this.$t('employees.table.headers.position_set_at'),
+          text: this.$t('components.employees.table.cols.positionSetAt'),
           value: 'position_set_at',
           align: 'center'
         },
         {
-          text: this.$t('employees.table.headers.last_evaluation'),
+          text: this.$t('components.employees.table.cols.latestEvaluationAt'),
           value: 'latest_evaluation_date',
           align: 'center'
         }

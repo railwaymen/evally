@@ -13,7 +13,7 @@
         <v-layout row>
           <v-flex xs12>
             <h4 class="box__header">
-              Select evaluation from list to see details.
+              {{ $t('views.employee.instruction') }}
             </h4>
           </v-flex>
         </v-layout>

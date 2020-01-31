@@ -21,7 +21,7 @@
           <span v-if="editable">
             <v-text-field
               v-model="section.name"
-              :label="$t('templates.forms.section_title')"
+              :label="$t('components.templates.sectionComposer.title')"
               :rules="[vRequired]"
               outline
             />
@@ -40,7 +40,9 @@
             >
               <v-icon class="rotateZ90">{{ section.isHalf ? `unfold_more` : `unfold_less` }}</v-icon>
             </v-btn>
-            <span>{{ section.isHalf ? $t('templates.forms.buttons.full_width') : $t('templates.forms.buttons.half_width') }}</span>
+            <span>
+              {{ section.isHalf ? $t('shared.tooltips.fullWidth') : $t('shared.tooltips.halfWidth') }}
+            </span>
           </v-tooltip>
 
           <v-btn class="drag-section-btn" flat icon>
@@ -56,7 +58,7 @@
             >
               <v-icon>delete</v-icon>
             </v-btn>
-            <span>{{ $t('templates.forms.buttons.delete') }}</span>
+            <span>{{ $t('shared.tooltips.delete') }}</span>
           </v-tooltip>
         </div>
 
