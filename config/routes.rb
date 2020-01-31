@@ -40,6 +40,8 @@ Rails.application.routes.draw do
       end
 
       resources :templates, only: %i[index show create update destroy]
+
+      resource :settings, only: :update
     end
 
     # Route to hit the Vue app

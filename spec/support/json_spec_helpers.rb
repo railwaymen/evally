@@ -71,6 +71,15 @@ module JsonSpecHelpers
     }
   end
 
+  def setting_schema(setting)
+    {
+      default_draft_items: setting.default_draft_items,
+      default_upcoming_items: setting.default_upcoming_items,
+      default_next_evaluation_time: setting.default_next_evaluation_time,
+      lang: setting.lang
+    }.to_json
+  end
+
   def template_schema(template)
     {
       template: {
