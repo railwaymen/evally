@@ -21,50 +21,50 @@ export default new Router({
   routes: [
     {
       path: '/app',
-      component: () => import(/* webpackChunkName: 'layout_base' */ '@views/Base'),
+      component: () => import(/* webpackChunkName: 'layout_base' */ '@views/layout/Base'),
       beforeEnter: isAuthenticated,
       children: [
         {
           path: 'start',
           name: 'dashboard_path',
-          component: () => import(/* webpackChunkName: 'dashboard' */ '@views/Dashboard'),
+          component: () => import(/* webpackChunkName: 'dashboard' */ '@views/dashboard/Show'),
         },
         {
           path: 'drafts',
           name: 'drafts_path',
-          component: () => import(/* webpackChunkName: 'drafts' */ '@views/Drafts'),
+          component: () => import(/* webpackChunkName: 'drafts' */ '@views/drafts/Index'),
           children: [
             {
               path: ':id',
               name: 'draft_path',
-              component: () => import(/* webpackChunkName: 'draft' */ '@views/Draft'),
+              component: () => import(/* webpackChunkName: 'draft' */ '@views/drafts/Show'),
             }
           ]
         },
         {
           path: 'employees',
           name: 'employees_path',
-          component: () => import(/* webpackChunkName: 'employees' */ '@views/Employees'),
+          component: () => import(/* webpackChunkName: 'employees' */ '@views/employees/Index'),
           children: [
             {
               path: 'search',
               name: 'employees_search_path',
-              component: () => import(/* webpackChunkName: 'employees_search' */ '@views/EmployeesSearch'),
+              component: () => import(/* webpackChunkName: 'employees_search' */ '@views/employees/Search'),
             },
             {
               path: 'overview',
               name: 'employees_overview_path',
-              component: () => import(/* webpackChunkName: 'employees_overview' */ '@views/EmployeesOverview'),
+              component: () => import(/* webpackChunkName: 'employees_overview' */ '@views/employees/Overview'),
             },
             {
               path: ':employeeId',
               name: 'employee_path',
-              component: () => import(/* webpackChunkName: 'employee' */ '@views/Employee'),
+              component: () => import(/* webpackChunkName: 'employee' */ '@views/employees/Show'),
               children: [
                 {
                   path: 'evaluation/:id',
                   name: 'evaluation_path',
-                  component: () => import(/* webpackChunkName: 'evaluation' */ '@views/Evaluation')
+                  component: () => import(/* webpackChunkName: 'evaluation' */ '@views/employees/Evaluation')
                 }
               ]
             }
@@ -73,38 +73,38 @@ export default new Router({
         {
           path: 'templates',
           name: 'templates_path',
-          component: () => import(/* webpackChunkName: 'templates' */ '@views/Templates'),
+          component: () => import(/* webpackChunkName: 'templates' */ '@views/templates/Index'),
           children: [
             {
               path: ':id',
               name: 'template_path',
-              component: () => import(/* webpackChunkName: 'template' */ '@views/Template'),
+              component: () => import(/* webpackChunkName: 'template' */ '@views/templates/Show'),
             }
           ]
         },
         {
           path: 'settings',
-          component: require('@/components/pages/Settings').default,
+          component: () => import(/* webpackChunkName: 'settings' */ '@views/settings/Show'),
           children: [
             {
               path: 'general',
               name: 'general_settings_path',
-              component: require('@/components/settings/GeneralPanel').default,
+              component: () => import(/* webpackChunkName: 'settings_general' */ '@views/settings/General'),
             },
             {
               path: 'evaluations',
               name: 'evaluations_settings_path',
-              component: require('@/components/settings/EvaluationsPanel').default,
+              component: () => import(/* webpackChunkName: 'settings_evaluations' */ '@views/settings/Evaluations'),
             },
             {
               path: 'profile',
               name: 'profile_settings_path',
-              component: require('@/components/settings/ProfilePanel').default,
+              component: () => import(/* webpackChunkName: 'settings_profile' */ '@views/settings/Profile'),
             },
             {
               path: 'support',
-              name: 'support_path',
-              component: require('@/components/settings/SupportPanel').default,
+              name: 'support_settings_path',
+              component: () => import(/* webpackChunkName: 'settings_support' */ '@views/settings/Support'),
             }
           ]
         }

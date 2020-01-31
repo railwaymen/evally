@@ -2,7 +2,7 @@
   <section class="panel">
     <div class="panel__row">
       <div class="panel__name">
-        <h2>{{ $t('views.templates.title') }}</h2>
+        <h2>{{ $t('views.templates.index.title') }}</h2>
       </div>
 
       <div class="panel__actions">
@@ -76,7 +76,7 @@
               <v-layout row>
                 <v-flex xs12>
                   <h4 class="box__header">
-                    {{ $t('views.templates.instruction') }}
+                    {{ $t('views.templates.index.instruction') }}
                   </h4>
                 </v-flex>
               </v-layout>

@@ -6,6 +6,9 @@ export default {
       delete: 'Delete',
       complete: 'Complete',
       search: 'Search',
+      reset: 'Reset',
+      save: 'Save',
+      changePassword: 'Change Password'
     },
     tooltips: {
       edit: 'Edit',
@@ -27,6 +30,12 @@ export default {
       templates: 'Templates',
       settings: 'Settings',
       logout: 'Logout',
+    },
+    validations: {
+      required: 'This field is required.',
+      min6: 'Must have 6 or more characters.',
+      isString: 'Must be a string.',
+      confirmed: 'Both passwords must be the same.'
     }
   },
   components: {
@@ -123,6 +132,14 @@ export default {
         no: 'No',
       }
     },
+    settings: {
+      sidebarNav: {
+        general: 'General',
+        evaluations: 'Evaluations',
+        profile: 'Profile',
+        support: 'Support',
+      }
+    },
     templates: {
       sidebar: {
         search: 'Search ...',
@@ -171,57 +188,110 @@ export default {
     }
   },
   views: {
-    dashboard: {
-      title: 'Hello {name}!',
-    },
-    drafts: {
-      title: 'Drafts',
-      instruction: 'Select draft from list or create a new one',
-    },
-    draft: {
-      hiredAt: 'On Board Since',
-    },
-    employees: {
-      title: 'Employees',
-      nav: {
-        list: 'List',
-        search: 'Search',
-        overview: 'Overview',
+    dashboards: {
+      show: {
+        title: 'Hello {name}!',
       }
     },
-    employee: {
-      instruction: 'Select evaluation from list to see details'
+    drafts: {
+      index: {
+        title: 'Drafts',
+        instruction: 'Select draft from list or create a new one',
+      },
+      show: {
+        hiredAt: 'On Board Since',
+      }
     },
-    employeesSearch: {
-      label: 'Skill Name',
-      table: {
-        cols: {
-          name: 'Name',
-          skill: 'Skill',
-          hiredAt: 'Hired Date',
-          group: 'Group',
-          position: 'Position',
-          positionSetAt: 'Promotion Date',
-          latestEvaluationAt: 'Latest Evaluation Date',
+    employees: {
+      index: {
+        title: 'Employees',
+        nav: {
+          list: 'List',
+          search: 'Search',
+          overview: 'Overview',
+        }
+      },
+      show: {
+        instruction: 'Select evaluation from list to see details'
+      },
+      evaluation: {
+        hiredAt: 'Hired Date',
+        completedAt: 'Completion Date',
+      },
+      search: {
+        label: 'Skill Name',
+        table: {
+          cols: {
+            name: 'Name',
+            skill: 'Skill',
+            hiredAt: 'Hired Date',
+            group: 'Group',
+            position: 'Position',
+            positionSetAt: 'Promotion Date',
+            latestEvaluationAt: 'Latest Evaluation Date',
+          }
         }
       }
     },
-    evaluation: {
-      hiredAt: 'Hired Date',
-      completedAt: 'Completion Date',
-    },
-    template: {
-      label: 'Template Name',
-      placeholder: {
-        name: 'Employee Name',
-        position: 'Position',
-        hiredAt: 'Hired Date',
-        completedAt: 'Completion Date',
+    settings: {
+      show: {
+        title: 'Settings',
+      },
+      general: {
+        title: 'General Settings',
+        language: {
+          subtitle: 'Langugage',
+          english: 'English',
+          polish: 'Polish',
+        },
+        widgets: {
+          subtitle: 'Dashboard Widgets',
+          drafts: 'Number of Draft Items',
+          upcoming: 'Number of Upcoming Items'
+        }
+      },
+      evaluations: {
+        title: 'Evaluations Settings',
+        defaults: {
+          subtitle: 'Defaults options',
+          nextEvaluationOffset: 'Months to next evaluation'
+        }
+      },
+      profile: {
+        title: 'Profile Settings',
+        basic: {
+          subtitle: 'Basic Profile Information',
+          email: 'Email',
+          firstName: 'First Name',
+          lastName: 'Last Name',
+        },
+        password: {
+          subtitle: 'Change Password',
+          newPassword: 'New Password',
+          confirmPassword: 'Password Confirmation',
+          oldPassword: 'Old Password',
+          warning: 'You will be logged out after successful password change.',
+        }
+      },
+      support: {
+        title: 'Support',
+        text: 'Soon...'
       }
     },
     templates: {
-      title: 'Templates',
-      instruction: 'Select template from list or create a new one',
+      index: {
+        title: 'Templates',
+        instruction: 'Select template from list or create a new one',
+      },
+      show: {
+        label: 'Template Name',
+        placeholder: {
+          name: 'Employee Name',
+          position: 'Position',
+          hiredAt: 'Hired Date',
+          completedAt: 'Completion Date',
+        }
+      }
     }
   }
 }

@@ -13,7 +13,7 @@
         <v-layout row>
           <v-flex xs12>
             <h4 class="box__header">
-              {{ $t('views.employee.instruction') }}
+              {{ $t('views.employees.show.instruction') }}
             </h4>
           </v-flex>
         </v-layout>

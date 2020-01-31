@@ -2,7 +2,7 @@
   <section class="panel">
     <div class="panel__row">
       <div class="panel__name">
-        <h2>{{ $t('views.dashboard.title', { name: user.first_name }) }}</h2>
+        <h2>{{ $t('views.dashboards.show.title', { name: user.first_name }) }}</h2>
       </div>
     </div>
 
@@ -56,7 +56,7 @@ import UpcomingList from '@components/dashboard/UpcomingList'
 import ActivitiesFeed from '@components/dashboard/ActivitiesFeed'
 
 export default {
-  name: 'Dashboard',
+  name: 'DashboardShow',
   components: {
     DraftsList,
     UpcomingList,

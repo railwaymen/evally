@@ -4,7 +4,7 @@
       <div class="search-form__skill">
         <v-select
           :items="skills"
-          :label="$t('views.employeesSearch.label')"
+          :label="$t('views.employees.search.label')"
           chips
         >
           <template #selection="{ data }">
@@ -81,35 +81,35 @@ export default {
       skills: [],
       headers: [
         {
-          text: this.$t('views.employeesSearch.table.cols.name'),
+          text: this.$t('views.employees.search.table.cols.name'),
           value: 'fullname'
         },
         {
-          text: this.$t('views.employeesSearch.table.cols.skill'),
+          text: this.$t('views.employees.search.table.cols.skill'),
           value: 'skillValue'
         },
         {
-          text: this.$t('views.employeesSearch.table.cols.hiredAt'),
+          text: this.$t('views.employees.search.table.cols.hiredAt'),
           value: 'hiredAt',
           align: 'center'
         },
         {
-          text: this.$t('views.employeesSearch.table.cols.group'),
+          text: this.$t('views.employees.search.table.cols.group'),
           value: 'group',
           align: 'center'
         },
         {
-          text: this.$t('views.employeesSearch.table.cols.position'),
+          text: this.$t('views.employees.search.table.cols.position'),
           value: 'position',
           align: 'center'
         },
         {
-          text: this.$t('views.employeesSearch.table.cols.positionSetAt'),
+          text: this.$t('views.employees.search.table.cols.positionSetAt'),
           value: 'positionSetAt',
           align: 'center'
         },
         {
-          text: this.$t('views.employeesSearch.table.cols.latestEvaluationAt'),
+          text: this.$t('views.employees.search.table.cols.latestEvaluationAt'),
           value: 'latest_evaluation_date',
           align: 'center'
         }

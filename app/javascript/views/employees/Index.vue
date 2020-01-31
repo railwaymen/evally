@@ -2,7 +2,7 @@
   <section class="panel">
     <div class="panel__row">
       <div class="panel__name">
-        <h2>{{ $t('views.employees.title') }}</h2>
+        <h2>{{ $t('views.employees.index.title') }}</h2>
       </div>
 
       <div class="panel__nav">
@@ -12,7 +12,7 @@
           exact
           flat
         >
-          {{ $t('views.employees.nav.list') }}
+          {{ $t('views.employees.index.nav.list') }}
         </v-btn>
 
 
@@ -22,7 +22,7 @@
           exact
           flat
         >
-          {{ $t('views.employees.nav.search') }}
+          {{ $t('views.employees.index.nav.search') }}
         </v-btn>
 
         <v-btn
@@ -31,7 +31,7 @@
           exact
           flat
         >
-          {{ $t('views.employees.nav.overview') }}
+          {{ $t('views.employees.index.nav.overview') }}
         </v-btn>
       </div>
 
@@ -78,7 +78,7 @@ import CreateForm from '@components/employees/CreateForm'
 import { pluckUniq } from '@utils/helpers'
 
 export default {
-  name: 'Employees',
+  name: 'EmployeesIndex',
   components: { BasicTable },
   methods: {
     openCreateForm() {

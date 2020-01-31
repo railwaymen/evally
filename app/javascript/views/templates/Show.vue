@@ -5,7 +5,7 @@
         <v-flex xs12>
           <div class="template__name">
             <v-text-field
-              :label="$t('views.template.label')"
+              :label="$t('views.templates.show.label')"
               v-model="template.name"
               :disabled="!template.editable"
               :rules="[vRequired]"
@@ -15,23 +15,23 @@
 
         <v-flex xs12 lg6>
           <h3 class="evaluation__fullname">
-            &lsaquo; {{ $t('views.template.placeholder.name') }} &rsaquo;
+            &lsaquo; {{ $t('views.templates.show.placeholder.name') }} &rsaquo;
           </h3>
           <h4 class="evaluation__position">
-            &lsaquo; {{ $t('views.template.placeholder.position') }} &rsaquo;
+            &lsaquo; {{ $t('views.templates.show.placeholder.position') }} &rsaquo;
           </h4>
         </v-flex>
 
         <v-flex xs6 lg3>
           <div class="date">
             <h5 class="date__value">&lsaquo; date &rsaquo;</h5>
-            <h6 class="date__description">{{ $t('views.template.placeholder.hiredAt') }}</h6>
+            <h6 class="date__description">{{ $t('views.templates.show.placeholder.hiredAt') }}</h6>
           </div>
         </v-flex>
         <v-flex xs6 lg3>
           <div class="date">
             <h5 class="date__value">&lsaquo; date &rsaquo;</h5>
-            <h6 class="date__description">{{ $t('views.template.placeholder.completedAt') }}</h6>
+            <h6 class="date__description">{{ $t('views.templates.show.placeholder.completedAt') }}</h6>
           </div>
         </v-flex>
 

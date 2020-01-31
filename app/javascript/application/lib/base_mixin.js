@@ -24,15 +24,15 @@ export default {
     },
 
     vIsString(val) {
-      return this.$_.isString(val) || this.$t('validation.isString')
+      return this.$_.isString(val) || this.$t('shared.validations.isString')
     },
 
     vMin6(val) {
-      return !!val && val.length >= 6 || this.$t('validation.min6')
+      return !!val && val.length >= 6 || this.$t('shared.validations.min6')
     },
 
     vRequired(val) {
-      return !!val || this.$t('validation.required')
+      return !!val || this.$t('shared.validations.required')
     }
   },
   computed: {

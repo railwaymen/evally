@@ -9,14 +9,14 @@
       <v-flex xs12 lg3>
         <div class="date">
           <h5 class="date__value">{{ evaluation.employeeHiredAt }}</h5>
-          <h6 class="date__description">{{ $t('views.evaluation.hiredAt') }}</h6>
+          <h6 class="date__description">{{ $t('views.employees.evaluation.hiredAt') }}</h6>
         </div>
       </v-flex>
 
       <v-flex xs12 lg3>
         <div class="date">
           <h5 class="date__value">{{ evaluation.completedAt }}</h5>
-          <h6 class="date__description">{{ $t('views.evaluation.completedAt') }}</h6>
+          <h6 class="date__description">{{ $t('views.employees.evaluation.completedAt') }}</h6>
         </div>
       </v-flex>
 
@@ -34,7 +34,7 @@
     <v-layout v-else row>
       <v-flex xs12>
         <h4 class="box__header">
-          {{ $t() }}
+          {{ $t('views.employees.show.instruction') }}
         </h4>
       </v-flex>
     </v-layout>
@@ -49,7 +49,7 @@ import { Evaluation } from '@models/evaluation'
 import StaticSectionBox from '@components/evaluations/StaticSectionBox'
 
 export default {
-  name: 'Evaluation',
+  name: 'EmployeesEvaluation',
   components: { StaticSectionBox },
   computed: {
     ...mapGetters({

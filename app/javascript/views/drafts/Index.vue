@@ -2,7 +2,7 @@
   <section class="panel">
     <div class="panel__row">
       <div class="panel__name">
-        <h2>{{ $t('views.drafts.title') }}</h2>
+        <h2>{{ $t('views.drafts.index.title') }}</h2>
       </div>
 
       <div class="panel__actions">
@@ -106,7 +106,7 @@
               <v-layout row>
                 <v-flex xs12>
                   <h4 class="box__header">
-                    {{ $t('views.drafts.instruction') }}
+                    {{ $t('views.drafts.index.instruction') }}
                   </h4>
                 </v-flex>
               </v-layout>
@@ -130,7 +130,7 @@ import DeleteConfirm from '@components/drafts/DeleteConfirm'
 import DraftsSearchList from '@components/drafts/DraftsSearchList'
 
 export default {
-  name: 'Drafts',
+  name: 'DraftsIndex',
   components: { DraftsSearchList },
   data() {
     return {
