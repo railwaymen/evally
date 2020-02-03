@@ -159,6 +159,12 @@ export default {
         email: 'Email',
         firstName: 'First Name',
         lastName: 'Last Name',
+      },
+      passwordForm: {
+        subtitle: 'Change Password',
+        newPassword: 'New Password',
+        passwordConfirmation: 'Password Confirmation',
+        password: 'Current Password',
       }
     },
     templates: {
@@ -263,13 +269,7 @@ export default {
       },
       profile: {
         title: 'Profile Settings',
-        password: {
-          subtitle: 'Change Password',
-          newPassword: 'New Password',
-          confirmPassword: 'Password Confirmation',
-          oldPassword: 'Old Password',
-          warning: 'You will be logged out after successful password change.',
-        }
+        logOutWarning: 'You will be logged out after successful password change.',
       },
       support: {
         title: 'Support',

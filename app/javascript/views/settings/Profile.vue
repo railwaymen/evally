@@ -22,7 +22,7 @@
       <v-flex xs12 lg5>
         <div class="setting__info">
           <v-alert :value="true" type="warning" outline>
-            {{ $t('views.settings.profile.password.warning') }}
+            {{ $t('views.settings.profile.logOutWarning') }}
           </v-alert>
         </div>
       </v-flex>
@@ -39,22 +39,6 @@ import UserForm from '@components/settings/UserForm'
 export default {
   name: 'SettingsProfile',
   components: { PasswordForm, UserForm },
-  methods: {
-    // updatePassword() {
-    //   if (this.$refs.userPasswordForm.validate()) {
-    //     let params = { old_one: this.currentPassword, new_one: this.password }
-
-    //     this.$store.dispatch('AuthStore/updatePassword', { password: params })
-    //       .then(() => {
-    //         this.flash({ success: this.$root.$t('settings.flashes.update_pass.success') })
-    //         this.$router.push({ name: 'login_path' })
-    //       })
-    //       .catch(error => {
-    //         this.flash({ error: this.$root.$t('settings.flashes.update_pass.error', { reason: this.renderError(error.response) }) })
-    //       })
-    //   }
-    // }
-  },
   computed: {
     ...mapGetters({
       user: 'SessionModule/user',

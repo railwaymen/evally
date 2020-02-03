@@ -152,6 +152,32 @@ const SessionModule = {
           )
         })
     },
+    updatePassword({ commit }, passwords) {
+      const params = { profile: passwords }
+
+      return new Promise((resolve) => {
+        http.put(User.routes.profilePasswordPath, params)
+          .then(() => {
+            delete http.defaults.headers.common['Authorization']
+
+            commit('resetState')
+            commit(
+              'FlashStore/push',
+              { success: 'Password has been updated' },
+              { root: true }
+            )
+
+            resolve()
+          })
+          .catch(() => {
+            commit(
+              'FlashStore/push',
+              { error: 'Error :(' },
+              { root: true }
+            )
+          })
+      })
+    },
     destroy({ commit }) {
       return new Promise((resolve) => {
         delete http.defaults.headers.common['Authorization']

@@ -41,7 +41,10 @@ Rails.application.routes.draw do
 
       resources :templates, only: %i[index show create update destroy]
 
-      resource :profile, controller: 'profile', only: %i[show update]
+      resource :profile, controller: 'profile', only: %i[show update] do
+        put :password, on: :member
+      end
+
       resource :settings, only: :update
     end
 

@@ -21,6 +21,7 @@ class User extends Model {
   static get routes() {
     return {
       profilePath: '/v2/profile',
+      profilePasswordPath: '/v2/profile/password',
       sessionPath: 'v2/session'
     }
   }

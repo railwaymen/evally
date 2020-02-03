@@ -16,14 +16,28 @@ module V2
       render json: V2::UserSerializer.render(profile_form.user), status: :ok
     end
 
+    def password
+      password_form.save
+
+      head :no_content
+    end
+
     private
 
     def profile_form
       @profile_form ||= V2::ProfileForm.new(current_user, params: user_params)
     end
 
+    def password_form
+      @password_form ||= V2::PasswordForm.new(current_user, params: password_params)
+    end
+
     def user_params
       params.require(:profile).permit(:first_name, :last_name)
+    end
+
+    def password_params
+      params.require(:profile).permit(:password, :new_password, :password_confirmation)
     end
   end
 end

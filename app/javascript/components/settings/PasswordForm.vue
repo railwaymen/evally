@@ -1,32 +1,33 @@
 <template>
-  <v-form ref="form" @submit.prevent="updatePassword" class="pa-3">
-    <h2 class="subheading my-3">{{ $t('views.settings.profile.password.subtitle') }}</h2>
+  <v-form ref="form" @submit.prevent="save" class="pa-3">
+    <h2 class="subheading my-3">{{ $t('components.settings.passwordForm.subtitle') }}</h2>
 
     <v-layout wrap row>
       <v-flex xs12 md6>
         <v-text-field
-          v-model="password"
+          v-model="new_password"
           :rules="[vRequired, vMin6]"
           prepend-icon="lock"
-          :label="$t('views.settings.profile.password.newPassword')"
+          :label="$t('components.settings.passwordForm.newPassword')"
           type="password"
         />
       </v-flex>
 
       <v-flex xs12 md6>
         <v-text-field
+          v-model="password_confirmation"
           :rules="[vConfirmed, vMin6]"
-          :label="$t('views.settings.profile.password.confirmPassword')"
+          :label="$t('components.settings.passwordForm.passwordConfirmation')"
           type="password"
         />
       </v-flex>
 
       <v-flex xs12>
         <v-text-field
-          v-model="currentPassword"
+          v-model="password"
           :rules="[vRequired, vMin6]"
           prepend-icon="lock"
-          :label="$t('views.settings.profile.password.oldPassword')"
+          :label="$t('components.settings.passwordForm.password')"
           type="password"
         />
       </v-flex>
@@ -49,13 +50,18 @@ export default {
   name: 'PasswordForm',
   data() {
     return {
-      password: '',
-      currentPassword: ''
+      new_password: '',
+      password_confirmation: '',
+      password: ''
     }
   },
   methods: {
+    save() {
+      this.$store.dispatch('SessionModule/updatePassword', this.$data)
+        .then(() => this.$router.push({ name: 'login_path' }))
+    },
     vConfirmed(val) {
-      return val === this.password || this.$t('shared.validations.confirmed')
+      return val === this.new_password || this.$t('shared.validations.confirmed')
     }
   }
 }
