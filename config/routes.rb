@@ -3,10 +3,6 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   scope '(:locale)', locale: /en|pl/ do
-    scope :v1, defaults: { format: :json } do
-      resource :session, controller: 'rails_jwt_auth/sessions', only: [:create, :destroy]
-    end
-
     namespace :v1, defaults: { format: :json } do
       resources :activities, only: [:index] do
         get 'today', on: :collection
@@ -30,6 +26,10 @@ Rails.application.routes.draw do
       resources :settings, only: [:update]
     end
 
+    scope :v2, defaults: { format: :json } do
+      resource :session, controller: 'rails_jwt_auth/sessions', only: %i[create destroy]
+    end
+
     namespace :v2, defaults: { format: :json } do
       resource :dashboard, controller: 'dashboard', only: :show
 
@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
       resources :templates, only: %i[index show create update destroy]
 
+      resource :profile, controller: 'profile', only: :show
       resource :settings, only: :update
     end
 

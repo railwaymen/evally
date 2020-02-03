@@ -18,9 +18,9 @@
       <v-menu transition="slide-y-transition" offset-y>
         <span class="profile" slot="activator" data-cy="profile-btn" v-ripple>
           <v-avatar class="profile__avatar" color="primary" size="32">
-            <span class="white--text body-1" data-cy="profile-initials">{{ user.initials() }}</span>
+            <span class="white--text body-1" data-cy="profile-initials">{{ user.initials }}</span>
           </v-avatar>
-          <span class="profile__fullname" data-cy="profile-fullname">{{ user.fullname() }}</span>
+          <span class="profile__fullname" data-cy="profile-fullname">{{ user.fullname }}</span>
           <v-icon class="profile__arrow" size="24">
             expand_more
           </v-icon>
@@ -102,7 +102,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      user: 'AuthStore/user'
+      user: 'SessionModule/user',
+      setting: 'SessionModule/setting',
     }),
 
     canHideSlider() {
@@ -111,20 +112,13 @@ export default {
   },
   methods: {
     logout () {
-      this.$store.dispatch('AuthStore/logOut').then(() => {
-        this.flash({ success: 'You have been logged out succesfully.' })
-        this.$router.push({ name: 'login_path' })
-      })
+      this.$store.dispatch('SessionModule/destroy')
+        .then(() => this.$router.push({ name: 'login_path' }))
     }
   },
   created() {
-    this.$store.dispatch('AuthStore/getUser')
-      .then(session => {
-        this.updateLocale(session.setting.lang)
-      })
-      .catch(error => {
-        this.flash({ error: 'User cannot be loaded due to some error: ' + this.renderError(error.response) })
-      })
+    this.$store.dispatch('SessionModule/show')
+      .then(data => this.updateLocale(data.setting.lang))
   }
 }
 </script>

@@ -92,11 +92,6 @@ export default new Router({
               component: () => import(/* webpackChunkName: 'settings_general' */ '@views/settings/General'),
             },
             {
-              path: 'evaluations',
-              name: 'evaluations_settings_path',
-              component: () => import(/* webpackChunkName: 'settings_evaluations' */ '@views/settings/Evaluations'),
-            },
-            {
               path: 'profile',
               name: 'profile_settings_path',
               component: () => import(/* webpackChunkName: 'settings_profile' */ '@views/settings/Profile'),

@@ -12,18 +12,6 @@
       </v-list-tile-content>
     </v-list-tile>
 
-    <v-list-tile :to="{ name: 'evaluations_settings_path' }" exact>
-      <v-list-tile-action>
-        <v-icon>assignment_turned_in</v-icon>
-      </v-list-tile-action>
-
-      <v-list-tile-content>
-        <v-list-tile-title>
-          {{ $t('components.settings.sidebarNav.evaluations') }}
-        </v-list-tile-title>
-      </v-list-tile-content>
-    </v-list-tile>
-
     <v-divider class="my-2" />
 
     <v-list-tile :to="{ name: 'profile_settings_path' }" exact>

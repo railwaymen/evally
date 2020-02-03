@@ -71,7 +71,7 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      user: 'AuthStore/user'
+      user: 'SessionModule/user'
     })
   },
   created() {

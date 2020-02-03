@@ -135,9 +135,24 @@ export default {
     settings: {
       sidebarNav: {
         general: 'General',
-        evaluations: 'Evaluations',
         profile: 'Profile',
         support: 'Support',
+      },
+      generalForm: {
+        language: {
+          subtitle: 'Langugage',
+          english: 'English',
+          polish: 'Polish',
+        },
+        widgets: {
+          subtitle: 'Dashboard Widgets',
+          drafts: 'Number of Draft Items',
+          upcoming: 'Number of Upcoming Items'
+        },
+        evaluations: {
+          subtitle: 'Evaluations',
+          nextEvaluationOffset: 'Months to next evaluation'
+        }
       }
     },
     templates: {
@@ -239,23 +254,6 @@ export default {
       },
       general: {
         title: 'General Settings',
-        language: {
-          subtitle: 'Langugage',
-          english: 'English',
-          polish: 'Polish',
-        },
-        widgets: {
-          subtitle: 'Dashboard Widgets',
-          drafts: 'Number of Draft Items',
-          upcoming: 'Number of Upcoming Items'
-        }
-      },
-      evaluations: {
-        title: 'Evaluations Settings',
-        defaults: {
-          subtitle: 'Defaults options',
-          nextEvaluationOffset: 'Months to next evaluation'
-        }
       },
       profile: {
         title: 'Profile Settings',

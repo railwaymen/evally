@@ -6,7 +6,7 @@
 
     <h3 class="login-form__heading login-form__heading--dark mb-4">Sign in</h3>
 
-    <v-form ref="loginForm" v-model="formValid" @submit.prevent="login">
+    <v-form ref="loginForm" @submit.prevent="submit">
       <div class="login-form__group" data-cy="email">
         <v-text-field
           v-model="credentials.email"
@@ -25,13 +25,24 @@
       </div>
 
       <div class="login-form__action mt-4" data-cy="submit">
-        <v-btn color="primary" type="submit" flat outline round block>Sign in</v-btn>
+        <v-btn
+          color="primary"
+          type="submit"
+          outline
+          round
+          block
+          flat
+        >
+          Sign in
+        </v-btn>
       </div>
     </v-form>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'LoginForm',
   data() {
@@ -39,30 +50,18 @@ export default {
       credentials: {
         email: '',
         password: ''
-      },
-      rules: {
-        required: value => !!value || 'Required.',
-        min: v => v.length >= 6 || 'Min 6 characters'
-      },
-      formValid: false
+      }
     }
   },
   methods: {
-    login () {
-      if (this.formValid) {
-        this.$store.dispatch('AuthStore/logIn', { session: this.credentials })
-          .then(() => {
-            this.flash({ success: 'You have been logged in succesfully.' })
-            this.$router.push({ name: 'dashboard_path' })
-          })
-          .catch(err => {
-            if (err.response) {
-              this.$refs.loginForm.reset()
-              this.flash({ error: 'Invalid credentials, please try again.' })
-            }
-          })
-      }
-    }
+    submit() {
+      this.createSession(this.credentials)
+        .then(() => this.$router.push({ name: 'dashboard_path' }))
+        .catch(() => this.flash({ error: 'Invalid credentials, please try again.' }))
+    },
+    ...mapActions({
+      createSession: 'SessionModule/create'
+    })
   }
 }
 </script>
