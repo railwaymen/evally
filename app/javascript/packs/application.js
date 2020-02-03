@@ -45,13 +45,9 @@ import moment from 'moment'
 
 Vue.use(VueMoment, { moment })
 
-// Vue2Filters
-import Vue2Filters from 'vue2-filters'
-Vue.use(Vue2Filters)
-
 // Mixins
-import base_mixin from '@/lib/base_mixin'
-Vue.mixin(base_mixin)
+import globalMixin from '@utils/mixins/global'
+Vue.mixin(globalMixin)
 
 // Internationalization
 import i18n from '@locales/i18n'

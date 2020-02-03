@@ -1,16 +1,16 @@
 <template>
   <v-app>
-    <router-view></router-view>
-    
-    <flash-snackbar></flash-snackbar>
+    <router-view />
+
+    <notifications-bar />
   </v-app>
 </template>
 
 <script>
-import FlashSnackbar from '@/components/shared/FlashSnackbar'
+import NotificationsBar from '@components/shared/NotificationsBar'
 
 export default {
   name: 'App',
-  components: { FlashSnackbar }
+  components: { NotificationsBar }
 }
 </script>

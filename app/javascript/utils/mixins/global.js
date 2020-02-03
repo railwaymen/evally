@@ -4,12 +4,13 @@ export default {
       this.$store.commit('FlashStore/push', message)
     },
 
-    renderError(errorResponse) {
-      if (typeof errorResponse.data === 'object') {
-        let details = errorResponse.data.details.join(', ')
-        return details !== "" ? details : errorResponse.data.message
+    fetchError(error) {
+      if (typeof error.data === 'object') {
+        const details = error.data.details.join(', ')
+
+        return details !== '' ? details : error.data.message
       } else {
-        return errorResponse.statusText
+        return error.statusText
       }
     },
 
@@ -29,12 +30,6 @@ export default {
 
     vRequired(val) {
       return !!val || this.$t('shared.validations.required')
-    }
-  },
-  computed: {
-
-    isLoading() {
-			return this.status === 'loading'
     }
   }
 }
