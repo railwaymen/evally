@@ -6,7 +6,7 @@ import store from '@/store'
 Vue.use(Router)
 
 
-const isAuthenticated = (to, from, next) => {
+const isAuthenticated = (_to, _from, next) => {
   if (localStorage.getItem('ev411y_t0k3n')) {
     next()
   } else {
