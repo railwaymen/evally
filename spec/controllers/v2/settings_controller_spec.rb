@@ -9,7 +9,7 @@ RSpec.describe V2::SettingsController, type: :controller do
     context 'when unauthorized' do
       it 'responds with error' do
         params = {
-          settings: {
+          setting: {
             lang: 'pl'
           }
         }
@@ -24,7 +24,7 @@ RSpec.describe V2::SettingsController, type: :controller do
     context 'when authorized' do
       it 'expects to update user settings' do
         params = {
-          settings: {
+          setting: {
             default_draft_items: 10,
             default_upcoming_items: 10,
             default_next_evaluation_time: 12,

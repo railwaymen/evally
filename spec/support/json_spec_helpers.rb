@@ -60,6 +60,24 @@ module JsonSpecHelpers
     }.to_json
   end
 
+  def profile_schema(user)
+    setting = user.setting
+
+    {
+      user: {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email
+      },
+      setting: {
+        default_draft_items: setting.default_draft_items,
+        default_upcoming_items: setting.default_upcoming_items,
+        default_next_evaluation_time: setting.default_next_evaluation_time,
+        lang: setting.lang
+      }
+    }.to_json
+  end
+
   def section_schema(section)
     {
       id: section.id,
@@ -87,6 +105,14 @@ module JsonSpecHelpers
         name: template.name
       },
       sections: template.sections.map(&method(:section_schema))
+    }.to_json
+  end
+
+  def user_schema(user)
+    {
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email
     }.to_json
   end
 end

@@ -38,6 +38,10 @@ const SessionModule = {
       localStorage.setItem('ev411y_t0k3n', jwt)
       return state
     },
+    setUser(state, user) {
+      state.user = new User(user)
+      return state
+    },
     resetState(state) {
       localStorage.removeItem('ev411y_t0k3n')
 
@@ -123,6 +127,29 @@ const SessionModule = {
               { root: true }
             )
           })
+        })
+    },
+    updateUser({ commit }, user) {
+      const params = {
+        profile: user.attributes
+      }
+
+      http.put(User.routes.profilePath, params)
+        .then(response => {
+          commit('setUser', response.data)
+
+          commit(
+            'FlashStore/push',
+            { success: 'Profile have been updated' },
+            { root: true }
+          )
+        })
+        .catch(() => {
+          commit(
+            'FlashStore/push',
+            { error: 'Error :(' },
+            { root: true }
+          )
         })
     },
     destroy({ commit }) {

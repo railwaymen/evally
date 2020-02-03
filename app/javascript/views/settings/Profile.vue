@@ -4,98 +4,19 @@
 
     <v-layout wrap row>
       <v-flex xs12 lg7>
-        <v-form @submit.prevent="updateUser" class="pa-3">
-          <h2 class="subheading my-3">{{ $t('views.settings.profile.basic.subtitle') }}</h2>
+        <div v-if="loading" class="box__loader">
+          <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
+        </div>
 
-          <v-layout wrap row>
-            <v-flex xs12>
-              <v-text-field
-                v-model="user.email"
-                prepend-icon="alternate_email"
-                :label="$t('views.settings.profile.basic.email')"
-                disabled
-              />
-            </v-flex>
-
-            <v-flex xs12 md6>
-              <v-text-field
-                v-model="user.first_name"
-                :rules="[vRequired]"
-                maxlength="32"
-                :label="$t('views.settings.profile.basic.firstName')"
-              />
-            </v-flex>
-
-            <v-flex xs12 md6>
-              <v-text-field
-                v-model="user.last_name"
-                :rules="[vRequired]"
-                maxlength="32"
-                :label="$t('views.settings.profile.basic.lastName')"
-              />
-            </v-flex>
-          </v-layout>
-
-          <div class="settings__actions text-xs-right">
-            <v-btn @click="user.reset()" flat>
-              {{ $t('shared.buttons.reset') }}
-            </v-btn>
-
-            <v-btn type="submit" class="primary" flat>
-              {{ $t('shared.buttons.save') }}
-            </v-btn>
-          </div>
-        </v-form>
+        <user-form v-else :user="user" />
       </v-flex>
     </v-layout>
 
-    <v-divider class="my-2"></v-divider>
+    <v-divider class="my-2" />
 
     <v-layout wrap row>
       <v-flex xs12 lg7>
-        <v-form ref="userPasswordForm" @submit.prevent="updatePassword" class="pa-3">
-          <h2 class="subheading my-3">{{ $t('views.settings.profile.password.subtitle') }}</h2>
-
-          <v-layout wrap row>
-            <v-flex xs12 md6>
-              <v-text-field
-                v-model="password"
-                :rules="[vRequired, vMin6]"
-                prepend-icon="lock"
-                :label="$t('views.settings.profile.password.newPassword')"
-                type="password"
-              />
-            </v-flex>
-
-            <v-flex xs12 md6>
-              <v-text-field
-                :rules="[vConfirmed, vMin6]"
-                :label="$t('views.settings.profile.password.confirmPassword')"
-                type="password"
-              />
-            </v-flex>
-
-            <v-flex xs12>
-              <v-text-field
-                v-model="currentPassword"
-                :rules="[vRequired, vMin6]"
-                prepend-icon="lock"
-                :label="$t('views.settings.profile.password.oldPassword')"
-                type="password"
-              ></v-text-field>
-            </v-flex>
-          </v-layout>
-
-          <div class="settings__actions text-xs-right">
-            <v-btn @click="$refs.userPasswordForm.reset()" flat>
-              {{ $t('shared.buttons.reset') }}
-            </v-btn>
-
-            <v-btn type="submit" class="primary" flat>
-              {{ $t('shared.buttons.changePassword') }}
-            </v-btn>
-          </div>
-        </v-form>
+        <password-form />
       </v-flex>
 
       <v-flex xs12 lg5>
@@ -112,54 +33,33 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import PasswordForm from '@components/settings/PasswordForm'
+import UserForm from '@components/settings/UserForm'
+
 export default {
   name: 'SettingsProfile',
-  data() {
-    return {
-      password: '',
-      currentPassword: ''
-    }
-  },
+  components: { PasswordForm, UserForm },
   methods: {
-    updateUser() {
-      if (this.user.validate()) {
-        this.$store.dispatch('AuthStore/updateUser', { user: this.user.attributes })
-          .then(() => {
-            this.flash({ success: this.$root.$t('settings.flashes.update_user.success') })
-            this.user.sync()
-          })
-          .catch(error => {
-            this.flash({ error: this.$root.$t('settings.flashes.update_user.error', { reason: this.renderError(error.response) }) })
-          })
-      }
-    },
+    // updatePassword() {
+    //   if (this.$refs.userPasswordForm.validate()) {
+    //     let params = { old_one: this.currentPassword, new_one: this.password }
 
-    updatePassword() {
-      if (this.$refs.userPasswordForm.validate()) {
-        let params = { old_one: this.currentPassword, new_one: this.password }
-
-        this.$store.dispatch('AuthStore/updatePassword', { password: params })
-          .then(() => {
-            this.flash({ success: this.$root.$t('settings.flashes.update_pass.success') })
-            this.$router.push({ name: 'login_path' })
-          })
-          .catch(error => {
-            this.flash({ error: this.$root.$t('settings.flashes.update_pass.error', { reason: this.renderError(error.response) }) })
-          })
-      }
-    },
-
-    vConfirmed(val) {
-      return val === this.password || this.$t('shared.validations.confirmed')
-    }
+    //     this.$store.dispatch('AuthStore/updatePassword', { password: params })
+    //       .then(() => {
+    //         this.flash({ success: this.$root.$t('settings.flashes.update_pass.success') })
+    //         this.$router.push({ name: 'login_path' })
+    //       })
+    //       .catch(error => {
+    //         this.flash({ error: this.$root.$t('settings.flashes.update_pass.error', { reason: this.renderError(error.response) }) })
+    //       })
+    //   }
+    // }
   },
   computed: {
     ...mapGetters({
-      user: 'AuthStore/user'
+      user: 'SessionModule/user',
+      loading: 'SessionModule/loading'
     })
-  },
-  beforeDestroy() {
-    this.user.reset()
   }
 }
 </script>

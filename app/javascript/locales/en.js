@@ -153,6 +153,12 @@ export default {
           subtitle: 'Evaluations',
           nextEvaluationOffset: 'Months to next evaluation'
         }
+      },
+      userForm: {
+        subtitle: 'Basic Profile Information',
+        email: 'Email',
+        firstName: 'First Name',
+        lastName: 'Last Name',
       }
     },
     templates: {
@@ -257,12 +263,6 @@ export default {
       },
       profile: {
         title: 'Profile Settings',
-        basic: {
-          subtitle: 'Basic Profile Information',
-          email: 'Email',
-          firstName: 'First Name',
-          lastName: 'Last Name',
-        },
         password: {
           subtitle: 'Change Password',
           newPassword: 'New Password',
