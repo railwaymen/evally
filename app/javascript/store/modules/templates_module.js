@@ -1,4 +1,7 @@
 import http from '@/lib/http_config'
+import { fetchError } from '@utils/helpers'
+
+import i18n from '@locales/i18n'
 
 import { Template, TemplatesList } from '@models/template'
 import { SectionsList } from '@models/section'
@@ -74,8 +77,12 @@ const TemplatesModule = {
         .then(response => {
           commit('setList', response.data)
         })
-        .catch(() => {
-          commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.templates.index.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
         })
         .finally(() => commit('setLoading', false))
     },
@@ -87,8 +94,12 @@ const TemplatesModule = {
           .then(response => {
             commit('setItem', response.data)
           })
-          .catch(() => {
-            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.templates.show.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
           })
       }
     },
@@ -108,12 +119,20 @@ const TemplatesModule = {
             const { data } = response
 
             commit('addToList', data.template)
-            commit('FlashStore/push', { success: 'Created :)' }, { root: true })
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.templates.create.ok') },
+              { root: true }
+            )
 
             resolve(data)
           })
-          .catch(() => {
-            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.templates.create.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
           })
       })
     },
@@ -133,12 +152,20 @@ const TemplatesModule = {
             const { data } = response
 
             commit('setItem', data)
-            commit('FlashStore/push', { success: 'Updated :)' }, { root: true })
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.templates.update.ok') },
+              { root: true }
+            )
 
             resolve(data)
           })
-          .catch(() => {
-            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.templates.update.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
           })
       })
     },
@@ -149,12 +176,20 @@ const TemplatesModule = {
         http.delete(Template.routes.templatePath(template.id))
           .then(() => {
             commit('removeFromList', template.id)
-            commit('FlashStore/push', { success: 'Destroyed :)' }, { root: true })
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.templates.delete.ok') },
+              { root: true }
+            )
 
             resolve()
           })
-          .catch(() => {
-            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.templates.delete.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
           })
       })
     }

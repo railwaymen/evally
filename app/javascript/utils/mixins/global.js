@@ -4,16 +4,6 @@ export default {
       this.$store.commit('FlashStore/push', message)
     },
 
-    fetchError(error) {
-      if (typeof error.data === 'object') {
-        const details = error.data.details.join(', ')
-
-        return details !== '' ? details : error.data.message
-      } else {
-        return error.statusText
-      }
-    },
-
     updateLocale(locale) {
       this.$i18n.locale = locale
       this.$vuetify.lang.current = locale

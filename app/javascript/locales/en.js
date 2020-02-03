@@ -204,6 +204,87 @@ export default {
       }
     }
   },
+  messages: {
+    drafts: {
+      index: {
+        error: 'Evaluation drafts cannot be loaded: {msg}'
+      },
+      show: {
+        error: 'Evaluation draft cannot be loaded: {msg}'
+      },
+      create: {
+        ok: 'Evaluation draft has been created',
+        error: 'Evaluation draft cannot be created: {msg}'
+      },
+      update: {
+        ok: 'Evaluation draft has been updated',
+        error: 'Evaluation draft cannot be updated: {msg}'
+      },
+      complete: {
+        ok: 'Evaluation draft has been completed',
+        error: 'Evaluation draft cannot be completed: {msg}'
+      },
+      delete: {
+        ok: 'Evaluation draft has been deleted',
+        error: 'Evaluation draft cannot be deleted: {msg}'
+      }
+    },
+    employees: {
+      index: {
+        error: 'Employees cannot be loaded: {msg}'
+      },
+      show: {
+        error: 'Employee cannot be loaded: {msg}'
+      },
+      showEvaluation: {
+        error: 'Evaluation cannot be loaded: {msg}'
+      }
+    },
+    session: {
+      show: {
+        error: 'User settings cannot be loaded: {msg}'
+      },
+      create: {
+        ok: 'You have been logged in',
+        error: 'Invalid credentials, please try again'
+      },
+      updateSetting: {
+        ok: 'Settings have been updated',
+        error: 'Settings cannot be updated: {msg}'
+      },
+      updateUser: {
+        ok: 'Profile has been updated',
+        error: 'Profile cannot be updated: {msg}'
+      },
+      updatePassword: {
+        ok: 'Password has been updated, log in again to continue',
+        error: 'Password cannot be updated: {msg}'
+      },
+      destroy: {
+        ok: 'You have been logged out'
+      }
+    },
+    templates: {
+      index: {
+        error: 'Templates cannot be loaded: {msg}'
+      },
+      show: {
+        error: 'Template cannot be loaded: {msg}'
+      },
+      create: {
+        ok: 'Template has been created',
+        error: 'Template cannot be created: {msg}'
+      },
+      update: {
+        ok: 'Template has been updated',
+        error: 'Template cannot be updated: {msg}'
+      },
+      delete: {
+        ok: 'Template has been deleted',
+        error: 'Template cannot be deleted: {msg}'
+      }
+    }
+  },
   models: {
     employee: {
       justStarted: 'just started',

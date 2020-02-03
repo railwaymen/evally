@@ -1,4 +1,7 @@
 import http from '@/lib/http_config'
+import { fetchError } from '@utils/helpers'
+
+import i18n from '@locales/i18n'
 
 import { Employee, EmployeesList } from '@models/employee'
 import { Evaluation, EvaluationsList } from '@models/evaluation'
@@ -84,8 +87,12 @@ const EmployeesModule = {
         .then(response => {
           commit('setList', response.data)
         })
-        .catch(() => {
-          commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.employees.index.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
         })
         .finally(() => commit('setLoading', false))
     },
@@ -94,8 +101,12 @@ const EmployeesModule = {
         .then(response => {
           commit('setItem', response.data)
         })
-        .catch(() => {
-          commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.employees.show.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
         })
     },
     showEvaluation({ commit }, id) {
@@ -103,8 +114,12 @@ const EmployeesModule = {
         .then(response => {
           commit('setEvaluation', response.data)
         })
-        .catch(() => {
-          commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.employees.showEvaluation.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
         })
     },
     create({ commit }, employee) {
@@ -118,12 +133,20 @@ const EmployeesModule = {
             const { data } = response
 
             commit('addToList', data)
-            commit('FlashStore/push', { success: 'Created :)' }, { root: true })
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.employees.create.ok') },
+              { root: true }
+            )
 
             resolve(data)
           })
-          .catch(() => {
-            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.employees.create.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
           })
       })
     },
@@ -138,12 +161,20 @@ const EmployeesModule = {
             const { data } = response
 
             commit('refreshListItem', data)
-            commit('FlashStore/push', { success: 'Updated :)' }, { root: true })
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.employees.update.ok') },
+              { root: true }
+            )
 
             resolve(data)
           })
-          .catch(() => {
-            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.employees.update.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
           })
       })
     }

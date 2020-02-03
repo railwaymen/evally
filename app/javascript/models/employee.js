@@ -1,4 +1,5 @@
 import { Model, List } from './base'
+import i18n from '@locales/i18n'
 
 import moment from 'moment'
 
@@ -21,26 +22,26 @@ class Employee extends Model {
     const diff = moment().diff(this.hired_at, 'months')
 
     // fresh employee case
-    if (diff === 0) return this.i18n.t('models.employee.justStarted')
+    if (diff === 0) return i18n.t('models.employee.justStarted')
 
     const months = diff % 12
     const years = Math.floor(diff / 12)
-    const output = [this.i18n.t('models.employee.works')]
+    const output = [i18n.t('models.employee.works')]
 
     // only months case
     if (years === 0 && months > 0) {
-      return output.concat([this.i18n.tc('models.employee.month', months, { n: months })]).join(' ')
+      return output.concat([i18n.tc('models.employee.month', months, { n: months })]).join(' ')
     }
 
     // full years case
     if (years > 0 && months === 0) {
-      return output.concat([this.i18n.tc('models.employee.year', years, { n: years })]).join(' ')
+      return output.concat([i18n.tc('models.employee.year', years, { n: years })]).join(' ')
     }
 
     return output.concat([
-      this.i18n.tc('models.employee.year', years, { n: years }),
-      this.i18n.t('models.employee.and'),
-      this.i18n.tc('models.employee.month', months, { n: months })
+      i18n.tc('models.employee.year', years, { n: years }),
+      i18n.t('models.employee.and'),
+      i18n.tc('models.employee.month', months, { n: months })
     ]).join(' ')
   }
 
@@ -70,7 +71,7 @@ class Employee extends Model {
   }
 
   get nextEvaluationAt() {
-    if (!this.next_evaluation_at) return this.i18n.t('models.employee.firstTime')
+    if (!this.next_evaluation_at) return i18n.t('models.employee.firstTime')
 
     return moment(this.next_evaluation_at).format('MMM YYYY')
   }

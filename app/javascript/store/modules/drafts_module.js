@@ -1,4 +1,7 @@
 import http from '@/lib/http_config'
+import { fetchError } from '@utils/helpers'
+
+import i18n from '@locales/i18n'
 
 import { Evaluation, EvaluationsList } from '@models/evaluation'
 import { EmployeesList } from '@models/employee'
@@ -75,8 +78,12 @@ const DraftsModule = {
         .then(response => {
           commit('setList', response.data)
         })
-        .catch(() => {
-          commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.drafts.index.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
         })
         .finally(() => commit('setLoading', false))
     },
@@ -85,8 +92,12 @@ const DraftsModule = {
         .then(response => {
           commit('setItem', response.data)
         })
-        .catch(() => {
-          commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.drafts.show.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
         })
     },
     create({ commit }, { employeeId, templateId, useLatest }) {
@@ -104,12 +115,20 @@ const DraftsModule = {
             const { data } = response
 
             commit('addToList', data.draft)
-            commit('FlashStore/push', { success: 'Created :)' }, { root: true })
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.drafts.create.ok') },
+              { root: true }
+            )
 
             resolve(data)
           })
-          .catch(() => {
-            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.drafts.create.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
           })
       })
     },
@@ -126,12 +145,20 @@ const DraftsModule = {
         http.put(Evaluation.routes.draftPath(draft.id), params)
           .then(response => {
             commit('setItem', response.data)
-            commit('FlashStore/push', { success: 'Updated :)' }, { root: true })
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.drafts.update.ok') },
+              { root: true }
+            )
 
             resolve()
           })
-          .catch(() => {
-            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.drafts.update.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
           })
       })
 
@@ -151,12 +178,20 @@ const DraftsModule = {
         http.put(Evaluation.routes.draftPath(draft.id), params)
           .then(() => {
             commit('removeFromList', draft.id)
-            commit('FlashStore/push', { success: 'Completed :)' }, { root: true })
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.drafts.complete.ok') },
+              { root: true }
+            )
 
             resolve()
           })
-          .catch(() => {
-            commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.drafts.complete.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
           })
       })
     },
@@ -167,10 +202,18 @@ const DraftsModule = {
         .then(() => {
           commit('removeFromList', draft.id)
 
-          commit('FlashStore/push', { success: 'Destroyed :)' }, { root: true })
+          commit(
+            'NotificationsModule/push',
+            { success: i18n.t('messages.drafts.delete.ok') },
+            { root: true }
+          )
         })
-        .catch(() => {
-          commit('FlashStore/push', { error: 'Error :(' }, { root: true })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.drafts.delete.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
         })
     }
   }

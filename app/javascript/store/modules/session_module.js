@@ -1,4 +1,7 @@
 import http from '@/lib/http_config'
+import { fetchError } from '@utils/helpers'
+
+import i18n from '@locales/i18n'
 
 import { User } from '@models/user'
 import { Setting } from '@models/setting'
@@ -64,10 +67,10 @@ const SessionModule = {
 
             resolve(data)
           })
-          .catch(() => {
+          .catch(error => {
             commit(
-              'FlashStore/push',
-              { error: 'Problem with fetching user' },
+              'NotificationsModule/push',
+              { error: i18n.t('messages.session.show.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
@@ -80,8 +83,8 @@ const SessionModule = {
           .then(response => {
             commit('setToken', response.data.session.jwt)
             commit(
-              'FlashStore/push',
-              { success: 'You have been logged in succesfully' },
+              'NotificationsModule/push',
+              { success: i18n.t('messages.session.create.ok') },
               { root: true }
             )
 
@@ -90,8 +93,8 @@ const SessionModule = {
           .catch(() => {
             commit('resetState')
             commit(
-              'FlashStore/push',
-              { error: 'Invalid credentials, please try again' },
+              'NotificationsModule/push',
+              { error: i18n.t('messages.session.create.error') },
               { root: true }
             )
 
@@ -113,17 +116,17 @@ const SessionModule = {
             commit('setSetting', data)
 
             commit(
-              'FlashStore/push',
-              { success: 'Settings have been updated' },
+              'NotificationsModule/push',
+              { success: i18n.t('messages.session.updateSetting.ok') },
               { root: true }
             )
 
             resolve(data)
           })
-          .catch(() => {
+          .catch(error => {
             commit(
-              'FlashStore/push',
-              { error: 'Error :(' },
+              'NotificationsModule/push',
+              { error: i18n.t('messages.session.updateSetting.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
@@ -139,15 +142,15 @@ const SessionModule = {
           commit('setUser', response.data)
 
           commit(
-            'FlashStore/push',
-            { success: 'Profile have been updated' },
+            'NotificationsModule/push',
+            { success: i18n.t('messages.session.updateUser.ok') },
             { root: true }
           )
         })
-        .catch(() => {
+        .catch(error => {
           commit(
-            'FlashStore/push',
-            { error: 'Error :(' },
+            'NotificationsModule/push',
+            { error: i18n.t('messages.session.updateUser.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
@@ -162,17 +165,17 @@ const SessionModule = {
 
             commit('resetState')
             commit(
-              'FlashStore/push',
-              { success: 'Password has been updated' },
+              'NotificationsModule/push',
+              { success: i18n.t('messages.session.updatePassword.ok') },
               { root: true }
             )
 
             resolve()
           })
-          .catch(() => {
+          .catch(error => {
             commit(
-              'FlashStore/push',
-              { error: 'Error :(' },
+              'NotificationsModule/push',
+              { error: i18n.t('messages.session.updatePassword.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
@@ -185,8 +188,8 @@ const SessionModule = {
         // context.commit('clearStore')
         commit('resetState')
         commit(
-          'FlashStore/push',
-          { success: 'You have been logged out succesfully' },
+          'NotificationsModule/push',
+          { success: i18n.t('messages.session.destroy.ok') },
           { root: true }
         )
 
