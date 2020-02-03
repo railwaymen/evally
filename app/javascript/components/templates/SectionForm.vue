@@ -37,6 +37,12 @@
 <script>
 import { Section } from '@models/section'
 
+const initSection = () => new Section({
+  width: 'half',
+  group: 'rating',
+  position: this.value.length
+})
+
 export default {
   name: 'SectionForm',
   props: {
@@ -58,6 +64,12 @@ export default {
   methods: {
     addSection() {
       this.$emit('input', [...this.value, this.section])
+
+      this.section = new Section({
+        width: 'half',
+        group: 'rating',
+        position: this.value.length
+      })
     }
   }
 }
