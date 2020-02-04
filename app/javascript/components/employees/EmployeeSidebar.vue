@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <v-expansion-panel class="elevation-0">
+    <v-expansion-panel class="elevation-0" expand :value="[true, true]">
       <v-expansion-panel-content>
         <template #header>
           <h5 class="body-1">
@@ -47,9 +47,7 @@
           </v-list-tile>
         </v-list>
       </v-expansion-panel-content>
-    </v-expansion-panel>
 
-    <v-expansion-panel class="elevation-0">
       <v-expansion-panel-content>
         <template #header>
           <h5 class="body-1">
