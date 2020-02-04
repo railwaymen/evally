@@ -29,6 +29,9 @@ module V2
     end
 
     def search
+      employees = V2::EmployeesSearchQuery.new(search_params).call
+
+      render json: V2::EmployeeSerializer.render(employees, view: :search), status: :ok
     end
 
     private
@@ -60,6 +63,10 @@ module V2
       params.require(:employee).permit(
         :first_name, :last_name, :position, :group, :hired_at, :position_set_at, :next_evaluation_at
       )
+    end
+
+    def search_params
+      params.require(:employee).permit(:group, :name, :operator, :value)
     end
   end
 end

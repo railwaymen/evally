@@ -14,5 +14,11 @@ module V2
     view :index do
       fields :latest_evaluation_date
     end
+
+    view :search do
+      field :skill do |employee|
+        employee.attributes['skill']
+      end
+    end
   end
 end

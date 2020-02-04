@@ -14,15 +14,9 @@ module V2
 
     private
 
-    def fields # rubocop:disable Metrics/MethodLength
+    def fields
       [
-        'id',
-        'first_name',
-        'last_name',
-        'hired_at',
-        '"group"',
-        'position',
-        'position_set_at',
+        'employees.*',
         'latest_evaluation_join.*',
         'sections_join.section_id',
         'sections_join.section_name',
