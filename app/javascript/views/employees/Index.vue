@@ -8,6 +8,7 @@
       <div class="panel__nav">
         <v-btn
           color="primary"
+          @click="fetchData"
           :to="{ name: 'employees_path' }"
           exact
           flat
@@ -36,7 +37,11 @@
       </div>
 
       <div class="panel__actions">
-        <v-tooltip bottom>
+        <v-tooltip
+          v-if="$route.name === 'employees_path'"
+          key="addNew"
+          bottom
+        >
           <v-btn
             @click="openCreateForm"
             color="green"
@@ -47,6 +52,23 @@
             <v-icon>add</v-icon>
           </v-btn>
           <span>{{ $t('shared.tooltips.addNew') }}</span>
+        </v-tooltip>
+
+        <v-tooltip
+          v-if="$route.name === 'employee_path'"
+          key="copyLink"
+          bottom
+        >
+          <v-btn
+            @click="copyLink"
+            color="black"
+            slot="activator"
+            icon
+            flat
+          >
+            <v-icon>link</v-icon>
+          </v-btn>
+          <span>{{ $t('shared.tooltips.copyLink') }}</span>
         </v-tooltip>
       </div>
     </div>
@@ -103,6 +125,12 @@ export default {
         }
       })
     },
+    copyLink() {
+      this.$copyText(this.employee.publicLink, this.$el)
+        .then(() => {
+          this.flash({ success: this.$root.$t('messages.employees.show.copyLink') })
+        })
+    },
     ...mapActions({
       fetchData: 'EmployeesModule/index'
     })
@@ -116,6 +144,7 @@ export default {
     },
     ...mapGetters({
       employees: 'EmployeesModule/employees',
+      employee: 'EmployeesModule/employee',
       loading: 'EmployeesModule/loading',
     })
   },

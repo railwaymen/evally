@@ -56,7 +56,8 @@ module JsonSpecHelpers
       group: employee.group,
       hired_at: employee.hired_at.to_s,
       position_set_at: employee.position_set_at || employee.hired_at,
-      next_evaluation_at: employee.next_evaluation_at
+      next_evaluation_at: employee.next_evaluation_at,
+      public_token: employee.public_token
     }.to_json
   end
 

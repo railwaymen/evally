@@ -14,7 +14,8 @@ class Employee extends Model {
       hired_at: null,
       position_set_at: null,
       next_evaluation_at: null,
-      latest_evaluation_date: null
+      latest_evaluation_date: null,
+      public_token: ''
     };
   }
 
@@ -101,6 +102,10 @@ class Employee extends Model {
     this.position_set_at = mDate.isValid() ? mDate.format() : ''
   }
   // ===
+
+  get publicLink() {
+    return `${window.location.origin}/browse/${this.public_token}`
+  }
 
   static get routes() {
     return {

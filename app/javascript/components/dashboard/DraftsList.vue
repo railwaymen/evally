@@ -34,7 +34,7 @@
 					<v-list-tile-action>
 						<div class="">
 							<v-tooltip bottom>
-								<v-btn :to="draft.path" slot="activator" color="grey" flat icon>
+								<v-btn :to="draft.draftPath" slot="activator" color="grey" flat icon>
 									<v-icon>edit</v-icon>
 								</v-btn>
 								<span>{{ $t('shared.tooltips.edit') }}</span>

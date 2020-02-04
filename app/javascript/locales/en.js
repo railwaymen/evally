@@ -23,6 +23,7 @@ export default {
       showSidebar: 'Show Sidebar',
       fullWidth: 'Full Width',
       halfWidth: 'Half Width',
+      copyLink: 'Copy Link',
     },
     navbar: {
       dashboard: 'Dashboard',
@@ -236,7 +237,8 @@ export default {
         error: 'Employees cannot be loaded: {msg}'
       },
       show: {
-        error: 'Employee cannot be loaded: {msg}'
+        error: 'Employee cannot be loaded: {msg}',
+        copyLink: 'Employee\'s public link has been copied to clipboard'
       },
       showEvaluation: {
         error: 'Evaluation cannot be loaded: {msg}'
@@ -317,7 +319,7 @@ export default {
         instruction: 'Select draft from list or create a new one',
       },
       show: {
-        hiredAt: 'On Board Since',
+        hiredAt: 'Hired Date',
       }
     },
     employees: {
@@ -327,7 +329,7 @@ export default {
           list: 'List',
           search: 'Search',
           overview: 'Overview',
-        }
+        },
       },
       show: {
         instruction: 'Select evaluation from list to see details'
