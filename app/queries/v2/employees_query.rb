@@ -2,20 +2,24 @@
 
 module V2
   class EmployeesQuery
-    def self.call(scope = Employee.all)
-      scope.select(fields).joins(tables)
+    def initialize(scope = Employee.all)
+      @scope = scope
     end
 
-    def self.fields
+    def call
+      @scope.select(fields).joins(tables)
+    end
+
+    private
+
+    def fields
       [
         'employees.*',
         'latest_evaluation.completed_at AS latest_evaluation_date'
       ].join(', ')
     end
 
-    private_class_method :fields
-
-    def self.tables # rubocop:disable Metrics/MethodLength
+    def tables # rubocop:disable Metrics/MethodLength
       "
         LEFT JOIN LATERAL (
           SELECT
@@ -29,7 +33,5 @@ module V2
         ) latest_evaluation ON true
       "
     end
-
-    private_class_method :tables
   end
 end

@@ -5,7 +5,7 @@ module V2
     before_action :authenticate!
 
     def index
-      employees = V2::EmployeesQuery.call
+      employees = V2::EmployeesQuery.new.call
 
       render json: V2::EmployeeSerializer.render(employees, view: :index), status: :ok
     end
@@ -26,6 +26,9 @@ module V2
       update_form.save
 
       render json: V2::EmployeeSerializer.render(update_form.employee), status: :ok
+    end
+
+    def search
     end
 
     private
