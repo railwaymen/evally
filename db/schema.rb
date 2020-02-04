@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_20_215351) do
+ActiveRecord::Schema.define(version: 2020_02_04_090757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,13 +70,13 @@ ActiveRecord::Schema.define(version: 2019_12_20_215351) do
   end
 
   create_table "sections", force: :cascade do |t|
-    t.string "name"
-    t.integer "group"
-    t.integer "width"
-    t.integer "position"
+    t.string "name", null: false
+    t.string "group", null: false
+    t.string "width", null: false
+    t.integer "position", default: 0
     t.jsonb "skills", default: []
-    t.string "sectionable_type"
-    t.bigint "sectionable_id"
+    t.string "sectionable_type", null: false
+    t.bigint "sectionable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_sections_on_name"
