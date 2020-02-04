@@ -10,7 +10,7 @@
           v-for="(skill, index) in section.skills"
           :key="index"
           :class="['skill', { 'need-to-improve': skill.needToImprove }]"
-          @dblclick="needToImprove(skill)"
+          @dblclick="needToImprove(skill, index)"
         >
           <div class="skill__name">{{ skill.name }}</div>
 
@@ -31,7 +31,7 @@
           v-for="(skill, index) in section.skills"
           :key="index"
           :class="['skill', { 'need-to-improve': skill.needToImprove }]"
-          @dblclick="needToImprove(skill)"
+          @dblclick="needToImprove(skill, index)"
         >
           <div class="skill__name">{{ skill.name }}</div>
 
@@ -90,8 +90,10 @@ export default {
     }
   },
   methods: {
-    needToImprove(skill) {
-      skill.needToImprove = !skill.needToImprove
+    needToImprove(skill, idx) {
+      const updatedSkill = { ...skill, needToImprove: !skill.needToImprove }
+
+      this.section.skills.splice(idx, 1, updatedSkill)
     }
   },
   watch: {
