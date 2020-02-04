@@ -73,7 +73,7 @@ import { DialogsBus } from '@utils/dialogs_bus'
 import { Employee } from '@models/employee'
 
 import BasicTable from '@components/employees/BasicTable'
-import CreateForm from '@components/employees/CreateForm'
+import EmployeeForm from '@components/employees/EmployeeForm'
 
 import { pluckUniq } from '@utils/helpers'
 
@@ -83,7 +83,7 @@ export default {
   methods: {
     openCreateForm() {
       DialogsBus.$emit('openFormsDialog', {
-        innerComponent: CreateForm,
+        innerComponent: EmployeeForm,
         maxWidth: 800,
         props: {
           positions: this.positions,
@@ -94,7 +94,7 @@ export default {
     },
     openUpdateForm(id) {
       DialogsBus.$emit('openFormsDialog', {
-        innerComponent: CreateForm,
+        innerComponent: EmployeeForm,
         maxWidth: 800,
         props: {
           positions: this.positions,

@@ -3,6 +3,7 @@ export default {
     buttons: {
       cancel: 'Cancel',
       create: 'Create',
+      update: 'Update',
       delete: 'Delete',
       complete: 'Complete',
       search: 'Search',
@@ -99,8 +100,9 @@ export default {
           latestEvaluationAt: 'Latest Evaluation Date',
         }
       },
-      createForm: {
-        title: 'Create Employee',
+      employeeForm: {
+        createTitle: 'Create Employee',
+        updateTitle: 'Update Employee',
         general: 'General Information',
         dates: 'Dates',
         firstName: 'First Name',
@@ -238,6 +240,14 @@ export default {
       },
       showEvaluation: {
         error: 'Evaluation cannot be loaded: {msg}'
+      },
+      create: {
+        ok: 'Employee has been created',
+        error: 'Employee cannot be created: {msg}'
+      },
+      update: {
+        ok: 'Employee has been updated',
+        error: 'Employee cannot be updated: {msg}'
       }
     },
     session: {

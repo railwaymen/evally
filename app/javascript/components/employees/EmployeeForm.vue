@@ -1,25 +1,25 @@
 <template>
   <v-card class="pa-3">
     <v-card-title>
-      <span class="headline">{{ $t('components.employees.createForm.title') }}</span>
+      <span class="headline">{{ $t(`components.employees.employeeForm.${action}Title`) }}</span>
     </v-card-title>
 
     <v-form ref="employeeForm" @submit.prevent="save">
       <v-card-text>
         <v-layout row wrap>
           <v-flex class="px-3" xs12 lg6>
-            <h3 class="subheading">{{ $t('components.employees.createForm.general') }}</h3>
+            <h3 class="subheading">{{ $t('components.employees.employeeForm.general') }}</h3>
 
             <v-text-field
               v-model="localEmployee.first_name"
               :rules="[vRequired]"
-              :label="$t('components.employees.createForm.firstName')"
+              :label="$t('components.employees.employeeForm.firstName')"
             />
 
             <v-text-field
               v-model="localEmployee.last_name"
               :rules="[vRequired]"
-              :label="$t('components.employees.createForm.lastName')"
+              :label="$t('components.employees.employeeForm.lastName')"
             />
 
             <v-combobox
@@ -28,7 +28,7 @@
               :rules="[vRequired]"
               append-icon="expand_more"
               chips
-              :label="$t('components.employees.createForm.position')"
+              :label="$t('components.employees.employeeForm.position')"
             />
 
             <v-combobox
@@ -37,12 +37,12 @@
               :rules="[vRequired]"
               append-icon="expand_more"
               chips
-              :label="$t('components.employees.createForm.group')"
+              :label="$t('components.employees.employeeForm.group')"
             />
           </v-flex>
 
           <v-flex class="px-3" xs12 lg6>
-            <h3 class="subheading">{{ $t('components.employees.createForm.dates') }}</h3>
+            <h3 class="subheading">{{ $t('components.employees.employeeForm.dates') }}</h3>
 
             <v-menu
               ref="hiredAtPicker"
@@ -58,7 +58,7 @@
               <template v-slot:activator="{ on }">
                 <v-text-field
                   :value="localEmployee.hiredDate"
-                  :label="$t('components.employees.createForm.hiredAt')"
+                  :label="$t('components.employees.employeeForm.hiredAt')"
                   prepend-icon="event"
                   readonly
                   v-on="on"
@@ -86,7 +86,7 @@
               <template v-slot:activator="{ on }">
                 <v-text-field
                   :value="localEmployee.positionSetDate"
-                  :label="$t('components.employees.createForm.positionSetAt')"
+                  :label="$t('components.employees.employeeForm.positionSetAt')"
                   prepend-icon="event"
                   readonly
                   v-on="on"
@@ -114,7 +114,7 @@
               <template v-slot:activator="{ on }">
                 <v-text-field
                   :value="localEmployee.nextEvaluationDate"
-                  :label="$t('components.employees.createForm.nextEvaluationAt')"
+                  :label="$t('components.employees.employeeForm.nextEvaluationAt')"
                   prepend-icon="event"
                   readonly
                   v-on="on"
@@ -147,7 +147,7 @@
           color="green darken-1"
           flat
         >
-          {{ $t('shared.buttons.create') }}
+          {{ $t('shared.buttons.save') }}
         </v-btn>
       </v-card-actions>
     </v-form>
@@ -160,7 +160,7 @@ import { mapActions } from 'vuex'
 import { Employee } from '@models/employee'
 
 export default {
-  name: 'CreateForm',
+  name: 'EmployeeForm',
   props: {
     positions: {
       type: Array,
@@ -200,6 +200,11 @@ export default {
       create: 'EmployeesModule/create',
       update: 'EmployeesModule/update'
     })
+  },
+  computed: {
+    action() {
+      return this.localEmployee.isPersisted ? 'update' : 'create'
+    }
   }
 }
 </script>
