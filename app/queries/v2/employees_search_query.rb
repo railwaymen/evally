@@ -75,11 +75,11 @@ module V2
     end
 
     def resolve_operator
-      { eq: '=', gteq: '>=', lteq: '<=' }.fetch(@params[:operator].to_sym, '=')
+      { eq: '=', gteq: '>=', lteq: '<=' }.fetch(@params[:operator]&.to_sym, '=')
     end
 
     def resolve_type
-      { bool: 'boolean', rating: 'integer' }.fetch(@params[:group].to_sym, 'integer')
+      { bool: 'boolean', rating: 'integer' }.fetch(@params[:group]&.to_sym, 'integer')
     end
   end
 end

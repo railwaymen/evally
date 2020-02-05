@@ -68,9 +68,5 @@ module V2
         :first_name, :last_name, :position, :group, :hired_at, :position_set_at, :next_evaluation_at
       )
     end
-
-    def search_params
-      params.require(:employee).permit(:group, :name, :operator, :value)
-    end
   end
 end

@@ -155,11 +155,11 @@ export default {
         },
         {
           text: this.$t('views.employees.search.table.cols.skill'),
-          value: 'skillValue'
+          value: 'skill.value'
         },
         {
           text: this.$t('views.employees.search.table.cols.hiredAt'),
-          value: 'hiredAt',
+          value: 'hired_at',
           align: 'center'
         },
         {
@@ -174,7 +174,7 @@ export default {
         },
         {
           text: this.$t('views.employees.search.table.cols.positionSetAt'),
-          value: 'positionSetAt',
+          value: 'position_set_at',
           align: 'center'
         },
         {

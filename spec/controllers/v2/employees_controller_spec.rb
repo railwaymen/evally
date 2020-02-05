@@ -274,4 +274,68 @@ RSpec.describe V2::EmployeesController, type: :controller do
       end
     end
   end
+
+  describe '#search' do
+    context 'when unauthorized' do
+      it 'responds with error' do
+        sign_out
+        get :search
+
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with searched employee' do
+        employee = FactoryBot.create(:employee)
+        evaluation = FactoryBot.create(:evaluation, :completed, employee: employee)
+
+        FactoryBot.create(
+          :section,
+          group: 'rating',
+          sectionable: evaluation,
+          skills: [
+            { name: 'Vim', value: 1, needToImprove: false }
+          ]
+        )
+
+        FactoryBot.create(
+          :section,
+          group: 'bool',
+          sectionable: evaluation,
+          skills: [
+            { name: 'Be a team leader', value: true, needToImprove: false }
+          ]
+        )
+
+        params = {
+          group: 'rating',
+          name: 'Vim',
+          operator: 'eq',
+          value: 1
+        }
+
+        sign_in user
+        get :search, params: params
+
+        expect(response).to have_http_status 200
+        expect(json_response.map { |r| r['id'] }).to include employee.id
+      end
+
+      it 'responds with empty array' do
+        params = {
+          group: 'rating',
+          name: 'Vim',
+          operator: 'eq',
+          value: 1
+        }
+
+        sign_in user
+        get :search, params: params
+
+        expect(response).to have_http_status 200
+        expect(json_response).to eq []
+      end
+    end
+  end
 end
