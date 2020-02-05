@@ -103,6 +103,21 @@ export default {
           latestEvaluationAt: 'Latest Evaluation Date',
         }
       },
+      searchTable: {
+        cols: {
+          name: 'Name',
+          skill: 'Skill',
+          hiredAt: 'Hired Date',
+          group: 'Group',
+          position: 'Position',
+          positionSetAt: 'Promotion Date',
+          latestEvaluationAt: 'Latest Evaluation Date',
+        },
+        labels: {
+          yes: 'Yes',
+          no: 'No',
+        }
+      },
       employeeForm: {
         createTitle: 'Create Employee',
         updateTitle: 'Update Employee',
@@ -342,17 +357,6 @@ export default {
       },
       search: {
         label: 'Skill',
-        table: {
-          cols: {
-            name: 'Name',
-            skill: 'Skill',
-            hiredAt: 'Hired Date',
-            group: 'Group',
-            position: 'Position',
-            positionSetAt: 'Promotion Date',
-            latestEvaluationAt: 'Latest Evaluation Date',
-          }
-        }
       }
     },
     settings: {

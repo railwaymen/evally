@@ -7,7 +7,7 @@ const initialState = () => ({
   employees: new EmployeesList(),
   query: new EmployeesSearchQuery(),
   skills: [],
-  loading: true
+  loading: false
 })
 
 const EmployeesModule = {
