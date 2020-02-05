@@ -15,7 +15,8 @@ class Employee extends Model {
       position_set_at: null,
       next_evaluation_at: null,
       latest_evaluation_date: null,
-      public_token: ''
+      public_token: '',
+      skill: {},
     };
   }
 
@@ -109,8 +110,10 @@ class Employee extends Model {
 
   static get routes() {
     return {
-      employeesPath: 'v2/employees',
-      employeePath: id => `v2/employees/${id}`
+      employeesPath: '/v2/employees',
+      employeesSearchPath: '/v2/employees/search',
+      employeesSkillsPath: '/v2/employees/skills',
+      employeePath: id => `/v2/employees/${id}`
     }
   }
 }

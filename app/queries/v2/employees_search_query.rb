@@ -18,9 +18,7 @@ module V2
       [
         'employees.*',
         'latest_evaluation_join.*',
-        'sections_join.section_id',
-        'sections_join.section_name',
-        'sections_join.section_group',
+        'sections_join.section_group AS skill_group',
         'skills_join.skill'
       ].join(', ')
     end
@@ -41,8 +39,6 @@ module V2
 
         INNER JOIN LATERAL(
           SELECT
-            id AS section_id,
-            name AS section_name,
             \"group\" AS section_group,
             skills AS section_skills
           FROM sections
@@ -79,7 +75,7 @@ module V2
     end
 
     def resolve_operator
-      { eq: '=', gt: '>', lt: '<' }.fetch(@params[:operator].to_sym, '=')
+      { eq: '=', gteq: '>=', lteq: '<=' }.fetch(@params[:operator].to_sym, '=')
     end
 
     def resolve_type

@@ -7,6 +7,7 @@ import SectionsStore from '@/store/modules/sections_store'
 
 import DraftsModule from '@store/modules/drafts_module'
 import EmployeesModule from '@store/modules/employees_module'
+import EmployeesSearchModule from '@store/modules/employees_search_module'
 import NotificationsModule from '@store/modules/notifications_module'
 import SessionModule from '@store/modules/session_module'
 import TemplatesModule from '@store/modules/templates_module'
@@ -21,6 +22,7 @@ export default new Vuex.Store({
 
     DraftsModule,
     EmployeesModule,
+    EmployeesSearchModule,
     NotificationsModule,
     SessionModule,
     TemplatesModule

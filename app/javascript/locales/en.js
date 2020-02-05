@@ -9,7 +9,9 @@ export default {
       search: 'Search',
       reset: 'Reset',
       save: 'Save',
-      changePassword: 'Change Password'
+      changePassword: 'Change Password',
+      yes: 'Yes',
+      no: 'No',
     },
     tooltips: {
       edit: 'Edit',
@@ -339,7 +341,7 @@ export default {
         completedAt: 'Completion Date',
       },
       search: {
-        label: 'Skill Name',
+        label: 'Skill',
         table: {
           cols: {
             name: 'Name',

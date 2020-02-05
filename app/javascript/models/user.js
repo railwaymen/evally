@@ -22,7 +22,7 @@ class User extends Model {
     return {
       profilePath: '/v2/profile',
       profilePasswordPath: '/v2/profile/password',
-      sessionPath: 'v2/session'
+      sessionPath: '/v2/session'
     }
   }
 }

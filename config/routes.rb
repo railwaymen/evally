@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       resources :drafts, only: %i[index show create update destroy]
 
       resources :employees, only: %i[index show create update], shallow: true do
+        get :skills, on: :collection
         get :search, on: :collection
 
         resources :evaluations, only: :show

@@ -28,8 +28,12 @@ module V2
       render json: V2::EmployeeSerializer.render(update_form.employee), status: :ok
     end
 
+    def skills
+      render json: V2::SkillsQuery.new.call, status: :ok
+    end
+
     def search
-      employees = V2::EmployeesSearchQuery.new(search_params).call
+      employees = V2::EmployeesSearchQuery.new(params).call
 
       render json: V2::EmployeeSerializer.render(employees, view: :search), status: :ok
     end

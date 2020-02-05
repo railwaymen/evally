@@ -64,7 +64,7 @@ RSpec.describe V2::EmployeesSearchQuery do
       params = {
         group: 'rating',
         name: 'Vim',
-        operator: 'gt',
+        operator: 'gteq',
         value: 2
       }
 
@@ -76,7 +76,7 @@ RSpec.describe V2::EmployeesSearchQuery do
       params = {
         group: 'rating',
         name: 'Vim',
-        operator: 'lt',
+        operator: 'lteq',
         value: 2
       }
 

@@ -16,8 +16,10 @@ module V2
     end
 
     view :search do
+      fields :latest_evaluation_date
+
       field :skill do |employee|
-        employee.attributes['skill']
+        { group: employee.attributes['skill_group'] }.merge(employee.attributes.fetch('skill', {}))
       end
     end
   end

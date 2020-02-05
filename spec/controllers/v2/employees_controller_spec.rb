@@ -230,4 +230,48 @@ RSpec.describe V2::EmployeesController, type: :controller do
       end
     end
   end
+
+  describe '#skills' do
+    context 'when unauthorized' do
+      it 'responds with error' do
+        sign_out
+        get :skills
+
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with skills list' do
+        evaluation = FactoryBot.create(:evaluation, :completed)
+
+        FactoryBot.create(
+          :section,
+          group: 'rating',
+          sectionable: evaluation,
+          skills: [
+            { name: 'Vim', value: 1, needToImprove: false }
+          ]
+        )
+
+        FactoryBot.create(
+          :section,
+          group: 'bool',
+          sectionable: evaluation,
+          skills: [
+            { name: 'Be a team leader', value: true, needToImprove: false }
+          ]
+        )
+
+        sign_in user
+        get :skills
+
+        expect(response).to have_http_status 200
+        expect(json_response).to include(
+          { 'group' => 'bool', 'name' => 'Be a team leader' },
+          { 'group' => 'rating', 'name' => 'Vim' }
+        )
+      end
+    end
+  end
 end
