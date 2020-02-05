@@ -38,6 +38,7 @@ Rails.application.routes.draw do
       resources :employees, only: %i[index show create update], shallow: true do
         get :skills, on: :collection
         get :search, on: :collection
+        get :overview, on: :collection
 
         resources :evaluations, only: :show
       end

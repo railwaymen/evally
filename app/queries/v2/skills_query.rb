@@ -8,7 +8,7 @@ module V2
 
     private
 
-    def raw_sql
+    def raw_sql # rubocop:disable Metrics/MethodLength
       "
         SELECT
           DISTINCT \"group\",

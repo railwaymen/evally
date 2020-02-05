@@ -38,6 +38,12 @@ module V2
       render json: V2::EmployeeSerializer.render(employees, view: :search), status: :ok
     end
 
+    def overview
+      presenter = V2::EmployeesOverviewPresenter.new
+
+      render json: V2::Views::EmployeesOverviewView.render(presenter), status: :ok
+    end
+
     private
 
     def employee
