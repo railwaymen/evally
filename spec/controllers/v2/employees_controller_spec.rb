@@ -338,4 +338,43 @@ RSpec.describe V2::EmployeesController, type: :controller do
       end
     end
   end
+
+  describe '#overview' do
+    context 'when unauthorized' do
+      it 'responds with error' do
+        sign_out
+        get :overview
+
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with positions chart data' do
+        FactoryBot.create_list(:employee, 2, position: 'Junior Specialist', group: 'Programmers')
+        FactoryBot.create(:employee, position: 'Senior Manager', group: 'Managers')
+
+        sign_in :user
+
+        get :overview
+
+        expect(response).to have_http_status 200
+        expect(json_response).to eq(
+          'groups' => %w[Managers Programmers],
+          'positions_chart_data' => [
+            { 'group' => 'Managers', 'label' => 'Senior Manager', 'value' => 1 },
+            { 'group' => 'Programmers', 'label' => 'Junior Specialist', 'value' => 2 }
+          ]
+        )
+      end
+
+      it 'responds with empty arrays in no employees' do
+        sign_in :user
+        get :overview
+
+        expect(response).to have_http_status 200
+        expect(json_response).to eq('groups' => [], 'positions_chart_data' => [])
+      end
+    end
+  end
 end
