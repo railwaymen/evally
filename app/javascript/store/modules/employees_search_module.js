@@ -40,7 +40,8 @@ const EmployeesModule = {
       return state
     },
     resetState(state) {
-      state = Object.assign(state, initialState())
+      state.employees = new EmployeesList()
+      state.query = new EmployeesSearchQuery()
       return state
     }
   },

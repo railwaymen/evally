@@ -93,9 +93,16 @@
 
       <div class="search-form__action">
         <v-btn
+          @click="reset"
+          color="grey darken-1"
+          type="submit"
+          flat
+        >
+          {{ $t('shared.buttons.reset') }}
+        </v-btn>
+        <v-btn
           color="primary"
           type="submit"
-          block
           flat
         >
           {{ $t('shared.buttons.search') }}
@@ -125,6 +132,10 @@ export default {
       if (item.group === 'bool') this.query.assign({ operator: 'eq', value: true })
 
       this.query.assign({ name: item.name, group: item.group, value: 0 })
+    },
+    reset() {
+      this.$store.commit('EmployeesSearchModule/resetState')
+      this.$refs.form.reset()
     },
     search() {
       if (this.$refs.form.validate()) {
