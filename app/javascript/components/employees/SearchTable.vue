@@ -6,7 +6,11 @@
     :rows-per-page-items="perPageItems"
   >
     <template #items="props">
-      <td>{{ props.item.fullname }}</td>
+      <td>
+        <router-link :to="{ name: 'employee_path', params: { employeeId: props.item.id }}">
+          {{ props.item.fullname }}
+        </router-link>
+      </td>
       <td>
         <v-rating
           v-if="props.item.skill.group === 'rating'"
