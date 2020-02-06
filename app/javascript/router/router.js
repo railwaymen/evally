@@ -3,8 +3,6 @@ import Router from 'vue-router'
 
 import store from '@store/store'
 
-console.log(store)
-
 Vue.use(Router)
 
 const isAuthenticated = (_to, _from, next) => {
