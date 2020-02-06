@@ -52,14 +52,7 @@ Vue.mixin(globalMixin)
 // Internationalization
 import i18n from '@locales/i18n'
 
-// Highcharts
-import HighchartsVue from 'highcharts-vue'
-Vue.use(HighchartsVue)
-
-// Properties
-import _ from 'lodash'
-Vue.prototype.$_ = _
-
+// Assets styles
 import '@assets/styles/application.styl'
 
 document.addEventListener('DOMContentLoaded', () => {
