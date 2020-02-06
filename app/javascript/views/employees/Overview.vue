@@ -7,7 +7,15 @@
         </h3>
 
         <div class="widget__body">
-          <groups-chart />
+          <div v-if="loading" class="widget__loader">
+            <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
+          </div>
+
+          <positions-chart
+            v-else
+            :chart-data="positionsChartData"
+            :groups="groups"
+          />
         </div>
       </div>
     </v-flex>
@@ -15,10 +23,22 @@
 </template>
 
 <script>
-import GroupsChart from '@components/employees/GroupsChart'
+import { mapGetters } from 'vuex'
+
+import PositionsChart from '@components/employees/PositionsChart'
 
 export default {
   name: 'EmployeesOverview',
-  components: { GroupsChart }
+  components: { PositionsChart },
+  computed: {
+    ...mapGetters({
+      positionsChartData: 'EmployeesOverviewModule/positionsChartData',
+      groups: 'EmployeesOverviewModule/groups',
+      loading: 'EmployeesOverviewModule/loading'
+    })
+  },
+  created() {
+    this.$store.dispatch('EmployeesOverviewModule/overview')
+  }
 }
 </script>

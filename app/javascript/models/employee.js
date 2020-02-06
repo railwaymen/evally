@@ -111,6 +111,7 @@ class Employee extends Model {
   static get routes() {
     return {
       employeesPath: '/v2/employees',
+      employeesOverviewPath: '/v2/employees/overview',
       employeesSearchPath: '/v2/employees/search',
       employeesSkillsPath: '/v2/employees/skills',
       employeePath: id => `/v2/employees/${id}`

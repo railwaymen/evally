@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module V2
-  class EmployeesGraphQuery
+  class PositionsChartQuery
     def call
       ActiveRecord::Base.connection.exec_query(raw_sql).to_a
     end

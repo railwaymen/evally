@@ -3,11 +3,11 @@
 module V2
   class EmployeesOverviewPresenter
     def groups
-      Employee.distinct(:group).pluck(:group)
+      Employee.distinct(:group).order(:group).pluck(:group)
     end
 
-    def graph_data
-      V2::EmployeesGraphQuery.new.call
+    def positions_chart_data
+      V2::PositionsChartQuery.new.call
     end
   end
 end

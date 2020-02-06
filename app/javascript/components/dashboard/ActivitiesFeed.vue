@@ -6,7 +6,7 @@
 
 		<div class="widget__body">
 			<div v-if="loading" class="widget__loader">
-				<v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
+				<v-progress-circular :size="30" :width="3" color="primary" indeterminate />
 			</div>
 
       <v-list v-else two-line>

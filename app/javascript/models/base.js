@@ -1,6 +1,10 @@
+import defaultsDeep from 'lodash/defaultsDeep'
+import get from 'lodash/get'
+import set from 'lodash/set'
+
 class Model {
   constructor(attributes = {}) {
-    _.defaultsDeep(this, attributes, { ...this.defaults })
+    defaultsDeep(this, attributes, { ...this.defaults })
     this.errors = {}
   }
 
@@ -22,11 +26,11 @@ class Model {
   }
 
   get(property) {
-    _.get(this, property)
+    get(this, property)
   }
 
   set(property, value) {
-    _.set(this, property, value)
+    set(this, property, value)
   }
 }
 
