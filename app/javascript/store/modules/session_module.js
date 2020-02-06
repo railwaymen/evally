@@ -50,6 +50,18 @@ const SessionModule = {
 
       state = Object.assign(state, initialState())
       return state
+    },
+    clearStore() {
+      const modules = [
+        'Drafts',
+        'Employees',
+        'EmployeesOverview',
+        'EmployeesSearch',
+        'Sessions',
+        'Templates'
+      ]
+
+      modules.forEach(module => this.commit(`${module}Module/resetState`))
     }
   },
 

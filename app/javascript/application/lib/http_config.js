@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import store from '../store'
+import store from '@store/store'
 import router from '@router/router'
 
 // Request interceptor
@@ -24,7 +24,7 @@ axios.interceptors.response.use(response => {
   return response
 }, error => {
   if (error.response.status === 401) {
-    store.commit('AuthStore/clearStore')
+    store.commit('SessionModule/clearStore')
 
     router.push({ name: 'login_path' })
     localStorage.removeItem('ev411y_t0k3n')

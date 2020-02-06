@@ -38,6 +38,10 @@ const EmployeesModule = {
     setQuery(state, query) {
       state.query = query
       return state
+    },
+    resetState(state) {
+      state = Object.assign(state, initialState())
+      return state
     }
   },
 
