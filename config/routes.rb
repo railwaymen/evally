@@ -35,7 +35,7 @@ Rails.application.routes.draw do
 
       resources :drafts, only: %i[index show create update destroy]
 
-      resources :employees, only: %i[index show create update], shallow: true do
+      resources :employees, only: %i[index show create update destroy], shallow: true do
         get :skills, on: :collection
         get :search, on: :collection
         get :overview, on: :collection
@@ -54,7 +54,6 @@ Rails.application.routes.draw do
 
     # Route to hit the Vue app
     get '/*path', to: 'pages#index', format: false
-
   end
 
   # resources :invitations, controller: 'rails_jwt_auth/invitations', only: [:create, :update]

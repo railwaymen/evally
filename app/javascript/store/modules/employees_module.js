@@ -62,6 +62,11 @@ const EmployeesModule = {
       state.loading = status
       return state
     },
+    removeFromList(state, id) {
+      state.employee = new Employee()
+      state.employees.remove(id)
+      return state
+    },
     resetEvaluation(state) {
       state.evaluation = new Evaluation()
       state.sections = new SectionsList()
@@ -173,6 +178,31 @@ const EmployeesModule = {
             commit(
               'NotificationsModule/push',
               { error: i18n.t('messages.employees.update.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      })
+    },
+    destroy({ state, commit }) {
+      const { employee } = state;
+
+      return new Promise(resolve => {
+        http.delete(Employee.routes.employeePath(employee.id))
+          .then(() => {
+            commit('removeFromList', employee.id)
+
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.employees.delete.ok') },
+              { root: true }
+            )
+
+            resolve()
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.employees.delete.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })

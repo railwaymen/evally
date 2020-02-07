@@ -44,6 +44,20 @@ module V2
       render json: V2::Views::EmployeesOverviewView.render(presenter), status: :ok
     end
 
+    def destroy
+      ActiveRecord::Base.transaction do
+        employee.destroy!
+
+        current_user.activities.create!(
+          action: 'destroy',
+          activable: employee,
+          activable_name: employee.fullname
+        )
+      end
+
+      head :no_content
+    end
+
     private
 
     def employee

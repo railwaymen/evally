@@ -104,8 +104,8 @@ export default {
     edit() {
       this.$store.commit('TemplatesModule/setEditable')
     },
-    redirectToTemplate() {
-      this.$router.push({ name: 'template_path', params: { id: data.id } })
+    redirectToTemplate(data) {
+      this.$router.push({ name: 'template_path', params: { id: data.template.id } })
     },
     save() {
       this.template.isPersisted

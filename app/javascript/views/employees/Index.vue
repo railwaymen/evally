@@ -54,22 +54,39 @@
           <span>{{ $t('shared.tooltips.addNew') }}</span>
         </v-tooltip>
 
-        <v-tooltip
-          v-if="$route.name === 'employee_path'"
-          key="copyLink"
-          bottom
-        >
-          <v-btn
-            @click="copyLink"
-            color="black"
-            slot="activator"
-            icon
-            flat
+        <template v-if="$route.name === 'employee_path'">
+          <v-tooltip
+            key="copyLink"
+            bottom
           >
-            <v-icon>link</v-icon>
-          </v-btn>
-          <span>{{ $t('shared.tooltips.copyLink') }}</span>
-        </v-tooltip>
+            <v-btn
+              @click="copyLink"
+              color="black"
+              slot="activator"
+              icon
+              flat
+            >
+              <v-icon>link</v-icon>
+            </v-btn>
+            <span>{{ $t('shared.tooltips.copyLink') }}</span>
+          </v-tooltip>
+
+          <v-tooltip
+            key="delete"
+            bottom
+          >
+            <v-btn
+              @click="openDeleteConfirm"
+              color="red"
+              slot="activator"
+              icon
+              flat
+            >
+              <v-icon>delete</v-icon>
+            </v-btn>
+            <span>{{ $t('shared.tooltips.delete') }}</span>
+          </v-tooltip>
+        </template>
       </div>
     </div>
 
@@ -95,6 +112,7 @@ import { DialogsBus } from '@utils/dialogs_bus'
 import { Employee } from '@models/employee'
 
 import BasicTable from '@components/employees/BasicTable'
+import DeleteConfirm from '@components/employees/DeleteConfirm'
 import EmployeeForm from '@components/employees/EmployeeForm'
 
 import { pluckUniq } from '@utils/helpers'
@@ -123,6 +141,11 @@ export default {
           groups: this.groups,
           employee: this.employees.findById(id)
         }
+      })
+    },
+    openDeleteConfirm() {
+      DialogsBus.$emit('openConfirmDialog', {
+        innerComponent: DeleteConfirm
       })
     },
     copyLink() {

@@ -1,11 +1,11 @@
 <template>
   <v-card class="pa-3" data-cy="delete-modal">
     <v-card-title>
-      <span class="headline">{{ $t('components.templates.deleteConfirm.title') }}</span>
+      <span class="headline">{{ $t('components.employees.deleteConfirm.title') }}</span>
     </v-card-title>
 
     <v-card-text>
-      <p class="subheading">{{ $t('components.templates.deleteConfirm.body') }}</p>
+      <p class="subheading">{{ $t('components.employees.deleteConfirm.body') }}</p>
     </v-card-text>
 
     <v-card-actions>
@@ -29,6 +29,7 @@
         {{ $t('shared.buttons.delete') }}
       </v-btn>
     </v-card-actions>
+
   </v-card>
 </template>
 
@@ -40,12 +41,12 @@ export default {
       this.$emit('closeDialog')
     },
     destroy() {
-      this.$store.dispatch('TemplatesModule/destroy')
+      this.$store.dispatch('EmployeesModule/destroy')
         .then(this.redirectToIndex)
         .finally(this.closeDialog)
     },
     redirectToIndex() {
-      this.$router.push({ name: 'templates_path' })
+      this.$router.push({ name: 'employees_path' })
     }
   }
 }

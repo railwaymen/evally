@@ -377,4 +377,51 @@ RSpec.describe V2::EmployeesController, type: :controller do
       end
     end
   end
+
+  describe '#destroy' do
+    context 'when unauthorized' do
+      it 'responds with error' do
+        sign_out
+        delete :destroy, params: { id: 1 }
+
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'removes employee and respond with no content' do
+        employee = FactoryBot.create(:employee)
+
+        sign_in user
+
+        expect do
+          delete :destroy, params: { id: employee.id }
+        end.to(change { Employee.count }.by(-1))
+
+        expect(response).to have_http_status 204
+      end
+
+      it 'creates destroy activity' do
+        employee = FactoryBot.create(:employee)
+
+        sign_in user
+
+        expect do
+          delete :destroy, params: { id: employee.id }
+        end.to(change { Activity.count }.by(1))
+
+        expect(Activity.last).to have_attributes(
+          action: 'destroy',
+          activable_name: employee.fullname
+        )
+      end
+
+      it 'responds with not found' do
+        sign_in user
+        delete :destroy, params: { id: 1 }
+
+        expect(response).to have_http_status 404
+      end
+    end
+  end
 end

@@ -103,6 +103,10 @@ export default {
           latestEvaluationAt: 'Latest Evaluation Date',
         }
       },
+      deleteConfirm: {
+        title: 'Delete Employee',
+        body: 'Are you sure you want to delete this employee?'
+      },
       searchTable: {
         cols: {
           name: 'Name',
@@ -267,6 +271,10 @@ export default {
       update: {
         ok: 'Employee has been updated',
         error: 'Employee cannot be updated: {msg}'
+      },
+      delete: {
+        ok: 'Employee has been deleted',
+        error: 'Employee cannot be deleted: {msg}'
       }
     },
     session: {
