@@ -1,4 +1,4 @@
-import http from '@/lib/http_config'
+import http from '@utils/http'
 import { fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'

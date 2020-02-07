@@ -1,4 +1,4 @@
-import http from '@/lib/http_config'
+import http from '@utils/http'
 
 import { Employee } from '@models/employee'
 

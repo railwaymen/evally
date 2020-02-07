@@ -13,10 +13,10 @@ import App from '@/App'
 import router from '@router/router'
 import store from '@store/store'
 
-// Axios
-import axios from '@/lib/http_config'
+// Axios (custom config)
+import http from '@utils/http'
 import VueAxios from 'vue-axios'
-Vue.use(VueAxios, axios)
+Vue.use(VueAxios, http)
 
 // Vuex
 import Vuex from 'vuex'
