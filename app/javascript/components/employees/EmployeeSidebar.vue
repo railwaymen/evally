@@ -15,7 +15,7 @@
           <div class="vcard__value">{{ employee.hiredAt }}</div>
         </div>
 
-        <div class="vcard__info">
+        <div v-if="!browseView" class="vcard__info">
           <div class="vcard__label">{{ $t('components.employees.sidebar.nextEvaluationAt') }}</div>
           <div class="vcard__value">{{ employee.nextEvaluationAt }}</div>
         </div>
@@ -31,7 +31,11 @@
         </template>
 
         <v-list two-line subheader>
-          <v-list-tile v-for="evaluation in evaluations.models" :key="evaluation.id" :to="evaluation.path">
+          <v-list-tile
+            v-for="evaluation in evaluations.models"
+            :key="evaluation.id"
+            :to="resolveEvaluationPath(evaluation)"
+          >
             <v-list-tile-content>
               <v-list-tile-title>{{ evaluation.template_name }}</v-list-tile-title>
               <v-list-tile-sub-title>{{ evaluation.completedAt }}</v-list-tile-sub-title>
@@ -107,6 +111,16 @@ export default {
       type: PositionChangesList,
       required: true,
       default: () => new PositionChangesList()
+    },
+    browseView: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+  methods: {
+    resolveEvaluationPath(evaluation) {
+      return this.browseView ? evaluation.browsePath(this.employee.public_token) : evaluation.path
     }
   }
 }

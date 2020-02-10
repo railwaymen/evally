@@ -26,6 +26,7 @@ export default {
       fullWidth: 'Full Width',
       halfWidth: 'Half Width',
       copyLink: 'Copy Link',
+      close: 'Close'
     },
     navbar: {
       dashboard: 'Dashboard',

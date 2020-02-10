@@ -55,11 +55,22 @@ class Evaluation extends Model {
     }
   }
 
+  browsePath(employeeId) {
+    return {
+      name: 'evaluation_browse_path',
+      params: {
+        employeeId,
+        id: this.id
+      }
+    }
+  }
+
   static get routes() {
     return {
       draftsPath: '/v2/drafts',
       draftPath: id => `/v2/drafts/${id}`,
-      evaluationPath: id => `/v2/evaluations/${id}`
+      evaluationPath: id => `/v2/evaluations/${id}`,
+      browseEvaluationPath: (employeeId, id) => `/v2/browse/employees/${employeeId}/evaluations/${id}`
     }
   }
 }

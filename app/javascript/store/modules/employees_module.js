@@ -127,6 +127,32 @@ const EmployeesModule = {
           )
         })
     },
+    browse({ commit }, id) {
+      http.get(Employee.routes.browseEmployeePath(id))
+        .then(response => {
+          commit('setItem', response.data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.employees.show.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+        })
+    },
+    browseEvaluation({ commit }, { employeeId, id }) {
+      http.get(Evaluation.routes.browseEvaluationPath(employeeId, id))
+        .then(response => {
+          commit('setEvaluation', response.data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.employees.showEvaluation.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+        })
+    },
     create({ commit }, employee) {
       const params = {
         employee: employee.attributes
