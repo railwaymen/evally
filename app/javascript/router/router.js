@@ -122,13 +122,13 @@ export default new Router({
       component: () => import(/* webpackChunkName: 'login' */ '@views/Login'),
     },
     {
-      path: '/not_found',
+      path: '/errors/404',
       name: 'not_found_path',
-      component: require('@/components/pages/404').default,
+      component: () => import(/* webpackChunkName: 'not_found' */ '@views/layout/NotFound')
     },
     {
       path: '*',
-      redirect: '/not_found'
+      redirect: '/errors/404'
     }
   ]
 })
