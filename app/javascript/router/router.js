@@ -106,8 +106,8 @@ export default new Router({
     },
     {
       path: '/browse/:id',
-      name: 'browse_page_path',
-      component: require('@/components/pages/PublicEvaluation').default
+      name: 'employee_browse_path',
+      component: () => import(/* webpackChunkName: 'employee_browse' */ '@views/browse/Show'),
     },
     {
       path: '/',

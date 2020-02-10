@@ -50,6 +50,12 @@ Rails.application.routes.draw do
       end
 
       resource :settings, only: :update
+
+      namespace :browse do
+        resources :employees, only: :show do
+          resources :evaluations, only: :show
+        end
+      end
     end
 
     # Route to hit the Vue app
