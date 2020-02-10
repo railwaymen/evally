@@ -27,6 +27,36 @@ RSpec.describe V2::EmployeesController, type: :controller do
     end
   end
 
+  describe '#show' do
+    context 'when unauthorized' do
+      it 'responds with error' do
+        sign_out
+
+        get :index
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with employee' do
+        employee = FactoryBot.create(:employee)
+
+        sign_in user
+        get :show, params: { id: employee.id }
+
+        expect(response).to have_http_status 200
+        expect(json_response['employee'].to_json).to be_json_eql employee_schema(employee)
+      end
+
+      it 'responds with not found error if invalid employee' do
+        sign_in user
+        get :show, params: { id: 1 }
+
+        expect(response).to have_http_status 404
+      end
+    end
+  end
+
   describe '#create' do
     context 'when unauthorized' do
       it 'responds with error' do

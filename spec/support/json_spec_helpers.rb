@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/ModuleLength
+
 module JsonSpecHelpers
   def json_response
     JSON.parse(response.body)
   end
 
-  def draft_schema(draft) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def draft_schema(draft)
     employee = draft.employee
 
     {
@@ -26,7 +28,7 @@ module JsonSpecHelpers
     }.to_json
   end
 
-  def evaluation_schema(evaluation) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def evaluation_schema(evaluation)
     employee = evaluation.employee
 
     {
@@ -47,7 +49,7 @@ module JsonSpecHelpers
     }.to_json
   end
 
-  def employee_schema(employee)
+  def employee_schema(employee) # rubocop:disable Metrics/MethodLength
     {
       first_name: employee.first_name,
       last_name: employee.last_name,
@@ -61,7 +63,7 @@ module JsonSpecHelpers
     }.to_json
   end
 
-  def profile_schema(user)
+  def profile_schema(user) # rubocop:disable Metrics/MethodLength
     setting = user.setting
 
     {
@@ -121,3 +123,5 @@ end
 RSpec.configure do |config|
   config.include JsonSpecHelpers, type: :controller
 end
+
+# rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/ModuleLength
