@@ -1,5 +1,9 @@
+import filter from 'lodash/filter'
+import map from 'lodash/map'
+import uniq from 'lodash/uniq'
+
 export const pluckUniq = (arr, attribute) => (
-  _.filter(_.uniq(_.map(arr, attribute)), Boolean)
+  filter(uniq(map(arr, attribute)), Boolean)
 )
 
 export const fetchError = ({ response }) => {
