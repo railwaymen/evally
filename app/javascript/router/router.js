@@ -107,12 +107,12 @@ export default new Router({
     {
       path: '/browse/:employeeId',
       name: 'employee_browse_path',
-      component: () => import(/* webpackChunkName: 'employee_browse' */ '@views/browse/Show'),
+      component: () => import(/* webpackChunkName: 'employee_browse' */ '@views/browser/Show'),
       children: [
         {
           path: 'evaluations/:id',
           name: 'evaluation_browse_path',
-          component: () => import(/* webpackChunkName: 'evaluation_browse' */ '@views/browse/Evaluation')
+          component: () => import(/* webpackChunkName: 'evaluation_browse' */ '@views/browser/Evaluation')
         }
       ]
     },

@@ -14,11 +14,6 @@
           <div class="vcard__label">{{ $t('components.employees.sidebar.hiredAt') }}</div>
           <div class="vcard__value">{{ employee.hiredAt }}</div>
         </div>
-
-        <div class="vcard__info">
-          <div class="vcard__label">{{ $t('components.employees.sidebar.nextEvaluationAt') }}</div>
-          <div class="vcard__value">{{ employee.nextEvaluationAt }}</div>
-        </div>
       </div>
     </div>
 
@@ -34,7 +29,7 @@
           <v-list-tile
             v-for="evaluation in evaluations.models"
             :key="evaluation.id"
-            :to="evaluation.path"
+            :to="evaluation.browsePath(employee.public_token)"
           >
             <v-list-tile-content>
               <v-list-tile-title>{{ evaluation.template_name }}</v-list-tile-title>

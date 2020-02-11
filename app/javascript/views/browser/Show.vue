@@ -28,8 +28,11 @@
 
     <v-container v-else grid-list-lg fluid>
       <v-layout row wrap>
-        <v-flex xs12>
+        <v-flex xs6>
+          <img src="@assets/images/logo_black.png" alt="Logo Evally" height="48">
+        </v-flex>
 
+        <v-flex xs6>
           <div class="text-xs-right">
             <v-tooltip bottom>
               <v-btn
@@ -51,7 +54,6 @@
             :employee="employee"
             :evaluations="evaluations"
             :positionChanges="positionChanges"
-            browseView
           />
         </v-flex>
 
@@ -76,7 +78,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import EmployeeSidebar from '@components/employees/EmployeeSidebar'
+import EmployeeSidebar from '@components/browser/EmployeeSidebar'
 
 export default {
   name: 'BrowseEmployee',
