@@ -29,6 +29,7 @@
               append-icon="expand_more"
               chips
               :label="$t('components.employees.employeeForm.position')"
+              @change="resetPositionDate"
             />
 
             <v-combobox
@@ -59,6 +60,7 @@
                 <v-text-field
                   :value="localEmployee.hiredDate"
                   :label="$t('components.employees.employeeForm.hiredAt')"
+                  :rules="[vRequired]"
                   prepend-icon="event"
                   readonly
                   v-on="on"
@@ -87,6 +89,7 @@
                 <v-text-field
                   :value="localEmployee.positionSetDate"
                   :label="$t('components.employees.employeeForm.positionSetAt')"
+                  :rules="[vRequired]"
                   prepend-icon="event"
                   readonly
                   v-on="on"
@@ -189,6 +192,9 @@ export default {
   methods: {
     closeDialog() {
       this.$emit('closeDialog')
+    },
+    resetPositionDate() {
+      this.localEmployee.set('position_set_at', null)
     },
     save() {
       if (!this.$refs.employeeForm.validate()) return
