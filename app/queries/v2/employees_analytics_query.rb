@@ -8,10 +8,16 @@ module V2
 
     private
 
-    def raw_sql
+    def raw_sql # rubocop:disable Metrics/MethodLength
       "
         SELECT
-          FLOOR(AVG(DATE_PART('day', CURRENT_TIMESTAMP - hired_on::timestamp) / 30)) AS average_employment
+          COALESCE(
+            FLOOR(
+              AVG(
+                DATE_PART('day', CURRENT_TIMESTAMP - hired_on::timestamp) / 30
+              )
+            ), 0
+          ) AS average_employment
         FROM
           employees;
       "

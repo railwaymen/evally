@@ -5,19 +5,34 @@ require 'rails_helper'
 RSpec.describe Section, type: :model do
   it { is_expected.to belong_to(:sectionable) }
 
-  it { is_expected.to define_enum_for(:group) }
+  it do
+    is_expected.to(
+      define_enum_for(:group)
+        .with_values(
+          rating: 'rating',
+          bool: 'bool',
+          text: 'text'
+        )
+        .backed_by_column_of_type(:string)
+    )
+  end
 
-  it { is_expected.to define_enum_for(:width) }
+  it do
+    is_expected.to(
+      define_enum_for(:width)
+        .with_values(
+          full: 'full',
+          half: 'half'
+        )
+        .backed_by_column_of_type(:string)
+    )
+  end
 
   it { is_expected.to validate_presence_of(:name) }
 
   it { is_expected.to validate_presence_of(:group) }
 
-  it { is_expected.to validate_inclusion_of(:group).in_array(Section.groups.keys) }
-
   it { is_expected.to validate_presence_of(:width) }
-
-  it { is_expected.to validate_inclusion_of(:width).in_array(Section.widths.keys) }
 
   it { is_expected.to validate_presence_of(:position) }
 

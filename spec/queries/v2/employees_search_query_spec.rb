@@ -165,7 +165,7 @@ RSpec.describe V2::EmployeesSearchQuery do
       group: 'rating',
       sectionable: other_evaluation,
       skills: [
-        { name: 'Vim', value: 3, needToImprove: false },
+        { name: 'Vim', value: 3, needToImprove: false }
       ]
     )
 

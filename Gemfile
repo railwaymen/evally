@@ -28,7 +28,7 @@ group :development, :test do
   gem 'json-schema', '~> 2.8'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.8'
-  gem 'shoulda-matchers', '~> 3.1.2'
+  gem 'shoulda-matchers', '~> 4.2.0'
   gem 'simplecov', '~> 0.16.1'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false

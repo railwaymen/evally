@@ -70,5 +70,4 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include RailsJwtAuth::Spec::Helpers, type: :controller
-  config.include ApiHelpers, type: :controller
 end

@@ -48,7 +48,9 @@ module V2
       @latest_evaluation ||= employee.latest_evaluation
 
       unless @latest_evaluation
-        raise V1::ErrorResponderService.new(:record_not_found, 404, ['Employee was not evaluated yet'])
+        raise V1::ErrorResponderService.new(
+          :record_not_found, 404, ['Employee was not evaluated yet']
+        )
       end
 
       @latest_evaluation

@@ -299,7 +299,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
         expect(response).to have_http_status 200
         expect(json_response).to include(
           { 'group' => 'bool', 'name' => 'Be a team leader' },
-          { 'group' => 'rating', 'name' => 'Vim' }
+          'group' => 'rating', 'name' => 'Vim'
         )
       end
     end
@@ -381,8 +381,20 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
     context 'when authorized' do
       it 'responds with positions chart data' do
-        FactoryBot.create_list(:employee, 2, position: 'Junior Specialist', group: 'Programmers')
-        FactoryBot.create(:employee, position: 'Senior Manager', group: 'Managers')
+        FactoryBot.create_list(
+          :employee,
+          2,
+          position: 'Junior Specialist',
+          group: 'Programmers',
+          hired_on: 45.days.ago
+        )
+
+        FactoryBot.create(
+          :employee,
+          position: 'Senior Manager',
+          group: 'Managers',
+          hired_on: 45.days.ago
+        )
 
         sign_in :user
 
@@ -390,6 +402,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
         expect(response).to have_http_status 200
         expect(json_response).to eq(
+          'analytics' => { 'average_employment' => 1.0 },
           'groups' => %w[Managers Programmers],
           'positions_chart_data' => [
             { 'group' => 'Managers', 'label' => 'Senior Manager', 'value' => 1 },
@@ -403,7 +416,11 @@ RSpec.describe V2::EmployeesController, type: :controller do
         get :overview
 
         expect(response).to have_http_status 200
-        expect(json_response).to eq('groups' => [], 'positions_chart_data' => [])
+        expect(json_response).to eq(
+          'analytics' => { 'average_employment' => 0.0 },
+          'groups' => [],
+          'positions_chart_data' => []
+        )
       end
     end
   end
