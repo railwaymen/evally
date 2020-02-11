@@ -1,0 +1,32 @@
+.panel  {
+  &__row  {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+
+  &__name  {
+    h2  {
+      font-size: 3.6rem;
+      padding-left: 2rem;
+      font-weight: 200;
+      color: $font-black;
+    }
+  }
+
+  &__nav  {
+    position: relative;
+    bottom: 0.5rem;
+    margin-left: 2rem;
+  }
+
+  &__actions  {
+    position: relative;
+    bottom: 0.5rem;
+    margin-left: auto;
+  }
+
+  &__content  {
+    margin-top: 2.4rem;
+  }
+}

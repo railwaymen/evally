@@ -1,0 +1,25 @@
+.evaluation  {
+
+  &__fullname  {
+    font-size: 3.6rem;
+    font-weight: inherit;
+    margin-top: 2rem;
+    text-align: center;
+
+    @include respond(lg) {
+      text-align: left;
+    };
+  }
+
+  &__position  {
+    font-size: 2.4rem;
+    font-weight: inherit;
+    color: $font-gray-dark;
+    text-transform: uppercase;
+    text-align: center;
+
+    @include respond(lg) {
+      text-align: left;
+    };
+  }
+}

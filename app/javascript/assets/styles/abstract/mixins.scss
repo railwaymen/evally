@@ -1,0 +1,56 @@
+@mixin scrollbar-styling() {
+  &::-webkit-scrollbar  {
+    width: 1rem;
+    background-color: $font-gray-light;
+  }
+
+  &::-webkit-scrollbar-thumb  {
+    background-color: $background-dark;
+    background-image: -webkit-linear-gradient(
+      45deg,
+    rgba(255, 255, 255, 0.2) 25%,
+      transparent 25%,
+      transparent 50%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+      transparent 75%, $transparent
+    );
+  }
+}
+
+/*
+ * MEDIA QUERIES MANAGER
+ *
+ * < 600        - xs - phones
+ * 600 - 960    - sm - tablets
+ * 960 - 1264   - md - laptops
+ * 1264 - 1904  - lg - desktops (default)
+ * > 1904       - xl - 4K
+ *
+ */
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: 37.5em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == md {
+    @media (min-width: 60em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == lg {
+    @media (min-width: 79em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == xl {
+    @media (min-width: 119em) {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.setting  {
+  &__info  {
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+
+    @include respond(lg) {
+      margin: 15% auto 0;
+    };
+  }
+}
