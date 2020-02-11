@@ -9,5 +9,9 @@ module V2
     def positions_chart_data
       V2::PositionsChartQuery.new.call
     end
+
+    def analytics
+      V2::EmployeesAnalyticsQuery.new.call
+    end
   end
 end

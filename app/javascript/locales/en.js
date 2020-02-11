@@ -331,6 +331,11 @@ export default {
       month: '{n} month | {n} months',
       year: '{n} year | {n} years',
       and: 'and',
+    },
+    employeesAnalytics: {
+      month: '{n} month | {n} months',
+      year: '{n} year | {n} years',
+      and: 'and',
     }
   },
   views: {

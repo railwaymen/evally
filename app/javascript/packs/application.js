@@ -8,7 +8,7 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import Vue from 'vue'
-import App from '@/App'
+import App from '@views/App'
 
 import router from '@router/router'
 import store from '@store/store'

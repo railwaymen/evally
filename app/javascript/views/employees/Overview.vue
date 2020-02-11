@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs12>
+    <v-flex xs12 lg9>
       <div class="widget widget--border-primary">
         <h3 class="widget__header">
           Employees by Positions
@@ -19,21 +19,30 @@
         </div>
       </div>
     </v-flex>
+
+    <v-flex xs12 lg3>
+      <average-employment-widget
+        :analytics="analytics"
+        :loading="loading"
+      />
+    </v-flex>
   </v-layout>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
+import AverageEmploymentWidget from '@components/employees/AverageEmploymentWidget'
 import PositionsChart from '@components/employees/PositionsChart'
 
 export default {
   name: 'EmployeesOverview',
-  components: { PositionsChart },
+  components: { AverageEmploymentWidget, PositionsChart },
   computed: {
     ...mapGetters({
       positionsChartData: 'EmployeesOverviewModule/positionsChartData',
       groups: 'EmployeesOverviewModule/groups',
+      analytics: 'EmployeesOverviewModule/analytics',
       loading: 'EmployeesOverviewModule/loading'
     })
   },

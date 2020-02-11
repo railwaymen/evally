@@ -119,7 +119,7 @@ export default new Router({
     {
       path: '/',
       name: 'login_path',
-      component: () => import(/* webpackChunkName: 'login' */ '@views/Login'),
+      component: () => import(/* webpackChunkName: 'login' */ '@views/auth/Login'),
     },
     {
       path: '/errors/404',

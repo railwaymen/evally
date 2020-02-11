@@ -3,7 +3,6 @@ const path = require('path')
 module.exports = {
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, '..', '..', 'app/javascript/application'),
       '@assets': path.resolve(__dirname, '..', '..', 'app/javascript/assets'),
       '@components': path.resolve(__dirname, '..', '..', 'app/javascript/components'),
       '@locales': path.resolve(__dirname, '..', '..', 'app/javascript/locales'),

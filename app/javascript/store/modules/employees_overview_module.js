@@ -1,10 +1,12 @@
 import http from '@utils/http'
 
 import { Employee } from '@models/employee'
+import { EmployeesAnalytics } from '@models/employees_analytics'
 
 const initialState = () => ({
   groups: [],
   positionsChartData: [],
+  analytics: new EmployeesAnalytics(),
   loading: false
 })
 
@@ -16,13 +18,15 @@ const EmployeesOverviewModule = {
   getters: {
     groups: state => state.groups,
     positionsChartData: state => state.positionsChartData,
+    analytics: state => state.analytics,
     loading: state => state.loading
   },
 
   mutations: {
-    setData(state, { groups, positions_chart_data }) {
+    setData(state, { groups, positions_chart_data, analytics }) {
       state.groups = groups
       state.positionsChartData = positions_chart_data
+      state.analytics = new EmployeesAnalytics(analytics)
       return state
     },
     setLoading(state, status) {
