@@ -20,7 +20,7 @@ module V2
     def validate_user!
       return if @user.valid?
 
-      raise V1::ErrorResponderService.new(:invalid_record, 422, @user.errors.full_messages)
+      raise ErrorResponderService.new(:invalid_record, 422, @user.errors.full_messages)
     end
   end
 end

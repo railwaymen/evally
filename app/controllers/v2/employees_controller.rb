@@ -62,7 +62,7 @@ module V2
 
     def employee
       @employee ||= Employee.find_by(id: params[:id])
-      raise V1::ErrorResponderService.new(:record_not_found, 404) unless @employee
+      raise ErrorResponderService.new(:record_not_found, 404) unless @employee
 
       @employee
     end

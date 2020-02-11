@@ -31,14 +31,14 @@ module V2
     def validate_draft!
       return if @draft.valid?
 
-      raise V1::ErrorResponderService.new(:invalid_record, 422, @draft.errors.full_messages)
+      raise ErrorResponderService.new(:invalid_record, 422, @draft.errors.full_messages)
     end
 
     def employee
       @employee ||= Employee.find_by(id: @params[:employee_id])
 
       unless @employee
-        raise V1::ErrorResponderService.new(:record_not_found, 404, ['Employee does not exist'])
+        raise ErrorResponderService.new(:record_not_found, 404, ['Employee does not exist'])
       end
 
       @employee
@@ -48,7 +48,7 @@ module V2
       @latest_evaluation ||= employee.latest_evaluation
 
       unless @latest_evaluation
-        raise V1::ErrorResponderService.new(
+        raise ErrorResponderService.new(
           :record_not_found, 404, ['Employee was not evaluated yet']
         )
       end
@@ -64,7 +64,7 @@ module V2
       end.call
 
       unless @template
-        raise V1::ErrorResponderService.new(:record_not_found, 404, ['Template does not exist'])
+        raise ErrorResponderService.new(:record_not_found, 404, ['Template does not exist'])
       end
 
       @template

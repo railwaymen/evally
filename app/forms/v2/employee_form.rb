@@ -27,7 +27,7 @@ module V2
     def validate_employee!
       return if @employee.valid?
 
-      raise V1::ErrorResponderService.new(:invalid_record, 422, @employee.errors.full_messages)
+      raise ErrorResponderService.new(:invalid_record, 422, @employee.errors.full_messages)
     end
 
     def log_position_change!

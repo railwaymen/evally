@@ -24,7 +24,7 @@ module V2
     def validate_passwords!
       return if valid?
 
-      raise V1::ErrorResponderService.new(:invalid_record, 422, errors.full_messages)
+      raise ErrorResponderService.new(:invalid_record, 422, errors.full_messages)
     end
 
     def password_confirmation

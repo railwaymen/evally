@@ -28,7 +28,7 @@ module V2
     def validate_template!
       return if @template.valid?
 
-      raise V1::ErrorResponderService.new(:invalid_record, 422, @template.errors.full_messages)
+      raise ErrorResponderService.new(:invalid_record, 422, @template.errors.full_messages)
     end
 
     def create_activity!

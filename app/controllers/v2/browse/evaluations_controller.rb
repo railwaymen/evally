@@ -13,14 +13,14 @@ module V2
 
       def employee
         @employee ||= Employee.find_by(public_token: params[:employee_id])
-        raise V1::ErrorResponderService.new(:record_not_found, 404) unless @employee
+        raise ErrorResponderService.new(:record_not_found, 404) unless @employee
 
         @employee
       end
 
       def evaluation
         @evaluation ||= employee.evaluations.completed.find_by(id: params[:id])
-        raise V1::ErrorResponderService.new(:record_not_found, 404) unless @evaluation
+        raise ErrorResponderService.new(:record_not_found, 404) unless @evaluation
 
         @evaluation
       end

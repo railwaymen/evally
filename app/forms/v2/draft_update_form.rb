@@ -32,7 +32,7 @@ module V2
     def validate_draft!
       return if @draft.valid?
 
-      raise V1::ErrorResponderService.new(:invalid_record, 422, @draft.errors.full_messages)
+      raise ErrorResponderService.new(:invalid_record, 422, @draft.errors.full_messages)
     end
 
     def create_activity!

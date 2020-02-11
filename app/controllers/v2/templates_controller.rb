@@ -48,7 +48,7 @@ module V2
 
     def template
       @template ||= Template.find_by(id: params[:id])
-      raise V1::ErrorResponderService.new(:record_not_found, 404) unless @template
+      raise ErrorResponderService.new(:record_not_found, 404) unless @template
 
       @template
     end

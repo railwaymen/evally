@@ -3,29 +3,6 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   scope '(:locale)', locale: /en|pl/ do
-    namespace :v1, defaults: { format: :json } do
-      resources :activities, only: [:index] do
-        get 'today', on: :collection
-      end
-
-      resources :employees, only: [:index, :show, :create, :update, :destroy] do
-        get 'chart', on: :collection
-        post 'search', on: :collection
-        get 'skills', on: :collection
-      end
-
-      resources :evaluations, only: [:index, :create, :update, :destroy]
-      get 'employees/:id/evaluation', to: 'evaluations#evaluation', as: 'empoyee_evaluation'
-
-      resources :templates, only: [:index, :create, :update, :destroy]
-
-      resources :users, only: [:show, :update] do
-        put 'password', on: :member
-      end
-
-      resources :settings, only: [:update]
-    end
-
     scope :v2, defaults: { format: :json } do
       resource :session, controller: 'rails_jwt_auth/sessions', only: %i[create destroy]
     end

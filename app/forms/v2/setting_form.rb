@@ -20,7 +20,7 @@ module V2
     def validate_setting!
       return if @setting.valid?
 
-      raise V1::ErrorResponderService.new(:invalid_record, 422, @setting.errors.full_messages)
+      raise ErrorResponderService.new(:invalid_record, 422, @setting.errors.full_messages)
     end
   end
 end
