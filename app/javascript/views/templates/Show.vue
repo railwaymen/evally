@@ -25,7 +25,7 @@
         <v-flex xs6 lg3>
           <div class="date">
             <h5 class="date__value">&lsaquo; date &rsaquo;</h5>
-            <h6 class="date__description">{{ $t('views.templates.show.placeholder.hiredAt') }}</h6>
+            <h6 class="date__description">{{ $t('views.templates.show.placeholder.hiredOn') }}</h6>
           </div>
         </v-flex>
         <v-flex xs6 lg3>

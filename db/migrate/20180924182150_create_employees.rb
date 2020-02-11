@@ -4,7 +4,7 @@ class CreateEmployees < ActiveRecord::Migration[5.2]
       t.string :first_name
       t.string :last_name
       t.string :position
-      t.datetime :hired_at
+      t.datetime :hired_on
       t.datetime :last_evaluation_at
       t.datetime :next_evaluation_at
       t.references :user, foreign_key: true

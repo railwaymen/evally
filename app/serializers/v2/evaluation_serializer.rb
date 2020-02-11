@@ -18,8 +18,8 @@ module V2
       ev.employee.position
     end
 
-    field :employee_hired_at do |ev, _options|
-      ev.employee.hired_at
+    field :employee_hired_on do |ev, _options|
+      ev.employee.hired_on
     end
 
     field :next_evaluation_at do |ev, _options|

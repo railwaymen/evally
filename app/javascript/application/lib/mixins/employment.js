@@ -1,7 +1,7 @@
 export default {
   methods: {
-    employment(hired_at) {
-      const diff = this.$moment().diff(hired_at, 'months')
+    employment(hired_on) {
+      const diff = this.$moment().diff(hired_on, 'months')
 
       // fresh employee case
       if (diff === 0) return 'just started'

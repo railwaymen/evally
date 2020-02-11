@@ -17,7 +17,7 @@
 
       "employee": {
         "type": "object",
-        "required": ["id", "first_name", "last_name", "position", "group", "hired_at", "next_evaluation_at", "public_token", "state", "released_at"],
+        "required": ["id", "first_name", "last_name", "position", "group", "hired_on", "next_evaluation_at", "public_token", "state", "released_at"],
         "properties": {
 
           "id" : { "type" : ["string", "number"] },
@@ -30,7 +30,7 @@
 
           "group" : { "type" : "string" },
 
-          "hired_at" : { "type" : "string" },
+          "hired_on" : { "type" : "string" },
 
           "next_evaluation_at" : { "type" : ["string", "null"] },
 

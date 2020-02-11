@@ -11,7 +11,7 @@ class Employee extends Model {
       last_name: '',
       position: '',
       group: '',
-      hired_at: null,
+      hired_on: null,
       position_set_at: null,
       next_evaluation_at: null,
       latest_evaluation_date: null,
@@ -21,7 +21,7 @@ class Employee extends Model {
   }
 
   get employmentTime() {
-    const diff = moment().diff(this.hired_at, 'months')
+    const diff = moment().diff(this.hired_on, 'months')
 
     // fresh employee case
     if (diff === 0) return i18n.t('models.employee.justStarted')
@@ -51,18 +51,18 @@ class Employee extends Model {
     return [this.first_name, this.last_name].join(' ')
   }
 
-  get hiredAt() {
-    return moment(this.hired_at).format('MMMM YYYY')
+  get hiredOn() {
+    return moment(this.hired_on).format('MMMM YYYY')
   }
 
   // === hired at datepicker getter & setter
   get hiredDate() {
-    return this.hired_at ? moment(this.hired_at).format('YYYY-MM-DD') : ''
+    return this.hired_on ? moment(this.hired_on).format('YYYY-MM-DD') : ''
   }
 
   set hiredDate(date) {
     const mDate = moment(date, 'YYYY-MM-DD')
-    this.hired_at = mDate.isValid() ? mDate.format() : ''
+    this.hired_on = mDate.isValid() ? mDate.format() : ''
   }
   // ===
 

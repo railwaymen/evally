@@ -59,7 +59,7 @@
               <template v-slot:activator="{ on }">
                 <v-text-field
                   :value="localEmployee.hiredDate"
-                  :label="$t('components.employees.employeeForm.hiredAt')"
+                  :label="$t('components.employees.employeeForm.hiredOn')"
                   :rules="[vRequired]"
                   prepend-icon="event"
                   readonly

@@ -11,7 +11,7 @@
           <v-flex xs12>
             <div class="date">
               <h5 class="date__value">{{ draft.employeeHiredAt }}</h5>
-              <h6 class="date__description">{{ $t('views.drafts.show.hiredAt') }}</h6>
+              <h6 class="date__description">{{ $t('views.drafts.show.hiredOn') }}</h6>
             </div>
           </v-flex>
         </v-layout>

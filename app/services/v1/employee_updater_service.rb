@@ -31,7 +31,7 @@ module V1
 
     def employee_params
       @attributes.permit(
-        :first_name, :last_name, :position, :group, :hired_at, :next_evaluation_at, :state,
+        :first_name, :last_name, :position, :group, :hired_on, :next_evaluation_at, :state,
         :released_at, :position_set_at
       )
     end

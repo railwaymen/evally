@@ -97,7 +97,7 @@ export default {
         search: 'Search ...',
         cols: {
           name: 'Name',
-          hiredAt: 'Hired Date',
+          hiredOn: 'Hired Date',
           group: 'Group',
           position: 'Position',
           positionSetAt: 'Promotion Date',
@@ -112,7 +112,7 @@ export default {
         cols: {
           name: 'Name',
           skill: 'Skill',
-          hiredAt: 'Hired Date',
+          hiredOn: 'Hired Date',
           group: 'Group',
           position: 'Position',
           positionSetAt: 'Promotion Date',
@@ -132,13 +132,13 @@ export default {
         lastName: 'Last Name',
         position: 'Position',
         group: 'Group',
-        hiredAt: 'Hired Date',
+        hiredOn: 'Hired Date',
         positionSetAt: 'Promotion Date',
         nextEvaluationAt: 'Next Evaluation Date'
       },
       sidebar: {
         group: 'Group',
-        hiredAt: 'Hired Date',
+        hiredOn: 'Hired Date',
         nextEvaluationAt: 'Next Evaluation Date',
         completedEvaluations: {
           title: 'Completed Evaluations',
@@ -345,7 +345,7 @@ export default {
         instruction: 'Select draft from list or create a new one',
       },
       show: {
-        hiredAt: 'Hired Date',
+        hiredOn: 'Hired Date',
       }
     },
     employees: {
@@ -361,7 +361,7 @@ export default {
         instruction: 'Select evaluation from list to see details'
       },
       evaluation: {
-        hiredAt: 'Hired Date',
+        hiredOn: 'Hired Date',
         completedAt: 'Completion Date',
       },
       search: {
@@ -394,7 +394,7 @@ export default {
         placeholder: {
           name: 'Employee Name',
           position: 'Position',
-          hiredAt: 'Hired Date',
+          hiredOn: 'Hired Date',
           completedAt: 'Completion Date',
         }
       }

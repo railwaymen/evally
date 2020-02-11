@@ -26,7 +26,7 @@
       <td class="text-xs-center">
         <v-tooltip left>
           <template #activator="{ on }">
-            <span v-on="on">{{ props.item.hiredAt }}</span>
+            <span v-on="on">{{ props.item.hiredOn }}</span>
           </template>
           <span>{{ props.item.employmentTime }}</span>
         </v-tooltip>
@@ -68,8 +68,8 @@ export default {
           value: 'skill.value'
         },
         {
-          text: this.$t('components.employees.searchTable.cols.hiredAt'),
-          value: 'hired_at',
+          text: this.$t('components.employees.searchTable.cols.hiredOn'),
+          value: 'hired_on',
           align: 'center'
         },
         {

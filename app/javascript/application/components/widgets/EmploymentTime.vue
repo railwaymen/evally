@@ -29,7 +29,7 @@
                 {{ $t('widgets.employment.list_items.as') }}
                 <em>{{ employee.position }}</em>
               </v-list-tile-title>
-              <v-list-tile-sub-title>{{ employment(employee.hired_at) }}</v-list-tile-sub-title>
+              <v-list-tile-sub-title>{{ employment(employee.hired_on) }}</v-list-tile-sub-title>
             </v-list-tile-content>
 
             <v-list-tile-action>
@@ -71,7 +71,7 @@ export default {
 
     averageEmployment() {
       let monthsDurations = _.map(this.employees.models, employee => {
-        return this.$moment().diff(employee.hired_at, 'months')
+        return this.$moment().diff(employee.hired_on, 'months')
       })
 
       let months = 0
@@ -111,7 +111,7 @@ export default {
 
     sortedEmployees() {
       return _.orderBy(this.employees.models, employee => {
-        return this.$moment(employee.hired_at)
+        return this.$moment(employee.hired_on)
       }, [this.order]).slice(0, 5)
     }
   }

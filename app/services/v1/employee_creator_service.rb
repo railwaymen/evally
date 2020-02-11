@@ -29,7 +29,7 @@ module V1
         :last_name,
         :position,
         :group,
-        :hired_at,
+        :hired_on,
         :last_evaluation_at,
         :next_evaluation_at
       )

@@ -83,13 +83,12 @@ Cypress.Commands.add('submitEmployee', (employee, action) => {
     // Fill position
     cy.get('[data-cy="employee-position"]').click()
     cy.get('.v-list__tile').first().click()
-    
+
     // Select current date
-    cy.get('[data-cy="employee-hired_at"]').click()
+    cy.get('[data-cy="employee-hired_on"]').click()
     cy.get('.v-picker--date').should('be.visible')
     cy.get('.v-picker--date').find('.v-btn--outline').click()
   }
   // Press submit
   cy.get('[data-cy="employee-submit"]').click()
 })
-

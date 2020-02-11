@@ -26,7 +26,7 @@ class Employee < ApplicationRecord
 
   validates :position, presence: true
 
-  validates :hired_at, presence: true
+  validates :hired_on, presence: true
 
   attr_accessor :skill
 

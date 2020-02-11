@@ -11,8 +11,8 @@
         </div>
 
         <div class="vcard__info">
-          <div class="vcard__label">{{ $t('components.employees.sidebar.hiredAt') }}</div>
-          <div class="vcard__value">{{ employee.hiredAt }}</div>
+          <div class="vcard__label">{{ $t('components.employees.sidebar.hiredOn') }}</div>
+          <div class="vcard__value">{{ employee.hiredOn }}</div>
         </div>
 
         <div class="vcard__info">

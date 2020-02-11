@@ -66,7 +66,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
             last_name: 'Doe',
             position: 'Junior Specialist',
             group: 'Marketing',
-            hired_at: 1.month.ago,
+            hired_on: 1.month.ago,
             position_set_at: 1.month.ago
           }
         }
@@ -86,7 +86,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
             last_name: 'Doe',
             position: 'Junior Specialist',
             group: 'Marketing',
-            hired_at: 1.month.ago,
+            hired_on: 1.month.ago,
             position_set_at: 1.month.ago
           }
         }
@@ -108,7 +108,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
             last_name: 'Doe',
             position: 'Junior Specialist',
             group: 'Marketing',
-            hired_at: 1.month.ago,
+            hired_on: 1.month.ago,
             position_set_at: 1.month.ago
           }
         }
@@ -132,7 +132,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
             last_name: 'Doe',
             position: 'Junior Specialist',
             group: 'Marketing',
-            hired_at: 1.month.ago
+            hired_on: 1.month.ago
           }
         }
 

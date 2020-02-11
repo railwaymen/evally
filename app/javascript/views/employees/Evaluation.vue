@@ -9,7 +9,7 @@
       <v-flex xs12 lg3>
         <div class="date">
           <h5 class="date__value">{{ evaluation.employeeHiredAt }}</h5>
-          <h6 class="date__description">{{ $t('views.employees.evaluation.hiredAt') }}</h6>
+          <h6 class="date__description">{{ $t('views.employees.evaluation.hiredOn') }}</h6>
         </div>
       </v-flex>
 
