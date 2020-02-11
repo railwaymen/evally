@@ -53,7 +53,8 @@ Vue.mixin(globalMixin)
 import i18n from '@locales/i18n'
 
 // Assets styles
-import '@assets/styles/application.styl'
+import 'vuetify/src/stylus/main.styl'
+import '@assets/styles/application.scss'
 
 document.addEventListener('DOMContentLoaded', () => {
 

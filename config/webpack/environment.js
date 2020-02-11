@@ -13,4 +13,9 @@ environment.loaders.append('stylus', {
   use: ['style-loader', 'css-loader', 'stylus-loader']
 })
 
+environment.loaders.append('sass', {
+  test: /\.s[ac]ss$/i,
+  use: ['style-loader', 'css-loader', 'sass-loader']
+})
+
 module.exports = environment
