@@ -43,5 +43,8 @@ module Evally
 
     # Set default locale to something other than :en
     config.i18n.default_locale = :en
+
+    # Set i18n fallbacks
+    config.i18n.fallbacks = true
   end
 end

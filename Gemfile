@@ -25,7 +25,6 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 4.11'
   gem 'faker', '~> 1.9.1'
   gem 'json_spec', '~> 1.1'
-  gem 'json-schema', '~> 2.8'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.8'
   gem 'shoulda-matchers', '~> 4.2.0'
