@@ -33,12 +33,12 @@
       </v-flex>
     </v-layout>
 
-    <div class="settings__actions text-xs-right">
+    <div class="settings__actions text-right">
       <v-btn @click="$refs.form.reset()" text>
         {{ $t('shared.buttons.reset') }}
       </v-btn>
 
-      <v-btn type="submit" class="primary" text>
+      <v-btn type="submit" color="primary" text>
         {{ $t('shared.buttons.changePassword') }}
       </v-btn>
     </div>

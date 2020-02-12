@@ -23,7 +23,6 @@
               v-model="section.name"
               :label="$t('components.templates.sectionComposer.title')"
               :rules="[vRequired]"
-              outline
             />
           </span>
 

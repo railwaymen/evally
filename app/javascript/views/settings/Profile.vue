@@ -21,7 +21,7 @@
 
       <v-flex xs12 lg5>
         <div class="setting__info">
-          <v-alert type="warning" outline>
+          <v-alert type="warning" outlined>
             {{ $t('views.settings.profile.logOutWarning') }}
           </v-alert>
         </div>

@@ -33,7 +33,7 @@
         </v-flex>
 
         <v-flex xs6>
-          <div class="text-xs-right">
+          <div class="text-right">
             <v-tooltip bottom>
               <template #activator="{ on }">
                 <v-btn

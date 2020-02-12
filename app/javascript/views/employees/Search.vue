@@ -35,29 +35,23 @@
 
       <template v-if="query.isRating">
         <div class="search-form__buttons">
-          <v-btn-toggle v-model="query.operator" class="elevation-0">
+          <v-btn-toggle v-model="query.operator" color="primary" group>
             <v-btn
-              class="px-3 mx-1"
               value="lteq"
-              large
               text
             >
               &#8924;
             </v-btn>
 
             <v-btn
-              class="px-3 mx-1"
               value="eq"
-              large
               text
             >
               &#61;
             </v-btn>
 
             <v-btn
-              class="px-3 mx-1"
               value="gteq"
-              large
               text
             >
               &#8925;
@@ -71,21 +65,17 @@
       </template>
 
       <div v-if="query.isBool" class="search-form__buttons">
-        <v-btn-toggle v-model="query.value" class="elevation-0">
+        <v-btn-toggle v-model="query.value" color="primary" group>
           <v-btn
             :value="false"
-            large
             text
-            class="px-3 mx-1"
           >
             {{ $t('shared.buttons.no') }}
           </v-btn>
 
           <v-btn
             :value="true"
-            large
             text
-            class="px-3 mx-1"
           >
             {{ $t('shared.buttons.yes') }}
           </v-btn>

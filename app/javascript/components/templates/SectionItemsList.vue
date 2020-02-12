@@ -8,7 +8,7 @@
       @keyup.enter.native="addSkill"
       @click:append="addSkill"
       append-icon="keyboard_return"
-      box
+      filled
     />
 
     <div class="form-box__items form-box__items--scrollable">
