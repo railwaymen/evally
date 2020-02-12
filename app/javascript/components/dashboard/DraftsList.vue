@@ -32,14 +32,15 @@
           </v-list-tile-content>
 
 					<v-list-tile-action>
-						<div class="">
-							<v-tooltip bottom>
-								<v-btn :to="draft.draftPath" slot="activator" color="grey" flat icon>
+            <v-tooltip bottom>
+              <template #activator="{ on }">
+                <v-btn :to="draft.draftPath" v-on="on" color="grey" flat icon>
 									<v-icon>edit</v-icon>
 								</v-btn>
-								<span>{{ $t('shared.tooltips.edit') }}</span>
-							</v-tooltip>
-						</div>
+              </template>
+
+              <span>{{ $t('shared.tooltips.edit') }}</span>
+            </v-tooltip>
 					</v-list-tile-action>
         </v-list-tile>
       </v-list>

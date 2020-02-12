@@ -6,7 +6,7 @@
 
     <v-form @submit.prevent="complete">
       <v-card-text>
-        <p class="subheading text-xs-center">
+        <p class="subtitle-1 text-center">
           {{ $t('components.drafts.completeForm.question') }}<br>
           {{ $t('components.drafts.completeForm.warning') }}
         </p>

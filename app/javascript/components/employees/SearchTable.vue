@@ -23,7 +23,7 @@
           {{ props.item.skill.value ? $t('components.employees.searchTable.labels.yes') : $t('components.employees.searchTable.labels.no') }}
         </v-chip>
       </td>
-      <td class="text-xs-center">
+      <td class="text-center">
         <v-tooltip left>
           <template #activator="{ on }">
             <span v-on="on">{{ props.item.hiredOn }}</span>
@@ -31,10 +31,10 @@
           <span>{{ props.item.employmentTime }}</span>
         </v-tooltip>
       </td>
-      <td class="text-xs-center">{{ props.item.group }}</td>
-      <td class="text-xs-center">{{ props.item.position }}</td>
-      <td class="text-xs-center">{{ props.item.positionSetAt }}</td>
-      <td class="text-xs-center">{{ props.item.latestEvaluationDate }}</td>
+      <td class="text-center">{{ props.item.group }}</td>
+      <td class="text-center">{{ props.item.position }}</td>
+      <td class="text-center">{{ props.item.positionSetAt }}</td>
+      <td class="text-center">{{ props.item.latestEvaluationDate }}</td>
     </template>
   </v-data-table>
 </template>

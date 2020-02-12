@@ -8,7 +8,7 @@
       <v-card-text>
         <v-layout row wrap>
           <v-flex class="px-3" xs12 lg6>
-            <h3 class="subheading">{{ $t('components.employees.employeeForm.general') }}</h3>
+            <h3 class="subtitle-1">{{ $t('components.employees.employeeForm.general') }}</h3>
 
             <v-text-field
               v-model="localEmployee.first_name"
@@ -43,7 +43,7 @@
           </v-flex>
 
           <v-flex class="px-3" xs12 lg6>
-            <h3 class="subheading">{{ $t('components.employees.employeeForm.dates') }}</h3>
+            <h3 class="subtitle-1">{{ $t('components.employees.employeeForm.dates') }}</h3>
 
             <v-menu
               ref="hiredAtPicker"

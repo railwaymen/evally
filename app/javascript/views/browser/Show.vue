@@ -35,15 +35,18 @@
         <v-flex xs6>
           <div class="text-xs-right">
             <v-tooltip bottom>
-              <v-btn
-                @click="close"
-                color="grey"
-                slot="activator"
-                icon
-                flat
-              >
-                <v-icon>close</v-icon>
-              </v-btn>
+              <template #activator="{ on }">
+                <v-btn
+                  @click="close"
+                  v-on="on"
+                  color="grey"
+                  icon
+                  flat
+                >
+                  <v-icon>close</v-icon>
+                </v-btn>
+              </template>
+
               <span>{{ $t('shared.tooltips.close') }}</span>
             </v-tooltip>
           </div>

@@ -5,7 +5,7 @@
     </v-card-title>
 
     <v-card-text>
-      <p class="subheading">{{ $t('components.templates.deleteConfirm.body') }}</p>
+      <p class="subtitle-1">{{ $t('components.templates.deleteConfirm.body') }}</p>
     </v-card-text>
 
     <v-card-actions>

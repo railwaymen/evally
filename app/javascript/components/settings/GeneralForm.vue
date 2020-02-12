@@ -1,7 +1,7 @@
 <template>
   <v-form ref="generalSettingForm" @submit.prevent="save">
     <div class="settings pa-3">
-      <h2 class="subheading my-3">{{ $t('components.settings.generalForm.language.subtitle') }}</h2>
+      <h2 class="subtitle-1 my-3">{{ $t('components.settings.generalForm.language.subtitle') }}</h2>
 
       <div class="setting">
         <v-radio-group v-model="localSetting.lang" row>
@@ -10,7 +10,7 @@
         </v-radio-group>
       </div>
 
-      <h2 class="subheading my-3">{{ $t('components.settings.generalForm.widgets.subtitle') }}</h2>
+      <h2 class="subtitle-1 my-3">{{ $t('components.settings.generalForm.widgets.subtitle') }}</h2>
 
       <div class="setting">
         <v-subheader>{{ $t('components.settings.generalForm.widgets.drafts') }}</v-subheader>
@@ -34,7 +34,7 @@
         />
       </div>
 
-      <h2 class="subheading my-3">
+      <h2 class="subtitle-1 my-3">
         {{ $t('components.settings.generalForm.evaluations.subtitle') }}
       </h2>
 

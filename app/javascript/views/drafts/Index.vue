@@ -7,83 +7,102 @@
 
       <div class="panel__actions">
         <v-tooltip bottom>
-          <v-btn
-            @click="openCreateForm"
-            color="green"
-            slot="activator"
-            icon
-            flat
-          >
-            <v-icon>add</v-icon>
-          </v-btn>
+          <template #activator="{ on }">
+            <v-btn
+              @click="openCreateForm"
+              v-on="on"
+              color="green"
+              icon
+              flat
+            >
+              <v-icon>add</v-icon>
+            </v-btn>
+          </template>
+
           <span>{{ $t('shared.tooltips.addNew') }}</span>
         </v-tooltip>
 
         <v-tooltip bottom>
-          <v-btn
-            @click="openCompleteForm"
-            :disabled="draft.isNewRecord"
-            color="green"
-            slot="activator"
-            icon
-            flat
-          >
-            <v-icon>how_to_vote</v-icon>
-          </v-btn>
+          <template #activator="{ on }">
+            <v-btn
+              @click="openCompleteForm"
+              :disabled="draft.isNewRecord"
+              v-on="on"
+              color="green"
+              icon
+              flat
+            >
+              <v-icon>how_to_vote</v-icon>
+            </v-btn>
+          </template>
+
           <span>{{ $t('shared.tooltips.complete') }}</span>
         </v-tooltip>
 
         <v-tooltip bottom>
-          <v-btn
-            @click="update"
-            :disabled="draft.isNewRecord"
-            color="black"
-            slot="activator"
-            icon
-            flat
-          >
-            <v-icon>save_alt</v-icon>
-          </v-btn>
+          <template #activator="{ on }">
+            <v-btn
+              @click="update"
+              :disabled="draft.isNewRecord"
+              v-on="on"
+              color="black"
+              icon
+              flat
+            >
+              <v-icon>save_alt</v-icon>
+            </v-btn>
+          </template>
+
           <span>{{ $t('shared.tooltips.save') }}</span>
         </v-tooltip>
 
         <v-tooltip bottom>
-          <v-btn
-            @click="reset"
-            :disabled="draft.isNewRecord"
-            color="black"
-            slot="activator"
-            icon
-            flat
-          >
-            <v-icon>restore</v-icon>
-          </v-btn>
+          <template #activator="{ on }">
+            <v-btn
+              @click="reset"
+              :disabled="draft.isNewRecord"
+              v-on="on"
+              color="black"
+              icon
+              flat
+            >
+              <v-icon>restore</v-icon>
+            </v-btn>
+          </template>
+
           <span>{{ $t('shared.tooltips.reset') }}</span>
         </v-tooltip>
 
         <v-tooltip bottom>
-          <v-btn
-            @click="openDeleteConfirm"
-            :disabled="draft.isNewRecord"
-            color="red"
-            slot="activator"
-            icon
-            flat
-          >
-            <v-icon>delete</v-icon>
-          </v-btn>
+          <template #activator="{ on }">
+            <v-btn
+              @click="openDeleteConfirm"
+              :disabled="draft.isNewRecord"
+              v-on="on"
+              color="red"
+              icon
+              flat
+            >
+              <v-icon>delete</v-icon>
+            </v-btn>
+          </template>
+
           <span>{{ $t('shared.tooltips.delete') }}</span>
         </v-tooltip>
 
         <v-tooltip bottom>
-          <v-btn
-            @click="toggleSidebar"
-            slot="activator"
-            icon
-            flat
-          >
-            <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
-          </v-btn>
+          <template #activator="{ on }">
+            <v-btn
+              @click="toggleSidebar"
+              v-on="on"
+              color="black"
+              icon
+              flat
+            >
+              <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
+            </v-btn>
+          </template>
+
           <span>
             {{ isSidebarVisible ? $t('shared.tooltips.hideSidebar') : $t('shared.tooltips.showSidebar') }}
           </span>

@@ -45,7 +45,7 @@
           </div>
 
           <div class="step__buttons">
-            <div class="text-xs-center">
+            <div class="text-center">
               <v-btn
                 @click="setUseLatest(true)"
                 :input-value="useLatest"

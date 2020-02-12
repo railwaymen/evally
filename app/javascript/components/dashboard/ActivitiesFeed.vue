@@ -19,7 +19,10 @@
 					<v-list-tile-action>
             <v-list-tile-action-text>
 							<v-tooltip bottom>
-								<span slot="activator">{{ activity.shortCreatedAtFromNow }}</span>
+                <template #activator="{ on }">
+								  <span v-on="on">{{ activity.shortCreatedAtFromNow }}</span>
+                </template>
+
 								<span>{{ activity.createdAt }}</span>
 							</v-tooltip>
 						</v-list-tile-action-text>

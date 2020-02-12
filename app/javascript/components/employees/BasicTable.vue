@@ -21,14 +21,17 @@
           <template #items="props">
             <td :style="{ padding: '0 5px' }">
               <v-tooltip right>
-                <v-btn
-                  @click="$emit('edit', props.item.id)"
-                  slot="activator"
-                  icon
-                  flat
-                >
-                  <v-icon size="15">edit</v-icon>
-                </v-btn>
+                <template #activator="{ on }">
+                  <v-btn
+                    @click="$emit('edit', props.item.id)"
+                    v-on="on"
+                    icon
+                    flat
+                  >
+                    <v-icon size="15">edit</v-icon>
+                  </v-btn>
+                </template>
+
                 <span>{{ $t('shared.tooltips.edit') }}</span>
               </v-tooltip>
             </td>
@@ -37,7 +40,7 @@
                 {{ props.item.fullname }}
               </router-link>
             </td>
-            <td class="text-xs-center">
+            <td class="text-center">
               <v-tooltip left>
                 <template #activator="{ on }">
                   <span v-on="on">{{ props.item.hiredOn }}</span>
@@ -45,10 +48,10 @@
                 <span>{{ props.item.employmentTime }}</span>
               </v-tooltip>
             </td>
-            <td class="text-xs-center">{{ props.item.group }}</td>
-            <td class="text-xs-center">{{ props.item.position }}</td>
-            <td class="text-xs-center">{{ props.item.positionSetAt }}</td>
-            <td class="text-xs-center">{{ props.item.latestEvaluationDate }}</td>
+            <td class="text-center">{{ props.item.group }}</td>
+            <td class="text-center">{{ props.item.position }}</td>
+            <td class="text-center">{{ props.item.positionSetAt }}</td>
+            <td class="text-center">{{ props.item.latestEvaluationDate }}</td>
           </template>
         </v-data-table>
       </v-flex>

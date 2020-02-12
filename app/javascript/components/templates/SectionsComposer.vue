@@ -32,14 +32,17 @@
 
         <div class="section__actions" v-if="editable">
           <v-tooltip bottom>
-            <v-btn
-              @click="resize(section.id, index)"
-              slot="activator"
-              flat
-              icon
-            >
-              <v-icon class="rotateZ90">{{ section.isHalf ? `unfold_more` : `unfold_less` }}</v-icon>
-            </v-btn>
+            <template #activator="{ on }">
+              <v-btn
+                @click="resize(section.id, index)"
+                v-on="on"
+                flat
+                icon
+              >
+                <v-icon class="rotateZ90">{{ section.isHalf ? `unfold_more` : `unfold_less` }}</v-icon>
+              </v-btn>
+            </template>
+
             <span>
               {{ section.isHalf ? $t('shared.tooltips.fullWidth') : $t('shared.tooltips.halfWidth') }}
             </span>
@@ -50,14 +53,17 @@
           </v-btn>
 
           <v-tooltip bottom>
-            <v-btn
-              @click="remove(section.id, index)"
-              slot="activator"
-              flat
-              icon
-            >
-              <v-icon>delete</v-icon>
-            </v-btn>
+            <template #activator="{ on }">
+              <v-btn
+                @click="remove(section.id, index)"
+                v-on="on"
+                flat
+                icon
+              >
+                <v-icon>delete</v-icon>
+              </v-btn>
+            </template>
+
             <span>{{ $t('shared.tooltips.delete') }}</span>
           </v-tooltip>
         </div>

@@ -23,17 +23,8 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 // Vuetify
-import Vuetify from 'vuetify'
+import vuetify from '@plugins/vuetify'
 
-import Ven from 'vuetify/lib/locale/en'
-import Vpl from 'vuetify/lib/locale/pl'
-
-Vue.use(Vuetify, {
-  lang: {
-    locales: { en: Ven, pl: Vpl },
-    current: 'en'
-  }
-})
 
 // Vue2Clipboard
 import VueClipboard from 'vue-clipboard2'
@@ -53,7 +44,6 @@ Vue.mixin(globalMixin)
 import i18n from '@locales/i18n'
 
 // Assets styles
-import 'vuetify/src/stylus/main.styl'
 import '@assets/styles/application.scss'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -66,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       i18n,
       router,
       store,
+      vuetify,
       render: h => h(App)
     })
 

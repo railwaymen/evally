@@ -42,48 +42,51 @@
           key="addNew"
           bottom
         >
-          <v-btn
-            @click="openCreateForm"
-            color="green"
-            slot="activator"
-            icon
-            flat
-          >
-            <v-icon>add</v-icon>
-          </v-btn>
+          <template #activator="{ on }">
+            <v-btn
+              @click="openCreateForm"
+              v-on="on"
+              color="green"
+              icon
+              flat
+            >
+              <v-icon>add</v-icon>
+            </v-btn>
+          </template>
+
           <span>{{ $t('shared.tooltips.addNew') }}</span>
         </v-tooltip>
 
         <template v-if="$route.name === 'employee_path'">
-          <v-tooltip
-            key="copyLink"
-            bottom
-          >
-            <v-btn
-              @click="copyLink"
-              color="black"
-              slot="activator"
-              icon
-              flat
-            >
-              <v-icon>link</v-icon>
-            </v-btn>
+          <v-tooltip bottom key="copyLink">
+            <template #activator="{ on }">
+              <v-btn
+                @click="copyLink"
+                v-on="on"
+                color="black"
+                icon
+                flat
+              >
+                <v-icon>link</v-icon>
+              </v-btn>
+            </template>
+
             <span>{{ $t('shared.tooltips.copyLink') }}</span>
           </v-tooltip>
 
-          <v-tooltip
-            key="delete"
-            bottom
-          >
-            <v-btn
-              @click="openDeleteConfirm"
-              color="red"
-              slot="activator"
-              icon
-              flat
-            >
-              <v-icon>delete</v-icon>
-            </v-btn>
+          <v-tooltip bottom key="delete">
+            <template #activator="{ on }">
+              <v-btn
+                @click="openDeleteConfirm"
+                v-on="on"
+                color="red"
+                icon
+                flat
+              >
+                <v-icon>delete</v-icon>
+              </v-btn>
+            </template>
+
             <span>{{ $t('shared.tooltips.delete') }}</span>
           </v-tooltip>
         </template>

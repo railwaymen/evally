@@ -16,15 +16,17 @@
       <v-spacer />
 
       <v-menu transition="slide-y-transition" offset-y>
-        <span class="profile" slot="activator" data-cy="profile-btn" v-ripple>
-          <v-avatar class="profile__avatar" color="primary" size="32">
-            <span class="white--text body-1" data-cy="profile-initials">{{ user.initials }}</span>
-          </v-avatar>
-          <span class="profile__fullname" data-cy="profile-fullname">{{ user.fullname }}</span>
-          <v-icon class="profile__arrow" size="24">
-            expand_more
-          </v-icon>
-        </span>
+        <template #activator="{ on }">
+          <span class="profile" v-on="on" v-ripple>
+            <v-avatar class="profile__avatar" color="primary" size="32">
+              <span class="white--text body-1" data-cy="profile-initials">{{ user.initials }}</span>
+            </v-avatar>
+            <span class="profile__fullname" data-cy="profile-fullname">{{ user.fullname }}</span>
+            <v-icon class="profile__arrow" size="24">
+              expand_more
+            </v-icon>
+          </span>
+        </template>
 
         <v-list>
           <template v-if="$vuetify.breakpoint.mdAndDown">

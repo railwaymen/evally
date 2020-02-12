@@ -1,6 +1,6 @@
 <template>
   <v-form @submit.prevent="save" class="pa-3">
-    <h2 class="subheading my-3">{{ $t('components.settings.userForm.subtitle') }}</h2>
+    <h2 class="subtitle-1 my-3">{{ $t('components.settings.userForm.subtitle') }}</h2>
 
     <v-layout wrap row>
       <v-flex xs12>

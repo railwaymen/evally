@@ -5,7 +5,7 @@
       :options="options"
     />
 
-    <div class="text-xs-center mb-3">
+    <div class="text-center mb-3">
       <v-chip
         v-for="(group, index) in groups"
         :key="index"

@@ -4,7 +4,7 @@
 
     <v-form>
       <div class="settings pa-3">
-        <h2 class="subheading my-3">{{ $t('views.settings.support.text') }}</h2>
+        <h2 class="subtitle-1 my-3">{{ $t('views.settings.support.text') }}</h2>
       </div>
     </v-form>
   </div>

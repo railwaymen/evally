@@ -29,18 +29,21 @@
           </v-list-tile-content>
 
           <v-list-tile-action>
-						<v-tooltip bottom>
-							<v-btn
-                @click="openCreateForm(employee)"
-                slot="activator"
-                color="green"
-                icon
-                flat
-              >
-								<v-icon>add</v-icon>
-							</v-btn>
-							<span>{{ $t('shared.tooltips.create') }}</span>
-						</v-tooltip>
+            <v-tooltip bottom>
+              <template #activator="{ on }">
+                <v-btn
+                  @click="openCreateForm(employee)"
+                  v-on="on"
+                  color="green"
+                  icon
+                  flat
+                >
+                  <v-icon>add</v-icon>
+                </v-btn>
+              </template>
+
+              <span>{{ $t('shared.tooltips.create') }}</span>
+            </v-tooltip>
 					</v-list-tile-action>
         </v-list-tile>
       </v-list>
