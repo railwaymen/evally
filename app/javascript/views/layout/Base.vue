@@ -1,7 +1,6 @@
 <template>
   <section class="app">
-    <v-toolbar
-      :tabs="$vuetify.breakpoint.lgAndUp"
+    <v-app-bar
       class="elevation-1 toolbar"
       color="white"
       fixed
@@ -21,57 +20,64 @@
             <v-avatar class="profile__avatar" color="primary" size="32">
               <span class="white--text body-1" data-cy="profile-initials">{{ user.initials }}</span>
             </v-avatar>
+
             <span class="profile__fullname" data-cy="profile-fullname">{{ user.fullname }}</span>
-            <v-icon class="profile__arrow" size="24">
-              expand_more
-            </v-icon>
+
+            <span class="profile__arrow">
+              <v-icon size="24">expand_more</v-icon>
+            </span>
           </span>
         </template>
 
         <v-list>
           <template v-if="$vuetify.breakpoint.mdAndDown">
-            <v-list-tile v-for="tab in tabs" :key="`tab-${tab.id}`" :to="{ name: tab.path }">
-              <v-list-tile-action>
+            <v-list-item v-for="tab in tabs" :key="`tab-${tab.id}`" :to="{ name: tab.path }">
+              <v-list-item-action>
                 <v-icon>{{ tab.icon }}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-title>{{ $t(`shared.navbar.${tab.name}`) }}</v-list-tile-title>
-            </v-list-tile>
+              </v-list-item-action>
+              <v-list-item-title>{{ $t(`shared.navbar.${tab.name}`) }}</v-list-item-title>
+            </v-list-item>
 
             <v-divider class="my-2" />
           </template>
 
-          <v-list-tile v-for="item in items" :key="`item_${item.id}`"  :data-cy="`li-${item.name}`" :to="{ name: item.path }">
-            <v-list-tile-action>
+          <v-list-item v-for="item in items" :key="`item_${item.id}`"  :data-cy="`li-${item.name}`" :to="{ name: item.path }">
+            <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>{{ $t(`shared.navbar.${item.name}`) }}</v-list-tile-title>
-          </v-list-tile>
+            </v-list-item-action>
+            <v-list-item-title>{{ $t(`shared.navbar.${item.name}`) }}</v-list-item-title>
+          </v-list-item>
 
           <!-- Log out list item -->
-          <v-list-tile @click="logout" data-cy="li-logout">
-            <v-list-tile-action>
+          <v-list-item @click="logout" data-cy="li-logout">
+            <v-list-item-action>
               <v-icon>last_page</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>{{ $t('shared.navbar.logout') }}</v-list-tile-title>
-          </v-list-tile>
+            </v-list-item-action>
+            <v-list-item-title>{{ $t('shared.navbar.logout') }}</v-list-item-title>
+          </v-list-item>
         </v-list>
       </v-menu>
 
-      <v-tabs
-        v-if="$vuetify.breakpoint.lgAndUp"
-        :hide-slider="canHideSlider"
-        slot="extension"
-        color="white"
-        slider-color="primary"
-        grow
-      >
-        <v-tab v-for="tab in tabs" :key="`tab_${tab.id}`" :data-cy="`tab-${tab.name}`" :to="{ name: tab.path }">
-          <v-icon>{{ tab.icon }}</v-icon>
-          <span class="separator" />
-          {{ $t(`shared.navbar.${tab.name}`) }}
-        </v-tab>
-      </v-tabs>
-    </v-toolbar>
+      <template #extension v-if="$vuetify.breakpoint.lgAndUp">
+        <v-tabs
+          :hide-slider="canHideSlider"
+          slider-color="primary"
+          grow
+        >
+          <v-tab
+            v-for="tab in tabs"
+            :key="`tab_${tab.id}`"
+            :to="{ name: tab.path }"
+          >
+            <v-icon>{{ tab.icon }}</v-icon>
+
+            <span class="separator" />
+
+            {{ $t(`shared.navbar.${tab.name}`) }}
+          </v-tab>
+        </v-tabs>
+      </template>
+    </v-app-bar>
 
     <router-view />
 

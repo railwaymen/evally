@@ -3,7 +3,7 @@
     :headers="headers"
     :items="employees.models"
     :loading="loading"
-    :rows-per-page-items="perPageItems"
+    :items-per-page-options="perPageItems"
   >
     <template #items="props">
       <td>

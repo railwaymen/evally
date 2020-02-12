@@ -29,6 +29,6 @@ $profile-height: 36px;
   &__arrow  {
     position: absolute;
     top: $profile-height / 6;
-    right: $profile-height / 6;
+    margin: 0 1rem;
   }
 }
