@@ -12,6 +12,7 @@
         @click="currentGroup = group"
         :color="currentGroup === group ? colors[index] : 'grey'"
         text-color="white"
+        class="mx-1"
       >
         {{ group }}
       </v-chip>

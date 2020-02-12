@@ -7,7 +7,7 @@ module V2
     end
 
     def call
-      @scope.select(fields).joins(tables)
+      @scope.select(fields).joins(tables).order(first_name: :asc)
     end
 
     private
