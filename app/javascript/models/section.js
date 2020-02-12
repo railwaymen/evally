@@ -38,19 +38,19 @@ class Section extends Model {
         return {
           name: 'rating',
           defaultValue: 0,
-          icon: 'star'
+          icon: 'mdi-star'
         }
       case 'bool':
         return {
           name: 'bool',
           defaultValue: false,
-          icon: 'exposure'
+          icon: 'mdi-plus-minus'
         }
       case 'text':
         return {
           name: 'text',
           defaultValue: '',
-          icon: 'title'
+          icon: 'mdi-text'
         }
       default:
         return {

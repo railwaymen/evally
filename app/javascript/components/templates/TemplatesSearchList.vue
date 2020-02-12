@@ -3,7 +3,7 @@
     <div class="search-box__input">
       <v-text-field
         v-model="search"
-        append-icon="search"
+        append-icon="mdi-magnify"
         :label="$t('components.templates.sidebar.search')"
         filled
       />
@@ -22,7 +22,6 @@
             v-for="template in searchedTemplates"
             :key="template.id"
             :to="template.path"
-            avatar
           >
             <v-list-item-content>
               <v-list-item-title>{{ template.name }}</v-list-item-title>
@@ -31,7 +30,7 @@
 
           <v-list-item v-if="searchedTemplates.length === 0">
             <v-list-item-action>
-              <v-icon>error_outline</v-icon>
+              <v-icon>mdi-alert-circle-outline</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>

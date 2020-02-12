@@ -27,7 +27,7 @@
               class="mt-4"
               :value="$moment(computedDate).format('MMMM YYYY')"
               :label="$t('components.drafts.completeForm.nextEvaluation')"
-              prepend-icon="event"
+              prepend-icon="mdi-calendar-month"
               readonly
               v-on="on"
             />

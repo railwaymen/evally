@@ -14,7 +14,7 @@
               color="green"
               icon
             >
-              <v-icon>add</v-icon>
+              <v-icon>mdi-plus</v-icon>
             </v-btn>
           </template>
 
@@ -30,7 +30,7 @@
               color="green"
               icon
             >
-              <v-icon>how_to_vote</v-icon>
+              <v-icon>mdi-file-check-outline</v-icon>
             </v-btn>
           </template>
 
@@ -46,7 +46,7 @@
               color="black"
               icon
             >
-              <v-icon>save_alt</v-icon>
+              <v-icon>mdi-content-save-outline</v-icon>
             </v-btn>
           </template>
 
@@ -62,7 +62,7 @@
               color="black"
               icon
             >
-              <v-icon>restore</v-icon>
+              <v-icon>mdi-restore</v-icon>
             </v-btn>
           </template>
 
@@ -78,7 +78,7 @@
               color="red"
               icon
             >
-              <v-icon>delete</v-icon>
+              <v-icon>mdi-delete-outline</v-icon>
             </v-btn>
           </template>
 
@@ -93,7 +93,7 @@
               color="black"
               icon
             >
-              <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
+              <v-icon>{{ isSidebarVisible ? 'mdi-eye-off-outline' : 'mdi-eye-outline' }}</v-icon>
             </v-btn>
           </template>
 

@@ -42,7 +42,7 @@
                   color="grey"
                   icon
                 >
-                  <v-icon>close</v-icon>
+                  <v-icon>mdi-close</v-icon>
                 </v-btn>
               </template>
 

@@ -2,7 +2,7 @@
   <v-snackbar v-model="visible" :color="message.type" :bottom="true" :timeout="4000" data-cy="flash">
     {{ message.text }}
     <v-btn @click="visible = false" color="white" icon>
-      <v-icon>close</v-icon>
+      <v-icon>mdi-close</v-icon>
     </v-btn>
   </v-snackbar>
 </template>

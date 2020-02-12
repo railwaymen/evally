@@ -49,7 +49,7 @@
               color="green"
               icon
             >
-              <v-icon>add</v-icon>
+              <v-icon>mdi-plus</v-icon>
             </v-btn>
           </template>
 
@@ -65,7 +65,7 @@
                 color="black"
                 icon
               >
-                <v-icon>link</v-icon>
+                <v-icon>mdi-link</v-icon>
               </v-btn>
             </template>
 
@@ -80,7 +80,7 @@
                 color="red"
                 icon
               >
-                <v-icon>delete</v-icon>
+                <v-icon>mdi-delete-outline</v-icon>
               </v-btn>
             </template>
 

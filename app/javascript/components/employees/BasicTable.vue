@@ -4,9 +4,9 @@
       <v-flex xs6>
         <v-text-field
           v-model="search"
-          append-icon="search"
+          append-icon="mdi-magnify"
           :label="$t('components.employees.table.search')"
-          box
+          filled
         />
       </v-flex>
 
@@ -25,7 +25,7 @@
                   v-on="on"
                   icon
                 >
-                  <v-icon size="15">edit</v-icon>
+                  <v-icon size="15">mdi-pencil</v-icon>
                 </v-btn>
               </template>
 

@@ -27,7 +27,7 @@
         large
         outlined
       >
-        <v-icon>add</v-icon>  {{ $t('components.templates.sectionForm.button') }}
+        <v-icon>mdi-plus</v-icon>  {{ $t('components.templates.sectionForm.button') }}
       </v-btn>
     </v-form>
   </div>

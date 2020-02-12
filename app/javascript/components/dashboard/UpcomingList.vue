@@ -12,7 +12,7 @@
       <v-list v-else>
         <v-list-item v-if="employees.isEmpty">
           <v-list-item-action>
-            <v-icon>done_all</v-icon>
+            <v-icon>mdi-check-all</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>There are no upcoming evaluations to show</v-list-item-title>
@@ -37,7 +37,7 @@
                   color="green"
                   icon
                 >
-                  <v-icon>add</v-icon>
+                  <v-icon>mdi-plus</v-icon>
                 </v-btn>
               </template>
 

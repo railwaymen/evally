@@ -2,7 +2,7 @@
   <v-list>
     <v-list-item :to="{ name: 'general_settings_path' }" exact>
       <v-list-item-action>
-        <v-icon>language</v-icon>
+        <v-icon>mdi-earth</v-icon>
       </v-list-item-action>
 
       <v-list-item-content>
@@ -16,7 +16,7 @@
 
     <v-list-item :to="{ name: 'profile_settings_path' }" exact>
       <v-list-item-action>
-        <v-icon>person</v-icon>
+        <v-icon>mdi-account-edit</v-icon>
       </v-list-item-action>
 
       <v-list-item-content>
@@ -28,7 +28,7 @@
 
     <v-list-item :to="{ name: 'support_settings_path' }" exact>
       <v-list-item-action>
-        <v-icon>help_outline</v-icon>
+        <v-icon>mdi-help-rhombus-outline</v-icon>
       </v-list-item-action>
 
       <v-list-item-content>

@@ -10,7 +10,7 @@
           <div class="step__header">
             <v-chip color="white" disabled>
               <v-avatar :class="[employeeId ? 'success' : 'grey darken-4', 'white--text']">
-                <v-icon color="white" v-if="employeeId">done</v-icon>
+                <v-icon color="white" v-if="employeeId">mdi-check</v-icon>
                 <span v-else>1</span>
               </v-avatar>
 
@@ -36,7 +36,7 @@
           <div class="step__header">
             <v-chip color="white" disabled>
               <v-avatar :class="[templateId || useLatest ? 'success' : 'grey darken-4', 'white--text']">
-                <v-icon color="white" v-if="templateId || useLatest">done</v-icon>
+                <v-icon color="white" v-if="templateId || useLatest">mdi-check</v-icon>
                 <span v-else>2</span>
               </v-avatar>
 

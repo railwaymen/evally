@@ -26,7 +26,7 @@
               v-model="localEmployee.position"
               :items="this.positions"
               :rules="[vRequired]"
-              append-icon="expand_more"
+              append-icon="mdi-chevron-down"
               chips
               :label="$t('components.employees.employeeForm.position')"
               @change="resetPositionDate"
@@ -36,7 +36,7 @@
               v-model="localEmployee.group"
               :items="this.groups"
               :rules="[vRequired]"
-              append-icon="expand_more"
+              append-icon="mdi-chevron-down"
               chips
               :label="$t('components.employees.employeeForm.group')"
             />
@@ -61,7 +61,7 @@
                   :value="localEmployee.hiredDate"
                   :label="$t('components.employees.employeeForm.hiredOn')"
                   :rules="[vRequired]"
-                  prepend-icon="event"
+                  prepend-icon="mdi-calendar-month"
                   readonly
                   v-on="on"
                 />
@@ -90,7 +90,7 @@
                   :value="localEmployee.positionSetDate"
                   :label="$t('components.employees.employeeForm.positionSetAt')"
                   :rules="[vRequired]"
-                  prepend-icon="event"
+                  prepend-icon="mdi-calendar-month"
                   readonly
                   v-on="on"
                 />
@@ -118,7 +118,7 @@
                 <v-text-field
                   :value="localEmployee.nextEvaluationDate"
                   :label="$t('components.employees.employeeForm.nextEvaluationAt')"
-                  prepend-icon="event"
+                  prepend-icon="mdi-calendar-month"
                   readonly
                   v-on="on"
                 />

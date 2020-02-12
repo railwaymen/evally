@@ -7,7 +7,7 @@
       v-model="skillName"
       @keyup.enter.native="addSkill"
       @click:append="addSkill"
-      append-icon="keyboard_return"
+      append-icon="mdi-keyboard-return"
       filled
     />
 
@@ -30,11 +30,11 @@
             <div class="skill__action">
               <div v-if="editable">
                 <v-btn class="drag-item-btn ma-0" icon>
-                  <v-icon>drag_indicator</v-icon>
+                  <v-icon>mdi-drag</v-icon>
                 </v-btn>
 
                 <v-btn @click="removeSkill(index)" class="ma-0" icon>
-                  <v-icon>close</v-icon>
+                  <v-icon>mdi-close</v-icon>
                 </v-btn>
               </div>
             </div>

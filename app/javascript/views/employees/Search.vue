@@ -16,7 +16,7 @@
           <template #selection="{ item }">
             <v-chip>
               <v-icon size="14" class="mr-2">
-                {{ item.group === 'rating' ? 'star' : 'exposure' }}
+                {{ item.group === 'rating' ? 'mdi-star' : 'mdi-plus-minus' }}
               </v-icon>
 
               {{ item.name }}
@@ -25,7 +25,7 @@
 
           <template #item="{ item }">
             <v-icon size="14" class="mr-2">
-              {{ item.group === 'rating' ? 'star' : 'exposure' }}
+              {{ item.group === 'rating' ? 'mdi-star' : 'mdi-plus-minus' }}
             </v-icon>
 
             {{ item.name }}
@@ -36,25 +36,16 @@
       <template v-if="query.isRating">
         <div class="search-form__buttons">
           <v-btn-toggle v-model="query.operator" color="primary" group>
-            <v-btn
-              value="lteq"
-              text
-            >
-              &#8924;
+            <v-btn value="lteq" text>
+              <v-icon size="14">mdi-less-than-or-equal</v-icon>
             </v-btn>
 
-            <v-btn
-              value="eq"
-              text
-            >
-              &#61;
+            <v-btn value="eq" text>
+              <v-icon size="14">mdi-equal</v-icon>
             </v-btn>
 
-            <v-btn
-              value="gteq"
-              text
-            >
-              &#8925;
+            <v-btn value="gteq" text>
+              <v-icon size="14">mdi-greater-than-or-equal</v-icon>
             </v-btn>
           </v-btn-toggle>
         </div>

@@ -12,7 +12,7 @@
       <v-list v-else two-line>
         <v-list-item v-if="drafts.isEmpty">
           <v-list-item-action>
-            <v-icon>done_all</v-icon>
+            <v-icon>mdi-alert-circle-outline</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>{{ $t('components.dashboard.drafts.noContent') }}</v-list-item-title>
@@ -35,7 +35,7 @@
             <v-tooltip bottom>
               <template #activator="{ on }">
                 <v-btn :to="draft.draftPath" v-on="on" color="grey" icon>
-									<v-icon>edit</v-icon>
+									<v-icon>mdi-pencil</v-icon>
 								</v-btn>
               </template>
 

@@ -57,7 +57,7 @@ const SessionModule = {
         'Employees',
         'EmployeesOverview',
         'EmployeesSearch',
-        'Sessions',
+        'Session',
         'Templates'
       ]
 

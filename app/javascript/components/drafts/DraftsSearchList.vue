@@ -3,7 +3,7 @@
     <div class="siedebar__search">
       <v-text-field
         v-model="search"
-        append-icon="search"
+        append-icon="mdi-magnify"
         :label="$t('components.drafts.sidebar.search')"
         filled
       />
@@ -28,7 +28,7 @@
 
           <v-list-item v-if="searchedDrafts.length === 0">
             <v-list-item-action>
-              <v-icon>error_outline</v-icon>
+              <v-icon>mdi-alert-circle-outline</v-icon>
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>{{ $t('components.drafts.sidebar.noContent') }}</v-list-item-title>

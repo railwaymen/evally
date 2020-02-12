@@ -14,7 +14,7 @@
               color="green"
               icon
             >
-              <v-icon>add</v-icon>
+              <v-icon>mdi-plus</v-icon>
             </v-btn>
           </template>
 
@@ -30,7 +30,7 @@
               color="black"
               icon
             >
-              <v-icon>save_alt</v-icon>
+              <v-icon>mdi-content-save-outline</v-icon>
             </v-btn>
           </template>
 
@@ -46,7 +46,7 @@
               color="black"
               icon
             >
-              <v-icon>edit</v-icon>
+              <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </template>
 
@@ -62,7 +62,7 @@
               :disabled="template.isNewRecord"
               icon
             >
-              <v-icon>delete</v-icon>
+              <v-icon>mdi-delete-outline</v-icon>
             </v-btn>
           </template>
 

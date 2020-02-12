@@ -2,7 +2,6 @@
   <v-data-table
     :headers="headers"
     :items="employees.models"
-    :search="search"
     :loading="loading"
   >
     <template #item.fullname="{ item }">

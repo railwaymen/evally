@@ -37,7 +37,7 @@
                 v-on="on"
                 icon
               >
-                <v-icon class="rotateZ90">{{ section.isHalf ? `unfold_more` : `unfold_less` }}</v-icon>
+                <v-icon class="rotateZ90">{{ section.isHalf ? `mdi-unfold-more-vertical` : `mdi-unfold-less-vertical` }}</v-icon>
               </v-btn>
             </template>
 
@@ -47,7 +47,7 @@
           </v-tooltip>
 
           <v-btn class="drag-section-btn" icon>
-            <v-icon>drag_indicator</v-icon>
+            <v-icon>mdi-drag</v-icon>
           </v-btn>
 
           <v-tooltip bottom>
@@ -57,7 +57,7 @@
                 v-on="on"
                 icon
               >
-                <v-icon>delete</v-icon>
+                <v-icon>mdi-delete-outline</v-icon>
               </v-btn>
             </template>
 

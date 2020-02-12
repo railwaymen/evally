@@ -24,7 +24,7 @@
             <span class="profile__fullname" data-cy="profile-fullname">{{ user.fullname }}</span>
 
             <span class="profile__arrow">
-              <v-icon size="24">expand_more</v-icon>
+              <v-icon size="24">mdi-chevron-down</v-icon>
             </span>
           </span>
         </template>
@@ -51,7 +51,7 @@
           <!-- Log out list item -->
           <v-list-item @click="logout" data-cy="li-logout">
             <v-list-item-action>
-              <v-icon>last_page</v-icon>
+              <v-icon>mdi-logout-variant</v-icon>
             </v-list-item-action>
             <v-list-item-title>{{ $t('shared.navbar.logout') }}</v-list-item-title>
           </v-list-item>
@@ -98,13 +98,13 @@ export default {
   data () {
     return {
       tabs: [
-        { id: 0, name: 'dashboard', icon: 'dashboard', path: 'dashboard_path' },
-        { id: 10, name: 'drafts', icon: 'assignment_turned_in', path: 'drafts_path' },
-        { id: 20, name: 'employees', icon: 'people', path: 'employees_path' },
-        { id: 30, name: 'templates', icon: 'list_alt', path: 'templates_path' }
+        { id: 0, name: 'dashboard', icon: 'mdi-view-dashboard', path: 'dashboard_path' },
+        { id: 10, name: 'drafts', icon: 'mdi-file-edit-outline', path: 'drafts_path' },
+        { id: 20, name: 'employees', icon: 'mdi-account-group', path: 'employees_path' },
+        { id: 30, name: 'templates', icon: 'mdi-file-multiple-outline', path: 'templates_path' }
       ],
       items: [
-        { id: 0, name: 'settings', icon: 'settings', path: 'general_settings_path' }
+        { id: 0, name: 'settings', icon: 'mdi-settings', path: 'general_settings_path' }
       ]
     }
   },
