@@ -26,7 +26,6 @@
                     @click="$emit('edit', props.item.id)"
                     v-on="on"
                     icon
-                    flat
                   >
                     <v-icon size="15">edit</v-icon>
                   </v-btn>

@@ -14,7 +14,7 @@
         @click="closeDialog"
         color="grey darken-1"
         data-cy="btn-cancel"
-        flat
+        text
       >
         {{ $t('shared.buttons.cancel') }}
       </v-btn>
@@ -23,7 +23,7 @@
         @click="destroy"
         color="red darken-1"
         data-cy="btn-delete"
-        flat
+        text
       >
         {{ $t('shared.buttons.delete') }}
       </v-btn>

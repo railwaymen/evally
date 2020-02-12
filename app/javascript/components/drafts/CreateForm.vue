@@ -13,6 +13,7 @@
                 <v-icon color="white" v-if="employeeId">done</v-icon>
                 <span v-else>1</span>
               </v-avatar>
+
               <span class="step__text black--text">
                 {{ $t('components.drafts.createForm.selectEmployee') }}
               </span>
@@ -38,6 +39,7 @@
                 <v-icon color="white" v-if="templateId || useLatest">done</v-icon>
                 <span v-else>2</span>
               </v-avatar>
+
               <span class="step__text black--text">
                 {{ $t('components.drafts.createForm.selectTemplate') }}
               </span>
@@ -49,7 +51,7 @@
               <v-btn
                 @click="setUseLatest(true)"
                 :input-value="useLatest"
-                flat
+                text
               >
                 {{ $t('components.drafts.createForm.latestTemplate') }}
               </v-btn>
@@ -57,7 +59,7 @@
               <v-btn
                 @click="setUseLatest(false)"
                 :input-value="newTemplate"
-                flat
+                text
               >
                 {{ $t('components.drafts.createForm.newTemplate') }}
               </v-btn>
@@ -82,7 +84,7 @@
         <v-btn
           @click="closeDialog"
           color="grey darken-1"
-          flat
+          text
         >
           {{ $t('shared.buttons.cancel') }}
         </v-btn>
@@ -90,7 +92,7 @@
         <v-btn
           type="submit"
           color="green darken-1"
-          flat
+          text
           :disabled="!formCompleted"
         >
           {{ $t('shared.buttons.create') }}

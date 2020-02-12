@@ -36,7 +36,6 @@
                   v-on="on"
                   color="green"
                   icon
-                  flat
                 >
                   <v-icon>add</v-icon>
                 </v-btn>

@@ -11,7 +11,7 @@
           @click="fetchData"
           :to="{ name: 'employees_path' }"
           exact
-          flat
+          text
         >
           {{ $t('views.employees.index.nav.list') }}
         </v-btn>
@@ -21,7 +21,7 @@
           color="primary"
           :to="{ name: 'employees_search_path' }"
           exact
-          flat
+          text
         >
           {{ $t('views.employees.index.nav.search') }}
         </v-btn>
@@ -30,7 +30,7 @@
           color="primary"
           :to="{ name: 'employees_overview_path' }"
           exact
-          flat
+          text
         >
           {{ $t('views.employees.index.nav.overview') }}
         </v-btn>
@@ -48,7 +48,6 @@
               v-on="on"
               color="green"
               icon
-              flat
             >
               <v-icon>add</v-icon>
             </v-btn>
@@ -65,7 +64,6 @@
                 v-on="on"
                 color="black"
                 icon
-                flat
               >
                 <v-icon>link</v-icon>
               </v-btn>
@@ -81,7 +79,6 @@
                 v-on="on"
                 color="red"
                 icon
-                flat
               >
                 <v-icon>delete</v-icon>
               </v-btn>

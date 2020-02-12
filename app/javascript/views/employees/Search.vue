@@ -18,6 +18,7 @@
               <v-icon size="14" class="mr-2">
                 {{ item.group === 'rating' ? 'star' : 'exposure' }}
               </v-icon>
+
               {{ item.name }}
             </v-chip>
           </template>
@@ -39,7 +40,7 @@
               class="px-3 mx-1"
               value="lteq"
               large
-              flat
+              text
             >
               &#8924;
             </v-btn>
@@ -48,7 +49,7 @@
               class="px-3 mx-1"
               value="eq"
               large
-              flat
+              text
             >
               &#61;
             </v-btn>
@@ -57,7 +58,7 @@
               class="px-3 mx-1"
               value="gteq"
               large
-              flat
+              text
             >
               &#8925;
             </v-btn>
@@ -74,7 +75,7 @@
           <v-btn
             :value="false"
             large
-            flat
+            text
             class="px-3 mx-1"
           >
             {{ $t('shared.buttons.no') }}
@@ -83,7 +84,7 @@
           <v-btn
             :value="true"
             large
-            flat
+            text
             class="px-3 mx-1"
           >
             {{ $t('shared.buttons.yes') }}
@@ -96,14 +97,14 @@
           @click="reset"
           color="grey darken-1"
           type="submit"
-          flat
+          text
         >
           {{ $t('shared.buttons.reset') }}
         </v-btn>
         <v-btn
           color="primary"
           type="submit"
-          flat
+          text
         >
           {{ $t('shared.buttons.search') }}
         </v-btn>

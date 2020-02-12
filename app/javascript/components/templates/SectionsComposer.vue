@@ -36,7 +36,6 @@
               <v-btn
                 @click="resize(section.id, index)"
                 v-on="on"
-                flat
                 icon
               >
                 <v-icon class="rotateZ90">{{ section.isHalf ? `unfold_more` : `unfold_less` }}</v-icon>
@@ -48,7 +47,7 @@
             </span>
           </v-tooltip>
 
-          <v-btn class="drag-section-btn" flat icon>
+          <v-btn class="drag-section-btn" icon>
             <v-icon>drag_indicator</v-icon>
           </v-btn>
 
@@ -57,7 +56,6 @@
               <v-btn
                 @click="remove(section.id, index)"
                 v-on="on"
-                flat
                 icon
               >
                 <v-icon>delete</v-icon>

@@ -48,14 +48,14 @@
         <v-btn
           @click="closeDialog"
           color="grey darken-1"
-          flat
+          text
         >
           {{ $t('shared.buttons.cancel') }}
         </v-btn>
         <v-btn
           type="submit"
           color="green darken-1"
-          flat
+          text
         >
           {{ $t('shared.buttons.complete') }}
         </v-btn>

@@ -13,7 +13,6 @@
               v-on="on"
               color="green"
               icon
-              flat
             >
               <v-icon>add</v-icon>
             </v-btn>
@@ -30,7 +29,6 @@
               v-on="on"
               color="green"
               icon
-              flat
             >
               <v-icon>how_to_vote</v-icon>
             </v-btn>
@@ -47,7 +45,6 @@
               v-on="on"
               color="black"
               icon
-              flat
             >
               <v-icon>save_alt</v-icon>
             </v-btn>
@@ -64,7 +61,6 @@
               v-on="on"
               color="black"
               icon
-              flat
             >
               <v-icon>restore</v-icon>
             </v-btn>
@@ -81,7 +77,6 @@
               v-on="on"
               color="red"
               icon
-              flat
             >
               <v-icon>delete</v-icon>
             </v-btn>
@@ -97,7 +92,6 @@
               v-on="on"
               color="black"
               icon
-              flat
             >
               <v-icon>{{ isSidebarVisible ? 'visibility_off' : 'visibility' }}</v-icon>
             </v-btn>

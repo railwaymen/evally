@@ -25,8 +25,7 @@
         color="primary"
         block
         large
-        dark
-        outline
+        outlined
       >
         <v-icon>add</v-icon>  {{ $t('components.templates.sectionForm.button') }}
       </v-btn>

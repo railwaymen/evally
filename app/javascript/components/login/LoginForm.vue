@@ -28,10 +28,10 @@
         <v-btn
           color="primary"
           type="submit"
-          outline
-          round
+          outlined
+          rounded
           block
-          flat
+          text
         >
           Sign in
         </v-btn>

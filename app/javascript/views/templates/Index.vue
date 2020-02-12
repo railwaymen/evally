@@ -13,7 +13,6 @@
               v-on="on"
               color="green"
               icon
-              flat
             >
               <v-icon>add</v-icon>
             </v-btn>
@@ -28,8 +27,8 @@
               @click="save"
               v-on="on"
               :disabled="!template.editable"
+              color="black"
               icon
-              flat
             >
               <v-icon>save_alt</v-icon>
             </v-btn>
@@ -44,8 +43,8 @@
               @click="edit"
               v-on="on"
               :disabled="template.isNewRecord"
+              color="black"
               icon
-              flat
             >
               <v-icon>edit</v-icon>
             </v-btn>
@@ -62,7 +61,6 @@
               v-on="on"
               :disabled="template.isNewRecord"
               icon
-              flat
             >
               <v-icon>delete</v-icon>
             </v-btn>

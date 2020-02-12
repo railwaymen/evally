@@ -34,7 +34,7 @@
 					<v-list-tile-action>
             <v-tooltip bottom>
               <template #activator="{ on }">
-                <v-btn :to="draft.draftPath" v-on="on" color="grey" flat icon>
+                <v-btn :to="draft.draftPath" v-on="on" color="grey" icon>
 									<v-icon>edit</v-icon>
 								</v-btn>
               </template>

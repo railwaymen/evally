@@ -21,7 +21,7 @@
         />
 
         <div class="browser-form__action mt-4">
-          <v-btn color="primary" type="submit" outline block round>Enter</v-btn>
+          <v-btn color="primary" type="submit" outlined block rounded>Enter</v-btn>
         </div>
       </div>
     </v-form>
@@ -41,7 +41,6 @@
                   v-on="on"
                   color="grey"
                   icon
-                  flat
                 >
                   <v-icon>close</v-icon>
                 </v-btn>

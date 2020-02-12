@@ -29,10 +29,11 @@
 
             <div class="skill__action">
               <div v-if="editable">
-                <v-btn class="drag-item-btn ma-0" icon flat>
+                <v-btn class="drag-item-btn ma-0" icon>
                   <v-icon>drag_indicator</v-icon>
                 </v-btn>
-                <v-btn @click="removeSkill(index)" class="ma-0" icon flat>
+
+                <v-btn @click="removeSkill(index)" class="ma-0" icon>
                   <v-icon>close</v-icon>
                 </v-btn>
               </div>

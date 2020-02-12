@@ -53,11 +53,11 @@
       </div>
 
       <div class="settings__actions text-xs-right">
-        <v-btn @click="reset" flat>
+        <v-btn @click="reset" text>
           {{ $t('shared.buttons.reset') }}
         </v-btn>
 
-        <v-btn type="submit" class="primary" flat>
+        <v-btn type="submit" class="primary" text>
           {{ $t('shared.buttons.save') }}
         </v-btn>
       </div>

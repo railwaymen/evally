@@ -9,8 +9,8 @@
 
     <v-btn
       :to="{ name: 'dashboard_path' }"
-      class="mt-2"
-      flat
+      class="ma-2"
+      text
     >
       Go To Homepage
     </v-btn>
