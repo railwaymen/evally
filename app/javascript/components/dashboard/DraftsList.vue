@@ -10,28 +10,28 @@
 			</div>
 
       <v-list v-else two-line>
-        <v-list-tile v-if="drafts.isEmpty">
-          <v-list-tile-action>
+        <v-list-item v-if="drafts.isEmpty">
+          <v-list-item-action>
             <v-icon>done_all</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{ $t('components.dashboard.drafts.noContent') }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>{{ $t('components.dashboard.drafts.noContent') }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-list-tile v-for="draft in drafts.models" :key="draft.id" avatar>
-          <v-list-tile-content>
-            <v-list-tile-title>
+        <v-list-item v-for="draft in drafts.models" :key="draft.id">
+          <v-list-item-content>
+            <v-list-item-title>
 							<strong>{{ draft.employeeFullname }}</strong>
 							{{ $t('components.dashboard.drafts.as') }}
 							<em>{{ draft.employee_position }}</em> - {{ draft.nextEvaluationAt }}
-						</v-list-tile-title>
-            <v-list-tile-sub-title>
+						</v-list-item-title>
+            <v-list-item-subtitle>
               {{ $t('components.dashboard.drafts.updated', { date: draft.updatedAtFromNow }) }}
-            </v-list-tile-sub-title>
-          </v-list-tile-content>
+            </v-list-item-subtitle>
+          </v-list-item-content>
 
-					<v-list-tile-action>
+					<v-list-item-action>
             <v-tooltip bottom>
               <template #activator="{ on }">
                 <v-btn :to="draft.draftPath" v-on="on" color="grey" icon>
@@ -41,8 +41,8 @@
 
               <span>{{ $t('shared.tooltips.edit') }}</span>
             </v-tooltip>
-					</v-list-tile-action>
-        </v-list-tile>
+					</v-list-item-action>
+        </v-list-item>
       </v-list>
 		</div>
   </div>

@@ -10,25 +10,25 @@
 			</div>
 
       <v-list v-else>
-        <v-list-tile v-if="employees.isEmpty">
-          <v-list-tile-action>
+        <v-list-item v-if="employees.isEmpty">
+          <v-list-item-action>
             <v-icon>done_all</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>There are no upcoming evaluations to show</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>There are no upcoming evaluations to show</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
 
-        <v-list-tile v-for="employee in employees.models" :key="employee.id" avatar>
-          <v-list-tile-content>
-            <v-list-tile-title>
+        <v-list-item v-for="employee in employees.models" :key="employee.id">
+          <v-list-item-content>
+            <v-list-item-title>
 							<strong>{{ employee.fullname }}</strong>
 							{{ $t('components.dashboard.upcoming.as') }}
 							<em>{{ employee.position }}</em> - {{ employee.nextEvaluationAt }}
-						</v-list-tile-title>
-          </v-list-tile-content>
+						</v-list-item-title>
+          </v-list-item-content>
 
-          <v-list-tile-action>
+          <v-list-item-action>
             <v-tooltip bottom>
               <template #activator="{ on }">
                 <v-btn
@@ -43,8 +43,8 @@
 
               <span>{{ $t('shared.tooltips.create') }}</span>
             </v-tooltip>
-					</v-list-tile-action>
-        </v-list-tile>
+					</v-list-item-action>
+        </v-list-item>
       </v-list>
     </div>
   </div>

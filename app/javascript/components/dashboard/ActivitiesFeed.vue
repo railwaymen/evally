@@ -10,14 +10,14 @@
 			</div>
 
       <v-list v-else two-line>
-        <v-list-tile v-for="activity in activities.models" :key="activity.id" avatar>
-          <v-list-tile-content>
-            <v-list-tile-title>{{ activity.title }}</v-list-tile-title>
-						<v-list-tile-sub-title>{{ activity.description }}</v-list-tile-sub-title>
-          </v-list-tile-content>
+        <v-list-item v-for="activity in activities.models" :key="activity.id">
+          <v-list-item-content>
+            <v-list-item-title>{{ activity.title }}</v-list-item-title>
+						<v-list-item-subtitle>{{ activity.description }}</v-list-item-subtitle>
+          </v-list-item-content>
 
-					<v-list-tile-action>
-            <v-list-tile-action-text>
+					<v-list-item-action>
+            <v-list-item-action-text>
 							<v-tooltip bottom>
                 <template #activator="{ on }">
 								  <span v-on="on">{{ activity.shortCreatedAtFromNow }}</span>
@@ -25,17 +25,17 @@
 
 								<span>{{ activity.createdAt }}</span>
 							</v-tooltip>
-						</v-list-tile-action-text>
-					</v-list-tile-action>
-        </v-list-tile>
+						</v-list-item-action-text>
+					</v-list-item-action>
+        </v-list-item>
 
-        <v-list-tile v-if="activities.isEmpty">
-          <v-list-tile-content>
-            <v-list-tile-title>
+        <v-list-item v-if="activities.isEmpty">
+          <v-list-item-content>
+            <v-list-item-title>
               {{ $t('components.dashboard.activitiesFeed.noContent') }}
-            </v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
 		</div>
   </div>
