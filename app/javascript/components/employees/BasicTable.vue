@@ -15,42 +15,45 @@
           :headers="headers"
           :items="employees.models"
           :search="search"
-          :rows-per-page-items="perPageItems"
           :loading="loading"
         >
-          <template #items="props">
-            <td :style="{ padding: '0 5px' }">
-              <v-tooltip right>
-                <template #activator="{ on }">
-                  <v-btn
-                    @click="$emit('edit', props.item.id)"
-                    v-on="on"
-                    icon
-                  >
-                    <v-icon size="15">edit</v-icon>
-                  </v-btn>
-                </template>
+          <template #item.action="{ item }">
+            <v-tooltip right>
+              <template #activator="{ on }">
+                <v-btn
+                  @click="$emit('edit', item.id)"
+                  v-on="on"
+                  icon
+                >
+                  <v-icon size="15">edit</v-icon>
+                </v-btn>
+              </template>
 
-                <span>{{ $t('shared.tooltips.edit') }}</span>
-              </v-tooltip>
-            </td>
-            <td>
-              <router-link :to="{ name: 'employee_path', params: { employeeId: props.item.id }}">
-                {{ props.item.fullname }}
-              </router-link>
-            </td>
-            <td class="text-center">
-              <v-tooltip left>
-                <template #activator="{ on }">
-                  <span v-on="on">{{ props.item.hiredOn }}</span>
-                </template>
-                <span>{{ props.item.employmentTime }}</span>
-              </v-tooltip>
-            </td>
-            <td class="text-center">{{ props.item.group }}</td>
-            <td class="text-center">{{ props.item.position }}</td>
-            <td class="text-center">{{ props.item.positionSetAt }}</td>
-            <td class="text-center">{{ props.item.latestEvaluationDate }}</td>
+              <span>{{ $t('shared.tooltips.edit') }}</span>
+            </v-tooltip>
+          </template>
+
+          <template #item.fullname="{ item }">
+            <router-link :to="{ name: 'employee_path', params: { employeeId: item.id }}">
+              {{ item.fullname }}
+            </router-link>
+          </template>
+
+          <template #item.hired_on="{ item }">
+            <v-tooltip left>
+              <template #activator="{ on }">
+                <span v-on="on">{{ item.hiredOn }}</span>
+              </template>
+              <span>{{ item.employmentTime }}</span>
+            </v-tooltip>
+          </template>
+
+          <template #item.position_set_at="{ item }">
+            {{ item.positionSetAt }}
+          </template>
+
+          <template #item.latest_evaluation_date="{ item }">
+            {{ item.latestEvaluationDate }}
           </template>
         </v-data-table>
       </v-flex>
@@ -81,7 +84,7 @@ export default {
       headers: [
         {
           sortable: false,
-          value: null,
+          value: 'action',
         },
         {
           text: this.$t('components.employees.table.cols.name'),

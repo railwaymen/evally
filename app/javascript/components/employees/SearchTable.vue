@@ -2,39 +2,43 @@
   <v-data-table
     :headers="headers"
     :items="employees.models"
+    :search="search"
     :loading="loading"
-    :items-per-page-options="perPageItems"
   >
-    <template #items="props">
-      <td>
-        <router-link :to="{ name: 'employee_path', params: { employeeId: props.item.id }}">
-          {{ props.item.fullname }}
-        </router-link>
-      </td>
-      <td>
-        <v-rating
-          v-if="props.item.skill.group === 'rating'"
-          :value="props.item.skill.value"
-          length="3"
-          readonly
-        />
+    <template #item.fullname="{ item }">
+      <router-link :to="{ name: 'employee_path', params: { employeeId: item.id }}">
+        {{ item.fullname }}
+      </router-link>
+    </template>
 
-        <v-chip v-if="props.item.skill.group === 'bool'" text-color="black" disabled>
-          {{ props.item.skill.value ? $t('components.employees.searchTable.labels.yes') : $t('components.employees.searchTable.labels.no') }}
-        </v-chip>
-      </td>
-      <td class="text-center">
-        <v-tooltip left>
-          <template #activator="{ on }">
-            <span v-on="on">{{ props.item.hiredOn }}</span>
-          </template>
-          <span>{{ props.item.employmentTime }}</span>
-        </v-tooltip>
-      </td>
-      <td class="text-center">{{ props.item.group }}</td>
-      <td class="text-center">{{ props.item.position }}</td>
-      <td class="text-center">{{ props.item.positionSetAt }}</td>
-      <td class="text-center">{{ props.item.latestEvaluationDate }}</td>
+    <template #item.skill_value="{ item }">
+      <v-rating
+        v-if="item.skill.group === 'rating'"
+        :value="item.skill.value"
+        length="3"
+        readonly
+      />
+
+      <v-chip v-if="item.skill.group === 'bool'" text-color="black" disabled>
+        {{ item.skill.value ? $t('components.employees.searchTable.labels.yes') : $t('components.employees.searchTable.labels.no') }}
+      </v-chip>
+    </template>
+
+    <template #item.hired_on="{ item }">
+      <v-tooltip left>
+        <template #activator="{ on }">
+          <span v-on="on">{{ item.hiredOn }}</span>
+        </template>
+        <span>{{ item.employmentTime }}</span>
+      </v-tooltip>
+    </template>
+
+    <template #item.position_set_at="{ item }">
+      {{ item.positionSetAt }}
+    </template>
+
+    <template #item.latest_evaluation_date="{ item }">
+      {{ item.latestEvaluationDate }}
     </template>
   </v-data-table>
 </template>
@@ -65,7 +69,7 @@ export default {
         },
         {
           text: this.$t('components.employees.searchTable.cols.skill'),
-          value: 'skill.value'
+          value: 'skill_value'
         },
         {
           text: this.$t('components.employees.searchTable.cols.hiredOn'),

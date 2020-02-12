@@ -7,18 +7,22 @@
 }
 
 html  {
-  font-size: 50%;
+  // font-size: 50%;
+  font-size: 100%;
 
   @include respond(md) {
-    font-size: 56.25%;
+    // font-size: 56.25%;
+    font-size: 100%;
   };
 
   @include respond(lg) {
-    font-size: 62.5%;
+    // font-size: 62.5%;
+    font-size: 10px;
   };
 
   @include respond(xl) {
-    font-size: 62.5%;
+    // font-size: 62.5%;
+    font-size: 100%;
   };
 }
 
@@ -38,7 +42,7 @@ body  {
 
   .v-application  {
     font-family: 'Muli', sans-serif !important;
-    background: none !important;
+    background: $white !important;
 
     &--wrap  {
       min-height: calc(100vh - 8rem);
