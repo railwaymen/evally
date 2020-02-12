@@ -38,6 +38,7 @@ body  {
 
   .v-application  {
     font-family: 'Muli', sans-serif !important;
+    background: none !important;
 
     &--wrap  {
       min-height: calc(100vh - 8rem);

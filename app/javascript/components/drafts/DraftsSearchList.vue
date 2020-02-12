@@ -5,7 +5,7 @@
         v-model="search"
         append-icon="search"
         :label="$t('components.drafts.sidebar.search')"
-        box
+        filled
       />
     </div>
     <div class="sidebar__list">
@@ -17,23 +17,23 @@
         </div>
 
         <template v-else>
-          <v-list-tile v-for="draft in searchedDrafts" :key="draft.id" :to="draft.draftPath">
-            <v-list-tile-content>
-              <v-list-tile-title>{{ draft.employeeFullname }}</v-list-tile-title>
-              <v-list-tile-sub-title>
+          <v-list-item v-for="draft in searchedDrafts" :key="draft.id" :to="draft.draftPath">
+            <v-list-item-content>
+              <v-list-item-title>{{ draft.employeeFullname }}</v-list-item-title>
+              <v-list-item-subtitle>
                 {{ $t('components.drafts.sidebar.subtitle', { name: draft.template_name }) }}
-              </v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
 
-          <v-list-tile v-if="searchedDrafts.length === 0">
-            <v-list-tile-action>
+          <v-list-item v-if="searchedDrafts.length === 0">
+            <v-list-item-action>
               <v-icon>error_outline</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>{{ $t('components.drafts.sidebar.noContent') }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>{{ $t('components.drafts.sidebar.noContent') }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </template>
       </v-list>
     </div>

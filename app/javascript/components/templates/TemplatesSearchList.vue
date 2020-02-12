@@ -5,7 +5,7 @@
         v-model="search"
         append-icon="search"
         :label="$t('components.templates.sidebar.search')"
-        box
+        filled
       />
     </div>
 
@@ -18,27 +18,27 @@
         </div>
 
         <template v-else>
-          <v-list-tile
+          <v-list-item
             v-for="template in searchedTemplates"
             :key="template.id"
             :to="template.path"
             avatar
           >
-            <v-list-tile-content>
-              <v-list-tile-title>{{ template.name }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+            <v-list-item-content>
+              <v-list-item-title>{{ template.name }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
 
-          <v-list-tile v-if="searchedTemplates.length === 0">
-            <v-list-tile-action>
+          <v-list-item v-if="searchedTemplates.length === 0">
+            <v-list-item-action>
               <v-icon>error_outline</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>
                 {{ $t('components.templates.sidebar.noContent') }}
-              </v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </template>
       </v-list>
     </div>
