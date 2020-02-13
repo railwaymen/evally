@@ -12,7 +12,7 @@ class Employee extends Model {
       position: '',
       group: '',
       hired_on: null,
-      position_set_at: null,
+      position_set_on: null,
       next_evaluation_on: null,
       latest_evaluation_date: null,
       public_token: '',
@@ -89,18 +89,18 @@ class Employee extends Model {
   }
   // ===
 
-  get positionSetAt () {
-    return moment(this.position_set_at).format('MMMM YYYY')
+  get positionSetOn () {
+    return moment(this.position_set_on).format('MMMM YYYY')
   }
 
   // === position set at datepicker getter & setter
   get positionSetDate() {
-    return this.position_set_at ? moment(this.position_set_at).format('YYYY-MM-DD') : ''
+    return this.position_set_on ? moment(this.position_set_on).format('YYYY-MM-DD') : ''
   }
 
   set positionSetDate(date) {
     const mDate = moment(date, 'YYYY-MM-DD')
-    this.position_set_at = mDate.isValid() ? mDate.format() : ''
+    this.position_set_on = mDate.isValid() ? mDate.format() : ''
   }
   // ===
 

@@ -67,7 +67,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
             position: 'Junior Specialist',
             group: 'Marketing',
             hired_on: 1.month.ago,
-            position_set_at: 1.month.ago
+            position_set_on: 1.month.ago
           }
         }
 
@@ -87,7 +87,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
             position: 'Junior Specialist',
             group: 'Marketing',
             hired_on: 1.month.ago,
-            position_set_at: 1.month.ago
+            position_set_on: 1.month.ago
           }
         }
 
@@ -109,7 +109,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
             position: 'Junior Specialist',
             group: 'Marketing',
             hired_on: 1.month.ago,
-            position_set_at: 1.month.ago
+            position_set_on: 1.month.ago
           }
         }
 
@@ -188,7 +188,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           id: employee.id,
           employee: {
             position: 'Senior Specialist',
-            position_set_at: Time.zone.today
+            position_set_on: Time.zone.today
           }
         }
 
@@ -201,7 +201,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
         expect(employee.position_changes.last).to have_attributes(
           previous_position: 'Junior Specialist',
           current_position: 'Senior Specialist',
-          changed_at: params.dig(:employee, :position_set_at)
+          changed_at: params.dig(:employee, :position_set_on)
         )
       end
 

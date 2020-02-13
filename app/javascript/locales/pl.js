@@ -100,7 +100,7 @@ export default {
           hiredOn: 'Data zatrudnienia',
           group: 'Grupa',
           position: 'Stanowisko',
-          positionSetAt: 'Data zmiany stanowiska',
+          positionSetOn: 'Data zmiany stanowiska',
           latestEvaluationAt: 'Data ostatniej oceny',
         }
       },
@@ -115,7 +115,7 @@ export default {
           hiredOn: 'Data zatrudnienia',
           group: 'Grupa',
           position: 'Stanowisko',
-          positionSetAt: 'Data zmiany stanowiska',
+          positionSetOn: 'Data zmiany stanowiska',
           latestEvaluationAt: 'Data ostatniej oceny',
         },
         labels: {
@@ -133,7 +133,7 @@ export default {
         position: 'Stanowisko',
         group: 'Grupa',
         hiredOn: 'Data zatrudnienia',
-        positionSetAt: 'Data zmiany stanowiska',
+        positionSetOn: 'Data zmiany stanowiska',
         nextEvaluationOn: 'Data ostatniej evaluacji'
       },
       sidebar: {

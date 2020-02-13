@@ -48,8 +48,8 @@
             </v-tooltip>
           </template>
 
-          <template #item.position_set_at="{ item }">
-            {{ item.positionSetAt }}
+          <template #item.position_set_on="{ item }">
+            {{ item.positionSetOn }}
           </template>
 
           <template #item.latest_evaluation_date="{ item }">
@@ -106,8 +106,8 @@ export default {
           align: 'center'
         },
         {
-          text: this.$t('components.employees.table.cols.positionSetAt'),
-          value: 'position_set_at',
+          text: this.$t('components.employees.table.cols.positionSetOn'),
+          value: 'position_set_on',
           align: 'center'
         },
         {

@@ -84,7 +84,7 @@
               <template v-slot:activator="{ on }">
                 <v-text-field
                   :value="localEmployee.positionSetDate"
-                  :label="$t('components.employees.employeeForm.positionSetAt')"
+                  :label="$t('components.employees.employeeForm.positionSetOn')"
                   :rules="[vRequired]"
                   prepend-icon="mdi-calendar-month"
                   readonly
@@ -188,7 +188,7 @@ export default {
       this.$emit('closeDialog')
     },
     resetPositionDate() {
-      this.localEmployee.set('position_set_at', null)
+      this.localEmployee.set('position_set_on', null)
     },
     save() {
       if (!this.$refs.employeeForm.validate()) return

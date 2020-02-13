@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_13_192719) do
+ActiveRecord::Schema.define(version: 2020_02_13_213546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2020_02_13_192719) do
     t.string "state", default: "hired", null: false
     t.datetime "released_at"
     t.string "group", default: "Unassigned", null: false
-    t.date "position_set_at"
+    t.date "position_set_on"
     t.index ["group"], name: "index_employees_on_group"
     t.index ["last_name"], name: "index_employees_on_last_name"
     t.index ["public_token"], name: "index_employees_on_public_token", unique: true

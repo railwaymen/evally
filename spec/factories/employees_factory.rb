@@ -6,7 +6,7 @@ FactoryBot.define do
     last_name         { 'Reddington' }
     position          { 'Programmer' }
     hired_on          { 1.month.ago }
-    position_set_at   { 1.month.ago }
+    position_set_on   { 1.month.ago }
     state             { 'hired' }
 
     user

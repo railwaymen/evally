@@ -7,8 +7,8 @@ module V2
     fields :first_name, :last_name, :position, :group, :state, :hired_on, :next_evaluation_on,
            :public_token
 
-    field :position_set_at do |employee|
-      employee.position_set_at || employee.hired_on
+    field :position_set_on do |employee|
+      employee.position_set_on || employee.hired_on
     end
 
     view :index do

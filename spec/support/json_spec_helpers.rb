@@ -57,7 +57,7 @@ module JsonSpecHelpers
       position: employee.position,
       group: employee.group,
       hired_on: employee.hired_on,
-      position_set_at: employee.position_set_at || employee.hired_on,
+      position_set_on: employee.position_set_on || employee.hired_on,
       next_evaluation_on: employee.next_evaluation_on,
       public_token: employee.public_token
     }.to_json

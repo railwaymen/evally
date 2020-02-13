@@ -100,7 +100,7 @@ export default {
           hiredOn: 'Hired Date',
           group: 'Group',
           position: 'Position',
-          positionSetAt: 'Promotion Date',
+          positionSetOn: 'Promotion Date',
           latestEvaluationAt: 'Latest Evaluation Date',
         }
       },
@@ -115,7 +115,7 @@ export default {
           hiredOn: 'Hired Date',
           group: 'Group',
           position: 'Position',
-          positionSetAt: 'Promotion Date',
+          positionSetOn: 'Promotion Date',
           latestEvaluationAt: 'Latest Evaluation Date',
         },
         labels: {
@@ -133,7 +133,7 @@ export default {
         position: 'Position',
         group: 'Group',
         hiredOn: 'Hired Date',
-        positionSetAt: 'Promotion Date',
+        positionSetOn: 'Promotion Date',
         nextEvaluationOn: 'Next Evaluation Date'
       },
       sidebar: {
