@@ -23,7 +23,7 @@
           <template v-slot:activator="{ on }">
             <v-text-field
               class="mt-4"
-              :value="$moment(computedDate).format('MMMM YYYY')"
+              :value="computedDate"
               :label="$t('components.drafts.completeForm.nextEvaluation')"
               prepend-icon="mdi-calendar-month"
               readonly
@@ -80,7 +80,7 @@ export default {
     complete() {
       this.$store.dispatch(
         'DraftsModule/complete',
-        { nextEvaluationDate: this.computedDate }
+        { nextEvaluationDate: this.$moment(this.date).format('YYYY-MM-DD') }
       ).then(() => this.closeDialog())
     }
   },
@@ -90,11 +90,16 @@ export default {
     }),
     computedDate: {
       get() {
-        return this.date || this.$moment().add(this.setting.default_next_evaluation_time, 'M')
+        const mDate = this.$moment(this.date, 'YYYY-MM')
+
+        return (
+          mDate.isValid()
+            ? mDate
+            : this.$moment().add(this.setting.default_next_evaluation_time, 'M')
+        ).format('MMMM YYYY')
       },
       set(date) {
-        const mDate = this.$moment(date, 'YYYY-MM')
-        this.date = mDate.isValid() ? mDate.format() : ''
+        this.date = date
       }
     }
   }
