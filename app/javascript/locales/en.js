@@ -37,10 +37,10 @@ export default {
       logout: 'Logout',
     },
     validations: {
-      required: 'This field is required.',
-      min6: 'Must have 6 or more characters.',
-      isString: 'Must be a string.',
-      confirmed: 'Both passwords must be the same.'
+      required: 'This field is required',
+      min6: 'Must have 6 or more characters',
+      isString: 'Must be a string',
+      confirmed: 'Both passwords must be the same'
     }
   },
   components: {
