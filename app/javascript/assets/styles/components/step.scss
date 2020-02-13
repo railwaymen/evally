@@ -1,18 +1,18 @@
 .step  {
-  margin: 1rem 0;
+  margin: rem2dec(1rem 0);
 
   &__text  {
-    font-size: 1.8rem;
+    font-size: rem2dec(1.8rem);
     font-weight: 200;
   }
 
   &__buttons  {
-    padding-top: 1rem;
+    padding-top: rem2dec(1rem);
   }
 
   &__actions  {
     .v-btn  {
-      padding: 0 1.5rem;
+      padding: rem2dec(0 1.5rem);
     }
   }
 }

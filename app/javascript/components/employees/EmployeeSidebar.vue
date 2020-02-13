@@ -25,7 +25,7 @@
     <v-expansion-panels v-model="panel" accordion>
       <v-expansion-panel>
         <v-expansion-panel-header>
-          <h5 class="body-1">
+          <h5 class="body-2">
             {{ $t('components.employees.sidebar.completedEvaluations.title') }}
           </h5>
         </v-expansion-panel-header>
@@ -56,7 +56,7 @@
 
       <v-expansion-panel>
         <v-expansion-panel-header>
-          <h5 class="body-1">
+          <h5 class="body-2">
             {{ $t('components.employees.sidebar.positionChanges.title') }}
           </h5>
         </v-expansion-panel-header>

@@ -7,7 +7,7 @@
   text-align: center;
 
   &__logo  {
-    width: 20rem;
-    margin-bottom: 2rem;
+    width: rem2dec(20rem);
+    margin-bottom: rem2dec(2rem);
   }
 }

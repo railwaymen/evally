@@ -19,7 +19,7 @@
                 {{ item.group === 'rating' ? 'mdi-star' : 'mdi-plus-minus' }}
               </v-icon>
 
-              {{ item.name }}
+              <span class="body-2">{{ item.name }}</span>
             </v-chip>
           </template>
 
@@ -28,7 +28,7 @@
               {{ item.group === 'rating' ? 'mdi-star' : 'mdi-plus-minus' }}
             </v-icon>
 
-            {{ item.name }}
+            <span class="body-2">{{ item.name }}</span>
           </template>
         </v-select>
       </div>

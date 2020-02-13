@@ -4,17 +4,17 @@
   left: 50%;
   transform: translateX(-50%);
   background: #fff;
-  padding: 4rem 5rem;
-  border-radius: 0.5rem;
+  padding: rem2dec(4rem 5rem);
+  border-radius: rem2dec(0.5rem);
 
   @include respond(sm) {
-    width: 42rem;
+    width: rem2dec(42rem);
   };
 
   &__logo  {
-    width: 15rem;
+    width: rem2dec(15rem);
     height: auto;
-    margin: 3rem auto;
+    margin: rem2dec(3rem auto);
     position: relative;
 
     img  {
@@ -24,7 +24,7 @@
   }
 
   &__heading  {
-    font-size: 3.6rem;
+    font-size: rem2dec(3.6rem);
     font-weight: 600;
 
     &--dark  {
@@ -34,7 +34,7 @@
 
   &__info  {
     text-align: center;
-    font-size: 1.8rem;
+    font-size: rem2dec(1.8rem);
     font-weight: 200;
   }
 }

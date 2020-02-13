@@ -1,22 +1,22 @@
 .skill  {
   display: flex;
   align-items: center;
-  padding: 0.8rem 1.6rem 0.8rem;
-  font-size: 16px;
+  padding: rem2dec(.8rem 1.6rem .8rem);
+  font-size: 1rem;
   margin: 0;
   position: relative;
 
   &__name  {
     text-align: left;
     flex: 1 1 auto;
-    line-height: 3.6rem;
-    padding-right: 1.6rem;
+    line-height: rem2dec(3.6rem);
+    padding-right: rem2dec(1.6rem);
   }
 
   &__action  {
     flex-shrink: 0;
-    height: 36px;
-    line-height: 3.6rem;
-    min-width: 56px;
+    height: 2.25rem;
+    line-height: rem2dec(3.6rem);
+    min-width: 3.5rem;
   }
 }

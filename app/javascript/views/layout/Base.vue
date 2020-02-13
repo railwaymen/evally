@@ -18,7 +18,7 @@
         <template #activator="{ on }">
           <span class="profile" v-on="on" v-ripple>
             <v-avatar class="profile__avatar" color="primary" size="32">
-              <span class="white--text body-1" data-cy="profile-initials">{{ user.initials }}</span>
+              <span class="white--text body-2" data-cy="profile-initials">{{ user.initials }}</span>
             </v-avatar>
 
             <span class="profile__fullname" data-cy="profile-fullname">{{ user.fullname }}</span>

@@ -1,16 +1,16 @@
 .section-form  {
-  margin: 6.8rem auto 3.2rem;
+  margin: rem2dec(6.8rem auto 3.2rem);
 
   &__header  {
-    font-size: 1.8rem;
+    font-size: rem2dec(1.8rem);
     font-weight: 400;
     position: relative;
 
     span  {
       display: inline-block;
       background-color: #ffffff;
-      padding: 1rem 2rem;
-      margin-left: 3rem;
+      padding: rem2dec(1rem 2rem);
+      margin-left: rem2dec(3rem);
       position: relative;
       z-index: 10;
     }
@@ -28,8 +28,8 @@
   }
 
   &__label  {
-    line-height: 2rem;
-    font-size: 1.6rem;
+    line-height: rem2dec(2rem);
+    font-size: rem2dec(1.6rem);
     color: $font-gray-light;
   }
 }

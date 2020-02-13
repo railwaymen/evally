@@ -4,7 +4,7 @@ $profile-height: 36px;
   height: $profile-height;
   border-radius: $profile-height / 2;
   padding: 0 $profile-height * 1.2;
-  margin-left: 1.8rem;
+  margin-left: rem2dec(1.8rem);
   position: relative;
   background-color: white;
   transition: all 0.2s;
@@ -21,7 +21,7 @@ $profile-height: 36px;
   }
 
   &__fullname  {
-    font-size: 1.4rem;
+    font-size: rem2dec(1.4rem);
     line-height: $profile-height;
     text-transform: uppercase;
   }
@@ -29,6 +29,6 @@ $profile-height: 36px;
   &__arrow  {
     position: absolute;
     top: $profile-height / 6;
-    margin: 0 1rem;
+    margin: rem2dec(0 1rem);
   }
 }

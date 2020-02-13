@@ -1,9 +1,9 @@
 .evaluation  {
 
   &__fullname  {
-    font-size: 3.6rem;
+    font-size: rem2dec(3.6rem);
     font-weight: inherit;
-    margin-top: 2rem;
+    margin-top: rem2dec(2rem);
     text-align: center;
 
     @include respond(lg) {
@@ -12,7 +12,7 @@
   }
 
   &__position  {
-    font-size: 2.4rem;
+    font-size: rem2dec(2.4rem);
     font-weight: inherit;
     color: $font-gray-dark;
     text-transform: uppercase;

@@ -5,15 +5,15 @@
 
   &__skill  {
     width: 50%;
-    height: 8rem;
+    height: rem2dec(8rem);
   }
 
   &__buttons  {
-    margin: 0 3rem;
+    margin: rem2dec(0 3rem);
   }
 
   &__value  {
-    margin: 0 3rem;
+    margin: rem2dec(0 3rem);
     transform: translateY(-0.4rem);
   }
 

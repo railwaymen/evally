@@ -7,37 +7,33 @@
 }
 
 html  {
-  font-size: 50%;
-  // font-size: 100%;
+  font-size: 75%;
 
   @include respond(md) {
-    font-size: 56.25%;
-    // font-size: 100%;
+    font-size: 87,5%;
   };
 
   @include respond(lg) {
-    font-size: 62.5%;
-    // font-size: 16px;
+    font-size: 100%;
   };
 
   @include respond(xl) {
-    font-size: 62.5%;
-    // font-size: 100%;
+    font-size: 100%;
   };
 }
 
 body  {
   box-sizing: border-box;
-  padding: 3rem 1rem;
+  padding: rem2dec(3rem 1rem);
   background: $white;
   font-weight: 400;
-  font-size: 1rem;
+  font-size: rem2dec(1rem);
   line-height: 1.7;
   color: $font-black;
   position: relative;
 
   @include respond(md) {
-    padding: 4rem 5rem;
+    padding: rem2dec(4rem 5rem);
   };
 
   .v-application  {
@@ -45,7 +41,7 @@ body  {
     background: $white !important;
 
     &--wrap  {
-      min-height: calc(100vh - 8rem);
+      min-height: calc(100vh - devcimalRems(8rem));
     }
   }
 }

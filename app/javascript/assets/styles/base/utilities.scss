@@ -1,6 +1,6 @@
 .separator  {
   width: 1px;
-  margin: 0 0.4rem;
+  margin: rem2dec(0 0.4rem);
 }
 
 .divider-before  {
@@ -9,12 +9,12 @@
   &::before  {
     content: '';
     width: 1px;
-    height: 30px;
+    height: rem2dec(3rem);
     display: inline-block;
     background-color: $font-gray-light;
     position: absolute;
-    top: -10px;
-    left: -0.5rem;
+    top: rem2dec(-1rem);
+    left: rem2dec(-.5rem);
   }
 }
 

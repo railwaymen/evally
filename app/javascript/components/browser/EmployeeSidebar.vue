@@ -20,7 +20,7 @@
     <v-expansion-panel class="elevation-0" expand :value="[true, true]">
       <v-expansion-panel-content>
         <template #header>
-          <h5 class="body-1">
+          <h5 class="body-2">
             {{ $t('components.employees.sidebar.completedEvaluations.title') }}
           </h5>
         </template>
@@ -49,7 +49,7 @@
 
       <v-expansion-panel-content>
         <template #header>
-          <h5 class="body-1">
+          <h5 class="body-2">
             {{ $t('components.employees.sidebar.positionChanges.title') }}
           </h5>
         </template>
