@@ -1,21 +1,33 @@
 <template>
-  <div class="positions-chart">
-    <horizontal-bar
-      :dataset="dataset"
-      :options="options"
-    />
+  <div class="widget widget--border-primary">
+    <h3 class="widget__header">
+      {{ $t('components.employees.positionsChart.title') }}
+    </h3>
 
-    <div class="text-center mb-3">
-      <v-chip
-        v-for="(group, index) in groups"
-        :key="index"
-        @click="currentGroup = group"
-        :color="currentGroup === group ? colors[index] : 'grey'"
-        text-color="white"
-        class="mx-1"
-      >
-        {{ group }}
-      </v-chip>
+    <div class="widget__body">
+      <div v-if="loading" class="widget__loader">
+        <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
+      </div>
+
+      <div v-else class="positions-chart">
+        <horizontal-bar
+          :dataset="dataset"
+          :options="options"
+        />
+
+        <div class="text-center mb-3">
+          <v-chip
+            v-for="(group, index) in groups"
+            :key="index"
+            @click="currentGroup = group"
+            :color="currentGroup === group ? colors[index] : 'grey'"
+            text-color="white"
+            class="mx-1"
+          >
+            {{ group }}
+          </v-chip>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -26,7 +38,7 @@ import HorizontalBar from '@components/charts/HorizontalBar'
 import { colors } from '@utils/helpers'
 
 export default {
-  name: 'PositionsChart',
+  name: 'PositionsChartWidget',
   components: { HorizontalBar },
   props: {
     chartData: {
@@ -38,12 +50,17 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    loading: {
+      type: Boolean,
+      required: true,
+      default: true
     }
   },
   data() {
     return {
       colors,
-      currentGroup: this.groups[0]
+      currentGroup: null
     }
   },
   computed: {
@@ -86,6 +103,11 @@ export default {
           }]
         }
       }
+    }
+  },
+  watch: {
+    groups(newVal) {
+      this.currentGroup = newVal[0]
     }
   }
 }

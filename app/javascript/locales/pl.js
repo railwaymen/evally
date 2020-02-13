@@ -149,6 +149,12 @@ export default {
           previous: 'Poprzednio: {name}',
           noContent: 'Brak zmian',
         }
+      },
+      positionsChart: {
+        title: 'Podział stanowisk'
+      },
+      averageEmployment: {
+        title: 'Śr. czas zatrudnienia'
       }
     },
     evaluations: {

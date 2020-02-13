@@ -149,6 +149,12 @@ export default {
           previous: 'Previous: {name}',
           noContent: 'No position changes yet',
         }
+      },
+      positionsChart: {
+        title: 'Employees by Positions'
+      },
+      averageEmployment: {
+        title: 'Average Employment'
       }
     },
     evaluations: {

@@ -1,7 +1,7 @@
 <template>
   <div class="widget widget--border-primary">
     <h3 class="widget__header">
-      Average Employment
+      {{ $t('components.employees.averageEmployment.title') }}
     </h3>
 
     <div class="widget__body">

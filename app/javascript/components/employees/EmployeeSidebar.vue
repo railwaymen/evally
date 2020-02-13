@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <v-expansion-panels v-model="panel" accordion>
+    <v-expansion-panels v-model="panel" multiple accordion>
       <v-expansion-panel>
         <v-expansion-panel-header>
           <h5 class="body-2">

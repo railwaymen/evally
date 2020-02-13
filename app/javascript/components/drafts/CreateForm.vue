@@ -8,8 +8,8 @@
       <v-card-text>
         <div class="step">
           <div class="step__header">
-            <v-chip color="white" disabled>
-              <v-avatar :class="[employeeId ? 'success' : 'grey darken-4', 'white--text']">
+            <v-chip color="white">
+              <v-avatar :class="[employeeId ? 'success' : 'grey darken-4', 'white--text', 'mr-2']">
                 <v-icon color="white" v-if="employeeId">mdi-check</v-icon>
                 <span v-else>1</span>
               </v-avatar>
@@ -34,8 +34,8 @@
 
         <div class="step">
           <div class="step__header">
-            <v-chip color="white" disabled>
-              <v-avatar :class="[templateId || useLatest ? 'success' : 'grey darken-4', 'white--text']">
+            <v-chip color="white">
+              <v-avatar :class="[templateId || useLatest ? 'success' : 'grey darken-4', 'white--text', 'mr-2']">
                 <v-icon color="white" v-if="templateId || useLatest">mdi-check</v-icon>
                 <span v-else>2</span>
               </v-avatar>

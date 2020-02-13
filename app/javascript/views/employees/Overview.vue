@@ -1,23 +1,11 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12 lg9>
-      <div class="widget widget--border-primary">
-        <h3 class="widget__header">
-          Employees by Positions
-        </h3>
-
-        <div class="widget__body">
-          <div v-if="loading" class="widget__loader">
-            <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
-          </div>
-
-          <positions-chart
-            v-else
-            :chart-data="positionsChartData"
-            :groups="groups"
-          />
-        </div>
-      </div>
+      <positions-chart-widget
+        :chartData="positionsChartData"
+        :groups="groups"
+        :loading="loading"
+      />
     </v-flex>
 
     <v-flex xs12 lg3>
@@ -33,11 +21,11 @@
 import { mapGetters } from 'vuex'
 
 import AverageEmploymentWidget from '@components/employees/AverageEmploymentWidget'
-import PositionsChart from '@components/employees/PositionsChart'
+import PositionsChartWidget from '@components/employees/PositionsChartWidget'
 
 export default {
   name: 'EmployeesOverview',
-  components: { AverageEmploymentWidget, PositionsChart },
+  components: { AverageEmploymentWidget, PositionsChartWidget },
   computed: {
     ...mapGetters({
       positionsChartData: 'EmployeesOverviewModule/positionsChartData',
