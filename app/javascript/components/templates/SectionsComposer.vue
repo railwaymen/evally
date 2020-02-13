@@ -37,7 +37,7 @@
                 v-on="on"
                 icon
               >
-                <v-icon class="rotateZ90">{{ section.isHalf ? `mdi-unfold-more-vertical` : `mdi-unfold-less-vertical` }}</v-icon>
+                <v-icon>{{ section.isHalf ? `mdi-unfold-more-vertical` : `mdi-unfold-less-vertical` }}</v-icon>
               </v-btn>
             </template>
 
