@@ -397,7 +397,7 @@ export default {
     },
     templates: {
       index: {
-        title: 'Szalony',
+        title: 'Szablony',
         instruction: 'Wybierz szablon z listy obok lub stwórz nowy',
       },
       show: {
