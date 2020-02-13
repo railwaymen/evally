@@ -5,7 +5,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
 
-    load(Rails.root.join('db', 'cypress_seeds.rb'))
+    load(Rails.root.join('db/cypress_seeds.rb'))
   end
 
   config.around(:each) do |example|
