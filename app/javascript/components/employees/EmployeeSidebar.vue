@@ -70,7 +70,7 @@
                 </v-list-item-title>
 
                 <v-list-item-subtitle class="body-2">
-                  {{ positionChange.changedAt }}
+                  {{ positionChange.changedOn }}
                 </v-list-item-subtitle>
 
                 <v-list-item-subtitle class="body-2">

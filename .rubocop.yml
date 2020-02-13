@@ -14,7 +14,7 @@ Style/Encoding:
 Style/Documentation:
   Enabled: false
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
 
 Bundler/OrderedGems:

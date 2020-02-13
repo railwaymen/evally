@@ -201,7 +201,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
         expect(employee.position_changes.last).to have_attributes(
           previous_position: 'Junior Specialist',
           current_position: 'Senior Specialist',
-          changed_at: params.dig(:employee, :position_set_on)
+          changed_on: params.dig(:employee, :position_set_on)
         )
       end
 

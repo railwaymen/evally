@@ -62,7 +62,7 @@
               </v-list-tile-title>
 
               <v-list-tile-sub-title class="body-2">
-                {{ positionChange.changedAt }}
+                {{ positionChange.changedOn }}
               </v-list-tile-sub-title>
 
               <v-list-tile-sub-title class="body-2">

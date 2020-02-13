@@ -13,7 +13,7 @@ module V2
     end
 
     def position_changes
-      @employee.position_changes.order(changed_at: :desc)
+      @employee.position_changes.order(changed_on: :desc)
     end
   end
 end

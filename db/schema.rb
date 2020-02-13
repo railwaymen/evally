@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_13_213546) do
+ActiveRecord::Schema.define(version: 2020_02_13_214447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2020_02_13_213546) do
   create_table "position_changes", force: :cascade do |t|
     t.string "previous_position", null: false
     t.string "current_position", null: false
-    t.date "changed_at", null: false
+    t.date "changed_on", null: false
     t.bigint "employee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

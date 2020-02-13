@@ -8,12 +8,12 @@ class PositionChange extends Model {
       id: null,
       previous_position: '',
       current_position: '',
-      changed_at: null
+      changed_on: null
     };
   }
 
-  get changedAt() {
-    return moment(this.changed_at).format('MMM DD, YYYY')
+  get changedOn() {
+    return moment(this.changed_on).format('MMM DD, YYYY')
   }
 }
 

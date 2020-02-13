@@ -34,7 +34,7 @@ module V2
       @employee.position_changes.create!(
         previous_position: @employee.position_was,
         current_position: @employee.position,
-        changed_at: @employee.position_set_on
+        changed_on: @employee.position_set_on
       )
     end
 
