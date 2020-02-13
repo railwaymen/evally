@@ -1,5 +1,11 @@
 <template>
-  <v-snackbar v-model="visible" :color="message.type" :bottom="true" :timeout="4000" data-cy="flash">
+  <v-snackbar
+    v-model="visible"
+    :color="message.type"
+    :bottom="true"
+    :timeout="4000"
+    data-cy="notification"
+  >
     {{ message.text }}
     <v-btn @click="visible = false" color="white" icon>
       <v-icon>mdi-close</v-icon>

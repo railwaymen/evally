@@ -7,7 +7,7 @@
     <h3 class="login-form__heading login-form__heading--dark mb-4">Sign in</h3>
 
     <v-form ref="loginForm" @submit.prevent="submit">
-      <div class="login-form__group" data-cy="email">
+      <div class="login-form__group" data-cy="login-email">
         <v-text-field
           v-model="credentials.email"
           prepend-icon="mdi-at"
@@ -15,7 +15,7 @@
           label="Email"
         />
       </div>
-      <div class="login-form__group" data-cy="password">
+      <div class="login-form__group" data-cy="login-password">
         <v-text-field
           v-model="credentials.password"
           prepend-icon="mdi-lock-outline"
@@ -24,7 +24,7 @@
         />
       </div>
 
-      <div class="login-form__action mt-4" data-cy="submit">
+      <div class="login-form__action mt-4" data-cy="login-submit">
         <v-btn
           color="primary"
           type="submit"

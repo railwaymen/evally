@@ -1,9 +1,7 @@
 {
   "name": "evally",
   "private": true,
-  "scripts": {
-
-  },
+  "scripts": {},
   "dependencies": {
     "@kazupon/vue-i18n-loader": "^0.3.0",
     "@rails/webpacker": "^4.0.7",
@@ -30,6 +28,7 @@
   },
   "devDependencies": {
     "babel-core": "^7.0.0-bridge",
+    "cypress": "^4.0.1",
     "webpack-dev-server": "^3.7.2"
   }
 }

@@ -22,6 +22,7 @@ group :development, :test do
   gem 'brakeman', '~> 4.3.1', require: false
   gem 'bullet'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'cypress-on-rails', '~> 1.5'
   gem 'factory_bot_rails', '~> 4.11'
   gem 'faker', '~> 1.9.1'
   gem 'json_spec', '~> 1.1'
@@ -44,4 +45,8 @@ group :development do
 
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :test do
+  gem 'database_cleaner', '~> 1.8'
 end
