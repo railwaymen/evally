@@ -24,7 +24,7 @@
             <v-list-item-title>
 							<strong>{{ employee.fullname }}</strong>
 							{{ $t('components.dashboard.upcoming.as') }}
-							<em>{{ employee.position }}</em> - {{ employee.nextEvaluationAt }}
+							<em>{{ employee.position }}</em> - {{ employee.nextEvaluationOn }}
 						</v-list-item-title>
           </v-list-item-content>
 

@@ -9,7 +9,7 @@ module V2
     end
 
     def employees
-      Employee.order(next_evaluation_at: :desc).limit(setting.default_upcoming_items || 5)
+      Employee.order(next_evaluation_on: :desc).limit(setting.default_upcoming_items || 5)
     end
 
     def drafts

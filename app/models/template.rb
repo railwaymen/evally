@@ -11,9 +11,4 @@ class Template < ApplicationRecord
   # # Validation
   #
   validates :name, presence: true
-
-  validates :state, presence: true, inclusion: {
-    in: Template.states.keys,
-    message: :invalid_inclusion
-  }
 end

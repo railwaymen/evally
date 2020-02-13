@@ -22,7 +22,7 @@ module JsonSpecHelpers
         employee_last_name: employee.last_name,
         employee_position: employee.position,
         employee_hired_on: employee.hired_on,
-        next_evaluation_at: employee.next_evaluation_at
+        next_evaluation_on: employee.next_evaluation_on
       },
       sections: draft.sections.map(&method(:section_schema))
     }.to_json
@@ -43,7 +43,7 @@ module JsonSpecHelpers
         employee_last_name: employee.last_name,
         employee_position: employee.position,
         employee_hired_on: employee.hired_on,
-        next_evaluation_at: employee.next_evaluation_at
+        next_evaluation_on: employee.next_evaluation_on
       },
       sections: evaluation.sections.map(&method(:section_schema))
     }.to_json
@@ -58,7 +58,7 @@ module JsonSpecHelpers
       group: employee.group,
       hired_on: employee.hired_on,
       position_set_at: employee.position_set_at || employee.hired_on,
-      next_evaluation_at: employee.next_evaluation_at,
+      next_evaluation_on: employee.next_evaluation_on,
       public_token: employee.public_token
     }.to_json
   end

@@ -16,8 +16,8 @@
         </div>
 
         <div class="vcard__info">
-          <div class="vcard__label">{{ $t('components.employees.sidebar.nextEvaluationAt') }}</div>
-          <div class="vcard__value">{{ employee.nextEvaluationAt }}</div>
+          <div class="vcard__label">{{ $t('components.employees.sidebar.nextEvaluationOn') }}</div>
+          <div class="vcard__value">{{ employee.nextEvaluationOn }}</div>
         </div>
       </div>
     </div>

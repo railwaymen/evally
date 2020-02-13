@@ -260,7 +260,7 @@ RSpec.describe V2::DraftsController, type: :controller do
           id: draft.id,
           draft: {
             state: 'completed',
-            next_evaluation_at: 6.months.from_now.strftime('%Y-%M'),
+            next_evaluation_on: 6.months.from_now.strftime('%Y-%M'),
             sections: [
               {
                 id: section.id,

@@ -60,7 +60,7 @@ module V2
     end
 
     def save_next_evaluation_date!
-      employee.update!(next_evaluation_at: @params[:next_evaluation_at])
+      employee.update!(next_evaluation_on: @params[:next_evaluation_on])
     end
   end
 end

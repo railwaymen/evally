@@ -134,12 +134,12 @@ export default {
         group: 'Grupa',
         hiredOn: 'Data zatrudnienia',
         positionSetAt: 'Data zmiany stanowiska',
-        nextEvaluationAt: 'Data ostatniej evaluacji'
+        nextEvaluationOn: 'Data ostatniej evaluacji'
       },
       sidebar: {
         group: 'Groupa',
         hiredOn: 'Data zatrudnienia',
-        nextEvaluationAt: 'Data ostatniej evaluacji',
+        nextEvaluationOn: 'Data ostatniej evaluacji',
         completedEvaluations: {
           title: 'Zakończone ocenę',
           noContent: 'Brak ocen'

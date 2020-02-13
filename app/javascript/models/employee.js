@@ -13,7 +13,7 @@ class Employee extends Model {
       group: '',
       hired_on: null,
       position_set_at: null,
-      next_evaluation_at: null,
+      next_evaluation_on: null,
       latest_evaluation_date: null,
       public_token: '',
       skill: {},
@@ -72,20 +72,20 @@ class Employee extends Model {
     return moment(this.latest_evaluation_date).format('MMM DD, YYYY')
   }
 
-  get nextEvaluationAt() {
-    if (!this.next_evaluation_at) return i18n.t('models.employee.firstTime')
+  get nextEvaluationOn() {
+    if (!this.next_evaluation_on) return i18n.t('models.employee.firstTime')
 
-    return moment(this.next_evaluation_at).format('MMM YYYY')
+    return moment(this.next_evaluation_on).format('MMM YYYY')
   }
 
   // === next evaluation at datepicker getter & setter
   get nextEvaluationDate() {
-    return this.next_evaluation_at ? moment(this.next_evaluation_at).format('YYYY-MM') : ''
+    return this.next_evaluation_on ? moment(this.next_evaluation_on).format('YYYY-MM') : ''
   }
 
   set nextEvaluationDate(date) {
     const mDate = moment(date, 'YYYY-MM')
-    this.next_evaluation_at = mDate.isValid() ? mDate.format() : ''
+    this.next_evaluation_on = mDate.isValid() ? mDate.format() : ''
   }
   // ===
 

@@ -22,8 +22,8 @@ module V2
       ev.employee.hired_on
     end
 
-    field :next_evaluation_at do |ev, _options|
-      ev.employee.next_evaluation_at
+    field :next_evaluation_on do |ev, _options|
+      ev.employee.next_evaluation_on
     end
   end
 end

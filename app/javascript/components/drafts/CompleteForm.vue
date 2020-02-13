@@ -80,7 +80,7 @@ export default {
     complete() {
       this.$store.dispatch(
         'DraftsModule/complete',
-        { nextEvaluationDate: this.computedDate.format('YYYY-MM') }
+        { nextEvaluationDate: this.computedDate }
       ).then(() => this.closeDialog())
     }
   },
@@ -93,7 +93,8 @@ export default {
         return this.date || this.$moment().add(this.setting.default_next_evaluation_time, 'M')
       },
       set(date) {
-        this.date = date
+        const mDate = this.$moment(date, 'YYYY-MM')
+        this.date = mDate.isValid() ? mDate.format() : ''
       }
     }
   }

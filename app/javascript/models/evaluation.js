@@ -11,7 +11,7 @@ class Evaluation extends Model {
       employee_last_name: '',
       employee_position: '',
       employee_hired_on: null,
-      next_evaluation_at: null,
+      next_evaluation_on: null,
       completed_at: '',
       state: '',
       template_name: '',
@@ -31,10 +31,10 @@ class Evaluation extends Model {
     return moment(this.employee_hired_on).format('MMMM YYYY')
   }
 
-  get nextEvaluationAt() {
-    if (!this.next_evaluation_at) return 'First time'
+  get nextEvaluationOn() {
+    if (!this.next_evaluation_on) return 'First time'
 
-    return moment(this.next_evaluation_at).format('MMM YYYY')
+    return moment(this.next_evaluation_on).format('MMM YYYY')
   }
 
   get updatedAtFromNow() {

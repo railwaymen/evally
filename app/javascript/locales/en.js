@@ -134,12 +134,12 @@ export default {
         group: 'Group',
         hiredOn: 'Hired Date',
         positionSetAt: 'Promotion Date',
-        nextEvaluationAt: 'Next Evaluation Date'
+        nextEvaluationOn: 'Next Evaluation Date'
       },
       sidebar: {
         group: 'Group',
         hiredOn: 'Hired Date',
-        nextEvaluationAt: 'Next Evaluation Date',
+        nextEvaluationOn: 'Next Evaluation Date',
         completedEvaluations: {
           title: 'Completed Evaluations',
           noContent: 'No evaluations yet'

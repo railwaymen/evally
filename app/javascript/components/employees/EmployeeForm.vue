@@ -111,7 +111,7 @@
               <template v-slot:activator="{ on }">
                 <v-text-field
                   :value="localEmployee.nextEvaluationDate"
-                  :label="$t('components.employees.employeeForm.nextEvaluationAt')"
+                  :label="$t('components.employees.employeeForm.nextEvaluationOn')"
                   prepend-icon="mdi-calendar-month"
                   readonly
                   v-on="on"

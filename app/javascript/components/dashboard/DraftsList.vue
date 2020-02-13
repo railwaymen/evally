@@ -24,7 +24,7 @@
             <v-list-item-title>
 							<strong>{{ draft.employeeFullname }}</strong>
 							{{ $t('components.dashboard.drafts.as') }}
-							<em>{{ draft.employee_position }}</em> - {{ draft.nextEvaluationAt }}
+							<em>{{ draft.employee_position }}</em> - {{ draft.nextEvaluationOn }}
 						</v-list-item-title>
             <v-list-item-subtitle>
               {{ $t('components.dashboard.drafts.updated', { date: draft.updatedAtFromNow }) }}

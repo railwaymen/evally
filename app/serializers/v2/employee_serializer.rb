@@ -4,7 +4,7 @@ module V2
   class EmployeeSerializer < Blueprinter::Base
     identifier :id
 
-    fields :first_name, :last_name, :position, :group, :state, :hired_on, :next_evaluation_at,
+    fields :first_name, :last_name, :position, :group, :state, :hired_on, :next_evaluation_on,
            :public_token
 
     field :position_set_at do |employee|

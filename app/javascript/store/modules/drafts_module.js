@@ -169,7 +169,7 @@ const DraftsModule = {
       const params = {
         draft: {
           state: 'completed',
-          next_evaluation_at: nextEvaluationDate,
+          next_evaluation_on: nextEvaluationDate,
           sections: sections.models
         }
       }
