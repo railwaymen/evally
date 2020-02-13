@@ -61,6 +61,20 @@ RSpec.describe V2::ProfileController, type: :controller do
         expect(response).to have_http_status 200
         expect(response.body).to be_json_eql user_schema(user)
       end
+
+      it 'responds with error if invalid profile' do
+        params = {
+          profile: {
+            first_name: ''
+          }
+        }
+
+        sign_in user
+        put :update, params: params
+
+        expect(response).to have_http_status 422
+        expect(json_response['details'].first).to eq 'First name can\'t be blank'
+      end
     end
   end
 

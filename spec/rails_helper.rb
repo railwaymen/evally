@@ -1,10 +1,19 @@
 require 'simplecov'
 
-SimpleCov.start do
-  add_filter '/vendor/'
-  add_filter '/config/'
+SimpleCov.start 'rails' do
   add_filter '/spec/'
+  add_filter '/config/'
+  add_filter '/db/'
+  add_filter '/vendor/'
+
+  add_group 'Forms', 'app/forms'
+  add_group 'Services', 'app/services'
+  add_group 'Presenters', 'app/presenters'
+  add_group 'Queries', 'app/queries'
 end
+
+SimpleCov.minimum_coverage 100
+
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'

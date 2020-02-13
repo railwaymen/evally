@@ -27,6 +27,4 @@ class Evaluation < ApplicationRecord
     in: Evaluation.states.keys,
     message: :invalid_inclusion
   }
-
-  delegate :user, to: :employee
 end

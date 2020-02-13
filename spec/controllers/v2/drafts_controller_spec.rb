@@ -101,6 +101,27 @@ RSpec.describe V2::DraftsController, type: :controller do
         expect(response.body).to be_json_eql draft_schema(Evaluation.draft.last)
       end
 
+      it 'responds with draft from previous evaluation' do
+        employee = FactoryBot.create(:employee)
+        FactoryBot.create(:evaluation, :completed, employee: employee)
+
+        params = {
+          draft: {
+            employee_id: employee.id,
+            use_latest: 1
+          }
+        }
+
+        sign_in user
+
+        expect do
+          post :create, params: params
+        end.to(change { Evaluation.count }.by(1))
+
+        expect(response).to have_http_status 201
+        expect(response.body).to be_json_eql draft_schema(Evaluation.draft.last)
+      end
+
       it 'responds with error if no employee' do
         template = FactoryBot.create(:template)
         FactoryBot.create(:section, sectionable: template)
@@ -151,6 +172,27 @@ RSpec.describe V2::DraftsController, type: :controller do
 
         expect(response).to have_http_status 404
         expect(json_response['details'].first).to eq 'Employee was not evaluated yet'
+      end
+
+      it 'responds with error is similar draft already exists' do
+        employee = FactoryBot.create(:employee)
+        FactoryBot.create(:evaluation, :draft, employee: employee)
+
+        template = FactoryBot.create(:template)
+        FactoryBot.create(:section, sectionable: template)
+
+        params = {
+          draft: {
+            employee_id: employee.id,
+            template_id: template.id
+          }
+        }
+
+        sign_in user
+        post :create, params: params
+
+        expect(response).to have_http_status 422
+        expect(json_response['details'].first).to eq 'Employee draft evaluation already exists'
       end
     end
   end

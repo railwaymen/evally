@@ -38,6 +38,20 @@ RSpec.describe V2::SettingsController, type: :controller do
         expect(response).to have_http_status 200
         expect(response.body).to be_json_eql setting_schema(user.setting.reload)
       end
+
+      it 'responds with error if no language' do
+        params = {
+          setting: {
+            lang: ''
+          }
+        }
+
+        sign_in user
+        put :update, params: params
+
+        expect(response).to have_http_status 422
+        expect(json_response['details'].first).to eq 'Lang can\'t be blank'
+      end
     end
   end
 end

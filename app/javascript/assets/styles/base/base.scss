@@ -41,7 +41,7 @@ body  {
     background: $white !important;
 
     &--wrap  {
-      min-height: calc(100vh - devcimalRems(8rem));
+      min-height: calc(100vh - 8rem);
     }
   }
 }
