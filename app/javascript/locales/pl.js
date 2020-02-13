@@ -397,7 +397,7 @@ export default {
       show: {
         label: 'Nazwa szablonu',
         placeholder: {
-          name: 'Imię i nazwoski',
+          name: 'Imię i nazwisko',
           position: 'Stanowisko',
           hiredOn: 'Data zatrudnienia',
           completedAt: 'Data zakończenia',
