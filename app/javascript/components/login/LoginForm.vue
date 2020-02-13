@@ -10,7 +10,7 @@
       <div class="login-form__group" data-cy="email">
         <v-text-field
           v-model="credentials.email"
-          prepend-icon="alternate_email"
+          prepend-icon="mdi-at"
           type="email"
           label="Email"
         />
@@ -18,7 +18,7 @@
       <div class="login-form__group" data-cy="password">
         <v-text-field
           v-model="credentials.password"
-          prepend-icon="lock"
+          prepend-icon="mdi-lock-outline"
           type="password"
           label="Password"
         />
@@ -29,7 +29,6 @@
           color="primary"
           type="submit"
           outlined
-          rounded
           block
           text
         >

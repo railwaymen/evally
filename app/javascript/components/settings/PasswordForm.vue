@@ -7,7 +7,7 @@
         <v-text-field
           v-model="new_password"
           :rules="[vRequired, vMin6]"
-          prepend-icon="lock"
+          prepend-icon="mdi-lock-outline"
           :label="$t('components.settings.passwordForm.newPassword')"
           type="password"
         />
@@ -26,7 +26,7 @@
         <v-text-field
           v-model="password"
           :rules="[vRequired, vMin6]"
-          prepend-icon="lock"
+          prepend-icon="mdi-lock-outline"
           :label="$t('components.settings.passwordForm.password')"
           type="password"
         />

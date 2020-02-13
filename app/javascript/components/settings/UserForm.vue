@@ -6,7 +6,7 @@
       <v-flex xs12>
         <v-text-field
           v-model="localUser.email"
-          prepend-icon="alternate_email"
+          prepend-icon="mdi-at"
           :label="$t('components.settings.userForm.email')"
           disabled
         />

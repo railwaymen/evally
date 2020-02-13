@@ -10,7 +10,7 @@
         <v-layout row justify-end>
           <v-flex xs12>
             <div class="date">
-              <h5 class="date__value">{{ draft.employeeHiredAt }}</h5>
+              <h5 class="date__value">{{ draft.employeeHiredOn }}</h5>
               <h6 class="date__description">{{ $t('views.drafts.show.hiredOn') }}</h6>
             </div>
           </v-flex>

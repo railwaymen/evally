@@ -24,6 +24,10 @@
     position: relative;
     bottom: 0.5rem;
     margin-left: auto;
+
+    & > * {
+      margin: 0 .5rem;
+    }
   }
 
   &__content  {

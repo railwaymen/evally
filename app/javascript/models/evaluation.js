@@ -10,7 +10,7 @@ class Evaluation extends Model {
       employee_first_name: '',
       employee_last_name: '',
       employee_position: '',
-      employee_hired_at: null,
+      employee_hired_on: null,
       next_evaluation_at: null,
       completed_at: '',
       state: '',
@@ -27,8 +27,8 @@ class Evaluation extends Model {
     return [this.employee_first_name, this.employee_last_name].join(' ')
   }
 
-  get employeeHiredAt() {
-    return moment(this.employee_hired_at).format('MMMM YYYY')
+  get employeeHiredOn() {
+    return moment(this.employee_hired_on).format('MMMM YYYY')
   }
 
   get nextEvaluationAt() {
