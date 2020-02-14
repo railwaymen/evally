@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception, unless: -> { Rails.env.production? || request.format.json? }
-  rescue_from V1::ErrorResponderService, with: :render_error_response
+  protect_from_forgery with: :exception, unless: lambda {
+    Rails.env.production? || request.format.json?
+  }
+
+  rescue_from ErrorResponderService, with: :render_error_response
 
   include RailsJwtAuth::WardenHelper
 
@@ -9,11 +14,10 @@ class ApplicationController < ActionController::Base
   private
 
   def render_error_response(error)
-    render json: V1::ErrorSerializer.render(error), status: error.status
+    render json: V2::ErrorSerializer.render(error), status: error.status
   end
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
   end
-
 end

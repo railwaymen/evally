@@ -39,10 +39,12 @@ module Evally
     config.eager_load_paths << Rails.root.join('app', 'services')
 
     # Whitelist locales available for the application
-    config.i18n.available_locales = [:en, :pl]
-    
+    config.i18n.available_locales = %i[en pl]
+
     # Set default locale to something other than :en
     config.i18n.default_locale = :en
 
+    # Set i18n fallbacks
+    config.i18n.fallbacks = true
   end
 end

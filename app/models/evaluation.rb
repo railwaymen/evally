@@ -1,5 +1,6 @@
-class Evaluation < ApplicationRecord
+# frozen_string_literal: true
 
+class Evaluation < ApplicationRecord
   # # Associations
   #
   belongs_to :employee
@@ -9,11 +10,11 @@ class Evaluation < ApplicationRecord
 
   # # Scopes
   #
-  scope :by_state, Proc.new { |state| where(state: state) if state.present? }
+  scope :by_state, proc { |state| where(state: state) if state.present? }
 
   # # Enums
   #
-  enum state: { draft: 0, completed: 10, archived: 20 }
+  enum state: { draft: 'draft', completed: 'completed', archived: 'archived' }
 
   # # Validations
   #
@@ -26,6 +27,4 @@ class Evaluation < ApplicationRecord
     in: Evaluation.states.keys,
     message: :invalid_inclusion
   }
-
-  delegate :user, to: :employee
 end

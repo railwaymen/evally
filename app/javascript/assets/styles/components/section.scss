@@ -1,0 +1,61 @@
+.section  {
+  margin-top: rem2dec(4rem);
+  position: relative;
+
+  &__header  {
+    font-size: rem2dec(1.8rem);
+    font-weight: 400;
+    position: relative;
+
+    span  {
+      display: inline-block;
+      background-color: #ffffff;
+      padding: rem2dec(1rem 2rem);
+      margin-left: rem2dec(3rem);
+      position: relative;
+      width: rem2dec(20rem);
+      z-index: 10;
+    }
+
+    &::after  {
+      content: "";
+      height: 1px;
+      width: 75%;
+      display: block;
+      background-color: $font-black;
+      position: absolute;
+      top: 50%;
+      z-index: 5;
+    }
+  }
+
+  &__actions  {
+    position: absolute;
+    z-index: 10;
+    top: rem2dec(1.5rem);
+    right: 0;
+    background: #ffffff;
+  }
+
+  &__items  {
+    margin: rem2dec(2rem 2rem 0 0);
+  }
+
+  &__text p  {
+    font-size: rem2dec(1.6rem);
+    font-weight: 200;
+    margin-top: rem2dec(.5rem);
+    white-space: pre-line;
+  }
+
+  &__text h4  {
+    font-weight: inherit;
+    font-size: rem2dec(1.6rem);
+    margin-top: rem2dec(1rem);
+    color: $font-gray-dark;
+  }
+
+  .need-to-improve  {
+    background-color: $background-light;
+  }
+}

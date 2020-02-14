@@ -1,0 +1,34 @@
+$profile-height: 36px;
+
+.profile  {
+  height: $profile-height;
+  border-radius: $profile-height / 2;
+  padding: 0 $profile-height * 1.2;
+  margin-left: rem2dec(1.8rem);
+  position: relative;
+  background-color: white;
+  transition: all 0.2s;
+  display: block;
+
+  &:hover  {
+    background-color: $background-light;
+  }
+
+  &__avatar  {
+    position: absolute;
+    top: 2px;
+    left: 0;
+  }
+
+  &__fullname  {
+    font-size: rem2dec(1.4rem);
+    line-height: $profile-height;
+    text-transform: uppercase;
+  }
+
+  &__arrow  {
+    position: absolute;
+    top: $profile-height / 6;
+    margin: rem2dec(0 1rem);
+  }
+}

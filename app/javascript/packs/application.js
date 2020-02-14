@@ -8,32 +8,23 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import Vue from 'vue'
-import App from '@/App'
+import App from '@views/App'
 
-import router from '@/router'
-import store from '@/store'
+import router from '@router/router'
+import store from '@store/store'
 
-// Axios
-import axios from '@/lib/http_config'
+// Axios (custom config)
+import http from '@utils/http'
 import VueAxios from 'vue-axios'
-Vue.use(VueAxios, axios)
+Vue.use(VueAxios, http)
 
 // Vuex
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
 // Vuetify
-import Vuetify from 'vuetify'
+import vuetify from '@plugins/vuetify'
 
-import Ven from 'vuetify/lib/locale/en'
-import Vpl from 'vuetify/lib/locale/pl'
-
-Vue.use(Vuetify, {
-  lang: {
-    locales: { en: Ven, pl: Vpl },
-    current: 'en'
-  }
-})
 
 // Vue2Clipboard
 import VueClipboard from 'vue-clipboard2'
@@ -45,36 +36,16 @@ import moment from 'moment'
 
 Vue.use(VueMoment, { moment })
 
-// Vue2Filters
-import Vue2Filters from 'vue2-filters'
-Vue.use(Vue2Filters)
-
 // Mixins
-import base_mixin from '@/lib/base_mixin'
-Vue.mixin(base_mixin)
+import globalMixin from '@utils/mixins/global'
+Vue.mixin(globalMixin)
 
 // Internationalization
-import VueI18n from 'vue-i18n'
-Vue.use(VueI18n)
+import i18n from '@locales/i18n'
 
-import english from '@/locale/en'
-import polish from '@/locale/pl'
-
-const i18n = new VueI18n({
-  locale: 'en',
-  fallbackLocale: 'en',
-  messages: { en: english, pl: polish }
-})
-
-// Highcharts
-import HighchartsVue from 'highcharts-vue'
-Vue.use(HighchartsVue)
-
-// Properties
-import _ from 'lodash'
-Vue.prototype.$_ = _
-
-import '@/assets/styles/application.styl'
+// Assets styles
+// import 'vuetify/dist/vuetify.min.css'
+import '@assets/styles/application.scss'
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -86,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       i18n,
       router,
       store,
+      vuetify,
       render: h => h(App)
     })
 

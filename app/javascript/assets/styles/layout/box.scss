@@ -1,0 +1,15 @@
+.box  {
+  background-color: #fff;
+  padding: rem2dec(3rem 4rem);
+
+  &__header  {
+    font-size: rem2dec(2.1rem);
+    font-weight: 200;
+  }
+
+  &__loader  {
+    background: #fff;
+    text-align: center;
+    padding: rem2dec(1rem);
+  }
+}

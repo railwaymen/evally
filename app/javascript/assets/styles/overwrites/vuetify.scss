@@ -1,0 +1,19 @@
+.v-app-bar {
+  z-index: 100 !important;
+}
+
+
+.v-data-table {
+  tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, .02)
+  }
+
+  a {
+    text-decoration: none
+  }
+}
+
+
+.v-expansion-panel::before {
+  box-shadow: none;
+}
