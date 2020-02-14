@@ -9,7 +9,11 @@ const isAuthenticated = (_to, _from, next) => {
   if (localStorage.getItem('ev411y_t0k3n')) {
     next()
   } else {
-    store.commit('FlashStore/push', { error: 'You are not authorized to perform this action. Please log in.' })
+    store.commit(
+      'NotificationsModule/push',
+      { error: 'You are not authorized to perform this action. Please log in.' }
+    )
+
     next('/')
   }
 }
@@ -120,6 +124,11 @@ export default new Router({
       path: '/',
       name: 'login_path',
       component: () => import(/* webpackChunkName: 'login' */ '@views/auth/Login'),
+    },
+    {
+      path: '/remind_password',
+      name: 'remind_password_path',
+      component: () => import(/* webpackChunkName: 'remind_password' */ '@views/auth/RemindPassword'),
     },
     {
       path: '/errors/404',

@@ -1,0 +1,38 @@
+.auth-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 100vh;
+  background: url('../images/abstract_bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+
+  @include respond(md) {
+    align-items: stretch;
+  };
+
+  &__content {
+    width: 100%;
+    display: flex;
+    padding: rem2dec(3rem);
+
+    @include respond(md) {
+      padding: 0;
+    };
+  }
+
+  &__side {
+    width: 100%;
+    background-color: white;
+    padding: rem2dec(3rem 4rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include respond(md) {
+      width: 40%;
+    };
+  }
+}

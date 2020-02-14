@@ -11,11 +11,11 @@
             <img src="@assets/images/logo_black.png" alt="Logo Evally">
           </div>
 
-          <h3 class="auth-form__heading">Sign in</h3>
+          <h3 class="auth-form__heading">Remind Password</h3>
 
-          <div class="auth-form__group" data-cy="login-email">
+          <div class="auth-form__group" data-cy="email">
             <v-text-field
-              v-model="credentials.email"
+              v-model="email"
               :rules="[vRequired]"
               append-icon="mdi-at"
               type="email"
@@ -23,20 +23,10 @@
             />
           </div>
 
-          <div class="auth-form__group" data-cy="login-password">
-            <v-text-field
-              v-model="credentials.password"
-              :rules="[vRequired]"
-              append-icon="mdi-lock-outline"
-              type="password"
-              label="Password"
-            />
-          </div>
-
-          <div class="auth-form__actions" data-cy="login-submit">
+          <div class="auth-form__actions" data-cy="submit">
             <span class="auth-form__link">
-              <router-link :to="{ name: 'remind_password_path' }">
-                Forgot your password?
+              <router-link :to="{ name: 'login_path' }">
+                Back to Login
               </router-link>
             </span>
 
@@ -46,7 +36,7 @@
               large
               outlined
             >
-              Sign in
+              Send
             </v-btn>
           </div>
         </v-form>
@@ -56,29 +46,19 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
-  name: 'Login',
+  name: 'RemindPassword',
   data() {
     return {
-      credentials: {
-        email: '',
-        password: ''
-      }
+      email: ''
     }
   },
   methods: {
     submit() {
       if (this.$refs.form.validate()) {
-        this.createSession(this.credentials)
-          .then(() => this.$router.push({ name: 'dashboard_path' }))
-          .catch(() => this.flash({ error: 'Invalid credentials, please try again.' }))
+        console.log('Submit!')
       }
-    },
-    ...mapActions({
-      createSession: 'SessionModule/create'
-    })
+    }
   },
   created () {
     if (localStorage.getItem('ev411y_t0k3n')) {

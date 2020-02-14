@@ -1,0 +1,40 @@
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  min-width: rem2dec(36rem);
+  width: 90%;
+  padding-bottom: rem2dec(10rem);
+
+  &__logo {
+    width: rem2dec(20rem);
+    height: auto;
+    margin: rem2dec(3rem 0);
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__heading {
+    font-size: rem2dec(4rem);
+    font-weight: 400;
+    margin-bottom: rem2dec(3rem);
+  }
+
+  &__group {
+    margin-bottom: rem2dec(1rem);
+  }
+
+  &__actions {
+    margin-top: rem2dec(2rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__link > a {
+    font-size: rem2dec(1.6rem);
+    text-decoration: none;
+  }
+}
