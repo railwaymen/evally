@@ -39,9 +39,10 @@ Rails.application.routes.draw do
     get '/*path', to: 'pages#index', format: false
   end
 
+  # resources :unlocks, controller: 'rails_jwt_auth/unlocks', only: %i[update]
   # resources :invitations, controller: 'rails_jwt_auth/invitations', only: [:create, :update]
-  # resource :password, controller: 'rails_jwt_auth/passwords', only: [:create, :update]
-  # resource :confirmation, controller: 'rails_jwt_auth/confirmations', only: [:create, :update]
-  # resource :registration, controller: 'rails_jwt_auth/registrations', only: [:create, :update, :destroy]
+  # resources :passwords, controller: 'rails_jwt_auth/passwords', only: [:create, :update]
+  # resources :confirmations, controller: 'rails_jwt_auth/confirmations', only: [:create, :update]
+  # resource :registration, controller: 'rails_jwt_auth/registrations', only: [:create]
   # resource :session, controller: 'rails_jwt_auth/sessions', only: [:create, :destroy]
 end

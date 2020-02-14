@@ -8,8 +8,6 @@ RSpec.describe V2::EvaluationsController, type: :controller do
   describe '#show' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
-
         get :show, params: { employee_id: 1, id: 1 }
         expect(response).to have_http_status 401
       end

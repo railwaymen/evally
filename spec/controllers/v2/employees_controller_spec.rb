@@ -8,8 +8,6 @@ RSpec.describe V2::EmployeesController, type: :controller do
   describe '#index' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
-
         get :index
         expect(response).to have_http_status 401
       end
@@ -30,8 +28,6 @@ RSpec.describe V2::EmployeesController, type: :controller do
   describe '#show' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
-
         get :index
         expect(response).to have_http_status 401
       end
@@ -70,8 +66,6 @@ RSpec.describe V2::EmployeesController, type: :controller do
             position_set_on: 1.month.ago
           }
         }
-
-        sign_out
 
         post :create, params: params
         expect(response).to have_http_status 401
@@ -156,7 +150,6 @@ RSpec.describe V2::EmployeesController, type: :controller do
           }
         }
 
-        sign_out
         put :update, params: params
 
         expect(response).to have_http_status 401
@@ -264,9 +257,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
   describe '#skills' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
         get :skills
-
         expect(response).to have_http_status 401
       end
     end
@@ -308,9 +299,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
   describe '#search' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
         get :search
-
         expect(response).to have_http_status 401
       end
     end
@@ -372,9 +361,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
   describe '#overview' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
         get :overview
-
         expect(response).to have_http_status 401
       end
     end
@@ -396,7 +383,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           hired_on: 45.days.ago
         )
 
-        sign_in :user
+        sign_in user
 
         get :overview
 
@@ -412,7 +399,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
       end
 
       it 'responds with empty arrays in no employees' do
-        sign_in :user
+        sign_in user
         get :overview
 
         expect(response).to have_http_status 200
@@ -428,9 +415,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
   describe '#destroy' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
         delete :destroy, params: { id: 1 }
-
         expect(response).to have_http_status 401
       end
     end

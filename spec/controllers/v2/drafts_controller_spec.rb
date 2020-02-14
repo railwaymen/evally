@@ -8,8 +8,6 @@ RSpec.describe V2::DraftsController, type: :controller do
   describe '#index' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
-
         get :index
         expect(response).to have_http_status 401
       end
@@ -32,8 +30,6 @@ RSpec.describe V2::DraftsController, type: :controller do
   describe '#show' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
-
         get :show, params: { id: 1 }
         expect(response).to have_http_status 401
       end
@@ -70,7 +66,6 @@ RSpec.describe V2::DraftsController, type: :controller do
           }
         }
 
-        sign_out
         post :create, params: params
 
         expect(response).to have_http_status 401
@@ -212,7 +207,6 @@ RSpec.describe V2::DraftsController, type: :controller do
           }
         }
 
-        sign_out
         put :update, params: params
 
         expect(response).to have_http_status 401
@@ -318,9 +312,7 @@ RSpec.describe V2::DraftsController, type: :controller do
   describe '#destroy' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
         delete :destroy, params: { id: 1 }
-
         expect(response).to have_http_status 401
       end
     end

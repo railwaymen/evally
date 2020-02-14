@@ -12,14 +12,10 @@ class User < ApplicationRecord
 
   # # Validation
   #
-  validates :email, presence: true, uniqueness: true,
-                    format: { with: RailsJwtAuth.email_regex }
-
+  validates :email, presence: true, uniqueness: true, format: URI::MailTo::EMAIL_REGEXP
   validates :password, presence: true, length: { in: 6..32 }, if: ->(u) { u.password.present? }
 
-  validates :first_name, presence: true
-
-  validates :last_name, presence: true
+  validates :first_name, :last_name, presence: true
 
   # # Callbacks
   #

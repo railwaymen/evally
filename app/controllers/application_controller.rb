@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include RailsJwtAuth::AuthenticableHelper
+
   protect_from_forgery with: :exception, unless: lambda {
     Rails.env.production? || request.format.json?
   }
 
   rescue_from ErrorResponderService, with: :render_error_response
-
-  include RailsJwtAuth::WardenHelper
+  rescue_from RailsJwtAuth::NotAuthorized, with: :unauthorized_response
 
   before_action :set_locale
 
@@ -15,6 +16,10 @@ class ApplicationController < ActionController::Base
 
   def render_error_response(error)
     render json: V2::ErrorSerializer.render(error), status: error.status
+  end
+
+  def unauthorized_response
+    head :unauthorized
   end
 
   def set_locale
