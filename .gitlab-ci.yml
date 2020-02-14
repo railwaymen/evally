@@ -1,30 +1,15 @@
-variables:
-  RAILS_ENV: test
-
 before_script:
   - bundle install --path=/home/gitlab-runner/builds/shared/${CI_PROJECT_NAME}/gems
-  - yarn install
-
-test:
-  script:
-    - bundle exec rake
-
-staging:
-  stage: deploy
-  environment:
-    name: staging
-    url: http://evally-stage.int.railwaymen.org/
-  only:
-    - develop
-  script:
-    - bundle exec cap staging deploy
 
 production:
-  environment:
-    name: production
-    url: http://evally.int.railwaymen.org/
   only:
     - master
   script:
     - bundle exec cap production deploy
-  when: manual
+
+staging:
+  stage: deploy
+  only:
+    - develop
+  script:
+    - bundle exec cap staging deploy
