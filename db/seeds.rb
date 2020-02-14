@@ -24,7 +24,7 @@ if Rails.env.development?
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
       position: Faker::Job.title,
-      hired_at: Faker::Date.between(1.year.ago, Time.now),
+      hired_on: Faker::Date.between(1.year.ago, Time.now),
       user: current_user
     )
   end

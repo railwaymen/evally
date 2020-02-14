@@ -1,0 +1,36 @@
+.widget  {
+  background-color: #fff;
+
+  &--border-primary  {
+    border-top: 3px solid $primary;
+  }
+
+  &--border-grey  {
+    border-top: 3px solid $grey;
+  }
+
+  &__header  {
+    font-size: rem2dec(2.4rem);
+    font-weight: 200;
+    line-height: rem2dec(4rem);
+    display: block;
+    padding: rem2dec(1.5rem 3rem);
+    border-bottom: 1px solid $grey;
+  }
+
+  &__body  {
+    padding: rem2dec(2rem);
+  }
+
+  &__loader  {
+    background: #fff;
+    text-align: center;
+    padding: rem2dec(1rem);
+  }
+
+  &__info  {
+    font-size: rem2dec(2.1rem);
+    font-weight: 200;
+    text-align: center;
+  }
+}

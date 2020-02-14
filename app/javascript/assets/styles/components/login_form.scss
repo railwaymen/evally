@@ -1,0 +1,40 @@
+.login-form  {
+  width: 90%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  padding: rem2dec(4rem 5rem);
+  border-radius: rem2dec(0.5rem);
+
+  @include respond(sm) {
+    width: rem2dec(42rem);
+  };
+
+  &__logo  {
+    width: rem2dec(15rem);
+    height: auto;
+    margin: rem2dec(3rem auto);
+    position: relative;
+
+    img  {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__heading  {
+    font-size: rem2dec(3.6rem);
+    font-weight: 600;
+
+    &--dark  {
+      color: $font-gray-dark;
+    }
+  }
+
+  &__info  {
+    text-align: center;
+    font-size: rem2dec(1.8rem);
+    font-weight: 200;
+  }
+}

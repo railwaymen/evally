@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_05_193204) do
+ActiveRecord::Schema.define(version: 2020_02_13_214447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,39 +28,41 @@ ActiveRecord::Schema.define(version: 2019_10_05_193204) do
   end
 
   create_table "employees", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "position"
-    t.datetime "hired_at"
-    t.datetime "next_evaluation_at"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "position", null: false
+    t.date "hired_on", null: false
+    t.date "next_evaluation_on"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "public_token"
-    t.integer "state", default: 0
+    t.string "public_token", null: false
+    t.string "state", default: "hired", null: false
     t.datetime "released_at"
-    t.string "group", default: "Unassigned"
-    t.date "position_set_at"
+    t.string "group", default: "Unassigned", null: false
+    t.date "position_set_on"
     t.index ["group"], name: "index_employees_on_group"
     t.index ["last_name"], name: "index_employees_on_last_name"
     t.index ["public_token"], name: "index_employees_on_public_token", unique: true
+    t.index ["state"], name: "index_employees_on_state"
     t.index ["user_id"], name: "index_employees_on_user_id"
   end
 
   create_table "evaluations", force: :cascade do |t|
     t.bigint "employee_id"
-    t.integer "state", default: 0
+    t.string "state", default: "draft", null: false
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "template_name"
     t.index ["employee_id"], name: "index_evaluations_on_employee_id"
+    t.index ["state"], name: "index_evaluations_on_state"
   end
 
   create_table "position_changes", force: :cascade do |t|
     t.string "previous_position", null: false
     t.string "current_position", null: false
-    t.date "changed_at", null: false
+    t.date "changed_on", null: false
     t.bigint "employee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -68,13 +70,13 @@ ActiveRecord::Schema.define(version: 2019_10_05_193204) do
   end
 
   create_table "sections", force: :cascade do |t|
-    t.string "name"
-    t.integer "group"
-    t.integer "width"
-    t.integer "position"
+    t.string "name", null: false
+    t.string "group", null: false
+    t.string "width", null: false
+    t.integer "position", default: 0
     t.jsonb "skills", default: []
-    t.string "sectionable_type"
-    t.bigint "sectionable_id"
+    t.string "sectionable_type", null: false
+    t.bigint "sectionable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_sections_on_name"
@@ -95,7 +97,6 @@ ActiveRecord::Schema.define(version: 2019_10_05_193204) do
 
   create_table "templates", force: :cascade do |t|
     t.string "name"
-    t.integer "state", default: 0
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

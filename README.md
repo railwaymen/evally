@@ -1,4 +1,4 @@
-# Evally ![version](https://img.shields.io/badge/version-0.2-green.svg)
+# Evally ![version](https://img.shields.io/badge/version-0.3-green.svg)
 A simple web application for managing periodic skills evaluations of employees.
 
 [![forthebadge](http://forthebadge.com/images/badges/made-with-ruby.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/made-with-vue.svg)](http://forthebadge.com)
@@ -25,7 +25,7 @@ A few of the things you can do with Evally:
 - save evaluation drafts for further modifications
 - track upcoming evaluations
 - archive users activities
-- share the latest evaluation by unique and protected link
+- share evaluations by unique and safe link
 - search employees by skills
 - collect employees sorted by the longest and the shortes employment time
 - present employees on chart by groups and positions
@@ -85,17 +85,6 @@ You can start the rails server in two ways given below:
 ```bash
 bundle exec rails s
 ```
-2. using ~ docker compose ~ command
-```bash
-docker-compose up
-```
-
-IMPORTANT!
-
-Before running docker container set environment variable as below to ensure files to be created by non admin user:
-```bash
-CURRENT_USER=$(id -u):$(id -g)
-```
 
 And now you can visit the site with the URL http://localhost:3000
 
@@ -110,7 +99,7 @@ A good bug report must include the following four things:
 1. **The steps to reproduce the bug**: Give detailed steps on how to reproduce the problem
 2. **The expected behavior of the application**: It’s important to include the result you’re expecting, as it might differ from how the program was designed to work.
 3. **The observed behavior of the application**
-4. **Additional info**: ... like some links, images etc. 
+4. **Additional info**: ... like some links, images etc.
 
 ## Contributing
 

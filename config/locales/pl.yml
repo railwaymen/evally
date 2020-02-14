@@ -5,7 +5,7 @@ pl:
         first_name: 'imię'
         last_name: 'nazwisko'
         position: 'stanowisko'
-        hired_at: 'zatrudniono'
+        hired_on: 'zatrudniono'
         user: 'użytkownik'
       evaluation:
         state: 'status'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   include RailsJwtAuth::Authenticatable
 
@@ -10,15 +12,10 @@ class User < ApplicationRecord
 
   # # Validation
   #
-  validates :email,
-    presence: true,
-    uniqueness: true,
-    format: { with: RailsJwtAuth.email_regex }
+  validates :email, presence: true, uniqueness: true,
+                    format: { with: RailsJwtAuth.email_regex }
 
-  validates :password,
-    presence: true,
-    length: { in: 6..32 },
-    if: ->(u) { u.password.present? }
+  validates :password, presence: true, length: { in: 6..32 }, if: ->(u) { u.password.present? }
 
   validates :first_name, presence: true
 
@@ -26,6 +23,5 @@ class User < ApplicationRecord
 
   # # Callbacks
   #
-  after_create { |user| user.create_setting }
-
+  after_create :create_setting
 end

@@ -1,0 +1,9 @@
+@function rem2dec($numbers) {
+  $output: ();
+
+  @each $number in $numbers {
+    $output: append($output, if($number != auto, $number * 0.625, auto));
+  }
+
+ @return $output;
+}

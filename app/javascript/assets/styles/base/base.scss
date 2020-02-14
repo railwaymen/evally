@@ -1,0 +1,47 @@
+*,
+*::after,
+*::before  {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html  {
+  font-size: 75%;
+
+  @include respond(md) {
+    font-size: 87,5%;
+  };
+
+  @include respond(lg) {
+    font-size: 100%;
+  };
+
+  @include respond(xl) {
+    font-size: 100%;
+  };
+}
+
+body  {
+  box-sizing: border-box;
+  padding: rem2dec(3rem 1rem);
+  background: $white;
+  font-weight: 400;
+  font-size: rem2dec(1rem);
+  line-height: 1.7;
+  color: $font-black;
+  position: relative;
+
+  @include respond(md) {
+    padding: rem2dec(4rem 5rem);
+  };
+
+  .v-application  {
+    font-family: 'Muli', sans-serif !important;
+    background: $white !important;
+
+    &--wrap  {
+      min-height: calc(100vh - 8rem);
+    }
+  }
+}

@@ -1,0 +1,36 @@
+.panel  {
+  &__row  {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+
+  &__name  {
+    h2  {
+      font-size: rem2dec(3.6rem);
+      padding-left: rem2dec(2rem);
+      font-weight: 200;
+      color: $font-black;
+    }
+  }
+
+  &__nav  {
+    position: relative;
+    bottom: rem2dec(.5rem);
+    margin-left: rem2dec(2rem);
+  }
+
+  &__actions  {
+    position: relative;
+    bottom: rem2dec(.5rem);
+    margin-left: auto;
+
+    & > * {
+      margin: rem2dec(0 .5rem);
+    }
+  }
+
+  &__content  {
+    margin-top: rem2dec(2.4rem);
+  }
+}

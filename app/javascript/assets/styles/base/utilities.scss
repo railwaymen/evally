@@ -1,0 +1,23 @@
+.separator  {
+  width: 1px;
+  margin: rem2dec(0 0.4rem);
+}
+
+.divider-before  {
+  margin-left: 1rem;
+
+  &::before  {
+    content: '';
+    width: 1px;
+    height: rem2dec(3rem);
+    display: inline-block;
+    background-color: $font-gray-light;
+    position: absolute;
+    top: rem2dec(-1rem);
+    left: rem2dec(-.5rem);
+  }
+}
+
+.rotateZ90  {
+  transform: rotateZ(90deg);
+}
