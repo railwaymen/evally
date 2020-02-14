@@ -21,7 +21,7 @@ class ImproveEmployees < ActiveRecord::Migration[5.2]
     change_column_null :employees, :first_name, false
     change_column_null :employees, :last_name, false
     change_column_null :employees, :position, false
-    change_column_null :employees, :hired_on, false
+    change_column_null :employees, :hired_at, false
     change_column_null :employees, :public_token, false
     change_column_null :employees, :group, false
   end
@@ -30,7 +30,7 @@ class ImproveEmployees < ActiveRecord::Migration[5.2]
     change_column_null :employees, :first_name, true
     change_column_null :employees, :last_name, true
     change_column_null :employees, :position, true
-    change_column_null :employees, :hired_on, true
+    change_column_null :employees, :hired_at, true
     change_column_null :employees, :public_token, true
     change_column_null :employees, :group, true
 
