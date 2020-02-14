@@ -24,4 +24,8 @@ class User < ApplicationRecord
   # # Callbacks
   #
   after_create :create_setting
+
+  # # Enums
+  #
+  enum role: { admin: 'admin', evaluator: 'evaluator' }
 end
