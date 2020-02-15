@@ -95,8 +95,7 @@ export default {
           value: 'latest_evaluation_date',
           align: 'center'
         }
-      ],
-      perPageItems: [10, 30, { text: '$vuetify.dataIterator.rowsPerPageAll' , value: -1 }]
+      ]
     }
   }
 }

@@ -34,6 +34,7 @@ export default {
       employees: 'Pracownicy',
       templates: 'Szablony',
       settings: 'Ustawienia',
+      users: 'Użytkownicy',
       logout: 'Wyloguj',
     },
     validations: {

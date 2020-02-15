@@ -34,6 +34,7 @@ export default {
       employees: 'Employees',
       templates: 'Templates',
       settings: 'Settings',
+      users: 'Users',
       logout: 'Logout',
     },
     validations: {

@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <v-layout row wrap>
-      <v-flex xs6>
+      <v-flex xs12 lg6>
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"

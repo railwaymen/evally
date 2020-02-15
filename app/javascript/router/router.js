@@ -86,6 +86,11 @@ export default new Router({
           ]
         },
         {
+          path: 'users',
+          name: 'users_path',
+          component: () => import(/* webpackChunkName: 'users' */ '@views/users/Index'),
+        },
+        {
           path: 'settings',
           component: () => import(/* webpackChunkName: 'settings' */ '@views/settings/Show'),
           children: [

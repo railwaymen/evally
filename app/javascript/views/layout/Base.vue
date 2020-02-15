@@ -18,10 +18,14 @@
         <template #activator="{ on }">
           <span class="profile" v-on="on" v-ripple>
             <v-avatar class="profile__avatar" color="primary" size="32">
-              <span class="white--text body-2" data-cy="profile-initials">{{ user.initials }}</span>
+              <span class="white--text body-2" data-cy="profile-initials">
+                {{ user.initials }}
+              </span>
             </v-avatar>
 
-            <span class="profile__fullname" data-cy="profile-fullname">{{ user.fullname }}</span>
+            <span class="profile__fullname" data-cy="profile-fullname">
+              {{ user.fullname }}
+            </span>
 
             <span class="profile__arrow">
               <v-icon size="24">mdi-chevron-down</v-icon>
@@ -31,7 +35,11 @@
 
         <v-list>
           <template v-if="$vuetify.breakpoint.mdAndDown">
-            <v-list-item v-for="tab in tabs" :key="`tab-${tab.id}`" :to="{ name: tab.path }">
+            <v-list-item
+              v-for="tab in tabs"
+              :key="`tab-${tab.name}`"
+              :to="{ name: tab.path }"
+            >
               <v-list-item-action>
                 <v-icon>{{ tab.icon }}</v-icon>
               </v-list-item-action>
@@ -41,7 +49,12 @@
             <v-divider class="my-2" />
           </template>
 
-          <v-list-item v-for="item in items" :key="`item_${item.id}`"  :data-cy="`li-${item.name}`" :to="{ name: item.path }">
+          <v-list-item
+            v-for="item in items"
+            :key="`item_${item.name}`"
+            :data-cy="`li-${item.name}`"
+            :to="{ name: item.path }"
+          >
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-action>
@@ -66,7 +79,7 @@
         >
           <v-tab
             v-for="tab in tabs"
-            :key="`tab_${tab.id}`"
+            :key="`tab_${tab.name}`"
             :to="{ name: tab.path }"
           >
             <v-icon>{{ tab.icon }}</v-icon>
@@ -98,13 +111,38 @@ export default {
   data () {
     return {
       tabs: [
-        { id: 0, name: 'dashboard', icon: 'mdi-view-dashboard', path: 'dashboard_path' },
-        { id: 10, name: 'drafts', icon: 'mdi-file-edit-outline', path: 'drafts_path' },
-        { id: 20, name: 'employees', icon: 'mdi-account-group', path: 'employees_path' },
-        { id: 30, name: 'templates', icon: 'mdi-file-multiple-outline', path: 'templates_path' }
+        {
+          name: 'dashboard',
+          icon: 'mdi-view-dashboard',
+          path: 'dashboard_path'
+        },
+        {
+          name: 'drafts',
+          icon: 'mdi-file-edit-outline',
+          path: 'drafts_path'
+        },
+        {
+          name: 'employees',
+          icon: 'mdi-account-group-outline',
+          path: 'employees_path'
+        },
+        {
+          name: 'templates',
+          icon: 'mdi-file-multiple-outline',
+          path: 'templates_path'
+        },
+        {
+          name: 'users',
+          icon: 'mdi-account-multiple-plus-outline',
+          path: 'users_path'
+        }
       ],
       items: [
-        { id: 0, name: 'settings', icon: 'mdi-settings', path: 'general_settings_path' }
+        {
+          name: 'settings',
+          icon: 'mdi-settings',
+          path: 'general_settings_path'
+        }
       ]
     }
   },
