@@ -6,5 +6,7 @@ FactoryBot.define do
     password             { 'password' }
     first_name           { 'Jack' }
     last_name            { 'Sparrow' }
+    role                 { 'admin' }
+    status               { 'active' }
   end
 end

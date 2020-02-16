@@ -20,7 +20,6 @@ RSpec.describe User, type: :model do
   describe '.authentication?' do
     it 'returns false if user inactive' do
       user = FactoryBot.create(:user, password: 'password', status: 'inactive')
-
       expect(user.authentication?('password')).to eq false
     end
 
@@ -29,7 +28,7 @@ RSpec.describe User, type: :model do
       expect(user.authentication?('wrongpassword')).to eq false
     end
 
-    it 'returns user if user is active and authenticated' do
+    it 'returns user if active and authenticated' do
       user = FactoryBot.create(:user, password: 'password', status: 'active')
       expect(user.authentication?('password')).to eq user
     end

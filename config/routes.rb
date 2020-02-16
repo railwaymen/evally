@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     end
 
     namespace :v2, defaults: { format: :json } do
+      resources :invitations, controller: 'invitations', only: %i[create update]
+
       resource :dashboard, controller: 'dashboard', only: :show
 
       resources :drafts, only: %i[index show create update destroy]
@@ -27,7 +29,7 @@ Rails.application.routes.draw do
       end
 
       resource :settings, only: :update
-      resources :users, only: %i[index create update]
+      resources :users, only: %i[index update]
 
       namespace :browse do
         resources :employees, only: :show do

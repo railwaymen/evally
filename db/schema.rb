@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_15_145012) do
+ActiveRecord::Schema.define(version: 2020_02_16_122713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,18 +105,23 @@ ActiveRecord::Schema.define(version: 2020_02_15_145012) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email"
+    t.string "email", null: false
     t.string "password_digest"
     t.string "auth_tokens"
-    t.string "first_name"
-    t.string "last_name"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "role", default: "evaluator", null: false
     t.string "status", default: "active", null: false
     t.string "last_sign_in_ip"
     t.datetime "last_sign_in_at"
+    t.string "invitation_token"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.datetime "invitation_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token"
     t.index ["role"], name: "index_users_on_role"
     t.index ["status"], name: "index_users_on_status"
   end

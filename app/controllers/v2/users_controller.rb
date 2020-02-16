@@ -10,8 +10,6 @@ module V2
       render json: V2::UserSerializer.render(users), status: :ok
     end
 
-    def create; end
-
     def update; end
   end
 end
