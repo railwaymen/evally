@@ -73,7 +73,8 @@ module JsonSpecHelpers
         email: user.email,
         role: user.role,
         status: user.status,
-        last_sign_in_at: user.last_sign_in_at
+        last_sign_in_at: user.last_sign_in_at,
+        invitation_accepted_at: user.invitation_accepted_at
       },
       setting: {
         default_draft_items: setting.default_draft_items,
@@ -121,7 +122,8 @@ module JsonSpecHelpers
       email: user.email,
       role: user.role,
       status: user.status,
-      last_sign_in_at: user.last_sign_in_at
+      last_sign_in_at: user.last_sign_in_at,
+      invitation_accepted_at: user.invitation_accepted_at
     }.to_json
   end
 end

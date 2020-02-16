@@ -36,6 +36,14 @@
           <template #item.fullname="{ item }">
             {{ item.fullname }}
           </template>
+
+          <template #item.invitation_accepted_at="{ item }">
+            {{ item.invitationAcceptedAt }}
+          </template>
+
+          <template #item.last_sign_in_at="{ item }">
+            {{ item.lastSignInAt }}
+          </template>
         </v-data-table>
       </v-flex>
     </v-layout>
@@ -82,8 +90,13 @@ export default {
           align: 'center'
         },
         {
+          text: 'Date of Joining',
+          value: 'invitation_accepted_at',
+          align: 'center'
+        },
+        {
           text: 'Last Activity',
-          value: 'lastSignInAt',
+          value: 'last_sign_in_at',
           align: 'center'
         },
         {

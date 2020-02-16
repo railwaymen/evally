@@ -34,18 +34,26 @@
 </template>
 
 <script>
-import { UsersList } from '@models/user'
+import { mapActions, mapGetters } from 'vuex'
 
 import BasicTable from '@components/users/BasicTable'
 
 export default {
   name: 'Users',
   components: { BasicTable },
-  data() {
-    return {
-      users: new UsersList(),
-      loading: false
-    }
+  methods: {
+    ...mapActions({
+      fetchData: 'UsersModule/index'
+    })
+  },
+  computed: {
+    ...mapGetters({
+      users: 'UsersModule/users',
+      loading: 'UsersModule/loading'
+    })
+  },
+  created() {
+    this.fetchData()
   }
 }
 </script>
