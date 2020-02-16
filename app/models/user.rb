@@ -28,6 +28,12 @@ class User < ApplicationRecord
   enum role: { admin: 'admin', evaluator: 'evaluator' }
   enum status: { active: 'active', inactive: 'inactive' }
 
+  # # Methods
+  #
+  def fullname
+    [first_name, last_name].join(' ').strip
+  end
+
   def authentication?(pass)
     # Override to allow only active users to be authenticated
 

@@ -10,6 +10,27 @@ module V2
       render json: V2::UserSerializer.render(users), status: :ok
     end
 
-    def update; end
+    def update
+      update_form.save
+
+      render json: V2::UserSerializer.render(user), status: :ok
+    end
+
+    private
+
+    def user
+      @user ||= User.find_by(id: params[:id])
+      raise ErrorResponderService.new(:record_not_found, 404) unless @user
+
+      @user
+    end
+
+    def update_form
+      @update_form ||= V2::UserUpdateForm.new(user, params: update_params, admin: current_user)
+    end
+
+    def update_params
+      params.require(:user).permit(:first_name, :last_name, :role, :status)
+    end
   end
 end

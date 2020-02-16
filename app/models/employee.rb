@@ -20,15 +20,8 @@ class Employee < ApplicationRecord
   enum state: { hired: 'hired', experienced: 'experienced', released: 'released' }
 
   # # Validation
-  validates :first_name, presence: true
-
-  validates :last_name, presence: true
-
-  validates :position, presence: true
-
-  validates :hired_on, presence: true
-
-  attr_accessor :skill
+  #
+  validates :first_name, :last_name, :position, :hired_on, presence: true
 
   # # Methods
   #
