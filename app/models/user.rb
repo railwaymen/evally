@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   include RailsJwtAuth::Authenticatable
+  include RailsJwtAuth::Trackable
 
   has_one :setting, dependent: :destroy
 
@@ -24,4 +25,11 @@ class User < ApplicationRecord
   # # Enums
   #
   enum role: { admin: 'admin', evaluator: 'evaluator' }
+  enum status: { active: 'active', inactive: 'inactive' }
+
+  def authentication?(pass)
+    # Override to allow only active users to be authenticated
+
+    active? && authenticate(pass)
+  end
 end

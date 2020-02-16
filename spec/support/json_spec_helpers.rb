@@ -70,7 +70,10 @@ module JsonSpecHelpers
       user: {
         first_name: user.first_name,
         last_name: user.last_name,
-        email: user.email
+        email: user.email,
+        role: user.role,
+        status: user.status,
+        last_sign_in_at: user.last_sign_in_at
       },
       setting: {
         default_draft_items: setting.default_draft_items,
@@ -115,7 +118,10 @@ module JsonSpecHelpers
     {
       first_name: user.first_name,
       last_name: user.last_name,
-      email: user.email
+      email: user.email,
+      role: user.role,
+      status: user.status,
+      last_sign_in_at: user.last_sign_in_at
     }.to_json
   end
 end

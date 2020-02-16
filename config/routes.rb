@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       end
 
       resource :settings, only: :update
+      resources :users, only: %i[index create update]
 
       namespace :browse do
         resources :employees, only: :show do
