@@ -35,10 +35,10 @@
 
           <template #item.fullname="{ item }">
             {{ item.fullname }}
-          </template>
 
-          <template #item.invitation_accepted_at="{ item }">
-            {{ item.invitationAcceptedAt }}
+            <span v-if="item.id === user.id">
+              (you)
+            </span>
           </template>
 
           <template #item.last_sign_in_at="{ item }">
@@ -51,6 +51,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import { UsersList } from '@models/user'
 
 export default {
@@ -90,12 +92,7 @@ export default {
           align: 'center'
         },
         {
-          text: 'Date of Joining',
-          value: 'invitation_accepted_at',
-          align: 'center'
-        },
-        {
-          text: 'Last Activity',
+          text: 'Latest Activity',
           value: 'last_sign_in_at',
           align: 'center'
         },
@@ -104,8 +101,18 @@ export default {
           value: 'status',
           align: 'center'
         },
+        {
+          text: 'Invitation Status',
+          value: 'invitation_status',
+          align: 'center'
+        }
       ]
     }
+  },
+  computed: {
+    ...mapGetters({
+      user: 'SessionModule/user'
+    })
   }
 }
 </script>

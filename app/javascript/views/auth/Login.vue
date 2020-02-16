@@ -17,7 +17,7 @@
             <v-text-field
               v-model="credentials.email"
               :rules="[vRequired]"
-              append-icon="mdi-at"
+              prepend-inner-icon="mdi-at"
               type="email"
               label="Email"
             />
@@ -27,7 +27,7 @@
             <v-text-field
               v-model="credentials.password"
               :rules="[vRequired]"
-              append-icon="mdi-lock-outline"
+              prepend-inner-icon="mdi-lock-outline"
               type="password"
               label="Password"
             />

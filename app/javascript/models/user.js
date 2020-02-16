@@ -12,7 +12,7 @@ class User extends Model {
       role: '',
       status: '',
       last_sign_in_at: null,
-      invitation_accepted_at: null
+      invitation_status: '',
     }
   }
 
@@ -28,12 +28,6 @@ class User extends Model {
     if (!this.last_sign_in_at) return '---'
 
     return moment(this.last_sign_in_at).format('MMM DD, YYYY HH:mm')
-  }
-
-  get invitationAcceptedAt() {
-    if (!this.invitation_accepted_at) return '---'
-
-    return moment(this.invitation_accepted_at).format('MMM DD, YYYY HH:mm')
   }
 
   static get routes() {

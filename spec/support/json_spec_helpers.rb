@@ -74,7 +74,7 @@ module JsonSpecHelpers
         role: user.role,
         status: user.status,
         last_sign_in_at: user.last_sign_in_at,
-        invitation_accepted_at: user.invitation_accepted_at
+        invitation_status: user.invitation_status
       },
       setting: {
         default_draft_items: setting.default_draft_items,
@@ -123,7 +123,7 @@ module JsonSpecHelpers
       role: user.role,
       status: user.status,
       last_sign_in_at: user.last_sign_in_at,
-      invitation_accepted_at: user.invitation_accepted_at
+      invitation_status: user.invitation_status
     }.to_json
   end
 end

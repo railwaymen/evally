@@ -4,7 +4,6 @@ module V2
   class UserSerializer < Blueprinter::Base
     identifier :id
 
-    fields :email, :first_name, :last_name, :role, :status, :last_sign_in_at,
-           :invitation_accepted_at
+    fields :email, :first_name, :last_name, :role, :status, :last_sign_in_at, :invitation_status
   end
 end

@@ -34,6 +34,11 @@ class User < ApplicationRecord
     [first_name, last_name].join(' ').strip
   end
 
+  def invitation_status
+    return 'pending' if invitation_token.present? && invitation_accepted_at.blank?
+    return 'accepted' if invitation_token.present? && invitation_accepted_at.present?
+  end
+
   def authentication?(pass)
     # Override to allow only active users to be authenticated
 

@@ -4,7 +4,7 @@
       <span class="headline">{{ $t(`components.employees.employeeForm.${action}Title`) }}</span>
     </v-card-title>
 
-    <v-form ref="employeeForm" @submit.prevent="save">
+    <v-form ref="form" @submit.prevent="save">
       <v-card-text>
         <v-layout row wrap>
           <v-flex class="px-3" xs12 lg6>
@@ -191,7 +191,7 @@ export default {
       this.localEmployee.set('position_set_on', null)
     },
     save() {
-      if (!this.$refs.employeeForm.validate()) return
+      if (!this.$refs.form.validate()) return
 
       (this.localEmployee.isPersisted ? this.update : this.create)(this.localEmployee)
         .then(this.closeDialog)

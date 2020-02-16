@@ -9,6 +9,7 @@
         <v-tooltip bottom>
           <template #activator="{ on }">
             <v-btn
+              @click="openCreateForm"
               v-on="on"
               color="green"
               icon
@@ -27,6 +28,7 @@
         <basic-table
           :users="users"
           :loading="false"
+          @edit="openUpdateForm"
         />
       </v-container>
     </div>
@@ -35,13 +37,35 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { DialogsBus } from '@utils/dialogs_bus'
+
+import { User } from '@models/user'
 
 import BasicTable from '@components/users/BasicTable'
+import UserForm from '@components/users/UserForm'
 
 export default {
   name: 'Users',
   components: { BasicTable },
   methods: {
+    openCreateForm() {
+      DialogsBus.$emit('openFormsDialog', {
+        innerComponent: UserForm,
+        maxWidth: 500,
+        props: {
+          user: new User()
+        }
+      })
+    },
+    openUpdateForm(id) {
+      DialogsBus.$emit('openFormsDialog', {
+        innerComponent: UserForm,
+        maxWidth: 500,
+        props: {
+          user: this.users.findById(id)
+        }
+      })
+    },
     ...mapActions({
       fetchData: 'UsersModule/index'
     })
