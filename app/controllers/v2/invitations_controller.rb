@@ -13,7 +13,7 @@ module V2
     private
 
     def create_form
-      @create_form ||= V2::UserCreateForm.new(params: invitied_user_params)
+      @create_form ||= V2::UserCreateForm.new(params: invitied_user_params, admin: current_user)
     end
 
     def invitied_user_params

@@ -15,8 +15,9 @@ module V2
       validate_user!
 
       ActiveRecord::Base.transaction do
-        create_activity!
         @user.save!
+
+        create_activity!
       end
     end
 

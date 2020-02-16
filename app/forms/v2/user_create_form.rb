@@ -4,8 +4,9 @@ module V2
   class UserCreateForm
     attr_reader :user
 
-    def initialize(params:)
+    def initialize(params:, admin:)
       @user = User.new
+      @admin = admin
 
       @user.assign_attributes(params.merge(extra_params))
     end
@@ -13,7 +14,11 @@ module V2
     def save(send_invitation: true)
       validate_user!
 
-      send_invitation ? @user.invite! : @user.save!
+      ActiveRecord::Base.transaction do
+        send_invitation ? @user.invite! : @user.save!
+
+        create_activity!
+      end
     end
 
     private
@@ -26,6 +31,14 @@ module V2
 
     def extra_params
       { password: SecureRandom.hex }
+    end
+
+    def create_activity!
+      @admin.activities.create!(
+        action: 'create',
+        activable: @user,
+        activable_name: @user.fullname
+      )
     end
   end
 end

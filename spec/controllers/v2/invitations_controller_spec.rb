@@ -11,8 +11,8 @@ RSpec.describe V2::InvitationsController, type: :controller do
         params = {
           invitation: {
             email: 'invited@example.com',
-            first_name: 'Invited',
-            last_name: 'User',
+            first_name: 'Jerry',
+            last_name: 'Sparks',
             role: 'evaluator'
           }
         }
@@ -27,8 +27,8 @@ RSpec.describe V2::InvitationsController, type: :controller do
         params = {
           invitation: {
             email: 'invited@example.com',
-            first_name: 'Invited',
-            last_name: 'User',
+            first_name: 'Jerry',
+            last_name: 'Sparks',
             role: 'evaluator'
           }
         }
@@ -47,8 +47,8 @@ RSpec.describe V2::InvitationsController, type: :controller do
         params = {
           invitation: {
             email: 'invited@example.com',
-            first_name: 'Invited',
-            last_name: 'User',
+            first_name: 'Jerry',
+            last_name: 'Sparks',
             role: 'evaluator'
           }
         }
@@ -62,11 +62,33 @@ RSpec.describe V2::InvitationsController, type: :controller do
         expect(ActionMailer::Base.deliveries.last[:to].value).to eq 'invited@example.com'
       end
 
+      it 'create proper activity' do
+        params = {
+          invitation: {
+            email: 'invited@example.com',
+            first_name: 'Jerry',
+            last_name: 'Sparks',
+            role: 'evaluator'
+          }
+        }
+
+        sign_in user
+
+        expect do
+          post :create, params: params
+        end.to(change { Activity.count }.by(1))
+
+        expect(Activity.last).to have_attributes(
+          action: 'create',
+          activable_name: 'Jerry Sparks'
+        )
+      end
+
       it 'responds with validation error' do
         params = {
           invitation: {
             email: 'invited@example.com',
-            first_name: 'Invited',
+            first_name: 'Jerry',
             last_name: ''
           }
         }

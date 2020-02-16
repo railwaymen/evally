@@ -14,6 +14,7 @@ module V2
 
       ActiveRecord::Base.transaction do
         @draft.save!
+
         create_activity!
       end
     end
