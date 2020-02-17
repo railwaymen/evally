@@ -3,11 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe V2::InvitationsController, type: :controller do
-  let(:user) { create(:user) }
+  let(:admin) { create(:user, role: 'admin') }
+  let(:evaluator) { create(:user, role: 'evaluator') }
 
   describe '#create' do
     context 'when unauthorized' do
-      it 'responds with error' do
+      it 'responds with 401 error' do
         params = {
           invitation: {
             email: 'invited@example.com',
@@ -19,6 +20,22 @@ RSpec.describe V2::InvitationsController, type: :controller do
 
         post :create, params: params
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 403 error' do
+        params = {
+          invitation: {
+            email: 'invited@example.com',
+            first_name: 'Jerry',
+            last_name: 'Sparks',
+            role: 'evaluator'
+          }
+        }
+
+        sign_in evaluator
+
+        post :create, params: params
+        expect(response).to have_http_status 403
       end
     end
 
@@ -33,7 +50,7 @@ RSpec.describe V2::InvitationsController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
 
         expect do
           post :create, params: params
@@ -53,7 +70,7 @@ RSpec.describe V2::InvitationsController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
 
         expect do
           post :create, params: params
@@ -72,7 +89,7 @@ RSpec.describe V2::InvitationsController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
 
         expect do
           post :create, params: params
@@ -93,7 +110,7 @@ RSpec.describe V2::InvitationsController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
         post :create, params: params
 
         expect(response).to have_http_status 422

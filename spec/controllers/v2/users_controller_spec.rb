@@ -3,19 +3,27 @@
 require 'rails_helper'
 
 RSpec.describe V2::UsersController, type: :controller do
-  let(:user) { create(:user) }
+  let(:admin) { create(:user, role: 'admin') }
+  let(:evaluator) { create(:user, role: 'evaluator') }
 
   describe '#index' do
     context 'when unauthorized' do
-      it 'responds with error' do
+      it 'responds with 401 error' do
         get :index
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 403 error' do
+        sign_in evaluator
+
+        get :index
+        expect(response).to have_http_status 403
       end
     end
 
     context 'when authorized' do
       it 'responds with empty users' do
-        sign_in user
+        sign_in admin
         get :index
 
         expect(response).to have_http_status 200
@@ -25,7 +33,7 @@ RSpec.describe V2::UsersController, type: :controller do
 
   describe '#update' do
     context 'when unauthorized' do
-      it 'responds with error' do
+      it 'responds with 401 error' do
         params = {
           id: 1,
           user: {
@@ -36,6 +44,20 @@ RSpec.describe V2::UsersController, type: :controller do
         put :update, params: params
 
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 403 error' do
+        params = {
+          id: 1,
+          user: {
+            first_name: 'New name'
+          }
+        }
+
+        sign_in evaluator
+        put :update, params: params
+
+        expect(response).to have_http_status 403
       end
     end
 
@@ -50,7 +72,7 @@ RSpec.describe V2::UsersController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
         put :update, params: params
 
         expect(response).to have_http_status 200
@@ -67,7 +89,7 @@ RSpec.describe V2::UsersController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
 
         expect do
           put :update, params: params
@@ -89,7 +111,7 @@ RSpec.describe V2::UsersController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
 
         put :update, params: params
 
@@ -105,7 +127,7 @@ RSpec.describe V2::UsersController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
         put :update, params: params
 
         expect(response).to have_http_status 404
