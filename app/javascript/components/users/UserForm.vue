@@ -81,6 +81,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 import { User } from '@models/user'
 
 export default {
@@ -106,8 +108,15 @@ export default {
       this.$emit('closeDialog')
     },
     save() {
-      console.log('Save!')
-    }
+      if (!this.$refs.form.validate()) return
+
+      (this.localUser.isPersisted ? this.update : this.create)(this.localUser)
+        .then(this.closeDialog)
+    },
+    ...mapActions({
+      create: 'UsersModule/create',
+      update: 'UsersModule/update'
+    })
   }
 }
 </script>

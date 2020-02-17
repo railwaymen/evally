@@ -35,8 +35,8 @@ class User < ApplicationRecord
   end
 
   def invitation_status
-    return 'pending' if invitation_token.present? && invitation_accepted_at.blank?
-    return 'accepted' if invitation_token.present? && invitation_accepted_at.present?
+    return 'pending' if invitation_token.present?
+    return 'accepted' if invitation_accepted_at.present?
   end
 
   def authentication?(pass)

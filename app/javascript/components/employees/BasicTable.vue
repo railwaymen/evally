@@ -18,15 +18,16 @@
           :loading="loading"
         >
           <template #item.action="{ item }">
-            <v-tooltip right>
+            <v-tooltip bottom>
               <template #activator="{ on }">
-                <v-btn
+                <v-icon
                   @click="$emit('edit', item.id)"
                   v-on="on"
-                  icon
+                  class="mx-2"
+                  small
                 >
-                  <v-icon size="15">mdi-pencil</v-icon>
-                </v-btn>
+                  mdi-pencil
+                </v-icon>
               </template>
 
               <span>{{ $t('shared.tooltips.edit') }}</span>
