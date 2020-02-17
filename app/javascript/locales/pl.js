@@ -255,15 +255,7 @@ export default {
         firstName: 'Imię',
         lastName: 'Nazwisko',
         role: 'Rola',
-        status: 'Status',
-        roles: {
-          admin: 'Admin',
-          evaluator: 'Ewaluator'
-        },
-        statuses: {
-          active: 'Aktywny',
-          inactive: 'Nieaktywny'
-        }
+        status: 'Status'
       }
     }
   },
@@ -387,6 +379,20 @@ export default {
       month: '{n} miesiące | {n} miesięcy',
       year: '{n} roku | {n} lat',
       and: 'i',
+    },
+    user: {
+      roles: {
+        admin: 'Admin',
+        evaluator: 'Ewaluator'
+      },
+      statuses: {
+        active: 'Aktywny',
+        inactive: 'Nieaktywny'
+      },
+      invitationStatuses: {
+        pending: 'Oczekujące',
+        accepted: 'Zaakceptowano'
+      }
     }
   },
   views: {

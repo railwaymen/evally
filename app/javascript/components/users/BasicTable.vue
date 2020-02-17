@@ -42,8 +42,20 @@
             </span>
           </template>
 
+          <template #item.role="{ item }">
+            {{ $t(`models.user.roles.${item.role}`) }}
+          </template>
+
           <template #item.last_sign_in_at="{ item }">
             {{ item.lastSignInAt }}
+          </template>
+
+          <template #item.status="{ item }">
+            {{ $t(`models.user.statuses.${item.status}`) }}
+          </template>
+
+          <template #item.invitation_status="{ item }">
+            {{ item.invitation_status ? $t(`models.user.invitationStatuses.${item.invitation_status}`) : '---' }}
           </template>
         </v-data-table>
       </v-flex>

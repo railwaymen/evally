@@ -51,8 +51,8 @@
 
               <v-spacer />
 
-              <v-radio :label="$t('components.users.userForm.statuses.active')" value="active" />
-              <v-radio :label="$t('components.users.userForm.statuses.inactive')" value="inactive" />
+              <v-radio :label="$t('models.user.statuses.active')" value="active" />
+              <v-radio :label="$t('models.user.statuses.inactive')" value="inactive" />
             </v-radio-group>
           </v-flex>
         </v-layout>
@@ -98,8 +98,8 @@ export default {
     return {
       localUser: new User({ ...this.user }),
       roles: [
-        { text: this.$t('components.users.userForm.roles.admin'), value: 'admin' },
-        { text: this.$t('components.users.userForm.roles.evaluator'), value: 'evaluator' }
+        { text: this.$t('models.user.roles.admin'), value: 'admin' },
+        { text: this.$t('models.user.roles.evaluator'), value: 'evaluator' }
       ]
     }
   },
