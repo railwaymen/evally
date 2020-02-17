@@ -5,7 +5,7 @@
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
-          label="Search ..."
+          :label="$t('components.users.table.search')"
           filled
         />
       </v-flex>
@@ -38,7 +38,7 @@
             {{ item.fullname }}
 
             <span v-if="item.id === user.id">
-              (you)
+              ({{ $t('components.users.table.you') }})
             </span>
           </template>
 
@@ -79,31 +79,31 @@ export default {
           value: 'action',
         },
         {
-          text: 'Name',
+          text: this.$t('components.users.table.cols.name'),
           value: 'fullname'
         },
         {
-          text: 'Email',
+          text: this.$t('components.users.table.cols.email'),
           value: 'email',
           align: 'center'
         },
         {
-          text: 'Role',
+          text: this.$t('components.users.table.cols.role'),
           value: 'role',
           align: 'center'
         },
         {
-          text: 'Latest Activity',
+          text: this.$t('components.users.table.cols.latestActivity'),
           value: 'last_sign_in_at',
           align: 'center'
         },
         {
-          text: 'Status',
+          text: this.$t('components.users.table.cols.status'),
           value: 'status',
           align: 'center'
         },
         {
-          text: 'Invitation Status',
+          text: this.$t('components.users.table.cols.invitationStatus'),
           value: 'invitation_status',
           align: 'center'
         }

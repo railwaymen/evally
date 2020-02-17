@@ -36,3 +36,10 @@ en:
       destroy:
         title: 'Evaluation draft deleted'
         description: "%{user} removed %{name}'s evaluation draft."
+    user:
+      create:
+        title: 'New user'
+        description: "Welcome to new user %{name}!"
+      update:
+        title: 'User updated'
+        description: "%{user} updated %{name}'s profile."

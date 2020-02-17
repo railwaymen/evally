@@ -234,6 +234,37 @@ export default {
       sectionComposer: {
         title: 'Section Title'
       }
+    },
+    users: {
+      table: {
+        search: 'Search ...',
+        you: 'you',
+        cols: {
+          name: 'Name',
+          email: 'Email',
+          role: 'Role',
+          latestActivity: 'Latest Activity',
+          status: 'Status',
+          invitationStatus: 'Invitation Status',
+        }
+      },
+      userForm: {
+        createTitle: 'Create User',
+        updateTitle: 'Update User',
+        email: 'Email',
+        firstName: 'First Name',
+        lastName: 'Last Name',
+        role: 'Role',
+        status: 'Status',
+        roles: {
+          admin: 'Admin',
+          evaluator: 'Evaluator'
+        },
+        statuses: {
+          active: 'Active',
+          inactive: 'Inactive'
+        }
+      }
     }
   },
   messages: {
@@ -327,6 +358,19 @@ export default {
       delete: {
         ok: 'Template has been deleted',
         error: 'Template cannot be deleted: {msg}'
+      }
+    },
+    users: {
+      index: {
+        error: 'Users cannot be loaded: {msg}'
+      },
+      create: {
+        ok: 'User has been created',
+        error: 'User cannot be created: {msg}'
+      },
+      update: {
+        ok: 'User has been updated',
+        error: 'User cannot be updated: {msg}'
       }
     }
   },

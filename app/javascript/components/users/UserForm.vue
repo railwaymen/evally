@@ -1,7 +1,7 @@
 <template>
   <v-card class="pa-3">
     <v-card-title>
-      <span class="headline">Create User</span>
+      <span class="headline">{{ $t(`components.users.userForm.${action}Title`) }}</span>
     </v-card-title>
 
     <v-form ref="form" @submit.prevent="save">
@@ -13,7 +13,7 @@
               :rules="[vRequired]"
               prepend-inner-icon="mdi-at"
               type="email"
-              label="Email"
+              :label="$t('components.users.userForm.email')"
             />
           </v-flex>
 
@@ -22,7 +22,7 @@
               v-model="localUser.first_name"
               :rules="[vRequired]"
               prepend-inner-icon="mdi-account-outline"
-              label="First Name"
+              :label="$t('components.users.userForm.firstName')"
             />
           </v-flex>
 
@@ -31,7 +31,7 @@
               v-model="localUser.last_name"
               :rules="[vRequired]"
               prepend-inner-icon="mdi-account-outline"
-              label="Last Name"
+              :label="$t('components.users.userForm.lastName')"
             />
           </v-flex>
 
@@ -41,18 +41,18 @@
               :items="roles"
               :rules="[vRequired]"
               prepend-inner-icon="mdi-account-cog-outline"
-              label="Role"
+              :label="$t('components.users.userForm.role')"
             />
           </v-flex>
 
           <v-flex v-if="localUser.isPersisted" class="px-3" xs12>
             <v-radio-group v-model="localUser.status" row>
-              <template #label>Status: </template>
+              <template #label>{{ $t('components.users.userForm.status') }}: </template>
 
               <v-spacer />
 
-              <v-radio label="Active" value="active" />
-              <v-radio label="Inactive" value="inactive" />
+              <v-radio :label="$t('components.users.userForm.statuses.active')" value="active" />
+              <v-radio :label="$t('components.users.userForm.statuses.inactive')" value="inactive" />
             </v-radio-group>
           </v-flex>
         </v-layout>
@@ -98,8 +98,8 @@ export default {
     return {
       localUser: new User({ ...this.user }),
       roles: [
-        { text: 'Admin', value: 'admin' },
-        { text: 'Evaluator', value: 'evaluator' }
+        { text: this.$t('components.users.userForm.roles.admin'), value: 'admin' },
+        { text: this.$t('components.users.userForm.roles.evaluator'), value: 'evaluator' }
       ]
     }
   },
@@ -117,6 +117,11 @@ export default {
       create: 'UsersModule/create',
       update: 'UsersModule/update'
     })
+  },
+  computed: {
+    action() {
+      return this.localUser.isPersisted ? 'update' : 'create'
+    }
   }
 }
 </script>

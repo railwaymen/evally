@@ -234,6 +234,37 @@ export default {
       sectionComposer: {
         title: 'Tytuł sekcji'
       }
+    },
+    users: {
+      table: {
+        search: 'Szukaj ...',
+        you: 'ty',
+        cols: {
+          name: 'Nazwa',
+          email: 'Email',
+          role: 'Rola',
+          latestActivity: 'Ostatnia aktywność',
+          status: 'Status',
+          invitationStatus: 'Status zaproszenia',
+        }
+      },
+      userForm: {
+        createTitle: 'Utwórz użytkownika',
+        updateTitle: 'Zaktualizuj użytkownika',
+        email: 'Email',
+        firstName: 'Imię',
+        lastName: 'Nazwisko',
+        role: 'Rola',
+        status: 'Status',
+        roles: {
+          admin: 'Admin',
+          evaluator: 'Ewaluator'
+        },
+        statuses: {
+          active: 'Aktywny',
+          inactive: 'Nieaktywny'
+        }
+      }
     }
   },
   messages: {
@@ -327,6 +358,19 @@ export default {
       delete: {
         ok: 'Szablon został usunięty',
         error: 'Błąd przy usuwaniu szablonu: {msg}'
+      }
+    },
+    users: {
+      index: {
+        error: 'Błąd przy wczytywaniu użytkowników: {msg}'
+      },
+      create: {
+        ok: 'Użytkownik został utworzony',
+        error: 'Błąd przy tworzeniu użytkownika: {msg}'
+      },
+      update: {
+        ok: 'Użytkownik został zaktualizowany',
+        error: 'Błąd przy aktualizacji użytkownika: {msg}'
       }
     }
   },

@@ -30,6 +30,8 @@ pl:
         last_name: 'nazwisko'
         email: 'email'
         password: 'hasło'
+        role: 'rola'
+        status: 'status'
     errors:
       messages:
         blank: 'nie może być pustą wartością'
