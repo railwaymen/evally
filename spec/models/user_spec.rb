@@ -7,7 +7,7 @@ RSpec.describe User, type: :model do
 
   it { is_expected.to have_db_index(:email) }
 
-  it { is_expected.to have_many(:employees) }
+  it { is_expected.to have_many(:employees).with_foreign_key('evaluator_id') }
 
   it { is_expected.to have_many(:templates) }
 

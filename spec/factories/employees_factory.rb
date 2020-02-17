@@ -9,6 +9,6 @@ FactoryBot.define do
     position_set_on   { 1.month.ago }
     state             { 'hired' }
 
-    user
+    evaluator { create(:user) }
   end
 end

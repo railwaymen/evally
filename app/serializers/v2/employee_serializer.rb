@@ -5,7 +5,7 @@ module V2
     identifier :id
 
     fields :first_name, :last_name, :position, :group, :state, :hired_on, :next_evaluation_on,
-           :public_token
+           :public_token, :evaluator_id
 
     field :position_set_on do |employee|
       employee.position_set_on || employee.hired_on

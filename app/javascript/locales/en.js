@@ -127,15 +127,17 @@ export default {
       employeeForm: {
         createTitle: 'Create Employee',
         updateTitle: 'Update Employee',
-        general: 'General Information',
-        dates: 'Dates',
+        general: 'General',
+        employment: 'Employment',
+        evaluation: 'Evaluation',
         firstName: 'First Name',
         lastName: 'Last Name',
         position: 'Position',
         group: 'Group',
         hiredOn: 'Hired Date',
         positionSetOn: 'Promotion Date',
-        nextEvaluationOn: 'Next Evaluation Date'
+        nextEvaluationOn: 'Next Evaluation Date',
+        evaluator: 'Evaluator'
       },
       sidebar: {
         group: 'Group',

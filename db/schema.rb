@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_16_122713) do
+ActiveRecord::Schema.define(version: 2020_02_17_132225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2020_02_16_122713) do
     t.string "position", null: false
     t.date "hired_on", null: false
     t.date "next_evaluation_on"
-    t.bigint "user_id"
+    t.bigint "evaluator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "public_token", null: false
@@ -41,11 +41,11 @@ ActiveRecord::Schema.define(version: 2020_02_16_122713) do
     t.datetime "released_at"
     t.string "group", default: "Unassigned", null: false
     t.date "position_set_on"
+    t.index ["evaluator_id"], name: "index_employees_on_evaluator_id"
     t.index ["group"], name: "index_employees_on_group"
     t.index ["last_name"], name: "index_employees_on_last_name"
     t.index ["public_token"], name: "index_employees_on_public_token", unique: true
     t.index ["state"], name: "index_employees_on_state"
-    t.index ["user_id"], name: "index_employees_on_user_id"
   end
 
   create_table "evaluations", force: :cascade do |t|
@@ -127,7 +127,7 @@ ActiveRecord::Schema.define(version: 2020_02_16_122713) do
   end
 
   add_foreign_key "activities", "users"
-  add_foreign_key "employees", "users"
+  add_foreign_key "employees", "users", column: "evaluator_id"
   add_foreign_key "evaluations", "employees"
   add_foreign_key "position_changes", "employees"
   add_foreign_key "settings", "users"

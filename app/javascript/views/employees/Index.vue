@@ -126,6 +126,7 @@ export default {
         innerComponent: EmployeeForm,
         maxWidth: 800,
         props: {
+          evaluators: this.evaluators,
           positions: this.positions,
           groups: this.groups,
           employee: new Employee()
@@ -137,6 +138,7 @@ export default {
         innerComponent: EmployeeForm,
         maxWidth: 800,
         props: {
+          evaluators: this.evaluators,
           positions: this.positions,
           groups: this.groups,
           employee: this.employees.findById(id)
@@ -168,6 +170,7 @@ export default {
     ...mapGetters({
       employees: 'EmployeesModule/employees',
       employee: 'EmployeesModule/employee',
+      evaluators: 'EmployeesModule/evaluators',
       loading: 'EmployeesModule/loading',
     })
   },

@@ -127,20 +127,22 @@ export default {
       employeeForm: {
         createTitle: 'Utwórz pracownika',
         updateTitle: 'Zaktualizuj pracownika',
-        general: 'Informacje ogólne',
-        dates: 'Daty',
+        general: 'Ogólce',
+        employment: 'Zatrudnienie',
+        evaluation: 'Ocena',
         firstName: 'Imię',
         lastName: 'Naswisko',
         position: 'Stanowisko',
         group: 'Grupa',
         hiredOn: 'Data zatrudnienia',
         positionSetOn: 'Data zmiany stanowiska',
-        nextEvaluationOn: 'Data ostatniej evaluacji'
+        nextEvaluationOn: 'Data ostatniej oceny',
+        evaluator: 'Ewaluator'
       },
       sidebar: {
         group: 'Groupa',
         hiredOn: 'Data zatrudnienia',
-        nextEvaluationOn: 'Data ostatniej evaluacji',
+        nextEvaluationOn: 'Data ostatniej oceny',
         completedEvaluations: {
           title: 'Zakończone ocenę',
           noContent: 'Brak ocen'

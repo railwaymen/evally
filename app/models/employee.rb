@@ -3,7 +3,7 @@
 class Employee < ApplicationRecord
   has_secure_token :public_token
 
-  belongs_to :user
+  belongs_to :evaluator, class_name: 'User', optional: true
   has_many :evaluations, dependent: :destroy
   has_many :position_changes, dependent: :destroy
 

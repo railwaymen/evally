@@ -5,9 +5,9 @@ module V2
     before_action :authenticate!
 
     def index
-      employees = V2::EmployeesQuery.new.call
+      presenter = V2::EmployeesPresenter.new
 
-      render json: V2::EmployeeSerializer.render(employees, view: :index), status: :ok
+      render json: V2::Views::EmployeesView.render(presenter), status: :ok
     end
 
     def show
@@ -69,7 +69,7 @@ module V2
 
     def create_form
       @create_form ||= V2::EmployeeForm.new(
-        current_user.employees.build,
+        Employee.new,
         params: employee_params,
         user: current_user
       )
@@ -85,7 +85,8 @@ module V2
 
     def employee_params
       params.require(:employee).permit(
-        :first_name, :last_name, :position, :group, :hired_on, :position_set_on, :next_evaluation_on
+        :first_name, :last_name, :position, :group, :hired_on, :position_set_on, :evaluator_id,
+        :next_evaluation_on
       )
     end
   end
