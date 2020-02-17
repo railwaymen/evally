@@ -37,6 +37,7 @@ module Evally
     # the framework and any gems in your application.
 
     config.eager_load_paths << Rails.root.join('app', 'forms')
+    config.eager_load_paths << Rails.root.join('app', 'policies')
     config.eager_load_paths << Rails.root.join('app', 'serializers')
     config.eager_load_paths << Rails.root.join('app', 'services')
 

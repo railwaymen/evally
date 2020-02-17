@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include RailsJwtAuth::AuthenticableHelper
+  include Pundit
 
   protect_from_forgery with: :exception, unless: lambda {
     Rails.env.production? || request.format.json?
@@ -9,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from ErrorResponderService, with: :render_error_response
   rescue_from RailsJwtAuth::NotAuthorized, with: :unauthorized_response
+  rescue_from Pundit::NotAuthorizedError, with: :forbidden_response
 
   before_action :set_locale
 
@@ -20,6 +22,10 @@ class ApplicationController < ActionController::Base
 
   def unauthorized_response
     head :unauthorized
+  end
+
+  def forbidden_response
+    head :forbidden
   end
 
   def set_locale

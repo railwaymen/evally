@@ -3,6 +3,7 @@
 module V2
   class UsersController < ApplicationController
     before_action :authenticate!
+    before_action :authorize!
 
     def index
       users = User.order(status: :asc, first_name: :asc)
@@ -17,6 +18,10 @@ module V2
     end
 
     private
+
+    def authorize!
+      authorize [:v2, User]
+    end
 
     def user
       @user ||= User.find_by(id: params[:id])

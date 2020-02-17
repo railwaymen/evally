@@ -3,6 +3,7 @@
 module V2
   class InvitationsController < RailsJwtAuth::InvitationsController
     before_action :authenticate!, only: :create
+    before_action :authorize!, only: :create
 
     def create
       create_form.save
@@ -11,6 +12,10 @@ module V2
     end
 
     private
+
+    def authorize!
+      authorize [:v2, User]
+    end
 
     def create_form
       @create_form ||= V2::UserCreateForm.new(params: invitied_user_params, admin: current_user)

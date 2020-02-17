@@ -24,6 +24,10 @@ class User extends Model {
     return [this.first_name[0], this.last_name[0]].join('').toUpperCase() || '@'
   }
 
+  get isAdmin() {
+    return this.role === 'admin'
+  }
+
   get lastSignInAt() {
     if (!this.last_sign_in_at) return '---'
 
