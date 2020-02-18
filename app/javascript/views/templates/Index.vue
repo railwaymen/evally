@@ -21,7 +21,7 @@
           <span>{{ $t('shared.tooltips.addNew') }}</span>
         </v-tooltip>
 
-        <v-tooltip bottom>
+        <v-tooltip v-if="actionPermitted" bottom>
           <template #activator="{ on }">
             <v-btn
               @click="save"
@@ -37,7 +37,7 @@
           <span>{{ $t('shared.tooltips.save') }}</span>
         </v-tooltip>
 
-        <v-tooltip bottom>
+        <v-tooltip v-if="actionPermitted" bottom>
           <template #activator="{ on }">
             <v-btn
               @click="edit"
@@ -53,7 +53,7 @@
           <span>{{ $t('shared.tooltips.edit') }}</span>
         </v-tooltip>
 
-        <v-tooltip bottom>
+        <v-tooltip v-if="actionPermitted" bottom>
           <template #activator="{ on }">
             <v-btn
               @click="openDeleteConfirm"
@@ -134,7 +134,13 @@ export default {
     })
   },
   computed: {
+    actionPermitted() {
+      return (
+        this.template.isNewRecord || this.user.isAdmin || this.user.id === this.template.creator_id
+      )
+    },
     ...mapGetters({
+      user: 'SessionModule/user',
       templates: 'TemplatesModule/templates',
       template: 'TemplatesModule/template',
       loading: 'TemplatesModule/loading',

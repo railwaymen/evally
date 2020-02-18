@@ -6,7 +6,7 @@ module V2
     before_action :authorize!, only: %i[update destroy]
 
     def index
-      templates = Template.order(name: :asc)
+      templates = Template.includes(:creator).order(name: :asc)
 
       render json: V2::TemplateSerializer.render(templates), status: :ok
     end

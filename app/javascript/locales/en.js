@@ -207,6 +207,7 @@ export default {
       sidebar: {
         search: 'Search ...',
         subheader: 'Available Templates',
+        createdBy: 'created by {name}',
         noContent: 'There are no templates to show'
       },
       deleteConfirm: {

@@ -5,7 +5,9 @@ class Template extends Model {
     return {
       id: null,
       name: '',
-      editable: false
+      editable: false,
+      creator_id: null,
+      creator_fullname: ''
     }
   }
 

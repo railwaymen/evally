@@ -207,6 +207,7 @@ export default {
       sidebar: {
         search: 'Szukaj ...',
         subheader: 'Dostępne szablony',
+        createdBy: 'stworzony przez {name}',
         noContent: 'Brak szablonów'
       },
       deleteConfirm: {
