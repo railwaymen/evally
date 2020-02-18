@@ -23,7 +23,7 @@ module V2
     end
 
     def templates
-      Template.order(name: :asc)
+      Template.includes(:creator).order(name: :asc)
     end
 
     private
