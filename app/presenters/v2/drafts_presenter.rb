@@ -21,11 +21,11 @@ module V2
     private
 
     def drafts_scope
-      EvaluationPolicy::Scope.new(@user, Evaluation).resolve.draft
+      Pundit.policy_scope!(@user, [:v2, Evaluation]).draft
     end
 
     def employees_scope
-      EmployeePolicy::Scope.new(@user, Employee).resolve
+      Pundit.policy_scope!(@user, [:v2, Employee])
     end
   end
 end

@@ -7,11 +7,11 @@ module V2
     end
 
     def create?
-      index?
+      user.admin?
     end
 
     def update?
-      index?
+      user.admin?
     end
   end
 end

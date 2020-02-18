@@ -9,15 +9,17 @@ module V2
     end
 
     def employees
-      Employee.order(next_evaluation_on: :desc).limit(setting.default_upcoming_items || 5)
+      employees_scope.order(next_evaluation_on: :desc).limit(setting.default_upcoming_items || 5)
     end
 
     def drafts
-      drafts_scope.order(updated_at: :desc).limit(setting.default_draft_items || 5)
+      drafts_scope.includes(:employee)
+                  .order(updated_at: :desc)
+                  .limit(setting.default_draft_items || 5)
     end
 
     def activities
-      Activity.includes(:user).order(created_at: :desc).limit(5)
+      activities_scope.includes(:user).order(created_at: :desc).limit(5)
     end
 
     def templates
@@ -26,8 +28,16 @@ module V2
 
     private
 
+    def activities_scope
+      Pundit.policy_scope!(@user, [:v2, Activity])
+    end
+
+    def employees_scope
+      Pundit.policy_scope!(@user, [:v2, Employee])
+    end
+
     def drafts_scope
-      Evaluation.draft.includes(:employee)
+      Pundit.policy_scope!(@user, [:v2, Evaluation]).draft
     end
   end
 end
