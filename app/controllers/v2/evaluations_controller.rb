@@ -3,6 +3,7 @@
 module V2
   class EvaluationsController < ApplicationController
     before_action :authenticate!
+    before_action :authorize!
 
     def show
       presenter = V2::EvaluationPresenter.new(evaluation)
@@ -11,6 +12,10 @@ module V2
     end
 
     private
+
+    def authorize!
+      authorize [:v2, evaluation]
+    end
 
     def evaluation
       @evaluation ||= Evaluation.completed.includes(:employee).find_by(id: params[:id])

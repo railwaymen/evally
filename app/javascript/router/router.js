@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import { isAuthenticated, isAuthorized } from '@router/guards'
+import { authenticationGuard, authorizationGuard } from '@router/guards'
 
 Vue.use(Router)
 
@@ -11,7 +11,7 @@ export default new Router({
     {
       path: '/app',
       component: () => import(/* webpackChunkName: 'layout_base' */ '@views/layout/Base'),
-      beforeEnter: isAuthenticated,
+      beforeEnter: authenticationGuard,
       children: [
         {
           path: 'start',
@@ -44,7 +44,7 @@ export default new Router({
               path: 'overview',
               name: 'employees_overview_path',
               component: () => import(/* webpackChunkName: 'employees_overview' */ '@views/employees/Overview'),
-              beforeEnter: isAuthorized
+              beforeEnter: authorizationGuard
             },
             {
               path: ':employeeId',
@@ -76,7 +76,7 @@ export default new Router({
           path: 'users',
           name: 'users_path',
           component: () => import(/* webpackChunkName: 'users' */ '@views/users/Index'),
-          beforeEnter: isAuthorized,
+          beforeEnter: authorizationGuard,
         },
         {
           path: 'settings',

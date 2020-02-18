@@ -1,6 +1,6 @@
 import store from '@store/store'
 
-export const isAuthenticated = (_to, _from, next) => {
+export const authenticationGuard = (_to, _from, next) => {
   if (localStorage.getItem('ev411y_t0k3n')) next()
   else {
     store.commit(
@@ -12,7 +12,7 @@ export const isAuthenticated = (_to, _from, next) => {
   }
 }
 
-export const isAuthorized = (_to, from, next) => {
+export const authorizationGuard = (_to, from, next) => {
   const user = store.getters['SessionModule/user']
 
   if (user.isAdmin) next()
