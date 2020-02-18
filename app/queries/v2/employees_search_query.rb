@@ -2,10 +2,10 @@
 
 module V2
   class EmployeesSearchQuery
-    def self.call(params)
+    def self.call(scope = Employee.all, params:)
       @params = params
 
-      Employee.includes(:evaluator).select(fields).joins(tables).where(
+      scope.includes(:evaluator).select(fields).joins(tables).where(
         "#{group_condition} AND #{skill_name_condition} AND #{skill_value_condition}"
       ).distinct
     end

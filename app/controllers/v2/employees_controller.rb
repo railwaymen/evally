@@ -3,9 +3,10 @@
 module V2
   class EmployeesController < ApplicationController
     before_action :authenticate!
+    before_action :authorize!
 
     def index
-      presenter = V2::EmployeesPresenter.new
+      presenter = V2::EmployeesPresenter.new(employees_scope)
 
       render json: V2::Views::EmployeesView.render(presenter), status: :ok
     end
@@ -33,7 +34,7 @@ module V2
     end
 
     def search
-      employees = V2::EmployeesSearchQuery.call(params)
+      employees = V2::EmployeesSearchQuery.call(employees_scope, params: params)
 
       render json: V2::EmployeeSerializer.render(employees, view: :search), status: :ok
     end
@@ -60,8 +61,16 @@ module V2
 
     private
 
+    def authorize!
+      authorize [:v2, Employee]
+    end
+
+    def employees_scope
+      policy_scope([:v2, Employee])
+    end
+
     def employee
-      @employee ||= V2::EmployeesQuery.call.find_by(id: params[:id])
+      @employee ||= V2::EmployeesQuery.call(employees_scope).find_by(id: params[:id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @employee
 
       @employee
