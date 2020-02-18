@@ -5,7 +5,7 @@ module V2
     def self.call(params)
       @params = params
 
-      Employee.select(fields).joins(tables).where(
+      Employee.includes(:evaluator).select(fields).joins(tables).where(
         "#{group_condition} AND #{skill_name_condition} AND #{skill_value_condition}"
       ).distinct
     end

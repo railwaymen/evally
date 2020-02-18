@@ -36,6 +36,10 @@
       {{ item.positionSetOn }}
     </template>
 
+    <template #item.evaluator_fullname="{ item }">
+      {{ item.evaluator_fullname || '---' }}
+    </template>
+
     <template #item.latest_evaluation_date="{ item }">
       {{ item.latestEvaluationDate }}
     </template>
@@ -88,6 +92,11 @@ export default {
         {
           text: this.$t('components.employees.searchTable.cols.positionSetOn'),
           value: 'position_set_on',
+          align: 'center'
+        },
+        {
+          text: this.$t('components.employees.searchTable.cols.evaluatorName'),
+          value: 'evaluator_fullname',
           align: 'center'
         },
         {

@@ -102,7 +102,7 @@ export default {
           group: 'Grupa',
           position: 'Stanowisko',
           positionSetOn: 'Data zmiany stanowiska',
-          evaluatorFullname: 'Ewaluator',
+          evaluatorName: 'Ewaluator',
           latestEvaluationAt: 'Data ostatniej oceny',
         }
       },
@@ -118,6 +118,7 @@ export default {
           group: 'Grupa',
           position: 'Stanowisko',
           positionSetOn: 'Data zmiany stanowiska',
+          evaluatorName: 'Ewaluator',
           latestEvaluationAt: 'Data ostatniej oceny',
         },
         labels: {
