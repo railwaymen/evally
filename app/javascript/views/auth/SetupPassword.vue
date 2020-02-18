@@ -11,26 +11,32 @@
             <img src="@assets/images/logo_black.png" alt="Logo Evally">
           </div>
 
-          <h3 class="auth-form__heading">Remind Password</h3>
+          <h3 class="auth-form__heading">Setup Password</h3>
 
-          <h4 class="auth-form__instruction">Enter your email to reset a password</h4>
+          <h4 class="auth-form__instruction">Please enter twice the password you would like to use for authentication</h4>
 
-          <div class="auth-form__group" data-cy="email">
+          <div class="auth-form__group">
             <v-text-field
-              v-model="email"
+              v-model="password"
               :rules="[vRequired]"
-              prepend-inner-icon="mdi-at"
-              type="email"
-              label="Email"
+              prepend-inner-icon="mdi-lock-outline"
+              type="password"
+              label="Password"
+            />
+          </div>
+
+          <div class="auth-form__group">
+            <v-text-field
+              v-model="password"
+              :rules="[vRequired]"
+              prepend-inner-icon="mdi-lock-outline"
+              type="password"
+              label="Password Confirmation"
             />
           </div>
 
           <div class="auth-form__actions" data-cy="submit">
-            <span class="auth-form__link">
-              <router-link :to="{ name: 'login_path' }">
-                Back to Login
-              </router-link>
-            </span>
+            <v-spacer />
 
             <v-btn
               color="primary"
@@ -38,7 +44,7 @@
               large
               outlined
             >
-              Send
+              Setup
             </v-btn>
           </div>
         </v-form>
@@ -52,7 +58,8 @@ export default {
   name: 'RemindPassword',
   data() {
     return {
-      email: ''
+      password: '',
+      passwordConfirmation: ''
     }
   },
   methods: {

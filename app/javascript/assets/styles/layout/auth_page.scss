@@ -9,14 +9,12 @@
   display: flex;
   align-items: center;
 
-  @include respond(md) {
-    align-items: stretch;
-  };
-
   &__content {
     width: 100%;
     display: flex;
     padding: rem2dec(3rem);
+    display: flex;
+    justify-content: center;
 
     @include respond(md) {
       padding: 0;
@@ -24,15 +22,11 @@
   }
 
   &__side {
-    width: 100%;
+    width: rem2dec(48rem);
     background-color: white;
     padding: rem2dec(3rem 4rem);
     display: flex;
     align-items: center;
     justify-content: center;
-
-    @include respond(md) {
-      width: 40%;
-    };
   }
 }

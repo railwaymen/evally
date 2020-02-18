@@ -11,7 +11,7 @@
             <img src="@assets/images/logo_black.png" alt="Logo Evally">
           </div>
 
-          <h3 class="auth-form__heading">Sign in</h3>
+          <h3 class="auth-form__heading">Sign In</h3>
 
           <div class="auth-form__group" data-cy="login-email">
             <v-text-field

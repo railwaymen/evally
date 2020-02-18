@@ -8,7 +8,7 @@
   &__logo {
     width: rem2dec(20rem);
     height: auto;
-    margin: rem2dec(3rem 0);
+    margin: rem2dec(3rem auto);
 
     img {
       width: 100%;
@@ -17,9 +17,18 @@
   }
 
   &__heading {
-    font-size: rem2dec(4rem);
+    font-size: rem2dec(3.6rem);
     font-weight: 400;
-    margin-bottom: rem2dec(3rem);
+    margin-bottom: rem2dec(1.5rem);
+    text-align: center;
+  }
+
+  &__instruction {
+    font-size: rem2dec(1.6rem);
+    font-weight: 200;
+    color: $font-gray-dark;
+    margin-bottom: rem2dec(1.5rem);
+    text-align: center;
   }
 
   &__group {
