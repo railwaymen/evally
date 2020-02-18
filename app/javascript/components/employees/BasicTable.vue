@@ -18,7 +18,7 @@
           :loading="loading"
         >
           <template #item.action="{ item }">
-            <v-tooltip bottom>
+            <v-tooltip v-if="editable" bottom>
               <template #activator="{ on }">
                 <v-icon
                   @click="$emit('edit', item.id)"
@@ -81,6 +81,11 @@ export default {
       type: EmployeesList,
       required: true,
       default: () => new EmployeesList()
+    },
+    editable: {
+      type: Boolean,
+      required: true,
+      default: false
     }
   },
   data() {

@@ -12,7 +12,7 @@ export const isAuthenticated = (_to, _from, next) => {
   }
 }
 
-export const isAuthorized = (_to, _from, next) => {
+export const isAuthorized = (_to, from, next) => {
   const user = store.getters['SessionModule/user']
 
   if (user.isAdmin) next()
@@ -22,6 +22,6 @@ export const isAuthorized = (_to, _from, next) => {
       { error: 'You have not permissions to see that content.' }
     )
 
-    next({ name: 'dashboard_path' })
+    next({ name: from.name })
   }
 }

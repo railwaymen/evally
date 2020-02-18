@@ -44,6 +44,7 @@ export default new Router({
               path: 'overview',
               name: 'employees_overview_path',
               component: () => import(/* webpackChunkName: 'employees_overview' */ '@views/employees/Overview'),
+              beforeEnter: isAuthorized
             },
             {
               path: ':employeeId',
