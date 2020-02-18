@@ -18,14 +18,6 @@ module V2
       user.admin?
     end
 
-    def skills?
-      true
-    end
-
-    def search?
-      true
-    end
-
     def overview?
       user.admin?
     end

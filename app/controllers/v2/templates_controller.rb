@@ -3,6 +3,7 @@
 module V2
   class TemplatesController < ApplicationController
     before_action :authenticate!
+    before_action :authorize!, only: %i[update destroy]
 
     def index
       templates = Template.order(name: :asc)
@@ -45,6 +46,10 @@ module V2
     end
 
     private
+
+    def authorize!
+      authorize [:v2, template]
+    end
 
     def template
       @template ||= Template.find_by(id: params[:id])
