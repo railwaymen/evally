@@ -13,14 +13,14 @@ RSpec.describe V2::EvaluationsController, type: :controller do
         expect(response).to have_http_status 401
       end
 
-      it 'responds with 403 error' do
+      it 'responds with 404 error' do
         evaluation = FactoryBot.create(:evaluation, :completed)
         FactoryBot.create(:section, sectionable: evaluation)
 
         sign_in evaluator
         get :show, params: { employee_id: evaluation.employee_id, id: evaluation.id }
 
-        expect(response).to have_http_status 403
+        expect(response).to have_http_status 404
       end
     end
 

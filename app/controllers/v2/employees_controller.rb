@@ -6,7 +6,7 @@ module V2
     before_action :authorize!
 
     def index
-      presenter = V2::EmployeesPresenter.new(employees_scope)
+      presenter = V2::EmployeesPresenter.new(current_user)
 
       render json: V2::Views::EmployeesView.render(presenter), status: :ok
     end
@@ -62,7 +62,7 @@ module V2
     private
 
     def authorize!
-      authorize [:v2, Employee]
+      authorize([:v2, Employee])
     end
 
     def employees_scope

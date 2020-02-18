@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe V2::DraftsController, type: :controller do
-  let(:user) { create(:user) }
+  let(:admin) { create(:user, role: 'admin') }
+  let(:evaluator) { create(:user, role: 'evaluator') }
 
   describe '#index' do
     context 'when unauthorized' do
@@ -15,7 +16,7 @@ RSpec.describe V2::DraftsController, type: :controller do
 
     context 'when authorized' do
       it 'responds with empty drafts, employees and templates' do
-        sign_in user
+        sign_in admin
         get :index
 
         expect(response).to have_http_status 200
@@ -29,9 +30,19 @@ RSpec.describe V2::DraftsController, type: :controller do
 
   describe '#show' do
     context 'when unauthorized' do
-      it 'responds with error' do
+      it 'responds with 401 error' do
         get :show, params: { id: 1 }
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 404 error' do
+        draft = FactoryBot.create(:evaluation, :draft)
+        FactoryBot.create(:section, sectionable: draft)
+
+        sign_in evaluator
+        get :show, params: { id: draft.id }
+
+        expect(response).to have_http_status 404
       end
     end
 
@@ -40,7 +51,7 @@ RSpec.describe V2::DraftsController, type: :controller do
         draft = FactoryBot.create(:evaluation, :draft)
         FactoryBot.create(:section, sectionable: draft)
 
-        sign_in user
+        sign_in admin
         get :show, params: { id: draft.id }
 
         expect(response).to have_http_status 200
@@ -48,7 +59,7 @@ RSpec.describe V2::DraftsController, type: :controller do
       end
 
       it 'responds with 404 error' do
-        sign_in user
+        sign_in admin
         get :show, params: { id: 1 }
 
         expect(response).to have_http_status 404
@@ -58,7 +69,7 @@ RSpec.describe V2::DraftsController, type: :controller do
 
   describe '#create' do
     context 'when unauthorized' do
-      it 'responds with error' do
+      it 'responds with 401 error' do
         params = {
           draft: {
             employee_id: 1,
@@ -70,10 +81,8 @@ RSpec.describe V2::DraftsController, type: :controller do
 
         expect(response).to have_http_status 401
       end
-    end
 
-    context 'when authorized' do
-      it 'responds with new draft from template' do
+      it 'responds with 404 error' do
         employee = FactoryBot.create(:employee)
 
         template = FactoryBot.create(:template)
@@ -86,7 +95,28 @@ RSpec.describe V2::DraftsController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in evaluator
+        post :create, params: params
+
+        expect(response).to have_http_status 404
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with new draft from template' do
+        employee = FactoryBot.create(:employee, evaluator: evaluator)
+
+        template = FactoryBot.create(:template)
+        FactoryBot.create(:section, sectionable: template)
+
+        params = {
+          draft: {
+            employee_id: employee.id,
+            template_id: template.id
+          }
+        }
+
+        sign_in evaluator
 
         expect do
           post :create, params: params
@@ -107,7 +137,7 @@ RSpec.describe V2::DraftsController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
 
         expect do
           post :create, params: params
@@ -128,7 +158,7 @@ RSpec.describe V2::DraftsController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
         post :create, params: params
 
         expect(response).to have_http_status 404
@@ -145,7 +175,7 @@ RSpec.describe V2::DraftsController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
         post :create, params: params
 
         expect(response).to have_http_status 404
@@ -162,7 +192,7 @@ RSpec.describe V2::DraftsController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
         post :create, params: params
 
         expect(response).to have_http_status 404
@@ -183,7 +213,7 @@ RSpec.describe V2::DraftsController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
         post :create, params: params
 
         expect(response).to have_http_status 422
@@ -194,7 +224,7 @@ RSpec.describe V2::DraftsController, type: :controller do
 
   describe '#update' do
     context 'when unauthorized' do
-      it 'responds with error' do
+      it 'responds with 401 error' do
         params = {
           id: 1,
           draft: {
@@ -210,6 +240,28 @@ RSpec.describe V2::DraftsController, type: :controller do
         put :update, params: params
 
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 404 error' do
+        draft = FactoryBot.create(:evaluation, :draft)
+        section = FactoryBot.create(:section, sectionable: draft)
+
+        params = {
+          id: draft.id,
+          draft: {
+            sections: [
+              {
+                id: section.id,
+                name: 'New section name'
+              }
+            ]
+          }
+        }
+
+        sign_in evaluator
+        put :update, params: params
+
+        expect(response).to have_http_status 404
       end
     end
 
@@ -236,7 +288,7 @@ RSpec.describe V2::DraftsController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
 
         expect do
           put :update, params: params
@@ -270,7 +322,7 @@ RSpec.describe V2::DraftsController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
 
         expect do
           put :update, params: params
@@ -300,7 +352,7 @@ RSpec.describe V2::DraftsController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
         put :update, params: params
 
         expect(response).to have_http_status 422
@@ -311,9 +363,19 @@ RSpec.describe V2::DraftsController, type: :controller do
 
   describe '#destroy' do
     context 'when unauthorized' do
-      it 'responds with error' do
+      it 'responds with 401 error' do
         delete :destroy, params: { id: 1 }
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 404 error' do
+        draft = FactoryBot.create(:evaluation, :draft)
+        FactoryBot.create(:section, sectionable: draft)
+
+        sign_in evaluator
+        delete :destroy, params: { id: draft.id }
+
+        expect(response).to have_http_status 404
       end
     end
 
@@ -322,7 +384,7 @@ RSpec.describe V2::DraftsController, type: :controller do
         draft = FactoryBot.create(:evaluation, :draft)
         FactoryBot.create(:section, sectionable: draft)
 
-        sign_in user
+        sign_in admin
 
         expect do
           delete :destroy, params: { id: draft.id }
@@ -332,7 +394,7 @@ RSpec.describe V2::DraftsController, type: :controller do
       end
 
       it 'responds with 404 error' do
-        sign_in user
+        sign_in admin
         delete :destroy, params: { id: 1 }
 
         expect(response).to have_http_status 404

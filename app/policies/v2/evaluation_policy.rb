@@ -2,10 +2,12 @@
 
 module V2
   class EvaluationPolicy < ApplicationPolicy
-    def show?
-      return true if user.admin?
+    class Scope < Scope
+      def resolve
+        return scope.all if user.admin?
 
-      user.id == record.employee.evaluator_id
+        user.evaluations
+      end
     end
   end
 end
