@@ -53,6 +53,10 @@
             {{ item.positionSetOn }}
           </template>
 
+          <template #item.evaluator_fullname="{ item }">
+            {{ item.evaluator_fullname || '---' }}
+          </template>
+
           <template #item.latest_evaluation_date="{ item }">
             {{ item.latestEvaluationDate }}
           </template>
@@ -112,12 +116,16 @@ export default {
           align: 'center'
         },
         {
+          text: this.$t('components.employees.table.cols.evaluatorFullname'),
+          value: 'evaluator_fullname',
+          align: 'center'
+        },
+        {
           text: this.$t('components.employees.table.cols.latestEvaluationAt'),
           value: 'latest_evaluation_date',
           align: 'center'
         }
-      ],
-      perPageItems: [10, 30, { text: '$vuetify.dataIterator.rowsPerPageAll' , value: -1 }]
+      ]
     }
   }
 }

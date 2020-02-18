@@ -29,11 +29,11 @@ module V2
     end
 
     def skills
-      render json: V2::SkillsQuery.new.call, status: :ok
+      render json: V2::SkillsQuery.call, status: :ok
     end
 
     def search
-      employees = V2::EmployeesSearchQuery.new(params).call
+      employees = V2::EmployeesSearchQuery.call(params)
 
       render json: V2::EmployeeSerializer.render(employees, view: :search), status: :ok
     end
@@ -61,7 +61,7 @@ module V2
     private
 
     def employee
-      @employee ||= Employee.find_by(id: params[:id])
+      @employee ||= V2::EmployeesQuery.call.find_by(id: params[:id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @employee
 
       @employee

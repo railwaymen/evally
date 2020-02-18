@@ -50,6 +50,10 @@ module JsonSpecHelpers
   end
 
   def employee_schema(employee) # rubocop:disable Metrics/MethodLength
+    latest_evaluation_date = lambda do
+      employee.latest_evaluation_date if employee.respond_to?(:latest_evaluation_date)
+    end
+
     {
       first_name: employee.first_name,
       last_name: employee.last_name,
@@ -59,7 +63,10 @@ module JsonSpecHelpers
       hired_on: employee.hired_on,
       position_set_on: employee.position_set_on || employee.hired_on,
       next_evaluation_on: employee.next_evaluation_on,
-      public_token: employee.public_token
+      public_token: employee.public_token,
+      latest_evaluation_date: latest_evaluation_date.call,
+      evaluator_id: employee.evaluator_id,
+      evaluator_fullname: employee.evaluator&.fullname
     }.to_json
   end
 

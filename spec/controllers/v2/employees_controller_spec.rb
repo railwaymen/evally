@@ -20,7 +20,8 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
         expect(response).to have_http_status 200
 
-        expect(response.body).to be_json_eql('[]')
+        expect(response.body).to have_json_path('employees')
+        expect(response.body).to have_json_path('evaluators')
       end
     end
   end

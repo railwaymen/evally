@@ -102,6 +102,7 @@ export default {
           group: 'Group',
           position: 'Position',
           positionSetOn: 'Promotion Date',
+          evaluatorFullname: 'Evaluator Name',
           latestEvaluationAt: 'Latest Evaluation Date',
         }
       },

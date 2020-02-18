@@ -3,7 +3,7 @@
 module V2
   class EmployeesPresenter
     def employees
-      V2::EmployeesQuery.new.call
+      V2::EmployeesQuery.call
     end
 
     def evaluators

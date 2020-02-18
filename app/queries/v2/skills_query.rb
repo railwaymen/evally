@@ -2,13 +2,11 @@
 
 module V2
   class SkillsQuery
-    def call
+    def self.call
       ActiveRecord::Base.connection.exec_query(raw_sql)
     end
 
-    private
-
-    def raw_sql # rubocop:disable Metrics/MethodLength
+    def self.raw_sql # rubocop:disable Metrics/MethodLength
       "
         SELECT
           DISTINCT \"group\",
@@ -24,5 +22,7 @@ module V2
         ORDER BY \"group\" ASC;
       "
     end
+
+    private_class_method :raw_sql
   end
 end

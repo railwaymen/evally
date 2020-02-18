@@ -102,6 +102,7 @@ export default {
           group: 'Grupa',
           position: 'Stanowisko',
           positionSetOn: 'Data zmiany stanowiska',
+          evaluatorFullname: 'Ewaluator',
           latestEvaluationAt: 'Data ostatniej oceny',
         }
       },
