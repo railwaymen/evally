@@ -1,5 +1,7 @@
 before_script:
   - bundle install --path=/home/gitlab-runner/builds/shared/${CI_PROJECT_NAME}/gems
+  - cp config/database.ci.yml config/database.yml
+  - cp config/env.ci.yml config/env.yml
 
 production:
   only:

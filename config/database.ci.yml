@@ -1,0 +1,14 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  host: <%= ENV['db_host'] %>
+  username: <%= ENV['db_username'] %>
+  password: <%= ENV['db_password'] %>
+
+development:
+  <<: *default
+  database: evally_development
+
+test:
+  <<: *default
+  database: evally_test

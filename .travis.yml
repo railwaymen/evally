@@ -6,7 +6,7 @@ rvm:
   - 2.7.0
 
 env:
-  - RAILS_ENV=test DB_USERNAME=postgres DB_DATABASE=evally_test DB_HOST=localhost DB_PASSWORD=''
+  - RAILS_ENV=test DB_USERNAME=postgres DB_HOST=localhost DB_PASSWORD=''
 
 sudo: required
 
@@ -23,6 +23,6 @@ before_install:
 
 before_script:
   - yarn install
-  - cp config/database.travis.yml config/database.yml
-  - cp config/env.travis.yml config/env.yml
+  - cp config/database.ci.yml config/database.yml
+  - cp config/env.ci.yml config/env.yml
   - bundle exec rake db:create
