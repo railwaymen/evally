@@ -32,6 +32,7 @@ group :development, :test do
   gem 'simplecov', '~> 0.16.1'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
+  gem 'travis'
 end
 
 group :development do

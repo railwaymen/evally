@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  host: <%= ENV['DB_HOST'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  database: <%= ENV['DB_DATABASE'] %>
+
+development:
+  <<: *default
+  database: evally_development
+
+test:
+  <<: *default
+
+cypress:
+  <<: *default
+  database: evally_cypress
