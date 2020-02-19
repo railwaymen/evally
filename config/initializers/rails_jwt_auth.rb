@@ -33,14 +33,14 @@ RailsJwtAuth.setup do |config|
   #config.confirmations_url = 'http://frontend.com/confirmation'
 
   # url used to create email link with reset password token
-  config.reset_passwords_url = "http://#{Rails.application.config.env.fetch('host')}/reset_password"
+  config.reset_passwords_url = "#{Rails.application.config.env.fetch('host')}/reset_password"
 
   # url used to create email link with set password token
   # by set_and_send_password_instructions method
-  config.set_passwords_url = "http://#{Rails.application.config.env.fetch('host')}/set_password"
+  config.set_passwords_url = "#{Rails.application.config.env.fetch('host')}/set_password"
 
   # url used to create email link with activation token parameter to accept invitation
-  config.invitations_url = "http://#{Rails.application.config.env.fetch('host')}/accept_invitation"
+  config.invitations_url = "#{Rails.application.config.env.fetch('host')}/accept_invitation"
 
   # uses deliver_later to send emails instead of deliver method
   #config.deliver_later = false
