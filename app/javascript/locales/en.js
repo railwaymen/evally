@@ -315,8 +315,16 @@ export default {
     },
     session: {
       acceptInvitation: {
-        ok: 'Your password has been setup successfully. Now you can sign in',
+        ok: 'Your password has been saved, now you can sign in',
         error: 'Password cannot be setup: {msg}'
+      },
+      forgotPassword: {
+        ok: 'Password reset instructions has been sent to you',
+        error: 'Password cannot be reset: {msg}'
+      },
+      resetPassword: {
+        ok: 'Your password has been saved, now you can sign in',
+        error: 'Password cannot be saved: {msg}'
       },
       show: {
         error: 'User settings cannot be loaded: {msg}'

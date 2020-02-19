@@ -265,10 +265,6 @@ export default {
     }
   },
   messages: {
-    acceptInvitation: {
-      ok: 'Twoje hasło zostało zapisane. Możesz teraz się zalogować',
-      error: 'Błąd przy zapisywaniu hasła: {msg}'
-    },
     drafts: {
       index: {
         error: 'Błąd przy wczytywaniu szkiców ocen: {msg}'
@@ -318,6 +314,18 @@ export default {
       }
     },
     session: {
+      acceptInvitation: {
+        ok: 'Twoje hasło zostało zapisane. Możesz się teraz zalogować',
+        error: 'Błąd przy zapisywaniu hasła: {msg}'
+      },
+      forgotPassword: {
+        ok: 'Instrukcja resetowania hasła została wysłana na Twojego maila',
+        error: 'Błąd przy resetowaniu hasła: {msg}'
+      },
+      resetPassword: {
+        ok: 'Twoje hasło zostało zapisane i możesz się teraz zalogować',
+        error: 'Błąd przy zapisywaniu hasła: {msg}'
+      },
       show: {
         error: 'Błąd przy wczytywaniu ustawień: {msg}'
       },

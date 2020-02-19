@@ -119,9 +119,14 @@ export default new Router({
       component: () => import(/* webpackChunkName: 'login' */ '@views/auth/Login'),
     },
     {
-      path: '/remind_password',
-      name: 'remind_password_path',
-      component: () => import(/* webpackChunkName: 'remind_password' */ '@views/auth/RemindPassword'),
+      path: '/forgot_password',
+      name: 'forgot_password_path',
+      component: () => import(/* webpackChunkName: 'forgot_password' */ '@views/auth/ForgotPassword'),
+    },
+    {
+      path: '/reset_password',
+      name: 'reset_password_path',
+      component: () => import(/* webpackChunkName: 'reset_password' */ '@views/auth/ResetPassword'),
     },
     {
       path: '/accept_invitation',

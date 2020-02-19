@@ -35,7 +35,7 @@
 
           <div class="auth-form__actions" data-cy="login-submit">
             <span class="auth-form__link">
-              <router-link :to="{ name: 'remind_password_path' }">
+              <router-link :to="{ name: 'forgot_password_path' }">
                 Forgot your password?
               </router-link>
             </span>

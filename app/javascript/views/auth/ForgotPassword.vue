@@ -11,7 +11,7 @@
             <img src="@assets/images/logo_black.png" alt="Logo Evally">
           </div>
 
-          <h3 class="auth-form__heading">Remind Password</h3>
+          <h3 class="auth-form__heading">Forgot Password</h3>
 
           <h4 class="auth-form__instruction">Enter your email to reset a password</h4>
 
@@ -49,7 +49,7 @@
 
 <script>
 export default {
-  name: 'RemindPassword',
+  name: 'ForgotPassword',
   data() {
     return {
       email: ''
@@ -57,9 +57,10 @@ export default {
   },
   methods: {
     submit() {
-      if (this.$refs.form.validate()) {
-        console.log('Submit!')
-      }
+      if (!this.$refs.form.validate()) return
+
+      this.$store.dispatch('SessionModule/forgotPassword', this.email)
+        .then(() => this.$refs.form.reset())
     }
   },
   created () {

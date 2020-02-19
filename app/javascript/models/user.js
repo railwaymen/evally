@@ -42,7 +42,9 @@ class User extends Model {
       usersPath: '/v2/users',
       userPath: id => `/v2/users/${id}`,
       invitationsPath: '/v2/invitations',
-      invitationPath: token => `/v2/invitations/${token}`
+      invitationPath: token => `/v2/invitations/${token}`,
+      passwordsPath: '/v2/passwords',
+      passwordPath: token => `/v2/passwords/${token}`
     }
   }
 }

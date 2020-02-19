@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   scope '(:locale)', locale: /en|pl/ do
     scope :v2, defaults: { format: :json } do
       resource :session, controller: 'rails_jwt_auth/sessions', only: %i[create destroy]
+      resources :passwords, controller: 'rails_jwt_auth/passwords', only: %i[create update]
     end
 
     namespace :v2, defaults: { format: :json } do

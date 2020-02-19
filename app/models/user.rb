@@ -3,6 +3,7 @@
 class User < ApplicationRecord
   include RailsJwtAuth::Authenticatable
   include RailsJwtAuth::Invitable
+  include RailsJwtAuth::Recoverable
   include RailsJwtAuth::Trackable
 
   has_one :setting, dependent: :destroy

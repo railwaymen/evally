@@ -24,20 +24,20 @@ RailsJwtAuth.setup do |config|
   #config.confirmation_expiration_time = 1.day
 
   # expiration time for reset password tokens
-  #config.reset_password_expiration_time = 1.day
+  config.reset_password_expiration_time = 1.day
 
   # time an invitation is valid after sent
-  # config.invitation_expiration_time = 2.days
+  config.invitation_expiration_time = 3.days
 
   # url used to create email link with confirmation token
   #config.confirmations_url = 'http://frontend.com/confirmation'
 
   # url used to create email link with reset password token
-  #config.reset_passwords_url = 'http://frontend.com/reset_password'
+  config.reset_passwords_url = "http://#{Rails.application.config.env.fetch('host')}/reset_password"
 
   # url used to create email link with set password token
   # by set_and_send_password_instructions method
-  #config.set_passwords_url = 'http://frontend.com/set_password'
+  config.set_passwords_url = "http://#{Rails.application.config.env.fetch('host')}/set_password"
 
   # url used to create email link with activation token parameter to accept invitation
   config.invitations_url = "http://#{Rails.application.config.env.fetch('host')}/accept_invitation"
