@@ -116,7 +116,9 @@ module JsonSpecHelpers
     {
       template: {
         id: template.id,
-        name: template.name
+        name: template.name,
+        creator_id: template.creator_id,
+        creator_fullname: template.creator&.fullname
       },
       sections: template.sections.map(&method(:section_schema))
     }.to_json
