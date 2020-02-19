@@ -66,6 +66,27 @@ const SessionModule = {
   },
 
   actions: {
+    acceptInvitation({ commit }, data) {
+      return new Promise((resolve) => {
+        http.put(User.routes.invitationPath(data.invitationToken), { invitation: data.invitation })
+          .then(response => {
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.session.acceptInvitation.ok') },
+              { root: true }
+            )
+
+            resolve(response)
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.session.acceptInvitation.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      })
+    },
     show({ commit }) {
       commit('setLoading', true)
 

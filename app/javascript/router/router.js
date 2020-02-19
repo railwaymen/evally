@@ -124,9 +124,9 @@ export default new Router({
       component: () => import(/* webpackChunkName: 'remind_password' */ '@views/auth/RemindPassword'),
     },
     {
-      path: '/setup_password',
-      name: 'setup_password_path',
-      component: () => import(/* webpackChunkName: 'setup_password' */ '@views/auth/SetupPassword'),
+      path: '/accept_invitation',
+      name: 'accept_invitation_path',
+      component: () => import(/* webpackChunkName: 'accept_invitation' */ '@views/auth/SetupPassword'),
     },
     {
       path: '/errors/404',

@@ -265,6 +265,10 @@ export default {
     }
   },
   messages: {
+    acceptInvitation: {
+      ok: 'Twoje hasło zostało zapisane. Możesz teraz się zalogować',
+      error: 'Błąd przy zapisywaniu hasła: {msg}'
+    },
     drafts: {
       index: {
         error: 'Błąd przy wczytywaniu szkiców ocen: {msg}'

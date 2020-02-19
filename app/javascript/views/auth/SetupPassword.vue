@@ -17,8 +17,8 @@
 
           <div class="auth-form__group">
             <v-text-field
-              v-model="password"
-              :rules="[vRequired]"
+              v-model="invitation.password"
+              :rules="[vRequired, vMin6]"
               prepend-inner-icon="mdi-lock-outline"
               type="password"
               label="Password"
@@ -27,8 +27,8 @@
 
           <div class="auth-form__group">
             <v-text-field
-              v-model="password"
-              :rules="[vRequired]"
+              v-model="invitation.password_confirmation"
+              :rules="[vRequired, vConfirmed]"
               prepend-inner-icon="mdi-lock-outline"
               type="password"
               label="Password Confirmation"
@@ -58,15 +58,26 @@ export default {
   name: 'RemindPassword',
   data() {
     return {
-      password: '',
-      passwordConfirmation: ''
+      invitation: {
+        password: '',
+        password_confirmation: ''
+      }
     }
   },
   methods: {
     submit() {
-      if (this.$refs.form.validate()) {
-        console.log('Submit!')
+      if (!this.$refs.form.validate()) return
+
+      const params = {
+        invitationToken: new URLSearchParams(window.location.search).get('invitation_token'),
+        invitation: this.invitation
       }
+
+      this.$store.dispatch('SessionModule/acceptInvitation', params)
+        .then(() => this.$router.push({ name: 'login_path' }))
+    },
+    vConfirmed(val) {
+      return val === this.invitation.password || this.$t('shared.validations.confirmed')
     }
   },
   created () {

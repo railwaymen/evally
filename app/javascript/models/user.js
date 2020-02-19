@@ -41,7 +41,8 @@ class User extends Model {
       sessionPath: '/v2/session',
       usersPath: '/v2/users',
       userPath: id => `/v2/users/${id}`,
-      invitationsPath: '/v2/invitations'
+      invitationsPath: '/v2/invitations',
+      invitationPath: token => `/v2/invitations/${token}`
     }
   }
 }
