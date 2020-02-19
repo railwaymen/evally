@@ -13,7 +13,7 @@ export const authenticationGuard = (_to, _from, next) => {
 }
 
 export const authorizationGuard = (_to, from, next) => {
-  const user = store.getters['SessionModule/user']
+  const user = store.getters['AuthenticationModule/user']
 
   if (user.isAdmin) next()
   else {

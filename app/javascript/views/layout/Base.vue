@@ -159,8 +159,8 @@ export default {
   components: { ConfirmDialog, FormsDialog },
   computed: {
     ...mapGetters({
-      user: 'SessionModule/user',
-      setting: 'SessionModule/setting',
+      user: 'AuthenticationModule/user',
+      setting: 'AuthenticationModule/setting',
     }),
 
     canHideSlider() {
@@ -169,12 +169,12 @@ export default {
   },
   methods: {
     logout () {
-      this.$store.dispatch('SessionModule/destroy')
+      this.$store.dispatch('AuthenticationModule/destroy')
         .then(() => this.$router.push({ name: 'login_path' }))
     }
   },
   created() {
-    this.$store.dispatch('SessionModule/show')
+    this.$store.dispatch('AuthenticationModule/show')
       .then(data => this.updateLocale(data.setting.lang))
   }
 }

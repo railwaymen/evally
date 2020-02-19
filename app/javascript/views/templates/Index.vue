@@ -140,7 +140,7 @@ export default {
       )
     },
     ...mapGetters({
-      user: 'SessionModule/user',
+      user: 'AuthenticationModule/user',
       templates: 'TemplatesModule/templates',
       template: 'TemplatesModule/template',
       loading: 'TemplatesModule/loading',

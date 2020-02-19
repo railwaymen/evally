@@ -124,7 +124,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      user: 'SessionModule/user'
+      user: 'AuthenticationModule/user'
     })
   }
 }

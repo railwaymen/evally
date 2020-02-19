@@ -87,7 +87,7 @@ export default {
       this.localSetting = new Setting({ ...this.setting })
     },
     save() {
-      this.$store.dispatch('SessionModule/updateSetting', this.localSetting)
+      this.$store.dispatch('AuthenticationModule/updateSetting', this.localSetting)
         .then(setting => this.updateLocale(setting.lang))
     }
   }

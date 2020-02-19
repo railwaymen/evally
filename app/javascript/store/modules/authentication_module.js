@@ -12,7 +12,7 @@ const initialState = () => ({
   loading: false
 })
 
-const SessionModule = {
+const AuthenticationModule = {
   namespaced: true,
 
   state: initialState(),
@@ -274,4 +274,4 @@ const SessionModule = {
   }
 }
 
-export default SessionModule
+export default AuthenticationModule

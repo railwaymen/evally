@@ -25,7 +25,7 @@ axios.interceptors.response.use(response => {
 }, error => {
   switch (error.response.status) {
     case 401:
-      store.commit('SessionModule/clearStore')
+      store.commit('AuthenticationModule/clearStore')
       localStorage.removeItem('ev411y_t0k3n')
 
       router.push({ name: 'login_path' })

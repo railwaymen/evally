@@ -174,7 +174,7 @@ export default {
       return pluckUniq(this.employees.models, 'group')
     },
     ...mapGetters({
-      user: 'SessionModule/user',
+      user: 'AuthenticationModule/user',
       employees: 'EmployeesModule/employees',
       employee: 'EmployeesModule/employee',
       evaluators: 'EmployeesModule/evaluators',

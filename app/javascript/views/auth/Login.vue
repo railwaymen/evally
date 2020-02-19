@@ -77,7 +77,7 @@ export default {
       }
     },
     ...mapActions({
-      createSession: 'SessionModule/create'
+      createSession: 'AuthenticationModule/create'
     })
   },
   created () {

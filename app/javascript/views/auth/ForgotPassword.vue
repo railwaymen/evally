@@ -59,7 +59,7 @@ export default {
     submit() {
       if (!this.$refs.form.validate()) return
 
-      this.$store.dispatch('SessionModule/forgotPassword', this.email)
+      this.$store.dispatch('AuthenticationModule/forgotPassword', this.email)
         .then(() => this.$refs.form.reset())
     }
   },

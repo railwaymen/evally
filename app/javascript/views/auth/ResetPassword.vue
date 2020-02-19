@@ -73,7 +73,7 @@ export default {
         reset: this.reset
       }
 
-      this.$store.dispatch('SessionModule/resetPassword', params)
+      this.$store.dispatch('AuthenticationModule/resetPassword', params)
         .then(() => this.$router.push({ name: 'login_path' }))
     },
     vConfirmed(val) {

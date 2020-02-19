@@ -73,7 +73,7 @@ export default {
         invitation: this.invitation
       }
 
-      this.$store.dispatch('SessionModule/acceptInvitation', params)
+      this.$store.dispatch('AuthenticationModule/acceptInvitation', params)
         .then(() => this.$router.push({ name: 'login_path' }))
     },
     vConfirmed(val) {

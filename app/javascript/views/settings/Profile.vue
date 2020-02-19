@@ -41,8 +41,8 @@ export default {
   components: { PasswordForm, UserForm },
   computed: {
     ...mapGetters({
-      user: 'SessionModule/user',
-      loading: 'SessionModule/loading'
+      user: 'AuthenticationModule/user',
+      loading: 'AuthenticationModule/loading'
     })
   }
 }
