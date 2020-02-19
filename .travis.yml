@@ -24,4 +24,5 @@ before_install:
 before_script:
   - yarn install
   - cp config/database.travis.yml config/database.yml
+  - cp config/env.travis.yml config/env.yml
   - bundle exec rake db:create

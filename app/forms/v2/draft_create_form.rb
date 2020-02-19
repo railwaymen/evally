@@ -14,6 +14,7 @@ module V2
 
       ActiveRecord::Base.transaction do
         @draft.save!
+
         create_activity!
       end
     end
@@ -35,7 +36,8 @@ module V2
     end
 
     def employee
-      @employee ||= Employee.find_by(id: @params[:employee_id])
+      @employee ||= EmployeePolicy::Scope.new(@user, Employee)
+                                         .resolve.find_by(id: @params[:employee_id])
 
       unless @employee
         raise ErrorResponderService.new(:record_not_found, 404, ['Employee does not exist'])

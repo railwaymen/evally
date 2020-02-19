@@ -10,11 +10,11 @@
     </div>
 
     <div class="search-box__list">
-      <v-list>
+      <v-list two-line subheader>
         <v-subheader>{{ $t('components.templates.sidebar.subheader') }}</v-subheader>
 
         <div v-if="loading" class="box__loader">
-          <v-progress-circular :size="30" :width="3" color="primary" indeterminate></v-progress-circular>
+          <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
         </div>
 
         <template v-else>
@@ -25,6 +25,9 @@
           >
             <v-list-item-content>
               <v-list-item-title>{{ template.name }}</v-list-item-title>
+              <v-list-item-subtitle>
+                {{ $t('components.templates.sidebar.createdBy', { name: template.creator_fullname }) }}
+              </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
 

@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :template do
-    sequence(:name) { Faker::Lorem.word }
+    sequence(:name) { |n| "Template no.#{n}" }
 
-    user
+    creator { create(:user) }
   end
 end

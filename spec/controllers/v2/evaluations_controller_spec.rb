@@ -3,15 +3,24 @@
 require 'rails_helper'
 
 RSpec.describe V2::EvaluationsController, type: :controller do
-  let(:user) { create(:user) }
+  let(:admin) { create(:user, role: 'admin') }
+  let(:evaluator) { create(:user, role: 'evaluator') }
 
   describe '#show' do
     context 'when unauthorized' do
-      it 'responds with error' do
-        sign_out
-
+      it 'responds with 401 error' do
         get :show, params: { employee_id: 1, id: 1 }
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 404 error' do
+        evaluation = FactoryBot.create(:evaluation, :completed)
+        FactoryBot.create(:section, sectionable: evaluation)
+
+        sign_in evaluator
+        get :show, params: { employee_id: evaluation.employee_id, id: evaluation.id }
+
+        expect(response).to have_http_status 404
       end
     end
 
@@ -20,7 +29,7 @@ RSpec.describe V2::EvaluationsController, type: :controller do
         evaluation = FactoryBot.create(:evaluation, :completed)
         FactoryBot.create(:section, sectionable: evaluation)
 
-        sign_in user
+        sign_in admin
         get :show, params: { employee_id: evaluation.employee_id, id: evaluation.id }
 
         expect(response).to have_http_status 200
@@ -28,7 +37,7 @@ RSpec.describe V2::EvaluationsController, type: :controller do
       end
 
       it 'responds with 404 error' do
-        sign_in user
+        sign_in admin
         get :show, params: { employee_id: 1, id: 1 }
 
         expect(response).to have_http_status 404

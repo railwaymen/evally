@@ -16,6 +16,8 @@ class Employee extends Model {
       next_evaluation_on: null,
       latest_evaluation_date: null,
       public_token: '',
+      evaluator_id: null,
+      evaluator_fullname: '',
       skill: {},
     };
   }

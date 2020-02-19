@@ -1,19 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import store from '@store/store'
+import { authenticationGuard, authorizationGuard } from '@router/guards'
 
 Vue.use(Router)
-
-const isAuthenticated = (_to, _from, next) => {
-  if (localStorage.getItem('ev411y_t0k3n')) {
-    next()
-  } else {
-    store.commit('FlashStore/push', { error: 'You are not authorized to perform this action. Please log in.' })
-    next('/')
-  }
-}
-
 
 export default new Router({
   mode: 'history',
@@ -21,7 +11,7 @@ export default new Router({
     {
       path: '/app',
       component: () => import(/* webpackChunkName: 'layout_base' */ '@views/layout/Base'),
-      beforeEnter: isAuthenticated,
+      beforeEnter: authenticationGuard,
       children: [
         {
           path: 'start',
@@ -54,6 +44,7 @@ export default new Router({
               path: 'overview',
               name: 'employees_overview_path',
               component: () => import(/* webpackChunkName: 'employees_overview' */ '@views/employees/Overview'),
+              beforeEnter: authorizationGuard
             },
             {
               path: ':employeeId',
@@ -80,6 +71,12 @@ export default new Router({
               component: () => import(/* webpackChunkName: 'template' */ '@views/templates/Show'),
             }
           ]
+        },
+        {
+          path: 'users',
+          name: 'users_path',
+          component: () => import(/* webpackChunkName: 'users' */ '@views/users/Index'),
+          beforeEnter: authorizationGuard,
         },
         {
           path: 'settings',
@@ -120,6 +117,21 @@ export default new Router({
       path: '/',
       name: 'login_path',
       component: () => import(/* webpackChunkName: 'login' */ '@views/auth/Login'),
+    },
+    {
+      path: '/forgot_password',
+      name: 'forgot_password_path',
+      component: () => import(/* webpackChunkName: 'forgot_password' */ '@views/auth/ForgotPassword'),
+    },
+    {
+      path: '/reset_password',
+      name: 'reset_password_path',
+      component: () => import(/* webpackChunkName: 'reset_password' */ '@views/auth/ResetPassword'),
+    },
+    {
+      path: '/accept_invitation',
+      name: 'accept_invitation_path',
+      component: () => import(/* webpackChunkName: 'accept_invitation' */ '@views/auth/SetupPassword'),
     },
     {
       path: '/errors/404',

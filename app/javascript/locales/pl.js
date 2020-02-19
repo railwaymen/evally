@@ -34,6 +34,7 @@ export default {
       employees: 'Pracownicy',
       templates: 'Szablony',
       settings: 'Ustawienia',
+      users: 'Użytkownicy',
       logout: 'Wyloguj',
     },
     validations: {
@@ -101,6 +102,7 @@ export default {
           group: 'Grupa',
           position: 'Stanowisko',
           positionSetOn: 'Data zmiany stanowiska',
+          evaluatorName: 'Ewaluator',
           latestEvaluationAt: 'Data ostatniej oceny',
         }
       },
@@ -116,6 +118,7 @@ export default {
           group: 'Grupa',
           position: 'Stanowisko',
           positionSetOn: 'Data zmiany stanowiska',
+          evaluatorName: 'Ewaluator',
           latestEvaluationAt: 'Data ostatniej oceny',
         },
         labels: {
@@ -126,20 +129,22 @@ export default {
       employeeForm: {
         createTitle: 'Utwórz pracownika',
         updateTitle: 'Zaktualizuj pracownika',
-        general: 'Informacje ogólne',
-        dates: 'Daty',
+        general: 'Ogólce',
+        employment: 'Zatrudnienie',
+        evaluation: 'Ocena',
         firstName: 'Imię',
         lastName: 'Naswisko',
         position: 'Stanowisko',
         group: 'Grupa',
         hiredOn: 'Data zatrudnienia',
         positionSetOn: 'Data zmiany stanowiska',
-        nextEvaluationOn: 'Data ostatniej evaluacji'
+        nextEvaluationOn: 'Data ostatniej oceny',
+        evaluator: 'Ewaluator'
       },
       sidebar: {
         group: 'Groupa',
         hiredOn: 'Data zatrudnienia',
-        nextEvaluationOn: 'Data ostatniej evaluacji',
+        nextEvaluationOn: 'Data ostatniej oceny',
         completedEvaluations: {
           title: 'Zakończone ocenę',
           noContent: 'Brak ocen'
@@ -202,6 +207,7 @@ export default {
       sidebar: {
         search: 'Szukaj ...',
         subheader: 'Dostępne szablony',
+        createdBy: 'stworzony przez {name}',
         noContent: 'Brak szablonów'
       },
       deleteConfirm: {
@@ -232,6 +238,29 @@ export default {
       },
       sectionComposer: {
         title: 'Tytuł sekcji'
+      }
+    },
+    users: {
+      table: {
+        search: 'Szukaj ...',
+        you: 'ty',
+        cols: {
+          name: 'Nazwa',
+          email: 'Email',
+          role: 'Rola',
+          latestActivity: 'Ostatnia aktywność',
+          status: 'Status',
+          invitationStatus: 'Status zaproszenia',
+        }
+      },
+      userForm: {
+        createTitle: 'Utwórz użytkownika',
+        updateTitle: 'Zaktualizuj użytkownika',
+        email: 'Email',
+        firstName: 'Imię',
+        lastName: 'Nazwisko',
+        role: 'Rola',
+        status: 'Status'
       }
     }
   },
@@ -285,6 +314,18 @@ export default {
       }
     },
     session: {
+      acceptInvitation: {
+        ok: 'Twoje hasło zostało zapisane. Możesz się teraz zalogować',
+        error: 'Błąd przy zapisywaniu hasła: {msg}'
+      },
+      forgotPassword: {
+        ok: 'Instrukcja resetowania hasła została wysłana na Twojego maila',
+        error: 'Błąd przy resetowaniu hasła: {msg}'
+      },
+      resetPassword: {
+        ok: 'Twoje hasło zostało zapisane i możesz się teraz zalogować',
+        error: 'Błąd przy zapisywaniu hasła: {msg}'
+      },
       show: {
         error: 'Błąd przy wczytywaniu ustawień: {msg}'
       },
@@ -327,6 +368,19 @@ export default {
         ok: 'Szablon został usunięty',
         error: 'Błąd przy usuwaniu szablonu: {msg}'
       }
+    },
+    users: {
+      index: {
+        error: 'Błąd przy wczytywaniu użytkowników: {msg}'
+      },
+      create: {
+        ok: 'Użytkownik został utworzony',
+        error: 'Błąd przy tworzeniu użytkownika: {msg}'
+      },
+      update: {
+        ok: 'Użytkownik został zaktualizowany',
+        error: 'Błąd przy aktualizacji użytkownika: {msg}'
+      }
     }
   },
   models: {
@@ -342,6 +396,20 @@ export default {
       month: '{n} miesiące | {n} miesięcy',
       year: '{n} roku | {n} lat',
       and: 'i',
+    },
+    user: {
+      roles: {
+        admin: 'Admin',
+        evaluator: 'Ewaluator'
+      },
+      statuses: {
+        active: 'Aktywny',
+        inactive: 'Nieaktywny'
+      },
+      invitationStatuses: {
+        pending: 'Oczekujące',
+        accepted: 'Zaakceptowano'
+      }
     }
   },
   views: {

@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <v-layout row wrap>
-      <v-flex xs6>
+      <v-flex xs12 lg6>
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
@@ -18,15 +18,16 @@
           :loading="loading"
         >
           <template #item.action="{ item }">
-            <v-tooltip right>
+            <v-tooltip v-if="editable" bottom>
               <template #activator="{ on }">
-                <v-btn
+                <v-icon
                   @click="$emit('edit', item.id)"
                   v-on="on"
-                  icon
+                  class="mx-2"
+                  small
                 >
-                  <v-icon size="15">mdi-pencil</v-icon>
-                </v-btn>
+                  mdi-pencil
+                </v-icon>
               </template>
 
               <span>{{ $t('shared.tooltips.edit') }}</span>
@@ -50,6 +51,10 @@
 
           <template #item.position_set_on="{ item }">
             {{ item.positionSetOn }}
+          </template>
+
+          <template #item.evaluator_fullname="{ item }">
+            {{ item.evaluator_fullname || '---' }}
           </template>
 
           <template #item.latest_evaluation_date="{ item }">
@@ -76,6 +81,11 @@ export default {
       type: EmployeesList,
       required: true,
       default: () => new EmployeesList()
+    },
+    editable: {
+      type: Boolean,
+      required: true,
+      default: false
     }
   },
   data() {
@@ -111,12 +121,16 @@ export default {
           align: 'center'
         },
         {
+          text: this.$t('components.employees.table.cols.evaluatorName'),
+          value: 'evaluator_fullname',
+          align: 'center'
+        },
+        {
           text: this.$t('components.employees.table.cols.latestEvaluationAt'),
           value: 'latest_evaluation_date',
           align: 'center'
         }
-      ],
-      perPageItems: [10, 30, { text: '$vuetify.dataIterator.rowsPerPageAll' , value: -1 }]
+      ]
     }
   }
 }

@@ -3,11 +3,12 @@
 module V2
   class EmployeesController < ApplicationController
     before_action :authenticate!
+    before_action :authorize!, only: %i[create update overview destroy]
 
     def index
-      employees = V2::EmployeesQuery.new.call
+      presenter = V2::EmployeesPresenter.new(current_user)
 
-      render json: V2::EmployeeSerializer.render(employees, view: :index), status: :ok
+      render json: V2::Views::EmployeesView.render(presenter), status: :ok
     end
 
     def show
@@ -29,11 +30,11 @@ module V2
     end
 
     def skills
-      render json: V2::SkillsQuery.new.call, status: :ok
+      render json: V2::SkillsQuery.call, status: :ok
     end
 
     def search
-      employees = V2::EmployeesSearchQuery.new(params).call
+      employees = V2::EmployeesSearchQuery.call(employees_scope, params: params)
 
       render json: V2::EmployeeSerializer.render(employees, view: :search), status: :ok
     end
@@ -60,8 +61,16 @@ module V2
 
     private
 
+    def authorize!
+      authorize([:v2, Employee])
+    end
+
+    def employees_scope
+      policy_scope([:v2, Employee])
+    end
+
     def employee
-      @employee ||= Employee.find_by(id: params[:id])
+      @employee ||= V2::EmployeesQuery.call(employees_scope).find_by(id: params[:id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @employee
 
       @employee
@@ -69,7 +78,7 @@ module V2
 
     def create_form
       @create_form ||= V2::EmployeeForm.new(
-        current_user.employees.build,
+        Employee.new,
         params: employee_params,
         user: current_user
       )
@@ -85,7 +94,8 @@ module V2
 
     def employee_params
       params.require(:employee).permit(
-        :first_name, :last_name, :position, :group, :hired_on, :position_set_on, :next_evaluation_on
+        :first_name, :last_name, :position, :group, :hired_on, :position_set_on, :evaluator_id,
+        :next_evaluation_on
       )
     end
   end

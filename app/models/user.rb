@@ -2,26 +2,48 @@
 
 class User < ApplicationRecord
   include RailsJwtAuth::Authenticatable
+  include RailsJwtAuth::Invitable
+  include RailsJwtAuth::Recoverable
+  include RailsJwtAuth::Trackable
 
   has_one :setting, dependent: :destroy
 
   has_many :activities, dependent: :destroy
-  has_many :employees, dependent: :destroy
+  has_many :employees, foreign_key: :evaluator_id, inverse_of: :evaluator, dependent: :nullify
+  has_many :templates, foreign_key: :creator_id, inverse_of: :creator, dependent: :nullify
+
   has_many :evaluations, through: :employees
-  has_many :templates, dependent: :destroy
 
   # # Validation
   #
-  validates :email, presence: true, uniqueness: true,
-                    format: { with: RailsJwtAuth.email_regex }
-
+  validates :email, presence: true, uniqueness: true, format: URI::MailTo::EMAIL_REGEXP
   validates :password, presence: true, length: { in: 6..32 }, if: ->(u) { u.password.present? }
 
-  validates :first_name, presence: true
-
-  validates :last_name, presence: true
+  validates :first_name, :last_name, :role, :status, presence: true
 
   # # Callbacks
   #
   after_create :create_setting
+
+  # # Enums
+  #
+  enum role: { admin: 'admin', evaluator: 'evaluator' }
+  enum status: { active: 'active', inactive: 'inactive' }
+
+  # # Methods
+  #
+  def fullname
+    [first_name, last_name].join(' ').strip
+  end
+
+  def invitation_status
+    return 'pending' if invitation_token.present?
+    return 'accepted' if invitation_accepted_at.present?
+  end
+
+  def authentication?(pass)
+    # Override to allow only active users to be authenticated
+
+    active? && authenticate(pass)
+  end
 end

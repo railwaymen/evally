@@ -3,9 +3,10 @@
 module V2
   class DraftsController < ApplicationController
     before_action :authenticate!
+    before_action :authorize!
 
     def index
-      presenter = V2::DraftsPresenter.new
+      presenter = V2::DraftsPresenter.new(current_user)
 
       render json: V2::Views::DraftsView.render(presenter), status: :ok
     end
@@ -46,8 +47,12 @@ module V2
 
     private
 
+    def authorize!
+      authorize([:v2, Evaluation])
+    end
+
     def draft
-      @draft ||= Evaluation.draft.includes(:employee).find_by(id: params[:id])
+      @draft ||= policy_scope([:v2, Evaluation]).draft.includes(:employee).find_by(id: params[:id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @draft
 
       @draft

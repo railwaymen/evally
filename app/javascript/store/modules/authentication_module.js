@@ -12,7 +12,7 @@ const initialState = () => ({
   loading: false
 })
 
-const SessionModule = {
+const AuthenticationModule = {
   namespaced: true,
 
   state: initialState(),
@@ -66,6 +66,69 @@ const SessionModule = {
   },
 
   actions: {
+    acceptInvitation({ commit }, data) {
+      return new Promise((resolve) => {
+        http.put(User.routes.invitationPath(data.invitationToken), { invitation: data.invitation })
+          .then(response => {
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.session.acceptInvitation.ok') },
+              { root: true }
+            )
+
+            resolve(response)
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.session.acceptInvitation.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      })
+    },
+    forgotPassword({ commit }, email) {
+      return new Promise((resolve) => {
+        http.post(User.routes.passwordsPath, { password: { email } })
+          .then(response => {
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.session.forgotPassword.ok') },
+              { root: true }
+            )
+
+            resolve(response)
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.session.forgotPassword.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      })
+    },
+    resetPassword({ commit }, data) {
+      return new Promise((resolve) => {
+        http.put(User.routes.passwordPath(data.resetPasswordToken), { password: data.reset })
+          .then(response => {
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.session.resetPassword.ok') },
+              { root: true }
+            )
+
+            resolve(response)
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.session.resetPassword.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      })
+    },
     show({ commit }) {
       commit('setLoading', true)
 
@@ -211,4 +274,4 @@ const SessionModule = {
   }
 }
 
-export default SessionModule
+export default AuthenticationModule

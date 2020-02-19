@@ -34,6 +34,7 @@ export default {
       employees: 'Employees',
       templates: 'Templates',
       settings: 'Settings',
+      users: 'Users',
       logout: 'Logout',
     },
     validations: {
@@ -101,6 +102,7 @@ export default {
           group: 'Group',
           position: 'Position',
           positionSetOn: 'Promotion Date',
+          evaluatorName: 'Evaluator Name',
           latestEvaluationAt: 'Latest Evaluation Date',
         }
       },
@@ -116,6 +118,7 @@ export default {
           group: 'Group',
           position: 'Position',
           positionSetOn: 'Promotion Date',
+          evaluatorName: 'Evaluator Name',
           latestEvaluationAt: 'Latest Evaluation Date',
         },
         labels: {
@@ -126,15 +129,17 @@ export default {
       employeeForm: {
         createTitle: 'Create Employee',
         updateTitle: 'Update Employee',
-        general: 'General Information',
-        dates: 'Dates',
+        general: 'General',
+        employment: 'Employment',
+        evaluation: 'Evaluation',
         firstName: 'First Name',
         lastName: 'Last Name',
         position: 'Position',
         group: 'Group',
         hiredOn: 'Hired Date',
         positionSetOn: 'Promotion Date',
-        nextEvaluationOn: 'Next Evaluation Date'
+        nextEvaluationOn: 'Next Evaluation Date',
+        evaluator: 'Evaluator'
       },
       sidebar: {
         group: 'Group',
@@ -202,6 +207,7 @@ export default {
       sidebar: {
         search: 'Search ...',
         subheader: 'Available Templates',
+        createdBy: 'created by {name}',
         noContent: 'There are no templates to show'
       },
       deleteConfirm: {
@@ -232,6 +238,29 @@ export default {
       },
       sectionComposer: {
         title: 'Section Title'
+      }
+    },
+    users: {
+      table: {
+        search: 'Search ...',
+        you: 'you',
+        cols: {
+          name: 'Name',
+          email: 'Email',
+          role: 'Role',
+          latestActivity: 'Latest Activity',
+          status: 'Status',
+          invitationStatus: 'Invitation Status',
+        }
+      },
+      userForm: {
+        createTitle: 'Create User',
+        updateTitle: 'Update User',
+        email: 'Email',
+        firstName: 'First Name',
+        lastName: 'Last Name',
+        role: 'Role',
+        status: 'Status',
       }
     }
   },
@@ -285,6 +314,18 @@ export default {
       }
     },
     session: {
+      acceptInvitation: {
+        ok: 'Your password has been saved, now you can sign in',
+        error: 'Password cannot be setup: {msg}'
+      },
+      forgotPassword: {
+        ok: 'Password reset instructions has been sent to you',
+        error: 'Password cannot be reset: {msg}'
+      },
+      resetPassword: {
+        ok: 'Your password has been saved, now you can sign in',
+        error: 'Password cannot be saved: {msg}'
+      },
       show: {
         error: 'User settings cannot be loaded: {msg}'
       },
@@ -327,6 +368,19 @@ export default {
         ok: 'Template has been deleted',
         error: 'Template cannot be deleted: {msg}'
       }
+    },
+    users: {
+      index: {
+        error: 'Users cannot be loaded: {msg}'
+      },
+      create: {
+        ok: 'User has been created',
+        error: 'User cannot be created: {msg}'
+      },
+      update: {
+        ok: 'User has been updated',
+        error: 'User cannot be updated: {msg}'
+      }
     }
   },
   models: {
@@ -342,6 +396,20 @@ export default {
       month: '{n} month | {n} months',
       year: '{n} year | {n} years',
       and: 'and',
+    },
+    user: {
+      roles: {
+        admin: 'Admin',
+        evaluator: 'Evaluator'
+      },
+      statuses: {
+        active: 'Active',
+        inactive: 'Inactive'
+      },
+      invitationStatuses: {
+        pending: 'Pending',
+        accepted: 'Accepted'
+      }
     }
   },
   views: {

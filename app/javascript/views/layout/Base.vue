@@ -18,10 +18,14 @@
         <template #activator="{ on }">
           <span class="profile" v-on="on" v-ripple>
             <v-avatar class="profile__avatar" color="primary" size="32">
-              <span class="white--text body-2" data-cy="profile-initials">{{ user.initials }}</span>
+              <span class="white--text body-2" data-cy="profile-initials">
+                {{ user.initials }}
+              </span>
             </v-avatar>
 
-            <span class="profile__fullname" data-cy="profile-fullname">{{ user.fullname }}</span>
+            <span class="profile__fullname" data-cy="profile-fullname">
+              {{ user.fullname }}
+            </span>
 
             <span class="profile__arrow">
               <v-icon size="24">mdi-chevron-down</v-icon>
@@ -31,30 +35,65 @@
 
         <v-list>
           <template v-if="$vuetify.breakpoint.mdAndDown">
-            <v-list-item v-for="tab in tabs" :key="`tab-${tab.id}`" :to="{ name: tab.path }">
+            <v-list-item :to="{ name: 'dashboard_path' }">
               <v-list-item-action>
-                <v-icon>{{ tab.icon }}</v-icon>
+                <v-icon>mdi-view-dashboard</v-icon>
               </v-list-item-action>
-              <v-list-item-title>{{ $t(`shared.navbar.${tab.name}`) }}</v-list-item-title>
+
+              <v-list-item-title>{{ $t('shared.navbar.dashboard') }}</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item :to="{ name: 'drafts_path' }">
+              <v-list-item-action>
+                <v-icon>mdi-file-edit-outline</v-icon>
+              </v-list-item-action>
+
+              <v-list-item-title>{{ $t('shared.navbar.drafts') }}</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item :to="{ name: 'employees_path' }">
+              <v-list-item-action>
+                <v-icon>mdi-account-group-outline</v-icon>
+              </v-list-item-action>
+
+              <v-list-item-title>{{ $t('shared.navbar.employees') }}</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item :to="{ name: 'templates_path' }">
+              <v-list-item-action>
+                <v-icon>mdi-file-multiple-outline</v-icon>
+              </v-list-item-action>
+
+              <v-list-item-title>{{ $t('shared.navbar.templates') }}</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item v-if="user.isAdmin" :to="{ name: 'users_path' }">
+              <v-list-item-action>
+                <v-icon>mdi-account-multiple-plus-outline</v-icon>
+              </v-list-item-action>
+
+              <v-list-item-title>{{ $t('shared.navbar.users') }}</v-list-item-title>
             </v-list-item>
 
             <v-divider class="my-2" />
           </template>
 
-          <v-list-item v-for="item in items" :key="`item_${item.id}`"  :data-cy="`li-${item.name}`" :to="{ name: item.path }">
+          <v-list-item :to="{ name: 'general_settings_path' }">
             <v-list-item-action>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon>mdi-settings</v-icon>
             </v-list-item-action>
-            <v-list-item-title>{{ $t(`shared.navbar.${item.name}`) }}</v-list-item-title>
+
+            <v-list-item-title>{{ $t('shared.navbar.settings') }}</v-list-item-title>
           </v-list-item>
 
-          <!-- Log out list item -->
           <v-list-item @click="logout" data-cy="li-logout">
             <v-list-item-action>
               <v-icon>mdi-logout-variant</v-icon>
             </v-list-item-action>
+
             <v-list-item-title>{{ $t('shared.navbar.logout') }}</v-list-item-title>
           </v-list-item>
+
         </v-list>
       </v-menu>
 
@@ -64,16 +103,39 @@
           slider-color="primary"
           grow
         >
-          <v-tab
-            v-for="tab in tabs"
-            :key="`tab_${tab.id}`"
-            :to="{ name: tab.path }"
-          >
-            <v-icon>{{ tab.icon }}</v-icon>
-
+          <v-tab :to="{ name: 'dashboard_path' }">
+            <v-icon>mdi-view-dashboard</v-icon>
             <span class="separator" />
 
-            {{ $t(`shared.navbar.${tab.name}`) }}
+            {{ $t('shared.navbar.dashboard') }}
+          </v-tab>
+
+          <v-tab :to="{ name: 'drafts_path' }">
+            <v-icon>mdi-file-edit-outline</v-icon>
+            <span class="separator" />
+
+            {{ $t('shared.navbar.drafts') }}
+          </v-tab>
+
+          <v-tab :to="{ name: 'employees_path' }">
+            <v-icon>mdi-account-group-outline</v-icon>
+            <span class="separator" />
+
+            {{ $t('shared.navbar.employees') }}
+          </v-tab>
+
+          <v-tab :to="{ name: 'templates_path' }">
+            <v-icon>mdi-file-multiple-outline</v-icon>
+            <span class="separator" />
+
+            {{ $t('shared.navbar.templates') }}
+          </v-tab>
+
+          <v-tab v-if="user.isAdmin" :to="{ name: 'users_path' }">
+            <v-icon>mdi-account-multiple-plus-outline</v-icon>
+            <span class="separator" />
+
+            {{ $t('shared.navbar.users') }}
           </v-tab>
         </v-tabs>
       </template>
@@ -95,23 +157,10 @@ import ConfirmDialog from '@components/shared/ConfirmDialog'
 export default {
   name: 'Base',
   components: { ConfirmDialog, FormsDialog },
-  data () {
-    return {
-      tabs: [
-        { id: 0, name: 'dashboard', icon: 'mdi-view-dashboard', path: 'dashboard_path' },
-        { id: 10, name: 'drafts', icon: 'mdi-file-edit-outline', path: 'drafts_path' },
-        { id: 20, name: 'employees', icon: 'mdi-account-group', path: 'employees_path' },
-        { id: 30, name: 'templates', icon: 'mdi-file-multiple-outline', path: 'templates_path' }
-      ],
-      items: [
-        { id: 0, name: 'settings', icon: 'mdi-settings', path: 'general_settings_path' }
-      ]
-    }
-  },
   computed: {
     ...mapGetters({
-      user: 'SessionModule/user',
-      setting: 'SessionModule/setting',
+      user: 'AuthenticationModule/user',
+      setting: 'AuthenticationModule/setting',
     }),
 
     canHideSlider() {
@@ -120,12 +169,12 @@ export default {
   },
   methods: {
     logout () {
-      this.$store.dispatch('SessionModule/destroy')
+      this.$store.dispatch('AuthenticationModule/destroy')
         .then(() => this.$router.push({ name: 'login_path' }))
     }
   },
   created() {
-    this.$store.dispatch('SessionModule/show')
+    this.$store.dispatch('AuthenticationModule/show')
       .then(data => this.updateLocale(data.setting.lang))
   }
 }

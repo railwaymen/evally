@@ -3,7 +3,7 @@
 class Employee < ApplicationRecord
   has_secure_token :public_token
 
-  belongs_to :user
+  belongs_to :evaluator, class_name: 'User', optional: true
   has_many :evaluations, dependent: :destroy
   has_many :position_changes, dependent: :destroy
 
@@ -20,15 +20,8 @@ class Employee < ApplicationRecord
   enum state: { hired: 'hired', experienced: 'experienced', released: 'released' }
 
   # # Validation
-  validates :first_name, presence: true
-
-  validates :last_name, presence: true
-
-  validates :position, presence: true
-
-  validates :hired_on, presence: true
-
-  attr_accessor :skill
+  #
+  validates :first_name, :last_name, :position, :hired_on, presence: true
 
   # # Methods
   #

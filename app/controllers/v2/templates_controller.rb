@@ -3,9 +3,10 @@
 module V2
   class TemplatesController < ApplicationController
     before_action :authenticate!
+    before_action :authorize!, only: %i[update destroy]
 
     def index
-      templates = Template.order(name: :asc)
+      templates = Template.includes(:creator).order(name: :asc)
 
       render json: V2::TemplateSerializer.render(templates), status: :ok
     end
@@ -45,6 +46,10 @@ module V2
     end
 
     private
+
+    def authorize!
+      authorize [:v2, template]
+    end
 
     def template
       @template ||= Template.find_by(id: params[:id])

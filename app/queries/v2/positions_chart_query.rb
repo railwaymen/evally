@@ -2,13 +2,11 @@
 
 module V2
   class PositionsChartQuery
-    def call
+    def self.call
       ActiveRecord::Base.connection.exec_query(raw_sql).to_a
     end
 
-    private
-
-    def raw_sql # rubocop:disable Metrics/MethodLength
+    def self.raw_sql # rubocop:disable Metrics/MethodLength
       "
         SELECT
           \"group\",
@@ -22,5 +20,7 @@ module V2
         ORDER BY \"group\" ASC;
       "
     end
+
+    private_class_method :raw_sql
   end
 end

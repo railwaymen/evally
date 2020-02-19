@@ -20,8 +20,8 @@ export default {
   components: { GeneralForm },
   computed: {
     ...mapGetters({
-      setting: 'SessionModule/setting',
-      loading: 'SessionModule/loading'
+      setting: 'AuthenticationModule/setting',
+      loading: 'AuthenticationModule/loading'
     })
   }
 }

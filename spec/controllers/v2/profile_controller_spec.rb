@@ -8,8 +8,6 @@ RSpec.describe V2::ProfileController, type: :controller do
   describe '#show' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
-
         get :show
         expect(response).to have_http_status 401
       end
@@ -36,9 +34,7 @@ RSpec.describe V2::ProfileController, type: :controller do
           }
         }
 
-        sign_out
         put :update, params: params
-
         expect(response).to have_http_status 401
       end
     end
@@ -89,8 +85,6 @@ RSpec.describe V2::ProfileController, type: :controller do
           }
         }
 
-        sign_out
-
         put :password, params: params
 
         expect(response).to have_http_status 401
@@ -111,7 +105,7 @@ RSpec.describe V2::ProfileController, type: :controller do
 
         expect do
           put :password, params: params
-        end.to(change { user.reload.password })
+        end.to(change { user.reload.password_digest })
 
         expect(response).to have_http_status 204
       end

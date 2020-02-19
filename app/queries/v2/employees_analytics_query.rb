@@ -2,13 +2,11 @@
 
 module V2
   class EmployeesAnalyticsQuery
-    def call
+    def self.call
       ActiveRecord::Base.connection.exec_query(raw_sql).first
     end
 
-    private
-
-    def raw_sql # rubocop:disable Metrics/MethodLength
+    def self.raw_sql # rubocop:disable Metrics/MethodLength
       "
         SELECT
           COALESCE(
@@ -22,5 +20,7 @@ module V2
           employees;
       "
     end
+
+    private_class_method :raw_sql
   end
 end

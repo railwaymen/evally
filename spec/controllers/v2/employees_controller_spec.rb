@@ -3,13 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe V2::EmployeesController, type: :controller do
-  let(:user) { create(:user) }
+  let(:admin) { create(:user, role: 'admin') }
+  let(:evaluator) { create(:user, role: 'evaluator') }
 
   describe '#index' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
-
         get :index
         expect(response).to have_http_status 401
       end
@@ -17,12 +16,13 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
     context 'when authorized' do
       it 'responds with empty employees' do
-        sign_in user
+        sign_in admin
         get :index
 
         expect(response).to have_http_status 200
 
-        expect(response.body).to be_json_eql('[]')
+        expect(response.body).to have_json_path('employees')
+        expect(response.body).to have_json_path('evaluators')
       end
     end
   end
@@ -30,8 +30,6 @@ RSpec.describe V2::EmployeesController, type: :controller do
   describe '#show' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
-
         get :index
         expect(response).to have_http_status 401
       end
@@ -41,7 +39,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
       it 'responds with employee' do
         employee = FactoryBot.create(:employee)
 
-        sign_in user
+        sign_in admin
         get :show, params: { id: employee.id }
 
         expect(response).to have_http_status 200
@@ -49,7 +47,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
       end
 
       it 'responds with not found error if invalid employee' do
-        sign_in user
+        sign_in admin
         get :show, params: { id: 1 }
 
         expect(response).to have_http_status 404
@@ -59,7 +57,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
   describe '#create' do
     context 'when unauthorized' do
-      it 'responds with error' do
+      it 'responds with 401 error' do
         params = {
           employee: {
             first_name: 'John',
@@ -71,10 +69,26 @@ RSpec.describe V2::EmployeesController, type: :controller do
           }
         }
 
-        sign_out
-
         post :create, params: params
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 403 error' do
+        params = {
+          employee: {
+            first_name: 'John',
+            last_name: 'Doe',
+            position: 'Junior Specialist',
+            group: 'Marketing',
+            hired_on: 1.month.ago,
+            position_set_on: 1.month.ago
+          }
+        }
+
+        sign_in evaluator
+
+        post :create, params: params
+        expect(response).to have_http_status 403
       end
     end
 
@@ -91,7 +105,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
 
         expect do
           post :create, params: params
@@ -113,7 +127,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
 
         expect do
           post :create, params: params
@@ -136,7 +150,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
 
         post :create, params: params
 
@@ -148,7 +162,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
   describe '#update' do
     context 'when unauthorized' do
-      it 'responds with error' do
+      it 'responds with 401 error' do
         params = {
           id: 1,
           employee: {
@@ -156,10 +170,23 @@ RSpec.describe V2::EmployeesController, type: :controller do
           }
         }
 
-        sign_out
         put :update, params: params
 
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 403 error' do
+        params = {
+          id: 1,
+          employee: {
+            first_name: 'New name'
+          }
+        }
+
+        sign_in evaluator
+        put :update, params: params
+
+        expect(response).to have_http_status 403
       end
     end
 
@@ -174,7 +201,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
         put :update, params: params
 
         expect(response).to have_http_status 200
@@ -192,7 +219,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
 
         expect do
           put :update, params: params
@@ -215,7 +242,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
 
         expect do
           put :update, params: params
@@ -237,7 +264,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
 
         put :update, params: params
 
@@ -253,7 +280,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           }
         }
 
-        sign_in user
+        sign_in admin
         put :update, params: params
 
         expect(response).to have_http_status 404
@@ -264,9 +291,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
   describe '#skills' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
         get :skills
-
         expect(response).to have_http_status 401
       end
     end
@@ -293,7 +318,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           ]
         )
 
-        sign_in user
+        sign_in admin
         get :skills
 
         expect(response).to have_http_status 200
@@ -308,9 +333,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
   describe '#search' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
         get :search
-
         expect(response).to have_http_status 401
       end
     end
@@ -345,7 +368,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           value: 1
         }
 
-        sign_in user
+        sign_in admin
         get :search, params: params
 
         expect(response).to have_http_status 200
@@ -360,7 +383,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           value: 1
         }
 
-        sign_in user
+        sign_in admin
         get :search, params: params
 
         expect(response).to have_http_status 200
@@ -371,11 +394,16 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
   describe '#overview' do
     context 'when unauthorized' do
-      it 'responds with error' do
-        sign_out
+      it 'responds with 401 error' do
         get :overview
-
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 403 error' do
+        sign_in evaluator
+
+        get :overview
+        expect(response).to have_http_status 403
       end
     end
 
@@ -396,7 +424,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           hired_on: 45.days.ago
         )
 
-        sign_in :user
+        sign_in admin
 
         get :overview
 
@@ -412,7 +440,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
       end
 
       it 'responds with empty arrays in no employees' do
-        sign_in :user
+        sign_in admin
         get :overview
 
         expect(response).to have_http_status 200
@@ -427,11 +455,16 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
   describe '#destroy' do
     context 'when unauthorized' do
-      it 'responds with error' do
-        sign_out
+      it 'responds with 401 error' do
+        delete :destroy, params: { id: 1 }
+        expect(response).to have_http_status 401
+      end
+
+      it 'responds with 403 error' do
+        sign_in evaluator
         delete :destroy, params: { id: 1 }
 
-        expect(response).to have_http_status 401
+        expect(response).to have_http_status 403
       end
     end
 
@@ -439,7 +472,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
       it 'removes employee and respond with no content' do
         employee = FactoryBot.create(:employee)
 
-        sign_in user
+        sign_in admin
 
         expect do
           delete :destroy, params: { id: employee.id }
@@ -451,7 +484,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
       it 'creates destroy activity' do
         employee = FactoryBot.create(:employee)
 
-        sign_in user
+        sign_in admin
 
         expect do
           delete :destroy, params: { id: employee.id }
@@ -464,7 +497,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
       end
 
       it 'responds with not found' do
-        sign_in user
+        sign_in admin
         delete :destroy, params: { id: 1 }
 
         expect(response).to have_http_status 404

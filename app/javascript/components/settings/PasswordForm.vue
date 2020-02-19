@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     save() {
-      this.$store.dispatch('SessionModule/updatePassword', this.$data)
+      this.$store.dispatch('AuthenticationModule/updatePassword', this.$data)
         .then(() => this.$router.push({ name: 'login_path' }))
     },
     vConfirmed(val) {

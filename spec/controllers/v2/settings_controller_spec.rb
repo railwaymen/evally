@@ -14,7 +14,6 @@ RSpec.describe V2::SettingsController, type: :controller do
           }
         }
 
-        sign_out
         put :update, params: params
 
         expect(response).to have_http_status 401

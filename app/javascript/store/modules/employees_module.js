@@ -7,6 +7,7 @@ import { Employee, EmployeesList } from '@models/employee'
 import { Evaluation, EvaluationsList } from '@models/evaluation'
 import { SectionsList } from '@models/section'
 import { PositionChangesList } from '@models/position_change'
+import { UsersList } from '@models/user'
 
 const initialState = () => ({
   employees: new EmployeesList(),
@@ -15,6 +16,7 @@ const initialState = () => ({
   evaluation: new Evaluation(),
   sections: new SectionsList(),
   positionChanges: new PositionChangesList(),
+  evaluators: new UsersList(),
   loading: true
 })
 
@@ -30,6 +32,7 @@ const EmployeesModule = {
     evaluation: state => state.evaluation,
     sections: state => state.sections,
     positionChanges: state => state.positionChanges,
+    evaluators: state => state.evaluators,
     loading: state => state.loading
   },
 
@@ -53,8 +56,9 @@ const EmployeesModule = {
       state.positionChanges = new PositionChangesList(position_changes)
       return state
     },
-    setList(state, employees) {
+    setList(state, { employees, evaluators }) {
       state.employees = new EmployeesList(employees)
+      state.evaluators = new UsersList(evaluators)
       state.loading = false
       return state
     },

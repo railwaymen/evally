@@ -8,8 +8,6 @@ RSpec.describe V2::DashboardController, type: :controller do
   describe '#show' do
     context 'when unauthorized' do
       it 'responds with error' do
-        sign_out
-
         get :show
         expect(response).to have_http_status 401
       end

@@ -14,7 +14,8 @@ gem 'webpacker'
 gem 'rack-cors', '~> 1.0', '>= 1.0.2'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'blueprinter', '~> 0.22.0'
-gem 'rails_jwt_auth', '~> 0.23.2'
+gem 'rails_jwt_auth', '~> 1.5'
+gem 'pundit', '~> 2.1'
 
 group :development, :test do
   gem 'better_errors'

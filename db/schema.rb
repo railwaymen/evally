@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_13_214447) do
+ActiveRecord::Schema.define(version: 2020_02_19_083722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2020_02_13_214447) do
     t.string "position", null: false
     t.date "hired_on", null: false
     t.date "next_evaluation_on"
-    t.bigint "user_id"
+    t.bigint "evaluator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "public_token", null: false
@@ -41,11 +41,11 @@ ActiveRecord::Schema.define(version: 2020_02_13_214447) do
     t.datetime "released_at"
     t.string "group", default: "Unassigned", null: false
     t.date "position_set_on"
+    t.index ["evaluator_id"], name: "index_employees_on_evaluator_id"
     t.index ["group"], name: "index_employees_on_group"
     t.index ["last_name"], name: "index_employees_on_last_name"
     t.index ["public_token"], name: "index_employees_on_public_token", unique: true
     t.index ["state"], name: "index_employees_on_state"
-    t.index ["user_id"], name: "index_employees_on_user_id"
   end
 
   create_table "evaluations", force: :cascade do |t|
@@ -96,29 +96,42 @@ ActiveRecord::Schema.define(version: 2020_02_13_214447) do
   end
 
   create_table "templates", force: :cascade do |t|
-    t.string "name"
-    t.bigint "user_id"
+    t.string "name", null: false
+    t.bigint "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_templates_on_creator_id"
     t.index ["name"], name: "index_templates_on_name"
-    t.index ["user_id"], name: "index_templates_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email"
+    t.string "email", null: false
     t.string "password_digest"
     t.string "auth_tokens"
-    t.string "first_name"
-    t.string "last_name"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "role", default: "evaluator", null: false
+    t.string "status", default: "active", null: false
+    t.string "last_sign_in_ip"
+    t.datetime "last_sign_in_at"
+    t.string "invitation_token"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.datetime "invitation_created_at"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token"
+    t.index ["role"], name: "index_users_on_role"
+    t.index ["status"], name: "index_users_on_status"
   end
 
   add_foreign_key "activities", "users"
-  add_foreign_key "employees", "users"
+  add_foreign_key "employees", "users", column: "evaluator_id"
   add_foreign_key "evaluations", "employees"
   add_foreign_key "position_changes", "employees"
   add_foreign_key "settings", "users"
-  add_foreign_key "templates", "users"
+  add_foreign_key "templates", "users", column: "creator_id"
 end

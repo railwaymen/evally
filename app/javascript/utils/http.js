@@ -23,11 +23,20 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
   return response
 }, error => {
-  if (error.response.status === 401) {
-    store.commit('SessionModule/clearStore')
+  switch (error.response.status) {
+    case 401:
+      store.commit('AuthenticationModule/clearStore')
+      localStorage.removeItem('ev411y_t0k3n')
 
-    router.push({ name: 'login_path' })
-    localStorage.removeItem('ev411y_t0k3n')
+      router.push({ name: 'login_path' })
+
+      break
+    case 403:
+      router.push({ name: 'dashboard_path' })
+
+      break
+    default:
+      null
   }
 
   return Promise.reject(error)

@@ -4,47 +4,61 @@
       <span class="headline">{{ $t(`components.employees.employeeForm.${action}Title`) }}</span>
     </v-card-title>
 
-    <v-form ref="employeeForm" @submit.prevent="save">
+    <v-form ref="form" @submit.prevent="save">
       <v-card-text>
         <v-layout row wrap>
-          <v-flex class="px-3" xs12 lg6>
+          <v-flex class="pa-2" xs12>
             <h3 class="subtitle-1">{{ $t('components.employees.employeeForm.general') }}</h3>
+          </v-flex>
 
+          <v-flex class="px-2" xs12 lg6>
             <v-text-field
               v-model="localEmployee.first_name"
               :rules="[vRequired]"
               :label="$t('components.employees.employeeForm.firstName')"
+              prepend-inner-icon="mdi-account-outline"
             />
+          </v-flex>
 
+          <v-flex class="px-2" xs12 lg6>
             <v-text-field
               v-model="localEmployee.last_name"
               :rules="[vRequired]"
               :label="$t('components.employees.employeeForm.lastName')"
+              prepend-inner-icon="mdi-account-outline"
             />
+          </v-flex>
 
+          <v-flex class="pa-2" xs12>
+            <h3 class="subtitle-1">{{ $t('components.employees.employeeForm.employment') }}</h3>
+          </v-flex>
+
+          <v-flex class="px-2" xs12 lg6>
             <v-combobox
               v-model="localEmployee.position"
               :items="this.positions"
               :rules="[vRequired]"
               append-icon="mdi-chevron-down"
+              prepend-inner-icon="mdi-briefcase-outline"
               chips
               :label="$t('components.employees.employeeForm.position')"
               @change="resetPositionDate"
             />
+          </v-flex>
 
+          <v-flex class="px-2" xs12 lg6>
             <v-combobox
               v-model="localEmployee.group"
               :items="this.groups"
               :rules="[vRequired]"
               append-icon="mdi-chevron-down"
+              prepend-inner-icon="mdi-account-multiple-outline"
               chips
               :label="$t('components.employees.employeeForm.group')"
             />
           </v-flex>
 
-          <v-flex class="px-3" xs12 lg6>
-            <h3 class="subtitle-1">{{ $t('components.employees.employeeForm.dates') }}</h3>
-
+          <v-flex class="px-2" xs12 lg6>
             <v-menu
               ref="hiredAtPicker"
               v-model="hiredAtPicker"
@@ -59,7 +73,7 @@
                   :value="localEmployee.hiredDate"
                   :label="$t('components.employees.employeeForm.hiredOn')"
                   :rules="[vRequired]"
-                  prepend-icon="mdi-calendar-month"
+                  prepend-inner-icon="mdi-calendar"
                   readonly
                   v-on="on"
                 />
@@ -71,7 +85,9 @@
                 scrollable
               />
             </v-menu>
+          </v-flex>
 
+          <v-flex class="px-2" xs12 lg6>
             <v-menu
               ref="positionSetAtPicker"
               v-model="positionSetAtPicker"
@@ -86,7 +102,7 @@
                   :value="localEmployee.positionSetDate"
                   :label="$t('components.employees.employeeForm.positionSetOn')"
                   :rules="[vRequired]"
-                  prepend-icon="mdi-calendar-month"
+                  prepend-inner-icon="mdi-calendar"
                   readonly
                   v-on="on"
                 />
@@ -98,7 +114,13 @@
                 scrollable
               />
             </v-menu>
+          </v-flex>
 
+          <v-flex class="pa-2" xs12>
+            <h3 class="subtitle-1">{{ $t('components.employees.employeeForm.evaluation') }}</h3>
+          </v-flex>
+
+          <v-flex class="px-2" xs12 lg6>
             <v-menu
               ref="nextEvaluationAtPicker"
               v-model="nextEvaluationAtPicker"
@@ -112,7 +134,7 @@
                 <v-text-field
                   :value="localEmployee.nextEvaluationDate"
                   :label="$t('components.employees.employeeForm.nextEvaluationOn')"
-                  prepend-icon="mdi-calendar-month"
+                  prepend-inner-icon="mdi-calendar"
                   readonly
                   v-on="on"
                 />
@@ -125,6 +147,17 @@
                 scrollable
               />
             </v-menu>
+          </v-flex>
+
+          <v-flex class="px-2" xs12 lg6>
+            <v-select
+              v-model="localEmployee.evaluator_id"
+              :items="evaluators.models"
+              :label="$t('components.employees.employeeForm.evaluator')"
+              item-value="id"
+              item-text="fullname"
+              prepend-inner-icon="mdi-account-plus-outline"
+            />
           </v-flex>
         </v-layout>
       </v-card-text>
@@ -155,10 +188,16 @@
 import { mapActions } from 'vuex'
 
 import { Employee } from '@models/employee'
+import { UsersList } from '@models/user'
 
 export default {
   name: 'EmployeeForm',
   props: {
+    evaluators: {
+      type: UsersList,
+      required: true,
+      default: () => new UsersList()
+    },
     positions: {
       type: Array,
       required: true,
@@ -191,7 +230,7 @@ export default {
       this.localEmployee.set('position_set_on', null)
     },
     save() {
-      if (!this.$refs.employeeForm.validate()) return
+      if (!this.$refs.form.validate()) return
 
       (this.localEmployee.isPersisted ? this.update : this.create)(this.localEmployee)
         .then(this.closeDialog)

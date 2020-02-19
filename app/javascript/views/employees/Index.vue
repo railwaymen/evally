@@ -27,8 +27,9 @@
         </v-btn>
 
         <v-btn
-          color="primary"
+          v-if="user.isAdmin"
           :to="{ name: 'employees_overview_path' }"
+          color="primary"
           exact
           text
         >
@@ -38,7 +39,7 @@
 
       <div class="panel__actions">
         <v-tooltip
-          v-if="$route.name === 'employees_path'"
+          v-if="$route.name === 'employees_path' && user.isAdmin"
           key="addNew"
           bottom
         >
@@ -72,7 +73,11 @@
             <span>{{ $t('shared.tooltips.copyLink') }}</span>
           </v-tooltip>
 
-          <v-tooltip bottom key="delete">
+          <v-tooltip
+            v-if="user.isAdmin"
+            key="delete"
+            bottom
+          >
             <template #activator="{ on }">
               <v-btn
                 @click="openDeleteConfirm"
@@ -96,6 +101,7 @@
           v-if="$route.name === 'employees_path'"
           :employees="employees"
           :loading="loading"
+          :editable="user.isAdmin"
           @edit="openUpdateForm"
         />
 
@@ -126,6 +132,7 @@ export default {
         innerComponent: EmployeeForm,
         maxWidth: 800,
         props: {
+          evaluators: this.evaluators,
           positions: this.positions,
           groups: this.groups,
           employee: new Employee()
@@ -137,6 +144,7 @@ export default {
         innerComponent: EmployeeForm,
         maxWidth: 800,
         props: {
+          evaluators: this.evaluators,
           positions: this.positions,
           groups: this.groups,
           employee: this.employees.findById(id)
@@ -166,8 +174,10 @@ export default {
       return pluckUniq(this.employees.models, 'group')
     },
     ...mapGetters({
+      user: 'AuthenticationModule/user',
       employees: 'EmployeesModule/employees',
       employee: 'EmployeesModule/employee',
+      evaluators: 'EmployeesModule/evaluators',
       loading: 'EmployeesModule/loading',
     })
   },

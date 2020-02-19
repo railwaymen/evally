@@ -86,7 +86,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      setting: 'SessionModule/setting'
+      setting: 'AuthenticationModule/setting'
     }),
     computedDate: {
       get() {

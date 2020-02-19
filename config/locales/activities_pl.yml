@@ -36,3 +36,10 @@ pl:
       destroy:
         title: 'Usunięto szkic oceny'
         description: "%{user} usunął szkic oceny pracownika %{name}."
+    user:
+      create:
+        title: 'Nowy użytkownik'
+        description: "Dodano nowego użytkownika %{name}!"
+      update:
+        title: 'Edytowano użytkownika'
+        description: "%{user} zaktualizował profil użytkownika %{name}."

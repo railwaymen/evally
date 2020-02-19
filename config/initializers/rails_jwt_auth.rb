@@ -5,11 +5,8 @@ RailsJwtAuth.setup do |config|
   # field name used to authentication with password
   #config.auth_field_name = 'email'
 
-  # set to true to validate auth_field email format
-  #config.auth_field_email = true
-
-  # regex used to Validate email format
-  #config.email_regex = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+  # define email field name used to send emails
+  #config.email_field_name = 'email'
 
   # expiration time for generated tokens
   config.jwt_expiration_time = 8.hours
@@ -21,30 +18,48 @@ RailsJwtAuth.setup do |config|
   config.simultaneous_sessions = 3
 
   # mailer sender
-  #config.mailer_sender = 'initialize-mailer_sender@example.com'
-
-  # url used to create email link with confirmation token
-  #config.confirmation_url = 'http://frontend.com/confirmation'
+  config.mailer_sender = 'no-reply@example.com'
 
   # expiration time for confirmation tokens
   #config.confirmation_expiration_time = 1.day
 
+  # expiration time for reset password tokens
+  config.reset_password_expiration_time = 1.day
+
+  # time an invitation is valid after sent
+  config.invitation_expiration_time = 3.days
+
+  # url used to create email link with confirmation token
+  #config.confirmations_url = 'http://frontend.com/confirmation'
+
   # url used to create email link with reset password token
-  #config.reset_password_url = 'http://frontend.com/reset_password'
+  config.reset_passwords_url = "http://#{Rails.application.config.env.fetch('host')}/reset_password"
 
   # url used to create email link with set password token
   # by set_and_send_password_instructions method
-  #config.set_password_url = 'http://frontend.com/set_password'
+  config.set_passwords_url = "http://#{Rails.application.config.env.fetch('host')}/set_password"
 
-  # expiration time for reset password tokens
-  #config.reset_password_expiration_time = 1.day
+  # url used to create email link with activation token parameter to accept invitation
+  config.invitations_url = "http://#{Rails.application.config.env.fetch('host')}/accept_invitation"
 
   # uses deliver_later to send emails instead of deliver method
   #config.deliver_later = false
 
-  # time an invitation is valid after sent
-  # config.invitation_expiration_time = 2.days
+  # maximum login attempts before locking an account
+  #config.maximum_attempts = 3
 
-  # url used to create email link with activation token parameter to accept invitation
-  # config.accept_invitation_url = 'http://frontend.com/accept_invitation'
+  # strategy to lock an account: :none or :failed_attempts
+  #config.lock_strategy = :failed_attempts
+
+  # strategy to use when unlocking accounts: :time, :email or :both
+  #config.unlock_strategy = :time
+
+  # interval to unlock an account if unlock_strategy is :time
+  #config.unlock_in = 60.minutes
+
+  # interval after which to reset failed attempts counter of an account
+  #config.reset_attempts_in = 60.minutes
+
+  # url used to create email link with unlock token
+  #config.unlock_url = 'http://frontend.com/unlock-account'
 end

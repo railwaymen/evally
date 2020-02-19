@@ -65,7 +65,7 @@ export default {
       this.localUser = new User({ ...this.user })
     },
     save() {
-      this.$store.dispatch('SessionModule/updateUser', this.localUser)
+      this.$store.dispatch('AuthenticationModule/updateUser', this.localUser)
     }
   }
 }
