@@ -20,9 +20,9 @@
           <div class="vcard__value">{{ employee.nextEvaluationOn }}</div>
         </div>
 
-        <div class="vcard__info">
+        <div v-if="employee.archived_on" class="vcard__info">
           <div class="vcard__label">{{ $t('components.employees.sidebar.archivedAt') }}</div>
-          <div class="vcard__value">{{ employee.archived_at }}</div>
+          <div class="vcard__value">{{ employee.archived_on }}</div>
         </div>
 
       </div>

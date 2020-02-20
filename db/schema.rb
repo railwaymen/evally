@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2020_02_19_143022) do
     t.datetime "released_at"
     t.string "group", default: "Unassigned", null: false
     t.date "position_set_on"
-    t.datetime "archived_at"
+    t.date "archived_on"
     t.index ["evaluator_id"], name: "index_employees_on_evaluator_id"
     t.index ["group"], name: "index_employees_on_group"
     t.index ["last_name"], name: "index_employees_on_last_name"

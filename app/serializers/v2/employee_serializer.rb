@@ -5,11 +5,7 @@ module V2
     identifier :id
 
     fields :first_name, :last_name, :position, :group, :state, :hired_on, :next_evaluation_on,
-           :public_token, :evaluator_id
-
-    field :archived_at do |employee|
-      employee.archived_at&.to_date
-    end
+           :public_token, :evaluator_id, :archived_on
 
     field :position_set_on do |employee|
       employee.position_set_on || employee.hired_on

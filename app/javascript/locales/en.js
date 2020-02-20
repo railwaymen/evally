@@ -27,7 +27,8 @@ export default {
       fullWidth: 'Full Width',
       halfWidth: 'Half Width',
       copyLink: 'Copy Link',
-      close: 'Close'
+      close: 'Close',
+      archive: 'Archive'
     },
     navbar: {
       dashboard: 'Dashboard',
@@ -111,7 +112,7 @@ export default {
         title: 'Delete Employee',
         body: 'Are you sure you want to delete this employee?'
       },
-      archiveConfirm: {
+      archiveForm: {
         title: 'Archive employee',
         body: 'Are you sure you want to archive this employee?'
       },
@@ -317,7 +318,11 @@ export default {
       delete: {
         ok: 'Employee has been deleted',
         error: 'Employee cannot be deleted: {msg}'
-      }
+      },
+      archive: {
+        ok: 'Employee has been archived',
+        error: 'Employee cannot be archived: {msg}'
+      },
     },
     session: {
       acceptInvitation: {

@@ -27,7 +27,8 @@ export default {
       fullWidth: 'Rozciągnij',
       halfWidth: 'Zwęź',
       copyLink: 'Skopiuj link',
-      close: 'Zamknij'
+      close: 'Zamknij',
+      archive: 'Archiwizuj'
     },
     navbar: {
       dashboard: 'Kokpit',
@@ -111,7 +112,7 @@ export default {
         title: 'Usuń pracownika',
         body: 'Czy na pewno chcesz usunąć tego pracownika?'
       },
-      archiveConfirm: {
+      archiveForm: {
         title: 'Archiwizuj pracownika',
         body: 'Czy na pewno chcesz archiwizować tego pracownika?'
       },
@@ -317,7 +318,11 @@ export default {
       delete: {
         ok: 'Pracownik został usunięty',
         error: 'Błąd przy usuwaniu pracownika: {msg}'
-      }
+      },
+      archive: {
+        ok: 'Pracownik został zarchizoway',
+        error: 'Błą∂ przy archiwizacji pracownika: {msg}'
+      },
     },
     session: {
       acceptInvitation: {
