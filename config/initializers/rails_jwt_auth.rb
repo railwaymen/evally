@@ -18,7 +18,7 @@ RailsJwtAuth.setup do |config|
   config.simultaneous_sessions = 3
 
   # mailer sender
-  config.mailer_sender = 'no-reply@example.com'
+  config.mailer_sender = Rails.application.config.env.fetch('auth_mailer')
 
   # expiration time for confirmation tokens
   #config.confirmation_expiration_time = 1.day

@@ -49,5 +49,8 @@ module Evally
 
     # Set i18n fallbacks
     config.i18n.fallbacks = true
+
+    # Assets host for action mailer
+    config.action_mailer.asset_host = config.env.fetch('host')
   end
 end
