@@ -45,6 +45,12 @@ module V2
       render json: V2::Views::EmployeesOverviewView.render(presenter), status: :ok
     end
 
+    def archive
+      employee.update_attribute(:archived_at, params[:employee][:archived_at])
+
+      render json: V2::EmployeeSerializer.render(employee), status: :ok
+    end
+
     def destroy
       ActiveRecord::Base.transaction do
         employee.destroy!

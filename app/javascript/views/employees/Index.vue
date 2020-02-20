@@ -91,6 +91,16 @@
 
             <span>{{ $t('shared.tooltips.delete') }}</span>
           </v-tooltip>
+
+          <v-btn
+                @click="openArchiveConfirm"
+                v-on="on"
+                color="red"
+                icon
+              >
+               <v-icon>mdi-delete-outline</v-icon>
+            </v-btn>
+
         </template>
       </div>
     </div>
@@ -119,6 +129,7 @@ import { Employee } from '@models/employee'
 
 import BasicTable from '@components/employees/BasicTable'
 import DeleteConfirm from '@components/employees/DeleteConfirm'
+import ArchiveConfirm from '@components/employees/ArchiveConfirm'
 import EmployeeForm from '@components/employees/EmployeeForm'
 
 import { pluckUniq } from '@utils/helpers'
@@ -154,6 +165,12 @@ export default {
     openDeleteConfirm() {
       DialogsBus.$emit('openConfirmDialog', {
         innerComponent: DeleteConfirm
+      })
+    },
+
+    openArchiveConfirm() {
+      DialogsBus.$emit('openConfirmDialog', {
+        innerComponent: ArchiveConfirm
       })
     },
     copyLink() {

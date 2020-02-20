@@ -12,6 +12,7 @@ export default {
       changePassword: 'Change Password',
       yes: 'Yes',
       no: 'No',
+      archive: 'Archive',
     },
     tooltips: {
       edit: 'Edit',
@@ -109,6 +110,10 @@ export default {
       deleteConfirm: {
         title: 'Delete Employee',
         body: 'Are you sure you want to delete this employee?'
+      },
+      archiveConfirm: {
+        title: 'Archive employee',
+        body: 'Are you sure you want to archive this employee?'
       },
       searchTable: {
         cols: {

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
         get :skills, on: :collection
         get :search, on: :collection
         get :overview, on: :collection
+        post :archive, on: :member
 
         resources :evaluations, only: :show
       end
