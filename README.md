@@ -1,4 +1,4 @@
-# Evally ![version](https://img.shields.io/badge/version-0.4-blue) [![Build Status](https://travis-ci.com/railwaymen/evally.svg?branch=master)](https://travis-ci.com/railwaymen/evally) ![coverage](https://img.shields.io/badge/coverage-100%-success)
+# Evally ![version](https://img.shields.io/badge/version-0.4-blue) [![Build Status](https://travis-ci.com/railwaymen/evally.svg?branch=master)](https://travis-ci.com/railwaymen/evally) ![coverage](https://img.shields.io/badge/coverage-100%25-success)
 A simple web application for managing periodic skills evaluations of employees.
 
 [![forthebadge](http://forthebadge.com/images/badges/made-with-ruby.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/made-with-vue.svg)](http://forthebadge.com)
