@@ -8,6 +8,14 @@
       <p class="subtitle-1">{{ $t('components.employees.archiveConfirm.body') }}</p>
     </v-card-text>
 
+    <v-date-picker
+      v-model="archiveDate"
+      :locale="$i18n.locale"
+      value="2020-02-21"
+      no-title
+      scrollable
+    />
+
     <v-card-actions>
       <v-spacer />
 
@@ -21,7 +29,7 @@
       </v-btn>
 
       <v-btn
-        @click="archive"
+        @click="archiveEmployee"
         color="red darken-1"
         data-cy="btn-delete"
         text
@@ -34,18 +42,25 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'ArchiveConfirm',
+  data(){
+    return {
+      archiveDate: ''
+    }
+  },
   methods: {
     closeDialog() {
       this.$emit('closeDialog')
     },
-    archive() {
-      console.log('--archive---')
-      // this.$store.dispatch('EmployeesModule/destroy')
-      //   .then(this.redirectToIndex)
-      //   .finally(this.closeDialog)
+    archiveEmployee() {
+      this.archive(this.archiveDate)
     },
+    ...mapActions({
+      archive: 'EmployeesModule/archive',
+    }),
     redirectToIndex() {
       this.$router.push({ name: 'employees_path' })
     }

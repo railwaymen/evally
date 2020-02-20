@@ -116,6 +116,7 @@ class Employee extends Model {
       employeesOverviewPath: '/v2/employees/overview',
       employeesSearchPath: '/v2/employees/search',
       employeesSkillsPath: '/v2/employees/skills',
+      employeeArchivePath: id => `/v2/employees/${id}/archive`,
       employeePath: id => `/v2/employees/${id}`,
       browseEmployeePath: id => `/v2/browse/employees/${id}`
     }

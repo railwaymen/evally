@@ -95,10 +95,10 @@
           <v-btn
                 @click="openArchiveConfirm"
                 v-on="on"
-                color="red"
+                color="orange"
                 icon
               >
-               <v-icon>mdi-delete-outline</v-icon>
+               <v-icon>mdi-account-cancel</v-icon>
             </v-btn>
 
         </template>
