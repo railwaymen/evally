@@ -1,4 +1,4 @@
-# Evally ![version](https://img.shields.io/badge/version-0.3-green.svg)
+# Evally ![version](https://img.shields.io/badge/version-0.4-blue) [![Build Status](https://travis-ci.com/railwaymen/evally.svg?branch=master)](https://travis-ci.com/railwaymen/evally) ![coverage](https://img.shields.io/badge/coverage-100%-success)
 A simple web application for managing periodic skills evaluations of employees.
 
 [![forthebadge](http://forthebadge.com/images/badges/made-with-ruby.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/made-with-vue.svg)](http://forthebadge.com)
@@ -14,11 +14,11 @@ A simple web application for managing periodic skills evaluations of employees.
 
 ## Introduction
 
-Manage your employees by tracking their skills development based on own customized questionnaires. Evally, built with Ruby on Rails and Vue as Single Page Application, can be your basic tool for targeting career paths of your employees and observing human potencial of your company.
+Manage your employees by tracking their skills development based on own customized questionnaires. Evally, built with Ruby on Rails and Vue.js as Single Page Application, can be your basic tool for targeting career paths of your employees and observing the human potential of your company.
 
 ## Features
 
-A few of the things you can do with Evally:
+A few of the things that you can do with Evally:
 - prepare own customized questionnaires
 - use a three stars rating, 'yes or no' option or text to evaluate employee
 - manage employees
@@ -27,9 +27,9 @@ A few of the things you can do with Evally:
 - archive users activities
 - share evaluations by unique and safe link
 - search employees by skills
-- collect employees sorted by the longest and the shortes employment time
-- present employees on chart by groups and positions
-- use one of two available languages: polish, english
+- present the data about your employees on the charts, distinguished by groups and positions
+- use one of two available languages: Polish, English
+- as an admin delegate employee's evaluations to user with evaluator role
 
 ## Requirements
 
@@ -40,7 +40,7 @@ A few of the things you can do with Evally:
 
 ## Instalation
 
-##### 1. Check out the repository
+##### 1. Pull the repository
 
 ```bash
 git clone https://github.com/railwaymen/evally.git
@@ -65,6 +65,7 @@ User.find_or_create_by!(email: 'admin@example.com') do |u|
   u.password = 'password'
   u.first_name = 'John'
   u.last_name = 'Doe'
+  u.role = 'admin'
 end
 ```
 
@@ -79,14 +80,21 @@ bundle exec rake db:setup
 
 ##### 5. Start the Rails server
 
-You can start the rails server in two ways given below:
+You can start the development rails server in the way given below:
 
-1. using ~ rails server ~ command
 ```bash
+# run rails server
 bundle exec rails s
 ```
 
 And now you can visit the site with the URL http://localhost:3000
+
+If you want to use live code reloading, or you have enough JavaScript that on-demand compilation is too slow, you'll need to run:
+
+```bash
+# run webpack dev server
+./bin/webpack-dev-server
+```
 
 ## Feedback
 
