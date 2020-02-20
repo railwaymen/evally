@@ -31,7 +31,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'shoulda-matchers', '~> 4.2.0'
   gem 'simplecov', '~> 0.16.1'
-  gem 'rubocop', require: false
+  gem 'rubocop', '~> 0.80.0', require: false
   gem 'rubocop-rails', require: false
   gem 'travis'
 end
