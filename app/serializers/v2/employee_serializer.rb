@@ -8,7 +8,7 @@ module V2
            :public_token, :evaluator_id
 
     field :archived_at do |employee|
-      employee.archived_at.to_date
+      employee.archived_at&.to_date
     end
 
     field :position_set_on do |employee|

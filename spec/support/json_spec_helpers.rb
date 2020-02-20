@@ -65,6 +65,8 @@ module JsonSpecHelpers
       next_evaluation_on: employee.next_evaluation_on,
       public_token: employee.public_token,
       latest_evaluation_date: latest_evaluation_date.call,
+      evaluator_id: employee.evaluator_id,
+      evaluator_fullname: employee.evaluator&.fullname,
       archived_at: employee.archived_at&.to_date
     }.to_json
   end

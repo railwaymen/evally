@@ -511,7 +511,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
         employee = FactoryBot.create(:employee)
         params = { id: employee.id, employee: { archived_at: '10-01-2020' } }
 
-        sign_in user
+        sign_in admin
 
         post :archive, params: params
 
