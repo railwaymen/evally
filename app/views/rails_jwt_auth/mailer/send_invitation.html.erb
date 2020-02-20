@@ -1,6 +1,24 @@
-<p>Hello <%= @user[RailsJwtAuth.email_field_name] %>!</p>
+<div class="container">
+  <div class="wrapper">
+    <div class="section logo">
+      <%= image_tag 'logo_black.png' %>
+    </div>
 
-<p>Someone has sent you an invitation to App.</p>
-<p>To complete registration setting a password, please click the following link.</p>
+    <div class="section intro">
+      <h2>Hello <%= @user.first_name %>!</h2>
+      <p>An Admin has sent you an invitation to Evally.</p>
+      <p>To complete the registration by setting a password, please click the following link.</p>
+    </div>
 
-<p><%= link_to "Accept invitation", @invitations_url.html_safe %></p>
+    <div class="section cta">
+      <%= link_to 'Accept invitation', @invitations_url.html_safe, class: 'button' %>
+    </div>
+
+    <div class="section bye">
+      <p>
+        Best Regards,<br />
+        <em>Evally Team &hearts;</em>
+      </p>
+    </div>
+  </div>
+</div>
