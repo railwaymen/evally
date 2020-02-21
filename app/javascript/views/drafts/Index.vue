@@ -30,7 +30,7 @@
               color="green"
               icon
             >
-              <v-icon>mdi-file-check-outline</v-icon>
+              <v-icon>mdi-bookmark-check-outline</v-icon>
             </v-btn>
           </template>
 
@@ -168,7 +168,10 @@ export default {
     },
     openCompleteForm() {
       DialogsBus.$emit('openFormsDialog', {
-        innerComponent: CompleteForm
+        innerComponent: CompleteForm,
+        props: {
+          date: this.$moment().add(this.setting.default_next_evaluation_time, 'M').startOf('month')
+        }
       })
     },
     openDeleteConfirm() {
@@ -188,6 +191,7 @@ export default {
       employees: 'DraftsModule/employees',
       templates: 'DraftsModule/templates',
       loading: 'DraftsModule/loading',
+      setting: 'AuthenticationModule/setting'
     })
   },
   created() {

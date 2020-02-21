@@ -23,15 +23,15 @@
           <template v-slot:activator="{ on }">
             <v-text-field
               class="mt-4"
-              :value="computedDate"
+              :value="localDate.format('MMMM YYYY')"
               :label="$t('components.drafts.completeForm.nextEvaluation')"
-              prepend-icon="mdi-calendar-month"
+              prepend-inner-icon="mdi-calendar"
               readonly
               v-on="on"
             />
           </template>
           <v-date-picker
-            v-model="date"
+            v-model="monthFormatDate"
             :locale="$i18n.locale"
             type="month"
             no-title
@@ -67,10 +67,17 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'CompleteForm',
+  props: {
+    date: {
+      format: Object,
+      required: true,
+      default: () => this.$moment()
+    }
+  },
   data() {
     return {
       menu: false,
-      date: null,
+      localDate: this.date,
     }
   },
   methods: {
@@ -80,7 +87,7 @@ export default {
     complete() {
       this.$store.dispatch(
         'DraftsModule/complete',
-        { nextEvaluationDate: this.$moment(this.date).format('YYYY-MM-DD') }
+        { nextEvaluationDate: this.localDate.format('YYYY-MM-DD') }
       ).then(() => this.closeDialog())
     }
   },
@@ -88,18 +95,12 @@ export default {
     ...mapGetters({
       setting: 'AuthenticationModule/setting'
     }),
-    computedDate: {
+    monthFormatDate: {
       get() {
-        const mDate = this.$moment(this.date, 'YYYY-MM')
-
-        return (
-          mDate.isValid()
-            ? mDate
-            : this.$moment().add(this.setting.default_next_evaluation_time, 'M')
-        ).format('MMMM YYYY')
+        return this.localDate.format('YYYY-MM')
       },
       set(date) {
-        this.date = date
+        this.localDate = this.$moment(date, 'YYYY-MM')
       }
     }
   }
