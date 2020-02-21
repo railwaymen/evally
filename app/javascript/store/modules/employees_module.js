@@ -237,6 +237,33 @@ const EmployeesModule = {
             )
           })
       })
+    },
+    archive({commit, state}, archivedDate){
+      const { employee } = state;
+      const params = {employee: { archived_at: archivedDate }}
+
+      return new Promise(resolve => {
+        http.post(Employee.routes.employeeArchivePath(employee.id), params)
+        .then(response => {
+          const { data } = response
+
+          commit('refreshListItem', data)
+          commit(
+            'NotificationsModule/push',
+            { success: i18n.t('messages.employees.update.ok') },
+            { root: true }
+          )
+
+          resolve(data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.employees.update.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+        })
+      })
     }
   }
 }

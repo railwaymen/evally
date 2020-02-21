@@ -12,6 +12,7 @@ export default {
       changePassword: 'Change Password',
       yes: 'Yes',
       no: 'No',
+      archive: 'Archive',
     },
     tooltips: {
       edit: 'Edit',
@@ -110,6 +111,10 @@ export default {
         title: 'Delete Employee',
         body: 'Are you sure you want to delete this employee?'
       },
+      archiveConfirm: {
+        title: 'Archive employee',
+        body: 'Are you sure you want to archive this employee?'
+      },
       searchTable: {
         cols: {
           name: 'Name',
@@ -145,6 +150,7 @@ export default {
         group: 'Group',
         hiredOn: 'Hired Date',
         nextEvaluationOn: 'Next Evaluation Date',
+        archivedAt: 'Archived Date',
         completedEvaluations: {
           title: 'Completed Evaluations',
           noContent: 'No evaluations yet'

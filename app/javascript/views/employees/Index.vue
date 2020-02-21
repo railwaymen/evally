@@ -91,6 +91,24 @@
 
             <span>{{ $t('shared.tooltips.delete') }}</span>
           </v-tooltip>
+
+          <v-tooltip
+            v-if="user.isAdmin"
+            key="archive"
+            bottom
+          >
+          <template #activator="{ on }">
+          <v-btn
+                @click="openArchiveConfirm"
+                v-on="on"
+                color="orange"
+                icon
+              >
+               <v-icon>mdi-account-cancel</v-icon>
+            </v-btn>
+          </template>
+          </v-tooltip>
+
         </template>
       </div>
     </div>
@@ -119,6 +137,7 @@ import { Employee } from '@models/employee'
 
 import BasicTable from '@components/employees/BasicTable'
 import DeleteConfirm from '@components/employees/DeleteConfirm'
+import ArchiveConfirm from '@components/employees/ArchiveConfirm'
 import EmployeeForm from '@components/employees/EmployeeForm'
 
 import { pluckUniq } from '@utils/helpers'
@@ -154,6 +173,12 @@ export default {
     openDeleteConfirm() {
       DialogsBus.$emit('openConfirmDialog', {
         innerComponent: DeleteConfirm
+      })
+    },
+
+    openArchiveConfirm() {
+      DialogsBus.$emit('openConfirmDialog', {
+        innerComponent: ArchiveConfirm
       })
     },
     copyLink() {
