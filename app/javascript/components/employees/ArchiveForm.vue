@@ -66,7 +66,7 @@ export default {
   data(){
     return {
       menu: false,
-      archiveDate: new Date().format('YYYY-MM-DD')
+      archiveDate: ''
     }
   },
   methods: {
