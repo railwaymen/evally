@@ -11,7 +11,6 @@
     <v-date-picker
       v-model="archiveDate"
       :locale="$i18n.locale"
-      value="2020-02-21"
       no-title
       scrollable
     />
@@ -48,7 +47,7 @@ export default {
   name: 'ArchiveConfirm',
   data(){
     return {
-      archiveDate: ''
+      archiveDate: new Date().toJSON()
     }
   },
   methods: {
@@ -57,6 +56,7 @@ export default {
     },
     archiveEmployee() {
       this.archive(this.archiveDate)
+      this.closeDialog()
     },
     ...mapActions({
       archive: 'EmployeesModule/archive',
