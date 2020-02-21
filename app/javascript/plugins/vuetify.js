@@ -16,8 +16,8 @@ export default new Vuetify({
     themes: {
       light: {
         primary: '#4169E1', //DODGERBLUE
-        secondary: '#BA55D3', // MEDIUMORCHID
-        accent: '#87CEFA', // LIGHTSKYBLUE
+        secondary: '#808000', // OLIVE
+        accent: '#20B2AA', // LIGHTSEAGREEN
         error: '#FF5252',
         info: '#2196F3',
         success: '#4CAF50',

@@ -16,6 +16,7 @@
           <div class="skill__action">
             <v-rating
               v-model="skill.value"
+              background-color="grey"
               length="3"
               hover
               clearable

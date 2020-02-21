@@ -42,6 +42,7 @@
               v-for="evaluation in evaluations.models"
               :key="evaluation.id"
               :to="evaluation.path"
+              color="secondary"
             >
               <v-list-item-content>
                 <v-list-item-title>{{ evaluation.template_name }}</v-list-item-title>
