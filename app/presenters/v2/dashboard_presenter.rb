@@ -9,7 +9,9 @@ module V2
     end
 
     def employees
-      employees_scope.order(next_evaluation_on: :desc).limit(setting.default_upcoming_items || 5)
+      V2::DashboardUpcomingQuery.call(employees_scope)
+                                .order(next_evaluation_on: :desc)
+                                .limit(setting.default_upcoming_items || 5)
     end
 
     def drafts
