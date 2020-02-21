@@ -18,5 +18,9 @@
     height: 2.25rem;
     line-height: rem2dec(3.6rem);
     min-width: 3.5rem;
+
+    .v-slide-group {
+      transform: translateY(rem2dec(-.6rem));
+    }
   }
 }
