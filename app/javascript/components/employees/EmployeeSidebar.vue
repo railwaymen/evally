@@ -21,8 +21,8 @@
         </div>
 
         <div v-if="employee.archived_on" class="vcard__info">
-          <div class="vcard__label">{{ $t('components.employees.sidebar.archivedAt') }}</div>
-          <div class="vcard__value">{{ employee.archived_on }}</div>
+          <div class="vcard__label">{{ $t('components.employees.sidebar.archivedOn') }}</div>
+          <div class="vcard__value">{{ employee.archivedOn }}</div>
         </div>
 
       </div>
