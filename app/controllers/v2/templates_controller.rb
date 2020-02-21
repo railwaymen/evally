@@ -2,7 +2,7 @@
 
 module V2
   class TemplatesController < ApplicationController
-    before_action :authenticate!
+    before_action :authenticate_user!
     before_action :authorize!, only: %i[update destroy]
 
     def index

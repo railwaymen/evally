@@ -2,7 +2,7 @@
 
 module V2
   class DraftsController < ApplicationController
-    before_action :authenticate!
+    before_action :authenticate_user!
     before_action :authorize!
 
     def index

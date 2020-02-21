@@ -2,7 +2,7 @@
 
 module V2
   class EmployeesController < ApplicationController
-    before_action :authenticate!
+    before_action :authenticate_user!
     before_action :authorize!, only: %i[create update overview destroy]
 
     def index

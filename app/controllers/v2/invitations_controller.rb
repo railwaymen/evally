@@ -2,7 +2,7 @@
 
 module V2
   class InvitationsController < RailsJwtAuth::InvitationsController
-    before_action :authenticate!, only: :create
+    before_action :authenticate_user!, only: :create
     before_action :authorize!, only: :create
 
     def create

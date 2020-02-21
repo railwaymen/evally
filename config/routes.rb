@@ -4,12 +4,12 @@ Rails.application.routes.draw do
 
   scope '(:locale)', locale: /en|pl/ do
     scope :v2, defaults: { format: :json } do
-      resource :session, controller: 'rails_jwt_auth/sessions', only: %i[create destroy]
+      # devise_for :users
     end
 
     namespace :v2, defaults: { format: :json } do
-      resources :invitations, controller: 'invitations', only: %i[create update]
-      resources :passwords, controller: 'passwords', only: %i[create update]
+      # resources :invitations, controller: 'invitations', only: %i[create update]
+      # resources :passwords, controller: 'passwords', only: %i[create update]
 
       resource :dashboard, controller: 'dashboard', only: :show
 

@@ -2,7 +2,7 @@
 
 module V2
   class ProfileController < ApplicationController
-    before_action :authenticate!
+    before_action :authenticate_user!
 
     def show
       presenter = V2::ProfilePresenter.new(current_user)
