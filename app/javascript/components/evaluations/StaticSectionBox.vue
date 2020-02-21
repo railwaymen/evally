@@ -16,6 +16,7 @@
           <div class="skill__action">
             <v-rating
               v-model="skill.value"
+              background-color="grey"
               length="3"
               hover
               clearable
@@ -34,9 +35,12 @@
           <div class="skill__name">{{ skill.name }}</div>
 
           <div class="skill__action">
-            <span>
+            <v-chip
+              :color="skill.value ? 'primary' : ''"
+              label
+            >
               {{ skill.value ? $t('components.evaluations.staticSection.yes') : $t('components.evaluations.staticSection.no') }}
-            </span>
+            </v-chip>
           </div>
         </div>
       </div>

@@ -92,8 +92,8 @@
         <v-btn
           type="submit"
           color="green darken-1"
-          text
           :disabled="!formCompleted"
+          text
         >
           {{ $t('shared.buttons.create') }}
         </v-btn>

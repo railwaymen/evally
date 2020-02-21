@@ -51,7 +51,7 @@
         </div>
 
         <div class="search-form__value">
-          <v-rating v-model="query.value" length="3" hover clearable />
+          <v-rating v-model="query.value" background-color="grey" length="3" hover clearable />
         </div>
       </template>
 

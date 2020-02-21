@@ -22,6 +22,7 @@
             v-for="template in searchedTemplates"
             :key="template.id"
             :to="template.path"
+            color="secondary"
           >
             <v-list-item-content>
               <v-list-item-title>{{ template.name }}</v-list-item-title>

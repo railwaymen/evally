@@ -14,11 +14,15 @@
       <v-rating
         v-if="item.skill.group === 'rating'"
         :value="item.skill.value"
+        background-color="grey"
         length="3"
         readonly
       />
 
-      <v-chip v-if="item.skill.group === 'bool'" text-color="black" disabled>
+      <v-chip
+        :color="item.skill.value ? 'primary' : ''"
+        label
+      >
         {{ item.skill.value ? $t('components.employees.searchTable.labels.yes') : $t('components.employees.searchTable.labels.no') }}
       </v-chip>
     </template>

@@ -18,6 +18,7 @@
             <v-rating
               v-model="skill.value"
               :readonly="!editable"
+              background-color="grey"
               length="3"
               hover
               clearable
@@ -36,17 +37,15 @@
           <div class="skill__name">{{ skill.name }}</div>
 
           <div class="skill__action">
-            <v-switch
-              v-if="editable"
-              :label="skill.value ? $t('components.drafts.section.yes') : $t('components.drafts.section.no')"
-              v-model="skill.value"
-              color="success"
-              class="mt-1"
-            />
+            <v-chip-group v-model="skill.value" color="primary" mandatory>
+              <v-chip :value="false" filter-icon="mdi-close" label filter>
+                {{ $t('components.drafts.section.no') }}
+              </v-chip>
 
-            <span v-else>
-              {{ skill.value ? $t('components.drafts.section.yes') : $t('components.drafts.section.no') }}
-            </span>
+              <v-chip :value="true" filter-icon="mdi-check" label filter>
+                {{ $t('components.drafts.section.yes') }}
+              </v-chip>
+            </v-chip-group>
           </div>
         </div>
       </div>
