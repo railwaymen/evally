@@ -46,7 +46,7 @@ module V2
     end
 
     def archive
-      employee.update_attribute(:archived_at, params[:employee][:archived_at])
+      employee.update_attribute(:archived_on, employee_params[:archived_on])
 
       render json: V2::EmployeeSerializer.render(employee), status: :ok
     end
@@ -101,7 +101,7 @@ module V2
     def employee_params
       params.require(:employee).permit(
         :first_name, :last_name, :position, :group, :hired_on, :position_set_on, :evaluator_id,
-        :next_evaluation_on
+        :next_evaluation_on, :archived_on
       )
     end
   end

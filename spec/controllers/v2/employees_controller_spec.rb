@@ -509,11 +509,11 @@ RSpec.describe V2::EmployeesController, type: :controller do
     context 'when authorized' do
       it 'responds with archived employee' do
         employee = FactoryBot.create(:employee)
-        params = { id: employee.id, employee: { archived_at: '10-01-2020' } }
+        params = { id: employee.id, employee: { archived_on: '10-01-2020' } }
 
         sign_in admin
 
-        post :archive, params: params
+        put :archive, params: params
 
         expect(response).to have_http_status 200
         expect(response.body).to be_json_eql employee_schema(Employee.last)

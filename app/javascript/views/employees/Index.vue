@@ -97,16 +97,17 @@
             key="archive"
             bottom
           >
-          <template #activator="{ on }">
-          <v-btn
-                @click="openArchiveConfirm"
-                v-on="on"
-                color="orange"
-                icon
-              >
-               <v-icon>mdi-account-cancel</v-icon>
-            </v-btn>
-          </template>
+            <template #activator="{ on }">
+              <v-btn
+                    @click="openArchiveForm"
+                    v-on="on"
+                    color="orange"
+                    icon
+                  >
+                  <v-icon>mdi-account-cancel</v-icon>
+                </v-btn>
+            </template>
+            <span>{{ $t('shared.tooltips.archive') }}</span>
           </v-tooltip>
 
         </template>
@@ -137,7 +138,9 @@ import { Employee } from '@models/employee'
 
 import BasicTable from '@components/employees/BasicTable'
 import DeleteConfirm from '@components/employees/DeleteConfirm'
-import ArchiveConfirm from '@components/employees/ArchiveConfirm'
+
+import ArchiveForm from '@components/employees/ArchiveForm'
+
 import EmployeeForm from '@components/employees/EmployeeForm'
 
 import { pluckUniq } from '@utils/helpers'
@@ -176,9 +179,9 @@ export default {
       })
     },
 
-    openArchiveConfirm() {
-      DialogsBus.$emit('openConfirmDialog', {
-        innerComponent: ArchiveConfirm
+    openArchiveForm() {
+      DialogsBus.$emit('openFormsDialog', {
+        innerComponent: ArchiveForm
       })
     },
     copyLink() {

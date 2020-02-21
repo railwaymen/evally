@@ -67,7 +67,7 @@ module JsonSpecHelpers
       latest_evaluation_date: latest_evaluation_date.call,
       evaluator_id: employee.evaluator_id,
       evaluator_fullname: employee.evaluator&.fullname,
-      archived_at: employee.archived_at&.to_date
+      archived_on: employee.archived_on
     }.to_json
   end
 
