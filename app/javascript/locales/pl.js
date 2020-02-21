@@ -145,6 +145,7 @@ export default {
         group: 'Groupa',
         hiredOn: 'Data zatrudnienia',
         nextEvaluationOn: 'Data ostatniej oceny',
+        archivedAt: 'Data archiwizacji',
         completedEvaluations: {
           title: 'Zakończone ocenę',
           noContent: 'Brak ocen'

@@ -150,6 +150,7 @@ export default {
         group: 'Group',
         hiredOn: 'Hired Date',
         nextEvaluationOn: 'Next Evaluation Date',
+        archivedAt: 'Archived Date',
         completedEvaluations: {
           title: 'Completed Evaluations',
           noContent: 'No evaluations yet'

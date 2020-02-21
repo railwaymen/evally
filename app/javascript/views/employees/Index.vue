@@ -92,6 +92,12 @@
             <span>{{ $t('shared.tooltips.delete') }}</span>
           </v-tooltip>
 
+          <v-tooltip
+            v-if="user.isAdmin"
+            key="archive"
+            bottom
+          >
+          <template #activator="{ on }">
           <v-btn
                 @click="openArchiveConfirm"
                 v-on="on"
@@ -100,6 +106,8 @@
               >
                <v-icon>mdi-account-cancel</v-icon>
             </v-btn>
+          </template>
+          </v-tooltip>
 
         </template>
       </div>
