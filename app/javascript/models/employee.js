@@ -77,7 +77,7 @@ class Employee extends Model {
   get nextEvaluationOn() {
     if (!this.next_evaluation_on) return i18n.t('models.employee.firstTime')
 
-    return moment(this.next_evaluation_on).format('MMM YYYY')
+    return moment(this.next_evaluation_on).format('MMMM YYYY')
   }
 
   // === next evaluation at datepicker getter & setter
