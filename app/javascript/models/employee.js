@@ -23,6 +23,12 @@ class Employee extends Model {
     };
   }
 
+  get archivedOn() {
+    if (!this.archived_on) return
+
+    return moment(this.archived_on).format('MMM DD, YYYY')
+  }
+
   get employmentTime() {
     const diff = moment().diff(this.hired_on, 'months')
 

@@ -75,6 +75,25 @@
 
           <v-tooltip
             v-if="user.isAdmin"
+            key="archive"
+            bottom
+          >
+            <template #activator="{ on }">
+              <v-btn
+                @click="openArchiveForm"
+                v-on="on"
+                color="orange"
+                icon
+              >
+                <v-icon>mdi-account-cancel</v-icon>
+              </v-btn>
+            </template>
+
+            <span>{{ $t('shared.tooltips.archive') }}</span>
+          </v-tooltip>
+
+          <v-tooltip
+            v-if="user.isAdmin"
             key="delete"
             bottom
           >
@@ -91,25 +110,6 @@
 
             <span>{{ $t('shared.tooltips.delete') }}</span>
           </v-tooltip>
-
-          <v-tooltip
-            v-if="user.isAdmin"
-            key="archive"
-            bottom
-          >
-            <template #activator="{ on }">
-              <v-btn
-                    @click="openArchiveForm"
-                    v-on="on"
-                    color="orange"
-                    icon
-                  >
-                  <v-icon>mdi-account-cancel</v-icon>
-                </v-btn>
-            </template>
-            <span>{{ $t('shared.tooltips.archive') }}</span>
-          </v-tooltip>
-
         </template>
       </div>
     </div>

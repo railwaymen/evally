@@ -114,7 +114,9 @@ export default {
       },
       archiveForm: {
         title: 'Archiwizuj pracownika',
-        body: 'Czy na pewno chcesz archiwizować tego pracownika?'
+        body: 'Czy na pewno chcesz archiwizować tego pracownika?',
+        dateRequest: 'Proszę podać datę archiwizacji pracownika: ',
+        archivedOn: 'Date archiwizacji'
       },
       searchTable: {
         cols: {
@@ -151,7 +153,7 @@ export default {
         group: 'Groupa',
         hiredOn: 'Data zatrudnienia',
         nextEvaluationOn: 'Data ostatniej oceny',
-        archivedAt: 'Data archiwizacji',
+        archivedOn: 'Data archiwizacji',
         completedEvaluations: {
           title: 'Zakończone ocenę',
           noContent: 'Brak ocen'

@@ -113,8 +113,10 @@ export default {
         body: 'Are you sure you want to delete this employee?'
       },
       archiveForm: {
-        title: 'Archive employee',
-        body: 'Are you sure you want to archive this employee?'
+        title: 'Archive Employee',
+        body: 'Are you sure you want to archive this employee?',
+        dateRequest: 'Please provide an archivization date: ',
+        archivedOn: 'Archivization Date'
       },
       searchTable: {
         cols: {
@@ -151,7 +153,7 @@ export default {
         group: 'Group',
         hiredOn: 'Hired Date',
         nextEvaluationOn: 'Next Evaluation Date',
-        archivedAt: 'Archived Date',
+        archivedOn: 'Archived Date',
         completedEvaluations: {
           title: 'Completed Evaluations',
           noContent: 'No evaluations yet'
