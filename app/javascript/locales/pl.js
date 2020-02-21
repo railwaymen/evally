@@ -12,6 +12,7 @@ export default {
       changePassword: 'Zmień hasło',
       yes: 'Tak',
       no: 'Nie',
+      archive: 'Archiwizuj'
     },
     tooltips: {
       edit: 'Edytuj',
@@ -109,6 +110,10 @@ export default {
       deleteConfirm: {
         title: 'Usuń pracownika',
         body: 'Czy na pewno chcesz usunąć tego pracownika?'
+      },
+      archiveConfirm: {
+        title: 'Archiwizuj pracownika',
+        body: 'Czy na pewno chcesz archiwizować tego pracownika?'
       },
       searchTable: {
         cols: {
