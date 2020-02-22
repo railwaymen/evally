@@ -11,7 +11,7 @@ module V2
     end
 
     def update
-      unless tokenized_user.update(password_update_params)
+      unless tokenized_user.reset_password(*password_update_params.values)
         raise ErrorResponderService.new(:invalid_record, 422, tokenized_user.errors.full_messages)
       end
 
@@ -32,6 +32,10 @@ module V2
       raise ErrorResponderService.new(:record_not_found, 404) unless @tokenized_user
 
       @tokenized_user
+    end
+
+    def password_update_params
+      params.require(:password).permit(:password, :password_confirmation)
     end
   end
 end

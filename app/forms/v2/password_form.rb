@@ -34,7 +34,7 @@ module V2
     end
 
     def user_authentication
-      return if @user.authenticate(@params[:password])
+      return if @user.valid_password?(@params[:password])
 
       errors.add(:password, 'is invalid')
     end

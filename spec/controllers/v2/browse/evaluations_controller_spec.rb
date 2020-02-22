@@ -10,7 +10,6 @@ RSpec.describe V2::Browse::EvaluationsController, type: :controller do
       evaluation = FactoryBot.create(:evaluation, :completed, employee: employee)
       FactoryBot.create(:section, sectionable: evaluation)
 
-      sign_out
       get :show, params: { employee_id: employee.public_token, id: evaluation.id }
 
       expect(response).to have_http_status 200
@@ -18,7 +17,6 @@ RSpec.describe V2::Browse::EvaluationsController, type: :controller do
     end
 
     it 'responds with not found error if invalid employee' do
-      sign_out
       get :show, params: { employee_id: 1, id: 1 }
 
       expect(response).to have_http_status 404
@@ -27,7 +25,6 @@ RSpec.describe V2::Browse::EvaluationsController, type: :controller do
     it 'responds with not found error if invalid evaluation' do
       employee = FactoryBot.create(:employee)
 
-      sign_out
       get :show, params: { employee_id: employee.public_token, id: 1 }
 
       expect(response).to have_http_status 404

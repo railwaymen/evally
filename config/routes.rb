@@ -3,15 +3,13 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   scope '(:locale)', locale: /en|pl/ do
-    scope :v2, defaults: { format: :json } do
-      devise_for :users, skip: :all
-    end
+    devise_for :users, skip: :all
 
     namespace :v2, defaults: { format: :json } do
       resource :session, controller: 'session', only: :create
 
-      resources :invitations, controller: 'invitations', only: %i[create update]
-      resources :passwords, controller: 'passwords', only: %i[create update]
+      # resources :invitations, controller: 'invitations', only: %i[create update]
+      resources :passwords, only: %i[create update]
 
       resource :dashboard, controller: 'dashboard', only: :show
 
@@ -44,5 +42,10 @@ Rails.application.routes.draw do
 
     # Route to hit the Vue app
     get '/*path', to: 'pages#index', format: false
+
+    # ONLY FOR ACTION MAILER PURPOSES
+    resources :passwords, only: [] do
+      get :reset, on: :collection
+    end
   end
 end

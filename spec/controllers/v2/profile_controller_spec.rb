@@ -105,7 +105,7 @@ RSpec.describe V2::ProfileController, type: :controller do
 
         expect do
           put :password, params: params
-        end.to(change { user.reload.password_digest })
+        end.to(change { user.reload.encrypted_password })
 
         expect(response).to have_http_status 204
       end
