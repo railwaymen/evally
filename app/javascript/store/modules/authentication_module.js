@@ -57,7 +57,7 @@ const AuthenticationModule = {
         'Employees',
         'EmployeesOverview',
         'EmployeesSearch',
-        'Session',
+        'Authentication',
         'Templates'
       ]
 
@@ -156,7 +156,7 @@ const AuthenticationModule = {
       return new Promise((resolve, reject) => {
         http.post(User.routes.sessionPath, { session: credentials })
           .then(response => {
-            commit('setToken', response.data.session.jwt)
+            commit('setToken', response.data.jwt)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.session.create.ok') },

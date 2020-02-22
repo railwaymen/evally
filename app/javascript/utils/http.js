@@ -7,11 +7,11 @@ import router from '@router/router'
 axios.interceptors.request.use(config => {
 
   config.baseURL = `${window.location.origin}/${localStorage.getItem('ev411y_l4ng') || 'en'}`
+
   config.headers.common['Content-Type'] = 'application/json'
+  config.headers.common['Accept'] = 'application/json'
 
-  const token = localStorage.getItem('ev411y_t0k3n')
-  if (token) config.headers.common['Authorization'] = 'Bearer ' + token
-
+  config.headers.common['Token'] = localStorage.getItem('ev411y_t0k3n')
   config.headers.common['X-CSRF-Token'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 
   return config;

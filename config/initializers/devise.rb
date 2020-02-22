@@ -5,6 +5,7 @@
 Devise.setup do |config|
   config.warden do |warden|
     warden.strategies.add :jwt, Devise::Strategies::JWT
+
     warden.default_strategies(scope: :user).unshift :jwt
   end
 

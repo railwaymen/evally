@@ -40,9 +40,9 @@ class User < ApplicationRecord
     return 'accepted' if invitation_accepted_at.present?
   end
 
-  # def authentication?(pass)
-  #   # Override to allow only active users to be authenticated
+  def active_for_authentication?
+    # Override to allow only active users to be authenticated
 
-  #   active? && authenticate(pass)
-  # end
+    active? && super
+  end
 end

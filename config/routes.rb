@@ -4,12 +4,14 @@ Rails.application.routes.draw do
 
   scope '(:locale)', locale: /en|pl/ do
     scope :v2, defaults: { format: :json } do
-      # devise_for :users
+      devise_for :users, skip: :all
     end
 
     namespace :v2, defaults: { format: :json } do
-      # resources :invitations, controller: 'invitations', only: %i[create update]
-      # resources :passwords, controller: 'passwords', only: %i[create update]
+      resource :session, controller: 'session', only: :create
+
+      resources :invitations, controller: 'invitations', only: %i[create update]
+      resources :passwords, controller: 'passwords', only: %i[create update]
 
       resource :dashboard, controller: 'dashboard', only: :show
 
@@ -43,11 +45,4 @@ Rails.application.routes.draw do
     # Route to hit the Vue app
     get '/*path', to: 'pages#index', format: false
   end
-
-  # resources :unlocks, controller: 'rails_jwt_auth/unlocks', only: %i[update]
-  # resources :invitations, controller: 'rails_jwt_auth/invitations', only: [:create, :update]
-  # resources :passwords, controller: 'rails_jwt_auth/passwords', only: [:create, :update]
-  # resources :confirmations, controller: 'rails_jwt_auth/confirmations', only: [:create, :update]
-  # resource :registration, controller: 'rails_jwt_auth/registrations', only: [:create]
-  # resource :session, controller: 'rails_jwt_auth/sessions', only: [:create, :destroy]
 end
