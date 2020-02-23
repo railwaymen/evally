@@ -426,6 +426,11 @@ export default {
     }
   },
   views: {
+    browser: {
+      show: {
+        instruction: 'Please enter your last name to see your evaluations: '
+      }
+    },
     dashboards: {
       show: {
         title: 'Hello {name}!',
