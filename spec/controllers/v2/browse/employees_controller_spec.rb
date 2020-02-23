@@ -7,7 +7,6 @@ RSpec.describe V2::Browse::EmployeesController, type: :controller do
     it 'responds with employee' do
       employee = FactoryBot.create(:employee)
 
-      sign_out
       get :show, params: { id: employee.public_token }
 
       expect(response).to have_http_status 200
@@ -15,7 +14,6 @@ RSpec.describe V2::Browse::EmployeesController, type: :controller do
     end
 
     it 'responds with not found error if invalid employee' do
-      sign_out
       get :show, params: { id: 1 }
 
       expect(response).to have_http_status 404

@@ -119,17 +119,17 @@ export default new Router({
       component: () => import(/* webpackChunkName: 'login' */ '@views/auth/Login'),
     },
     {
-      path: '/forgot_password',
+      path: '/passwords/forgot',
       name: 'forgot_password_path',
       component: () => import(/* webpackChunkName: 'forgot_password' */ '@views/auth/ForgotPassword'),
     },
     {
-      path: '/reset_password',
+      path: '/passwords/reset',
       name: 'reset_password_path',
       component: () => import(/* webpackChunkName: 'reset_password' */ '@views/auth/ResetPassword'),
     },
     {
-      path: '/accept_invitation',
+      path: '/invitations/accept',
       name: 'accept_invitation_path',
       component: () => import(/* webpackChunkName: 'accept_invitation' */ '@views/auth/SetupPassword'),
     },

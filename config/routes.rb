@@ -3,13 +3,13 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   scope '(:locale)', locale: /en|pl/ do
-    scope :v2, defaults: { format: :json } do
-      resource :session, controller: 'rails_jwt_auth/sessions', only: %i[create destroy]
-    end
+    devise_for :users, skip: :all
 
     namespace :v2, defaults: { format: :json } do
-      resources :invitations, controller: 'invitations', only: %i[create update]
-      resources :passwords, controller: 'passwords', only: %i[create update]
+      resource :session, controller: 'session', only: :create
+
+      resources :invitations, only: %i[create update]
+      resources :passwords, only: %i[create update]
 
       resource :dashboard, controller: 'dashboard', only: :show
 
@@ -42,12 +42,14 @@ Rails.application.routes.draw do
 
     # Route to hit the Vue app
     get '/*path', to: 'pages#index', format: false
-  end
 
-  # resources :unlocks, controller: 'rails_jwt_auth/unlocks', only: %i[update]
-  # resources :invitations, controller: 'rails_jwt_auth/invitations', only: [:create, :update]
-  # resources :passwords, controller: 'rails_jwt_auth/passwords', only: [:create, :update]
-  # resources :confirmations, controller: 'rails_jwt_auth/confirmations', only: [:create, :update]
-  # resource :registration, controller: 'rails_jwt_auth/registrations', only: [:create]
-  # resource :session, controller: 'rails_jwt_auth/sessions', only: [:create, :destroy]
+    # ONLY FOR ACTION MAILER PURPOSES
+    resources :passwords, only: [] do
+      get :reset, on: :collection
+    end
+
+    resources :invitations, only: [] do
+      get :accept, on: :collection
+    end
+  end
 end

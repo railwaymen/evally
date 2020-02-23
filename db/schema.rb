@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_19_143022) do
+ActiveRecord::Schema.define(version: 2020_02_23_113108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,15 +107,13 @@ ActiveRecord::Schema.define(version: 2020_02_19_143022) do
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
-    t.string "password_digest"
-    t.string "auth_tokens"
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "role", default: "evaluator", null: false
     t.string "status", default: "active", null: false
-    t.string "last_sign_in_ip"
+    t.inet "last_sign_in_ip"
     t.datetime "last_sign_in_at"
     t.string "invitation_token"
     t.datetime "invitation_sent_at"
@@ -123,8 +121,20 @@ ActiveRecord::Schema.define(version: 2020_02_19_143022) do
     t.datetime "invitation_created_at"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
+    t.string "encrypted_password", null: false
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.integer "invitation_limit"
+    t.string "invited_by_type"
+    t.bigint "invited_by_id"
+    t.integer "invitations_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["invitation_token"], name: "index_users_on_invitation_token"
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invitations_count"], name: "index_users_on_invitations_count"
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role"], name: "index_users_on_role"
     t.index ["status"], name: "index_users_on_status"
   end

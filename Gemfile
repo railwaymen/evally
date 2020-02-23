@@ -14,8 +14,10 @@ gem 'webpacker'
 gem 'rack-cors', '~> 1.0', '>= 1.0.2'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'blueprinter', '~> 0.22.0'
-gem 'rails_jwt_auth', '~> 1.5'
 gem 'pundit', '~> 2.1'
+gem 'devise', '~> 4.7'
+gem 'devise_invitable', '~> 2.0.0'
+gem 'jwt', '~> 2.2'
 
 group :development, :test do
   gem 'better_errors'
@@ -27,7 +29,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 4.11'
   gem 'faker', '~> 1.9.1'
   gem 'json_spec', '~> 1.1'
-  gem 'pry-rails'
+  gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails', '~> 3.8'
   gem 'shoulda-matchers', '~> 4.2.0'
   gem 'simplecov', '~> 0.16.1'

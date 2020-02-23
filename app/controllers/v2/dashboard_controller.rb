@@ -2,7 +2,7 @@
 
 module V2
   class DashboardController < ApplicationController
-    before_action :authenticate!
+    before_action :authenticate_user!
 
     def show
       presenter = V2::DashboardPresenter.new(current_user)

@@ -11,11 +11,11 @@ module V2
       @user.assign_attributes(params.merge(extra_params))
     end
 
-    def save(send_invitation: true)
+    def save(skip_invitation: false)
       validate_user!
 
       ActiveRecord::Base.transaction do
-        send_invitation ? @user.invite! : @user.save!
+        skip_invitation ? @user.save! : @user.invite!
 
         create_activity!
       end

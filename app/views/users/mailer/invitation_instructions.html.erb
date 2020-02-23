@@ -6,16 +6,15 @@
 
     <div class="section intro">
       <h2>Hello <%= @user.first_name %>!</h2>
-      <p>Someone has requested a link to change your password. You can do this through the link below.</p>
+      <p>Evally's user has sent you an invitation, you can accept it and finish registration through the link below.</p>
     </div>
 
     <div class="section cta">
-      <%= link_to 'Change my password', @reset_passwords_url.html_safe, class: 'button' %>
+      <%= link_to 'Accept invitation', accept_invitations_url(invitation_token: @resource.invitation_token).html_safe, class: 'button' %>
     </div>
 
     <div class="section summary">
-      <p>If you didn't request this, please ignore this email.</p>
-      <p>Your password won't change until you access the link above and create a new one.</p>
+      <p>If you don't want to accept the invitation, please ignore this email. Your account won't be created until you access the link above and set your password.</p>
     </div>
 
     <div class="section bye">

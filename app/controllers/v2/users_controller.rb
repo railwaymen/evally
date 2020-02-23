@@ -2,7 +2,7 @@
 
 module V2
   class UsersController < ApplicationController
-    before_action :authenticate!
+    before_action :authenticate_user!
     before_action :authorize!
 
     def index

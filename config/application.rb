@@ -50,7 +50,8 @@ module Evally
     # Set i18n fallbacks
     config.i18n.fallbacks = true
 
-    # Assets host for action mailer
+    # Action mailer settings
     config.action_mailer.asset_host = config.env.fetch('host')
+    config.action_mailer.default_url_options = { host: config.env.fetch('host') }
   end
 end

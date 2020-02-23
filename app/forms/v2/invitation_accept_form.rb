@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 module V2
-  class PasswordForm
+  class InvitationAcceptForm
     include ActiveModel::Validations
 
-    validate :new_password_length
+    validate :password_length
     validate :password_confirmation
-    validate :user_authentication
 
     def initialize(user, params:)
       @user = user
@@ -16,7 +15,8 @@ module V2
     def save
       validate_passwords!
 
-      @user.update(password: @params[:new_password])
+      @user.assign_attributes(password: @params[:password])
+      @user.accept_invitation!
     end
 
     private
@@ -28,19 +28,13 @@ module V2
     end
 
     def password_confirmation
-      return if @params[:new_password] == @params[:password_confirmation]
+      return if @params[:password] == @params[:password_confirmation]
 
       errors.add(:password_confirmation, 'does not match')
     end
 
-    def user_authentication
-      return if @user.valid_password?(@params[:password])
-
-      errors.add(:password, 'is invalid')
-    end
-
-    def new_password_length
-      return if @params[:new_password]&.length.to_i.between?(6, 32)
+    def password_length
+      return if @params[:password]&.length.to_i.between?(6, 32)
 
       errors.add(:password, 'length must be between 6 and 32 characters')
     end

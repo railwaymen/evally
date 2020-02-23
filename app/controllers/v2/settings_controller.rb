@@ -2,7 +2,7 @@
 
 module V2
   class SettingsController < ApplicationController
-    before_action :authenticate!
+    before_action :authenticate_user!
 
     def update
       setting_form.save
