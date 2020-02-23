@@ -18,6 +18,7 @@ gem 'pundit', '~> 2.1'
 
 gem 'rails_jwt_auth', '~> 1.5'
 gem 'devise', '~> 4.7'
+gem 'devise_invitable', '~> 2.0.0'
 gem 'jwt', '~> 2.2'
 
 group :development, :test do

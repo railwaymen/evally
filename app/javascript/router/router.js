@@ -129,7 +129,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: 'reset_password' */ '@views/auth/ResetPassword'),
     },
     {
-      path: '/accept_invitation',
+      path: '/invitations/accept',
       name: 'accept_invitation_path',
       component: () => import(/* webpackChunkName: 'accept_invitation' */ '@views/auth/SetupPassword'),
     },

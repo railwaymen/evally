@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     namespace :v2, defaults: { format: :json } do
       resource :session, controller: 'session', only: :create
 
-      # resources :invitations, controller: 'invitations', only: %i[create update]
+      resources :invitations, only: %i[create update]
       resources :passwords, only: %i[create update]
 
       resource :dashboard, controller: 'dashboard', only: :show
@@ -46,6 +46,10 @@ Rails.application.routes.draw do
     # ONLY FOR ACTION MAILER PURPOSES
     resources :passwords, only: [] do
       get :reset, on: :collection
+    end
+
+    resources :invitations, only: [] do
+      get :accept, on: :collection
     end
   end
 end
