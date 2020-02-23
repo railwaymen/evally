@@ -14,6 +14,7 @@ RSpec.describe V2::SessionController, type: :controller do
         }
       }
 
+      allow(Rails.application.credentials).to receive(:secret_key_base).and_return('abc')
       post :create, params: params
 
       expect(response).to have_http_status 201
