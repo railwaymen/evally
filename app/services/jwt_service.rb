@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nocov:
 class JwtService
   DEFAULT_EXPIRATION_TIME = 12.hours
 
@@ -17,3 +18,4 @@ class JwtService
 
   private_class_method :secret
 end
+# :nocov:

@@ -156,7 +156,7 @@ RSpec.describe V2::InvitationsController, type: :controller do
     end
 
     it 'responds with 404 if invitation already accepted' do
-      user = FactoryBot.create(
+      FactoryBot.create(
         :user,
         invitation_token: nil,
         invitation_created_at: 1.hour.ago,
