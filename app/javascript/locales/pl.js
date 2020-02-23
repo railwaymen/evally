@@ -426,6 +426,11 @@ export default {
     }
   },
   views: {
+    browser: {
+      show: {
+        instruction: 'Wprowadź swoje nazwisko, aby zobaczyć swoje oceny: '
+      }
+    },
     dashboards: {
       show: {
         title: 'Witaj {name}!',

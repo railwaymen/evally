@@ -13,7 +13,7 @@
           <img src="@assets/images/logo_black.png" alt="Logo Evally">
         </div>
 
-        <p class="browser-form__info">Please enter your last name to see the latest evaluation</p>
+        <p class="browser-form__info">{{ $t('views.browser.show.instruction') }}</p>
 
         <v-text-field
           v-model="pass"
