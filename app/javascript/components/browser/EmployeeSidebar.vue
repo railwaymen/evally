@@ -17,70 +17,74 @@
       </div>
     </div>
 
-    <v-expansion-panel class="elevation-0" expand :value="[true, true]">
-      <v-expansion-panel-content>
-        <template #header>
+    <v-expansion-panels v-model="panel" multiple accordion>
+      <v-expansion-panel>
+        <v-expansion-panel-header>
           <h5 class="body-2">
             {{ $t('components.employees.sidebar.completedEvaluations.title') }}
           </h5>
-        </template>
+        </v-expansion-panel-header>
 
-        <v-list two-line subheader>
-          <v-list-tile
-            v-for="evaluation in evaluations.models"
-            :key="evaluation.id"
-            :to="evaluation.browsePath(employee.public_token)"
-          >
-            <v-list-tile-content>
-              <v-list-tile-title>{{ evaluation.template_name }}</v-list-tile-title>
-              <v-list-tile-sub-title>{{ evaluation.completedAt }}</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
+        <v-expansion-panel-content>
+          <v-list two-line subheader>
+            <v-list-item
+              v-for="evaluation in evaluations.models"
+              :key="evaluation.id"
+              :to="evaluation.browsePath(employee.public_token)"
+            >
+              <v-list-item-content>
+                <v-list-item-title>{{ evaluation.template_name }}</v-list-item-title>
+                <v-list-item-subtitle>{{ evaluation.completedAt }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
 
-          <v-list-tile v-if="evaluations.isEmpty">
-            <v-list-tile-content>
-              <v-list-tile-title>
-                {{ $t('components.employees.sidebar.completedEvaluations.noContent') }}
-              </v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-expansion-panel-content>
+            <v-list-item v-if="evaluations.isEmpty">
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ $t('components.employees.sidebar.completedEvaluations.noContent') }}
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
 
-      <v-expansion-panel-content>
-        <template #header>
+      <v-expansion-panel>
+        <v-expansion-panel-header>
           <h5 class="body-2">
             {{ $t('components.employees.sidebar.positionChanges.title') }}
           </h5>
-        </template>
+        </v-expansion-panel-header>
 
-        <v-list two-line>
-          <v-list-tile v-for="positionChange in positionChanges.models" :key="positionChange.id">
-            <v-list-tile-content>
-              <v-list-tile-title>
-                {{ positionChange.current_position }}
-              </v-list-tile-title>
+        <v-expansion-panel-content>
+          <v-list two-line>
+            <v-list-item v-for="positionChange in positionChanges.models" :key="positionChange.id">
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ positionChange.current_position }}
+                </v-list-item-title>
 
-              <v-list-tile-sub-title class="body-2">
-                {{ positionChange.changedOn }}
-              </v-list-tile-sub-title>
+                <v-list-item-subtitle class="body-2">
+                  {{ positionChange.changedOn }}
+                </v-list-item-subtitle>
 
-              <v-list-tile-sub-title class="body-2">
-                {{ $t('components.employees.sidebar.positionChanges.previous', { name: positionChange.previous_position }) }}
-              </v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
+                <v-list-item-subtitle class="body-2">
+                  {{ $t('components.employees.sidebar.positionChanges.previous', { name: positionChange.previous_position }) }}
+                </v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
 
-          <v-list-tile v-if="positionChanges.isEmpty">
-            <v-list-tile-content>
-              <v-list-tile-title>
-                {{ $t('components.employees.sidebar.positionChanges.noContent') }}
-              </v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
+            <v-list-item v-if="positionChanges.isEmpty">
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ $t('components.employees.sidebar.positionChanges.noContent') }}
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </div>
 </template>
 
@@ -106,6 +110,11 @@ export default {
       type: PositionChangesList,
       required: true,
       default: () => new PositionChangesList()
+    }
+  },
+  data() {
+    return {
+      panel: [0, 1]
     }
   }
 }
