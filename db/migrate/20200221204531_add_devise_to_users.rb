@@ -12,7 +12,12 @@ class AddDeviseToUsers < ActiveRecord::Migration[5.2]
 
     add_index :users, :reset_password_token, unique: true
 
-    User.all.map { |user| user.update(password: SecureRandom.hex) }
+    User.all.each do |user|
+      next unless user.respond_to?(:encrypted_password)
+
+      user.update(password: SecureRandom.hex)
+    end
+
     change_column_null :users, :encrypted_password, false
   end
 

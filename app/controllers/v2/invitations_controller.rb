@@ -14,7 +14,7 @@ module V2
     def update
       V2::InvitationAcceptForm.new(tokenized_user, params: invitation_params).save
 
-      head :ok
+      head :no_content
     end
 
     private
@@ -28,7 +28,7 @@ module V2
     end
 
     def tokenized_user
-      @tokenized_user ||= User.active.find_by(invitation_token: params[:id])
+      @tokenized_user ||= User.invitation_not_accepted.active.find_by(invitation_token: params[:id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @tokenized_user
 
       @tokenized_user

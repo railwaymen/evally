@@ -15,8 +15,6 @@ gem 'rack-cors', '~> 1.0', '>= 1.0.2'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'blueprinter', '~> 0.22.0'
 gem 'pundit', '~> 2.1'
-
-gem 'rails_jwt_auth', '~> 1.5'
 gem 'devise', '~> 4.7'
 gem 'devise_invitable', '~> 2.0.0'
 gem 'jwt', '~> 2.2'
