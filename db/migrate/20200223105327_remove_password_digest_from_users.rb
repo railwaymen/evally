@@ -6,6 +6,6 @@ class RemovePasswordDigestFromUsers < ActiveRecord::Migration[5.2]
   def down
     add_column :users, :password_digest, :string
 
-    User.all.each { |u| u.update(password: SecureRandom.hex ) }
+    User.all.each { |u| u.update(password_digest: SecureRandom.hex ) }
   end
 end
