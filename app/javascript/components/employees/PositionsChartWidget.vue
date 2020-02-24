@@ -78,7 +78,7 @@ export default {
       const labelsLength = this.labels.length
 
       return {
-        height: `${(this.labels.length + 1) * (labelsLength > 10 ? 30 : 50)}px`,
+        height: `${(labelsLength + 1) * (labelsLength > 10 ? 30 : 50)}px`,
         position: 'relative',
         transition: '300ms height ease-out 750ms'
       }
