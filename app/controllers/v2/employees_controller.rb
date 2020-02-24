@@ -46,7 +46,9 @@ module V2
     end
 
     def archive
-      employee.update_attribute(:archived_on, employee_params[:archived_on])
+      EmployeeService::Archive.new(employee: employee,
+                                   archived_on: employee_params[:archived_on],
+                                   user: current_user).call
 
       render json: V2::EmployeeSerializer.render(employee), status: :ok
     end

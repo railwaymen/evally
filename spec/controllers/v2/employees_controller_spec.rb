@@ -517,6 +517,9 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
         expect(response).to have_http_status 200
         expect(response.body).to be_json_eql employee_schema(Employee.last)
+        expect(employee.reload.state).to eq('archived')
+        expect(employee.evaluator).to eq(nil)
+        expect(admin.activities.last.action).to eq('archive')
       end
     end
   end
