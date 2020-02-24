@@ -13,6 +13,7 @@
         <horizontal-bar
           :dataset="dataset"
           :options="options"
+          :styles="chartStyles"
         />
 
         <div class="text-center mb-3">
@@ -73,6 +74,15 @@ export default {
     values() {
       return this.filteredChartData.map(item => item.value)
     },
+    chartStyles() {
+      const labelsLength = this.labels.length
+
+      return {
+        height: `${(this.labels.length + 1) * (labelsLength > 10 ? 30 : 50)}px`,
+        position: 'relative',
+        transition: '300ms height ease-out 750ms'
+      }
+    },
     dataset() {
       return {
         labels: this.labels,
@@ -82,7 +92,7 @@ export default {
             backgroundColor: this.colors[this.groups.indexOf(this.currentGroup)],
             data: this.values,
             categoryPercentage: 1.0,
-            barPercentage: 0.9,
+            barPercentage: 0.8,
           }
         ]
       }
