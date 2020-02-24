@@ -4,8 +4,6 @@ module EmployeeService
   class Archive
     include ActiveModel::Validations
 
-    validate :draft_evaluations_length
-
     def initialize(employee:, archived_on:, user:)
       @employee = employee
       @archived_on = archived_on
@@ -13,13 +11,13 @@ module EmployeeService
     end
 
     def call
-      validate
-
-      return false unless errors.empty?
+      return false unless validate_employee!
 
       ActiveRecord::Base.transaction do
         archive
         create_archive_activity
+
+        true
       end
     end
 
@@ -38,12 +36,12 @@ module EmployeeService
       )
     end
 
-    def draft_evaluations_length
+    def validate_employee!
       return true if @employee.evaluations.draft.length.zero?
 
-      errors.add('evaluations', 'employye has draft evaluations')
+      @employee.errors.add('evaluations', I18n.t('errors.employee.has_draft_evaluations'))
 
-      false
+      raise ErrorResponderService.new(:invalid_record, 422, @employee.errors.full_messages)
     end
   end
 end

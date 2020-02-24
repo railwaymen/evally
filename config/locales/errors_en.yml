@@ -12,3 +12,5 @@ en:
     unauthorized:
       title: 'Unauthorized action'
       message: 'You are unauthorized to perform this action.'
+    employee:
+      has_draft_evaluations: 'has draft evaluations'

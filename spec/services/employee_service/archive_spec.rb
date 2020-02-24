@@ -41,19 +41,16 @@ RSpec.describe EmployeeService::Archive do
       end
 
       it 'doesnt archive employee' do
-        subject.call
+        expect { subject.call }.to raise_error(ErrorResponderService)
 
         expect(employee.reload.state).to eq('hired')
       end
 
-      it 'returns false' do
-        expect(subject.call).to eq false
-      end
-
       it 'sets errors' do
-        subject.call
+        expect { subject.call }.to raise_error(ErrorResponderService)
 
-        expect(subject.errors['evaluations']).to eq ['employye has draft evaluations']
+        expect(employee.errors['evaluations'])
+          .to eq [I18n.t('errors.employee.has_draft_evaluations')]
       end
     end
   end

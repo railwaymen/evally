@@ -253,7 +253,6 @@ const EmployeesModule = {
               { success: i18n.t('messages.employees.archive.ok') },
               { root: true }
             )
-
             resolve(data)
           })
           .catch(error => {
