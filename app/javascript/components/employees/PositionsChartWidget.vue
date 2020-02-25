@@ -80,7 +80,7 @@ export default {
       return {
         height: `${(labelsLength + 1) * (labelsLength > 10 ? 30 : 50)}px`,
         position: 'relative',
-        transition: '300ms height ease-out 750ms'
+        transition: '750ms height cubic-bezier(0.165, 0.84, 0.44, 1) 750ms'
       }
     },
     dataset() {
