@@ -453,6 +453,92 @@ RSpec.describe V2::EmployeesController, type: :controller do
     end
   end
 
+  describe '#archive' do
+    context 'when unauthorized' do
+      it 'responds with 401 error' do
+        put :archive, params: { id: 1 }
+        expect(response).to have_http_status 401
+      end
+
+      it 'responds with 403 error' do
+        sign_in evaluator
+        put :archive, params: { id: 1 }
+
+        expect(response).to have_http_status 403
+      end
+    end
+
+    context 'when authorized' do
+      it 'moves employee to archive' do
+        employee = FactoryBot.create(:employee, state: :hired)
+        archive_date = Date.current
+
+        params = {
+          id: employee.id,
+          employee: {
+            archived_on: archive_date
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          put :archive, params: params
+        end.to(change { Employee.archived.count }.by(1))
+
+        expect(response).to have_http_status 200
+
+        employee.reload
+
+        expect(response.body).to be_json_eql employee_schema(employee)
+        expect(employee).to have_attributes(
+          state: 'archived',
+          archived_on: archive_date,
+          evaluator_id: nil
+        )
+      end
+
+      it 'responds with 422 if archive date is blank' do
+        employee = FactoryBot.create(:employee, state: :hired)
+
+        params = {
+          id: employee.id,
+          employee: {
+            archived_on: ''
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          put :archive, params: params
+        end.not_to(change { Employee.archived.count })
+
+        expect(response).to have_http_status 422
+      end
+
+      it 'responds with 422 if employee has ongoing evaluations' do
+        employee = FactoryBot.create(:employee, state: :hired)
+        FactoryBot.create(:evaluation, :draft, employee: employee)
+
+        params = {
+          id: employee.id,
+          employee: {
+            archived_on: Date.current
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          put :archive, params: params
+        end.not_to(change { Employee.archived.count })
+
+        expect(response).to have_http_status 422
+      end
+    end
+  end
+
   describe '#destroy' do
     context 'when unauthorized' do
       it 'responds with 401 error' do
@@ -501,40 +587,6 @@ RSpec.describe V2::EmployeesController, type: :controller do
         delete :destroy, params: { id: 1 }
 
         expect(response).to have_http_status 404
-      end
-    end
-  end
-
-  describe '#archive' do
-    context 'when authorized' do
-      it 'responds with archived employee' do
-        employee = FactoryBot.create(:employee)
-        params = { id: employee.id, employee: { archived_on: '10-01-2020' } }
-
-        sign_in admin
-
-        put :archive, params: params
-
-        expect(response).to have_http_status 200
-        expect(response.body).to be_json_eql employee_schema(Employee.last)
-        expect(employee.reload.state).to eq('archived')
-        expect(employee.evaluator).to eq(nil)
-        expect(admin.activities.last.action).to eq('archive')
-      end
-
-      context 'empty archived_at' do
-        it 'dosent change state to archive' do
-          employee = FactoryBot.create(:employee)
-          params = { id: employee.id, employee: { archived_on: '' } }
-
-          sign_in admin
-
-          put :archive, params: params
-
-          expect(response).to have_http_status 200
-          expect(response.body).to be_json_eql employee_schema(Employee.last)
-          expect(employee.reload.state).to eq('hired')
-        end
       end
     end
   end

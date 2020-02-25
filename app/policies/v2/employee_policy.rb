@@ -22,6 +22,10 @@ module V2
       user.admin?
     end
 
+    def archive?
+      user.admin?
+    end
+
     def destroy?
       user.admin?
     end
