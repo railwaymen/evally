@@ -30,6 +30,7 @@ RSpec.describe V2::DashboardController, type: :controller do
         sign_in user
 
         get :show
+
         expect(response).to have_http_status 200
       end
     end
