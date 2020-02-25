@@ -31,7 +31,7 @@ group :development, :test do
   gem 'json_spec', '~> 1.1'
   gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails', '~> 3.8'
-  gem 'shoulda-matchers', '~> 4.2.0'
+  gem 'shoulda-matchers', '~> 4.3.0'
   gem 'simplecov', '~> 0.16.1'
   gem 'rubocop', '~> 0.80.0', require: false
   gem 'rubocop-rails', require: false
