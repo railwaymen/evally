@@ -9,7 +9,7 @@ module EmployeeService
       :employee
     )
 
-    validates :archived_on, presence: true
+    # validates :archived_on, presence: true
 
     def initialize(employee:, archived_on:, user:)
       @employee = employee
@@ -18,8 +18,9 @@ module EmployeeService
     end
 
     def call
-      return false unless validate
-      return false unless validate_employee!
+      return false unless validate_archived_on
+
+      validate_employee!
 
       ActiveRecord::Base.transaction do
         archive
@@ -45,8 +46,16 @@ module EmployeeService
       )
     end
 
+    def validate_archived_on
+      return true if @archived_on.present?
+
+      @employee.errors.add(:archived_on, :blank)
+
+      false
+    end
+
     def validate_employee!
-      return true if @employee.evaluations.draft.length.zero?
+      return true if @employee.evaluations.draft.empty?
 
       @employee.errors.add(:archived_on, :has_draft_evaluations)
 

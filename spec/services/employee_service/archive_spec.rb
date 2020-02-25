@@ -47,7 +47,7 @@ RSpec.describe EmployeeService::Archive do
       it 'sets errors' do
         subject.call
 
-        expect(subject.errors.messages[:archived_on]).to eq(["can't be blank"])
+        expect(employee.errors.messages[:archived_on]).to eq(["can't be blank"])
       end
     end
 
