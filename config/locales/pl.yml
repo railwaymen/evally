@@ -54,6 +54,7 @@ pl:
           many: jest za krótkie (przynajmniej %{count} znaków)
           one: jest za krótkie (przynajmniej jeden znak)
           other: jest za krótkie (przynajmniej %{count} znaków)
+        has_draft_evaluations: 'posiada szkic dla ewaluacji'
     models:
       employee: 'Pracownik'
       evaluation: 'Ocena'

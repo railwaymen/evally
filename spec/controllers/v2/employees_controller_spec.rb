@@ -521,6 +521,21 @@ RSpec.describe V2::EmployeesController, type: :controller do
         expect(employee.evaluator).to eq(nil)
         expect(admin.activities.last.action).to eq('archive')
       end
+
+      context 'empty archived_at' do
+        it 'dosent change state to archive' do
+          employee = FactoryBot.create(:employee)
+          params = { id: employee.id, employee: { archived_on: '' } }
+
+          sign_in admin
+
+          put :archive, params: params
+
+          expect(response).to have_http_status 200
+          expect(response.body).to be_json_eql employee_schema(Employee.last)
+          expect(employee.reload.state).to eq('hired')
+        end
+      end
     end
   end
 end

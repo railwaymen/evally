@@ -12,5 +12,3 @@ pl:
     unauthorized:
       title: 'Brak autoryzacji'
       message: 'Nie jesteś upoważniony do wykonania tej akcji.'
-      employee:
-        has_draft_evaluations: 'posiada szkic dla ewaluacji'

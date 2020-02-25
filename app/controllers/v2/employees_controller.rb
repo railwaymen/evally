@@ -46,11 +46,12 @@ module V2
     end
 
     def archive
-      EmployeeService::Archive.new(employee: employee,
-                                   archived_on: employee_params[:archived_on],
-                                   user: current_user).call
+      employee_service = EmployeeService::Archive.new(employee: employee,
+                                                      archived_on: employee_params[:archived_on],
+                                                      user: current_user)
+      employee_service.call
 
-      render json: V2::EmployeeSerializer.render(employee), status: :ok
+      render json: V2::EmployeeSerializer.render(employee_service.employee), status: :ok
     end
 
     def destroy

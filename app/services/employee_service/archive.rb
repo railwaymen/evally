@@ -4,6 +4,13 @@ module EmployeeService
   class Archive
     include ActiveModel::Validations
 
+    attr_accessor(
+      :archived_on,
+      :employee
+    )
+
+    validates :archived_on, presence: true
+
     def initialize(employee:, archived_on:, user:)
       @employee = employee
       @archived_on = archived_on
@@ -11,6 +18,7 @@ module EmployeeService
     end
 
     def call
+      return false unless validate
       return false unless validate_employee!
 
       ActiveRecord::Base.transaction do
@@ -24,8 +32,9 @@ module EmployeeService
     private
 
     def archive
-      @employee.archived!
-      @employee.update(archived_on: @archived_on, evaluator_id: nil)
+      @employee.update(archived_on: @archived_on,
+                       evaluator_id: nil,
+                       state: 'archived')
     end
 
     def create_archive_activity
@@ -39,7 +48,7 @@ module EmployeeService
     def validate_employee!
       return true if @employee.evaluations.draft.length.zero?
 
-      @employee.errors.add('evaluations', I18n.t('errors.employee.has_draft_evaluations'))
+      @employee.errors.add(:archived_on, :has_draft_evaluations)
 
       raise ErrorResponderService.new(:invalid_record, 422, @employee.errors.full_messages)
     end
