@@ -449,6 +449,7 @@ export default {
           list: 'Lista',
           search: 'Wyszukaj',
           overview: 'Przegląd',
+          archived: 'Archiwizowani',
         },
       },
       show: {

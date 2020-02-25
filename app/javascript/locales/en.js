@@ -449,6 +449,7 @@ export default {
           list: 'List',
           search: 'Search',
           overview: 'Overview',
+          archived: 'Archived',
         },
       },
       show: {
