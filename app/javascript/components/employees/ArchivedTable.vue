@@ -40,6 +40,7 @@
 
 <script>
 import { EmployeesList } from '@models/employee'
+import i18n from '@locales/i18n'
 
 export default {
   name: 'ArchivedTable',
@@ -69,26 +70,26 @@ export default {
           value: 'action',
         },
         {
-          text: this.$t('components.employees.table.cols.name'),
+          text: i18n.t('components.employees.table.cols.name'),
           value: 'fullname'
         },
         {
-          text: this.$t('components.employees.table.cols.hiredOn'),
+          text: i18n.t('components.employees.table.cols.hiredOn'),
           value: 'hired_on',
           align: 'center'
         },
         {
-          text: this.$t('components.employees.table.cols.group'),
+          text: i18n.t('components.employees.table.cols.group'),
           value: 'group',
           align: 'center'
         },
         {
-          text: this.$t('components.employees.table.cols.position'),
+          text: i18n.t('components.employees.table.cols.position'),
           value: 'position',
           align: 'center'
         },
         {
-          text: this.$t('components.employees.table.cols.archivedOn'),
+          text: i18n.t('components.employees.table.cols.archivedOn'),
           value: 'archived_on',
           align: 'center'
         }

@@ -1,7 +1,6 @@
 {
   "name": "evally",
   "private": true,
-  "scripts": {},
   "dependencies": {
     "@kazupon/vue-i18n-loader": "^0.3.0",
     "@rails/webpacker": "^4.0.7",
@@ -29,6 +28,38 @@
   "devDependencies": {
     "babel-core": "^7.0.0-bridge",
     "cypress": "^4.0.1",
-    "webpack-dev-server": "^3.7.2"
+    "webpack-dev-server": "^3.7.2",
+    "@vue/test-utils": "^1.0.0-beta.13",
+    "babel-jest": "^21.2.0",
+    "babel-preset-env": "^1.6.0",
+    "jest": "^21.2.1",
+    "jest-transform-stub": "2.0.0",
+    "vue-jest": "^3.0.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
+    "modulePaths": [
+      "<rootDir>"
+    ],
+    "moduleNameMapper": {
+      "@vue(.*)$": "<rootDir>/node_modules/vue-jest",
+      "@components(.*)$": "<rootDir>/app/javascript/components/$1",
+      "@locales(.*)$": "<rootDir>/app/javascript/locales/$1",
+      "@models(.*)$": "<rootDir>/app/javascript/models/$1"
+    },
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
+      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub"
+    }
+  },
+  "scripts": {
+    "test": "jest"
   }
 }
