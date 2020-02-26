@@ -166,9 +166,6 @@ export default {
       },
       positionsChart: {
         title: 'Employees by Positions'
-      },
-      averageEmployment: {
-        title: 'Average Employment'
       }
     },
     evaluations: {
@@ -405,11 +402,6 @@ export default {
       year: '{n} year | {n} years',
       and: 'and',
     },
-    employeesAnalytics: {
-      month: '{n} month | {n} months',
-      year: '{n} year | {n} years',
-      and: 'and',
-    },
     user: {
       roles: {
         admin: 'Admin',
@@ -460,6 +452,20 @@ export default {
       evaluation: {
         hiredOn: 'Hired Date',
         completedAt: 'Completion Date',
+      },
+      overview: {
+        employment: 'Employment',
+        evaluations: 'Evaluations',
+        tiles: {
+          averageEmployment: 'Average Employment',
+          employees: 'Employees',
+          changes: 'Changes This Year',
+          months: '{n} month | {n} months',
+          years: '{n} year | {n} years',
+          hired: 'Hired',
+          archived: 'Archived',
+          new: 'New'
+        }
       },
       search: {
         label: 'Skill',

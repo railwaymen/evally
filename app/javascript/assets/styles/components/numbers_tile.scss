@@ -1,0 +1,33 @@
+.numbers-tile {
+  &__loader {
+    margin: 0 auto;
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  &__full {
+    width: 100%;
+    text-align: center;
+  }
+
+  &__side {
+    width: 50%;
+    text-align: center;
+  }
+
+  &__value {
+    font-size: rem2dec(3.6rem);
+    font-weight: 200;
+  }
+
+  &__subtitle {
+    font-size: rem2dec(1.4rem);
+    color: $font-gray-light;
+    font-weight: 200;
+    font-style: italic;
+  }
+}

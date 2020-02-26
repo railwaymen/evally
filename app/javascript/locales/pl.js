@@ -166,9 +166,6 @@ export default {
       },
       positionsChart: {
         title: 'Podział stanowisk'
-      },
-      averageEmployment: {
-        title: 'Śr. czas zatrudnienia'
       }
     },
     evaluations: {
@@ -405,11 +402,6 @@ export default {
       year: '{n} roku | {n} lat',
       and: 'i',
     },
-    employeesAnalytics: {
-      month: '{n} miesiące | {n} miesięcy',
-      year: '{n} roku | {n} lat',
-      and: 'i',
-    },
     user: {
       roles: {
         admin: 'Admin',
@@ -460,6 +452,20 @@ export default {
       evaluation: {
         hiredOn: 'Data zatrudnienia',
         completedAt: 'Data zakończenia',
+      },
+      overview: {
+        employment: 'Zatrudnienie',
+        evaluations: 'Oceny',
+        tiles: {
+          averageEmployment: 'Średni czas',
+          employees: 'Pracownicy',
+          changes: 'Zmiany w tym roku',
+          months: '{n} miesiąc | {n} miesiące',
+          years: '{n} rok | {n} lata',
+          hired: 'Zatrudnieni',
+          archived: 'Zarchiwizowani',
+          new: 'Nowi'
+        }
       },
       search: {
         label: 'Umięjętność',
