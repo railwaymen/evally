@@ -3,58 +3,45 @@
 require 'rails_helper'
 
 RSpec.describe V2::EmployeesAnalyticsQuery do
-  it 'returns proper calculations' do
+  it 'returns proper values' do
     base_date = Date.current
 
-    # hired - employment 10 days
+    # 0 days
     FactoryBot.create(
       :employee,
       state: 'hired',
-      hired_on: base_date - 10.days,
-      archived_on: nil
+      hired_on: base_date
     )
 
-    # hired - employment 30 days
-    FactoryBot.create(
-      :employee,
-      state: 'hired',
-      hired_on: base_date - 30.days,
-      archived_on: nil
-    )
-
-    # hired - employment 100 days
-    FactoryBot.create(
-      :employee,
-      state: 'hired',
-      hired_on: base_date - 100.days,
-      archived_on: nil
-    )
-
-    # archived - employment 580 days
-    FactoryBot.create(
-      :employee,
-      state: 'hired',
-      hired_on: base_date - 580.days,
-      archived_on: nil
-    )
-
-    # archived - employment 210 days
+    # 400 days
     FactoryBot.create(
       :employee,
       state: 'archived',
-      hired_on: base_date - 270.days,
-      archived_on: base_date - 60.days
+      hired_on: base_date - 400.days,
+      archived_on: base_date
     )
 
-    # archived - employment 180 days
+    # 380 days
+    FactoryBot.create(
+      :employee,
+      state: 'hired',
+      hired_on: base_date - 380.days
+    )
+
+    # 64 days
     FactoryBot.create(
       :employee,
       state: 'archived',
-      hired_on: base_date - 450.days,
-      archived_on: base_date - 270.days
+      hired_on: base_date - 464.days,
+      archived_on: base_date - 400.days
     )
 
-    expect(described_class.call).to be_a Hash
-    # TODO: how to test returned values
+    expect(described_class.call).to include(
+      'hired_employees_number' => 2,
+      'archived_employees_number' => 2,
+      'new_employees_number_this_year' => 1,
+      'archived_employees_number_this_year' => 1,
+      'average_employment_in_months' => 7.0
+    )
   end
 end

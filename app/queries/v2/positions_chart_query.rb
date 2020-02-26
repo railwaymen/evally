@@ -14,6 +14,7 @@ module V2
           COUNT(position) AS value
         FROM
           employees
+        WHERE state = 'hired'
         GROUP BY
           \"group\",
           position

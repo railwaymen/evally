@@ -409,19 +409,31 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
     context 'when authorized' do
       it 'responds with positions chart data' do
-        FactoryBot.create_list(
+        base_date = Date.current
+
+        FactoryBot.create(
           :employee,
-          2,
+          state: 'hired',
           position: 'Junior Specialist',
           group: 'Programmers',
-          hired_on: 45.days.ago
+          hired_on: base_date - 450.days
         )
 
         FactoryBot.create(
           :employee,
+          state: 'archived',
+          position: 'Junior Specialist',
+          group: 'Programmers',
+          hired_on: base_date - 500.days,
+          archived_on: base_date - 450.days
+        )
+
+        FactoryBot.create(
+          :employee,
+          state: 'hired',
           position: 'Senior Manager',
           group: 'Managers',
-          hired_on: 45.days.ago
+          hired_on: base_date
         )
 
         sign_in admin
@@ -430,11 +442,17 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
         expect(response).to have_http_status 200
         expect(json_response).to eq(
-          'analytics' => { 'average_employment' => 1.0 },
+          'analytics' => {
+            'hired_employees_number' => 2,
+            'archived_employees_number' => 1,
+            'new_employees_number_this_year' => 1,
+            'archived_employees_number_this_year' => 0,
+            'average_employment_in_months' => 5.0
+          },
           'groups' => %w[Managers Programmers],
           'positions_chart_data' => [
             { 'group' => 'Managers', 'label' => 'Senior Manager', 'value' => 1 },
-            { 'group' => 'Programmers', 'label' => 'Junior Specialist', 'value' => 2 }
+            { 'group' => 'Programmers', 'label' => 'Junior Specialist', 'value' => 1 }
           ]
         )
       end
@@ -445,7 +463,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
         expect(response).to have_http_status 200
         expect(json_response).to eq(
-          'analytics' => { 'average_employment' => 0.0 },
+          'analytics' => nil,
           'groups' => [],
           'positions_chart_data' => []
         )
