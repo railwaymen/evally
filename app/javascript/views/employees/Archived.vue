@@ -2,7 +2,7 @@
   <section>
     <div class="panel__content">
       <v-container grid-list-lg fluid>
-        <basic-table
+        <archived-table
           :employees="employees"
           :loading="loading"
           :editable="user.isAdmin"
@@ -14,11 +14,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import BasicTable from '@components/employees/BasicTable'
+import ArchivedTable from '@components/employees/ArchivedTable'
 
 export default {
   name: 'EmployeesArchived',
-  components: { BasicTable },
+  components: { ArchivedTable },
   methods: {
     ...mapActions({
       fetchData: 'EmployeesModule/archived'

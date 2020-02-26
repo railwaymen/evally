@@ -106,6 +106,7 @@ export default {
           positionSetOn: 'Data zmiany stanowiska',
           evaluatorName: 'Ewaluator',
           latestEvaluationAt: 'Data ostatniej oceny',
+          archivedOn: 'Data archiwizacji',
         }
       },
       deleteConfirm: {
