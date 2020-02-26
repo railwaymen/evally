@@ -17,8 +17,8 @@ class Employee < ApplicationRecord
 
   # # Enums
   #
-  enum state: { hired: 'hired', experienced: 'experienced',
-                released: 'released', archived: 'archived' }
+  enum state: { hired: 'hired', experienced: 'experienced', released: 'released',
+                archived: 'archived' }
 
   # # Validation
   #

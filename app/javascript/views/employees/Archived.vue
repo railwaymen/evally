@@ -21,7 +21,7 @@ export default {
   components: { BasicTable },
   methods: {
     ...mapActions({
-      fetchData: 'EmployeesModule/index'
+      fetchData: 'EmployeesModule/archived'
     })
   },
   computed: {
