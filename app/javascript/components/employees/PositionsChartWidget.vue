@@ -13,21 +13,7 @@
         <horizontal-bar-chart
           :dataset="dataset"
           :options="options"
-          :styles="chartStyles"
         />
-
-        <div class="text-center mb-3">
-          <v-chip
-            v-for="(group, index) in groups"
-            :key="index"
-            @click="currentGroup = group"
-            :color="currentGroup === group ? colors[index] : 'grey'"
-            text-color="white"
-            class="mx-1"
-          >
-            {{ group }}
-          </v-chip>
-        </div>
       </div>
     </div>
   </div>
@@ -60,64 +46,40 @@ export default {
   },
   data() {
     return {
-      colors,
-      currentGroup: null
+      group: 'Mobile'
     }
   },
   computed: {
-    filteredChartData() {
-      return this.chartData.filter(item => item.group === this.currentGroup)
-    },
-    labels() {
-      return this.filteredChartData.map(item => item.label)
-    },
-    values() {
-      return this.filteredChartData.map(item => item.value)
-    },
-    chartStyles() {
-      const labelsLength = this.labels.length
-
-      return {
-        height: `${(labelsLength + 1) * (labelsLength > 10 ? 30 : 50)}px`,
-        position: 'relative',
-        transition: '750ms height cubic-bezier(0.165, 0.84, 0.44, 1) 750ms'
-      }
-    },
     dataset() {
       return {
-        labels: this.labels,
-        datasets: [
-          {
-            label: this.currentGroup,
-            backgroundColor: this.colors[this.groups.indexOf(this.currentGroup)],
-            data: this.values,
-            categoryPercentage: 1.0,
-            barPercentage: 0.8,
-          }
-        ]
+        labels: this.chartData.filter(item => item.group === this.group).map(item => item.label),
+        datasets: this.groups.map((group, index) => ({
+          label: group,
+          data: this.chartData.filter(item => item.group === group).map(item => item.value),
+          backgroundColor: this.group === group ? colors[index] : 'gray',
+          hidden: this.group !== group,
+          categoryPercentage: 1.0,
+          barPercentage: 0.8
+        }))
       }
     },
     options() {
       return {
         maintainAspectRatio: false,
         legend: {
-          display: false
+          onClick: (_e, legendItem) => {
+            this.group = legendItem.text
+          }
         },
         scales: {
           xAxes: [{
             ticks: {
               beginAtZero: true,
-              stepSize: 1,
-              max: Math.ceil(Math.max(...this.values) * 1.2)
+              stepSize: 1
             }
           }]
         }
       }
-    }
-  },
-  watch: {
-    groups(newVal) {
-      this.currentGroup = newVal[0]
     }
   }
 }

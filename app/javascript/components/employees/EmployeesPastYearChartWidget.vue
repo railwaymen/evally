@@ -1,7 +1,7 @@
 <template>
   <div class="widget widget--border-primary">
     <h3 class="widget__header">
-      New Employees Over Past Year
+      Employees Changes Over Past Year
     </h3>
 
     <div class="widget__body">
@@ -25,7 +25,7 @@ import BarChart from '@components/charts/BarChart'
 import { colors } from '@utils/helpers'
 
 export default {
-  name: 'PositionsChartWidget',
+  name: 'EmployeesPastYearChartWidget',
   components: { BarChart },
   props: {
     chartData: {
@@ -39,25 +39,31 @@ export default {
       default: true
     }
   },
-  data() {
-    return {
-      colors
-    }
-  },
   computed: {
     labels() {
-      return this.chartData.map(item => item.label)
+      return this.chartData.map(item => this.$moment(item.label).format('MMM YYYY'))
     },
-    values() {
-      return this.chartData.map(item => item.value)
+    hiredValues() {
+      return this.chartData.map(item => item.hired_value)
+    },
+    archivedValues() {
+      return this.chartData.map(item => (-1 * item.archived_value))
     },
     dataset() {
       return {
         labels: this.labels,
         datasets: [
           {
-            data: this.values,
-            backgroundCOlor: ['#f00', '#f0f'],
+            label: 'Hired Employees',
+            data: this.hiredValues,
+            backgroundColor: colors[28],
+            categoryPercentage: 1.0,
+            barPercentage: 0.8,
+          },
+          {
+            label: 'Archive Employees',
+            data: this.archivedValues,
+            backgroundColor: colors[0],
             categoryPercentage: 1.0,
             barPercentage: 0.8,
           }
@@ -67,15 +73,10 @@ export default {
     options() {
       return {
         maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
         scales: {
           yAxes: [{
             ticks: {
-              beginAtZero: true,
-              stepSize: 1,
-              max: Math.ceil(Math.max(...this.values) * 1.2)
+              stepSize: 1
             }
           }]
         }

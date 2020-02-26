@@ -7,11 +7,11 @@ module V2
     end
 
     def positions_chart_data
-      V2::PositionsChartQuery.call
+      V2::EmployeesPositionsChartQuery.call
     end
 
-    def past_year_employees_data
-      V2::PastYearEmployeesChartQuery.call
+    def employees_past_year_data
+      V2::EmployeesPastYearChartQuery.call
     end
 
     def analytics
