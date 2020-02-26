@@ -6,7 +6,8 @@ module V2
       ActiveRecord::Base.connection.exec_query(raw_sql).first
     end
 
-    def self.raw_sql # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/MethodLength, Layout/LineLength
+    def self.raw_sql
       "
       SELECT
         COUNT (*) FILTER (
@@ -39,6 +40,7 @@ module V2
       GROUP BY t0.average_employment_in_months;
       "
     end
+    # rubocop:enable Metrics/MethodLength, Layout/LineLength
 
     private_class_method :raw_sql
   end
