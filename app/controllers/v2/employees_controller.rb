@@ -3,7 +3,7 @@
 module V2
   class EmployeesController < ApplicationController
     before_action :authenticate_user!
-    before_action :authorize!, only: %i[create update overview destroy]
+    before_action :authorize!, only: %i[create update overview archive destroy]
 
     def index
       presenter = V2::EmployeesPresenter.new(current_user)
@@ -46,9 +46,9 @@ module V2
     end
 
     def archive
-      employee.update_attribute(:archived_on, employee_params[:archived_on])
+      archive_form.save
 
-      render json: V2::EmployeeSerializer.render(employee), status: :ok
+      render json: V2::EmployeeSerializer.render(archive_form.employee), status: :ok
     end
 
     def destroy
@@ -92,6 +92,14 @@ module V2
 
     def update_form
       @update_form ||= V2::EmployeeForm.new(
+        employee,
+        params: employee_params,
+        user: current_user
+      )
+    end
+
+    def archive_form
+      @archive_form ||= V2::EmployeeArchiveForm.new(
         employee,
         params: employee_params,
         user: current_user
