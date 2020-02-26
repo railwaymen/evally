@@ -74,6 +74,14 @@
             :loading="loading"
           />
         </v-flex>
+
+        <v-flex xs12>
+          <past-year-employees-chart-widget
+            :chartData="pastYearEmployeesChartData"
+            :groups="groups"
+            :loading="loading"
+          />
+        </v-flex>
       </v-layout>
     </v-flex>
 
@@ -87,14 +95,17 @@
 import { mapGetters } from 'vuex'
 
 import NumbersTile from '@components/shared/NumbersTile'
+
 import PositionsChartWidget from '@components/employees/PositionsChartWidget'
+import PastYearEmployeesChartWidget from '@components/employees/PastYearEmployeesChartWidget'
 
 export default {
   name: 'EmployeesOverview',
-  components: { NumbersTile, PositionsChartWidget },
+  components: { NumbersTile, PositionsChartWidget, PastYearEmployeesChartWidget},
   computed: {
     ...mapGetters({
       positionsChartData: 'EmployeesOverviewModule/positionsChartData',
+      pastYearEmployeesChartData: 'EmployeesOverviewModule/pastYearEmployeesChartData',
       groups: 'EmployeesOverviewModule/groups',
       analytics: 'EmployeesOverviewModule/analytics',
       loading: 'EmployeesOverviewModule/loading'

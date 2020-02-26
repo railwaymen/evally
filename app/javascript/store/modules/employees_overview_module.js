@@ -6,6 +6,7 @@ import { EmployeesAnalytics } from '@models/employees_analytics'
 const initialState = () => ({
   groups: [],
   positionsChartData: [],
+  pastYearEmployeesChartData: [],
   analytics: new EmployeesAnalytics(),
   loading: false
 })
@@ -18,15 +19,25 @@ const EmployeesOverviewModule = {
   getters: {
     groups: state => state.groups,
     positionsChartData: state => state.positionsChartData,
+    pastYearEmployeesChartData: state => state.pastYearEmployeesChartData,
     analytics: state => state.analytics,
     loading: state => state.loading
   },
 
   mutations: {
-    setData(state, { groups, positions_chart_data, analytics }) {
+    setData(state, data) {
+      const {
+        groups,
+        positions_chart_data,
+        past_year_employees_data,
+        analytics
+      } = data
+
       state.groups = groups
       state.positionsChartData = positions_chart_data
+      state.pastYearEmployeesChartData = past_year_employees_data
       state.analytics = new EmployeesAnalytics(analytics)
+
       return state
     },
     setLoading(state, status) {

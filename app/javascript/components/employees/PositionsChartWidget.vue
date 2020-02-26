@@ -10,7 +10,7 @@
       </div>
 
       <div v-else class="positions-chart">
-        <horizontal-bar
+        <horizontal-bar-chart
           :dataset="dataset"
           :options="options"
           :styles="chartStyles"
@@ -34,13 +34,13 @@
 </template>
 
 <script>
-import HorizontalBar from '@components/charts/HorizontalBar'
+import HorizontalBarChart from '@components/charts/HorizontalBarChart'
 
 import { colors } from '@utils/helpers'
 
 export default {
   name: 'PositionsChartWidget',
-  components: { HorizontalBar },
+  components: { HorizontalBarChart },
   props: {
     chartData: {
       type: Array,

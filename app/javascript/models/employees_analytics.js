@@ -1,5 +1,4 @@
 import { Model } from './base'
-import i18n from '@locales/i18n'
 
 class EmployeesAnalytics extends Model {
   get defaults() {
