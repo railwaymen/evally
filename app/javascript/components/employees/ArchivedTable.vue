@@ -1,6 +1,15 @@
 <template>
   <div class="box">
     <v-layout row wrap>
+      <v-flex xs12 lg6>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          :label="this.i18n.t('components.employees.table.search')"
+          filled
+        />
+      </v-flex>
+
       <v-flex xs12>
         <v-data-table
           :headers="headers"
@@ -30,12 +39,10 @@ export default {
       type: EmployeesList,
       required: true,
       default: () => new EmployeesList()
-    },
-    editable: {
-      type: Boolean,
-      required: true,
-      default: false
     }
+  },
+  beforeCreate() {
+    this.i18n = i18n
   },
   data() {
     return {

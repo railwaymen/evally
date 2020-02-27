@@ -1,11 +1,11 @@
-
 import { shallowMount } from '@vue/test-utils'
 import ArchivedTable from './ArchivedTable'
 import { EmployeesList } from '@models/employee'
 
 describe('ArchivedTable', () => {
   const props = {loading: false, employees: new EmployeesList(), editable: false }
-  const wrapper = shallowMount(ArchivedTable, {propsData: props, stubs: ['v-layout', 'v-data-table', 'v-flex']})
+  const wrapper = shallowMount(ArchivedTable, {propsData: props,
+    stubs: [ 'v-layout', 'v-data-table', 'v-flex', 'v-text-field'] })
 
   it('has a name', () => {
     expect(typeof ArchivedTable.name).toBe('string')
@@ -14,7 +14,6 @@ describe('ArchivedTable', () => {
 
    it('props', () => {
      expect(wrapper.props().loading).toEqual(false)
-     expect(wrapper.props().editable).toEqual(false)
      expect(wrapper.props().employees.models.length).toEqual(0)
    })
 
