@@ -166,6 +166,11 @@ export default {
       },
       positionsChart: {
         title: 'Employees by Positions'
+      },
+      employeesPartYearChart: {
+        title: 'Employees Changes Over Past Year',
+        hiredEmployees: 'Hired Employees',
+        archivedEmployees: 'Archived Employees'
       }
     },
     evaluations: {

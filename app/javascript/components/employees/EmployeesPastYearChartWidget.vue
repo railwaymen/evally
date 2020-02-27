@@ -1,7 +1,7 @@
 <template>
   <div class="widget widget--border-primary">
     <h3 class="widget__header">
-      Employees Changes Over Past Year
+      {{ $t('components.employees.employeesPartYearChart.title') }}
     </h3>
 
     <div class="widget__body">
@@ -54,14 +54,14 @@ export default {
         labels: this.labels,
         datasets: [
           {
-            label: 'Hired Employees',
+            label: this.$t('components.employees.employeesPartYearChart.hiredEmployees'),
             data: this.hiredValues,
             backgroundColor: colors[28],
             categoryPercentage: 1.0,
             barPercentage: 0.8,
           },
           {
-            label: 'Archive Employees',
+            label: this.$t('components.employees.employeesPartYearChart.archivedEmployees'),
             data: this.archivedValues,
             backgroundColor: colors[0],
             categoryPercentage: 1.0,
