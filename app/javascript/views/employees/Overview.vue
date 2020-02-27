@@ -11,17 +11,17 @@
             :title="$t('views.employees.overview.tiles.averageEmployment')"
             :loading="loading"
           >
-            <template v-if="analytics.averageEmployment.years > 0" #left-side>
-              <h3 class="numbers-tile__value">{{ analytics.averageEmployment.years }}</h3>
+            <template v-if="employeesAnalytics.averageEmployment.years > 0" #left-side>
+              <h3 class="numbers-tile__value">{{ employeesAnalytics.averageEmployment.years }}</h3>
               <h4 class="numbers-tile__subtitle">
-                {{ $tc('views.employees.overview.tiles.years', analytics.averageEmployment.years) }}
+                {{ $tc('views.employees.overview.tiles.years', employeesAnalytics.averageEmployment.years) }}
               </h4>
             </template>
 
             <template #right-side>
-              <h3 class="numbers-tile__value">{{ analytics.averageEmployment.months }}</h3>
+              <h3 class="numbers-tile__value">{{ employeesAnalytics.averageEmployment.months }}</h3>
               <h4 class="numbers-tile__subtitle">
-                {{ $tc('views.employees.overview.tiles.months', analytics.averageEmployment.months) }}
+                {{ $tc('views.employees.overview.tiles.months', employeesAnalytics.averageEmployment.months) }}
               </h4>
             </template>
           </numbers-tile>
@@ -33,14 +33,14 @@
             :loading="loading"
           >
             <template #left-side>
-              <h3 class="numbers-tile__value">{{ analytics.hired_employees_number }}</h3>
+              <h3 class="numbers-tile__value">{{ employeesAnalytics.hired_employees_number }}</h3>
               <h4 class="numbers-tile__subtitle">
                 {{ $t('views.employees.overview.tiles.hired') }}
               </h4>
             </template>
 
             <template #right-side>
-              <h3 class="numbers-tile__value">{{ analytics.archived_employees_number }}</h3>
+              <h3 class="numbers-tile__value">{{ employeesAnalytics.archived_employees_number }}</h3>
               <h4 class="numbers-tile__subtitle">
                 {{ $t('views.employees.overview.tiles.archived') }}
               </h4>
@@ -54,14 +54,14 @@
             :loading="loading"
           >
             <template #left-side>
-              <h3 class="numbers-tile__value">{{ analytics.new_employees_number_this_year }}</h3>
+              <h3 class="numbers-tile__value">{{ employeesAnalytics.new_employees_number_this_year }}</h3>
               <h4 class="numbers-tile__subtitle">
                 {{ $t('views.employees.overview.tiles.new') }}
               </h4>
             </template>
 
             <template #right-side>
-              <h3 class="numbers-tile__value">{{ analytics.archived_employees_number_this_year }}</h3>
+              <h3 class="numbers-tile__value">{{ employeesAnalytics.archived_employees_number_this_year }}</h3>
               <h4 class="numbers-tile__subtitle">
                 {{ $t('views.employees.overview.tiles.archived') }}
               </h4>
@@ -92,6 +92,20 @@
       </h2>
 
       <v-layout row wrap>
+        <v-flex xs4>
+          <numbers-tile
+            :title="$t('views.employees.overview.tiles.averageEvaluations')"
+            :loading="loading"
+          >
+            <template #left-side>
+              <h3 class="numbers-tile__value">{{ evaluationsAnalytics.average_evaluations }}</h3>
+              <h4 class="numbers-tile__subtitle">
+                {{ $t('views.employees.overview.tiles.evaluationsPerEmployee') }}
+              </h4>
+            </template>
+          </numbers-tile>
+        </v-flex>
+
         <v-flex xs12>
           <evaluations-past-year-chart-widget
             :chartData="evaluationsPastYearChartData"
@@ -126,8 +140,9 @@ export default {
       positionsChartData: 'EmployeesOverviewModule/positionsChartData',
       employeesPastYearChartData: 'EmployeesOverviewModule/employeesPastYearChartData',
       groups: 'EmployeesOverviewModule/groups',
-      analytics: 'EmployeesOverviewModule/analytics',
+      employeesAnalytics: 'EmployeesOverviewModule/employeesAnalytics',
       evaluationsPastYearChartData: 'EmployeesOverviewModule/evaluationsPastYearChartData',
+      evaluationsAnalytics: 'EmployeesOverviewModule/evaluationsAnalytics',
       loading: 'EmployeesOverviewModule/loading'
     })
   },

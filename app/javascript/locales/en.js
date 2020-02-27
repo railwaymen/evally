@@ -473,7 +473,9 @@ export default {
           years: 'year | years',
           hired: 'Hired',
           archived: 'Archived',
-          new: 'New'
+          new: 'New',
+          averageEvaluations: 'Average Evaluations',
+          evaluationsPerEmployee: 'Per Employee'
         }
       },
       search: {
