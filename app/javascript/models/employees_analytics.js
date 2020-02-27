@@ -1,32 +1,21 @@
 import { Model } from './base'
-import i18n from '@locales/i18n'
 
 class EmployeesAnalytics extends Model {
   get defaults() {
     return {
-      average_employment: 0
+      hired_employees_number: 0,
+      archived_employees_number: 0,
+      new_employees_number_this_year: 0,
+      archived_employees_number_this_year: 0,
+      average_employment_in_months: 0
     }
   }
 
   get averageEmployment() {
-    const months = this.average_employment % 12
-    const years = Math.floor(this.average_employment / 12)
-
-    // only months case
-    if (years === 0 && months >= 0) {
-      return [i18n.tc('models.employeesAnalytics.month', months, { n: months })].join(' ')
+    return {
+      months: this.average_employment_in_months % 12,
+      years: Math.floor(this.average_employment_in_months / 12)
     }
-
-    // full years case
-    if (years > 0 && months === 0) {
-      return [i18n.tc('models.employeesAnalytics.year', years, { n: years })].join(' ')
-    }
-
-    return [
-      i18n.tc('models.employeesAnalytics.year', years, { n: years }),
-      i18n.t('models.employeesAnalytics.and'),
-      i18n.tc('models.employeesAnalytics.month', months, { n: months })
-    ].join(' ')
   }
 }
 

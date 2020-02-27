@@ -10,5 +10,10 @@ FactoryBot.define do
     state             { 'hired' }
 
     evaluator { create(:user) }
+
+    trait :archived do
+      state         { 'archived' }
+      archived_on   { 1.day.ago }
+    end
   end
 end

@@ -2,7 +2,7 @@
 import { HorizontalBar } from 'vue-chartjs'
 
 export default {
-  name: 'HorizontalBar',
+  name: 'HorizontalBarChart',
   extends: HorizontalBar,
   props: {
     dataset: {

@@ -167,8 +167,10 @@ export default {
       positionsChart: {
         title: 'Employees by Positions'
       },
-      averageEmployment: {
-        title: 'Average Employment'
+      employeesPartYearChart: {
+        title: 'Employees Changes Over Past Year',
+        hiredEmployees: 'Hired Employees',
+        archivedEmployees: 'Archived Employees'
       }
     },
     evaluations: {
@@ -405,11 +407,6 @@ export default {
       year: '{n} year | {n} years',
       and: 'and',
     },
-    employeesAnalytics: {
-      month: '{n} month | {n} months',
-      year: '{n} year | {n} years',
-      and: 'and',
-    },
     user: {
       roles: {
         admin: 'Admin',
@@ -460,6 +457,20 @@ export default {
       evaluation: {
         hiredOn: 'Hired Date',
         completedAt: 'Completion Date',
+      },
+      overview: {
+        employment: 'Employment',
+        evaluations: 'Evaluations',
+        tiles: {
+          averageEmployment: 'Average Employment',
+          employees: 'Employees',
+          changes: 'Changes This Year',
+          months: 'month | months',
+          years: 'year | years',
+          hired: 'Hired',
+          archived: 'Archived',
+          new: 'New'
+        }
       },
       search: {
         label: 'Skill',
