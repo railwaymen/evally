@@ -175,6 +175,10 @@ export default {
       evaluationsPastYearChart: {
         title: 'Completed Evaluations By Months',
         completedEvaluations: 'Completed Evaluations'
+      },
+      employeesByUsersChart: {
+        title: 'Employees By Users',
+        employees: 'Employees'
       }
     },
     evaluations: {

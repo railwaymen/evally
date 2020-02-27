@@ -9,6 +9,7 @@ const initialState = () => ({
   positionsChartData: [],
   employeesPastYearChartData: [],
   employeesAnalytics: new EmployeesAnalytics(),
+  employeesByUsersChartData: [],
   evaluationsPastYearChartData: [],
   evaluationsAnalytics: new EvaluationsAnalytics(),
   loading: false
@@ -24,6 +25,7 @@ const EmployeesOverviewModule = {
     positionsChartData: state => state.positionsChartData,
     employeesPastYearChartData: state => state.employeesPastYearChartData,
     employeesAnalytics: state => state.employeesAnalytics,
+    employeesByUsersChartData: state => state.employeesByUsersChartData,
     evaluationsPastYearChartData: state => state.evaluationsPastYearChartData,
     evaluationsAnalytics: state => state.evaluationsAnalytics,
     loading: state => state.loading
@@ -36,6 +38,7 @@ const EmployeesOverviewModule = {
         positions_chart_data,
         employees_past_year_chart_data,
         employees_analytics,
+        employees_by_users_chart_data,
         evaluations_past_year_chart_data,
         evaluations_analytics
       } = data
@@ -44,6 +47,7 @@ const EmployeesOverviewModule = {
       state.positionsChartData = positions_chart_data
       state.employeesPastYearChartData = employees_past_year_chart_data
       state.employeesAnalytics = new EmployeesAnalytics(employees_analytics)
+      state.employeesByUsersChartData = employees_by_users_chart_data
       state.evaluationsPastYearChartData = evaluations_past_year_chart_data
       state.evaluationsAnalytics = new EvaluationsAnalytics(evaluations_analytics)
 

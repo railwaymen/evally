@@ -446,6 +446,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           'positions_chart_data',
           'employees_analytics',
           'employees_past_year_chart_data',
+          'employees_by_users_chart_data',
           'evaluations_analytics',
           'evaluations_past_year_chart_data'
         )
@@ -462,6 +463,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           'positions_chart_data',
           'employees_analytics',
           'employees_past_year_chart_data',
+          'employees_by_users_chart_data',
           'evaluations_analytics',
           'evaluations_past_year_chart_data'
         )

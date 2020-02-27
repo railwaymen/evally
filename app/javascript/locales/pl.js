@@ -175,6 +175,10 @@ export default {
       evaluationsPastYearChart: {
         title: 'Ukończone oceny wg miesięcy',
         completedEvaluations: 'Ukończone oceny'
+      },
+      employeesByUsersChart: {
+        title: 'Pracownicy wg ewaluatorów',
+        employees: 'Pracownicy'
       }
     },
     evaluations: {
