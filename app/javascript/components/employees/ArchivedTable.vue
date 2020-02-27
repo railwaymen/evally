@@ -2,12 +2,7 @@
   <div class="box">
     <v-layout row wrap>
       <v-flex xs12 lg6>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          :label="$t('components.employees.table.search')"
-          filled
-        />
+
       </v-flex>
 
       <v-flex xs12>
@@ -17,21 +12,6 @@
           :search="search"
           :loading="loading"
         >
-          <template #item.fullname="{ item }">
-            <router-link :to="{ name: 'employee_path', params: { employeeId: item.id }}">
-              {{ item.fullname }}
-            </router-link>
-          </template>
-
-          <template #item.hired_on="{ item }">
-            <v-tooltip left>
-              <template #activator="{ on }">
-                <span v-on="on">{{ item.hiredOn }}</span>
-              </template>
-              <span>{{ item.employmentTime }}</span>
-            </v-tooltip>
-          </template>
-
         </v-data-table>
       </v-flex>
     </v-layout>

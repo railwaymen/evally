@@ -7,6 +7,7 @@
     "axios": "^0.18.1",
     "chart.js": "^2.9.3",
     "fibers": "^4.0.2",
+    "jest-enzyme": "^7.1.2",
     "moment": "^2.23.0",
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",
@@ -18,7 +19,6 @@
     "vue-loader": "^15.8.3",
     "vue-moment": "^4.0.0",
     "vue-router": "^3.0.2",
-    "vue-template-compiler": "^2.6.11",
     "vue-turbolinks": "^2.0.3",
     "vuedraggable": "^2.17.0",
     "vuetify": "^2.2.11",
@@ -26,15 +26,19 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "babel-core": "^7.0.0-bridge",
-    "cypress": "^4.0.1",
-    "webpack-dev-server": "^3.7.2",
     "@vue/test-utils": "^1.0.0-beta.13",
+    "babel-core": "^7.0.0-bridge",
     "babel-jest": "^21.2.0",
+    "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
+    "cypress": "^4.0.1",
     "jest": "^21.2.1",
+    "jest-serializer-vue": "^2.0.2",
     "jest-transform-stub": "2.0.0",
-    "vue-jest": "^3.0.0"
+    "vue-jest": "^2.6.0",
+    "vue-server-renderer": "^2.6.11",
+    "webpack-dev-server": "^3.7.2",
+    "vue-template-compiler": "^2.6.11"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -45,13 +49,16 @@
       "<rootDir>"
     ],
     "moduleNameMapper": {
-      "@vue(.*)$": "<rootDir>/node_modules/vue-jest",
+      "vue$": "vue/dist/vue",
       "@components(.*)$": "<rootDir>/app/javascript/components/$1",
       "@locales(.*)$": "<rootDir>/app/javascript/locales/$1",
       "@models(.*)$": "<rootDir>/app/javascript/models/$1"
     },
     "moduleDirectories": [
       "node_modules"
+    ],
+    "snapshotSerializers": [
+      "jest-serializer-vue"
     ],
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
