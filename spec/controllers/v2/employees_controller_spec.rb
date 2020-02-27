@@ -441,10 +441,14 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
         expect(response).to have_http_status 200
 
-        expect(response.body).to have_json_path('analytics')
-        expect(response.body).to have_json_path('groups')
-        expect(response.body).to have_json_path('positions_chart_data')
-        expect(response.body).to have_json_path('employees_past_year_chart_data')
+        expect(json_response.keys).to contain_exactly(
+          'groups',
+          'positions_chart_data',
+          'employees_analytics',
+          'employees_past_year_chart_data',
+          'evaluations_analytics',
+          'evaluations_past_year_chart_data'
+        )
       end
 
       it 'responds with empty arrays in no employees' do
@@ -453,10 +457,14 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
         expect(response).to have_http_status 200
 
-        expect(response.body).to have_json_path('analytics')
-        expect(response.body).to have_json_path('groups')
-        expect(response.body).to have_json_path('positions_chart_data')
-        expect(response.body).to have_json_path('employees_past_year_chart_data')
+        expect(json_response.keys).to contain_exactly(
+          'groups',
+          'positions_chart_data',
+          'employees_analytics',
+          'employees_past_year_chart_data',
+          'evaluations_analytics',
+          'evaluations_past_year_chart_data'
+        )
       end
     end
   end

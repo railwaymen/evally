@@ -29,6 +29,12 @@ RSpec.describe V2::EvaluationsAnalyticsQuery do
 
     FactoryBot.create(
       :evaluation,
+      state: 'draft',
+      employee: employee2
+    )
+
+    FactoryBot.create(
+      :evaluation,
       state: 'completed',
       completed_at: 14.months.ago,
       employee: employee3

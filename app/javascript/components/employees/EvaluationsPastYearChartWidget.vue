@@ -60,7 +60,7 @@ export default {
             data: this.values,
             backgroundColor: colors[6],
             categoryPercentage: 1.0,
-            barPercentage: 0.8,
+            barPercentage: 0.9,
           }
         ]
       }
@@ -74,7 +74,8 @@ export default {
         scales: {
           yAxes: [{
             ticks: {
-              stepSize: 1
+              stepSize: 1,
+              max: Math.ceil(Math.max(...this.values) * 1.1)
             }
           }]
         }

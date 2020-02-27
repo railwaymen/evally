@@ -468,14 +468,17 @@ export default {
         tiles: {
           averageEmployment: 'Average Employment',
           employees: 'Employees',
-          changes: 'Changes This Year',
+          changesThisYear: 'Changes In {year}',
           months: 'month | months',
           years: 'year | years',
           hired: 'Hired',
           archived: 'Archived',
           new: 'New',
           averageEvaluations: 'Average Evaluations',
-          evaluationsPerEmployee: 'Per Employee'
+          evaluationsPerEmployee: 'Per Employee',
+          allEvaluations: 'All Evaluations',
+          evaluationsThisYear: 'Evaluations In {year}',
+          completed: 'Completed'
         }
       },
       search: {

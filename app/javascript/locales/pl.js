@@ -168,12 +168,12 @@ export default {
         title: 'Podział stanowisk'
       },
       employeesPastYearChart: {
-        title: 'Zmiana pracowników wg miesięcy',
+        title: 'Zmiany pracowników wg miesięcy',
         hiredEmployees: 'Zatrudnieni',
         archivedEmployees: 'Zarchiwizowani'
       },
       evaluationsPastYearChart: {
-        title: 'Ukońćzone oceny wg miesięcy',
+        title: 'Ukończone oceny wg miesięcy',
         completedEvaluations: 'Ukończone oceny'
       }
     },
@@ -468,12 +468,17 @@ export default {
         tiles: {
           averageEmployment: 'Średni czas',
           employees: 'Pracownicy',
-          changes: 'Zmiany w tym roku',
+          changesThisYear: 'Zmiany w {year} roku',
           months: 'miesiąc | miesiące',
           years: 'rok | lata',
           hired: 'Zatrudnieni',
           archived: 'Zarchiwizowani',
-          new: 'Nowi'
+          new: 'Nowi',
+          averageEvaluations: 'Średnia ilość ocen',
+          evaluationsPerEmployee: 'Na pracownika',
+          allEvaluations: 'Wszystkie oceny',
+          evaluationsThisYear: 'Oceny w {year} roku',
+          completed: 'Ukończone'
         }
       },
       search: {

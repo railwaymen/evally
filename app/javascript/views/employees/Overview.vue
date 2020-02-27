@@ -10,6 +10,7 @@
           <numbers-tile
             :title="$t('views.employees.overview.tiles.averageEmployment')"
             :loading="loading"
+            background-color="#e6e5f7"
           >
             <template v-if="employeesAnalytics.averageEmployment.years > 0" #left-side>
               <h3 class="numbers-tile__value">{{ employeesAnalytics.averageEmployment.years }}</h3>
@@ -31,6 +32,7 @@
           <numbers-tile
             :title="$t('views.employees.overview.tiles.employees')"
             :loading="loading"
+            background-color="#e6e5f7"
           >
             <template #left-side>
               <h3 class="numbers-tile__value">{{ employeesAnalytics.hired_employees_number }}</h3>
@@ -50,8 +52,9 @@
 
         <v-flex xs4>
           <numbers-tile
-            :title="$t('views.employees.overview.tiles.changes')"
+            :title="$t('views.employees.overview.tiles.changesThisYear', { year: $moment().year() })"
             :loading="loading"
+            background-color="#e6e5f7"
           >
             <template #left-side>
               <h3 class="numbers-tile__value">{{ employeesAnalytics.new_employees_number_this_year }}</h3>
@@ -96,11 +99,42 @@
           <numbers-tile
             :title="$t('views.employees.overview.tiles.averageEvaluations')"
             :loading="loading"
+            background-color="#f1efe2"
           >
-            <template #left-side>
+            <template #full-width>
               <h3 class="numbers-tile__value">{{ evaluationsAnalytics.average_evaluations }}</h3>
               <h4 class="numbers-tile__subtitle">
                 {{ $t('views.employees.overview.tiles.evaluationsPerEmployee') }}
+              </h4>
+            </template>
+          </numbers-tile>
+        </v-flex>
+
+        <v-flex xs4>
+          <numbers-tile
+            :title="$t('views.employees.overview.tiles.allEvaluations')"
+            :loading="loading"
+            background-color="#f1efe2"
+          >
+            <template #full-width>
+              <h3 class="numbers-tile__value">{{ evaluationsAnalytics.total_evaluations_number }}</h3>
+              <h4 class="numbers-tile__subtitle">
+                {{ $t('views.employees.overview.tiles.completed') }}
+              </h4>
+            </template>
+          </numbers-tile>
+        </v-flex>
+
+        <v-flex xs4>
+          <numbers-tile
+            :title="$t('views.employees.overview.tiles.evaluationsThisYear', { year: $moment().year() })"
+            :loading="loading"
+            background-color="#f1efe2"
+          >
+            <template #full-width>
+              <h3 class="numbers-tile__value">{{ evaluationsAnalytics.evaluations_number_this_year }}</h3>
+              <h4 class="numbers-tile__subtitle">
+                {{ $t('views.employees.overview.tiles.completed') }}
               </h4>
             </template>
           </numbers-tile>

@@ -10,7 +10,7 @@ RSpec.describe V2::EvaluationsPastYearChartQuery do
 
     FactoryBot.create(
       :evaluation,
-      state: 'draft',
+      state: 'draft'
     )
 
     FactoryBot.create(

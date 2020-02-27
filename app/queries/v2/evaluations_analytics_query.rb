@@ -6,8 +6,7 @@ module V2
       ActiveRecord::Base.connection.exec_query(raw_sql).first
     end
 
-    # rubocop:disable Metrics/MethodLength, Layout/LineLength
-    def self.raw_sql
+    def self.raw_sql # rubocop:disable Metrics/MethodLength
       "
         SELECT
           ROUND (
@@ -30,9 +29,13 @@ module V2
         ) t0 ON true
         LEFT JOIN LATERAL (
           SELECT
-            COUNT (*) AS total_evaluations_number,
             COUNT (*) FILTER (
-              WHERE DATE_PART('year', evaluations.completed_at) = DATE_PART('year', CURRENT_DATE)
+              WHERE evaluations.state = 'completed'
+            ) AS total_evaluations_number,
+            COUNT (*) FILTER (
+              WHERE
+                evaluations.state = 'completed' AND
+                  DATE_PART('year', evaluations.completed_at) = DATE_PART('year', CURRENT_DATE)
             ) AS evaluations_number_this_year
           FROM
             evaluations
@@ -40,7 +43,6 @@ module V2
         GROUP BY t1.total_evaluations_number, t1.evaluations_number_this_year;
       "
     end
-    # rubocop:enable Metrics/MethodLength, Layout/LineLength
 
     private_class_method :raw_sql
   end

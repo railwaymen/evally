@@ -61,16 +61,16 @@ export default {
           {
             label: this.$t('components.employees.employeesPastYearChart.hiredEmployees'),
             data: this.hiredValues,
-            backgroundColor: colors[28],
+            backgroundColor: colors[10],
             categoryPercentage: 1.0,
-            barPercentage: 0.8,
+            barPercentage: 0.9,
           },
           {
             label: this.$t('components.employees.employeesPastYearChart.archivedEmployees'),
             data: this.archivedValues,
             backgroundColor: colors[0],
             categoryPercentage: 1.0,
-            barPercentage: 0.8,
+            barPercentage: 0.9,
           }
         ]
       }
@@ -81,7 +81,9 @@ export default {
         scales: {
           yAxes: [{
             ticks: {
-              stepSize: 1
+              stepSize: 1,
+              max: Math.ceil(Math.max(...this.hiredValues) * 1.1),
+              min: Math.floor(Math.min(...this.archivedValues) * 1.1)
             }
           }]
         }
