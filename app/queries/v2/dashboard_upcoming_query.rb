@@ -3,7 +3,7 @@
 module V2
   class DashboardUpcomingQuery
     def self.call(scope = Employee.all)
-      scope.joins(tables).where('drafts.ongoing IS NULL')
+      scope.joins(tables).where('drafts.ongoing IS NULL').where.not(state: :archived)
     end
 
     def self.tables

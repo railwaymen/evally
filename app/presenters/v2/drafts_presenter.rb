@@ -7,7 +7,11 @@ module V2
     end
 
     def drafts
-      drafts_scope.includes(:employee).order(updated_at: :desc)
+      drafts_scope.joins(:employee)
+                  .where.not(employees: { state: :archived })
+                  .order(updated_at: :desc)
+
+      # Evaluation.join(:employees).where.not(employess: { state: :archived })
     end
 
     def employees
@@ -25,7 +29,7 @@ module V2
     end
 
     def employees_scope
-      Pundit.policy_scope!(@user, [:v2, Employee])
+      Pundit.policy_scope!(@user, [:v2, Employee]).where.not(state: :archived)
     end
   end
 end
