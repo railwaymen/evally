@@ -2,12 +2,16 @@ import http from '@utils/http'
 
 import { Employee } from '@models/employee'
 import { EmployeesAnalytics } from '@models/employees_analytics'
+import { EvaluationsAnalytics } from '@models/evaluations_analytics'
 
 const initialState = () => ({
   groups: [],
   positionsChartData: [],
   employeesPastYearChartData: [],
-  analytics: new EmployeesAnalytics(),
+  employeesAnalytics: new EmployeesAnalytics(),
+  employeesByUsersChartData: [],
+  evaluationsPastYearChartData: [],
+  evaluationsAnalytics: new EvaluationsAnalytics(),
   loading: false
 })
 
@@ -20,7 +24,10 @@ const EmployeesOverviewModule = {
     groups: state => state.groups,
     positionsChartData: state => state.positionsChartData,
     employeesPastYearChartData: state => state.employeesPastYearChartData,
-    analytics: state => state.analytics,
+    employeesAnalytics: state => state.employeesAnalytics,
+    employeesByUsersChartData: state => state.employeesByUsersChartData,
+    evaluationsPastYearChartData: state => state.evaluationsPastYearChartData,
+    evaluationsAnalytics: state => state.evaluationsAnalytics,
     loading: state => state.loading
   },
 
@@ -30,13 +37,19 @@ const EmployeesOverviewModule = {
         groups,
         positions_chart_data,
         employees_past_year_chart_data,
-        analytics
+        employees_analytics,
+        employees_by_users_chart_data,
+        evaluations_past_year_chart_data,
+        evaluations_analytics
       } = data
 
       state.groups = groups
       state.positionsChartData = positions_chart_data
       state.employeesPastYearChartData = employees_past_year_chart_data
-      state.analytics = new EmployeesAnalytics(analytics)
+      state.employeesAnalytics = new EmployeesAnalytics(employees_analytics)
+      state.employeesByUsersChartData = employees_by_users_chart_data
+      state.evaluationsPastYearChartData = evaluations_past_year_chart_data
+      state.evaluationsAnalytics = new EvaluationsAnalytics(evaluations_analytics)
 
       return state
     },

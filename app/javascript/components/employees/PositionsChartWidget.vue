@@ -56,10 +56,10 @@ export default {
         datasets: this.groups.map((group, index) => ({
           label: group,
           data: this.chartData.filter(item => item.group === group).map(item => item.value),
-          backgroundColor: this.group === group ? colors[index] : 'gray',
+          backgroundColor: this.group === group ? colors[index + 10] : 'gray',
           hidden: this.group !== group,
           categoryPercentage: 1.0,
-          barPercentage: 0.8
+          barPercentage: 0.9
         }))
       }
     },

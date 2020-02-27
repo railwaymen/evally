@@ -1,16 +1,16 @@
 <template>
   <div :class="['widget', `widget--border-${color}`]">
     <h3 class="widget__header">
-      {{ $t('components.employees.employeesPastYearChart.title') }}
+      {{ $t('components.employees.employeesByUsersChart.title') }}
     </h3>
 
     <div class="widget__body">
       <div v-if="loading" class="widget__loader">
-        <v-progress-circular :size="30" :width="3" color="color" indeterminate />
+        <v-progress-circular :size="30" :width="3" :color="color" indeterminate />
       </div>
 
       <div v-else class="positions-chart">
-        <bar-chart
+        <horizontal-bar-chart
           :dataset="dataset"
           :options="options"
         />
@@ -20,13 +20,13 @@
 </template>
 
 <script>
-import BarChart from '@components/charts/BarChart'
+import HorizontalBarChart from '@components/charts/HorizontalBarChart'
 
 import { colors } from '@utils/helpers'
 
 export default {
-  name: 'EmployeesPastYearChartWidget',
-  components: { BarChart },
+  name: 'EmployeesByUsersChartWidget',
+  components: { HorizontalBarChart },
   props: {
     chartData: {
       type: Array,
@@ -46,29 +46,19 @@ export default {
   },
   computed: {
     labels() {
-      return this.chartData.map(item => this.$moment(item.label).format('MMM YYYY'))
+      return this.chartData.map(item => item.label)
     },
-    hiredValues() {
-      return this.chartData.map(item => item.hired_value)
-    },
-    archivedValues() {
-      return this.chartData.map(item => (-1 * item.archived_value))
+    values() {
+      return this.chartData.map(item => item.value)
     },
     dataset() {
       return {
         labels: this.labels,
         datasets: [
           {
-            label: this.$t('components.employees.employeesPastYearChart.hiredEmployees'),
-            data: this.hiredValues,
-            backgroundColor: colors[10],
-            categoryPercentage: 1.0,
-            barPercentage: 0.9,
-          },
-          {
-            label: this.$t('components.employees.employeesPastYearChart.archivedEmployees'),
-            data: this.archivedValues,
-            backgroundColor: colors[0],
+            label: this.$t('components.employees.employeesByUsersChart.employees'),
+            data: this.values,
+            backgroundColor: colors[5],
             categoryPercentage: 1.0,
             barPercentage: 0.9,
           }
@@ -78,12 +68,14 @@ export default {
     options() {
       return {
         maintainAspectRatio: false,
+        legend: {
+          display: false
+        },
         scales: {
-          yAxes: [{
+          xAxes: [{
             ticks: {
               stepSize: 1,
-              max: Math.ceil(Math.max(...this.hiredValues) * 1.1),
-              min: Math.floor(Math.min(...this.archivedValues) * 1.1)
+              max: Math.ceil(Math.max(...this.values) * 1.1)
             }
           }]
         }

@@ -167,10 +167,18 @@ export default {
       positionsChart: {
         title: 'Employees by Positions'
       },
-      employeesPartYearChart: {
-        title: 'Employees Changes Over Past Year',
+      employeesPastYearChart: {
+        title: 'Employees Changes By Months',
         hiredEmployees: 'Hired Employees',
         archivedEmployees: 'Archived Employees'
+      },
+      evaluationsPastYearChart: {
+        title: 'Completed Evaluations By Months',
+        completedEvaluations: 'Completed Evaluations'
+      },
+      employeesByUsersChart: {
+        title: 'Employees By Users',
+        employees: 'Employees'
       }
     },
     evaluations: {
@@ -464,12 +472,17 @@ export default {
         tiles: {
           averageEmployment: 'Average Employment',
           employees: 'Employees',
-          changes: 'Changes This Year',
+          changesThisYear: 'Changes In {year}',
           months: 'month | months',
           years: 'year | years',
           hired: 'Hired',
           archived: 'Archived',
-          new: 'New'
+          new: 'New',
+          averageEvaluations: 'Average Evaluations',
+          evaluationsPerEmployee: 'Per Employee',
+          allEvaluations: 'All Evaluations',
+          evaluationsThisYear: 'Evaluations In {year}',
+          completed: 'Completed'
         }
       },
       search: {
