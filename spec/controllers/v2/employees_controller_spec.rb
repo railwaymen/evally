@@ -616,6 +616,14 @@ RSpec.describe V2::EmployeesController, type: :controller do
   end
 
   describe '#archived' do
+    context 'when unauthorized' do
+      it 'responds with 401 error' do
+        get :archived
+
+        expect(response).to have_http_status 401
+      end
+    end
+
     context 'when authorized' do
       it 'responds with archived employees' do
         FactoryBot.create(:employee, archived_on: '10-01-2020')

@@ -5,7 +5,6 @@
         <archived-table
           :employees="employees"
           :loading="loading"
-          :editable="user.isAdmin"
         />
       </v-container>
     </div>

@@ -1,10 +1,6 @@
 <template>
   <div class="box">
     <v-layout row wrap>
-      <v-flex xs12 lg6>
-
-      </v-flex>
-
       <v-flex xs12>
         <v-data-table
           :headers="headers"
@@ -45,10 +41,6 @@ export default {
     return {
       search: '',
       headers: [
-        {
-          sortable: false,
-          value: 'action',
-        },
         {
           text: i18n.t('components.employees.table.cols.name'),
           value: 'fullname'
