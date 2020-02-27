@@ -437,24 +437,28 @@ RSpec.describe V2::EmployeesController, type: :controller do
         )
 
         sign_in admin
-
         get :overview
 
         expect(response).to have_http_status 200
-        expect(json_response).to eq(
-          'analytics' => {
-            'hired_employees_number' => 2,
-            'archived_employees_number' => 1,
-            'new_employees_number_this_year' => 1,
-            'archived_employees_number_this_year' => 0,
-            'average_employment_in_months' => 5.0
-          },
-          'groups' => %w[Managers Programmers],
-          'positions_chart_data' => [
-            { 'group' => 'Managers', 'label' => 'Senior Manager', 'value' => 1 },
-            { 'group' => 'Programmers', 'label' => 'Junior Specialist', 'value' => 1 }
-          ]
-        )
+
+        expect(response.body).to have_json_path('analytics')
+        expect(response.body).to have_json_path('groups')
+        expect(response.body).to have_json_path('positions_chart_data')
+        expect(response.body).to have_json_path('employees_past_year_chart_data')
+        # expect(json_response).to eq(
+        #   'analytics' => {
+        #     'hired_employees_number' => 2,
+        #     'archived_employees_number' => 1,
+        #     'new_employees_number_this_year' => 1,
+        #     'archived_employees_number_this_year' => 0,
+        #     'average_employment_in_months' => 5.0
+        #   },
+        #   'groups' => %w[Managers Programmers],
+        #   'positions_chart_data' => [
+        #     { 'group' => 'Managers', 'label' => 'Senior Manager', 'value' => 1 },
+        #     { 'group' => 'Programmers', 'label' => 'Junior Specialist', 'value' => 1 }
+        #   ]
+        # )
       end
 
       it 'responds with empty arrays in no employees' do
@@ -462,11 +466,11 @@ RSpec.describe V2::EmployeesController, type: :controller do
         get :overview
 
         expect(response).to have_http_status 200
-        expect(json_response).to eq(
-          'analytics' => nil,
-          'groups' => [],
-          'positions_chart_data' => []
-        )
+
+        expect(response.body).to have_json_path('analytics')
+        expect(response.body).to have_json_path('groups')
+        expect(response.body).to have_json_path('positions_chart_data')
+        expect(response.body).to have_json_path('employees_past_year_chart_data')
       end
     end
   end

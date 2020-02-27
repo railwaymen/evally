@@ -10,7 +10,7 @@ module V2
       V2::EmployeesPositionsChartQuery.call
     end
 
-    def employees_past_year_data
+    def employees_past_year_chart_data
       V2::EmployeesPastYearChartQuery.call
     end
 

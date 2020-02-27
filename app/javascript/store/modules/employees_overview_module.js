@@ -29,13 +29,13 @@ const EmployeesOverviewModule = {
       const {
         groups,
         positions_chart_data,
-        employees_past_year_data,
+        employees_past_year_chart_data,
         analytics
       } = data
 
       state.groups = groups
       state.positionsChartData = positions_chart_data
-      state.employeesPastYearChartData = employees_past_year_data
+      state.employeesPastYearChartData = employees_past_year_chart_data
       state.analytics = new EmployeesAnalytics(analytics)
 
       return state

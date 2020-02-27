@@ -46,7 +46,7 @@ export default {
   },
   data() {
     return {
-      group: 'Mobile'
+      group: null
     }
   },
   computed: {
@@ -80,6 +80,11 @@ export default {
           }]
         }
       }
+    }
+  },
+  watch: {
+    groups(newVal) {
+      this.group = newVal[0]
     }
   }
 }
