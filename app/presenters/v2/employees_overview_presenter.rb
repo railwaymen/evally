@@ -17,5 +17,9 @@ module V2
     def analytics
       V2::EmployeesAnalyticsQuery.call
     end
+
+    def evaluations_past_year_chart_data
+      V2::EvaluationsPastYearChartQuery.call
+    end
   end
 end

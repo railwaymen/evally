@@ -80,7 +80,6 @@
         <v-flex xs12>
           <employees-past-year-chart-widget
             :chartData="employeesPastYearChartData"
-            :groups="groups"
             :loading="loading"
           />
         </v-flex>
@@ -91,6 +90,16 @@
       <h2 class="size-27 text-center font-weight-light mb-4">
         {{ $t('views.employees.overview.evaluations') }}
       </h2>
+
+      <v-layout row wrap>
+        <v-flex xs12>
+          <evaluations-past-year-chart-widget
+            :chartData="evaluationsPastYearChartData"
+            :loading="loading"
+            color="secondary"
+          />
+        </v-flex>
+      </v-layout>
     </v-flex>
   </v-layout>
 </template>
@@ -102,16 +111,23 @@ import NumbersTile from '@components/shared/NumbersTile'
 
 import PositionsChartWidget from '@components/employees/PositionsChartWidget'
 import EmployeesPastYearChartWidget from '@components/employees/EmployeesPastYearChartWidget'
+import EvaluationsPastYearChartWidget from '@components/employees/EvaluationsPastYearChartWidget'
 
 export default {
   name: 'EmployeesOverview',
-  components: { NumbersTile, PositionsChartWidget, EmployeesPastYearChartWidget},
+  components: {
+    NumbersTile,
+    PositionsChartWidget,
+    EmployeesPastYearChartWidget,
+    EvaluationsPastYearChartWidget
+  },
   computed: {
     ...mapGetters({
       positionsChartData: 'EmployeesOverviewModule/positionsChartData',
       employeesPastYearChartData: 'EmployeesOverviewModule/employeesPastYearChartData',
       groups: 'EmployeesOverviewModule/groups',
       analytics: 'EmployeesOverviewModule/analytics',
+      evaluationsPastYearChartData: 'EmployeesOverviewModule/evaluationsPastYearChartData',
       loading: 'EmployeesOverviewModule/loading'
     })
   },

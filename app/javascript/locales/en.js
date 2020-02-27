@@ -167,10 +167,14 @@ export default {
       positionsChart: {
         title: 'Employees by Positions'
       },
-      employeesPartYearChart: {
-        title: 'Employees Changes Over Past Year',
+      employeesPastYearChart: {
+        title: 'Employees Changes By Months',
         hiredEmployees: 'Hired Employees',
         archivedEmployees: 'Archived Employees'
+      },
+      evaluationsPastYearChart: {
+        title: 'Completed Evaluations By Months',
+        completedEvaluations: 'Completed Evaluations'
       }
     },
     evaluations: {

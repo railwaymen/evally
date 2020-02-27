@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-3">
+  <v-card class="pa-3 height-100">
     <div v-if="loading" class="numbers-tile__loader">
       <v-progress-circular :size="30" :width="3" :color="color" indeterminate />
     </div>
