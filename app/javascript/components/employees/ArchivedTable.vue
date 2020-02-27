@@ -5,7 +5,7 @@
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
-          :label="this.i18n.t('components.employees.table.search')"
+          :label="$t('components.employees.table.search')"
           filled
         />
       </v-flex>
@@ -25,7 +25,6 @@
 
 <script>
 import { EmployeesList } from '@models/employee'
-import i18n from '@locales/i18n'
 
 export default {
   name: 'ArchivedTable',
@@ -41,34 +40,31 @@ export default {
       default: () => new EmployeesList()
     }
   },
-  beforeCreate() {
-    this.i18n = i18n
-  },
   data() {
     return {
       search: '',
       headers: [
         {
-          text: i18n.t('components.employees.table.cols.name'),
+          text: this.$t('components.employees.table.cols.name'),
           value: 'fullname'
         },
         {
-          text: i18n.t('components.employees.table.cols.hiredOn'),
+          text: this.$t('components.employees.table.cols.hiredOn'),
           value: 'hired_on',
           align: 'center'
         },
         {
-          text: i18n.t('components.employees.table.cols.group'),
+          text: this.$t('components.employees.table.cols.group'),
           value: 'group',
           align: 'center'
         },
         {
-          text: i18n.t('components.employees.table.cols.position'),
+          text: this.$t('components.employees.table.cols.position'),
           value: 'position',
           align: 'center'
         },
         {
-          text: i18n.t('components.employees.table.cols.archivedOn'),
+          text: this.$t('components.employees.table.cols.archivedOn'),
           value: 'archived_on',
           align: 'center'
         }
