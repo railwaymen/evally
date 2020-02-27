@@ -5,10 +5,6 @@
     </div>
 
     <div v-else class="numbers-tile__row">
-      <div v-if="$slots['full-width']" class="numbers-tile__full">
-        <slot name="full-width" />
-      </div>
-
       <div v-if="$slots['left-side']" class="numbers-tile__side numbers-tile__side--left">
         <slot name="left-side" />
       </div>
