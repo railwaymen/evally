@@ -460,8 +460,8 @@ export default {
           averageEmployment: 'Average Employment',
           employees: 'Employees',
           changes: 'Changes This Year',
-          months: '{n} month | {n} months',
-          years: '{n} year | {n} years',
+          months: 'month | months',
+          years: 'year | years',
           hired: 'Hired',
           archived: 'Archived',
           new: 'New'

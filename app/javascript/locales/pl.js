@@ -460,8 +460,8 @@ export default {
           averageEmployment: 'Średni czas',
           employees: 'Pracownicy',
           changes: 'Zmiany w tym roku',
-          months: '{n} miesiąc | {n} miesiące',
-          years: '{n} rok | {n} lata',
+          months: 'miesiąc | miesiące',
+          years: 'rok | lata',
           hired: 'Zatrudnieni',
           archived: 'Zarchiwizowani',
           new: 'Nowi'

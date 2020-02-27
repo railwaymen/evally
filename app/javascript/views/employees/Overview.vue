@@ -1,7 +1,9 @@
 <template>
   <v-layout row wrap>
     <v-flex xs12 lg6>
-      <h2 class="headline text-center mb-4">{{ $t('views.employees.overview.employment') }}</h2>
+      <h2 class="size-27 text-center font-weight-light mb-4">
+        {{ $t('views.employees.overview.employment') }}
+      </h2>
 
       <v-layout row wrap>
         <v-flex xs4>
@@ -12,14 +14,14 @@
             <template v-if="analytics.averageEmployment.years > 0" #left-side>
               <h3 class="numbers-tile__value">{{ analytics.averageEmployment.years }}</h3>
               <h4 class="numbers-tile__subtitle">
-                {{ $tc('views.employees.overview.tiles.years', analytics.averageEmployment.years, { n: analytics.averageEmployment.years }) }}
+                {{ $tc('views.employees.overview.tiles.years', analytics.averageEmployment.years) }}
               </h4>
             </template>
 
             <template #right-side>
               <h3 class="numbers-tile__value">{{ analytics.averageEmployment.months }}</h3>
               <h4 class="numbers-tile__subtitle">
-                {{ $tc('views.employees.overview.tiles.months', analytics.averageEmployment.months, { n: analytics.averageEmployment.months }) }}
+                {{ $tc('views.employees.overview.tiles.months', analytics.averageEmployment.months) }}
               </h4>
             </template>
           </numbers-tile>
@@ -86,7 +88,9 @@
     </v-flex>
 
     <v-flex xs12 lg6>
-      <h2 class="headline text-center mb-4">{{ $t('views.employees.overview.evaluations') }}</h2>
+      <h2 class="size-27 text-center font-weight-light mb-4">
+        {{ $t('views.employees.overview.evaluations') }}
+      </h2>
     </v-flex>
   </v-layout>
 </template>
