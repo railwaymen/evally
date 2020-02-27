@@ -58,7 +58,7 @@ export default {
           {
             label: this.$t('components.employees.employeesByUsersChart.employees'),
             data: this.values,
-            backgroundColor: colors[4],
+            backgroundColor: colors[5],
             categoryPercentage: 1.0,
             barPercentage: 0.9,
           }
