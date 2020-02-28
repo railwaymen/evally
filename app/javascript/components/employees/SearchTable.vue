@@ -20,6 +20,7 @@
       />
 
       <v-chip
+        v-if="item.skill.group === 'bool'"
         :color="item.skill.value ? 'primary' : ''"
         label
       >
