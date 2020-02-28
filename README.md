@@ -1,4 +1,4 @@
-# Evally ![version](https://img.shields.io/badge/version-0.4-blue) [![Build Status](https://travis-ci.com/railwaymen/evally.svg?branch=master)](https://travis-ci.com/railwaymen/evally) ![coverage](https://img.shields.io/badge/coverage-100%25-success)
+# Evally ![version](https://img.shields.io/badge/version-0.5-blue) [![Build Status](https://travis-ci.com/railwaymen/evally.svg?branch=master)](https://travis-ci.com/railwaymen/evally) ![coverage](https://img.shields.io/badge/coverage-100%25-success)
 A simple web application for managing periodic skills evaluations of employees.
 
 [![forthebadge](http://forthebadge.com/images/badges/made-with-ruby.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/made-with-vue.svg)](http://forthebadge.com)
@@ -21,13 +21,13 @@ Manage your employees by tracking their skills development based on own customiz
 A few of the things that you can do with Evally:
 - prepare own customized questionnaires
 - use a three stars rating, 'yes or no' option or text to evaluate employee
-- manage employees
+- manage hired and archived employees
 - save evaluation drafts for further modifications
 - track upcoming evaluations
 - archive users activities
 - share evaluations by unique and safe link
 - search employees by skills
-- present the data about your employees on the charts, distinguished by groups and positions
+- present the analytics about employees, employment changes and evaluations on charts
 - use one of two available languages: Polish, English
 - as an admin delegate employee's evaluations to user with evaluator role
 
