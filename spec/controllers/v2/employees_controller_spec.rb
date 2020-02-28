@@ -341,12 +341,14 @@ RSpec.describe V2::EmployeesController, type: :controller do
     context 'when authorized' do
       it 'responds with searched employee' do
         employee = FactoryBot.create(:employee)
-        evaluation = FactoryBot.create(:evaluation, :completed, employee: employee)
+        archived_employee = FactoryBot.create(:employee, state: 'archived', archived_on: 1.day.ago)
+
+        evaluation1 = FactoryBot.create(:evaluation, :completed, employee: employee)
 
         FactoryBot.create(
           :section,
           group: 'rating',
-          sectionable: evaluation,
+          sectionable: evaluation1,
           skills: [
             { name: 'Vim', value: 1, needToImprove: false }
           ]
@@ -355,9 +357,20 @@ RSpec.describe V2::EmployeesController, type: :controller do
         FactoryBot.create(
           :section,
           group: 'bool',
-          sectionable: evaluation,
+          sectionable: evaluation1,
           skills: [
             { name: 'Be a team leader', value: true, needToImprove: false }
+          ]
+        )
+
+        evaluation2 = FactoryBot.create(:evaluation, :completed, employee: archived_employee)
+
+        FactoryBot.create(
+          :section,
+          group: 'rating',
+          sectionable: evaluation2,
+          skills: [
+            { name: 'Vim', value: 1, needToImprove: false }
           ]
         )
 

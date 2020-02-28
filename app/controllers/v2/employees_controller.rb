@@ -40,7 +40,7 @@ module V2
     end
 
     def search
-      employees = V2::EmployeesSearchQuery.call(employees_scope, params: params)
+      employees = V2::EmployeesSearchQuery.call(employees_scope.hired, params: params)
 
       render json: V2::EmployeeSerializer.render(employees, view: :search), status: :ok
     end
