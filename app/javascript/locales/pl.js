@@ -313,6 +313,12 @@ export default {
       index: {
         error: 'Błąd przy wczytywaniu pracowników: {msg}'
       },
+      archived: {
+        error: 'Błąd przy wczytywaniu zarchiwizowanych pracowników: {msg}'
+      },
+      overview: {
+        error: 'Błąd przy wczytywaniu danych: {msg}'
+      },
       show: {
         error: 'Błąd przy wczytywaniu pracownika: {msg}',
         copyLink: 'Link został skopiowany do schowka'
@@ -333,8 +339,8 @@ export default {
         error: 'Błąd przy usuwaniu pracownika: {msg}'
       },
       archive: {
-        ok: 'Pracownik został zarchizoway',
-        error: 'Błą∂ przy archiwizacji pracownika: {msg}'
+        ok: 'Pracownik został zarchiwizoway',
+        error: 'Błąd przy archiwizacji pracownika: {msg}'
       },
     },
     session: {

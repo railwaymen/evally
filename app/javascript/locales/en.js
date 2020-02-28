@@ -313,6 +313,12 @@ export default {
       index: {
         error: 'Employees cannot be loaded: {msg}'
       },
+      archived: {
+        error: 'Archived employees cannot be loaded: {msg}'
+      },
+      overview: {
+        error: 'Data cannot be loaded: {msg}'
+      },
       show: {
         error: 'Employee cannot be loaded: {msg}',
         copyLink: 'Employee\'s public link has been copied to clipboard'

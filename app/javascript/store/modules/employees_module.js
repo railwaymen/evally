@@ -41,6 +41,10 @@ const EmployeesModule = {
       state.employees.add(data)
       return state
     },
+    refreshItem(state, data) {
+      state.employee.assign(data)
+      return state
+    },
     refreshListItem(state, data) {
       state.employees.refresh(data)
       return state
@@ -254,16 +258,16 @@ const EmployeesModule = {
           })
       })
     },
-    archive({commit, state}, archivedDate){
+    archive({ commit, state }, archivedDate){
       const { employee } = state;
-      const params = {employee: { archived_on: archivedDate }}
+      const params = { employee: { archived_on: archivedDate } }
 
       return new Promise(resolve => {
         http.put(Employee.routes.employeeArchivePath(employee.id), params)
           .then(response => {
             const { data } = response
 
-            commit('refreshListItem', data)
+            commit('refreshItem', data)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.employees.archive.ok') },

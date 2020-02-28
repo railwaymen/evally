@@ -5,7 +5,7 @@ export const authenticationGuard = (_to, _from, next) => {
   else {
     store.commit(
       'NotificationsModule/push',
-      { error: 'You are not authoenticated. Please log in.' }
+      { error: 'You are not authenticated. Please log in.' }
     )
 
     next({ name: 'login_path' })
@@ -15,13 +15,5 @@ export const authenticationGuard = (_to, _from, next) => {
 export const authorizationGuard = (_to, from, next) => {
   const user = store.getters['AuthenticationModule/user']
 
-  if (user.isAdmin) next()
-  else {
-    store.commit(
-      'NotificationsModule/push',
-      { error: 'You have not permissions to see that content.' }
-    )
-
-    next({ name: from.name })
-  }
+  user.isAdmin ? next() : next({ name: from.name })
 }

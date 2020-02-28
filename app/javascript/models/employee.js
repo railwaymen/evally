@@ -23,8 +23,16 @@ class Employee extends Model {
     };
   }
 
+  get isArchived() {
+    return this.state === 'archived'
+  }
+
+  get isHired() {
+    return this.state === 'hired'
+  }
+
   get archivedOn() {
-    if (!this.archived_on) return
+    if (!this.archived_on) return '---'
 
     return moment(this.archived_on).format('MMM DD, YYYY')
   }
@@ -58,10 +66,6 @@ class Employee extends Model {
 
   get fullname() {
     return [this.first_name, this.last_name].join(' ')
-  }
-
-  get archivedOn() {
-    return moment(this.archived_on).format('MMM DD, YYYY')
   }
 
   get hiredOn() {
