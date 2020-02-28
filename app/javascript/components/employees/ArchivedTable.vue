@@ -22,6 +22,14 @@
               {{ item.fullname }}
             </router-link>
           </template>
+
+          <template #item.hired_on="{ item }">
+            {{ item.hiredOn }}
+          </template>
+
+          <template #item.archived_on="{ item }">
+            {{ item.archivedOn }}
+          </template>
         </v-data-table>
       </v-flex>
     </v-layout>

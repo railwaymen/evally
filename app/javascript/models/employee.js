@@ -60,6 +60,10 @@ class Employee extends Model {
     return [this.first_name, this.last_name].join(' ')
   }
 
+  get archivedOn() {
+    return moment(this.archived_on).format('MMM DD, YYYY')
+  }
+
   get hiredOn() {
     return moment(this.hired_on).format('MMMM YYYY')
   }
