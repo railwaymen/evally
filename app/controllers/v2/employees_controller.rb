@@ -3,7 +3,7 @@
 module V2
   class EmployeesController < ApplicationController
     before_action :authenticate_user!
-    before_action :authorize!, only: %i[create update overview archive destroy]
+    before_action :authorize!, only: %i[archived create update overview archive destroy]
 
     def index
       presenter = V2::EmployeesPresenter.new(current_user)

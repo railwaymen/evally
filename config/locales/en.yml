@@ -7,4 +7,4 @@ en:
         invalid_state: "'%{value}' is not a valid value"
         name_and_value: 'must have name and value'
         skills_array: 'must be an Array of skills'
-        has_draft_evaluations: 'has draft evaluations'
+        has_draft_evaluations: 'Employee has draft evaluations'

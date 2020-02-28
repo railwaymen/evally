@@ -10,6 +10,10 @@ module V2
       end
     end
 
+    def archived?
+      user.admin?
+    end
+
     def create?
       user.admin?
     end
