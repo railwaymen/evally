@@ -106,6 +106,7 @@ export default {
           positionSetOn: 'Promotion Date',
           evaluatorName: 'Evaluator Name',
           latestEvaluationAt: 'Latest Evaluation Date',
+          archivedOn: 'Archived Date',
         }
       },
       deleteConfirm: {
@@ -457,6 +458,7 @@ export default {
           list: 'List',
           search: 'Search',
           overview: 'Overview',
+          archived: 'Archived',
         },
       },
       show: {

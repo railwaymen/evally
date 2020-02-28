@@ -47,6 +47,12 @@ export default new Router({
               beforeEnter: authorizationGuard
             },
             {
+              path: 'archived',
+              name: 'employees_archived_path',
+              component: () => import(/* webpackChunkName: 'employees_archived' */ '@views/employees/Archived'),
+              beforeEnter: authorizationGuard
+            },
+            {
               path: ':employeeId',
               name: 'employee_path',
               component: () => import(/* webpackChunkName: 'employee' */ '@views/employees/Show'),

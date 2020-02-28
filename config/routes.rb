@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         get :search, on: :collection
         get :overview, on: :collection
         put :archive, on: :member
+        get :archived, on: :collection
 
         resources :evaluations, only: :show
       end

@@ -105,6 +105,22 @@ const EmployeesModule = {
         })
         .finally(() => commit('setLoading', false))
     },
+    archived({ commit }) {
+      commit('setLoading', true)
+
+      http.get(Employee.routes.employeesArchivedPath)
+        .then(response => {
+          commit('setList', response.data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.employees.index.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+        })
+        .finally(() => commit('setLoading', false))
+    },
     show({ commit }, id) {
       http.get(Employee.routes.employeePath(id))
         .then(response => {

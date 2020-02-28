@@ -35,6 +35,16 @@
         >
           {{ $t('views.employees.index.nav.overview') }}
         </v-btn>
+
+        <v-btn
+          v-if="user.isAdmin"
+          :to="{ name: 'employees_archived_path' }"
+          color="primary"
+          exact
+          text
+        >
+          {{ $t('views.employees.index.nav.archived') }}
+        </v-btn>
       </div>
 
       <div class="panel__actions">

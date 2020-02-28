@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArchivedTable matches do snapshot 1`] = `
+<div class="box">
+  <v-layout-stub row="" wrap="">
+    <v-flex-stub xs12="" lg6="">
+      <v-text-field-stub append-icon="mdi-magnify" label="Search ..." filled="" value=""></v-text-field-stub>
+    </v-flex-stub>
+    <v-flex-stub xs12="">
+      <v-data-table-stub headers="[object Object],[object Object],[object Object],[object Object],[object Object]" items="" search=""></v-data-table-stub>
+    </v-flex-stub>
+  </v-layout-stub>
+</div>
+`;

@@ -106,6 +106,7 @@ export default {
           positionSetOn: 'Data zmiany stanowiska',
           evaluatorName: 'Ewaluator',
           latestEvaluationAt: 'Data ostatniej oceny',
+          archivedOn: 'Data archiwizacji',
         }
       },
       deleteConfirm: {
@@ -457,6 +458,7 @@ export default {
           list: 'Lista',
           search: 'Wyszukaj',
           overview: 'Przegląd',
+          archived: 'Archiwizowani',
         },
       },
       show: {
