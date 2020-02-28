@@ -12,7 +12,7 @@ module V2
     end
 
     def archived
-      presenter =  V2::EmployeesArchivedPresenter.new(current_user)
+      presenter = V2::EmployeesPresenter.new(current_user, state: 'archived')
 
       render json: V2::Views::EmployeesView.render(presenter), status: :ok
     end

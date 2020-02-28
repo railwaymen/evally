@@ -17,6 +17,11 @@
           :search="search"
           :loading="loading"
         >
+          <template #item.fullname="{ item }">
+            <router-link :to="{ name: 'employee_path', params: { employeeId: item.id }}">
+              {{ item.fullname }}
+            </router-link>
+          </template>
         </v-data-table>
       </v-flex>
     </v-layout>
