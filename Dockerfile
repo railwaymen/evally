@@ -7,9 +7,9 @@ WORKDIR /app
 
 COPY Gemfile Gemfile.lock yarn.lock ./
 
-RUN bundle install --binstubs
-RUN yarn install
+RUN bundle install
+RUN yarn install --check-files
 
 COPY . .
 
-CMD ["rails", "server"]
+CMD ["bundle", "exec", "rails", "server"]
