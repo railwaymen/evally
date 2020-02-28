@@ -1,11 +1,26 @@
 import { shallowMount } from '@vue/test-utils'
+import i18n from '@locales/i18n'
+
 import ArchivedTable from './ArchivedTable'
+
 import { EmployeesList } from '@models/employee'
 
 describe('ArchivedTable', () => {
-  const props = {loading: false, employees: new EmployeesList(), editable: false }
-  const wrapper = shallowMount(ArchivedTable, {propsData: props,
-    stubs: [ 'v-layout', 'v-data-table', 'v-flex', 'v-text-field'] })
+  const props = {
+    loading: false,
+    employees: new EmployeesList(),
+    editable: false
+  }
+
+  const wrapper = shallowMount(
+    ArchivedTable,
+    {
+      propsData: props,
+      stubs: ['v-layout', 'v-data-table', 'v-flex', 'v-text-field'],
+      mocks: {
+        $t: key => i18n.t(key)
+      }
+    })
 
   it('has a name', () => {
     expect(typeof ArchivedTable.name).toBe('string')
