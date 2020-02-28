@@ -16,15 +16,20 @@ services:
 
   app:
     build: .
-    command: rails s
+    command: bin/rails s -p 3000 -b '0.0.0.0'
     volumes:
       - .:/app
     ports:
       - '3000:3000'
     user: ${CURRENT_USER}
     depends_on:
-      - db
       - webpacker
+      - db
+    environment:
+      RAILS_ENV: development
+      DATABASE_HOST: db
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: ''
 
 volumes:
   postgres:
