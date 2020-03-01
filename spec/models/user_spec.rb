@@ -7,6 +7,8 @@ RSpec.describe User, type: :model do
 
   it { is_expected.to have_many(:employees).with_foreign_key('evaluator_id') }
 
+  it { is_expected.to have_many(:candidates).with_foreign_key('evaluator_id') }
+
   it { is_expected.to have_many(:templates) }
 
   it { is_expected.to validate_presence_of(:email) }
