@@ -89,7 +89,7 @@ module V2
     end
 
     def create_form
-      @create_form ||= V2::EmployeeForm.new(
+      @create_form ||= V2::Employees::BasicForm.new(
         Employee.new,
         params: employee_params,
         user: current_user
@@ -97,7 +97,7 @@ module V2
     end
 
     def update_form
-      @update_form ||= V2::EmployeeForm.new(
+      @update_form ||= V2::Employees::BasicForm.new(
         employee,
         params: employee_params,
         user: current_user
@@ -105,7 +105,7 @@ module V2
     end
 
     def archive_form
-      @archive_form ||= V2::EmployeeArchiveForm.new(
+      @archive_form ||= V2::Employees::ArchiveForm.new(
         employee,
         params: employee_params,
         user: current_user

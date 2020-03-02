@@ -59,14 +59,14 @@ module V2
     end
 
     def create_form
-      @create_form ||= V2::DraftCreateForm.new(
+      @create_form ||= V2::Drafts::CreateForm.new(
         create_params,
         user: current_user
       )
     end
 
     def update_form
-      @update_form ||= V2::DraftUpdateForm.new(
+      @update_form ||= V2::Drafts::UpdateForm.new(
         draft,
         params: update_params,
         user: current_user
