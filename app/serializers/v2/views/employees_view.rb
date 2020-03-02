@@ -5,7 +5,7 @@ module V2
     class EmployeesView < Blueprinter::Base
       association :employees, blueprint: V2::EmployeeSerializer, default: []
 
-      association :evaluators, blueprint: V2::UserSerializer, default: []
+      association :evaluators, blueprint: V2::Users::Serializer, default: []
     end
   end
 end

@@ -13,7 +13,7 @@ module V2
     def update
       profile_form.save
 
-      render json: V2::UserSerializer.render(profile_form.user), status: :ok
+      render json: V2::Users::Serializer.render(profile_form.user), status: :ok
     end
 
     def password

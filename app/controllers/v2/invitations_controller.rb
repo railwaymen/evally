@@ -8,7 +8,7 @@ module V2
     def create
       create_form.save
 
-      render json: V2::UserSerializer.render(create_form.user), status: :created
+      render json: V2::Users::Serializer.render(create_form.user), status: :created
     end
 
     def update
@@ -24,7 +24,7 @@ module V2
     end
 
     def create_form
-      @create_form ||= V2::UserCreateForm.new(params: invited_user_params, admin: current_user)
+      @create_form ||= V2::Users::CreateForm.new(params: invited_user_params, admin: current_user)
     end
 
     def tokenized_user
