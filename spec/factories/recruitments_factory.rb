@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :enrolment do
+  factory :recruitment do
     status        { 'fresh' }
     phone         { '000-000-000' }
     group         { 'Ruby' }
