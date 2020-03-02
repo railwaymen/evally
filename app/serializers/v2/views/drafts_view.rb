@@ -7,7 +7,7 @@ module V2
 
       association :employees, blueprint: V2::EmployeeSerializer, default: []
 
-      association :templates, blueprint: V2::TemplateSerializer, default: []
+      association :templates, blueprint: V2::Templates::Serializer, default: []
     end
   end
 end

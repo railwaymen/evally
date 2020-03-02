@@ -8,27 +8,27 @@ module V2
     def index
       templates = Template.includes(:creator).order(name: :asc)
 
-      render json: V2::TemplateSerializer.render(templates), status: :ok
+      render json: V2::Templates::Serializer.render(templates), status: :ok
     end
 
     def show
-      presenter = V2::TemplatePresenter.new(template)
+      presenter = V2::Templates::ShowPresenter.new(template)
 
-      render json: V2::Views::TemplateView.render(presenter), status: :ok
+      render json: V2::Templates::ShowView.render(presenter), status: :ok
     end
 
     def create
       create_form.save
-      presenter = V2::TemplatePresenter.new(create_form.template)
+      presenter = V2::Templates::ShowPresenter.new(create_form.template)
 
-      render json: V2::Views::TemplateView.render(presenter), status: :created
+      render json: V2::Templates::ShowView.render(presenter), status: :created
     end
 
     def update
       update_form.save
-      presenter = V2::TemplatePresenter.new(update_form.template)
+      presenter = V2::Templates::ShowPresenter.new(update_form.template)
 
-      render json: V2::Views::TemplateView.render(presenter), status: :ok
+      render json: V2::Templates::ShowView.render(presenter), status: :ok
     end
 
     def destroy
@@ -59,7 +59,7 @@ module V2
     end
 
     def create_form
-      @create_form ||= V2::TemplateForm.new(
+      @create_form ||= V2::Templates::BasicForm.new(
         current_user.templates.build,
         params: create_params,
         user: current_user
@@ -67,7 +67,7 @@ module V2
     end
 
     def update_form
-      @update_form ||= V2::TemplateForm.new(
+      @update_form ||= V2::Templates::BasicForm.new(
         template,
         params: update_params,
         user: current_user

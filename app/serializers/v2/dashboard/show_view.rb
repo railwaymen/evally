@@ -9,7 +9,7 @@ module V2
 
       association :activities, blueprint: V2::ActivitySerializer, default: []
 
-      association :templates, blueprint: V2::TemplateSerializer, default: []
+      association :templates, blueprint: V2::Templates::Serializer, default: []
     end
   end
 end
