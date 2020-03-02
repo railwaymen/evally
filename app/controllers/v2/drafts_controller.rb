@@ -8,27 +8,27 @@ module V2
     def index
       presenter = V2::Drafts::IndexPresenter.new(current_user)
 
-      render json: V2::Views::DraftsView.render(presenter), status: :ok
+      render json: V2::Drafts::IndexView.render(presenter), status: :ok
     end
 
     def show
       presenter = V2::Evaluations::ShowPresenter.new(draft)
 
-      render json: V2::Views::DraftView.render(presenter), status: :ok
+      render json: V2::Drafts::ShowView.render(presenter), status: :ok
     end
 
     def create
       create_form.save
       presenter = V2::Evaluations::ShowPresenter.new(create_form.draft)
 
-      render json: V2::Views::DraftView.render(presenter), status: :created
+      render json: V2::Drafts::ShowView.render(presenter), status: :created
     end
 
     def update
       update_form.save
       presenter = V2::Evaluations::ShowPresenter.new(update_form.draft)
 
-      render json: V2::Views::DraftView.render(presenter), status: :ok
+      render json: V2::Drafts::ShowView.render(presenter), status: :ok
     end
 
     def destroy

@@ -6,7 +6,7 @@ module V2
       def show
         presenter = V2::Employees::ShowPresenter.new(employee)
 
-        render json: V2::Views::EmployeeView.render(presenter), status: :ok
+        render json: V2::Employees::ShowView.render(presenter), status: :ok
       end
 
       private

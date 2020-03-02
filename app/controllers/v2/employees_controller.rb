@@ -8,31 +8,31 @@ module V2
     def index
       presenter = V2::Employees::IndexPresenter.new(current_user)
 
-      render json: V2::Views::EmployeesView.render(presenter), status: :ok
+      render json: V2::Employees::IndexView.render(presenter), status: :ok
     end
 
     def archived
       presenter = V2::Employees::IndexPresenter.new(current_user, state: 'archived')
 
-      render json: V2::Views::EmployeesView.render(presenter), status: :ok
+      render json: V2::Employees::IndexView.render(presenter), status: :ok
     end
 
     def show
       presenter = V2::Employees::ShowPresenter.new(employee)
 
-      render json: V2::Views::EmployeeView.render(presenter), status: :ok
+      render json: V2::Employees::ShowView.render(presenter), status: :ok
     end
 
     def create
       create_form.save
 
-      render json: V2::EmployeeSerializer.render(create_form.employee), status: :created
+      render json: V2::Employees::Serializer.render(create_form.employee), status: :created
     end
 
     def update
       update_form.save
 
-      render json: V2::EmployeeSerializer.render(update_form.employee), status: :ok
+      render json: V2::Employees::Serializer.render(update_form.employee), status: :ok
     end
 
     def skills
@@ -42,19 +42,19 @@ module V2
     def search
       employees = V2::Employees::SearchQuery.call(employees_scope.hired, params: params)
 
-      render json: V2::EmployeeSerializer.render(employees, view: :search), status: :ok
+      render json: V2::Employees::Serializer.render(employees, view: :search), status: :ok
     end
 
     def overview
       presenter = V2::Employees::OverviewPresenter.new
 
-      render json: V2::Views::EmployeesOverviewView.render(presenter), status: :ok
+      render json: V2::Employees::OverviewView.render(presenter), status: :ok
     end
 
     def archive
       archive_form.save
 
-      render json: V2::EmployeeSerializer.render(archive_form.employee), status: :ok
+      render json: V2::Employees::Serializer.render(archive_form.employee), status: :ok
     end
 
     def destroy
