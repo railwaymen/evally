@@ -93,6 +93,26 @@ module JsonSpecHelpers
     }.to_json
   end
 
+  def recruitment_schema(recruitment)
+    candidate = recruitment.candidate
+
+    {
+      id: recruitment.id,
+      status: recruitment.status,
+      candidate_id: recruitment.candidate_id,
+      first_name: candidate.first_name,
+      last_name: candidate.last_name,
+      email: candidate.email,
+      gender: candidate.gender,
+      phone: recruitment.phone,
+      group: recruitment.group,
+      position: recruitment.position,
+      received_at: recruitment.received_at.to_s,
+      social_links: recruitment.social_links,
+      source: recruitment.source
+    }.to_json
+  end
+
   def section_schema(section)
     {
       id: section.id,

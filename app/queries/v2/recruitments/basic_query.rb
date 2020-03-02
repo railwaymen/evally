@@ -2,7 +2,7 @@
 
 module V2
   module Recruitments
-    class BaseQuery
+    class BasicQuery
       def self.call(scope = Recruitment.all)
         scope.joins(:candidate).select(fields).order(received_at: :desc)
       end
