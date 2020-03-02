@@ -61,22 +61,6 @@ ActiveRecord::Schema.define(version: 2020_03_01_131600) do
     t.index ["state"], name: "index_employees_on_state"
   end
 
-  create_table "enrolments", force: :cascade do |t|
-    t.bigint "candidate_id"
-    t.string "status", default: "fresh", null: false
-    t.string "group", null: false
-    t.string "position", null: false
-    t.datetime "received_at", null: false
-    t.string "source"
-    t.string "phone"
-    t.jsonb "social_links"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["candidate_id"], name: "index_enrolments_on_candidate_id"
-    t.index ["group"], name: "index_enrolments_on_group"
-    t.index ["status"], name: "index_enrolments_on_status"
-  end
-
   create_table "evaluations", force: :cascade do |t|
     t.bigint "employee_id"
     t.string "state", default: "draft", null: false
@@ -96,6 +80,22 @@ ActiveRecord::Schema.define(version: 2020_03_01_131600) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["employee_id"], name: "index_position_changes_on_employee_id"
+  end
+
+  create_table "recruitments", force: :cascade do |t|
+    t.bigint "candidate_id"
+    t.string "status", default: "fresh", null: false
+    t.string "group", null: false
+    t.string "position", null: false
+    t.datetime "received_at", null: false
+    t.string "source"
+    t.string "phone"
+    t.jsonb "social_links"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["candidate_id"], name: "index_recruitments_on_candidate_id"
+    t.index ["group"], name: "index_recruitments_on_group"
+    t.index ["status"], name: "index_recruitments_on_status"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -170,9 +170,9 @@ ActiveRecord::Schema.define(version: 2020_03_01_131600) do
   add_foreign_key "activities", "users"
   add_foreign_key "candidates", "users", column: "evaluator_id"
   add_foreign_key "employees", "users", column: "evaluator_id"
-  add_foreign_key "enrolments", "candidates"
   add_foreign_key "evaluations", "employees"
   add_foreign_key "position_changes", "employees"
+  add_foreign_key "recruitments", "candidates"
   add_foreign_key "settings", "users"
   add_foreign_key "templates", "users", column: "creator_id"
 end

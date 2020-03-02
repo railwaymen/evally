@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Enrolment < ApplicationRecord
+class Recruitment < ApplicationRecord
   belongs_to :candidate
 
   # # Validation

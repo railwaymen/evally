@@ -1,6 +1,6 @@
-class CreateEnrolments < ActiveRecord::Migration[5.2]
+class CreateRecruitments < ActiveRecord::Migration[5.2]
   def change
-    create_table :enrolments do |t|
+    create_table :recruitments do |t|
       t.references :candidate, foreign_key: true, index: true
       t.string :status, null: false, default: 'fresh'
       t.string :group, null: false
@@ -13,7 +13,7 @@ class CreateEnrolments < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    add_index :enrolments, :group
-    add_index :enrolments, :status
+    add_index :recruitments, :group
+    add_index :recruitments, :status
   end
 end

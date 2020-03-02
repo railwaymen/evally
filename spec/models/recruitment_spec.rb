@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Enrolment, type: :model do
+RSpec.describe Recruitment, type: :model do
   it { is_expected.to have_db_index(:status) }
 
   it { is_expected.to have_db_index(:group) }
