@@ -5,9 +5,9 @@ module V2
     before_action :authenticate_user!
 
     def show
-      presenter = V2::ProfilePresenter.new(current_user)
+      presenter = V2::Profile::ShowPresenter.new(current_user)
 
-      render json: V2::Views::ProfileView.render(presenter), status: :ok
+      render json: V2::Profile::ShowView.render(presenter), status: :ok
     end
 
     def update
@@ -25,7 +25,7 @@ module V2
     private
 
     def profile_form
-      @profile_form ||= V2::ProfileForm.new(current_user, params: user_params)
+      @profile_form ||= V2::Profile::UpdateForm.new(current_user, params: user_params)
     end
 
     def password_form
