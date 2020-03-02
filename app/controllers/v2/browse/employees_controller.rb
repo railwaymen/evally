@@ -4,7 +4,7 @@ module V2
   module Browse
     class EmployeesController < ApplicationController
       def show
-        presenter = V2::EmployeePresenter.new(employee)
+        presenter = V2::Employees::ShowPresenter.new(employee)
 
         render json: V2::Views::EmployeeView.render(presenter), status: :ok
       end

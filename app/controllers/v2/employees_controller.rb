@@ -6,19 +6,19 @@ module V2
     before_action :authorize!, only: %i[archived create update overview archive destroy]
 
     def index
-      presenter = V2::EmployeesPresenter.new(current_user)
+      presenter = V2::Employees::IndexPresenter.new(current_user)
 
       render json: V2::Views::EmployeesView.render(presenter), status: :ok
     end
 
     def archived
-      presenter = V2::EmployeesPresenter.new(current_user, state: 'archived')
+      presenter = V2::Employees::IndexPresenter.new(current_user, state: 'archived')
 
       render json: V2::Views::EmployeesView.render(presenter), status: :ok
     end
 
     def show
-      presenter = V2::EmployeePresenter.new(employee)
+      presenter = V2::Employees::ShowPresenter.new(employee)
 
       render json: V2::Views::EmployeeView.render(presenter), status: :ok
     end
@@ -46,7 +46,7 @@ module V2
     end
 
     def overview
-      presenter = V2::EmployeesOverviewPresenter.new
+      presenter = V2::Employees::OverviewPresenter.new
 
       render json: V2::Views::EmployeesOverviewView.render(presenter), status: :ok
     end

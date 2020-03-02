@@ -6,7 +6,7 @@ module V2
     before_action :authorize!
 
     def index
-      presenter = V2::DraftsPresenter.new(current_user)
+      presenter = V2::Drafts::IndexPresenter.new(current_user)
 
       render json: V2::Views::DraftsView.render(presenter), status: :ok
     end
