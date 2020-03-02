@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module V2
-  module Views
-    class DashboardView < Blueprinter::Base
+  module Dashboard
+    class ShowView < Blueprinter::Base
       association :employees, blueprint: V2::EmployeeSerializer, default: []
 
       association :drafts, blueprint: V2::EvaluationSerializer, default: []

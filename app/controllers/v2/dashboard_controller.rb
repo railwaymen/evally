@@ -5,9 +5,9 @@ module V2
     before_action :authenticate_user!
 
     def show
-      presenter = V2::DashboardPresenter.new(current_user)
+      presenter = V2::Dashboard::ShowPresenter.new(current_user)
 
-      render json: V2::Views::DashboardView.render(presenter), status: :ok
+      render json: V2::Dashboard::ShowView.render(presenter), status: :ok
     end
   end
 end

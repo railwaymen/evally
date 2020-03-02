@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe V2::DashboardUpcomingQuery do
+RSpec.describe V2::Dashboard::UpcomingQuery do
   it 'return employees except these with ongoing evaluations' do
     employee1, employee2, employee3 = FactoryBot.create_list(:employee, 3)
     FactoryBot.create(:employee, state: :archived)
