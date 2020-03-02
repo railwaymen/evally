@@ -33,10 +33,11 @@ A few of the things that you can do with Evally:
 
 ## Requirements
 
-- Ruby 2.5.0+
+- Ruby 2.7.0
 - PostgreSQL 10.6+
 - Node.js 6.14.4+
 - Yarn 1.x+
+- Docker
 
 ## Instalation
 
@@ -94,6 +95,36 @@ If you want to use live code reloading, or you have enough JavaScript that on-de
 ```bash
 # run webpack dev server
 ./bin/webpack-dev-server
+```
+
+## Run the app using docker
+
+##### 1. Setup config for docker
+```bash
+ ./bin/setup_for_docker
+```
+
+##### 2. Start the app
+```bash
+ docker-compose up
+```
+
+##### 3. Create database
+
+```bash
+ docker exec evally_app rails db:create
+```
+
+ ##### 4. Load db schema
+
+```bash
+ docker exec evally_app rails db:schema:load
+ ```
+
+ ##### 5. Run seed
+
+```bash
+ docker exec evally_app rails db:seed
 ```
 
 ## Feedback

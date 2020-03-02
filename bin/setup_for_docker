@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+include FileUtils
+
+APP_ROOT = File.expand_path('..', __dir__)
+
+FileUtils.cp(APP_ROOT + '/config/webpacker_docker.yml',  APP_ROOT + '/config/webpacker.yml')
