@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe V2::EmployeesSearchQuery do
+RSpec.describe V2::Employees::SearchQuery do
   it 'finds employee' do
     employee = FactoryBot.create(:employee)
     evaluation = FactoryBot.create(:evaluation, :completed, employee: employee)

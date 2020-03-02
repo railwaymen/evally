@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe V2::EvaluationsPastYearChartQuery do
+RSpec.describe V2::Evaluations::PastYearChartQuery do
   it 'returns proper values' do
     base_date = Date.current
 

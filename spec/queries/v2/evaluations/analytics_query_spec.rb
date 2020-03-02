@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe V2::EvaluationsAnalyticsQuery do
+RSpec.describe V2::Evaluations::AnalyticsQuery do
   it 'returns proper values' do
     employee1 = FactoryBot.create(
       :employee,

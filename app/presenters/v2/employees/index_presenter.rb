@@ -9,7 +9,7 @@ module V2
       end
 
       def employees
-        V2::EmployeesQuery.call(scope)
+        V2::Employees::BasicQuery.call(scope)
       end
 
       def evaluators

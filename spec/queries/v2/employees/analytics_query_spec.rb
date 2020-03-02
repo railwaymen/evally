@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe V2::EmployeesAnalyticsQuery do
+RSpec.describe V2::Employees::AnalyticsQuery do
   it 'returns proper values' do
     base_date = Date.current
 

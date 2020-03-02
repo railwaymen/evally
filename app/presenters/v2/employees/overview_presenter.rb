@@ -8,27 +8,27 @@ module V2
       end
 
       def positions_chart_data
-        V2::EmployeesPositionsChartQuery.call
+        V2::Employees::PositionsChartQuery.call
       end
 
       def employees_past_year_chart_data
-        V2::EmployeesPastYearChartQuery.call
+        V2::Employees::PastYearChartQuery.call
       end
 
       def employees_analytics
-        V2::EmployeesAnalyticsQuery.call
+        V2::Employees::AnalyticsQuery.call
       end
 
       def employees_by_users_chart_data
-        V2::EmployeesByUsersChartQuery.call
+        V2::Employees::ByUsersChartQuery.call
       end
 
       def evaluations_past_year_chart_data
-        V2::EvaluationsPastYearChartQuery.call
+        V2::Evaluations::PastYearChartQuery.call
       end
 
       def evaluations_analytics
-        V2::EvaluationsAnalyticsQuery.call
+        V2::Evaluations::AnalyticsQuery.call
       end
     end
   end

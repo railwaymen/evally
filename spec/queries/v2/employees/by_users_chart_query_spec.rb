@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe V2::EmployeesByUsersChartQuery do
+RSpec.describe V2::Employees::ByUsersChartQuery do
   it 'returns proper values' do
     user1, user2 = FactoryBot.create_list(:user, 2, role: 'evaluator')
     admin = FactoryBot.create(:user, role: 'admin')
