@@ -5,7 +5,7 @@ module V2
     class ProfileView < Blueprinter::Base
       association :user, blueprint: V2::Users::Serializer, default: {}
 
-      association :setting, blueprint: V2::SettingSerializer, default: {}
+      association :setting, blueprint: V2::Settings::Serializer, default: {}
     end
   end
 end
