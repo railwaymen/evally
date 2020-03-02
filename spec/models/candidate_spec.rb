@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe Candidate, type: :model do
   it { is_expected.to have_db_index(:email) }
 
+  it { is_expected.to have_many(:recruitments) }
+
   it { is_expected.to validate_presence_of(:email) }
 
   it { is_expected.to validate_presence_of(:first_name) }

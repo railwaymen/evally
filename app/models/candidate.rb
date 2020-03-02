@@ -3,7 +3,7 @@
 class Candidate < ApplicationRecord
   belongs_to :evaluator, class_name: 'User', optional: true
 
-  has_many :enrollments, dependent: :restrict_with_error
+  has_many :recruitments, dependent: :restrict_with_error
 
   # # Validations
   #
