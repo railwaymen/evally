@@ -1,0 +1,32 @@
+# frozen_string_literal: true
+
+module V2
+  module Employees
+    class Serializer < Blueprinter::Base
+      identifier :id
+
+      fields :first_name, :last_name, :position, :group, :state, :hired_on, :next_evaluation_on,
+             :public_token, :evaluator_id, :archived_on
+
+      field :position_set_on do |employee|
+        employee.position_set_on || employee.hired_on
+      end
+
+      field :evaluator_fullname do |employee|
+        employee.evaluator&.fullname
+      end
+
+      field :latest_evaluation_date do |employee|
+        employee.respond_to?(:latest_evaluation_date) ? employee.latest_evaluation_date : nil
+      end
+
+      view :search do
+        field :skill do |employee|
+          {
+            group: employee.attributes['skill_group']
+          }.merge(employee.attributes.fetch('skill', {}))
+        end
+      end
+    end
+  end
+end

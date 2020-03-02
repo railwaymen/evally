@@ -6,55 +6,55 @@ module V2
     before_action :authorize!, only: %i[archived create update overview archive destroy]
 
     def index
-      presenter = V2::EmployeesPresenter.new(current_user)
+      presenter = V2::Employees::IndexPresenter.new(current_user)
 
-      render json: V2::Views::EmployeesView.render(presenter), status: :ok
+      render json: V2::Employees::IndexView.render(presenter), status: :ok
     end
 
     def archived
-      presenter = V2::EmployeesPresenter.new(current_user, state: 'archived')
+      presenter = V2::Employees::IndexPresenter.new(current_user, state: 'archived')
 
-      render json: V2::Views::EmployeesView.render(presenter), status: :ok
+      render json: V2::Employees::IndexView.render(presenter), status: :ok
     end
 
     def show
-      presenter = V2::EmployeePresenter.new(employee)
+      presenter = V2::Employees::ShowPresenter.new(employee)
 
-      render json: V2::Views::EmployeeView.render(presenter), status: :ok
+      render json: V2::Employees::ShowView.render(presenter), status: :ok
     end
 
     def create
       create_form.save
 
-      render json: V2::EmployeeSerializer.render(create_form.employee), status: :created
+      render json: V2::Employees::Serializer.render(create_form.employee), status: :created
     end
 
     def update
       update_form.save
 
-      render json: V2::EmployeeSerializer.render(update_form.employee), status: :ok
+      render json: V2::Employees::Serializer.render(update_form.employee), status: :ok
     end
 
     def skills
-      render json: V2::SkillsQuery.call, status: :ok
+      render json: V2::Sections::SkillsQuery.call, status: :ok
     end
 
     def search
-      employees = V2::EmployeesSearchQuery.call(employees_scope.hired, params: params)
+      employees = V2::Employees::SearchQuery.call(employees_scope.hired, params: params)
 
-      render json: V2::EmployeeSerializer.render(employees, view: :search), status: :ok
+      render json: V2::Employees::Serializer.render(employees, view: :search), status: :ok
     end
 
     def overview
-      presenter = V2::EmployeesOverviewPresenter.new
+      presenter = V2::Employees::OverviewPresenter.new
 
-      render json: V2::Views::EmployeesOverviewView.render(presenter), status: :ok
+      render json: V2::Employees::OverviewView.render(presenter), status: :ok
     end
 
     def archive
       archive_form.save
 
-      render json: V2::EmployeeSerializer.render(archive_form.employee), status: :ok
+      render json: V2::Employees::Serializer.render(archive_form.employee), status: :ok
     end
 
     def destroy
@@ -82,14 +82,14 @@ module V2
     end
 
     def employee
-      @employee ||= V2::EmployeesQuery.call(employees_scope).find_by(id: params[:id])
+      @employee ||= V2::Employees::BasicQuery.call(employees_scope).find_by(id: params[:id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @employee
 
       @employee
     end
 
     def create_form
-      @create_form ||= V2::EmployeeForm.new(
+      @create_form ||= V2::Employees::BasicForm.new(
         Employee.new,
         params: employee_params,
         user: current_user
@@ -97,7 +97,7 @@ module V2
     end
 
     def update_form
-      @update_form ||= V2::EmployeeForm.new(
+      @update_form ||= V2::Employees::BasicForm.new(
         employee,
         params: employee_params,
         user: current_user
@@ -105,7 +105,7 @@ module V2
     end
 
     def archive_form
-      @archive_form ||= V2::EmployeeArchiveForm.new(
+      @archive_form ||= V2::Employees::ArchiveForm.new(
         employee,
         params: employee_params,
         user: current_user

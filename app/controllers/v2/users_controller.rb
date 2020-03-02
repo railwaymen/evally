@@ -8,13 +8,13 @@ module V2
     def index
       users = User.order(status: :asc, first_name: :asc)
 
-      render json: V2::UserSerializer.render(users), status: :ok
+      render json: V2::Users::Serializer.render(users), status: :ok
     end
 
     def update
       update_form.save
 
-      render json: V2::UserSerializer.render(user), status: :ok
+      render json: V2::Users::Serializer.render(user), status: :ok
     end
 
     private
@@ -31,7 +31,7 @@ module V2
     end
 
     def update_form
-      @update_form ||= V2::UserUpdateForm.new(user, params: update_params, admin: current_user)
+      @update_form ||= V2::Users::UpdateForm.new(user, params: update_params, admin: current_user)
     end
 
     def update_params

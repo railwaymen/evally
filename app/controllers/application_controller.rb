@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   private
 
   def render_error_response(error)
-    render json: V2::ErrorSerializer.render(error), status: error.status
+    render json: V2::Errors::Serializer.render(error), status: error.status
   end
 
   def forbidden_response
