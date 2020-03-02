@@ -12,7 +12,7 @@ module V2
     end
 
     def update
-      V2::InvitationAcceptForm.new(tokenized_user, params: invitation_params).save
+      V2::Invitations::AcceptForm.new(tokenized_user, params: invitation_params).save
 
       head :no_content
     end

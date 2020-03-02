@@ -6,9 +6,9 @@ module V2
     before_action :authorize!
 
     def show
-      presenter = V2::EvaluationPresenter.new(evaluation)
+      presenter = V2::Evaluations::ShowPresenter.new(evaluation)
 
-      render json: V2::Views::EvaluationView.render(presenter), status: :ok
+      render json: V2::Evaluations::ShowView.render(presenter), status: :ok
     end
 
     private

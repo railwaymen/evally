@@ -29,7 +29,7 @@ module V2
     end
 
     def password_form
-      @password_form ||= V2::PasswordForm.new(current_user, params: password_params)
+      @password_form ||= V2::Profile::PasswordForm.new(current_user, params: password_params)
     end
 
     def user_params
