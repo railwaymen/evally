@@ -4,7 +4,7 @@ module V2
   module Recruitments
     class IndexPresenter
       def recruitments
-        V2::Recruitments::BaseQuery.call
+        V2::Recruitments::BasicQuery.call
       end
 
       def groups
