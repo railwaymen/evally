@@ -14,8 +14,11 @@ addons:
   postgresql: "9.6"
   chrome: stable
 
-script:
-  - bundle exec rake
+
+script: [
+  'bundle exec rake',
+  'yarn test ./app/javascript/components'
+]
 
 before_install:
   - gem install bundler:2.1.4

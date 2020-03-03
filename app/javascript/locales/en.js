@@ -34,6 +34,7 @@ export default {
       dashboard: 'Dashboard',
       drafts: 'Drafts',
       employees: 'Employees',
+      recruitments: 'Recruitments',
       templates: 'Templates',
       settings: 'Settings',
       users: 'Users',
@@ -282,6 +283,18 @@ export default {
         role: 'Role',
         status: 'Status',
       }
+    },
+    recruitments: {
+      table: {
+        search: 'Search ...',
+        cols: {
+          email: 'Email',
+          group: 'Group',
+          status: 'Status',
+          position: 'Position',
+          receivedAt: 'Received Date'
+        }
+      }
     }
   },
   messages: {
@@ -411,6 +424,11 @@ export default {
         ok: 'User has been updated',
         error: 'User cannot be updated: {msg}'
       }
+    },
+    recruitments: {
+      index: {
+        error: 'Recruitments cannot be loaded: {msg}'
+      }
     }
   },
   models: {
@@ -526,6 +544,14 @@ export default {
           hiredOn: 'Hired Date',
           completedAt: 'Completion Date',
         }
+      }
+    },
+    recruitments: {
+      index: {
+        title: 'Recruitments'
+      },
+      show: {
+        title: 'Recruitment'
       }
     }
   }

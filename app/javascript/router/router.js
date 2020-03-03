@@ -67,6 +67,18 @@ export default new Router({
           ]
         },
         {
+          path: 'recruitments',
+          name: 'recruitments_path',
+          component: () => import(/* webpackChunkName: 'recruitments' */ '@views/recruitments/Index'),
+          children: [
+            {
+              path: ':id',
+              name: 'recruitment_path',
+              component: () => import(/* webpackChunkName: 'recruitment' */ '@views/recruitments/Show'),
+            }
+          ]
+        },
+        {
           path: 'templates',
           name: 'templates_path',
           component: () => import(/* webpackChunkName: 'templates' */ '@views/templates/Index'),

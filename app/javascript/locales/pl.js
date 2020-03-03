@@ -34,6 +34,7 @@ export default {
       dashboard: 'Kokpit',
       drafts: 'Szkice ocen',
       employees: 'Pracownicy',
+      recruitments: 'Rekrutacje',
       templates: 'Szablony',
       settings: 'Ustawienia',
       users: 'Użytkownicy',
@@ -282,6 +283,18 @@ export default {
         role: 'Rola',
         status: 'Status'
       }
+    },
+    recruitments: {
+      table: {
+        search: 'Szukaj ...',
+        cols: {
+          email: 'Email',
+          group: 'Grupa',
+          status: 'Status',
+          position: 'Pozycja',
+          receivedAt: 'Data otrzymania'
+        }
+      }
     }
   },
   messages: {
@@ -411,6 +424,11 @@ export default {
         ok: 'Użytkownik został zaktualizowany',
         error: 'Błąd przy aktualizacji użytkownika: {msg}'
       }
+    },
+    recruitments: {
+      index: {
+        error: 'Błąd przy ładowaniu rekrutacji: {msg}'
+      }
     }
   },
   models: {
@@ -526,6 +544,14 @@ export default {
           hiredOn: 'Data zatrudnienia',
           completedAt: 'Data zakończenia',
         }
+      }
+    },
+    recruitments: {
+      index: {
+        title: 'Rekrutacje'
+      },
+      show: {
+        title: 'Rekrutacja'
       }
     }
   }
