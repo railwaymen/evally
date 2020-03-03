@@ -9,6 +9,7 @@ import NotificationsModule from '@store/modules/notifications_module'
 import AuthenticationModule from '@store/modules/authentication_module'
 import TemplatesModule from '@store/modules/templates_module'
 import UsersModule from '@store/modules/users_module'
+import CandidatesModule from '@store/modules/candidates_module'
 
 Vue.use(Vuex)
 
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     NotificationsModule,
     AuthenticationModule,
     TemplatesModule,
-    UsersModule
+    UsersModule,
+    CandidatesModule
   }
 })
