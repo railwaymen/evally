@@ -18,7 +18,6 @@
             v-if="$route.name === 'recruitments_path'"
             :recruitments="recruitments"
             :loading="loading"
-            :editable="false"
           />
 
           <router-view v-else />
@@ -31,8 +30,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+
 import BasicTable from '@components/recruitments/BasicTable'
-import { Recruitment } from '@models/recruitment'
 
 export default {
   name: 'RecruitmentsIndex',

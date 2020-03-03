@@ -58,7 +58,8 @@ const AuthenticationModule = {
         'EmployeesOverview',
         'EmployeesSearch',
         'Authentication',
-        'Templates'
+        'Templates',
+        'Recruitments'
       ]
 
       modules.forEach(module => this.commit(`${module}Module/resetState`))

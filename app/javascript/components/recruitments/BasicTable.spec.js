@@ -29,7 +29,6 @@ describe('BasicTable', () => {
   it('props', () => {
      expect(wrapper.props().loading).toEqual(false)
      expect(wrapper.props().recruitments.models.length).toEqual(0)
-     expect(wrapper.props().editable).toEqual(false)
    })
 
    it('data.search', () => {
@@ -54,15 +53,15 @@ describe('BasicTable', () => {
       value: 'group'
     },
     {
-      text: i18n.t('components.recruitments.table.cols.status'),
-      value: 'status'
-    },
-    {
       text: i18n.t('components.recruitments.table.cols.position'),
       value: 'position'
     },
     {
-      text: i18n.t('components.recruitments.table.cols.received_at'),
+      text: i18n.t('components.recruitments.table.cols.status'),
+      value: 'status'
+    },
+    {
+      text: i18n.t('components.recruitments.table.cols.receivedAt'),
       value: 'received_at'
     }])
    })

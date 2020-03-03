@@ -38,11 +38,15 @@ if Rails.env.development?
     )
   end
 
+  candidates_ids = Candidate.ids
+
   10.times do
-    Recruitment.create(candidate_id: rand(Candidate.count),
-                       group: 'red group',
-                       position: 'RoR',
-                       received_at: Time.now,
-                       status: 'fresh')
+    Recruitment.create(
+      candidate_id: candidates_ids.sample,
+      group: 'Ruby',
+      position: 'Junior RoR Dev',
+      received_at: Time.current,
+      status: 'fresh'
+    )
   end
 end

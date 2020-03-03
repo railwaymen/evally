@@ -12,11 +12,14 @@ const initialState = () => ({
 
 const RecruitmentsModule = {
   namespaced: true,
+
   state: initialState(),
+
   getters: {
     recruitments: state => state.recruitments,
     loading: state => state.loading
   },
+
   mutations:{
     setLoading(state, status) {
       state.loading = status
@@ -27,7 +30,12 @@ const RecruitmentsModule = {
       state.loading = false
       return state
     },
+    resetState(state) {
+      state = Object.assign(state, initialState())
+      return state
+    }
   },
+
   actions: {
     index({ commit }) {
       commit('setLoading', true)
@@ -39,7 +47,7 @@ const RecruitmentsModule = {
         .catch(error => {
           commit(
             'NotificationsModule/push',
-            { error: i18n.t('messages.employees.index.error', { msg: fetchError(error) }) },
+            { error: i18n.t('messages.recruitments.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })

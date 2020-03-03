@@ -5,7 +5,7 @@
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
-          :label="$t('components.employees.table.search')"
+          :label="$t('components.recruitments.table.search')"
           filled
         />
       </v-flex>
@@ -18,7 +18,7 @@
           :loading="loading"
         >
           <template #item.action="{ item }">
-            <v-tooltip v-if="editable" bottom>
+            <v-tooltip bottom>
               <template #activator="{ on }">
                 <v-icon
                   @click="$emit('edit', item.id)"
@@ -40,7 +40,7 @@
             </router-link>
           </template>
 
-            <template #item.received_at="{ item }">
+          <template #item.received_at="{ item }">
             {{ item.receivedOn }}
           </template>
 
@@ -65,11 +65,6 @@ export default {
       type: RecruitmentsList,
       required: true,
       default: () => new RecruitmentsList()
-    },
-    editable: {
-      type: Boolean,
-      required: true,
-      default: false
     }
   },
   data() {
@@ -93,15 +88,15 @@ export default {
           value: 'group'
         },
         {
-          text: this.$t('components.recruitments.table.cols.status'),
-          value: 'status'
-        },
-        {
           text: this.$t('components.recruitments.table.cols.position'),
           value: 'position'
         },
         {
-          text: this.$t('components.recruitments.table.cols.received_at'),
+          text: this.$t('components.recruitments.table.cols.status'),
+          value: 'status'
+        },
+        {
+          text: this.$t('components.recruitments.table.cols.receivedAt'),
           value: 'received_at'
         }
       ]

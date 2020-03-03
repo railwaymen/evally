@@ -286,12 +286,13 @@ export default {
     },
     recruitments: {
       table: {
+        search: 'Search ...',
         cols: {
           email: 'Email',
           group: 'Group',
           status: 'Status',
           position: 'Position',
-          received_at: 'Received at'
+          receivedAt: 'Received Date'
         }
       }
     }
@@ -422,6 +423,11 @@ export default {
       update: {
         ok: 'User has been updated',
         error: 'User cannot be updated: {msg}'
+      }
+    },
+    recruitments: {
+      index: {
+        error: 'Recruitments cannot be loaded: {msg}'
       }
     }
   },
