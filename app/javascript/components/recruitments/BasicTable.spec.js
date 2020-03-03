@@ -44,6 +44,10 @@ describe('BasicTable', () => {
     {
       text: i18n.t('components.employees.table.cols.name'),
       value: 'fullname'
+    },
+    {
+      text: i18n.t('components.recruitments.table.cols.email'),
+      value: 'email'
     }])
    })
 
