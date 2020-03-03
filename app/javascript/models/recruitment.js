@@ -5,10 +5,18 @@ class Recruitment extends Model {
   get defaults() {
     return {
       id: null,
+      candidate_id: null,
+      gender: '',
       first_name: '',
       last_name: '',
       email: '',
-      gender: ''
+      status: '',
+      group: '',
+      phone: '',
+      position: '',
+      received_at: '',
+      social_links: '',
+      source: ''
     };
   }
 
@@ -26,7 +34,7 @@ class Recruitment extends Model {
 
 class RecruitmentsList extends List {
   get model() {
-    return Recruitments;
+    return Recruitment;
   }
 }
 

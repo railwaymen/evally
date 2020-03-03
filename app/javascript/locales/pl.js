@@ -283,6 +283,13 @@ export default {
         role: 'Rola',
         status: 'Status'
       }
+    },
+    recruitments: {
+      table: {
+        cols: {
+          email: 'Email'
+        }
+      }
     }
   },
   messages: {

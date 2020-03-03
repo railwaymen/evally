@@ -3,7 +3,7 @@ import { fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
 
-import { RecruitmentsList } from '@models/recruitment'
+import { Recruitment, RecruitmentsList } from '@models/recruitment'
 
 const initialState = () => ({
   recruitments: new RecruitmentsList(),
@@ -14,14 +14,25 @@ const RecruitmentsModule = {
   namespaced: true,
   state: initialState(),
   getters: {
-    recruitment: state => state.recruitments,
+    recruitments: state => state.recruitments,
     loading: state => state.loading
+  },
+  mutations:{
+    setLoading(state, status) {
+      state.loading = status
+      return state
+    },
+    setList(state, { recruitments }) {
+      state.recruitments = new RecruitmentsList(recruitments)
+      state.loading = false
+      return state
+    },
   },
   actions: {
     index({ commit }) {
       commit('setLoading', true)
 
-      http.get(Recruitment.routesr.RecruitmentsPath)
+      http.get(Recruitment.routes.recruitmentsPath)
         .then(response => {
           commit('setList', response.data)
         })

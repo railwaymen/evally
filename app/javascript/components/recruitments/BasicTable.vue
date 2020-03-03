@@ -79,6 +79,10 @@ export default {
         {
           text: this.$t('components.employees.table.cols.name'),
           value: 'fullname'
+        },
+        {
+          text: this.$t('components.recruitments.table.cols.email'),
+          value: 'email'
         }
       ]
     }
