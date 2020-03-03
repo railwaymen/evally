@@ -3,25 +3,25 @@ import { fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
 
-import { CandidatesList } from '@models/candidate'
+import { RecruitmentsList } from '@models/recruitment'
 
 const initialState = () => ({
-  candidates: new CandidatesList(),
+  recruitments: new RecruitmentsList(),
   loading: true
 })
 
-const CandidatesModule = {
+const RecruitmentsModule = {
   namespaced: true,
   state: initialState(),
   getters: {
-    candidates: state => state.candidates,
+    recruitment: state => state.recruitments,
     loading: state => state.loading
   },
   actions: {
     index({ commit }) {
       commit('setLoading', true)
 
-      http.get(Candidate.routes.candidatesPath)
+      http.get(Recruitment.routesr.RecruitmentsPath)
         .then(response => {
           commit('setList', response.data)
         })
@@ -37,4 +37,4 @@ const CandidatesModule = {
   }
 }
 
-export default CandidatesModule
+export default RecruitmentsModule

@@ -13,7 +13,7 @@
       <v-flex xs12>
         <v-data-table
           :headers="headers"
-          :items="candidates.models"
+          :items="recruitments.models"
           :search="search"
           :loading="loading"
         >
@@ -35,7 +35,7 @@
           </template>
 
           <template #item.fullname="{ item }">
-            <router-link :to="{ name: 'candidate_path', params: { id: item.id }}">
+            <router-link :to="{ name: 'recruitment_path', params: { id: item.id }}">
               {{ item.fullname }}
             </router-link>
           </template>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { CandidatesList } from '@models/candidate'
+import { RecruitmentsList } from '@models/recruitment'
 
 export default {
   name: 'BasicTable',
@@ -57,10 +57,10 @@ export default {
       required: true,
       default: false
     },
-    candidates: {
-      type: CandidatesList,
+    recruitments: {
+      type: RecruitmentsList,
       required: true,
-      default: () => new CandidatesList()
+      default: () => new RecruitmentsList()
     },
     editable: {
       type: Boolean,

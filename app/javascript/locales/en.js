@@ -34,7 +34,7 @@ export default {
       dashboard: 'Dashboard',
       drafts: 'Drafts',
       employees: 'Employees',
-      candidates: 'Candidates',
+      recruitments: 'Recruitments',
       templates: 'Templates',
       settings: 'Settings',
       users: 'Users',
@@ -529,12 +529,12 @@ export default {
         }
       }
     },
-    candidates: {
+    recruitments: {
       index: {
-        title: 'Candidates'
+        title: 'Recruitments'
       },
       show: {
-        title: 'Candidate'
+        title: 'Recruitment'
       }
     }
   }

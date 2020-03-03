@@ -3,13 +3,13 @@
     <div class="panel__row">
       <div class="panel__name">
 
-        <h2 v-if="$route.name === 'candidates_path'">{{ $t('views.candidates.index.title') }}</h2>
+        <h2 v-if="$route.name === 'recruitments_path'">{{ $t('views.recruitments.index.title') }}</h2>
         <router-view v-else />
       </div>
       <v-container grid-list-lg fluid>
         <basic-table
-          v-if="$route.name === 'candidates_path'"
-          :candidates="candidates"
+          v-if="$route.name === 'recruitments_path'"
+          :recruitments="recruitments"
           :loading="loading"
           :editable="false"
         />
@@ -23,21 +23,21 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import BasicTable from '@components/candidates/BasicTable'
-import { Candidate } from '@models/candidate'
+import BasicTable from '@components/recruitments/BasicTable'
+import { Recruitment } from '@models/recruitment'
 
 export default {
-  name: 'CandidatesIndex',
+  name: 'RecruitmentsIndex',
   components: { BasicTable },
   methods: {
     ...mapActions({
-      fetchData: 'CandidatesModule/index'
+      fetchData: 'RecruitmentsModule/index'
     })
   },
   computed: {
     ...mapGetters({
-      candidates: 'CandidatesModule/candidates',
-      loading: 'CandidatesModule/loading'
+      recruitments: 'RecruitmentsModule/recruitments',
+      loading: 'RecruitmentsModule/loading'
     })
   }
 }

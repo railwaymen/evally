@@ -59,11 +59,11 @@
               <v-list-item-title>{{ $t('shared.navbar.employees') }}</v-list-item-title>
             </v-list-item>
 
-            <v-list-item :to="{ name: 'candidates_path' }">
+            <v-list-item :to="{ name: 'recruitments_path' }">
               <v-list-item-action>
                 <v-icon>mdi-account-group-outline</v-icon>
               </v-list-item-action>
-              <v-list-item-title>{{ $t('shared.navbar.candidates') }}</v-list-item-title>
+              <v-list-item-title>{{ $t('shared.navbar.recruitments') }}</v-list-item-title>
             </v-list-item>
 
             <v-list-item :to="{ name: 'templates_path' }">
@@ -131,11 +131,11 @@
             {{ $t('shared.navbar.employees') }}
           </v-tab>
 
-          <v-tab :to="{ name: 'candidates_path' }">
+          <v-tab :to="{ name: 'recruitments_path' }">
             <v-icon>mdi-account-group-outline</v-icon>
             <span class="separator" />
 
-            {{ $t('shared.navbar.candidates') }}
+            {{ $t('shared.navbar.recruitments') }}
           </v-tab>
 
           <v-tab :to="{ name: 'templates_path' }">

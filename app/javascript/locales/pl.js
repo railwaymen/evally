@@ -34,7 +34,7 @@ export default {
       dashboard: 'Kokpit',
       drafts: 'Szkice ocen',
       employees: 'Pracownicy',
-      candidates: 'Kandydaci',
+      recruitments: 'Rekrutacje',
       templates: 'Szablony',
       settings: 'Ustawienia',
       users: 'Użytkownicy',
@@ -529,12 +529,12 @@ export default {
         }
       }
     },
-    candidates: {
+    recruitments: {
       index: {
-        title: 'Kandydaci'
+        title: 'Rekrutacje'
       },
       show: {
-        title: 'Kandydat'
+        title: 'Rekrutacja'
       }
     }
   }

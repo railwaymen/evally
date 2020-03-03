@@ -1,7 +1,7 @@
 import { Model, List } from './base'
 import i18n from '@locales/i18n'
 
-class Candidate extends Model {
+class Recruitment extends Model {
   get defaults() {
     return {
       id: null,
@@ -18,16 +18,16 @@ class Candidate extends Model {
 
   static get routes() {
     return {
-      candidatesPath: '/v2/candidates',
-      candidatePath: id => `/v2/candidates/${id}`
+      recruitmentsPath: '/v2/recruitments',
+      recruitmentPath: id => `/v2/recruitments/${id}`
     }
   }
 }
 
-class CandidatesList extends List {
+class RecruitmentsList extends List {
   get model() {
-    return Candidates;
+    return Recruitments;
   }
 }
 
-export { Candidate, CandidatesList };
+export { Recruitment, RecruitmentsList };

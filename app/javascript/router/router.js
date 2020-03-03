@@ -67,14 +67,14 @@ export default new Router({
           ]
         },
         {
-          path: 'candidates',
-          name: 'candidates_path',
-          component: () => import(/* webpackChunkName: 'candidates' */ '@views/candidates/Index'),
+          path: 'recruitments',
+          name: 'recruitments_path',
+          component: () => import(/* webpackChunkName: 'recruitment' */ '@views/recruitments/Index'),
           children: [
             {
               path: ':id',
-              name: 'candidate_path',
-              component: () => import(/* webpackChunkName: 'candidate' */ '@views/candidates/Show'),
+              name: 'recruitment_path',
+              component: () => import(/* webpackChunkName: 'recruitment' */ '@views/recruitments/Show'),
             }
           ]
         },
