@@ -29,4 +29,12 @@ if Rails.env.development?
       evaluator_id: current_user.id
     )
   end
+
+  10.times do
+    Candidate.create!(
+      first_name: Faker::Name.first_name,
+      last_name: Faker::Name.last_name,
+      email: Faker::Internet.email
+    )
+  end
 end

@@ -34,6 +34,7 @@ export default {
       dashboard: 'Dashboard',
       drafts: 'Drafts',
       employees: 'Employees',
+      candidates: 'Candidates',
       templates: 'Templates',
       settings: 'Settings',
       users: 'Users',
@@ -526,6 +527,14 @@ export default {
           hiredOn: 'Hired Date',
           completedAt: 'Completion Date',
         }
+      }
+    },
+    candidates: {
+      index: {
+        title: 'Candidates'
+      },
+      show: {
+        title: 'Candidate'
       }
     }
   }

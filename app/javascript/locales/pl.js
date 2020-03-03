@@ -34,6 +34,7 @@ export default {
       dashboard: 'Kokpit',
       drafts: 'Szkice ocen',
       employees: 'Pracownicy',
+      candidates: 'Kandydaci',
       templates: 'Szablony',
       settings: 'Ustawienia',
       users: 'Użytkownicy',
@@ -526,6 +527,14 @@ export default {
           hiredOn: 'Data zatrudnienia',
           completedAt: 'Data zakończenia',
         }
+      }
+    },
+    candidates: {
+      index: {
+        title: 'Kandydaci'
+      },
+      show: {
+        title: 'Kandydat'
       }
     }
   }
