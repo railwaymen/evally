@@ -1,6 +1,8 @@
 import { Model, List } from './base'
 import i18n from '@locales/i18n'
 
+import moment from 'moment'
+
 class Recruitment extends Model {
   get defaults() {
     return {
@@ -22,6 +24,10 @@ class Recruitment extends Model {
 
   get fullname() {
     return [this.first_name, this.last_name].join(' ')
+  }
+
+  get receivedOn() {
+    return moment(this.received_at).format('MMM DD, YYYY')
   }
 
   static get routes() {

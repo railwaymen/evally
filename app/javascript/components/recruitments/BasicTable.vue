@@ -40,6 +40,10 @@
             </router-link>
           </template>
 
+            <template #item.received_at="{ item }">
+            {{ item.receivedOn }}
+          </template>
+
         </v-data-table>
       </v-flex>
     </v-layout>
@@ -83,6 +87,22 @@ export default {
         {
           text: this.$t('components.recruitments.table.cols.email'),
           value: 'email'
+        },
+        {
+          text: this.$t('components.recruitments.table.cols.group'),
+          value: 'group'
+        },
+        {
+          text: this.$t('components.recruitments.table.cols.status'),
+          value: 'status'
+        },
+        {
+          text: this.$t('components.recruitments.table.cols.position'),
+          value: 'position'
+        },
+        {
+          text: this.$t('components.recruitments.table.cols.received_at'),
+          value: 'received_at'
         }
       ]
     }

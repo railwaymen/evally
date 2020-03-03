@@ -37,4 +37,12 @@ if Rails.env.development?
       email: Faker::Internet.email
     )
   end
+
+  10.times do
+    Recruitment.create(candidate_id: rand(Candidate.count),
+                       group: 'red group',
+                       position: 'RoR',
+                       received_at: Time.now,
+                       status: 'fresh')
+  end
 end

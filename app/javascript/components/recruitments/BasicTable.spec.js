@@ -48,6 +48,22 @@ describe('BasicTable', () => {
     {
       text: i18n.t('components.recruitments.table.cols.email'),
       value: 'email'
+    },
+    {
+      text: i18n.t('components.recruitments.table.cols.group'),
+      value: 'group'
+    },
+    {
+      text: i18n.t('components.recruitments.table.cols.status'),
+      value: 'status'
+    },
+    {
+      text: i18n.t('components.recruitments.table.cols.position'),
+      value: 'position'
+    },
+    {
+      text: i18n.t('components.recruitments.table.cols.received_at'),
+      value: 'received_at'
     }])
    })
 

@@ -287,7 +287,11 @@ export default {
     recruitments: {
       table: {
         cols: {
-          email: 'Email'
+          email: 'Email',
+          group: 'Group',
+          status: 'Status',
+          position: 'Position',
+          received_at: 'Received at'
         }
       }
     }
