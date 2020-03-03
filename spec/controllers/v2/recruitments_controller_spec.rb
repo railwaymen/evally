@@ -184,6 +184,7 @@ RSpec.describe V2::RecruitmentsController, type: :controller do
           post :create, params: params
         end.not_to(change { Candidate.count })
 
+        expect(response).to have_http_status 422
         expect(json_response['details'].first).to eq 'First name can\'t be blank'
       end
 
@@ -213,6 +214,7 @@ RSpec.describe V2::RecruitmentsController, type: :controller do
           post :create, params: params
         end.not_to(change { Recruitment.count })
 
+        expect(response).to have_http_status 422
         expect(json_response['details'].first).to eq 'Group can\'t be blank'
       end
     end
