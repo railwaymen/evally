@@ -43,3 +43,10 @@ en:
       update:
         title: 'User updated'
         description: "%{user} updated %{name}'s profile."
+    recruitment:
+      create:
+        title: 'New recruitment'
+        description: "%{user} created recruitment for position: %{name}."
+      update:
+        title: 'Recruitment updated'
+        description: "%{user} updated recruitment for position: %{name}."

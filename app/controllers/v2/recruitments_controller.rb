@@ -22,6 +22,12 @@ module V2
       render json: V2::Recruitments::Serializer.render(create_form.recruitment), status: :created
     end
 
+    def update
+      update_form.save
+
+      render json: V2::Recruitments::Serializer.render(update_form.recruitment), status: :ok
+    end
+
     private
 
     def recruitments_scope
@@ -39,12 +45,20 @@ module V2
 
     def create_form
       @create_form ||= V2::Recruitments::CreateForm.new(
-        params: create_recruitment_params,
+        params: recruitment_params,
         user: current_user
       )
     end
 
-    def create_recruitment_params
+    def update_form
+      @update_form ||= V2::Recruitments::UpdateForm.new(
+        recruitment,
+        params: recruitment_params,
+        user: current_user
+      )
+    end
+
+    def recruitment_params
       {
         candidate: params.require(:recruitment).permit(
           :first_name, :last_name, :email, :gender, :evaluator_id
