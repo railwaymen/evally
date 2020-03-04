@@ -1,12 +1,12 @@
 <template>
-  <section class="panel">
-    <div class="panel__row">
+  <v-layout row wrap>
+    <v-flex xs10 offset-xs1 lg3 offset-lg0>
       <recruitments-sidebar
         :recruitment="recruitment"
       />
-    </div>
-  </section>
-</template>
+    </v-flex>
+  </v-layout>
+ </template>
 
 <script>
 import { mapGetters } from 'vuex'
