@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecruitmentsSidebar matches do snapshot 1`] = `
+<div class="sidebar sidebar--boxed">
+  <div class="vcard">
+    <h3 class="vcard__fullname"> </h3>
+    <div class="vcard__content">
+      <div class="vcard__info">
+        <div class="vcard__label">Gender</div>
+        <div class="vcard__value"></div>
+      </div>
+      <div class="vcard__info">
+        <div class="vcard__label">Email</div>
+        <div class="vcard__value">e@domain.org</div>
+      </div>
+      <div class="vcard__info">
+        <div class="vcard__label">Phone number</div>
+        <div class="vcard__value"></div>
+      </div>
+      <div class="vcard__info">
+        <div class="vcard__label">Group</div>
+        <div class="vcard__value"></div>
+      </div>
+      <div class="vcard__info">
+        <div class="vcard__label">Position</div>
+        <div class="vcard__value"></div>
+      </div>
+      <div class="vcard__info">
+        <div class="vcard__label">Received at</div>
+        <div class="vcard__value"></div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

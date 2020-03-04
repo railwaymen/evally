@@ -294,6 +294,14 @@ export default {
           position: 'Pozycja',
           receivedAt: 'Data otrzymania'
         }
+      },
+      sidebar: {
+        gender: 'Płeć',
+        email: 'Email',
+        phoneNumber: 'Numer telefonu',
+        group: 'Grupa',
+        position: 'Stanowisko',
+        received_at: 'Data otrzymania'
       }
     }
   },
