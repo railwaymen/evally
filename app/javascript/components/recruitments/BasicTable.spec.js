@@ -9,6 +9,8 @@ describe('BasicTable', () => {
   const props = {
     loading: false,
     recruitDocuments: new RecruitDocumentsList(),
+    groups: ['ror', 'android'],
+    statuses: ['fresh', 'accepted'],
     editable: false
   }
 
@@ -16,7 +18,7 @@ describe('BasicTable', () => {
     BasicTable,
     {
       propsData: props,
-      stubs: ['v-layout', 'v-data-table', 'v-flex', 'v-text-field'],
+      stubs: ['v-layout', 'v-data-table', 'v-flex', 'v-text-field', 'v-combobox'],
       mocks: {
         $t: key => i18n.t(key)
       }

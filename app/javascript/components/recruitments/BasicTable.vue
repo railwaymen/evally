@@ -10,6 +10,9 @@
         />
       </v-flex>
 
+      <v-combobox :items="groups" @change="fitrByGroup" />
+      <v-combobox :items="statuses" @change="fitrByStatus" />
+
       <v-flex xs12>
         <v-data-table
           :headers="headers"
@@ -65,6 +68,24 @@ export default {
       type: RecruitDocumentsList,
       required: true,
       default: () => new RecruitDocumentsList()
+    },
+    groups: {
+      type: Array,
+      required: true,
+      default: () => []
+    },
+    statuses: {
+      type: Array,
+      required: true,
+      default: () => []
+    }
+  },
+  methods:{
+    fitrByGroup(group) {
+      this.$store.dispatch('RecruitmentsModule/index', group, null)
+    },
+    fitrByStatus(status) {
+      this.$store.dispatch('RecruitmentsModule/index', null, status)
     }
   },
   data() {
