@@ -3,8 +3,10 @@
 module V2
   module Recruitments
     class IndexPresenter
-      def recruitments
-        V2::Recruitments::BasicQuery.call
+      attr_reader :recruitments
+
+      def initialize(scope:)
+        @recruitments = V2::Recruitments::BasicQuery.call(scope)
       end
 
       def groups
