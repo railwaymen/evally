@@ -556,7 +556,10 @@ export default {
     },
     recruitments: {
       index: {
-        title: 'Recruitments'
+        title: 'Recruitments',
+        nav: {
+          list: 'List'
+        }
       },
       show: {
         title: 'Recruitment'

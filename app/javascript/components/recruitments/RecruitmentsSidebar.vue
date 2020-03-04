@@ -26,7 +26,7 @@
         </div>
         <div class="vcard__info">
           <div class="vcard__label">{{ $t('components.recruitments.sidebar.received_at') }}</div>
-          <div class="vcard__value">{{ recruitment.received_attion }}</div>
+          <div class="vcard__value">{{ recruitment.receivedOn }}</div>
         </div>
       </div>
     </div>
@@ -36,6 +36,7 @@
 
 <script>
 import { Recruitment } from '@models/recruitment'
+
 
 export default {
   name: 'RecruitmentsSidebar',

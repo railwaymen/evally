@@ -13,7 +13,7 @@
           exact
           text
         >
-          {{ $t('views.employees.index.nav.list') }}
+          {{ $t('views.recruitments.index.nav.list') }}
         </v-btn>
       </div>
 

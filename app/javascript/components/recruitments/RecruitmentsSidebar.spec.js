@@ -7,7 +7,7 @@ import { Recruitment } from '@models/recruitment'
 
 describe('RecruitmentsSidebar', () => {
   const props = {
-    recruitment: new Recruitment({email: 'e@domain.org'}),
+    recruitment: new Recruitment({email: 'e@domain.org', received_at: '2020-02-10'}),
   }
 
   const wrapper = shallowMount(
