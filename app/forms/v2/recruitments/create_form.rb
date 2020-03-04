@@ -50,7 +50,7 @@ module V2
         @user.activities.create!(
           action: 'create',
           activable: @recruitment,
-          activable_name: @candidate.fullname
+          activable_name: @recruitment.position
         )
       end
     end

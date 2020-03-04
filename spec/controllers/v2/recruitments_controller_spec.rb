@@ -154,7 +154,7 @@ RSpec.describe V2::RecruitmentsController, type: :controller do
 
         expect(Activity.last).to have_attributes(
           action: 'create',
-          activable_name: 'Franek Kimono'
+          activable_name: 'Junior RoR Dev'
         )
       end
 
@@ -287,7 +287,7 @@ RSpec.describe V2::RecruitmentsController, type: :controller do
         params = {
           id: recruitment.id,
           recruitment: {
-            group: 'Designers'
+            position: 'Junior Designer'
           }
         }
 
@@ -296,6 +296,11 @@ RSpec.describe V2::RecruitmentsController, type: :controller do
         expect do
           put :update, params: params
         end.to(change { Activity.count }.by(1))
+
+        expect(Activity.last).to have_attributes(
+          action: 'update',
+          activable_name: 'Junior Designer'
+        )
       end
 
       it 'responds with 422 if invalid candidate params' do

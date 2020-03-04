@@ -43,3 +43,10 @@ pl:
       update:
         title: 'Edytowano użytkownika'
         description: "%{user} zaktualizował profil użytkownika %{name}."
+    recruitment:
+      create:
+        title: 'Nowy rekrut'
+        description: "%{user} dodał rekruta na stanowisko: %{name}."
+      update:
+        title: 'Edytowano rekruta'
+        description: "%{user} zaktualizował rekruta na stanowisko: %{name}."
