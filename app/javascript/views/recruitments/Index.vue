@@ -6,6 +6,15 @@
       </div>
 
       <div class="panel__nav">
+        <v-btn
+          color="primary"
+          @click="fetchData"
+          :to="{ name: 'recruitments_path' }"
+          exact
+          text
+        >
+          {{ $t('views.recruitments.index.nav.list') }}
+        </v-btn>
       </div>
 
       <div class="panel__actions">

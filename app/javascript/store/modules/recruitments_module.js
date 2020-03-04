@@ -7,6 +7,7 @@ import { Recruitment, RecruitmentsList } from '@models/recruitment'
 
 const initialState = () => ({
   recruitments: new RecruitmentsList(),
+  recruitment: new Recruitment(),
   loading: true
 })
 
@@ -17,6 +18,7 @@ const RecruitmentsModule = {
 
   getters: {
     recruitments: state => state.recruitments,
+    recruitment: state => state.recruitment,
     loading: state => state.loading
   },
 
@@ -27,6 +29,11 @@ const RecruitmentsModule = {
     },
     setList(state, { recruitments }) {
       state.recruitments = new RecruitmentsList(recruitments)
+      state.loading = false
+      return state
+    },
+    setItem(state, { recruitment }) {
+      state.recruitment = new Recruitment(recruitment)
       state.loading = false
       return state
     },
@@ -52,7 +59,22 @@ const RecruitmentsModule = {
           )
         })
         .finally(() => commit('setLoading', false))
-    }
+    },
+    show({ commit }, id) {
+      commit('setLoading', true)
+
+      http.get(Recruitment.routes.recruitmentPath(id))
+        .then(response => {
+          commit('setItem', response.data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.recruitment.show.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+        })
+    },
   }
 }
 

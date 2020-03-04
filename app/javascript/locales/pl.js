@@ -294,6 +294,14 @@ export default {
           position: 'Pozycja',
           receivedAt: 'Data otrzymania'
         }
+      },
+      sidebar: {
+        gender: 'Płeć',
+        email: 'Email',
+        phoneNumber: 'Numer telefonu',
+        group: 'Grupa',
+        position: 'Stanowisko',
+        received_at: 'Data otrzymania'
       }
     }
   },
@@ -548,7 +556,10 @@ export default {
     },
     recruitments: {
       index: {
-        title: 'Rekrutacje'
+        title: 'Rekrutacje',
+        nav: {
+          list: 'Lista'
+        }
       },
       show: {
         title: 'Rekrutacja'
