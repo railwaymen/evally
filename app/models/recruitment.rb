@@ -10,6 +10,7 @@ class Recruitment < ApplicationRecord
   # # Enums
   #
   enum status: {
+    imported: 'imported',
     fresh: 'fresh',
     ongoing: 'ongoing',
     awaiting_response: 'awaiting_response',

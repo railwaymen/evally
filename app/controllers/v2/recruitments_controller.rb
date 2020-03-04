@@ -16,6 +16,12 @@ module V2
       render json: V2::Recruitments::ShowView.render(presenter), status: :ok
     end
 
+    def create
+      create_form.save
+
+      render json: V2::Recruitments::Serializer.render(create_form.recruitment), status: :created
+    end
+
     private
 
     def recruitments_scope
@@ -23,12 +29,30 @@ module V2
     end
 
     def recruitment
-      @recruitment ||= V2::Recruitments::BasicQuery.call(recruitments_scope)
-                                                   .find_by(id: params[:id])
+      @recruitment ||=
+        V2::Recruitments::BasicQuery.call(recruitments_scope).find_by(id: params[:id])
 
       raise ErrorResponderService.new(:record_not_found, 404) unless @recruitment
 
       @recruitment
+    end
+
+    def create_form
+      @create_form ||= V2::Recruitments::CreateForm.new(
+        params: create_recruitment_params,
+        user: current_user
+      )
+    end
+
+    def create_recruitment_params
+      {
+        candidate: params.require(:recruitment).permit(
+          :first_name, :last_name, :email, :gender, :evaluator_id
+        ),
+        recruitment: params.require(:recruitment).permit(
+          :phone, :status, :position, :group, :received_at, :social_links, :source
+        )
+      }
     end
   end
 end

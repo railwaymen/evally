@@ -9,4 +9,10 @@ class Candidate < ApplicationRecord
   #
   validates :email, presence: true, uniqueness: true, format: URI::MailTo::EMAIL_REGEXP
   validates :first_name, :last_name, presence: true
+
+  # # Methods
+  #
+  def fullname
+    [first_name, last_name].join(' ').strip
+  end
 end
