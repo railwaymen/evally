@@ -1,4 +1,6 @@
 import http from '@utils/http'
+import i18n from '@locales/i18n'
+import { fetchError } from '@utils/helpers'
 
 import { Employee } from '@models/employee'
 import { EmployeesAnalytics } from '@models/employees_analytics'
@@ -71,7 +73,7 @@ const EmployeesOverviewModule = {
         .then(response => {
           commit('setData', response.data)
         })
-        .catch(() => {
+        .catch((error) => {
           commit(
             'NotificationsModule/push',
             { error: i18n.t('messages.employees.overview.error', { msg: fetchError(error) }) },

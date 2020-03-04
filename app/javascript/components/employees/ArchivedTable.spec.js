@@ -29,7 +29,7 @@ describe('ArchivedTable', () => {
 
    it('props', () => {
      expect(wrapper.props().loading).toEqual(false)
-     expect(wrapper.props().employees.models.length).toEqual(0)
+     expect(wrapper.props().employees.models).toHaveLength(0)
    })
 
   it('matches do snapshot', () => {
