@@ -1,4 +1,6 @@
 import { Model, List } from './base'
+import { getURLParams } from '@utils/helpers'
+
 import moment from 'moment'
 
 class RecruitDocument extends Model {
@@ -28,9 +30,9 @@ class RecruitDocument extends Model {
 
   static get routes() {
     return {
-      recruitDocumentsFilterPath: (group, status) => `/v2/recruit_documents?group=${group}&status=${status}`,
-      recruitDocumentPath: id => `/v2/recruit_documents/${id}`,
-      recruitDocumentsPath: '/v2/recruitments',
+      recruitDocumentsPath: '/v2/recruit_documents',
+      recruitDocumentsFilterPath: payload => `/v2/recruit_documents?${getURLParams(payload)}`,
+      recruitDocumentPath: id => `/v2/recruit_documents/${id}`
     }
   }
 }

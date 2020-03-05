@@ -1,19 +1,36 @@
 <template>
   <div class="box">
     <v-layout row wrap>
-      <v-flex xs12 lg6>
+      <v-flex xs12 lg4>
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
           :label="$t('components.recruitments.table.search')"
-          filled
+          solo
         />
       </v-flex>
 
-      <v-combobox :items="groups" :label="$t('components.recruitments.table.groupFilter')"
-                  :clearable="true"  @change="setGroupFilter" />
-      <v-combobox :items="statuses" :label="$t('components.recruitments.table.statusFilter')"
-                  :clearable="true" @change="setStatusFilter" />
+      <v-flex xs12 lg4>
+        <v-select
+          v-model="filters.group"
+          :items="groups"
+          :label="$t('components.recruitments.table.groupFilter')"
+          clearable
+          chips
+          solo
+        />
+      </v-flex>
+
+       <v-flex xs12 lg4>
+         <v-select
+          v-model="filters.status"
+          :items="statuses"
+          :label="$t('components.recruitments.table.statusFilter')"
+          clearable
+          chips
+          solo
+        />
+      </v-flex>
 
       <v-flex xs12>
         <v-data-table
@@ -82,27 +99,13 @@ export default {
       default: () => []
     }
   },
-  methods:{
-    setGroupFilter(group) {
-      if(typeof group == "undefined" || typeof group == null || typeof group == "object"){
-        group = ''
-      }
-      this.groupFilter = group
-      this.$store.dispatch('RecruitmentsModule/indexFilter', {group: this.groupFilter, status: this.statusFilter})
-    },
-    setStatusFilter(status) {
-      if(typeof status == "undefined" || typeof status == null || typeof status == "object"){
-        status = ''
-      }
-      this.statusFilter = status
-      this.$store.dispatch('RecruitmentsModule/indexFilter', {group: this.groupFilter, status: this.statusFilter})
-    }
-  },
   data() {
     return {
       search: '',
-      groupFilter: '',
-      statusFilter: '',
+      filters: {
+        group: '',
+        status: ''
+      },
       headers: [
         {
           sortable: false,
@@ -118,7 +121,8 @@ export default {
         },
         {
           text: this.$t('components.recruitments.table.cols.group'),
-          value: 'group'
+          value: 'group',
+          filterable: false
         },
         {
           text: this.$t('components.recruitments.table.cols.position'),
@@ -126,13 +130,27 @@ export default {
         },
         {
           text: this.$t('components.recruitments.table.cols.status'),
-          value: 'status'
+          value: 'status',
+          filterable: false
         },
         {
           text: this.$t('components.recruitments.table.cols.receivedAt'),
           value: 'received_at'
         }
       ]
+    }
+  },
+  watch: {
+    filters: {
+      deep: true,
+      handler: function(filters, _prevFilters) {
+        const payload = {
+          group: filters.group || '',
+          status: filters.status || ''
+        }
+
+        this.$store.dispatch('RecruitmentsModule/filterIndex', payload)
+      }
     }
   }
 }
