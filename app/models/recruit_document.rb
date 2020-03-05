@@ -5,7 +5,7 @@ class RecruitDocument < HumanResourcesRecord
 
   # # Associations
   #
-  belongs_to :recruit, primary_key: 'external_id', foreign_key: 'encrypted_email',
+  belongs_to :recruit, primary_key: 'human_resources_id', foreign_key: 'encrypted_email',
                        inverse_of: :recruit_documents, optional: true
 
   # # Scopes

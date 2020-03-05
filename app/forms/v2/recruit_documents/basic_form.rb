@@ -34,7 +34,9 @@ module V2
       end
 
       def recruit
-        @recruit ||= Recruit.find_or_initialize_by(external_id: @recruit_document.encrypted_email)
+        @recruit ||= Recruit.find_or_initialize_by(
+          human_resources_id: @recruit_document.encrypted_email
+        )
       end
 
       def create_activity!

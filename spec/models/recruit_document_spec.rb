@@ -6,7 +6,7 @@ RSpec.describe RecruitDocument, type: :model do
   it do
     is_expected
       .to belong_to(:recruit)
-      .with_primary_key('external_id')
+      .with_primary_key('human_resources_id')
       .with_foreign_key('encrypted_email')
       .optional
   end

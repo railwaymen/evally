@@ -12,7 +12,7 @@ FactoryBot.define do
     source            { 'website' }
 
     after(:create) do |document|
-      create(:recruit, external_id: document.encrypted_email)
+      create(:recruit, human_resources_id: document.encrypted_email)
     end
   end
 end

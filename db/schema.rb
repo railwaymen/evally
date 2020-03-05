@@ -71,12 +71,12 @@ ActiveRecord::Schema.define(version: 2020_03_05_110346) do
   end
 
   create_table "recruits", force: :cascade do |t|
-    t.string "external_id", null: false
+    t.string "human_resources_id", null: false
     t.bigint "evaluator_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["evaluator_id"], name: "index_recruits_on_evaluator_id"
-    t.index ["external_id"], name: "index_recruits_on_external_id", unique: true
+    t.index ["human_resources_id"], name: "index_recruits_on_human_resources_id", unique: true
   end
 
   create_table "sections", force: :cascade do |t|
