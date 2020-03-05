@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const el = document.getElementById('hello')
 
   if (el != null) {
-    const app = new Vue({ // eslint-disable-line no-unused-vars
+    new Vue({
       el,
       i18n,
       router,
