@@ -27,6 +27,15 @@ module V2
       )
     end
 
+    def update
+      update_form.save
+
+      render(
+        json: V2::RecruitDocuments::Serializer.render(update_form.recruit_document),
+        status: :ok
+      )
+    end
+
     private
 
     def recruit_document
@@ -39,6 +48,14 @@ module V2
     def create_form
       @create_form ||= V2::RecruitDocuments::BasicForm.new(
         RecruitDocument.new,
+        params: recruit_document_params,
+        user: current_user
+      )
+    end
+
+    def update_form
+      @update_form ||= V2::RecruitDocuments::BasicForm.new(
+        recruit_document,
         params: recruit_document_params,
         user: current_user
       )

@@ -203,4 +203,100 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
       end
     end
   end
+
+  describe '#update' do
+    context 'when unauthorized' do
+      it 'responds with 401' do
+        params = {
+          id: 1,
+          recruit_document: {
+            first_name: 'Franek'
+          }
+        }
+
+        put :update, params: params
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'updates recruit document' do
+        recruit_document = FactoryBot.create(:recruit_document)
+
+        params = {
+          id: recruit_document.id,
+          recruit_document: {
+            group: 'Designers'
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          put :update, params: params
+
+          recruit_document.reload
+        end.to(change { recruit_document.group }.to('Designers'))
+
+        expect(response).to have_http_status 200
+        expect(response.body).to be_json_eql recruit_document_schema(recruit_document)
+      end
+
+      it 'creates proper activity' do
+        recruit_document = FactoryBot.create(:recruit_document)
+
+        params = {
+          id: recruit_document.id,
+          recruit_document: {
+            position: 'Junior Designer'
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          put :update, params: params
+        end.to(change { Activity.count }.by(1))
+
+        expect(Activity.last).to have_attributes(
+          action: 'update',
+          activable_name: 'Junior Designer'
+        )
+      end
+
+      it 'responds with 422 if invalid recruit document params' do
+        recruit_document = FactoryBot.create(:recruit_document)
+
+        params = {
+          id: recruit_document.id,
+          recruit_document: {
+            group: ''
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          put :update, params: params
+        end.not_to(change { recruit_document.reload.group })
+
+        expect(response).to have_http_status 422
+      end
+
+      it 'responds with 404 if recruitment not found' do
+        params = {
+          id: 1,
+          recruit_document: {
+            first_name: 'Szczepan',
+            group: 'Designers'
+          }
+        }
+
+        sign_in admin
+        put :update, params: params
+
+        expect(response).to have_http_status 404
+      end
+    end
+  end
 end
