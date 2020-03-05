@@ -97,4 +97,110 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
       end
     end
   end
+
+  describe '#create' do
+    context 'when unauthorized' do
+      it 'responds with error' do
+        params = {
+          recruit_document: {
+            first_name: 'Franek',
+            last_name: 'Kimono',
+            email: 'fkimono@example.com',
+            gender: 'male',
+            phone: '000-000-000',
+            status: 'fresh',
+            position: 'Junior RoR Dev',
+            group: 'Ruby',
+            received_at: 1.minute.ago.to_s,
+            source: 'website'
+          }
+        }
+
+        post :create, params: params
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'creates recruit, recruit document and responds 201' do
+        params = {
+          recruit_document: {
+            first_name: 'Franek',
+            last_name: 'Kimono',
+            email: 'fkimono@example.com',
+            gender: 'male',
+            phone: '000-000-000',
+            status: 'fresh',
+            position: 'Junior RoR Dev',
+            group: 'Ruby',
+            received_at: 1.minute.ago.to_s,
+            source: 'website'
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          post :create, params: params
+        end.to(change { Recruit.count }.by(1).and(change { RecruitDocument.count }.by(1)))
+
+        expect(response).to have_http_status 201
+        expect(response.body).to be_json_eql recruit_document_schema(RecruitDocument.last)
+      end
+
+      it 'creates proper activity' do
+        params = {
+          recruit_document: {
+            first_name: 'Franek',
+            last_name: 'Kimono',
+            email: 'fkimono@example.com',
+            gender: 'male',
+            phone: '000-000-000',
+            status: 'fresh',
+            position: 'Junior RoR Dev',
+            group: 'Ruby',
+            received_at: 1.minute.ago.to_s,
+            source: 'website'
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          post :create, params: params
+        end.to(change { Activity.count }.by(1))
+
+        expect(Activity.last).to have_attributes(
+          action: 'create',
+          activable_name: 'Junior RoR Dev'
+        )
+      end
+
+      it 'responds with 422 if invalid recruit document' do
+        params = {
+          recruit_document: {
+            first_name: '',
+            last_name: 'Kimono',
+            email: 'fkimono@example.com',
+            gender: 'male',
+            phone: '000-000-000',
+            status: 'fresh',
+            position: 'Junior RoR Dev',
+            group: 'Ruby',
+            received_at: 1.minute.ago.to_s,
+            source: 'website'
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          post :create, params: params
+        end.not_to(change { RecruitDocument.count })
+
+        expect(response).to have_http_status 422
+        expect(json_response['details'].first).to eq 'First name can\'t be blank'
+      end
+    end
+  end
 end

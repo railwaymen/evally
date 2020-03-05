@@ -4,18 +4,6 @@ module V2
   class RecruitmentsController < ApplicationController
     before_action :authenticate_user!
 
-    def show
-      presenter = V2::Recruitments::ShowPresenter.new(recruitment)
-
-      render json: V2::Recruitments::ShowView.render(presenter), status: :ok
-    end
-
-    def create
-      create_form.save
-
-      render json: V2::Recruitments::Serializer.render(create_form.recruitment), status: :created
-    end
-
     def update
       update_form.save
 
@@ -35,13 +23,6 @@ module V2
       raise ErrorResponderService.new(:record_not_found, 404) unless @recruitment
 
       @recruitment
-    end
-
-    def create_form
-      @create_form ||= V2::Recruitments::CreateForm.new(
-        params: recruitment_params,
-        user: current_user
-      )
     end
 
     def update_form

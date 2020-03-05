@@ -18,6 +18,15 @@ module V2
       render json: V2::RecruitDocuments::ShowView.render(presenter), status: :ok
     end
 
+    def create
+      create_form.save
+
+      render(
+        json: V2::RecruitDocuments::Serializer.render(create_form.recruit_document),
+        status: :created
+      )
+    end
+
     private
 
     def recruit_document
@@ -25,6 +34,21 @@ module V2
       raise ErrorResponderService.new(:record_not_found, 404) unless @recruit_document
 
       @recruit_document
+    end
+
+    def create_form
+      @create_form ||= V2::RecruitDocuments::BasicForm.new(
+        RecruitDocument.new,
+        params: recruit_document_params,
+        user: current_user
+      )
+    end
+
+    def recruit_document_params
+      params.require(:recruit_document).permit(
+        :first_name, :last_name, :gender, :email, :phone, :position, :group, :received_at, :source,
+        :status
+      )
     end
   end
 end
