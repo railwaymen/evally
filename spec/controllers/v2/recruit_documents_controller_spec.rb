@@ -67,4 +67,34 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
       end
     end
   end
+
+  describe '#show' do
+    context 'when unauthorized' do
+      it 'responds with error' do
+        get :show, params: { id: 1 }
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with recruit_document' do
+        recruit_document = FactoryBot.create(:recruit_document)
+
+        sign_in admin
+        get :show, params: { id: recruit_document.id }
+
+        expect(response).to have_http_status 200
+        expect(json_response['recruit_document'].to_json).to be_json_eql(
+          recruit_document_schema(recruit_document)
+        )
+      end
+
+      it 'responds with 404 if invalid recruit_document' do
+        sign_in admin
+        get :show, params: { id: 1 }
+
+        expect(response).to have_http_status 404
+      end
+    end
+  end
 end
