@@ -28,8 +28,9 @@ class RecruitDocument extends Model {
 
   static get routes() {
     return {
-      recruitDocumentsPath: (group, status) => `/v2/recruit_documents?group=${group}&status=${status}`,
-      recruitDocumentPath: id => `/v2/recruit_documents/${id}`
+      recruitDocumentsFilterPath: (group, status) => `/v2/recruit_documents?group=${group}&status=${status}`,
+      recruitDocumentPath: id => `/v2/recruit_documents/${id}`,
+      recruitDocumentsPath: '/v2/recruitments',
     }
   }
 }

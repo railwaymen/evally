@@ -82,10 +82,10 @@ export default {
   },
   methods:{
     fitrByGroup(group) {
-      this.$store.dispatch('RecruitmentsModule/index', group, null)
+      this.$store.dispatch('RecruitmentsModule/indexFilter', group, null)
     },
     fitrByStatus(status) {
-      this.$store.dispatch('RecruitmentsModule/index', null, status)
+      this.$store.dispatch('RecruitmentsModule/indexFilter', null, status)
     }
   },
   data() {

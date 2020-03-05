@@ -50,10 +50,31 @@ const RecruitmentsModule = {
   },
 
   actions: {
-    index({ commit }, group, status) {
+    index({ commit }) {
       commit('setLoading', true)
 
-      http.get(RecruitDocument.routes.recruitDocumentsPath(group, status))
+      http.get(RecruitDocument.routes.recruitDocumentsPath)
+        .then(response => {
+          commit('setList', response.data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.recruitments.index.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+        })
+        .finally(() => commit('setLoading', false))
+    },
+    indexFilter({ commit }, group, status) {
+      commit('setLoading', true)
+
+      const g = (typeof group == "undefined") ? '' : group
+      const s = (typeof status == "undefined") ? '' : status
+
+      console.log(Recruitment.routes.recruitmentsFilterPath(g, s))
+
+      http.get(RecruitDocument.routes.recruitDocumentsFilterPath(g, s))
         .then(response => {
           commit('setList', response.data)
         })
