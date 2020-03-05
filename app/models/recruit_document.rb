@@ -5,13 +5,27 @@ class RecruitDocument < HumanResourcesRecord
 
   # # Associations
   #
-  belongs_to :recruit, primary_key: 'external_id', foreign_key: 'encrypted_email'
+  belongs_to :recruit, primary_key: 'external_id', foreign_key: 'encrypted_email',
+                       inverse_of: :recruit_documents, optional: true
+
+  # # Scopes
+  #
+  scope :by_group, proc { |val| where(group: val) if val.present? }
+  scope :by_status, proc { |val| where(status: val) if val.present? }
 
   # # Validations
   #
   validates :email, presence: true, format: URI::MailTo::EMAIL_REGEXP
   validates :first_name, :last_name, :position, :group, :received_at, :source, :encrypted_email,
-            presence: true
+            :status, presence: true
+
+  # # Enums
+  #
+  enum status: {
+    fresh: 'fresh',
+    accepted: 'accepted',
+    rejected: 'rejected'
+  }
 
   # # Callbacks
   #

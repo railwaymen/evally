@@ -10,5 +10,9 @@ FactoryBot.define do
     group             { 'Ruby' }
     received_at       { 1.minute.ago }
     source            { 'website' }
+
+    after(:create) do |document|
+      create(:recruit, external_id: document.encrypted_email)
+    end
   end
 end

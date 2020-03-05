@@ -4,14 +4,6 @@ module V2
   class RecruitmentsController < ApplicationController
     before_action :authenticate_user!
 
-    def index
-      presenter = V2::Recruitments::IndexPresenter.new(
-        scope: Recruitment.by_group(params.dig(:group)).by_status(params.dig(:status))
-      )
-
-      render json: V2::Recruitments::IndexView.render(presenter), status: :ok
-    end
-
     def show
       presenter = V2::Recruitments::ShowPresenter.new(recruitment)
 

@@ -11,6 +11,7 @@ class CreateRecruitDocuments < ActiveRecord::Migration[6.0]
       t.string :group, null: false
       t.datetime :received_at, null: false
       t.string :source, null: false
+      t.string :status, null: false, default: 'fresh'
 
       t.timestamps
     end
@@ -18,5 +19,6 @@ class CreateRecruitDocuments < ActiveRecord::Migration[6.0]
     add_index :recruit_documents, :email, unique: true
     add_index :recruit_documents, :encrypted_email
     add_index :recruit_documents, :group
+    add_index :recruit_documents, :status
   end
 end

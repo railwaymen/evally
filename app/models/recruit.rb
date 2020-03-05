@@ -6,7 +6,7 @@ class Recruit < ApplicationRecord
   belongs_to :evaluator, class_name: 'User', optional: true
 
   has_many :recruit_documents, foreign_key: 'encrypted_email', primary_key: 'external_id',
-           dependent: :destroy
+                               inverse_of: :recruit, dependent: :destroy
 
   # # Validation
   #

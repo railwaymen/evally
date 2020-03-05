@@ -4,9 +4,11 @@ require 'rails_helper'
 
 RSpec.describe RecruitDocument, type: :model do
   it do
-    is_expected.to belong_to(:recruit)
-               .with_primary_key('external_id')
-               .with_foreign_key('encrypted_email')
+    is_expected
+      .to belong_to(:recruit)
+      .with_primary_key('external_id')
+      .with_foreign_key('encrypted_email')
+      .optional
   end
 
   it { is_expected.to validate_presence_of(:email) }
@@ -22,4 +24,12 @@ RSpec.describe RecruitDocument, type: :model do
   it { is_expected.to validate_presence_of(:received_at) }
 
   it { is_expected.to validate_presence_of(:source) }
+
+  it { is_expected.to validate_presence_of(:status) }
+
+  describe 'enums' do
+    it 'expects correct values for state' do
+      is_expected.to define_enum_for(:status).backed_by_column_of_type(:string)
+    end
+  end
 end

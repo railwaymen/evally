@@ -26,11 +26,13 @@ ActiveRecord::Schema.define(version: 2020_03_05_093549) do
     t.string "group", null: false
     t.datetime "received_at", null: false
     t.string "source", null: false
+    t.string "status", default: "fresh", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_recruit_documents_on_email", unique: true
     t.index ["encrypted_email"], name: "index_recruit_documents_on_encrypted_email"
     t.index ["group"], name: "index_recruit_documents_on_group"
+    t.index ["status"], name: "index_recruit_documents_on_status"
   end
 
 end
