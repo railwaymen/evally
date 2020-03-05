@@ -1,6 +1,4 @@
 import { Model, List } from './base'
-import i18n from '@locales/i18n'
-
 import moment from 'moment'
 
 class Recruitment extends Model {

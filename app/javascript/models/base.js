@@ -9,7 +9,7 @@ class Model {
   }
 
   get attributes() {
-    const { id, errors, ...attrs } = this
+    const { id, errors, ...attrs } = this // eslint-disable-line  no-unused-vars
     return attrs
   }
 

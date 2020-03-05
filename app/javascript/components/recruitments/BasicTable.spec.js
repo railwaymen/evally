@@ -28,7 +28,7 @@ describe('BasicTable', () => {
 
   it('props', () => {
      expect(wrapper.props().loading).toEqual(false)
-     expect(wrapper.props().recruitments.models.length).toEqual(0)
+     expect(wrapper.props().recruitments.models).toHaveLength(0)
    })
 
    it('data.search', () => {

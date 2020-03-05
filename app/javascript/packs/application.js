@@ -25,7 +25,6 @@ Vue.use(Vuex)
 // Vuetify
 import vuetify from '@plugins/vuetify'
 
-
 // Vue2Clipboard
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard)
@@ -52,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const el = document.getElementById('hello')
 
   if (el != null) {
-    const app = new Vue({
+    new Vue({
       el,
       i18n,
       router,
@@ -60,7 +59,5 @@ document.addEventListener('DOMContentLoaded', () => {
       vuetify,
       render: h => h(App)
     })
-
-    if (process.env.NODE_ENV !== 'production') console.log(app)
   }
 })
