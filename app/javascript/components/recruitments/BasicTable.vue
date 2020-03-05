@@ -10,8 +10,10 @@
         />
       </v-flex>
 
-      <v-combobox :items="groupOptions" @change="setGroupFilter" />
-      <v-combobox :items="statusOptions" @change="setStatusFilter" />
+      <v-combobox :items="groups" :label="$t('components.recruitments.table.groupFilter')"
+                  :clearable="true"  @change="setGroupFilter" />
+      <v-combobox :items="statuses" :label="$t('components.recruitments.table.statusFilter')"
+                  :clearable="true" @change="setStatusFilter" />
 
       <v-flex xs12>
         <v-data-table
@@ -82,24 +84,18 @@ export default {
   },
   methods:{
     setGroupFilter(group) {
+      if(typeof group == "undefined" || typeof group == null || typeof group == "object"){
+        group = ''
+      }
       this.groupFilter = group
       this.$store.dispatch('RecruitmentsModule/indexFilter', {group: this.groupFilter, status: this.statusFilter})
     },
     setStatusFilter(status) {
+      if(typeof status == "undefined" || typeof status == null || typeof status == "object"){
+        status = ''
+      }
       this.statusFilter = status
       this.$store.dispatch('RecruitmentsModule/indexFilter', {group: this.groupFilter, status: this.statusFilter})
-    }
-  },
-  computed:{
-    groupOptions: function() {
-      const options = this.groups
-      options.unshift('')
-      return options
-    },
-    statusOptions: function() {
-      const options = this.statuses
-      options.unshift('')
-      return options
     }
   },
   data() {
