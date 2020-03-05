@@ -7,9 +7,18 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  <<: *default
-  database: evally_development
+  primary:
+    <<: *default
+    database: evally_development
+  hr:
+    <<: *default
+    database: evally_hr_development
+    migrations_paths: db/hr_migrate
 
 test:
-  <<: *default
-  database: evally_test
+  primary:
+    <<: *default
+    database: evally_test
+  hr:
+    <<: *default
+    database: evally_hr_test
