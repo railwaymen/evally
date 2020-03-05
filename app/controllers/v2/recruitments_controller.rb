@@ -5,7 +5,9 @@ module V2
     before_action :authenticate_user!
 
     def index
-      presenter = V2::Recruitments::IndexPresenter.new
+      presenter = V2::Recruitments::IndexPresenter.new(
+        scope: Recruitment.by_group(params.dig(:group)).by_status(params.dig(:status))
+      )
 
       render json: V2::Recruitments::IndexView.render(presenter), status: :ok
     end

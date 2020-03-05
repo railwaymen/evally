@@ -36,6 +36,38 @@ RSpec.describe V2::RecruitmentsController, type: :controller do
         expect(response).to have_http_status 200
         expect(response.body).to have_json_size(1).at_path('recruitments')
       end
+
+      it 'responds with recruitments by group' do
+        candidate1 = FactoryBot.create(:candidate)
+        recruitment1 = FactoryBot.create(:recruitment, group: 'Ruby', candidate: candidate1)
+
+        candidate2 = FactoryBot.create(:candidate)
+        FactoryBot.create(:recruitment, group: 'Android', candidate: candidate2)
+
+        sign_in admin
+        get :index, params: { group: 'Ruby' }
+
+        expect(response).to have_http_status 200
+
+        expect(response.body).to have_json_size(1).at_path('recruitments')
+        expect(json_response['recruitments'].map { |r| r['id'] }).to contain_exactly recruitment1.id
+      end
+
+      it 'responds with recruitments by status' do
+        candidate1 = FactoryBot.create(:candidate)
+        recruitment1 = FactoryBot.create(:recruitment, status: 'ongoing', candidate: candidate1)
+
+        candidate2 = FactoryBot.create(:candidate)
+        FactoryBot.create(:recruitment, status: 'fresh', candidate: candidate2)
+
+        sign_in admin
+        get :index, params: { status: 'ongoing' }
+
+        expect(response).to have_http_status 200
+
+        expect(response.body).to have_json_size(1).at_path('recruitments')
+        expect(json_response['recruitments'].map { |r| r['id'] }).to contain_exactly recruitment1.id
+      end
     end
   end
 
