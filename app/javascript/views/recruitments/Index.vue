@@ -18,6 +18,24 @@
       </div>
 
       <div class="panel__actions">
+        <v-tooltip
+          v-if="$route.name === 'recruitments_path'"
+          key="addNew"
+          bottom
+        >
+          <template #activator="{ on }">
+            <v-btn
+              @click="openCreateForm"
+              v-on="on"
+              color="green"
+              icon
+            >
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </template>
+
+          <span>{{ $t('shared.tooltips.addNew') }}</span>
+        </v-tooltip>
       </div>
     </div>
 
@@ -41,6 +59,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { Recruitment } from '@models/recruitment'
 
 import BasicTable from '@components/recruitments/BasicTable'
 
@@ -48,6 +67,15 @@ export default {
   name: 'RecruitmentsIndex',
   components: { BasicTable },
   methods: {
+    openCreateForm() {
+      DialogsBus.$emit('openFormsDialog', {
+        innerComponent: RecruitmentForm,
+        maxWidth: 800,
+        props: {
+          employee: new Employee()
+        }
+      })
+    },
     ...mapActions({
       fetchData: 'RecruitmentsModule/index'
     })
