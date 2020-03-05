@@ -6,8 +6,8 @@ exports[`BasicTable matches do snapshot 1`] = `
     <v-flex-stub xs12="" lg6="">
       <v-text-field-stub append-icon="mdi-magnify" label="Search ..." filled="" value=""></v-text-field-stub>
     </v-flex-stub>
-    <v-combobox-stub items=",ror,android"></v-combobox-stub>
-    <v-combobox-stub items=",fresh,accepted"></v-combobox-stub>
+    <v-combobox-stub items="ror,android" label="Group" clearable="true"></v-combobox-stub>
+    <v-combobox-stub items="fresh,accepted" label="Status" clearable="true"></v-combobox-stub>
     <v-flex-stub xs12="">
       <v-data-table-stub headers="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]" items="" search=""></v-data-table-stub>
     </v-flex-stub>
