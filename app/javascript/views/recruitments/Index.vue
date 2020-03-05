@@ -8,8 +8,6 @@
       <div class="panel__nav">
         <v-btn
           color="primary"
-          @click="fetchData"
-          :to="{ name: 'recruitments_path' }"
           exact
           text
         >
@@ -24,14 +22,15 @@
           bottom
         >
           <template #activator="{ on }">
+            <router-link :to="{ name: 'new_recruitment_path'}">
             <v-btn
-              @click="openCreateForm"
               v-on="on"
               color="green"
               icon
             >
               <v-icon>mdi-plus</v-icon>
             </v-btn>
+            </router-link>
           </template>
 
           <span>{{ $t('shared.tooltips.addNew') }}</span>
@@ -59,23 +58,16 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+
 import { Recruitment } from '@models/recruitment'
 
 import BasicTable from '@components/recruitments/BasicTable'
+import RecruitmentForm from '@components/recruitments/RecruitmentForm'
 
 export default {
   name: 'RecruitmentsIndex',
   components: { BasicTable },
   methods: {
-    openCreateForm() {
-      DialogsBus.$emit('openFormsDialog', {
-        innerComponent: RecruitmentForm,
-        maxWidth: 800,
-        props: {
-          employee: new Employee()
-        }
-      })
-    },
     ...mapActions({
       fetchData: 'RecruitmentsModule/index'
     })

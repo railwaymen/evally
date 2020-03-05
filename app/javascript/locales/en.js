@@ -1,5 +1,13 @@
 export default {
   shared: {
+    general:{
+      fields: {
+        firstName: 'First name',
+        lastName: 'Last name',
+        email: 'Email',
+        phoneNumber: 'Phone number'
+      }
+    },
     buttons: {
       cancel: 'Cancel',
       create: 'Create',
@@ -295,7 +303,11 @@ export default {
           status: 'Status',
           position: 'Position',
           receivedAt: 'Received Date'
-        }
+        },
+      },
+      recruitmentForm: {
+        createTitle: 'New recruitment',
+        contact: 'Contact'
       },
       sidebar: {
         gender: 'Gender',

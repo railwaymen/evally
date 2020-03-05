@@ -72,6 +72,11 @@ export default new Router({
           component: () => import(/* webpackChunkName: 'recruitments' */ '@views/recruitments/Index'),
           children: [
             {
+              path: 'new',
+              name: 'new_recruitment_path',
+              component: () => import(/* webpackChunkName: 'recruitment' */ '@views/recruitments/New'),
+            },
+            {
               path: ':id',
               name: 'recruitment_path',
               component: () => import(/* webpackChunkName: 'recruitment' */ '@views/recruitments/Show'),
