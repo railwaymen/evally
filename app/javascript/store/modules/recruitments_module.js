@@ -66,15 +66,14 @@ const RecruitmentsModule = {
         })
         .finally(() => commit('setLoading', false))
     },
-    indexFilter({ commit }, group, status) {
+    indexFilter({ commit }, payload) {
       commit('setLoading', true)
 
-      const g = (typeof group == "undefined") ? '' : group
-      const s = (typeof status == "undefined") ? '' : status
+      const {group, status} = payload
 
-      console.log(Recruitment.routes.recruitmentsFilterPath(g, s))
+      console.log(RecruitDocument.routes.recruitDocumentsFilterPath(group, status))
 
-      http.get(RecruitDocument.routes.recruitDocumentsFilterPath(g, s))
+      http.get(RecruitDocument.routes.recruitDocumentsFilterPath(group, status))
         .then(response => {
           commit('setList', response.data)
         })
