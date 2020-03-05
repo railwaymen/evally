@@ -18,7 +18,7 @@ describe('BasicTable', () => {
     BasicTable,
     {
       propsData: props,
-      stubs: ['v-layout', 'v-data-table', 'v-flex', 'v-text-field', 'v-combobox'],
+      stubs: ['v-layout', 'v-data-table', 'v-flex', 'v-text-field', 'v-select'],
       mocks: {
         $t: key => i18n.t(key)
       }
@@ -29,15 +29,15 @@ describe('BasicTable', () => {
   })
 
   it('props', () => {
-     expect(wrapper.props().loading).toEqual(false)
-     expect(wrapper.props().recruitDocuments.models).toHaveLength(0)
-   })
+    expect(wrapper.props().loading).toEqual(false)
+    expect(wrapper.props().recruitDocuments.models).toHaveLength(0)
+  })
 
-   it('data.search', () => {
+  it('data.search', () => {
     expect(wrapper.vm.search).toEqual('')
-   })
+  })
 
-   it('data.headers', () => {
+  it('data.headers', () => {
     expect(wrapper.vm.headers).toEqual([{
       sortable: false,
       value: 'action',
@@ -52,7 +52,8 @@ describe('BasicTable', () => {
     },
     {
       text: i18n.t('components.recruitments.table.cols.group'),
-      value: 'group'
+      value: 'group',
+      filterable: false
     },
     {
       text: i18n.t('components.recruitments.table.cols.position'),
@@ -60,13 +61,14 @@ describe('BasicTable', () => {
     },
     {
       text: i18n.t('components.recruitments.table.cols.status'),
-      value: 'status'
+      value: 'status',
+      filterable: false
     },
     {
       text: i18n.t('components.recruitments.table.cols.receivedAt'),
       value: 'received_at'
     }])
-   })
+  })
 
   it('matches do snapshot', () => {
     expect(wrapper.html()).toMatchSnapshot()

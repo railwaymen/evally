@@ -57,7 +57,8 @@
       "vue$": "vue/dist/vue",
       "@components(.*)$": "<rootDir>/app/javascript/components/$1",
       "@locales(.*)$": "<rootDir>/app/javascript/locales/$1",
-      "@models(.*)$": "<rootDir>/app/javascript/models/$1"
+      "@models(.*)$": "<rootDir>/app/javascript/models/$1",
+      "@utils(.*)$": "<rootDir>/app/javascript/utils/$1"
     },
     "moduleDirectories": [
       "node_modules"
