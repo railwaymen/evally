@@ -13,7 +13,7 @@
       <v-flex xs12>
         <v-data-table
           :headers="headers"
-          :items="recruitments.models"
+          :items="recruitDocuments.models"
           :search="search"
           :loading="loading"
         >
@@ -41,7 +41,7 @@
           </template>
 
           <template #item.received_at="{ item }">
-            {{ item.receivedOn }}
+            {{ item.receivedAt }}
           </template>
 
         </v-data-table>
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { RecruitmentsList } from '@models/recruitment'
+import { RecruitDocumentsList } from '@models/recruit_document'
 
 export default {
   name: 'BasicTable',
@@ -61,10 +61,10 @@ export default {
       required: true,
       default: false
     },
-    recruitments: {
-      type: RecruitmentsList,
+    recruitDocuments: {
+      type: RecruitDocumentsList,
       required: true,
-      default: () => new RecruitmentsList()
+      default: () => new RecruitDocumentsList()
     }
   },
   data() {

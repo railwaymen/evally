@@ -3,11 +3,14 @@ import i18n from '@locales/i18n'
 
 import RecruitmentsSidebar from './RecruitmentsSidebar'
 
-import { Recruitment } from '@models/recruitment'
+import { RecruitDocument } from '@models/recruit_document'
 
 describe('RecruitmentsSidebar', () => {
   const props = {
-    recruitment: new Recruitment({email: 'e@domain.org', received_at: '2020-02-10'}),
+    recruitDocument: new RecruitDocument({
+      email: 'e@domain.org',
+      received_at: '2020-02-10'
+    }),
   }
 
   const wrapper = shallowMount(
@@ -25,7 +28,7 @@ describe('RecruitmentsSidebar', () => {
   })
 
   it('props', () => {
-     expect(wrapper.props().recruitment.email).toEqual('e@domain.org')
+     expect(wrapper.props().recruitDocument.email).toEqual('e@domain.org')
    })
 
   it('matches do snapshot', () => {

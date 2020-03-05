@@ -25,7 +25,7 @@
         <v-container grid-list-lg fluid>
           <basic-table
             v-if="$route.name === 'recruitments_path'"
-            :recruitments="recruitments"
+            :recruitDocuments="recruitDocuments"
             :loading="loading"
           />
 
@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      recruitments: 'RecruitmentsModule/recruitments',
+      recruitDocuments: 'RecruitmentsModule/recruitDocuments',
       loading: 'RecruitmentsModule/loading'
     })
   },

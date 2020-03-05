@@ -2,7 +2,7 @@
   <v-layout row wrap>
     <v-flex xs10 offset-xs1 lg3 offset-lg0>
       <recruitments-sidebar
-        :recruitment="recruitment"
+        :recruitDocument="recruitDocument"
       />
     </v-flex>
   </v-layout>
@@ -10,7 +10,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { Recruitment } from '@models/recruitment'
 import RecruitmentsSidebar from '@components/recruitments/RecruitmentsSidebar'
 
 export default {
@@ -18,7 +17,7 @@ export default {
   components: { RecruitmentsSidebar },
   computed: {
      ...mapGetters({
-      recruitment: 'RecruitmentsModule/recruitment'
+      recruitDocument: 'RecruitmentsModule/recruitDocument'
     })
   },
   created() {

@@ -1,11 +1,10 @@
 import { Model, List } from './base'
 import moment from 'moment'
 
-class Recruitment extends Model {
+class RecruitDocument extends Model {
   get defaults() {
     return {
       id: null,
-      candidate_id: null,
       gender: '',
       first_name: '',
       last_name: '',
@@ -15,7 +14,6 @@ class Recruitment extends Model {
       phone: '',
       position: '',
       received_at: '',
-      social_links: '',
       source: ''
     };
   }
@@ -24,22 +22,22 @@ class Recruitment extends Model {
     return [this.first_name, this.last_name].join(' ')
   }
 
-  get receivedOn() {
-    return moment(this.received_at).format('MMM DD, YYYY')
+  get receivedAt() {
+    return moment(this.received_at).format('MMM DD, YYYY HH:mm')
   }
 
   static get routes() {
     return {
-      recruitmentsPath: '/v2/recruitments',
-      recruitmentPath: id => `/v2/recruitments/${id}`
+      recruitDocumentsPath: '/v2/recruit_documents',
+      recruitDocumentPath: id => `/v2/recruit_documents/${id}`
     }
   }
 }
 
-class RecruitmentsList extends List {
+class RecruitDocumentsList extends List {
   get model() {
-    return Recruitment;
+    return RecruitDocument;
   }
 }
 
-export { Recruitment, RecruitmentsList };
+export { RecruitDocument, RecruitDocumentsList };
