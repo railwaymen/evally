@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_01_131600) do
+ActiveRecord::Schema.define(version: 2020_03_05_110346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,18 +25,6 @@ ActiveRecord::Schema.define(version: 2020_03_01_131600) do
     t.datetime "updated_at", null: false
     t.index ["activable_type", "activable_id"], name: "index_activities_on_activable_type_and_activable_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
-  end
-
-  create_table "candidates", force: :cascade do |t|
-    t.string "email", null: false
-    t.string "first_name", null: false
-    t.string "last_name", null: false
-    t.string "gender"
-    t.bigint "evaluator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_candidates_on_email", unique: true
-    t.index ["evaluator_id"], name: "index_candidates_on_evaluator_id"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -82,20 +70,13 @@ ActiveRecord::Schema.define(version: 2020_03_01_131600) do
     t.index ["employee_id"], name: "index_position_changes_on_employee_id"
   end
 
-  create_table "recruitments", force: :cascade do |t|
-    t.bigint "candidate_id"
-    t.string "status", default: "fresh", null: false
-    t.string "group", null: false
-    t.string "position", null: false
-    t.datetime "received_at", null: false
-    t.string "source"
-    t.string "phone"
-    t.jsonb "social_links"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["candidate_id"], name: "index_recruitments_on_candidate_id"
-    t.index ["group"], name: "index_recruitments_on_group"
-    t.index ["status"], name: "index_recruitments_on_status"
+  create_table "recruits", force: :cascade do |t|
+    t.string "external_id", null: false
+    t.bigint "evaluator_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["evaluator_id"], name: "index_recruits_on_evaluator_id"
+    t.index ["external_id"], name: "index_recruits_on_external_id", unique: true
   end
 
   create_table "sections", force: :cascade do |t|
@@ -168,11 +149,10 @@ ActiveRecord::Schema.define(version: 2020_03_01_131600) do
   end
 
   add_foreign_key "activities", "users"
-  add_foreign_key "candidates", "users", column: "evaluator_id"
   add_foreign_key "employees", "users", column: "evaluator_id"
   add_foreign_key "evaluations", "employees"
   add_foreign_key "position_changes", "employees"
-  add_foreign_key "recruitments", "candidates"
+  add_foreign_key "recruits", "users", column: "evaluator_id"
   add_foreign_key "settings", "users"
   add_foreign_key "templates", "users", column: "creator_id"
 end

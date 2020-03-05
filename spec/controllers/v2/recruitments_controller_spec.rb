@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe V2::RecruitmentsController, type: :controller do
   let(:admin) { create(:user, role: 'admin') }
 
-  describe '#index' do
+  xdescribe '#index' do
     context 'when unauthorized' do
       it 'responds with error' do
         get :index
@@ -71,7 +71,7 @@ RSpec.describe V2::RecruitmentsController, type: :controller do
     end
   end
 
-  describe '#show' do
+  xdescribe '#show' do
     context 'when unauthorized' do
       it 'responds with error' do
         get :show, params: { id: 1 }
@@ -100,7 +100,7 @@ RSpec.describe V2::RecruitmentsController, type: :controller do
     end
   end
 
-  describe '#create' do
+  xdescribe '#create' do
     context 'when unauthorized' do
       it 'responds with error' do
         params = {
@@ -252,7 +252,7 @@ RSpec.describe V2::RecruitmentsController, type: :controller do
     end
   end
 
-  describe '#update' do
+  xdescribe '#update' do
     context 'when unauthorized' do
       it 'responds with 401' do
         params = {

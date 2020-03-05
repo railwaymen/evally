@@ -3,6 +3,10 @@
 class RecruitmentDocument < HumanResourcesRecord
   attr_readonly :encrypted_email
 
+  # # Associations
+  #
+  belongs_to :recruit, primary_key: 'external_id', foreign_key: 'encrypted_email'
+
   # # Validations
   #
   validates :email, presence: true, format: URI::MailTo::EMAIL_REGEXP

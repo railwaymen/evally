@@ -3,6 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe RecruitmentDocument, type: :model do
+  it do
+    is_expected.to belong_to(:recruit)
+               .with_primary_key('external_id')
+               .with_foreign_key('encrypted_email')
+  end
+
   it { is_expected.to validate_presence_of(:email) }
 
   it { is_expected.to validate_presence_of(:first_name) }
