@@ -1,8 +1,9 @@
-class CreateRecruitmentDocuments < ActiveRecord::Migration[6.0]
+class CreateRecruitDocuments < ActiveRecord::Migration[6.0]
   def change
-    create_table :recruitment_documents do |t|
+    create_table :recruit_documents do |t|
       t.string :first_name, null: false
       t.string :last_name, null: false
+      t.string :gender
       t.string :email, null: false
       t.string :encrypted_email, null: false
       t.string :phone
@@ -14,8 +15,8 @@ class CreateRecruitmentDocuments < ActiveRecord::Migration[6.0]
       t.timestamps
     end
 
-    add_index :recruitment_documents, :email, unique: true
-    add_index :recruitment_documents, :encrypted_email
-    add_index :recruitment_documents, :group
+    add_index :recruit_documents, :email, unique: true
+    add_index :recruit_documents, :encrypted_email
+    add_index :recruit_documents, :group
   end
 end

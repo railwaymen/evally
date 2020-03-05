@@ -15,9 +15,10 @@ ActiveRecord::Schema.define(version: 2020_03_05_093549) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "recruitment_documents", force: :cascade do |t|
+  create_table "recruit_documents", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
+    t.string "gender"
     t.string "email", null: false
     t.string "encrypted_email", null: false
     t.string "phone"
@@ -27,9 +28,9 @@ ActiveRecord::Schema.define(version: 2020_03_05_093549) do
     t.string "source", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_recruitment_documents_on_email", unique: true
-    t.index ["encrypted_email"], name: "index_recruitment_documents_on_encrypted_email"
-    t.index ["group"], name: "index_recruitment_documents_on_group"
+    t.index ["email"], name: "index_recruit_documents_on_email", unique: true
+    t.index ["encrypted_email"], name: "index_recruit_documents_on_encrypted_email"
+    t.index ["group"], name: "index_recruit_documents_on_group"
   end
 
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :recruitment_document do
+  factory :recruit_document do
     first_name        { 'John' }
     last_name         { 'Doe' }
     sequence(:email)  { |n| "recruit#{n}@example.com" }

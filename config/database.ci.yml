@@ -9,15 +9,15 @@ development:
   primary:
     <<: *default
     database: evally_development
-  hr:
+  human_resources:
     <<: *default
-    database: evally_hr_development
-    migrations_paths: db/hr_migrate
+    database: evally_human_resources_development
+    migrations_paths: db/human_resources_migrate
 
 test:
   primary:
     <<: *default
     database: evally_test
-  hr:
+  human_resources:
     <<: *default
-    database: evally_hr_test
+    database: evally_human_resources_test

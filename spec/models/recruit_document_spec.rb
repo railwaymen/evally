@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe RecruitmentDocument, type: :model do
+RSpec.describe RecruitDocument, type: :model do
   it do
     is_expected.to belong_to(:recruit)
                .with_primary_key('external_id')
