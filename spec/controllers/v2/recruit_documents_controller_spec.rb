@@ -98,6 +98,29 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
     end
   end
 
+  describe '#form' do
+    context 'when unauthorized' do
+      it 'responds with error' do
+        get :form
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with statuses, groups, positions and evaluators' do
+        FactoryBot.create(:recruit_document, group: 'Ruby', position: 'Junior Dev')
+
+        sign_in admin
+        get :form
+
+        expect(response).to have_http_status 200
+        expect(json_response['statuses']).to contain_exactly *RecruitDocument.statuses.keys
+        expect(json_response['groups']).to contain_exactly 'Ruby'
+        expect(json_response['positions']).to contain_exactly 'Junior Dev'
+      end
+    end
+  end
+
   describe '#create' do
     context 'when unauthorized' do
       it 'responds with error' do
