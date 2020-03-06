@@ -6,9 +6,18 @@ default: &default
   password: <%= ENV['db_password'] %>
 
 development:
-  <<: *default
-  database: evally_development
+  primary:
+    <<: *default
+    database: evally_development
+  human_resources:
+    <<: *default
+    database: evally_human_resources_development
+    migrations_paths: db/human_resources_migrate
 
 test:
-  <<: *default
-  database: evally_test
+  primary:
+    <<: *default
+    database: evally_test
+  human_resources:
+    <<: *default
+    database: evally_human_resources_test

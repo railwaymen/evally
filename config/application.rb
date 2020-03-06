@@ -27,6 +27,7 @@ module Evally
       generate.template_engine false
       generate.javascripts false
       generate.system_tests false
+      generate.factory_bot suffix: 'factory'
     end
 
     config.env = Rails.application.config_for(:env)

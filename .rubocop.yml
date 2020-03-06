@@ -42,6 +42,9 @@ Lint/AmbiguousBlockAssociation:
 Rails/SkipsModelValidations:
   Enabled: false
 
+Rails/ApplicationRecord:
+  Enabled: false
+
 Metrics/AbcSize:
   Exclude:
     - app/controllers/**/*

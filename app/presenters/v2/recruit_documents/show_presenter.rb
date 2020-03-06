@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 module V2
-  module Recruitments
+  module RecruitDocuments
     class ShowPresenter
-      attr_reader :recruitment
+      attr_reader :recruit_document
 
-      def initialize(recruitment)
-        @recruitment = recruitment
+      def initialize(recruit_document)
+        @recruit_document = recruit_document
       end
 
       # def status_changes; end

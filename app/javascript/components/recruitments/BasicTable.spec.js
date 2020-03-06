@@ -3,12 +3,12 @@ import i18n from '@locales/i18n'
 
 import BasicTable from './BasicTable'
 
-import { RecruitmentsList } from '@models/recruitment'
+import { RecruitDocumentsList } from '@models/recruit_document'
 
 describe('BasicTable', () => {
   const props = {
     loading: false,
-    recruitments: new RecruitmentsList(),
+    recruitDocuments: new RecruitDocumentsList(),
     editable: false
   }
 
@@ -28,7 +28,7 @@ describe('BasicTable', () => {
 
   it('props', () => {
      expect(wrapper.props().loading).toEqual(false)
-     expect(wrapper.props().recruitments.models).toHaveLength(0)
+     expect(wrapper.props().recruitDocuments.models).toHaveLength(0)
    })
 
    it('data.search', () => {
