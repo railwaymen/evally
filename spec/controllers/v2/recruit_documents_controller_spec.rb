@@ -114,7 +114,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
         get :form
 
         expect(response).to have_http_status 200
-        expect(json_response['statuses']).to contain_exactly *RecruitDocument.statuses.keys
+        expect(json_response['statuses']).to contain_exactly(*RecruitDocument.statuses.keys)
         expect(json_response['groups']).to contain_exactly 'Ruby'
         expect(json_response['positions']).to contain_exactly 'Junior Dev'
       end
