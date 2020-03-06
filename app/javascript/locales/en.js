@@ -547,7 +547,8 @@ export default {
         instruction: 'Select template from list or create a new one',
       },
       show: {
-        label: 'Template Name',
+        name: 'Template Name',
+        destination: 'Destination',
         placeholder: {
           name: 'Employee Name',
           position: 'Position',

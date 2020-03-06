@@ -11,4 +11,11 @@ class Template < ApplicationRecord
   # # Validation
   #
   validates :name, :destination, presence: true
+
+  # # Enums
+  #
+  enum destination: {
+    employees: 'employees',
+    recruits: 'recruits'
+  }
 end

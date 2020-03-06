@@ -2,13 +2,27 @@
   <div class="box template">
     <v-form ref="templateForm">
       <v-layout row wrap>
-        <v-flex xs12>
+        <v-flex xs12 lg6>
           <div class="template__name">
             <v-text-field
-              :label="$t('views.templates.show.label')"
               v-model="template.name"
+              :label="$t('views.templates.show.name')"
               :disabled="!template.editable"
               :rules="[vRequired]"
+            />
+          </div>
+        </v-flex>
+
+        <v-flex xs12 lg6>
+          <div class="template__destination">
+            <v-select
+              :items="destinations"
+              v-model="template.destination"
+              :label="$t('views.templates.show.destination')"
+              :disabled="!template.editable"
+              :rules="[vRequired]"
+              item-value="value"
+              item-text="text"
             />
           </div>
         </v-flex>
@@ -64,6 +78,14 @@ import SectionsComposer from '@components/templates/SectionsComposer'
 export default {
   name: 'Template',
   components: { SectionForm, SectionsComposer },
+  data() {
+    return {
+      destinations: [
+        { value: 'employees', text: 'Employees' },
+        { value: 'recruits', text: 'Recruits' }
+      ]
+    }
+  },
   computed: {
     ...mapGetters({
       template: 'TemplatesModule/template',

@@ -547,7 +547,8 @@ export default {
         instruction: 'Wybierz szablon z listy obok lub stwórz nowy',
       },
       show: {
-        label: 'Nazwa szablonu',
+        name: 'Nazwa szablonu',
+        destination: 'Przeznaczenia',
         placeholder: {
           name: 'Imię i nazwisko',
           position: 'Stanowisko',
