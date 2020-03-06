@@ -52,6 +52,10 @@ const TemplatesModule = {
       state.sections = sectionsList
       return state
     },
+    refreshListItem(state, template) {
+      state.templates.refresh(template)
+      return state
+    },
     removeFromList(state, id) {
       state.template = new Template()
       state.sections = new SectionsList()
@@ -151,6 +155,7 @@ const TemplatesModule = {
           .then(response => {
             const { data } = response
 
+            commit('refreshListItem', data.template)
             commit('setItem', data)
             commit(
               'NotificationsModule/push',

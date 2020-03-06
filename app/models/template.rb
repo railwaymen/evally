@@ -17,5 +17,5 @@ class Template < ApplicationRecord
   enum destination: {
     employees: 'employees',
     recruits: 'recruits'
-  }
+  }, _prefix: 'for'
 end

@@ -27,32 +27,35 @@
           </div>
         </v-flex>
 
-        <v-flex xs12 lg6>
-          <h3 class="evaluation__fullname">
-            &lsaquo; {{ $t('views.templates.show.placeholder.name') }} &rsaquo;
-          </h3>
-          <h4 class="evaluation__position">
-            &lsaquo; {{ $t('views.templates.show.placeholder.position') }} &rsaquo;
-          </h4>
-        </v-flex>
+        <template v-if="template.isForEmployees">
+          <v-flex xs12 lg6>
+            <h3 class="evaluation__fullname">
+              &lsaquo; {{ $t('views.templates.show.placeholder.name') }} &rsaquo;
+            </h3>
+            <h4 class="evaluation__position">
+              &lsaquo; {{ $t('views.templates.show.placeholder.position') }} &rsaquo;
+            </h4>
+          </v-flex>
 
-        <v-flex xs6 lg3>
-          <div class="date">
-            <h5 class="date__value">&lsaquo; date &rsaquo;</h5>
-            <h6 class="date__description">{{ $t('views.templates.show.placeholder.hiredOn') }}</h6>
-          </div>
-        </v-flex>
-        <v-flex xs6 lg3>
-          <div class="date">
-            <h5 class="date__value">&lsaquo; date &rsaquo;</h5>
-            <h6 class="date__description">{{ $t('views.templates.show.placeholder.completedAt') }}</h6>
-          </div>
-        </v-flex>
+          <v-flex xs6 lg3>
+            <div class="date">
+              <h5 class="date__value">&lsaquo; date &rsaquo;</h5>
+              <h6 class="date__description">{{ $t('views.templates.show.placeholder.hiredOn') }}</h6>
+            </div>
+          </v-flex>
+          <v-flex xs6 lg3>
+            <div class="date">
+              <h5 class="date__value">&lsaquo; date &rsaquo;</h5>
+              <h6 class="date__description">{{ $t('views.templates.show.placeholder.completedAt') }}</h6>
+            </div>
+          </v-flex>
+        </template>
 
         <v-flex xs12>
           <sections-composer
             v-model="sections.models"
             :editable="template.editable"
+            :constant-width="template.isForRecruits"
           />
         </v-flex>
       </v-layout>
@@ -63,6 +66,7 @@
         <section-form
           v-if="template.editable"
           v-model="sections.models"
+          :constant-width="template.isForRecruits"
         />
       </v-flex>
     </v-layout>

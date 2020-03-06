@@ -63,7 +63,7 @@ module V2
         @template ||= lambda do
           return latest_evaluation if @params[:use_latest]
 
-          Template.find_by(id: @params[:template_id])
+          Template.for_employees.find_by(id: @params[:template_id])
         end.call
 
         unless @template

@@ -30,6 +30,14 @@ class Template extends Model {
     return this.destination ? letters[this.destination] : ''
   }
 
+  get isForEmployees() {
+    return this.destination === 'employees'
+  }
+
+  get isForRecruits() {
+    return this.destination === 'recruits'
+  }
+
   get path() {
     return { name: 'template_path', params: { id: this.id } }
   }
