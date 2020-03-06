@@ -26,6 +26,8 @@
           <basic-table
             v-if="$route.name === 'recruitments_path'"
             :recruitDocuments="recruitDocuments"
+            :groups="groups"
+            :statuses="statuses"
             :loading="loading"
           />
 
@@ -53,6 +55,8 @@ export default {
   computed: {
     ...mapGetters({
       recruitDocuments: 'RecruitmentsModule/recruitDocuments',
+      groups: 'RecruitmentsModule/groups',
+      statuses: 'RecruitmentsModule/statuses',
       loading: 'RecruitmentsModule/loading'
     })
   },

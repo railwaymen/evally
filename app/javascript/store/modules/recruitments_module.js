@@ -8,6 +8,8 @@ import { RecruitDocument, RecruitDocumentsList } from '@models/recruit_document'
 const initialState = () => ({
   recruitDocuments: new RecruitDocumentsList(),
   recruitDocument: new RecruitDocument(),
+  groups: [],
+  statuses: [],
   loading: true
 })
 
@@ -19,6 +21,8 @@ const RecruitmentsModule = {
   getters: {
     recruitDocuments: state => state.recruitDocuments,
     recruitDocument: state => state.recruitDocument,
+    groups: state => state.groups,
+    statuses: state => state.statuses,
     loading: state => state.loading
   },
 
@@ -27,8 +31,10 @@ const RecruitmentsModule = {
       state.loading = status
       return state
     },
-    setList(state, { recruit_documents }) {
+    setList(state, { recruit_documents, groups, statuses }) {
       state.recruitDocuments = new RecruitDocumentsList(recruit_documents)
+      state.groups = groups
+      state.statuses = statuses
       state.loading = false
       return state
     },
@@ -48,6 +54,22 @@ const RecruitmentsModule = {
       commit('setLoading', true)
 
       http.get(RecruitDocument.routes.recruitDocumentsPath)
+        .then(response => {
+          commit('setList', response.data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.recruitments.index.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+        })
+        .finally(() => commit('setLoading', false))
+    },
+    filterIndex({ commit }, filters) {
+      commit('setLoading', true)
+
+      http.get(RecruitDocument.routes.recruitDocumentsFilterPath(filters))
         .then(response => {
           commit('setList', response.data)
         })

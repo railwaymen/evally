@@ -287,6 +287,8 @@ export default {
     recruitments: {
       table: {
         search: 'Szukaj ...',
+        groupFilter: 'Grupa',
+        statusFilter: 'Status',
         cols: {
           email: 'Email',
           group: 'Grupa',

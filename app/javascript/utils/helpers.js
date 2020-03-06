@@ -6,6 +6,10 @@ export const pluckUniq = (arr, attribute) => (
   filter(uniq(map(arr, attribute)), Boolean)
 )
 
+export const getURLParams = payload => (
+  new URLSearchParams(payload).toString()
+)
+
 export const fetchError = ({ response }) => {
   if (typeof response.data !== 'object') return response.statusText
 
