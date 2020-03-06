@@ -134,6 +134,7 @@ module JsonSpecHelpers
       template: {
         id: template.id,
         name: template.name,
+        destination: template.destination,
         creator_id: template.creator_id,
         creator_fullname: template.creator&.fullname
       },

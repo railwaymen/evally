@@ -10,5 +10,5 @@ class Template < ApplicationRecord
 
   # # Validation
   #
-  validates :name, presence: true
+  validates :name, :destination, presence: true
 end

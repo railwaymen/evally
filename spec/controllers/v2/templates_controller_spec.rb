@@ -60,6 +60,7 @@ RSpec.describe V2::TemplatesController, type: :controller do
         params = {
           template: {
             name: 'Lorem ipsum',
+            destination: 'evaluation',
             sections: []
           }
         }
@@ -75,6 +76,7 @@ RSpec.describe V2::TemplatesController, type: :controller do
         params = {
           template: {
             name: 'Lorem ipsum',
+            destination: 'evaluation',
             sections: [
               {
                 name: 'Section A',
@@ -106,6 +108,7 @@ RSpec.describe V2::TemplatesController, type: :controller do
         params = {
           template: {
             name: '',
+            destination: 'evaluation',
             sections: [
               {
                 name: 'Section A',
