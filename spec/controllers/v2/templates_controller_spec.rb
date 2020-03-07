@@ -20,7 +20,10 @@ RSpec.describe V2::TemplatesController, type: :controller do
         get :index
 
         expect(response).to have_http_status 200
-        expect(response.body).to be_json_eql('[]')
+        expect(json_response.keys).to contain_exactly(
+          'templates',
+          'destinations'
+        )
       end
     end
   end
