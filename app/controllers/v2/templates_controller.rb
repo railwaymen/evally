@@ -6,9 +6,9 @@ module V2
     before_action :authorize!, only: %i[update destroy]
 
     def index
-      templates = Template.includes(:creator).order(name: :asc)
+      presenter = V2::Templates::IndexPresenter.new
 
-      render json: V2::Templates::Serializer.render(templates), status: :ok
+      render json: V2::Templates::IndexView.render(presenter), status: :ok
     end
 
     def show

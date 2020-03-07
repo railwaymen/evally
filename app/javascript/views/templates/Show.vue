@@ -82,16 +82,9 @@ import SectionsComposer from '@components/templates/SectionsComposer'
 export default {
   name: 'Template',
   components: { SectionForm, SectionsComposer },
-  data() {
-    return {
-      destinations: [
-        { value: 'employees', text: 'Employees' },
-        { value: 'recruits', text: 'Recruits' }
-      ]
-    }
-  },
   computed: {
     ...mapGetters({
+      destinations: 'TemplatesModule/destinations',
       template: 'TemplatesModule/template',
       sections: 'TemplatesModule/sections',
     })
