@@ -548,7 +548,7 @@ export default {
       },
       show: {
         name: 'Nazwa szablonu',
-        destination: 'Przeznaczenia',
+        destination: 'Przeznaczenie',
         placeholder: {
           name: 'Imię i nazwisko',
           position: 'Stanowisko',
