@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(version: 2020_03_10_181011) do
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.bigint "recruit_id", null: false
+    t.bigint "user_id", null: false
+    t.text "body", null: false
+    t.string "created_by", default: "human", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recruit_id"], name: "index_comments_on_recruit_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -151,6 +162,8 @@ ActiveRecord::Schema.define(version: 2020_03_10_181011) do
   end
 
   add_foreign_key "activities", "users"
+  add_foreign_key "comments", "recruits"
+  add_foreign_key "comments", "users"
   add_foreign_key "employees", "users", column: "evaluator_id"
   add_foreign_key "evaluations", "employees", column: "evaluable_id"
   add_foreign_key "position_changes", "employees"

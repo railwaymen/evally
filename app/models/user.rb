@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :recruits, foreign_key: :evaluator_id, inverse_of: :evaluator, dependent: :nullify
   has_many :templates, foreign_key: :creator_id, inverse_of: :creator, dependent: :nullify
   has_many :evaluations, through: :employees
+  has_many :comments, dependent: :nullify
 
   # # Validation
   #
