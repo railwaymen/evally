@@ -15,7 +15,7 @@ class RecruitDocument extends Model {
       group: '',
       phone: '',
       position: '',
-      received_at: '',
+      received_at: moment().format('YYYY-MM-DD'),
       source: ''
     };
   }

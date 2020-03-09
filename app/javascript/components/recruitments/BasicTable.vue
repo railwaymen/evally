@@ -149,7 +149,7 @@ export default {
           status: filters.status || ''
         }
 
-        this.$store.dispatch('RecruitmentsModule/filterIndex', payload)
+        this.$store.dispatch('RecruitDocumentsModule/filterIndex', payload)
       }
     }
   }

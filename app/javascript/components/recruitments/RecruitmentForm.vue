@@ -4,26 +4,28 @@
       <span class="headline">{{ $t(`components.recruitments.recruitmentForm.${formAction}Title`) }}</span>
     </v-card-title>
 
-    <v-flex class="px-2" xs12 lg6>
-      <v-combobox
-        v-model="localRecruitment.status"
-        :items="this.statuses"
-        :rules="[vRequired]"
-        append-icon="mdi-chevron-down"
-        prepend-inner-icon="mdi-account-multiple-outline"
-        chips
-        :label="$t('components.employees.employeeForm.group')"
-      />
-    </v-flex>
-
     <v-form ref="form" @submit.prevent="save">
       <v-card-text>
+
         <v-layout row wrap>
+          <v-flex class="px-2" xs12 lg6>
+            <v-combobox
+              v-model="localRecruitment.status"
+              :items="this.statuses"
+              :rules="[vRequired]"
+              append-icon="mdi-chevron-down"
+              prepend-inner-icon="mdi-account-box-outline"
+              chips
+              :label="$t('shared.general.fields.status')"
+            />
+          </v-flex>
+
+
           <v-flex class="pa-2" xs12>
             <h3 class="subtitle-1">{{ $t('components.employees.employeeForm.general') }}</h3>
           </v-flex>
 
-          <v-flex class="px-2" xs12 lg6>
+          <v-flex class="px-2" xs12 lg4>
             <v-text-field
               v-model="localRecruitment.first_name"
               :rules="[vRequired]"
@@ -32,13 +34,20 @@
             />
           </v-flex>
 
-          <v-flex class="px-2" xs12 lg6>
+          <v-flex class="px-2" xs12 lg4>
             <v-text-field
               v-model="localRecruitment.last_name"
               :rules="[vRequired]"
               :label="$t('shared.general.fields.lastName')"
               prepend-inner-icon="mdi-account-outline"
             />
+          </v-flex>
+
+          <v-flex class="px-2" xs12 lg4>
+            <v-radio-group v-model="localRecruitment.gender">
+              <v-radio label="male" :value="male" />
+              <v-radio label="female" :value="female" />
+            </v-radio-group>
           </v-flex>
 
           <v-flex class="pa-2" xs12 >
@@ -73,8 +82,7 @@
               v-model="localRecruitment.group"
               :items="this.groups"
               :rules="[vRequired]"
-              append-icon="mdi-chevron-down"
-              prepend-inner-icon="mdi-account-multiple-outline"
+              prepend-inner-icon="mdi-account-group-outline"
               chips
               :label="$t('components.employees.employeeForm.group')"
             />
@@ -86,10 +94,42 @@
               :items="this.positions"
               :rules="[vRequired]"
               append-icon="mdi-chevron-down"
-              prepend-inner-icon="mdi-account-multiple-outline"
+              prepend-inner-icon="mdi-briefcase-outline"
               chips
               :label="$t('components.employees.employeeForm.position')"
             />
+          </v-flex>
+
+          <v-flex class="px-2" xs12 lg6>
+              <v-text-field
+                v-model="localRecruitment.source"
+                :rules="[vRequired]"
+                :label="$t('shared.general.fields.source')"
+                prepend-inner-icon="mdi-account-outline"
+              />
+          </v-flex>
+
+          <v-flex class="px-2" xs12 lg6>
+            <v-menu
+              :close-on-content-click="true"
+            >
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                :value="localRecruitment.received_at"
+                prepend-inner-icon="mdi-calendar"
+                :rules="[vRequired]"
+                readonly
+                v-on="on">
+              </v-text-field>
+            </template>
+
+            <v-date-picker
+              v-model="localRecruitment.received_at"
+              :locale="$i18n.locale"
+              no-title
+              scrollable
+             />
+             </v-menu>
           </v-flex>
 
         </v-layout>
@@ -152,12 +192,10 @@ export default {
     save() {
       if (!this.$refs.form.validate()) return
 
-
       this.create(this.localRecruitment)
-
     },
     ...mapActions({
-      create: 'RecruitmentsModule/create',
+      create: 'RecruitDocumentsModule/create',
     })
   },
   computed: {

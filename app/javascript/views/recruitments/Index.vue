@@ -69,15 +69,15 @@ export default {
   components: { BasicTable },
   methods: {
     ...mapActions({
-      fetchData: 'RecruitmentsModule/index'
+      fetchData: 'RecruitDocumentsModule/index'
     })
   },
   computed: {
     ...mapGetters({
-      recruitDocuments: 'RecruitmentsModule/recruitDocuments',
-      groups: 'RecruitmentsModule/groups',
-      statuses: 'RecruitmentsModule/statuses',
-      loading: 'RecruitmentsModule/loading'
+      recruitDocuments: 'RecruitDocumentsModule/recruitDocuments',
+      groups: 'RecruitDocumentsModule/groups',
+      statuses: 'RecruitDocumentsModule/statuses',
+      loading: 'RecruitDocumentsModule/loading'
     })
   },
   created() {

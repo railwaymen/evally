@@ -5,7 +5,9 @@ export default {
         firstName: 'Imię',
         lasttName: 'Nazwisko',
         email: 'Email',
-        phoneNumber: 'Numer telefonu'
+        phoneNumber: 'Numer telefonu',
+        source: 'Żródło',
+        status: 'Status'
       }
     },
     buttons: {

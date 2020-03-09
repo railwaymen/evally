@@ -13,7 +13,7 @@ const initialState = () => ({
   loading: true
 })
 
-const RecruitmentsModule = {
+const RecruitDocumentsModule = {
   namespaced: true,
 
   state: initialState(),
@@ -46,7 +46,11 @@ const RecruitmentsModule = {
     resetState(state) {
       state = Object.assign(state, initialState())
       return state
-    }
+    },
+    addToList(state, recruitDocument) {
+      state.recruitDocuments.add(recruitDocument)
+      return state
+    },
   },
 
   actions: {
@@ -98,10 +102,34 @@ const RecruitmentsModule = {
         })
     },
     create({ commit }, recruitDocument) {
-      console.log('--create in modul')
-      console.log(recruitDocument)
+      const params = {
+        recruit_document: recruitDocument.attributes
+      }
+
+      return new Promise(resolve => {
+        http.post(RecruitDocument.routes.recruitDocumentsPath, params)
+          .then(response => {
+            const { data } = response
+
+            commit('addToList', data)
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.employees.create.ok') },
+              { root: true }
+            )
+
+            resolve(data)
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.employees.create.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      })
     }
   }
 }
 
-export default RecruitmentsModule
+export default RecruitDocumentsModule

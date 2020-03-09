@@ -25,7 +25,7 @@ export default {
   },
   computed: {
      ...mapGetters({
-      recruitment: 'RecruitmentsModule/recruitment'
+      recruitment: 'RecruitDocumentsModule/recruitment'
     })
   }
 }
