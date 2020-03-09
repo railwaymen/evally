@@ -11,7 +11,11 @@ module V2
       render json: V2::Comments::Serializer.render(create_form.comment), status: :created
     end
 
-    def update; end
+    def update
+      update_form.save
+
+      render json: V2::Comments::Serializer.render(update_form.comment), status: :ok
+    end
 
     def destroy; end
 
@@ -37,9 +41,15 @@ module V2
 
     def create_form
       @create_form ||= V2::Comments::BasicForm.new(
-        recruit.comments.build,
-        params: comment_params,
-        user: current_user
+        recruit.comments.build(user_id: current_user.id),
+        params: comment_params
+      )
+    end
+
+    def update_form
+      @create_form ||= V2::Comments::BasicForm.new(
+        comment,
+        params: comment_params
       )
     end
 

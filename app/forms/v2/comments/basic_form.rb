@@ -5,10 +5,9 @@ module V2
     class BasicForm
       attr_reader :comment
 
-      def initialize(comment, params:, user:)
+      def initialize(comment, params:)
         @comment = comment
 
-        @comment.user_id = user.id if @comment.new_record?
         @comment.assign_attributes(params)
       end
 
