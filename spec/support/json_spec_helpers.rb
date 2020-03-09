@@ -7,6 +7,17 @@ module JsonSpecHelpers
     JSON.parse(response.body)
   end
 
+  def comment_schema(comment)
+    user = comment.user
+
+    {
+      id: comment.id,
+      body: comment.body,
+      created_at: comment.created_at.to_s,
+      user_fullname: user.fullname
+  }.to_json
+  end
+
   def evaluation_employable_schema(draft)
     employee = draft.employee
 

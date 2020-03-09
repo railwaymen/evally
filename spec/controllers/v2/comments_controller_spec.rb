@@ -26,7 +26,7 @@ RSpec.describe V2::CommentsController, type: :controller do
         recruit = recruit_document.recruit
 
         params = {
-          recruit_id: recruit.id,
+          recruit_id: recruit.human_resources_id,
           comment: {
             body: 'Lorem ipsum dolor sit amet ...'
           }
@@ -47,7 +47,7 @@ RSpec.describe V2::CommentsController, type: :controller do
         recruit = recruit_document.recruit
 
         params = {
-          recruit_id: recruit.id,
+          recruit_id: recruit.human_resources_id,
           comment: {
             body: ''
           }
