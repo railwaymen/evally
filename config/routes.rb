@@ -25,7 +25,9 @@ Rails.application.routes.draw do
         resources :evaluations, only: :show
       end
 
-      resources :recruit_documents, only: %i[index show create update]
+      resources :recruit_documents, only: %i[index show create update] do
+        get :form, on: :collection
+      end
 
       resources :templates, only: %i[index show create update destroy]
 
