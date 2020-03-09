@@ -9,7 +9,7 @@
     <v-flex xs12 lg9>
       <v-layout row wrap>
         <v-flex xs12 lg6>
-          Evaluation
+          <evaluation-sidebar />
         </v-flex>
 
         <v-flex xs12 lg6>
@@ -22,11 +22,13 @@
 
 <script>
 import { mapGetters } from 'vuex'
+
+import EvaluationSidebar from '@components/recruitments/EvaluationSidebar'
 import RecruitmentsSidebar from '@components/recruitments/RecruitmentsSidebar'
 
 export default {
   name: 'RecruitmentsShow',
-  components: { RecruitmentsSidebar },
+  components: { EvaluationSidebar, RecruitmentsSidebar },
   computed: {
      ...mapGetters({
       recruitDocument: 'RecruitDocumentsModule/recruitDocument'
