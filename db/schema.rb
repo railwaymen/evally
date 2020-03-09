@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2020_03_10_181011) do
     t.bigint "user_id", null: false
     t.text "body", null: false
     t.string "created_by", default: "human", null: false
+    t.datetime "discarded_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["recruit_id"], name: "index_comments_on_recruit_id"

@@ -5,6 +5,7 @@ class CreateComments < ActiveRecord::Migration[6.0]
       t.references :user, null: false, foreign_key: true
       t.text :body, null: false
       t.string :created_by, null: false, default: 'human'
+      t.datetime :discarded_at
 
       t.timestamps
     end
