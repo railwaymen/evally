@@ -227,6 +227,36 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
     end
   end
 
+  describe '#edit' do
+    context 'when unauthorized' do
+      it 'responds with error' do
+        get :edit, params: { id: 1 }
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with recruit document, statuses, groups, positions and evaluators' do
+        recruit_document = FactoryBot.create(
+          :recruit_document,
+          group: 'Ruby',
+          position: 'Junior Dev'
+        )
+
+        sign_in admin
+        get :edit, params: { id: recruit_document.id }
+
+        expect(response).to have_http_status 200
+        expect(json_response['statuses']).to contain_exactly(*RecruitDocument.statuses.keys)
+        expect(json_response['groups']).to contain_exactly 'Ruby'
+        expect(json_response['positions']).to contain_exactly 'Junior Dev'
+        expect(json_response['recruit_document'].to_json).to be_json_eql(
+          recruit_document_schema(recruit_document)
+        )
+      end
+    end
+  end
+
   describe '#update' do
     context 'when unauthorized' do
       it 'responds with 401' do

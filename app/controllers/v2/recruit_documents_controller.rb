@@ -33,6 +33,12 @@ module V2
       )
     end
 
+    def edit
+      presenter = V2::RecruitDocuments::EditPresenter.new(recruit_document)
+
+      render json: V2::RecruitDocuments::EditView.render(presenter), status: :ok
+    end
+
     def update
       update_form.save
 
