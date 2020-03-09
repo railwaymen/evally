@@ -254,6 +254,13 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
           recruit_document_schema(recruit_document)
         )
       end
+
+      it 'responds with 404 if no recruit document' do
+        sign_in admin
+        get :edit, params: { id: 1 }
+
+        expect(response).to have_http_status 404
+      end
     end
   end
 
