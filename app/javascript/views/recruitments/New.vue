@@ -18,9 +18,9 @@ export default {
   components: { RecruitmentForm },
   data() {
     return {
-      groups: ['red group', 'blue'],
-      positions: ['ror', 'android'],
-      statuses: ['fresh', 'accepted']
+      groups: ['ruby', 'javascript', 'ux', 'android', 'ios'],
+      positions: ['junior', 'regular', 'senior', 'team leader'],
+      statuses: ['fresh', 'accepted', 'rejected']
     }
   },
   computed: {
