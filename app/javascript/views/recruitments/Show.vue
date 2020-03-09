@@ -1,9 +1,21 @@
 <template>
-  <v-layout row wrap>
+  <v-layout row wrap class="align-stretch">
     <v-flex xs10 offset-xs1 lg3 offset-lg0>
       <recruitments-sidebar
         :recruitDocument="recruitDocument"
       />
+    </v-flex>
+
+    <v-flex xs12 lg9>
+      <v-layout row wrap>
+        <v-flex xs12 lg6>
+          Evaluation
+        </v-flex>
+
+        <v-flex xs12 lg6>
+          Comments
+        </v-flex>
+      </v-layout>
     </v-flex>
   </v-layout>
  </template>
