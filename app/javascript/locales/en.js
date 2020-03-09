@@ -317,6 +317,11 @@ export default {
         female: 'female',
         position: 'Position'
       },
+      addEvaluationForm: {
+        title: 'Add Evaluation',
+        selectTemplate: 'Select Template',
+        templateLabel: 'Template Name'
+      },
       sidebar: {
         gender: 'Gender',
         email: 'Email',

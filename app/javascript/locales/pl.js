@@ -308,14 +308,19 @@ export default {
           receivedAt: 'Data otrzymania'
         }
       },
-      recruitmentForm:{
-          createTitle: 'Nowy rekrutacja',
-          contact: 'Kontact',
-          general: 'Ogólne',
-          male: 'męczyzna',
-          female: 'kobieta',
-          position: 'Pozycja'
-        },
+      recruitmentForm: {
+        createTitle: 'Nowa rekrutacja',
+        contact: 'Kontakt',
+        general: 'Ogólne',
+        male: 'mężczyzna',
+        female: 'kobieta',
+        position: 'Stanowisko'
+      },
+      addEvaluationForm: {
+        title: 'Stwórz ocenę',
+        selectTemplate: 'Wybierz szablon',
+        templateLabel: 'Nazwa szablonu'
+      },
       sidebar: {
         gender: 'Płeć',
         email: 'Email',

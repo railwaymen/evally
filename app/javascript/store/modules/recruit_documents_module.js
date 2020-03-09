@@ -4,10 +4,12 @@ import { fetchError } from '@utils/helpers'
 import i18n from '@locales/i18n'
 
 import { RecruitDocument, RecruitDocumentsList } from '@models/recruit_document'
+import { TemplatesList } from '@models/template'
 
 const initialState = () => ({
   recruitDocuments: new RecruitDocumentsList(),
   recruitDocument: new RecruitDocument(),
+  templates: new TemplatesList(),
   groups: [],
   statuses: [],
   positions: [],
@@ -22,6 +24,7 @@ const RecruitDocumentsModule = {
   getters: {
     recruitDocuments: state => state.recruitDocuments,
     recruitDocument: state => state.recruitDocument,
+    templates: state => state.templates,
     groups: state => state.groups,
     statuses: state => state.statuses,
     positions: state => state.positions,
@@ -41,8 +44,9 @@ const RecruitDocumentsModule = {
       state.loading = false
       return state
     },
-    setItem(state, { recruit_document }) {
+    setItem(state, { recruit_document, templates }) {
       state.recruitDocument = new RecruitDocument(recruit_document)
+      state.templates = new TemplatesList(templates)
       state.loading = false
       return state
     },
