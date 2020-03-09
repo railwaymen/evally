@@ -59,7 +59,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import { Recruitment } from '@models/recruitment'
+import { RecruitDocument } from '@models/recruit_document'
 
 import BasicTable from '@components/recruitments/BasicTable'
 import RecruitmentForm from '@components/recruitments/RecruitmentForm'

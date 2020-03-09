@@ -1,7 +1,7 @@
 <template>
   <v-card class="pa-3">
     <v-card-title>
-      <span class="headline">{{ $t(`components.recruitments.recruitmentForm.${action}Title`) }}</span>
+      <span class="headline">{{ $t(`components.recruitments.recruitmentForm.${formAction}Title`) }}</span>
     </v-card-title>
 
     <v-flex class="px-2" xs12 lg6>
@@ -41,7 +41,6 @@
             />
           </v-flex>
 
-
           <v-flex class="pa-2" xs12 >
             <h3 class="subtitle-1">{{ $t('components.recruitments.recruitmentForm.contact') }}</h3>
           </v-flex>
@@ -57,7 +56,7 @@
 
             <v-flex class="px-2" xs12 lg6>
               <v-text-field
-                v-model="localRecruitment.email"
+                v-model="localRecruitment.phone"
                 :rules="[vRequired]"
                 :label="$t('shared.general.fields.phoneNumber')"
                 prepend-inner-icon="mdi-account-outline"
@@ -89,20 +88,16 @@
               append-icon="mdi-chevron-down"
               prepend-inner-icon="mdi-account-multiple-outline"
               chips
-              :label="$t('components.employees.employeeForm.group')"
+              :label="$t('components.employees.employeeForm.position')"
             />
           </v-flex>
-
 
         </v-layout>
       </v-card-text>
 
       <v-card-actions>
         <v-spacer />
-        <v-btn
-          color="grey darken-1"
-          text
-        >
+        <v-btn color="grey darken-1" text>
           {{ $t('shared.buttons.cancel') }}
         </v-btn>
 
@@ -121,7 +116,7 @@
 <script>
 import { mapActions } from 'vuex'
 
-import { Recruitment } from '@models/recruitment'
+import { RecruitDocument } from '@models/recruit_document'
 import { UsersList } from '@models/user'
 
 export default {
@@ -143,19 +138,22 @@ export default {
       default: () => []
     },
     recruitment: {
-      type: Recruitment,
+      type: RecruitDocument,
       required: false,
-      default: () => new Recruitment()
+      default: () => new RecruitDocument()
     }
   },
   data() {
     return {
-      localRecruitment: new Recruitment({ ...this.recruitment }),
+      localRecruitment: new RecruitDocument({ ...this.recruitment }),
     }
   },
   methods: {
     save() {
       if (!this.$refs.form.validate()) return
+
+
+      this.create(this.localRecruitment)
 
     },
     ...mapActions({
@@ -163,7 +161,7 @@ export default {
     })
   },
   computed: {
-    action() {
+    formAction() {
       return this.localRecruitment.isPersisted ? 'update' : 'create'
     }
   }

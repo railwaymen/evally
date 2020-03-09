@@ -97,6 +97,10 @@ const RecruitmentsModule = {
           )
         })
     },
+    create({ commit }, recruitDocument) {
+      console.log('--create in modul')
+      console.log(recruitDocument)
+    }
   }
 }
 

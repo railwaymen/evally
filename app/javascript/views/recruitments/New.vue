@@ -10,7 +10,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { Recruitment } from '@models/recruitment'
+import { RecruitDocument } from '@models/recruit_document'
 import RecruitmentForm from '@components/recruitments/RecruitmentForm'
 
 export default {
