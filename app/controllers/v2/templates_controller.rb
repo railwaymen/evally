@@ -85,7 +85,7 @@ module V2
     def update_params
       params.require(:template).permit(
         :name, :destination, sections: [
-          :id, :name, :group, :width, :position, :_destroy, skills: %i[name value needToImpsrove]
+          :id, :name, :group, :width, :position, :_destroy, skills: %i[name value needToImprove]
         ]
       )
     end
