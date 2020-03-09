@@ -51,7 +51,7 @@ module V2
     end
 
     def update_form
-      @create_form ||= V2::Comments::BasicForm.new(
+      @update_form ||= V2::Comments::BasicForm.new(
         comment,
         params: comment_params
       )
