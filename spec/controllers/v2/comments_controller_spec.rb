@@ -217,7 +217,7 @@ RSpec.describe V2::CommentsController, type: :controller do
           delete :destroy, params: { id: comment.id }
 
           comment.reload
-        end.to(change { comment.body }.to('Comment has been deleted'))
+        end.to(change { comment.discarded_at }.from(nil))
 
         expect(response).to have_http_status 200
         expect(response.body).to be_json_eql comment_schema(comment)

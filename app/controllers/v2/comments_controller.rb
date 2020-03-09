@@ -17,7 +17,11 @@ module V2
       render json: V2::Comments::Serializer.render(update_form.comment), status: :ok
     end
 
-    def destroy; end
+    def destroy
+      comment.update(discarded_at: Time.current)
+
+      render json: V2::Comments::Serializer.render(comment), status: :ok
+    end
 
     private
 

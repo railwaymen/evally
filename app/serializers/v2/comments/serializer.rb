@@ -5,7 +5,11 @@ module V2
     class Serializer < Blueprinter::Base
       identifier :id
 
-      fields :body, :created_at
+      fields :created_at
+
+      field :body do |comment|
+        comment.discarded_at.blank? ? comment.body : 'Comment has been deleted'
+      end
 
       field :user_fullname do |comment|
         comment.user&.fullname
