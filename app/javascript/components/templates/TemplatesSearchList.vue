@@ -13,7 +13,7 @@
       <v-list two-line subheader>
         <v-subheader>{{ $t('components.templates.sidebar.subheader') }}</v-subheader>
 
-        <div v-if="loading" class="box__loader">
+        <div v-if="loading" class="search-box__loader">
           <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
         </div>
 
@@ -22,8 +22,16 @@
             v-for="template in searchedTemplates"
             :key="template.id"
             :to="template.path"
-            color="secondary"
+            :color="template.destinationColor"
           >
+            <v-list-item-avatar>
+              <v-avatar :color="template.destinationColor" size="32">
+                <span class="white--text body-2">
+                  {{ template.destinationLetter }}
+                </span>
+              </v-avatar>
+            </v-list-item-avatar>
+
             <v-list-item-content>
               <v-list-item-title>{{ template.name }}</v-list-item-title>
               <v-list-item-subtitle>

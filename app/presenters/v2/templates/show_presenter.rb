@@ -10,7 +10,13 @@ module V2
       end
 
       def sections
-        @template.sections.order(position: :asc)
+        set_section_width = lambda do |section|
+          section.width = @template.for_recruits? ? 'full' : section.width
+
+          section
+        end
+
+        @template.sections.order(position: :asc).map(&set_section_width)
       end
     end
   end

@@ -11,8 +11,6 @@ module V2
         drafts_scope.joins(:employee)
                     .where.not(employees: { state: :archived })
                     .order(updated_at: :desc)
-
-        # Evaluation.join(:employees).where.not(employess: { state: :archived })
       end
 
       def employees
@@ -20,7 +18,7 @@ module V2
       end
 
       def templates
-        Template.includes(:creator).order(name: :asc)
+        Template.for_employees.includes(:creator).order(name: :asc)
       end
 
       private

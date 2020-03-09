@@ -5,7 +5,7 @@ module V2
     class Serializer < Blueprinter::Base
       identifier :id
 
-      fields :name, :creator_id
+      fields :name, :destination, :creator_id
 
       field :creator_fullname do |template|
         template.creator&.fullname

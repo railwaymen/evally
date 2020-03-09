@@ -6,9 +6,9 @@ module V2
     before_action :authorize!, only: %i[update destroy]
 
     def index
-      templates = Template.includes(:creator).order(name: :asc)
+      presenter = V2::Templates::IndexPresenter.new
 
-      render json: V2::Templates::Serializer.render(templates), status: :ok
+      render json: V2::Templates::IndexView.render(presenter), status: :ok
     end
 
     def show
@@ -76,14 +76,16 @@ module V2
 
     def create_params
       params.require(:template).permit(
-        :name, sections: [:name, :width, :group, :position, skills: %i[name value needToImprove]]
+        :name, :destination, sections: [
+          :name, :width, :group, :position, skills: %i[name value needToImprove]
+        ]
       )
     end
 
     def update_params
       params.require(:template).permit(
-        :name, sections: [
-          :id, :name, :group, :width, :position, :_destroy, skills: %i[name value needToImpsrove]
+        :name, :destination, sections: [
+          :id, :name, :group, :width, :position, :_destroy, skills: %i[name value needToImprove]
         ]
       )
     end

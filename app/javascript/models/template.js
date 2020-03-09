@@ -5,10 +5,37 @@ class Template extends Model {
     return {
       id: null,
       name: '',
+      destination: '',
       editable: false,
       creator_id: null,
       creator_fullname: ''
     }
+  }
+
+  get destinationColor() {
+    const colors = {
+      employees: 'secondary',
+      recruits: 'accent'
+    }
+
+    return this.destination ? colors[this.destination] : 'primary'
+  }
+
+  get destinationLetter() {
+    const letters = {
+      employees: 'E',
+      recruits: 'R'
+    }
+
+    return this.destination ? letters[this.destination] : ''
+  }
+
+  get isForEmployees() {
+    return this.destination === 'employees'
+  }
+
+  get isForRecruits() {
+    return this.destination === 'recruits'
   }
 
   get path() {

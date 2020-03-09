@@ -34,6 +34,7 @@
             <template #activator="{ on }">
               <v-btn
                 @click="resize(section.id, index)"
+                :disabled="constantWidth"
                 v-on="on"
                 icon
               >
@@ -90,6 +91,11 @@ export default {
       default: () => []
     },
     editable: {
+      type: Boolean,
+      required: true,
+      default: false
+    },
+    constantWidth: {
       type: Boolean,
       required: true,
       default: false

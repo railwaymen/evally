@@ -9,8 +9,16 @@
         {{ $t('components.templates.sectionForm.width.title') }}
       </span>
       <v-radio-group v-model="section.width" row>
-        <v-radio :label="$t('components.templates.sectionForm.width.half')" value="half" />
-        <v-radio :label="$t('components.templates.sectionForm.width.full')" value="full" />
+        <v-radio
+          :label="$t('components.templates.sectionForm.width.full')"
+          value="full"
+        />
+
+        <v-radio
+          :label="$t('components.templates.sectionForm.width.half')"
+          :disabled="constantWidth"
+          value="half"
+        />
       </v-radio-group>
 
       <span class="section-form__label">{{ $t('components.templates.sectionForm.group.title') }}</span>
@@ -36,12 +44,6 @@
 <script>
 import { Section } from '@models/section'
 
-const initSection = () => new Section({
-  width: 'half',
-  group: 'rating',
-  position: this.value.length
-})
-
 export default {
   name: 'SectionForm',
   props: {
@@ -49,12 +51,17 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    constantWidth: {
+      type: Boolean,
+      required: true,
+      default: false
     }
   },
   data() {
     return {
       section: new Section({
-        width: 'half',
+        width: 'full',
         group: 'rating',
         position: this.value.length
       })
@@ -65,7 +72,7 @@ export default {
       this.$emit('input', [...this.value, this.section])
 
       this.section = new Section({
-        width: 'half',
+        width: 'full',
         group: 'rating',
         position: this.value.length
       })

@@ -11,7 +11,7 @@ module V2
 
         @template.assign_attributes(
           sections_attributes: params[:sections],
-          name: params[:name]
+          **params.except('sections')
         )
       end
 

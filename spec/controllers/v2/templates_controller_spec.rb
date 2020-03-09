@@ -20,7 +20,10 @@ RSpec.describe V2::TemplatesController, type: :controller do
         get :index
 
         expect(response).to have_http_status 200
-        expect(response.body).to be_json_eql('[]')
+        expect(json_response.keys).to contain_exactly(
+          'templates',
+          'destinations'
+        )
       end
     end
   end
@@ -60,6 +63,7 @@ RSpec.describe V2::TemplatesController, type: :controller do
         params = {
           template: {
             name: 'Lorem ipsum',
+            destination: 'employees',
             sections: []
           }
         }
@@ -75,6 +79,7 @@ RSpec.describe V2::TemplatesController, type: :controller do
         params = {
           template: {
             name: 'Lorem ipsum',
+            destination: 'employees',
             sections: [
               {
                 name: 'Section A',
@@ -106,6 +111,7 @@ RSpec.describe V2::TemplatesController, type: :controller do
         params = {
           template: {
             name: '',
+            destination: 'employees',
             sections: [
               {
                 name: 'Section A',

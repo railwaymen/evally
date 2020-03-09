@@ -26,7 +26,7 @@ module V2
       end
 
       def templates
-        Template.includes(:creator).order(name: :asc)
+        Template.for_employees.includes(:creator).order(name: :asc)
       end
 
       private

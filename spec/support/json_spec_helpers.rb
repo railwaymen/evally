@@ -130,14 +130,21 @@ module JsonSpecHelpers
   end
 
   def template_schema(template)
+    set_section_width = lambda do |section|
+      section.width = template.for_recruits? ? 'full' : section.width
+
+      section
+    end
+
     {
       template: {
         id: template.id,
         name: template.name,
+        destination: template.destination,
         creator_id: template.creator_id,
         creator_fullname: template.creator&.fullname
       },
-      sections: template.sections.map(&method(:section_schema))
+      sections: template.sections.map(&set_section_width).map(&method(:section_schema))
     }.to_json
   end
 

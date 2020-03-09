@@ -10,4 +10,6 @@ RSpec.describe Template, type: :model do
   it { is_expected.to accept_nested_attributes_for(:sections).allow_destroy(true) }
 
   it { is_expected.to validate_presence_of(:name) }
+
+  it { is_expected.to validate_presence_of(:destination) }
 end

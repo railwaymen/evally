@@ -8,6 +8,7 @@ import { SectionsList } from '@models/section'
 
 const initialState = () => ({
   templates: new TemplatesList(),
+  destinations: [],
   template: new Template(),
   sections: new SectionsList(),
   loading: true
@@ -20,6 +21,7 @@ const TemplatesModule = {
 
   getters: {
     templates: state => state.templates,
+    destinations: state => state.destinations,
     template: state => state.template,
     sections: state => state.sections,
     loading: state => state.loading
@@ -39,8 +41,9 @@ const TemplatesModule = {
       state.sections = new SectionsList(sections)
       return state
     },
-    setList(state, templates) {
+    setList(state, { templates, destinations }) {
       state.templates = new TemplatesList(templates)
+      state.destinations = destinations
       state.loading = false
       return state
     },
@@ -50,6 +53,10 @@ const TemplatesModule = {
     },
     setSections(state, sectionsList) {
       state.sections = sectionsList
+      return state
+    },
+    refreshListItem(state, template) {
+      state.templates.refresh(template)
       return state
     },
     removeFromList(state, id) {
@@ -151,6 +158,7 @@ const TemplatesModule = {
           .then(response => {
             const { data } = response
 
+            commit('refreshListItem', data.template)
             commit('setItem', data)
             commit(
               'NotificationsModule/push',
