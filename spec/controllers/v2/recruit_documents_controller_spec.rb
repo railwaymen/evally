@@ -98,10 +98,10 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
     end
   end
 
-  describe '#form' do
+  describe '#new' do
     context 'when unauthorized' do
       it 'responds with error' do
-        get :form
+        get :new
         expect(response).to have_http_status 401
       end
     end
@@ -111,7 +111,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
         FactoryBot.create(:recruit_document, group: 'Ruby', position: 'Junior Dev')
 
         sign_in admin
-        get :form
+        get :new
 
         expect(response).to have_http_status 200
         expect(json_response['statuses']).to contain_exactly(*RecruitDocument.statuses.keys)
@@ -223,6 +223,43 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
 
         expect(response).to have_http_status 422
         expect(json_response['details'].first).to eq 'First name can\'t be blank'
+      end
+    end
+  end
+
+  describe '#edit' do
+    context 'when unauthorized' do
+      it 'responds with error' do
+        get :edit, params: { id: 1 }
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with recruit document, statuses, groups, positions and evaluators' do
+        recruit_document = FactoryBot.create(
+          :recruit_document,
+          group: 'Ruby',
+          position: 'Junior Dev'
+        )
+
+        sign_in admin
+        get :edit, params: { id: recruit_document.id }
+
+        expect(response).to have_http_status 200
+        expect(json_response['statuses']).to contain_exactly(*RecruitDocument.statuses.keys)
+        expect(json_response['groups']).to contain_exactly 'Ruby'
+        expect(json_response['positions']).to contain_exactly 'Junior Dev'
+        expect(json_response['recruit_document'].to_json).to be_json_eql(
+          recruit_document_schema(recruit_document)
+        )
+      end
+
+      it 'responds with 404 if no recruit document' do
+        sign_in admin
+        get :edit, params: { id: 1 }
+
+        expect(response).to have_http_status 404
       end
     end
   end

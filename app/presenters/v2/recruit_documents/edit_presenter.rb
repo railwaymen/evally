@@ -2,7 +2,13 @@
 
 module V2
   module RecruitDocuments
-    class FormPresenter
+    class EditPresenter
+      attr_reader :recruit_document
+
+      def initialize(recruit_document)
+        @recruit_document = recruit_document
+      end
+
       def statuses
         RecruitDocument.statuses.keys
       end

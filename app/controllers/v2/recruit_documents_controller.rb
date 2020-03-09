@@ -18,10 +18,10 @@ module V2
       render json: V2::RecruitDocuments::ShowView.render(presenter), status: :ok
     end
 
-    def form
-      presenter = V2::RecruitDocuments::FormPresenter.new
+    def new
+      presenter = V2::RecruitDocuments::NewPresenter.new
 
-      render json: V2::RecruitDocuments::FormView.render(presenter), status: :ok
+      render json: V2::RecruitDocuments::NewView.render(presenter), status: :ok
     end
 
     def create
@@ -31,6 +31,12 @@ module V2
         json: V2::RecruitDocuments::Serializer.render(create_form.recruit_document),
         status: :created
       )
+    end
+
+    def edit
+      presenter = V2::RecruitDocuments::EditPresenter.new(recruit_document)
+
+      render json: V2::RecruitDocuments::EditView.render(presenter), status: :ok
     end
 
     def update
