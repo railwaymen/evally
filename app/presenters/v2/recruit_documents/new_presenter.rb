@@ -2,7 +2,7 @@
 
 module V2
   module RecruitDocuments
-    class FormPresenter
+    class NewPresenter
       def statuses
         RecruitDocument.statuses.keys
       end

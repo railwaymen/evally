@@ -18,10 +18,10 @@ module V2
       render json: V2::RecruitDocuments::ShowView.render(presenter), status: :ok
     end
 
-    def form
-      presenter = V2::RecruitDocuments::FormPresenter.new
+    def new
+      presenter = V2::RecruitDocuments::NewPresenter.new
 
-      render json: V2::RecruitDocuments::FormView.render(presenter), status: :ok
+      render json: V2::RecruitDocuments::NewView.render(presenter), status: :ok
     end
 
     def create

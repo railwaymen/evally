@@ -2,7 +2,7 @@
 
 module V2
   module RecruitDocuments
-    class FormView < Blueprinter::Base
+    class NewView < Blueprinter::Base
       association :evaluators, blueprint: V2::Users::Serializer, default: []
 
       fields :groups, :positions, :statuses
