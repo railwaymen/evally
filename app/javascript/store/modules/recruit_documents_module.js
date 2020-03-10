@@ -101,24 +101,26 @@ const RecruitDocumentsModule = {
           )
         })
     },
-    create({ commit }, recruitDocument) {
+    create({ commit }, payload ) {
+      const {recruitDocument, successHandler} = payload
       const params = {
         recruit_document: recruitDocument.attributes
       }
 
+
       return new Promise(resolve => {
         http.post(RecruitDocument.routes.recruitDocumentsPath, params)
           .then(response => {
-            const { data } = response
+            const { recruitDocument } = response
 
-            commit('addToList', data)
+            commit('addToList', recruitDocument)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.employees.create.ok') },
               { root: true }
             )
-
-            resolve(data)
+            successHandler()
+            resolve(recruitDocument)
           })
           .catch(error => {
             commit(
@@ -126,6 +128,7 @@ const RecruitDocumentsModule = {
               { error: i18n.t('messages.employees.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
+
           })
       })
     }

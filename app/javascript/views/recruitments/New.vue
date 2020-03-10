@@ -20,7 +20,7 @@ export default {
     return {
       groups: ['ruby', 'javascript', 'ux', 'android', 'ios'],
       positions: ['junior', 'regular', 'senior', 'team leader'],
-      statuses: ['fresh', 'accepted', 'rejected']
+      statuses: ['fresh', 'inprogress', 'accepted', 'rejected']
     }
   },
   computed: {

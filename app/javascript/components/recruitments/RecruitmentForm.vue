@@ -20,7 +20,6 @@
             />
           </v-flex>
 
-
           <v-flex class="pa-2" xs12>
             <h3 class="subtitle-1">{{ $t('components.employees.employeeForm.general') }}</h3>
           </v-flex>
@@ -45,8 +44,8 @@
 
           <v-flex class="px-2" xs12 lg4>
             <v-radio-group v-model="localRecruitment.gender">
-              <v-radio label="male" :value="male" />
-              <v-radio label="female" :value="female" />
+              <v-radio label="male" value="male" />
+              <v-radio label="female" value="female" />
             </v-radio-group>
           </v-flex>
 
@@ -71,7 +70,6 @@
                 prepend-inner-icon="mdi-account-outline"
               />
             </v-flex>
-
 
           <v-flex class="pa-2" xs12>
             <h3 class="subtitle-1">{{ $t('components.employees.employeeForm.employment') }}</h3>
@@ -192,7 +190,8 @@ export default {
     save() {
       if (!this.$refs.form.validate()) return
 
-      this.create(this.localRecruitment)
+      this.create( {recruitDocument: this.localRecruitment,
+                    successHandler: this.$refs.form.reset} )
     },
     ...mapActions({
       create: 'RecruitDocumentsModule/create',
