@@ -8,8 +8,8 @@ RSpec.describe V2::ActivityPolicy, type: :policy do
       admin = FactoryBot.create(:user, role: 'admin')
       evaluator = FactoryBot.create(:user, role: 'evaluator')
 
-      activity1 = FactoryBot.create(:evaluation_activity)
-      activity2 = FactoryBot.create(:evaluation_activity, user: evaluator)
+      activity1 = FactoryBot.create(:employee_activity)
+      activity2 = FactoryBot.create(:employee_activity, user: evaluator)
 
       aggregate_failures 'for admin' do
         scope = Pundit.policy_scope!(admin, [:v2, Activity])

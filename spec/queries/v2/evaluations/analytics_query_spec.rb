@@ -21,23 +21,20 @@ RSpec.describe V2::Evaluations::AnalyticsQuery do
     )
 
     FactoryBot.create(
-      :evaluation,
-      state: 'completed',
+      :evaluation_completed_employee,
       completed_at: Time.current,
-      employee: employee1
+      evaluable: employee1
     )
 
     FactoryBot.create(
-      :evaluation,
-      state: 'draft',
-      employee: employee2
+      :evaluation_draft_employee,
+      evaluable: employee2
     )
 
     FactoryBot.create(
-      :evaluation,
-      state: 'completed',
+      :evaluation_completed_employee,
       completed_at: 14.months.ago,
-      employee: employee3
+      evaluable: employee3
     )
 
     expect(described_class.call).to include(

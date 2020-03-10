@@ -7,7 +7,11 @@ RSpec.describe V2::Browse::EvaluationsController, type: :controller do
     it 'responds with evaluation' do
       employee = FactoryBot.create(:employee)
 
-      evaluation = FactoryBot.create(:evaluation, :completed, employee: employee)
+      evaluation = FactoryBot.create(
+        :evaluation_completed_employee,
+        evaluable: employee
+      )
+
       FactoryBot.create(:section, sectionable: evaluation)
 
       get :show, params: { employee_id: employee.public_token, id: evaluation.id }

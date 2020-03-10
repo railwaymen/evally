@@ -8,21 +8,16 @@ RSpec.describe V2::Evaluations::PastYearChartQuery do
 
     past_month = ->(n) { (base_date - n.months).at_beginning_of_month.to_s }
 
-    FactoryBot.create(
-      :evaluation,
-      state: 'draft'
-    )
+    FactoryBot.create(:evaluation_draft_employee)
 
     FactoryBot.create(
-      :evaluation,
-      state: 'completed',
+      :evaluation_completed_employee,
       completed_at: base_date
     )
 
     FactoryBot.create_list(
-      :evaluation,
+      :evaluation_completed_employee,
       2,
-      state: 'completed',
       completed_at: base_date - 6.months
     )
 

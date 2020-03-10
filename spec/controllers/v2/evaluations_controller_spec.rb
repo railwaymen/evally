@@ -14,7 +14,7 @@ RSpec.describe V2::EvaluationsController, type: :controller do
       end
 
       it 'responds with 404 error' do
-        evaluation = FactoryBot.create(:evaluation, :completed)
+        evaluation = FactoryBot.create(:evaluation_completed_employee)
         FactoryBot.create(:section, sectionable: evaluation)
 
         sign_in evaluator
@@ -26,7 +26,7 @@ RSpec.describe V2::EvaluationsController, type: :controller do
 
     context 'when authorized' do
       it 'responds with evaluation' do
-        evaluation = FactoryBot.create(:evaluation, :completed)
+        evaluation = FactoryBot.create(:evaluation_completed_employee)
         FactoryBot.create(:section, sectionable: evaluation)
 
         sign_in admin

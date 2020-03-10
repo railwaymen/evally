@@ -5,7 +5,10 @@ require 'rails_helper'
 RSpec.describe V2::Employees::SearchQuery do
   it 'finds employee' do
     employee = FactoryBot.create(:employee)
-    evaluation = FactoryBot.create(:evaluation, :completed, employee: employee)
+    evaluation = FactoryBot.create(
+      :evaluation_completed_employee,
+      evaluable: employee
+    )
 
     FactoryBot.create(
       :section,
@@ -27,7 +30,10 @@ RSpec.describe V2::Employees::SearchQuery do
     )
 
     other_employee = FactoryBot.create(:employee)
-    other_evaluation = FactoryBot.create(:evaluation, :completed, employee: other_employee)
+    other_evaluation = FactoryBot.create(
+      :evaluation_completed_employee,
+      evaluable: other_employee
+    )
 
     FactoryBot.create(
       :section,
@@ -111,7 +117,10 @@ RSpec.describe V2::Employees::SearchQuery do
 
   it 'finds employee base on latest evaluation' do
     employee = FactoryBot.create(:employee)
-    first_evaluation = FactoryBot.create(:evaluation, :completed, employee: employee)
+    first_evaluation = FactoryBot.create(
+      :evaluation_completed_employee,
+      evaluable: employee
+    )
 
     FactoryBot.create(
       :section,
@@ -122,7 +131,10 @@ RSpec.describe V2::Employees::SearchQuery do
       ]
     )
 
-    second_evaluation = FactoryBot.create(:evaluation, :completed, employee: employee)
+    second_evaluation = FactoryBot.create(
+      :evaluation_completed_employee,
+      evaluable: employee
+    )
 
     FactoryBot.create(
       :section,
@@ -146,7 +158,10 @@ RSpec.describe V2::Employees::SearchQuery do
 
   it 'uses equal sign when invalid operator' do
     employee = FactoryBot.create(:employee)
-    evaluation = FactoryBot.create(:evaluation, :completed, employee: employee)
+    evaluation = FactoryBot.create(
+      :evaluation_completed_employee,
+      evaluable: employee
+    )
 
     FactoryBot.create(
       :section,
@@ -158,7 +173,10 @@ RSpec.describe V2::Employees::SearchQuery do
     )
 
     other_employee = FactoryBot.create(:employee)
-    other_evaluation = FactoryBot.create(:evaluation, :completed, employee: other_employee)
+    other_evaluation = FactoryBot.create(
+      :evaluation_completed_employee,
+      evaluable: other_employee
+    )
 
     FactoryBot.create(
       :section,

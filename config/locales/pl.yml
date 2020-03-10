@@ -10,7 +10,7 @@ pl:
         user: 'użytkownik'
       evaluation:
         state: 'status'
-        employee_id: 'pracownik'
+        evaluable: 'oceniany'
         employee: 'pracownik'
       section:
         name: 'nazwa'
@@ -36,7 +36,7 @@ pl:
     errors:
       messages:
         blank: 'nie może być pustą wartością'
-        draft_exists: 'posiada już szkic oceny'
+        draft_evaluation_exists: 'posiada już szkic oceny'
         invalid: 'ma nieprawidłowy format'
         invalid_email_format: 'posiada niepoprawny format'
         invalid_inclusion: "'%{value}' jest niepoprawny(a)"

@@ -22,7 +22,7 @@ module V2
     end
 
     def evaluation
-      @evaluation ||= evaluations_scope.completed.includes(:employee).find_by(id: params[:id])
+      @evaluation ||= evaluations_scope.completed.find_by(id: params[:id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @evaluation
 
       @evaluation

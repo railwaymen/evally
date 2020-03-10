@@ -8,7 +8,7 @@ module V2
       end
 
       def drafts
-        drafts_scope.joins(:employee)
+        drafts_scope.joins(employees_join)
                     .where.not(employees: { state: :archived })
                     .order(updated_at: :desc)
       end
@@ -29,6 +29,13 @@ module V2
 
       def employees_scope
         Pundit.policy_scope!(@user, [:v2, Employee]).where.not(state: :archived)
+      end
+
+      def employees_join
+        "
+          LEFT JOIN employees
+            ON evaluations.evaluable_id = employees.id AND evaluations.evaluable_type = 'Employee'
+        "
       end
     end
   end

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Evaluation, type: :model do
-  it { is_expected.to belong_to(:employee) }
+  it { is_expected.to belong_to(:evaluable) }
 
   it do
     is_expected.to(

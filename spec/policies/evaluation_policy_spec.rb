@@ -11,8 +11,8 @@ RSpec.describe V2::EvaluationPolicy, type: :policy do
       employee1 = FactoryBot.create(:employee)
       employee2 = FactoryBot.create(:employee, evaluator: evaluator)
 
-      evaluation1 = FactoryBot.create(:evaluation, employee: employee1)
-      evaluation2 = FactoryBot.create(:evaluation, employee: employee2)
+      evaluation1 = FactoryBot.create(:evaluation, evaluable: employee1)
+      evaluation2 = FactoryBot.create(:evaluation, evaluable: employee2)
 
       aggregate_failures 'for admin' do
         scope = Pundit.policy_scope!(admin, [:v2, Evaluation])

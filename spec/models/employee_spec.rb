@@ -13,6 +13,8 @@ RSpec.describe Employee, type: :model do
 
   it { is_expected.to validate_presence_of(:position) }
 
+  it { is_expected.to validate_presence_of(:group) }
+
   it { is_expected.to validate_presence_of(:hired_on) }
 
   describe 'enums' do

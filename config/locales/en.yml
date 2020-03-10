@@ -3,7 +3,7 @@ en:
     errors:
       format: '%{attribute} %{message}'
       messages:
-        draft_exists: 'draft evaluation already exists'
+        draft_evaluation_exists: 'record has already draft evaluation'
         invalid_state: "'%{value}' is not a valid value"
         name_and_value: 'must have name and value'
         skills_array: 'must be an Array of skills'

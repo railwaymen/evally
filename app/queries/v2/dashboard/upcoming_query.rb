@@ -15,7 +15,9 @@ module V2
             FROM
               evaluations
             WHERE
-              employee_id = employees.id AND state = 'draft'
+              evaluable_id = employees.id AND
+                evaluable_type = 'Employee' AND
+                state = 'draft'
           ) drafts ON true
         "
       end

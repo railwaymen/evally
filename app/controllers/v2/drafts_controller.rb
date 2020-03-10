@@ -52,7 +52,7 @@ module V2
     end
 
     def draft
-      @draft ||= policy_scope([:v2, Evaluation]).draft.includes(:employee).find_by(id: params[:id])
+      @draft ||= policy_scope([:v2, Evaluation]).draft.find_by(id: params[:id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @draft
 
       @draft
