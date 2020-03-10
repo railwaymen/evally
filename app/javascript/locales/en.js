@@ -292,6 +292,7 @@ export default {
         lastName: 'Last Name',
         role: 'Role',
         status: 'Status',
+        group: 'Group'
       }
     },
     recruitments: {
@@ -309,7 +310,11 @@ export default {
       },
       recruitmentForm: {
         createTitle: 'New recruitment',
-        contact: 'Contact'
+        contact: 'Contact',
+        general: 'General',
+        male: 'male',
+        female: 'female',
+        position: 'Position'
       },
       sidebar: {
         gender: 'Gender',

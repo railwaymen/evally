@@ -21,7 +21,7 @@
           </v-flex>
 
           <v-flex class="pa-2" xs12>
-            <h3 class="subtitle-1">{{ $t('components.employees.employeeForm.general') }}</h3>
+            <h3 class="subtitle-1">{{ $t('components.recruitments.recruitmentForm.general') }}</h3>
           </v-flex>
 
           <v-flex class="px-2" xs12 lg4>
@@ -44,7 +44,7 @@
 
           <v-flex class="px-2" xs12 lg4>
             <v-radio-group v-model="localRecruitment.gender">
-              <v-radio label="male" value="male" />
+              <v-radio label="male" :value="$t('components.recruitments.male')" />
               <v-radio label="female" value="female" />
             </v-radio-group>
           </v-flex>
@@ -71,9 +71,6 @@
               />
             </v-flex>
 
-          <v-flex class="pa-2" xs12>
-            <h3 class="subtitle-1">{{ $t('components.employees.employeeForm.employment') }}</h3>
-          </v-flex>
 
           <v-flex class="px-2" xs12 lg6>
             <v-combobox
@@ -82,7 +79,7 @@
               :rules="[vRequired]"
               prepend-inner-icon="mdi-account-group-outline"
               chips
-              :label="$t('components.employees.employeeForm.group')"
+              :label="$t('shared.general.fields..group')"
             />
           </v-flex>
 
@@ -94,7 +91,7 @@
               append-icon="mdi-chevron-down"
               prepend-inner-icon="mdi-briefcase-outline"
               chips
-              :label="$t('components.employees.employeeForm.position')"
+              :label="$t('components.recruitments.recruitmentForm.position')"
             />
           </v-flex>
 
@@ -128,6 +125,13 @@
               scrollable
              />
              </v-menu>
+          </v-flex>
+
+          <v-flex class="px-2" xs12 lg4>
+            <v-radio-group v-model="localRecruitment.gender">
+              <v-radio label="male" value="male" />
+              <v-radio label="female" value="female" />
+            </v-radio-group>
           </v-flex>
 
         </v-layout>

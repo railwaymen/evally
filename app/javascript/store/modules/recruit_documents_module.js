@@ -107,7 +107,6 @@ const RecruitDocumentsModule = {
         recruit_document: recruitDocument.attributes
       }
 
-
       return new Promise(resolve => {
         http.post(RecruitDocument.routes.recruitDocumentsPath, params)
           .then(response => {

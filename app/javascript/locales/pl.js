@@ -7,7 +7,8 @@ export default {
         email: 'Email',
         phoneNumber: 'Numer telefonu',
         source: 'Żródło',
-        status: 'Status'
+        status: 'Status',
+        group: 'Grupa'
       }
     },
     buttons: {
@@ -149,7 +150,7 @@ export default {
       employeeForm: {
         createTitle: 'Utwórz pracownika',
         updateTitle: 'Zaktualizuj pracownika',
-        general: 'Ogólce',
+        general: 'Ogólne',
         employment: 'Zatrudnienie',
         evaluation: 'Ocena',
         firstName: 'Imię',
@@ -308,7 +309,11 @@ export default {
         },
         recruitmentForm:{
           createTitle: 'Nowy rekrutacja',
-          contact: 'Kontact'
+          contact: 'Kontact',
+          general: 'Ogólne',
+          male: 'męczyzna',
+          female: 'kobieta',
+          position: 'Pozycja'
         }
       },
       sidebar: {
