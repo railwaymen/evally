@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_05_093549) do
+ActiveRecord::Schema.define(version: 2020_03_10_122458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2020_03_05_093549) do
     t.string "status", default: "fresh", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "accept_current_process", default: true
+    t.boolean "accept_future_process"
     t.index ["email"], name: "index_recruit_documents_on_email", unique: true
     t.index ["encrypted_email"], name: "index_recruit_documents_on_encrypted_email"
     t.index ["group"], name: "index_recruit_documents_on_group"
