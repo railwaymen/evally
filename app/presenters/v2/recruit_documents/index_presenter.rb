@@ -16,6 +16,10 @@ module V2
       def statuses
         RecruitDocument.distinct(:status).order(:status).pluck(:status)
       end
+
+      def positions
+        RecruitDocument.distinct(:position).order(:position).pluck(:position)
+      end
     end
   end
 end

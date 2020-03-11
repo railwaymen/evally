@@ -3,7 +3,7 @@ export default {
     general:{
       fields: {
         firstName: 'Imię',
-        lasttName: 'Nazwisko',
+        lastName: 'Nazwisko',
         email: 'Email',
         phoneNumber: 'Numer telefonu',
         source: 'Żródło',
@@ -306,16 +306,16 @@ export default {
           status: 'Status',
           position: 'Pozycja',
           receivedAt: 'Data otrzymania'
-        },
-        recruitmentForm:{
+        }
+      },
+      recruitmentForm:{
           createTitle: 'Nowy rekrutacja',
           contact: 'Kontact',
           general: 'Ogólne',
           male: 'męczyzna',
           female: 'kobieta',
           position: 'Pozycja'
-        }
-      },
+        },
       sidebar: {
         gender: 'Płeć',
         email: 'Email',
@@ -457,6 +457,13 @@ export default {
     recruitments: {
       index: {
         error: 'Błąd przy ładowaniu rekrutacji: {msg}'
+      },
+      create: {
+        ok: 'Rekrutacja została utworzona',
+        error: 'Błąd przy tworzeniu rekrutacji: {msg}'
+      },
+      show: {
+        error: 'Błąd przy wyświetleniu rekrutacji: {msg}'
       }
     }
   },

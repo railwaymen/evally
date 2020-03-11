@@ -7,7 +7,8 @@ export default {
         email: 'Email',
         phoneNumber: 'Phone number',
         source: 'Source',
-        status: 'Status'
+        status: 'Status',
+        group: 'Group'
       }
     },
     buttons: {
@@ -456,6 +457,13 @@ export default {
     },
     recruitments: {
       index: {
+        error: 'Recruitments cannot be loaded: {msg}'
+      },
+      create: {
+        ok: 'Recruitment has been create',
+        error: 'Recruitment cannot be created: {msg}'
+      },
+      show: {
         error: 'Recruitments cannot be loaded: {msg}'
       }
     }

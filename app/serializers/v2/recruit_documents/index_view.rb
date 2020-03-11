@@ -5,7 +5,7 @@ module V2
     class IndexView < Blueprinter::Base
       association :recruit_documents, blueprint: V2::RecruitDocuments::Serializer, default: []
 
-      fields :groups, :statuses
+      fields :groups, :statuses, :positions
     end
   end
 end

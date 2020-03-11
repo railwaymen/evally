@@ -9,9 +9,9 @@
 
         <v-layout row wrap>
           <v-flex class="px-2" xs12 lg6>
-            <v-combobox
+            <v-select
               v-model="localRecruitment.status"
-              :items="this.statuses"
+              :items="statuses"
               :rules="[vRequired]"
               append-icon="mdi-chevron-down"
               prepend-inner-icon="mdi-account-box-outline"
@@ -44,7 +44,7 @@
 
           <v-flex class="px-2" xs12 lg4>
             <v-radio-group v-model="localRecruitment.gender">
-              <v-radio label="male" :value="$t('components.recruitments.male')" />
+              <v-radio label="male" value="male" />
               <v-radio label="female" value="female" />
             </v-radio-group>
           </v-flex>
@@ -75,18 +75,18 @@
           <v-flex class="px-2" xs12 lg6>
             <v-combobox
               v-model="localRecruitment.group"
-              :items="this.groups"
+              :items="groups"
               :rules="[vRequired]"
               prepend-inner-icon="mdi-account-group-outline"
               chips
-              :label="$t('shared.general.fields..group')"
+              :label="$t('shared.general.fields.group')"
             />
           </v-flex>
 
           <v-flex class="px-2" xs12 lg6>
             <v-combobox
               v-model="localRecruitment.position"
-              :items="this.positions"
+              :items="positions"
               :rules="[vRequired]"
               append-icon="mdi-chevron-down"
               prepend-inner-icon="mdi-briefcase-outline"
@@ -96,12 +96,12 @@
           </v-flex>
 
           <v-flex class="px-2" xs12 lg6>
-              <v-text-field
-                v-model="localRecruitment.source"
-                :rules="[vRequired]"
-                :label="$t('shared.general.fields.source')"
-                prepend-inner-icon="mdi-account-outline"
-              />
+            <v-text-field
+              v-model="localRecruitment.source"
+              :rules="[vRequired]"
+              :label="$t('shared.general.fields.source')"
+              prepend-inner-icon="mdi-account-outline"
+            />
           </v-flex>
 
           <v-flex class="px-2" xs12 lg6>
@@ -125,13 +125,6 @@
               scrollable
              />
              </v-menu>
-          </v-flex>
-
-          <v-flex class="px-2" xs12 lg4>
-            <v-radio-group v-model="localRecruitment.gender">
-              <v-radio label="male" value="male" />
-              <v-radio label="female" value="female" />
-            </v-radio-group>
           </v-flex>
 
         </v-layout>
@@ -194,8 +187,7 @@ export default {
     save() {
       if (!this.$refs.form.validate()) return
 
-      this.create( {recruitDocument: this.localRecruitment,
-                    successHandler: this.$refs.form.reset} )
+      this.create( this.localRecruitment ).then(this.$refs.form.reset)
     },
     ...mapActions({
       create: 'RecruitDocumentsModule/create',
