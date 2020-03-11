@@ -5,8 +5,6 @@ module V2
     class ShowPresenter
       attr_reader :evaluation
 
-      alias draft evaluation
-
       def initialize(evaluation)
         @evaluation = evaluation
       end

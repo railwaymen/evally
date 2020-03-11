@@ -8,6 +8,11 @@ class Evaluation < ApplicationRecord
   has_many :sections, as: :sectionable, dependent: :destroy
   accepts_nested_attributes_for :sections
 
+  # # Scopes
+  #
+  scope :employable, -> { where(evaluable_type: 'Employee') }
+  scope :recruitable, -> { where(evaluable_type: 'Recruit') }
+
   # # Enums
   #
   enum state: { draft: 'draft', completed: 'completed', archived: 'archived' }

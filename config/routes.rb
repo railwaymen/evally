@@ -14,6 +14,10 @@ Rails.application.routes.draw do
       resource :dashboard, controller: 'dashboard', only: :show
 
       resources :drafts, only: %i[index show create update destroy]
+      resources :evaluation_employables, only: %i[index create update destroy] do
+        get :draft, on: :member
+        get :completed, on: :member
+      end
 
       resources :employees, only: %i[index show create update destroy], shallow: true do
         get :skills, on: :collection

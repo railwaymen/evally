@@ -7,21 +7,21 @@ module JsonSpecHelpers
     JSON.parse(response.body)
   end
 
-  def draft_schema(draft)
+  def evaluation_employable_schema(draft)
     employee = draft.employee
 
     {
-      draft: {
+      evaluation: {
         id: draft.id,
         state: draft.state,
         template_name: draft.template_name,
         updated_at: draft.updated_at.to_s,
         completed_at: draft.completed_at ? draft.completed_at.to_s : nil,
         employee_id: draft.employee_id,
-        employee_first_name: employee.first_name,
-        employee_last_name: employee.last_name,
-        employee_position: employee.position,
-        employee_hired_on: employee.hired_on,
+        first_name: employee.first_name,
+        last_name: employee.last_name,
+        position: employee.position,
+        hired_on: employee.hired_on,
         next_evaluation_on: employee.next_evaluation_on
       },
       sections: draft.sections.map(&method(:section_schema))
