@@ -29,10 +29,10 @@ services:
       - webpacker
       - db
     environment:
-      RAILS_ENV: development
-      DATABASE_HOST: db
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: ''
+      RAILS_ENV: ${DATABASE_USERNAME}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
 
 volumes:
   postgres:
