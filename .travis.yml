@@ -17,6 +17,7 @@ addons:
 
 script: [
   'bundle exec rake',
+  'yarn eslint ./app/javascript',
   'yarn test ./app/javascript/components'
 ]
 
