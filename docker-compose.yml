@@ -17,6 +17,8 @@ services:
     user: ${CURRENT_USER}
 
   app:
+    env_file:
+      - ./docker.env
     build: .
     container_name: evally_app
     command: bin/rails s -p 3000 -b '0.0.0.0'
@@ -28,11 +30,6 @@ services:
     depends_on:
       - webpacker
       - db
-    environment:
-      RAILS_ENV: ${DATABASE_USERNAME}
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_USERNAME: ${DATABASE_USERNAME}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
 
 volumes:
   postgres:
