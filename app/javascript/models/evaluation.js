@@ -68,6 +68,7 @@ class Evaluation extends Model {
   static get routes() {
     return {
       evaluationEmployablesPath: '/v2/evaluation_employables',
+      evaluationEmployablePath: id => `/v2/evaluation_employables/${id}`,
       draftEvaluationEmployablePath: id => `/v2/evaluation_employables/${id}/draft`,
       completedEvaluationEmployablePath: id => `/v2/evaluation_employables/${id}/completed`,
       formEvaluationEmployablePath: '/v2/evaluation_employables/form',

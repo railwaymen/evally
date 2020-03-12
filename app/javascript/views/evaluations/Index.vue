@@ -155,7 +155,7 @@ export default {
       this.isSidebarVisible = !this.isSidebarVisible
     },
     reset() {
-      this.$store.dispatch('DraftsModule/show', this.evaluation.id)
+      this.$store.dispatch('EvaluationEmployablesModule/show', this.evaluation.id)
     },
     openCreateForm() {
       DialogsBus.$emit('openFormsDialog', {
@@ -180,17 +180,17 @@ export default {
       })
     },
     ...mapActions({
-      fetchData: 'DraftsModule/index',
-      update: 'DraftsModule/update',
+      fetchData: 'EvaluationEmployablesModule/index',
+      update: 'EvaluationEmployablesModule/update',
     })
   },
   computed: {
     ...mapGetters({
-      evaluations: 'DraftsModule/evaluations',
-      evaluation: 'DraftsModule/evaluation',
-      employees: 'DraftsModule/employees',
-      templates: 'DraftsModule/templates',
-      loading: 'DraftsModule/loading',
+      evaluations: 'EvaluationEmployablesModule/evaluations',
+      evaluation: 'EvaluationEmployablesModule/evaluation',
+      employees: 'EvaluationEmployablesModule/employees',
+      templates: 'EvaluationEmployablesModule/templates',
+      loading: 'EvaluationEmployablesModule/loading',
       setting: 'AuthenticationModule/setting'
     })
   },
@@ -198,7 +198,7 @@ export default {
     this.fetchData()
   },
   beforeDestroy() {
-    this.$store.commit('DraftsModule/resetState')
+    this.$store.commit('EvaluationEmployablesModule/resetState')
   }
 }
 </script>

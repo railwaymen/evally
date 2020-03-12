@@ -135,7 +135,7 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
     context 'when unauthorized' do
       it 'responds with 401 error' do
         params = {
-          draft: {
+          evaluation: {
             employee_id: 1,
             template_id: 1
           }
@@ -153,7 +153,7 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
         FactoryBot.create(:section, sectionable: template)
 
         params = {
-          draft: {
+          evaluation: {
             employee_id: employee.id,
             template_id: template.id
           }
@@ -174,7 +174,7 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
         FactoryBot.create(:section, sectionable: template)
 
         params = {
-          draft: {
+          evaluation: {
             employee_id: employee.id,
             template_id: template.id
           }
@@ -197,7 +197,7 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
         FactoryBot.create(:evaluation_completed_employee, evaluable: employee)
 
         params = {
-          draft: {
+          evaluation: {
             employee_id: employee.id,
             use_latest: 1
           }
@@ -220,7 +220,7 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
         FactoryBot.create(:section, sectionable: template)
 
         params = {
-          draft: {
+          evaluation: {
             employee_id: 1,
             template_id: template.id
           }
@@ -237,7 +237,7 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
         employee = FactoryBot.create(:employee)
 
         params = {
-          draft: {
+          evaluation: {
             employee_id: employee.id,
             template_id: 1
           }
@@ -254,7 +254,7 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
         employee = FactoryBot.create(:employee)
 
         params = {
-          draft: {
+          evaluation: {
             employee_id: employee.id,
             use_latest: 1
           }
@@ -275,7 +275,7 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
         FactoryBot.create(:section, sectionable: template)
 
         params = {
-          draft: {
+          evaluation: {
             employee_id: employee.id,
             template_id: template.id
           }
@@ -295,7 +295,7 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
       it 'responds with 401 error' do
         params = {
           id: 1,
-          draft: {
+          evaluation: {
             sections: [
               {
                 id: 1,
@@ -316,7 +316,7 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
 
         params = {
           id: draft.id,
-          draft: {
+          evaluation: {
             sections: [
               {
                 id: section.id,
@@ -340,7 +340,7 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
 
         params = {
           id: draft.id,
-          draft: {
+          evaluation: {
             sections: [
               {
                 id: section.id,
@@ -372,7 +372,7 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
 
         params = {
           id: draft.id,
-          draft: {
+          evaluation: {
             state: 'completed',
             next_evaluation_on: 6.months.from_now.strftime('%Y-%M'),
             sections: [
@@ -406,7 +406,7 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
 
         params = {
           id: draft.id,
-          draft: {
+          evaluation: {
             sections: [
               {
                 id: section.id,

@@ -59,7 +59,7 @@ export default new Router({
               children: [
                 {
                   path: 'evaluations/:id',
-                  name: 'evaluation_draft_path',
+                  name: 'evaluation_completed_path',
                   component: () => import(/* webpackChunkName: 'evaluation' */ '@views/employees/Evaluation')
                 }
               ]

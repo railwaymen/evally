@@ -92,11 +92,11 @@ module V2
     end
 
     def create_params
-      params.require(:draft).permit(:employee_id, :template_id, :use_latest)
+      params.require(:evaluation).permit(:employee_id, :template_id, :use_latest)
     end
 
     def update_params
-      params.require(:draft).permit(
+      params.require(:evaluation).permit(
         :state, :next_evaluation_on, sections: [:id, skills: %i[name value needToImprove]]
       )
     end

@@ -139,7 +139,7 @@ const EmployeesModule = {
         })
     },
     showEvaluation({ commit }, id) {
-      http.get(Evaluation.routes.evaluationPath(id))
+      http.get(Evaluation.routes.completedEvaluationEmployablePath(id))
         .then(response => {
           commit('setEvaluation', response.data)
         })

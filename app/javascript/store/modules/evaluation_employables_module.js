@@ -17,7 +17,7 @@ const initialState = () => ({
   loading: true
 })
 
-const DraftsModule = {
+const EvaluationEmployablesModule = {
   namespaced: true,
 
   state: initialState(),
@@ -118,7 +118,7 @@ const DraftsModule = {
     },
     create({ commit }, { employeeId, templateId, useLatest }) {
       const params = {
-        draft: {
+        evaluation: {
           employee_id: employeeId,
           template_id: templateId,
           use_latest: useLatest
@@ -130,7 +130,7 @@ const DraftsModule = {
           .then(response => {
             const { data } = response
 
-            commit('addToList', data.draft)
+            commit('addToList', data.evaluation)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.drafts.create.ok') },
@@ -149,16 +149,16 @@ const DraftsModule = {
       })
     },
     update({ state, commit }) {
-      const { draft, sections } = state;
+      const { evaluation, sections } = state;
 
       const params = {
-        draft: {
+        evaluation: {
           sections: sections.models
         }
       }
 
       return new Promise(resolve => {
-        http.put(Evaluation.routes.draftPath(draft.id), params)
+        http.put(Evaluation.routes.evaluationEmployablePath(evaluation.id), params)
           .then(response => {
             commit('setItem', response.data)
             commit(
@@ -180,10 +180,10 @@ const DraftsModule = {
 
     },
     complete({ state, commit }, { nextEvaluationDate }) {
-      const { draft, sections } = state;
+      const { evaluation, sections } = state;
 
       const params = {
-        draft: {
+        evaluation: {
           state: 'completed',
           next_evaluation_on: nextEvaluationDate,
           sections: sections.models
@@ -191,9 +191,9 @@ const DraftsModule = {
       }
 
       return new Promise(resolve => {
-        http.put(Evaluation.routes.draftPath(draft.id), params)
+        http.put(Evaluation.routes.evaluationEmployablePath(evaluation.id), params)
           .then(() => {
-            commit('removeFromList', draft.id)
+            commit('removeFromList', evaluation.id)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.drafts.complete.ok') },
@@ -212,11 +212,11 @@ const DraftsModule = {
       })
     },
     destroy({ state, commit }) {
-      const { draft } = state;
+      const { evaluation } = state;
 
-      http.delete(Evaluation.routes.draftPath(draft.id))
+      http.delete(Evaluation.routes.evaluationEmployablePath(evaluation.id))
         .then(() => {
-          commit('removeFromList', draft.id)
+          commit('removeFromList', evaluation.id)
 
           commit(
             'NotificationsModule/push',
@@ -235,4 +235,4 @@ const DraftsModule = {
   }
 }
 
-export default DraftsModule
+export default EvaluationEmployablesModule

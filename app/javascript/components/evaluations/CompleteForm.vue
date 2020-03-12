@@ -86,7 +86,7 @@ export default {
     },
     complete() {
       this.$store.dispatch(
-        'DraftsModule/complete',
+        'EvaluationEmployablesModule/complete',
         { nextEvaluationDate: this.localDate.format('YYYY-MM-DD') }
       ).then(() => this.closeDialog())
     }

@@ -149,16 +149,16 @@ export default {
       this.templateId = null
     },
     create() {
-      this.$store.dispatch('DraftsModule/create', this.$data)
+      this.$store.dispatch('EvaluationEmployablesModule/create', this.$data)
         .then(data => {
           this.closeDialog()
 
-          this.$router.push({ name: 'evaluation_draft_path', params: { id: data.draft.id } })
+          this.$router.push({ name: 'evaluation_draft_path', params: { id: data.evaluation.id } })
         })
     }
   },
   created() {
-    this.$store.dispatch('DraftsModule/form')
+    this.$store.dispatch('EvaluationEmployablesModule/form')
 
     if (this.defaultEmployee.isPersisted) {
       this.employees.add(this.defaultEmployee)

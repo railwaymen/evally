@@ -13,7 +13,6 @@ Rails.application.routes.draw do
 
       resource :dashboard, controller: 'dashboard', only: :show
 
-      resources :drafts, only: %i[index show create update destroy]
       resources :evaluation_employables, only: %i[index create update destroy] do
         get :form, on: :collection
         get :draft, on: :member
@@ -26,8 +25,6 @@ Rails.application.routes.draw do
         get :overview, on: :collection
         put :archive, on: :member
         get :archived, on: :collection
-
-        resources :evaluations, only: :show
       end
 
       resources :recruit_documents, only: %i[index show new create edit update]
