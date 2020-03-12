@@ -109,7 +109,7 @@
         <v-layout wrap row>
           <v-flex v-show="isSidebarVisible" xs10 offset-xs1 lg3 offset-lg0>
             <search-list
-              :drafts="drafts"
+              :evaluations="drafts"
               :loading="loading"
             />
           </v-flex>

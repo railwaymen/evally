@@ -40,10 +40,8 @@ const DraftsModule = {
       state.sections = new SectionsList(sections)
       return state
     },
-    setList(state, { drafts, employees, templates }) {
-      state.drafts = new EvaluationsList(drafts)
-      state.employees = new EmployeesList(employees)
-      state.templates = new TemplatesList(templates)
+    setList(state, evaluations) {
+      state.drafts = new EvaluationsList(evaluations)
       return state
     },
     setLoading(state, status) {
@@ -74,7 +72,7 @@ const DraftsModule = {
     index({ commit }) {
       commit('setLoading', true)
 
-      http.get(Evaluation.routes.draftsPath)
+      http.get(Evaluation.routes.evaluationEmployablesPath)
         .then(response => {
           commit('setList', response.data)
         })
