@@ -16,9 +16,7 @@ module V2
       end
 
       def drafts
-        drafts_scope.joins(
-          "LEFT JOIN employees ON evaluable_id = employees.id AND evaluable_type = 'Employee'"
-        ).order(updated_at: :desc).limit(setting.default_draft_items || 5)
+        drafts_scope.order(updated_at: :desc).limit(setting.default_draft_items || 5)
       end
 
       def activities
@@ -40,7 +38,7 @@ module V2
       end
 
       def drafts_scope
-        Pundit.policy_scope!(@user, [:v2, Evaluation]).draft
+        Pundit.policy_scope!(@user, [:v2, Evaluation]).draft.employable.includes(:evaluable)
       end
     end
   end

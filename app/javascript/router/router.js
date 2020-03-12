@@ -20,12 +20,12 @@ export default new Router({
         },
         {
           path: 'evaluations',
-          name: 'evaluations_path',
+          name: 'evaluation_drafts_path',
           component: () => import(/* webpackChunkName: 'evaluations' */ '@views/evaluations/Index'),
           children: [
             {
               path: ':id',
-              name: 'evaluation_path',
+              name: 'evaluation_draft_path',
               component: () => import(/* webpackChunkName: 'evaluation' */ '@views/evaluations/Show'),
             }
           ]
@@ -59,7 +59,7 @@ export default new Router({
               children: [
                 {
                   path: 'evaluations/:id',
-                  name: 'evaluation_path',
+                  name: 'evaluation_draft_path',
                   component: () => import(/* webpackChunkName: 'evaluation' */ '@views/employees/Evaluation')
                 }
               ]

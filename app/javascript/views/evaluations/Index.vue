@@ -115,7 +115,7 @@
           </v-flex>
 
           <v-flex xs12 :lg9="isSidebarVisible" :lg12="!isSidebarVisible">
-            <div v-if="$route.name === 'evaluations_path'" class="box">
+            <div v-if="$route.name === 'evaluation_drafts_path'" class="box">
               <v-layout row>
                 <v-flex xs12>
                   <h4 class="box__header">

@@ -23,7 +23,7 @@ class Evaluation extends Model {
     return moment(this.completed_at).format('MMM DD, YYYY')
   }
 
-  get Fullname() {
+  get fullname() {
     return [this.first_name, this.last_name].join(' ')
   }
 
