@@ -25,7 +25,7 @@
           <template #activator="{ on }">
             <v-btn
               @click="openCompleteForm"
-              :disabled="draft.isNewRecord"
+              :disabled="evaluation.isNewRecord"
               v-on="on"
               color="green"
               icon
@@ -41,7 +41,7 @@
           <template #activator="{ on }">
             <v-btn
               @click="update"
-              :disabled="draft.isNewRecord"
+              :disabled="evaluation.isNewRecord"
               v-on="on"
               color="black"
               icon
@@ -57,7 +57,7 @@
           <template #activator="{ on }">
             <v-btn
               @click="reset"
-              :disabled="draft.isNewRecord"
+              :disabled="evaluation.isNewRecord"
               v-on="on"
               color="black"
               icon
@@ -73,7 +73,7 @@
           <template #activator="{ on }">
             <v-btn
               @click="openDeleteConfirm"
-              :disabled="draft.isNewRecord"
+              :disabled="evaluation.isNewRecord"
               v-on="on"
               color="red"
               icon
@@ -109,7 +109,7 @@
         <v-layout wrap row>
           <v-flex v-show="isSidebarVisible" xs10 offset-xs1 lg3 offset-lg0>
             <search-list
-              :evaluations="drafts"
+              :evaluations="evaluations"
               :loading="loading"
             />
           </v-flex>
@@ -143,7 +143,7 @@ import DeleteConfirm from '@components/evaluations/DeleteConfirm'
 import SearchList from '@components/evaluations/SearchList'
 
 export default {
-  name: 'DraftsIndex',
+  name: 'EvaluationsIndex',
   components: { SearchList },
   data() {
     return {
@@ -155,7 +155,7 @@ export default {
       this.isSidebarVisible = !this.isSidebarVisible
     },
     reset() {
-      this.$store.dispatch('DraftsModule/show', this.draft.id)
+      this.$store.dispatch('DraftsModule/show', this.evaluation.id)
     },
     openCreateForm() {
       DialogsBus.$emit('openFormsDialog', {
@@ -186,8 +186,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      drafts: 'DraftsModule/drafts',
-      draft: 'DraftsModule/draft',
+      evaluations: 'DraftsModule/evaluations',
+      evaluation: 'DraftsModule/evaluation',
       employees: 'DraftsModule/employees',
       templates: 'DraftsModule/templates',
       loading: 'DraftsModule/loading',

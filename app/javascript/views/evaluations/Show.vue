@@ -1,16 +1,16 @@
 <template>
   <div class="box evaluation">
-    <v-layout v-if="draft.isPersisted" row wrap>
+    <v-layout v-if="evaluation.isPersisted" row wrap>
       <v-flex xs12 lg9>
-        <h3 class="evaluation__fullname">{{ draft.employeeFullname }}</h3>
-        <h4 class="evaluation__position">{{ draft.employee_position }}</h4>
+        <h3 class="evaluation__fullname">{{ evaluation.fullname }}</h3>
+        <h4 class="evaluation__position">{{ evaluation.position }}</h4>
       </v-flex>
 
       <v-flex xs12 lg3>
         <v-layout row justify-end>
           <v-flex xs12>
             <div class="date">
-              <h5 class="date__value">{{ draft.employeeHiredOn }}</h5>
+              <h5 class="date__value">{{ evaluation.hiredOn }}</h5>
               <h6 class="date__description">{{ $t('views.drafts.show.hiredOn') }}</h6>
             </div>
           </v-flex>
@@ -23,7 +23,7 @@
             v-for="section in sections.models"
             :section="section"
             :key="section.id"
-            :editable="draft.editable"
+            :editable="evaluation.editable"
           />
         </v-layout>
       </v-flex>
@@ -45,11 +45,11 @@ import { mapGetters } from 'vuex'
 import SectionBox from '@components/evaluations/SectionBox'
 
 export default {
-  name: 'DraftsShow',
+  name: 'DraftEvaluationShow',
   components: { SectionBox },
   computed: {
     ...mapGetters({
-      draft: 'DraftsModule/draft',
+      evaluation: 'DraftsModule/evaluation',
       sections: 'DraftsModule/sections',
     })
   },

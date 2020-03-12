@@ -9,8 +9,8 @@ import { TemplatesList } from '@models/template'
 import { SectionsList } from '@models/section'
 
 const initialState = () => ({
-  drafts: new EvaluationsList(),
-  draft: new Evaluation(),
+  evaluations: new EvaluationsList(),
+  evaluation: new Evaluation(),
   sections: new SectionsList(),
   employees: new EmployeesList(),
   templates: new TemplatesList(),
@@ -23,8 +23,8 @@ const DraftsModule = {
   state: initialState(),
 
   getters: {
-    drafts: state => state.drafts,
-    draft: state => state.draft,
+    evaluations: state => state.evaluations,
+    evaluation: state => state.evaluation,
     sections: state => state.sections,
     employees: state => state.employees,
     templates: state => state.templates,
@@ -32,16 +32,16 @@ const DraftsModule = {
   },
   mutations: {
     addToList(state, data) {
-      state.drafts.add(data)
+      state.evaluations.add(data)
       return state
     },
-    setItem(state, { draft, sections }) {
-      state.draft = new Evaluation(draft)
+    setItem(state, { evaluation, sections }) {
+      state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
       return state
     },
     setList(state, evaluations) {
-      state.drafts = new EvaluationsList(evaluations)
+      state.evaluations = new EvaluationsList(evaluations)
       return state
     },
     setLoading(state, status) {
@@ -49,9 +49,9 @@ const DraftsModule = {
       return state
     },
     removeFromList(state, id) {
-      state.draft = new Evaluation()
+      state.evaluation = new Evaluation()
       state.sections = new SectionsList()
-      state.drafts.remove(id)
+      state.evaluations.remove(id)
       return state
     },
     replaceSection(state, section) {
@@ -59,7 +59,7 @@ const DraftsModule = {
       return state
     },
     resetItem(state) {
-      state.draft = new Evaluation()
+      state.evaluation = new Evaluation()
       state.sections = new SectionsList()
       return state
     },
@@ -86,7 +86,7 @@ const DraftsModule = {
         .finally(() => commit('setLoading', false))
     },
     show({ commit }, id) {
-      http.get(Evaluation.routes.draftPath(id))
+      http.get(Evaluation.routes.draftEvaluationEmployablePath(id))
         .then(response => {
           commit('setItem', response.data)
         })
@@ -108,7 +108,7 @@ const DraftsModule = {
       }
 
       return new Promise(resolve => {
-        http.post(Evaluation.routes.draftsPath, params)
+        http.post(Evaluation.routes.evaluationEmployablesPath, params)
           .then(response => {
             const { data } = response
 
