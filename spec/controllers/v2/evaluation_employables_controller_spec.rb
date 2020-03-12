@@ -105,6 +105,32 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
     end
   end
 
+  describe '#form' do
+    context 'when unauthorized' do
+      it 'responds with 401 error' do
+        get :form
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with employees and templates' do
+        employee = FactoryBot.create(:employee, evaluator: evaluator)
+        FactoryBot.create(:employee)
+
+        FactoryBot.create(:template, destination: 'employees')
+
+        sign_in evaluator
+        get :form
+
+        expect(response).to have_http_status 200
+
+        expect(response.body).to have_json_size(1).at_path('templates')
+        expect(json_response['employees'].map { |el| el['id'] }).to contain_exactly employee.id
+      end
+    end
+  end
+
   describe '#create' do
     context 'when unauthorized' do
       it 'responds with 401 error' do

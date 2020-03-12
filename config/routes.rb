@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
       resources :drafts, only: %i[index show create update destroy]
       resources :evaluation_employables, only: %i[index create update destroy] do
+        get :form, on: :collection
         get :draft, on: :member
         get :completed, on: :member
       end

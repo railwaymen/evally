@@ -35,6 +35,11 @@ const DraftsModule = {
       state.evaluations.add(data)
       return state
     },
+    setForm(state, { employees, templates }) {
+      state.employees = new EmployeesList(employees)
+      state.templates = new TemplatesList(templates)
+      return state
+    },
     setItem(state, { evaluation, sections }) {
       state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
@@ -89,6 +94,19 @@ const DraftsModule = {
       http.get(Evaluation.routes.draftEvaluationEmployablePath(id))
         .then(response => {
           commit('setItem', response.data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.drafts.show.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+        })
+    },
+    form({ commit }) {
+      http.get(Evaluation.routes.formEvaluationEmployablePath)
+        .then(response => {
+          commit('setForm', response.data)
         })
         .catch(error => {
           commit(

@@ -158,9 +158,11 @@ export default {
     }
   },
   created() {
-    if (this.defaultEmployee.isNewRecord) return
+    this.$store.dispatch('DraftsModule/form')
 
-    this.employees.add(this.defaultEmployee)
+    if (this.defaultEmployee.isPersisted) {
+      this.employees.add(this.defaultEmployee)
+    }
   }
 }
 </script>

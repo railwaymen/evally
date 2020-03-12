@@ -22,6 +22,12 @@ module V2
       render json: V2::Evaluations::EmployableShowView.render(presenter), status: :ok
     end
 
+    def form
+      presenter = V2::Evaluations::FormPresenter.new(current_user)
+
+      render json: V2::Evaluations::FormView.render(presenter), status: :ok
+    end
+
     def create
       create_form.save
       presenter = V2::Evaluations::ShowPresenter.new(create_form.draft)
