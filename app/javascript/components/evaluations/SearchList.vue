@@ -4,13 +4,13 @@
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
-        :label="$t('components.drafts.sidebar.search')"
+        :label="$t('components.evaluations.sidebar.search')"
         filled
       />
     </div>
     <div class="sidebar__list">
       <v-list two-line subheader>
-        <v-subheader>{{ $t('components.drafts.sidebar.subheader') }}</v-subheader>
+        <v-subheader>{{ $t('components.evaluations.sidebar.subheader') }}</v-subheader>
 
         <div v-if="loading" class="sidebar__loader">
           <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
@@ -26,7 +26,7 @@
             <v-list-item-content>
               <v-list-item-title>{{ evaluation.fullname }}</v-list-item-title>
               <v-list-item-subtitle>
-                {{ $t('components.drafts.sidebar.subtitle', { name: evaluation.template_name }) }}
+                {{ $t('components.evaluations.sidebar.subtitle', { name: evaluation.template_name }) }}
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -36,7 +36,9 @@
               <v-icon>mdi-alert-circle-outline</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>{{ $t('components.drafts.sidebar.noContent') }}</v-list-item-title>
+              <v-list-item-title>
+                {{ $t('components.evaluations.sidebar.noContent') }}
+              </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </template>

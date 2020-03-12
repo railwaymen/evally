@@ -2,7 +2,7 @@
   <section class="panel">
     <div class="panel__row">
       <div class="panel__name">
-        <h2>{{ $t('views.drafts.index.title') }}</h2>
+        <h2>{{ $t('views.evaluations.index.title') }}</h2>
       </div>
 
       <div class="panel__actions">
@@ -119,7 +119,7 @@
               <v-layout row>
                 <v-flex xs12>
                   <h4 class="box__header">
-                    {{ $t('views.drafts.index.instruction') }}
+                    {{ $t('views.evaluations.index.instruction') }}
                   </h4>
                 </v-flex>
               </v-layout>
@@ -158,13 +158,15 @@ export default {
       this.$store.dispatch('EvaluationEmployablesModule/show', this.evaluation.id)
     },
     openCreateForm() {
-      DialogsBus.$emit('openFormsDialog', {
-        innerComponent: CreateForm,
-        props: {
-          employees: this.employees,
-          templates: this.templates
-        }
-      })
+      this.form().then(
+        () => DialogsBus.$emit('openFormsDialog', {
+          innerComponent: CreateForm,
+          props: {
+            employees: this.employees,
+            templates: this.templates
+          }
+        })
+      )
     },
     openCompleteForm() {
       DialogsBus.$emit('openFormsDialog', {
@@ -182,6 +184,7 @@ export default {
     ...mapActions({
       fetchData: 'EvaluationEmployablesModule/index',
       update: 'EvaluationEmployablesModule/update',
+      form: 'EvaluationEmployablesModule/form',
     })
   },
   computed: {

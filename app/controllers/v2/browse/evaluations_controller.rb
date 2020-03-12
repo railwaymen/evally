@@ -6,7 +6,7 @@ module V2
       def show
         presenter = V2::Evaluations::ShowPresenter.new(evaluation)
 
-        render json: V2::Evaluations::ShowView.render(presenter), status: :ok
+        render json: V2::Evaluations::EmployableShowView.render(presenter), status: :ok
       end
 
       private

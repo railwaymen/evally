@@ -1,14 +1,14 @@
 <template>
   <v-card class="pa-3">
     <v-card-title>
-      <span class="headline">{{ $t('components.drafts.completeForm.title') }}</span>
+      <span class="headline">{{ $t('components.evaluations.completeForm.title') }}</span>
     </v-card-title>
 
     <v-form @submit.prevent="complete">
       <v-card-text>
         <p class="subtitle-1 text-center">
-          {{ $t('components.drafts.completeForm.question') }}<br>
-          {{ $t('components.drafts.completeForm.warning') }}
+          {{ $t('components.evaluations.completeForm.question') }}<br>
+          {{ $t('components.evaluations.completeForm.warning') }}
         </p>
 
         <v-menu
@@ -24,7 +24,7 @@
             <v-text-field
               class="mt-4"
               :value="localDate.format('MMMM YYYY')"
-              :label="$t('components.drafts.completeForm.nextEvaluation')"
+              :label="$t('components.evaluations.completeForm.nextEvaluation')"
               prepend-inner-icon="mdi-calendar"
               readonly
               v-on="on"

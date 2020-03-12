@@ -84,7 +84,7 @@ const EvaluationEmployablesModule = {
         .catch(error => {
           commit(
             'NotificationsModule/push',
-            { error: i18n.t('messages.drafts.index.error', { msg: fetchError(error) }) },
+            { error: i18n.t('messages.evaluations.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
@@ -98,22 +98,25 @@ const EvaluationEmployablesModule = {
         .catch(error => {
           commit(
             'NotificationsModule/push',
-            { error: i18n.t('messages.drafts.show.error', { msg: fetchError(error) }) },
+            { error: i18n.t('messages.evaluations.show.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
     },
     form({ commit }) {
-      http.get(Evaluation.routes.formEvaluationEmployablePath)
-        .then(response => {
-          commit('setForm', response.data)
-        })
-        .catch(error => {
-          commit(
-            'NotificationsModule/push',
-            { error: i18n.t('messages.drafts.show.error', { msg: fetchError(error) }) },
-            { root: true }
-          )
+      return new Promise(resolve => {
+        http.get(Evaluation.routes.formEvaluationEmployablePath)
+          .then(response => {
+            commit('setForm', response.data)
+            resolve()
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.evaluations.show.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
         })
     },
     create({ commit }, { employeeId, templateId, useLatest }) {
@@ -133,7 +136,7 @@ const EvaluationEmployablesModule = {
             commit('addToList', data.evaluation)
             commit(
               'NotificationsModule/push',
-              { success: i18n.t('messages.drafts.create.ok') },
+              { success: i18n.t('messages.evaluations.create.ok') },
               { root: true }
             )
 
@@ -142,7 +145,7 @@ const EvaluationEmployablesModule = {
           .catch(error => {
             commit(
               'NotificationsModule/push',
-              { error: i18n.t('messages.drafts.create.error', { msg: fetchError(error) }) },
+              { error: i18n.t('messages.evaluations.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
@@ -163,7 +166,7 @@ const EvaluationEmployablesModule = {
             commit('setItem', response.data)
             commit(
               'NotificationsModule/push',
-              { success: i18n.t('messages.drafts.update.ok') },
+              { success: i18n.t('messages.evaluations.update.ok') },
               { root: true }
             )
 
@@ -172,7 +175,7 @@ const EvaluationEmployablesModule = {
           .catch(error => {
             commit(
               'NotificationsModule/push',
-              { error: i18n.t('messages.drafts.update.error', { msg: fetchError(error) }) },
+              { error: i18n.t('messages.evaluations.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
@@ -196,7 +199,7 @@ const EvaluationEmployablesModule = {
             commit('removeFromList', evaluation.id)
             commit(
               'NotificationsModule/push',
-              { success: i18n.t('messages.drafts.complete.ok') },
+              { success: i18n.t('messages.evaluations.complete.ok') },
               { root: true }
             )
 
@@ -205,7 +208,7 @@ const EvaluationEmployablesModule = {
           .catch(error => {
             commit(
               'NotificationsModule/push',
-              { error: i18n.t('messages.drafts.complete.error', { msg: fetchError(error) }) },
+              { error: i18n.t('messages.evaluations.complete.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
@@ -220,14 +223,14 @@ const EvaluationEmployablesModule = {
 
           commit(
             'NotificationsModule/push',
-            { success: i18n.t('messages.drafts.delete.ok') },
+            { success: i18n.t('messages.evaluations.delete.ok') },
             { root: true }
           )
         })
         .catch(error => {
           commit(
             'NotificationsModule/push',
-            { error: i18n.t('messages.drafts.delete.error', { msg: fetchError(error) }) },
+            { error: i18n.t('messages.evaluations.delete.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })

@@ -43,7 +43,7 @@ export default {
     },
     navbar: {
       dashboard: 'Dashboard',
-      drafts: 'Drafts',
+      evaluations: 'Evaluations',
       employees: 'Employees',
       recruitments: 'Recruitments',
       templates: 'Templates',
@@ -76,7 +76,7 @@ export default {
 
       }
     },
-    drafts: {
+    evaluations: {
       sidebar: {
         search: 'Search ...',
         subheader: 'Evaluations In Progress',
@@ -105,6 +105,10 @@ export default {
         templateLabel: 'Template',
         latestTemplate: 'Latest template',
         newTemplate: 'New template',
+      },
+      staticSection: {
+        yes: 'Yes',
+        no: 'No',
       }
     },
     employees: {
@@ -192,12 +196,6 @@ export default {
       employeesByUsersChart: {
         title: 'Employees By Users',
         employees: 'Employees'
-      }
-    },
-    evaluations: {
-      staticSection: {
-        yes: 'Yes',
-        no: 'No',
       }
     },
     settings: {
@@ -333,7 +331,7 @@ export default {
     }
   },
   messages: {
-    drafts: {
+    evaluations: {
       index: {
         error: 'Evaluation drafts cannot be loaded: {msg}'
       },
@@ -508,9 +506,9 @@ export default {
         title: 'Hello {name}!',
       }
     },
-    drafts: {
+    evaluations: {
       index: {
-        title: 'Drafts',
+        title: 'Evaluations',
         instruction: 'Select draft from list or create a new one',
       },
       show: {

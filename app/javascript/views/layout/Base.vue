@@ -48,7 +48,7 @@
                 <v-icon>mdi-file-edit-outline</v-icon>
               </v-list-item-action>
 
-              <v-list-item-title>{{ $t('shared.navbar.drafts') }}</v-list-item-title>
+              <v-list-item-title>{{ $t('shared.navbar.evaluations') }}</v-list-item-title>
             </v-list-item>
 
             <v-list-item :to="{ name: 'employees_path' }">
@@ -121,7 +121,7 @@
             <v-icon>mdi-file-edit-outline</v-icon>
             <span class="separator" />
 
-            {{ $t('shared.navbar.drafts') }}
+            {{ $t('shared.navbar.evaluations') }}
           </v-tab>
 
           <v-tab :to="{ name: 'employees_path' }">

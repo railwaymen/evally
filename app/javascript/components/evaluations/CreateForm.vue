@@ -1,7 +1,7 @@
 <template>
   <v-card class="pa-3">
     <v-card-title>
-      <span class="headline">{{ $t('components.drafts.createForm.title') }}</span>
+      <span class="headline">{{ $t('components.evaluations.createForm.title') }}</span>
     </v-card-title>
 
     <v-form @submit.prevent="create">
@@ -15,7 +15,7 @@
               </v-avatar>
 
               <span class="step__text black--text">
-                {{ $t('components.drafts.createForm.selectEmployee') }}
+                {{ $t('components.evaluations.createForm.selectEmployee') }}
               </span>
             </v-chip>
           </div>
@@ -26,7 +26,7 @@
               :items="employees.models"
               item-value="id"
               item-text="fullname"
-              :label="$t('components.drafts.createForm.employeeLabel')"
+              :label="$t('components.evaluations.createForm.employeeLabel')"
               :disabled="defaultEmployee.isPersisted"
             />
           </div>
@@ -41,7 +41,7 @@
               </v-avatar>
 
               <span class="step__text black--text">
-                {{ $t('components.drafts.createForm.selectTemplate') }}
+                {{ $t('components.evaluations.createForm.selectTemplate') }}
               </span>
             </v-chip>
           </div>
@@ -53,7 +53,7 @@
                 :input-value="useLatest"
                 text
               >
-                {{ $t('components.drafts.createForm.latestTemplate') }}
+                {{ $t('components.evaluations.createForm.latestTemplate') }}
               </v-btn>
 
               <v-btn
@@ -61,7 +61,7 @@
                 :input-value="newTemplate"
                 text
               >
-                {{ $t('components.drafts.createForm.newTemplate') }}
+                {{ $t('components.evaluations.createForm.newTemplate') }}
               </v-btn>
             </div>
           </div>
@@ -73,7 +73,7 @@
               :items="templates.models"
               item-value="id"
               item-text="name"
-              :label="$t('components.drafts.createForm.templateLabel')"
+              :label="$t('components.evaluations.createForm.templateLabel')"
             />
           </div>
         </div>
@@ -158,7 +158,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('EvaluationEmployablesModule/form')
+    // this.$store.dispatch('EvaluationEmployablesModule/form')
 
     if (this.defaultEmployee.isPersisted) {
       this.employees.add(this.defaultEmployee)
