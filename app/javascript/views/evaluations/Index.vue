@@ -108,14 +108,14 @@
       <v-container grid-list-lg fluid>
         <v-layout wrap row>
           <v-flex v-show="isSidebarVisible" xs10 offset-xs1 lg3 offset-lg0>
-            <drafts-search-list
+            <search-list
               :drafts="drafts"
               :loading="loading"
             />
           </v-flex>
 
           <v-flex xs12 :lg9="isSidebarVisible" :lg12="!isSidebarVisible">
-            <div v-if="$route.name === 'drafts_path'" class="box">
+            <div v-if="$route.name === 'evaluations_path'" class="box">
               <v-layout row>
                 <v-flex xs12>
                   <h4 class="box__header">
@@ -137,14 +137,14 @@
 import { mapGetters, mapActions } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
-import CompleteForm from '@components/drafts/CompleteForm'
-import CreateForm from '@components/drafts/CreateForm'
-import DeleteConfirm from '@components/drafts/DeleteConfirm'
-import DraftsSearchList from '@components/drafts/DraftsSearchList'
+import CompleteForm from '@components/evaluations/CompleteForm'
+import CreateForm from '@components/evaluations/CreateForm'
+import DeleteConfirm from '@components/evaluations/DeleteConfirm'
+import SearchList from '@components/evaluations/SearchList'
 
 export default {
   name: 'DraftsIndex',
-  components: { DraftsSearchList },
+  components: { SearchList },
   data() {
     return {
       isSidebarVisible: true

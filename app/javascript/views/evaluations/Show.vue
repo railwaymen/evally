@@ -42,7 +42,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import SectionBox from '@components/drafts/SectionBox'
+import SectionBox from '@components/evaluations/SectionBox'
 
 export default {
   name: 'DraftsShow',

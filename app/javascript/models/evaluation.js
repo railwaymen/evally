@@ -42,7 +42,7 @@ class Evaluation extends Model {
   }
 
   get draftPath() {
-    return { name: 'draft_path', params: { id: this.id } }
+    return { name: 'evaluation_path', params: { id: this.id } }
   }
 
   get path() {

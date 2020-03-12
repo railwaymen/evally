@@ -49,7 +49,7 @@
 import { EvaluationsList } from '@models/evaluation'
 
 export default {
-  name: 'DraftsSearchList',
+  name: 'SearchList',
   props: {
     loading: {
       type: Boolean,

@@ -19,14 +19,14 @@ export default new Router({
           component: () => import(/* webpackChunkName: 'dashboard' */ '@views/dashboard/Show'),
         },
         {
-          path: 'drafts',
-          name: 'drafts_path',
-          component: () => import(/* webpackChunkName: 'drafts' */ '@views/drafts/Index'),
+          path: 'evaluations',
+          name: 'evaluations_path',
+          component: () => import(/* webpackChunkName: 'evaluations' */ '@views/evaluations/Index'),
           children: [
             {
               path: ':id',
-              name: 'draft_path',
-              component: () => import(/* webpackChunkName: 'draft' */ '@views/drafts/Show'),
+              name: 'evaluation_path',
+              component: () => import(/* webpackChunkName: 'evaluation' */ '@views/evaluations/Show'),
             }
           ]
         },
