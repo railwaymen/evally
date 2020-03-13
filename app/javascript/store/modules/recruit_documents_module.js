@@ -128,7 +128,7 @@ const RecruitDocumentsModule = {
           .then(response => {
             const { data } = response
 
-            commit('addToList', recruitDocument)
+            commit('addToList', data)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.recruitments.create.ok') },
