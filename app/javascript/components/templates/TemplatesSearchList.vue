@@ -1,6 +1,6 @@
 <template>
-  <div class="search-box">
-    <div class="search-box__input">
+  <div class="sidebar">
+    <div class="siedebar__search">
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -9,11 +9,11 @@
       />
     </div>
 
-    <div class="search-box__list">
+    <div class="sidebar__list">
       <v-list two-line subheader>
         <v-subheader>{{ $t('components.templates.sidebar.subheader') }}</v-subheader>
 
-        <div v-if="loading" class="search-box__loader">
+        <div v-if="loading" class="sidebar__loader">
           <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
         </div>
 

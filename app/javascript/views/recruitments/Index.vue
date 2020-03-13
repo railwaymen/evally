@@ -7,6 +7,7 @@
 
       <div class="panel__nav">
         <v-btn
+          :to="{ name: 'recruitments_path'}"
           color="primary"
           exact
           text
@@ -19,15 +20,14 @@
         <template v-if="$route.name === 'recruitments_path'">
           <v-tooltip bottom key="addNew" >
             <template #activator="{ on }">
-              <router-link :to="{ name: 'new_recruitment_path'}">
               <v-btn
+                :to="{ name: 'new_recruitment_path'}"
                 v-on="on"
                 color="green"
                 icon
               >
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
-              </router-link>
             </template>
 
             <span>{{ $t('shared.tooltips.addNew') }}</span>

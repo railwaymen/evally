@@ -4,6 +4,11 @@
     padding: rem2dec(3rem 2rem);
   }
 
+  &__loader {
+    text-align: center;
+    padding: rem2dec(.5rem);
+  }
+
   &__list  {
     background: #fff;
     max-height: calc(100vh - 204px);
