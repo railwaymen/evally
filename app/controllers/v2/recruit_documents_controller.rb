@@ -76,7 +76,7 @@ module V2
     def recruit_document_params
       params.require(:recruit_document).permit(
         :first_name, :last_name, :gender, :email, :phone, :position, :group, :received_at, :source,
-        :status
+        :status, :accept_current_process, :accept_future_processes
       )
     end
   end

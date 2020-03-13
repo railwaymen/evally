@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/ModuleLength
-
 module JsonSpecHelpers
   def json_response
     JSON.parse(response.body)
@@ -84,7 +82,9 @@ module JsonSpecHelpers
       group: recruit_document.group,
       position: recruit_document.position,
       received_at: recruit_document.received_at.to_s,
-      source: recruit_document.source
+      source: recruit_document.source,
+      accept_current_process: recruit_document.accept_current_process,
+      accept_future_processes: recruit_document.accept_future_processes
     }.to_json
   end
 
@@ -144,4 +144,4 @@ RSpec.configure do |config|
   config.include JsonSpecHelpers, type: :controller
 end
 
-# rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/ModuleLength
+# rubocop:enable

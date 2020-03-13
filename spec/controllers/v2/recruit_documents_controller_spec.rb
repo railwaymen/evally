@@ -136,7 +136,9 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
             position: 'Junior RoR Dev',
             group: 'Ruby',
             received_at: 1.minute.ago.to_s,
-            source: 'website'
+            source: 'website',
+            accept_current_process: '1',
+            accept_future_processes: '0'
           }
         }
 
@@ -158,7 +160,9 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
             position: 'Junior RoR Dev',
             group: 'Ruby',
             received_at: 1.minute.ago.to_s,
-            source: 'website'
+            source: 'website',
+            accept_current_process: '1',
+            accept_future_processes: '0'
           }
         }
 
