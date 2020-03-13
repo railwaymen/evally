@@ -2,13 +2,13 @@
   <div class="box evaluation">
     <v-layout v-if="evaluation.isPersisted" row wrap>
       <v-flex xs12 lg6>
-        <h3 class="evaluation__fullname">{{ evaluation.employeeFullname }}</h3>
-        <h4 class="evaluation__position">{{ evaluation.employee_position }}</h4>
+        <h3 class="evaluation__fullname">{{ evaluation.fullname }}</h3>
+        <h4 class="evaluation__position">{{ evaluation.position }}</h4>
       </v-flex>
 
       <v-flex xs12 lg3>
         <div class="date">
-          <h5 class="date__value">{{ evaluation.employeeHiredOn }}</h5>
+          <h5 class="date__value">{{ evaluation.hiredOn }}</h5>
           <h6 class="date__description">{{ $t('views.employees.evaluation.hiredOn') }}</h6>
         </div>
       </v-flex>

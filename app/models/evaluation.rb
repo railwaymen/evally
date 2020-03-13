@@ -3,14 +3,15 @@
 class Evaluation < ApplicationRecord
   # # Associations
   #
-  belongs_to :employee
+  belongs_to :evaluable, polymorphic: true
 
   has_many :sections, as: :sectionable, dependent: :destroy
   accepts_nested_attributes_for :sections
 
   # # Scopes
   #
-  scope :by_state, proc { |state| where(state: state) if state.present? }
+  scope :employable, -> { where(evaluable_type: 'Employee') }
+  scope :recruitable, -> { where(evaluable_type: 'Recruit') }
 
   # # Enums
   #
@@ -18,13 +19,24 @@ class Evaluation < ApplicationRecord
 
   # # Validations
   #
-  validates :employee_id, uniqueness: {
-    scope: :state,
-    message: :draft_exists
+  validates :evaluable_id, uniqueness: {
+    scope: %i[state evaluable_type],
+    message: :draft_evaluation_exists
   }, if: :draft?
 
-  validates :state, inclusion: {
-    in: Evaluation.states.keys,
-    message: :invalid_inclusion
-  }
+  validates :state, inclusion: { in: Evaluation.states.keys, message: :invalid_inclusion }
+
+  # # Methods
+  #
+  def employee_type?
+    evaluable_type == 'Employee'
+  end
+
+  def employee_id
+    evaluable_id if employee_type?
+  end
+
+  def employee
+    evaluable if employee_type?
+  end
 end

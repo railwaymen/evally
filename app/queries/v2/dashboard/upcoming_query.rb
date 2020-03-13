@@ -7,7 +7,7 @@ module V2
         scope.joins(tables).where('drafts.ongoing IS NULL').where.not(state: :archived)
       end
 
-      def self.tables
+      def self.tables # rubocop:disable Metrics/MethodLength
         "
           LEFT JOIN LATERAL (
             SELECT
@@ -15,7 +15,9 @@ module V2
             FROM
               evaluations
             WHERE
-              employee_id = employees.id AND state = 'draft'
+              evaluable_id = employees.id AND
+                evaluable_type = 'Employee' AND
+                state = 'draft'
           ) drafts ON true
         "
       end

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe V2::DraftsController, type: :controller do
+RSpec.describe V2::EvaluationEmployablesController, type: :controller do
   let(:admin) { create(:user, role: 'admin') }
   let(:evaluator) { create(:user, role: 'evaluator') }
 
@@ -15,32 +15,31 @@ RSpec.describe V2::DraftsController, type: :controller do
     end
 
     context 'when authorized' do
-      it 'responds with empty drafts, employees and templates' do
+      it 'responds with empty serialized employee evaluations' do
+        FactoryBot.create(:evaluation_draft_employee)
+
         sign_in admin
         get :index
 
         expect(response).to have_http_status 200
-
-        expect(response.body).to have_json_path('drafts')
-        expect(response.body).to have_json_path('employees')
-        expect(response.body).to have_json_path('templates')
+        expect(response.body).to have_json_size 1
       end
     end
   end
 
-  describe '#show' do
+  describe '#draft' do
     context 'when unauthorized' do
       it 'responds with 401 error' do
-        get :show, params: { id: 1 }
+        get :draft, params: { id: 1 }
         expect(response).to have_http_status 401
       end
 
       it 'responds with 404 error' do
-        draft = FactoryBot.create(:evaluation, :draft)
+        draft = FactoryBot.create(:evaluation_draft_employee)
         FactoryBot.create(:section, sectionable: draft)
 
         sign_in evaluator
-        get :show, params: { id: draft.id }
+        get :draft, params: { id: draft.id }
 
         expect(response).to have_http_status 404
       end
@@ -48,21 +47,99 @@ RSpec.describe V2::DraftsController, type: :controller do
 
     context 'when authorized' do
       it 'responds with draft' do
-        draft = FactoryBot.create(:evaluation, :draft)
+        draft = FactoryBot.create(:evaluation_draft_employee)
         FactoryBot.create(:section, sectionable: draft)
 
         sign_in admin
-        get :show, params: { id: draft.id }
+        get :draft, params: { id: draft.id }
 
         expect(response).to have_http_status 200
-        expect(response.body).to be_json_eql draft_schema(draft)
+        expect(response.body).to be_json_eql evaluation_employable_schema(draft)
       end
 
       it 'responds with 404 error' do
         sign_in admin
-        get :show, params: { id: 1 }
+        get :draft, params: { id: 1 }
 
         expect(response).to have_http_status 404
+      end
+    end
+  end
+
+  describe '#completed' do
+    context 'when unauthorized' do
+      it 'responds with 401 error' do
+        get :completed, params: { employee_id: 1, id: 1 }
+        expect(response).to have_http_status 401
+      end
+
+      it 'responds with 404 error' do
+        employee = FactoryBot.create(:employee)
+
+        completed = FactoryBot.create(:evaluation_completed_employee, evaluable: employee)
+        FactoryBot.create(:section, sectionable: completed)
+
+        sign_in evaluator
+        get :completed, params: { employee_id: employee.id, id: completed.id }
+
+        expect(response).to have_http_status 404
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with completed' do
+        employee = FactoryBot.create(:employee)
+
+        completed = FactoryBot.create(:evaluation_completed_employee, evaluable: employee)
+        FactoryBot.create(:section, sectionable: completed)
+
+        sign_in admin
+        get :completed, params: { employee_id: employee.id, id: completed.id }
+
+        expect(response).to have_http_status 200
+        expect(response.body).to be_json_eql evaluation_employable_schema(completed)
+      end
+
+      it 'responds with 404 error' do
+        sign_in admin
+
+        aggregate_failures 'id employee is missing' do
+          get :completed, params: { employee_id: 1, id: 1 }
+          expect(response).to have_http_status 404
+        end
+
+        aggregate_failures 'id evaluation is missing' do
+          employee = FactoryBot.create(:employee)
+
+          get :completed, params: { employee_id: employee.id, id: 1 }
+          expect(response).to have_http_status 404
+        end
+      end
+    end
+  end
+
+  describe '#form' do
+    context 'when unauthorized' do
+      it 'responds with 401 error' do
+        get :form
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with employees and templates' do
+        employee = FactoryBot.create(:employee, evaluator: evaluator)
+        FactoryBot.create(:employee)
+
+        FactoryBot.create(:template, destination: 'employees')
+
+        sign_in evaluator
+        get :form
+
+        expect(response).to have_http_status 200
+
+        expect(response.body).to have_json_size(1).at_path('templates')
+        expect(json_response['employees'].map { |el| el['id'] }).to contain_exactly employee.id
       end
     end
   end
@@ -71,7 +148,7 @@ RSpec.describe V2::DraftsController, type: :controller do
     context 'when unauthorized' do
       it 'responds with 401 error' do
         params = {
-          draft: {
+          evaluation: {
             employee_id: 1,
             template_id: 1
           }
@@ -89,7 +166,7 @@ RSpec.describe V2::DraftsController, type: :controller do
         FactoryBot.create(:section, sectionable: template)
 
         params = {
-          draft: {
+          evaluation: {
             employee_id: employee.id,
             template_id: template.id
           }
@@ -110,7 +187,7 @@ RSpec.describe V2::DraftsController, type: :controller do
         FactoryBot.create(:section, sectionable: template)
 
         params = {
-          draft: {
+          evaluation: {
             employee_id: employee.id,
             template_id: template.id
           }
@@ -120,18 +197,20 @@ RSpec.describe V2::DraftsController, type: :controller do
 
         expect do
           post :create, params: params
-        end.to(change { Evaluation.count }.by(1))
+        end.to(change { Evaluation.employable.count }.by(1))
 
         expect(response).to have_http_status 201
-        expect(response.body).to be_json_eql draft_schema(Evaluation.draft.last)
+        expect(response.body).to be_json_eql(
+          evaluation_employable_schema(employee.evaluations.draft.last)
+        )
       end
 
       it 'responds with draft from previous evaluation' do
         employee = FactoryBot.create(:employee)
-        FactoryBot.create(:evaluation, :completed, employee: employee)
+        FactoryBot.create(:evaluation_completed_employee, evaluable: employee)
 
         params = {
-          draft: {
+          evaluation: {
             employee_id: employee.id,
             use_latest: 1
           }
@@ -141,10 +220,12 @@ RSpec.describe V2::DraftsController, type: :controller do
 
         expect do
           post :create, params: params
-        end.to(change { Evaluation.count }.by(1))
+        end.to(change { Evaluation.employable.count }.by(1))
 
         expect(response).to have_http_status 201
-        expect(response.body).to be_json_eql draft_schema(Evaluation.draft.last)
+        expect(response.body).to be_json_eql(
+          evaluation_employable_schema(employee.evaluations.draft.last)
+        )
       end
 
       it 'responds with error if no employee' do
@@ -152,7 +233,7 @@ RSpec.describe V2::DraftsController, type: :controller do
         FactoryBot.create(:section, sectionable: template)
 
         params = {
-          draft: {
+          evaluation: {
             employee_id: 1,
             template_id: template.id
           }
@@ -169,7 +250,7 @@ RSpec.describe V2::DraftsController, type: :controller do
         employee = FactoryBot.create(:employee)
 
         params = {
-          draft: {
+          evaluation: {
             employee_id: employee.id,
             template_id: 1
           }
@@ -186,7 +267,7 @@ RSpec.describe V2::DraftsController, type: :controller do
         employee = FactoryBot.create(:employee)
 
         params = {
-          draft: {
+          evaluation: {
             employee_id: employee.id,
             use_latest: 1
           }
@@ -201,13 +282,13 @@ RSpec.describe V2::DraftsController, type: :controller do
 
       it 'responds with error is similar draft already exists' do
         employee = FactoryBot.create(:employee)
-        FactoryBot.create(:evaluation, :draft, employee: employee)
+        FactoryBot.create(:evaluation_draft_employee, evaluable: employee)
 
         template = FactoryBot.create(:template)
         FactoryBot.create(:section, sectionable: template)
 
         params = {
-          draft: {
+          evaluation: {
             employee_id: employee.id,
             template_id: template.id
           }
@@ -217,7 +298,7 @@ RSpec.describe V2::DraftsController, type: :controller do
         post :create, params: params
 
         expect(response).to have_http_status 422
-        expect(json_response['details'].first).to eq 'Employee draft evaluation already exists'
+        expect(json_response['details'].first).to eq 'Evaluable record has already draft evaluation'
       end
     end
   end
@@ -227,7 +308,7 @@ RSpec.describe V2::DraftsController, type: :controller do
       it 'responds with 401 error' do
         params = {
           id: 1,
-          draft: {
+          evaluation: {
             sections: [
               {
                 id: 1,
@@ -243,12 +324,12 @@ RSpec.describe V2::DraftsController, type: :controller do
       end
 
       it 'responds with 404 error' do
-        draft = FactoryBot.create(:evaluation, :draft)
+        draft = FactoryBot.create(:evaluation_draft_employee)
         section = FactoryBot.create(:section, sectionable: draft)
 
         params = {
           id: draft.id,
-          draft: {
+          evaluation: {
             sections: [
               {
                 id: section.id,
@@ -267,12 +348,12 @@ RSpec.describe V2::DraftsController, type: :controller do
 
     context 'when authorized' do
       it 'responds with updated draft' do
-        draft = FactoryBot.create(:evaluation, :draft)
+        draft = FactoryBot.create(:evaluation_draft_employee)
         section = FactoryBot.create(:section, sectionable: draft)
 
         params = {
           id: draft.id,
-          draft: {
+          evaluation: {
             sections: [
               {
                 id: section.id,
@@ -295,16 +376,16 @@ RSpec.describe V2::DraftsController, type: :controller do
         end.to(change { section.reload.skills.first['value'] }.to('New value'))
 
         expect(response).to have_http_status 200
-        expect(response.body).to be_json_eql draft_schema(draft.reload)
+        expect(response.body).to be_json_eql evaluation_employable_schema(draft.reload)
       end
 
       it 'responds with completed evaluation' do
-        draft = FactoryBot.create(:evaluation, :draft)
+        draft = FactoryBot.create(:evaluation_draft_employee)
         section = FactoryBot.create(:section, sectionable: draft)
 
         params = {
           id: draft.id,
-          draft: {
+          evaluation: {
             state: 'completed',
             next_evaluation_on: 6.months.from_now.strftime('%Y-%M'),
             sections: [
@@ -326,19 +407,19 @@ RSpec.describe V2::DraftsController, type: :controller do
 
         expect do
           put :update, params: params
-        end.to(change { Evaluation.completed.count }.by(1))
+        end.to(change { Evaluation.employable.completed.count }.by(1))
 
         expect(response).to have_http_status 200
-        expect(response.body).to be_json_eql draft_schema(draft.reload)
+        expect(response.body).to be_json_eql evaluation_employable_schema(draft.reload)
       end
 
       it 'responds with error if invalid section' do
-        draft = FactoryBot.create(:evaluation, :draft)
+        draft = FactoryBot.create(:evaluation_draft_employee)
         section = FactoryBot.create(:section, sectionable: draft)
 
         params = {
           id: draft.id,
-          draft: {
+          evaluation: {
             sections: [
               {
                 id: section.id,
@@ -369,7 +450,7 @@ RSpec.describe V2::DraftsController, type: :controller do
       end
 
       it 'responds with 404 error' do
-        draft = FactoryBot.create(:evaluation, :draft)
+        draft = FactoryBot.create(:evaluation_draft_employee)
         FactoryBot.create(:section, sectionable: draft)
 
         sign_in evaluator
@@ -381,14 +462,14 @@ RSpec.describe V2::DraftsController, type: :controller do
 
     context 'when authorized' do
       it 'responds with no content' do
-        draft = FactoryBot.create(:evaluation, :draft)
+        draft = FactoryBot.create(:evaluation_draft_employee)
         FactoryBot.create(:section, sectionable: draft)
 
         sign_in admin
 
         expect do
           delete :destroy, params: { id: draft.id }
-        end.to(change { Evaluation.draft.count }.by(-1))
+        end.to(change { Evaluation.employable.draft.count }.by(-1))
 
         expect(response).to have_http_status 204
       end

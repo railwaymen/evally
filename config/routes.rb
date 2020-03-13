@@ -13,7 +13,10 @@ Rails.application.routes.draw do
 
       resource :dashboard, controller: 'dashboard', only: :show
 
-      resources :drafts, only: %i[index show create update destroy]
+      resources :evaluation_employables, only: %i[index create update destroy] do
+        get :form, on: :collection
+        get :draft, on: :member
+      end
 
       resources :employees, only: %i[index show create update destroy], shallow: true do
         get :skills, on: :collection
@@ -22,7 +25,7 @@ Rails.application.routes.draw do
         put :archive, on: :member
         get :archived, on: :collection
 
-        resources :evaluations, only: :show
+        get '/evaluations/:id', to: 'evaluation_employables#completed'
       end
 
       resources :recruit_documents, only: %i[index show new create edit update]

@@ -3,26 +3,28 @@
 class Employee < ApplicationRecord
   has_secure_token :public_token
 
+  # Associations
+  #
   belongs_to :evaluator, class_name: 'User', optional: true
-  has_many :evaluations, dependent: :destroy
+
+  has_many :evaluations, as: :evaluable, dependent: :destroy
   has_many :position_changes, dependent: :destroy
 
-  has_one :latest_evaluation, lambda {
-    completed.order(completed_at: :desc)
-  }, class_name: 'Evaluation', foreign_key: :employee_id, inverse_of: :employee
-
-  # # Scopes
-  #
-  scope :by_state, proc { |state| where(state: state) if state.present? }
+  has_one :latest_evaluation, -> { completed.order(completed_at: :desc) },
+          as: :evaluable, class_name: 'Evaluation', inverse_of: :evaluable
 
   # # Enums
   #
-  enum state: { hired: 'hired', experienced: 'experienced', released: 'released',
-                archived: 'archived' }
+  enum state: {
+    hired: 'hired',
+    experienced: 'experienced',
+    released: 'released',
+    archived: 'archived'
+  }
 
   # # Validation
   #
-  validates :first_name, :last_name, :position, :hired_on, presence: true
+  validates :first_name, :last_name, :position, :hired_on, :group, presence: true
 
   # # Methods
   #

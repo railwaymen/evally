@@ -22,7 +22,9 @@ module V2
             FROM
               evaluations
             WHERE
-              employee_id = employees.id AND state = 'completed'
+              evaluable_id = employees.id AND
+                evaluable_type = 'Employee' AND
+                state = 'completed'
             ORDER BY completed_at DESC
             LIMIT 1
           ) latest_evaluation ON true

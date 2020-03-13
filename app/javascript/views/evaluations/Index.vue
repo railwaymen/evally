@@ -2,7 +2,7 @@
   <section class="panel">
     <div class="panel__row">
       <div class="panel__name">
-        <h2>{{ $t('views.drafts.index.title') }}</h2>
+        <h2>{{ $t('views.evaluations.index.title') }}</h2>
       </div>
 
       <div class="panel__actions">
@@ -25,7 +25,7 @@
           <template #activator="{ on }">
             <v-btn
               @click="openCompleteForm"
-              :disabled="draft.isNewRecord"
+              :disabled="evaluation.isNewRecord"
               v-on="on"
               color="green"
               icon
@@ -41,7 +41,7 @@
           <template #activator="{ on }">
             <v-btn
               @click="update"
-              :disabled="draft.isNewRecord"
+              :disabled="evaluation.isNewRecord"
               v-on="on"
               color="black"
               icon
@@ -57,7 +57,7 @@
           <template #activator="{ on }">
             <v-btn
               @click="reset"
-              :disabled="draft.isNewRecord"
+              :disabled="evaluation.isNewRecord"
               v-on="on"
               color="black"
               icon
@@ -73,7 +73,7 @@
           <template #activator="{ on }">
             <v-btn
               @click="openDeleteConfirm"
-              :disabled="draft.isNewRecord"
+              :disabled="evaluation.isNewRecord"
               v-on="on"
               color="red"
               icon
@@ -108,18 +108,18 @@
       <v-container grid-list-lg fluid>
         <v-layout wrap row>
           <v-flex v-show="isSidebarVisible" xs10 offset-xs1 lg3 offset-lg0>
-            <drafts-search-list
-              :drafts="drafts"
+            <search-list
+              :evaluations="evaluations"
               :loading="loading"
             />
           </v-flex>
 
           <v-flex xs12 :lg9="isSidebarVisible" :lg12="!isSidebarVisible">
-            <div v-if="$route.name === 'drafts_path'" class="box">
+            <div v-if="$route.name === 'evaluation_drafts_path'" class="box">
               <v-layout row>
                 <v-flex xs12>
                   <h4 class="box__header">
-                    {{ $t('views.drafts.index.instruction') }}
+                    {{ $t('views.evaluations.index.instruction') }}
                   </h4>
                 </v-flex>
               </v-layout>
@@ -137,14 +137,14 @@
 import { mapGetters, mapActions } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
-import CompleteForm from '@components/drafts/CompleteForm'
-import CreateForm from '@components/drafts/CreateForm'
-import DeleteConfirm from '@components/drafts/DeleteConfirm'
-import DraftsSearchList from '@components/drafts/DraftsSearchList'
+import CompleteForm from '@components/evaluations/CompleteForm'
+import CreateForm from '@components/evaluations/CreateForm'
+import DeleteConfirm from '@components/evaluations/DeleteConfirm'
+import SearchList from '@components/evaluations/SearchList'
 
 export default {
-  name: 'DraftsIndex',
-  components: { DraftsSearchList },
+  name: 'EvaluationsIndex',
+  components: { SearchList },
   data() {
     return {
       isSidebarVisible: true
@@ -155,16 +155,18 @@ export default {
       this.isSidebarVisible = !this.isSidebarVisible
     },
     reset() {
-      this.$store.dispatch('DraftsModule/show', this.draft.id)
+      this.$store.dispatch('EvaluationEmployablesModule/show', this.evaluation.id)
     },
     openCreateForm() {
-      DialogsBus.$emit('openFormsDialog', {
-        innerComponent: CreateForm,
-        props: {
-          employees: this.employees,
-          templates: this.templates
-        }
-      })
+      this.form().then(
+        () => DialogsBus.$emit('openFormsDialog', {
+          innerComponent: CreateForm,
+          props: {
+            employees: this.employees,
+            templates: this.templates
+          }
+        })
+      )
     },
     openCompleteForm() {
       DialogsBus.$emit('openFormsDialog', {
@@ -180,17 +182,18 @@ export default {
       })
     },
     ...mapActions({
-      fetchData: 'DraftsModule/index',
-      update: 'DraftsModule/update',
+      fetchData: 'EvaluationEmployablesModule/index',
+      update: 'EvaluationEmployablesModule/update',
+      form: 'EvaluationEmployablesModule/form',
     })
   },
   computed: {
     ...mapGetters({
-      drafts: 'DraftsModule/drafts',
-      draft: 'DraftsModule/draft',
-      employees: 'DraftsModule/employees',
-      templates: 'DraftsModule/templates',
-      loading: 'DraftsModule/loading',
+      evaluations: 'EvaluationEmployablesModule/evaluations',
+      evaluation: 'EvaluationEmployablesModule/evaluation',
+      employees: 'EvaluationEmployablesModule/employees',
+      templates: 'EvaluationEmployablesModule/templates',
+      loading: 'EvaluationEmployablesModule/loading',
       setting: 'AuthenticationModule/setting'
     })
   },
@@ -198,7 +201,7 @@ export default {
     this.fetchData()
   },
   beforeDestroy() {
-    this.$store.commit('DraftsModule/resetState')
+    this.$store.commit('EvaluationEmployablesModule/resetState')
   }
 }
 </script>

@@ -24,7 +24,8 @@ module V2
             FROM
               evaluations
             WHERE
-              evaluations.employee_id = employees.id AND
+              evaluations.evaluable_id = employees.id AND
+                evaluations.evaluable_type = 'Employee' AND
                 evaluations.state = 'completed' AND
                 evaluations.completed_at IS NOT NULL
           ) t0 ON true

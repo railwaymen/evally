@@ -5,7 +5,7 @@ module V2
     class ShowView < Blueprinter::Base
       association :employees, blueprint: V2::Employees::Serializer, default: []
 
-      association :drafts, blueprint: V2::Evaluations::Serializer, default: []
+      association :drafts, blueprint: V2::Evaluations::EmployableSerializer, default: []
 
       association :activities, blueprint: V2::Activities::Serializer, default: []
 

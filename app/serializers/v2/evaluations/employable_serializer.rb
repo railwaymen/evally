@@ -2,24 +2,24 @@
 
 module V2
   module Evaluations
-    class Serializer < Blueprinter::Base
+    class EmployableSerializer < Blueprinter::Base
       identifier :id
 
-      fields :state, :template_name, :updated_at, :employee_id, :completed_at
+      fields :employee_id, :state, :template_name, :updated_at, :completed_at
 
-      field :employee_first_name do |ev, _options|
+      field :first_name do |ev, _options|
         ev.employee.first_name
       end
 
-      field :employee_last_name do |ev, _options|
+      field :last_name do |ev, _options|
         ev.employee.last_name
       end
 
-      field :employee_position do |ev, _options|
+      field :position do |ev, _options|
         ev.employee.position
       end
 
-      field :employee_hired_on do |ev, _options|
+      field :hired_on do |ev, _options|
         ev.employee.hired_on
       end
 

@@ -1,16 +1,10 @@
 # frozen_string_literal: true
 
 module V2
-  module Drafts
-    class IndexPresenter
+  module Evaluations
+    class FormPresenter
       def initialize(user)
         @user = user
-      end
-
-      def drafts
-        drafts_scope.joins(:employee)
-                    .where.not(employees: { state: :archived })
-                    .order(updated_at: :desc)
       end
 
       def employees
@@ -22,10 +16,6 @@ module V2
       end
 
       private
-
-      def drafts_scope
-        Pundit.policy_scope!(@user, [:v2, Evaluation]).draft
-      end
 
       def employees_scope
         Pundit.policy_scope!(@user, [:v2, Employee]).where.not(state: :archived)

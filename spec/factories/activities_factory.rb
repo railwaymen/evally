@@ -5,6 +5,10 @@ FactoryBot.define do
     action { 'create' }
     user
 
+    factory :employee_activity do
+      activable { |a| a.association(:employee) }
+    end
+
     factory :evaluation_activity do
       activable { |a| a.association(:evaluation) }
     end

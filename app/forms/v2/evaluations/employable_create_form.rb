@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module V2
-  module Drafts
-    class CreateForm
+  module Evaluations
+    class EmployableCreateForm
       attr_reader :draft
 
       def initialize(params, user:)

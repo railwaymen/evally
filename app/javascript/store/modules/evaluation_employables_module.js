@@ -9,22 +9,22 @@ import { TemplatesList } from '@models/template'
 import { SectionsList } from '@models/section'
 
 const initialState = () => ({
-  drafts: new EvaluationsList(),
-  draft: new Evaluation(),
+  evaluations: new EvaluationsList(),
+  evaluation: new Evaluation(),
   sections: new SectionsList(),
   employees: new EmployeesList(),
   templates: new TemplatesList(),
   loading: true
 })
 
-const DraftsModule = {
+const EvaluationEmployablesModule = {
   namespaced: true,
 
   state: initialState(),
 
   getters: {
-    drafts: state => state.drafts,
-    draft: state => state.draft,
+    evaluations: state => state.evaluations,
+    evaluation: state => state.evaluation,
     sections: state => state.sections,
     employees: state => state.employees,
     templates: state => state.templates,
@@ -32,18 +32,21 @@ const DraftsModule = {
   },
   mutations: {
     addToList(state, data) {
-      state.drafts.add(data)
+      state.evaluations.add(data)
       return state
     },
-    setItem(state, { draft, sections }) {
-      state.draft = new Evaluation(draft)
+    setForm(state, { employees, templates }) {
+      state.employees = new EmployeesList(employees)
+      state.templates = new TemplatesList(templates)
+      return state
+    },
+    setItem(state, { evaluation, sections }) {
+      state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
       return state
     },
-    setList(state, { drafts, employees, templates }) {
-      state.drafts = new EvaluationsList(drafts)
-      state.employees = new EmployeesList(employees)
-      state.templates = new TemplatesList(templates)
+    setList(state, evaluations) {
+      state.evaluations = new EvaluationsList(evaluations)
       return state
     },
     setLoading(state, status) {
@@ -51,9 +54,9 @@ const DraftsModule = {
       return state
     },
     removeFromList(state, id) {
-      state.draft = new Evaluation()
+      state.evaluation = new Evaluation()
       state.sections = new SectionsList()
-      state.drafts.remove(id)
+      state.evaluations.remove(id)
       return state
     },
     replaceSection(state, section) {
@@ -61,7 +64,7 @@ const DraftsModule = {
       return state
     },
     resetItem(state) {
-      state.draft = new Evaluation()
+      state.evaluation = new Evaluation()
       state.sections = new SectionsList()
       return state
     },
@@ -74,35 +77,51 @@ const DraftsModule = {
     index({ commit }) {
       commit('setLoading', true)
 
-      http.get(Evaluation.routes.draftsPath)
+      http.get(Evaluation.routes.evaluationEmployablesPath)
         .then(response => {
           commit('setList', response.data)
         })
         .catch(error => {
           commit(
             'NotificationsModule/push',
-            { error: i18n.t('messages.drafts.index.error', { msg: fetchError(error) }) },
+            { error: i18n.t('messages.evaluations.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
         .finally(() => commit('setLoading', false))
     },
     show({ commit }, id) {
-      http.get(Evaluation.routes.draftPath(id))
+      http.get(Evaluation.routes.draftEvaluationEmployablePath(id))
         .then(response => {
           commit('setItem', response.data)
         })
         .catch(error => {
           commit(
             'NotificationsModule/push',
-            { error: i18n.t('messages.drafts.show.error', { msg: fetchError(error) }) },
+            { error: i18n.t('messages.evaluations.show.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
     },
+    form({ commit }) {
+      return new Promise(resolve => {
+        http.get(Evaluation.routes.formEvaluationEmployablePath)
+          .then(response => {
+            commit('setForm', response.data)
+            resolve()
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.evaluations.show.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+        })
+    },
     create({ commit }, { employeeId, templateId, useLatest }) {
       const params = {
-        draft: {
+        evaluation: {
           employee_id: employeeId,
           template_id: templateId,
           use_latest: useLatest
@@ -110,14 +129,14 @@ const DraftsModule = {
       }
 
       return new Promise(resolve => {
-        http.post(Evaluation.routes.draftsPath, params)
+        http.post(Evaluation.routes.evaluationEmployablesPath, params)
           .then(response => {
             const { data } = response
 
-            commit('addToList', data.draft)
+            commit('addToList', data.evaluation)
             commit(
               'NotificationsModule/push',
-              { success: i18n.t('messages.drafts.create.ok') },
+              { success: i18n.t('messages.evaluations.create.ok') },
               { root: true }
             )
 
@@ -126,28 +145,28 @@ const DraftsModule = {
           .catch(error => {
             commit(
               'NotificationsModule/push',
-              { error: i18n.t('messages.drafts.create.error', { msg: fetchError(error) }) },
+              { error: i18n.t('messages.evaluations.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
       })
     },
     update({ state, commit }) {
-      const { draft, sections } = state;
+      const { evaluation, sections } = state;
 
       const params = {
-        draft: {
+        evaluation: {
           sections: sections.models
         }
       }
 
       return new Promise(resolve => {
-        http.put(Evaluation.routes.draftPath(draft.id), params)
+        http.put(Evaluation.routes.evaluationEmployablePath(evaluation.id), params)
           .then(response => {
             commit('setItem', response.data)
             commit(
               'NotificationsModule/push',
-              { success: i18n.t('messages.drafts.update.ok') },
+              { success: i18n.t('messages.evaluations.update.ok') },
               { root: true }
             )
 
@@ -156,7 +175,7 @@ const DraftsModule = {
           .catch(error => {
             commit(
               'NotificationsModule/push',
-              { error: i18n.t('messages.drafts.update.error', { msg: fetchError(error) }) },
+              { error: i18n.t('messages.evaluations.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
@@ -164,10 +183,10 @@ const DraftsModule = {
 
     },
     complete({ state, commit }, { nextEvaluationDate }) {
-      const { draft, sections } = state;
+      const { evaluation, sections } = state;
 
       const params = {
-        draft: {
+        evaluation: {
           state: 'completed',
           next_evaluation_on: nextEvaluationDate,
           sections: sections.models
@@ -175,12 +194,12 @@ const DraftsModule = {
       }
 
       return new Promise(resolve => {
-        http.put(Evaluation.routes.draftPath(draft.id), params)
+        http.put(Evaluation.routes.evaluationEmployablePath(evaluation.id), params)
           .then(() => {
-            commit('removeFromList', draft.id)
+            commit('removeFromList', evaluation.id)
             commit(
               'NotificationsModule/push',
-              { success: i18n.t('messages.drafts.complete.ok') },
+              { success: i18n.t('messages.evaluations.complete.ok') },
               { root: true }
             )
 
@@ -189,29 +208,29 @@ const DraftsModule = {
           .catch(error => {
             commit(
               'NotificationsModule/push',
-              { error: i18n.t('messages.drafts.complete.error', { msg: fetchError(error) }) },
+              { error: i18n.t('messages.evaluations.complete.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
       })
     },
     destroy({ state, commit }) {
-      const { draft } = state;
+      const { evaluation } = state;
 
-      http.delete(Evaluation.routes.draftPath(draft.id))
+      http.delete(Evaluation.routes.evaluationEmployablePath(evaluation.id))
         .then(() => {
-          commit('removeFromList', draft.id)
+          commit('removeFromList', evaluation.id)
 
           commit(
             'NotificationsModule/push',
-            { success: i18n.t('messages.drafts.delete.ok') },
+            { success: i18n.t('messages.evaluations.delete.ok') },
             { root: true }
           )
         })
         .catch(error => {
           commit(
             'NotificationsModule/push',
-            { error: i18n.t('messages.drafts.delete.error', { msg: fetchError(error) }) },
+            { error: i18n.t('messages.evaluations.delete.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
@@ -219,4 +238,4 @@ const DraftsModule = {
   }
 }
 
-export default DraftsModule
+export default EvaluationEmployablesModule

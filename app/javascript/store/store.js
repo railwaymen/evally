@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import DraftsModule from '@store/modules/drafts_module'
+import EvaluationEmployablesModule from '@store/modules/evaluation_employables_module'
 import EmployeesModule from '@store/modules/employees_module'
 import EmployeesOverviewModule from '@store/modules/employees_overview_module'
 import EmployeesSearchModule from '@store/modules/employees_search_module'
@@ -15,7 +15,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    DraftsModule,
+    EvaluationEmployablesModule,
     EmployeesModule,
     EmployeesOverviewModule,
     EmployeesSearchModule,

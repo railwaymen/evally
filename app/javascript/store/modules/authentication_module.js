@@ -53,10 +53,10 @@ const AuthenticationModule = {
     },
     clearStore() {
       const modules = [
-        'Drafts',
         'Employees',
         'EmployeesOverview',
         'EmployeesSearch',
+        'EvaluationEmployables',
         'Authentication',
         'Templates',
         'Recruitments'

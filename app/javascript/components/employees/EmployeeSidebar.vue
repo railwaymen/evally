@@ -41,7 +41,7 @@
             <v-list-item
               v-for="evaluation in evaluations.models"
               :key="evaluation.id"
-              :to="evaluation.path"
+              :to="evaluation.completedPath"
               color="secondary"
             >
               <v-list-item-content>

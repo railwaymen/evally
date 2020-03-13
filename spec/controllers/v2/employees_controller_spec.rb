@@ -298,7 +298,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
     context 'when authorized' do
       it 'responds with skills list' do
-        evaluation = FactoryBot.create(:evaluation, :completed)
+        evaluation = FactoryBot.create(:evaluation_completed_employee)
 
         FactoryBot.create(
           :section,
@@ -343,7 +343,10 @@ RSpec.describe V2::EmployeesController, type: :controller do
         employee = FactoryBot.create(:employee)
         archived_employee = FactoryBot.create(:employee, state: 'archived', archived_on: 1.day.ago)
 
-        evaluation1 = FactoryBot.create(:evaluation, :completed, employee: employee)
+        evaluation1 = FactoryBot.create(
+          :evaluation_completed_employee,
+          evaluable: employee
+        )
 
         FactoryBot.create(
           :section,
@@ -363,7 +366,10 @@ RSpec.describe V2::EmployeesController, type: :controller do
           ]
         )
 
-        evaluation2 = FactoryBot.create(:evaluation, :completed, employee: archived_employee)
+        evaluation2 = FactoryBot.create(
+          :evaluation_completed_employee,
+          evaluable: archived_employee
+        )
 
         FactoryBot.create(
           :section,
@@ -550,7 +556,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
       it 'responds with 422 if employee has ongoing evaluations' do
         employee = FactoryBot.create(:employee, state: :hired)
-        FactoryBot.create(:evaluation, :draft, employee: employee)
+        FactoryBot.create(:evaluation_draft_employee, evaluable: employee)
 
         params = {
           id: employee.id,

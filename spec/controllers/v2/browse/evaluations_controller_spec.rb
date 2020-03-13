@@ -7,13 +7,17 @@ RSpec.describe V2::Browse::EvaluationsController, type: :controller do
     it 'responds with evaluation' do
       employee = FactoryBot.create(:employee)
 
-      evaluation = FactoryBot.create(:evaluation, :completed, employee: employee)
+      evaluation = FactoryBot.create(
+        :evaluation_completed_employee,
+        evaluable: employee
+      )
+
       FactoryBot.create(:section, sectionable: evaluation)
 
       get :show, params: { employee_id: employee.public_token, id: evaluation.id }
 
       expect(response).to have_http_status 200
-      expect(response.body).to be_json_eql evaluation_schema(evaluation)
+      expect(response.body).to be_json_eql evaluation_employable_schema(evaluation)
     end
 
     it 'responds with not found error if invalid employee' do

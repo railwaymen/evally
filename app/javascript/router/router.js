@@ -19,14 +19,14 @@ export default new Router({
           component: () => import(/* webpackChunkName: 'dashboard' */ '@views/dashboard/Show'),
         },
         {
-          path: 'drafts',
-          name: 'drafts_path',
-          component: () => import(/* webpackChunkName: 'drafts' */ '@views/drafts/Index'),
+          path: 'evaluations',
+          name: 'evaluation_drafts_path',
+          component: () => import(/* webpackChunkName: 'evaluations' */ '@views/evaluations/Index'),
           children: [
             {
               path: ':id',
-              name: 'draft_path',
-              component: () => import(/* webpackChunkName: 'draft' */ '@views/drafts/Show'),
+              name: 'evaluation_draft_path',
+              component: () => import(/* webpackChunkName: 'evaluation' */ '@views/evaluations/Show'),
             }
           ]
         },
@@ -59,7 +59,7 @@ export default new Router({
               children: [
                 {
                   path: 'evaluations/:id',
-                  name: 'evaluation_path',
+                  name: 'evaluation_completed_path',
                   component: () => import(/* webpackChunkName: 'evaluation' */ '@views/employees/Evaluation')
                 }
               ]

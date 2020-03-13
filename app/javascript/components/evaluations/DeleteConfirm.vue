@@ -1,11 +1,11 @@
 <template>
   <v-card class="pa-3" data-cy="delete-modal">
     <v-card-title>
-      <span class="headline">{{ $t('components.drafts.deleteConfirm.title') }}</span>
+      <span class="headline">{{ $t('components.evaluations.deleteConfirm.title') }}</span>
     </v-card-title>
 
     <v-card-text>
-      <p class="subtitle-1">{{ $t('components.drafts.deleteConfirm.body') }}</p>
+      <p class="subtitle-1">{{ $t('components.evaluations.deleteConfirm.body') }}</p>
     </v-card-text>
 
     <v-card-actions>
@@ -40,7 +40,7 @@ export default {
       this.$emit('closeDialog')
     },
     destroy() {
-      this.$store.dispatch('DraftsModule/destroy')
+      this.$store.dispatch('EvaluationEmployablesModule/destroy')
         .finally(this.closeDialog)
     }
   }

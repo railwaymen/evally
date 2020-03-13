@@ -22,9 +22,9 @@
         <v-list-item v-for="draft in drafts.models" :key="draft.id">
           <v-list-item-content>
             <v-list-item-title>
-							<strong>{{ draft.employeeFullname }}</strong>
+							<strong>{{ draft.fullname }}</strong>
 							{{ $t('components.dashboard.drafts.as') }}
-							<em>{{ draft.employee_position }}</em> - {{ draft.nextEvaluationOn }}
+							<em>{{ draft.position }}</em> - {{ draft.nextEvaluationOn }}
 						</v-list-item-title>
             <v-list-item-subtitle>
               {{ $t('components.dashboard.drafts.updated', { date: draft.updatedAtFromNow }) }}

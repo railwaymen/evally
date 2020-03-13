@@ -43,7 +43,7 @@ export default {
     },
     navbar: {
       dashboard: 'Kokpit',
-      drafts: 'Szkice ocen',
+      evaluations: 'Oceny',
       employees: 'Pracownicy',
       recruitments: 'Rekrutacje',
       templates: 'Szablony',
@@ -76,7 +76,7 @@ export default {
 
       }
     },
-    drafts: {
+    evaluations: {
       sidebar: {
         search: 'Szukaj ...',
         subheader: 'Oceny w przygotowaniu',
@@ -105,6 +105,10 @@ export default {
         templateLabel: 'Szablon',
         latestTemplate: 'Ostatni szablon',
         newTemplate: 'Nowy szablon',
+      },
+      staticSection: {
+        yes: 'Tak',
+        no: 'Nie',
       }
     },
     employees: {
@@ -192,12 +196,6 @@ export default {
       employeesByUsersChart: {
         title: 'Pracownicy wg ewaluatorów',
         employees: 'Pracownicy'
-      }
-    },
-    evaluations: {
-      staticSection: {
-        yes: 'Tak',
-        no: 'Nie',
       }
     },
     settings: {
@@ -308,14 +306,19 @@ export default {
           receivedAt: 'Data otrzymania'
         }
       },
-      recruitmentForm:{
-          createTitle: 'Nowy rekrutacja',
-          contact: 'Kontact',
-          general: 'Ogólne',
-          male: 'męczyzna',
-          female: 'kobieta',
-          position: 'Pozycja'
-        },
+      recruitmentForm: {
+        createTitle: 'Nowa rekrutacja',
+        contact: 'Kontakt',
+        general: 'Ogólne',
+        male: 'mężczyzna',
+        female: 'kobieta',
+        position: 'Stanowisko'
+      },
+      addEvaluationForm: {
+        title: 'Stwórz ocenę',
+        selectTemplate: 'Wybierz szablon',
+        templateLabel: 'Nazwa szablonu'
+      },
       sidebar: {
         gender: 'Płeć',
         email: 'Email',
@@ -327,7 +330,7 @@ export default {
     }
   },
   messages: {
-    drafts: {
+    evaluations: {
       index: {
         error: 'Błąd przy wczytywaniu szkiców ocen: {msg}'
       },
@@ -502,9 +505,9 @@ export default {
         title: 'Witaj {name}!',
       }
     },
-    drafts: {
+    evaluations: {
       index: {
-        title: 'Szkice ocen',
+        title: 'Ocen',
         instruction: 'Wybiesz szkic oceny z listy obok lub stwórz nowy',
       },
       show: {

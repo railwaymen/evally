@@ -43,12 +43,20 @@
               <v-list-item-title>{{ $t('shared.navbar.dashboard') }}</v-list-item-title>
             </v-list-item>
 
-            <v-list-item :to="{ name: 'drafts_path' }">
+            <v-list-item :to="{ name: 'evaluation_drafts_path' }">
               <v-list-item-action>
                 <v-icon>mdi-file-edit-outline</v-icon>
               </v-list-item-action>
 
-              <v-list-item-title>{{ $t('shared.navbar.drafts') }}</v-list-item-title>
+              <v-list-item-title>{{ $t('shared.navbar.evaluations') }}</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item :to="{ name: 'templates_path' }">
+              <v-list-item-action>
+                <v-icon>mdi-file-multiple-outline</v-icon>
+              </v-list-item-action>
+
+              <v-list-item-title>{{ $t('shared.navbar.templates') }}</v-list-item-title>
             </v-list-item>
 
             <v-list-item :to="{ name: 'employees_path' }">
@@ -64,14 +72,6 @@
                 <v-icon>mdi-account-group-outline</v-icon>
               </v-list-item-action>
               <v-list-item-title>{{ $t('shared.navbar.recruitments') }}</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item :to="{ name: 'templates_path' }">
-              <v-list-item-action>
-                <v-icon>mdi-file-multiple-outline</v-icon>
-              </v-list-item-action>
-
-              <v-list-item-title>{{ $t('shared.navbar.templates') }}</v-list-item-title>
             </v-list-item>
 
             <v-list-item v-if="user.isAdmin" :to="{ name: 'users_path' }">
@@ -117,11 +117,18 @@
             {{ $t('shared.navbar.dashboard') }}
           </v-tab>
 
-          <v-tab :to="{ name: 'drafts_path' }">
+          <v-tab :to="{ name: 'evaluation_drafts_path' }">
             <v-icon>mdi-file-edit-outline</v-icon>
             <span class="separator" />
 
-            {{ $t('shared.navbar.drafts') }}
+            {{ $t('shared.navbar.evaluations') }}
+          </v-tab>
+
+          <v-tab :to="{ name: 'templates_path' }">
+            <v-icon>mdi-file-multiple-outline</v-icon>
+            <span class="separator" />
+
+            {{ $t('shared.navbar.templates') }}
           </v-tab>
 
           <v-tab :to="{ name: 'employees_path' }">
@@ -136,13 +143,6 @@
             <span class="separator" />
 
             {{ $t('shared.navbar.recruitments') }}
-          </v-tab>
-
-          <v-tab :to="{ name: 'templates_path' }">
-            <v-icon>mdi-file-multiple-outline</v-icon>
-            <span class="separator" />
-
-            {{ $t('shared.navbar.templates') }}
           </v-tab>
 
           <v-tab v-if="user.isAdmin" :to="{ name: 'users_path' }">
