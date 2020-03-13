@@ -72,6 +72,7 @@ module V2
     def completed_evaluation
       @completed_evaluation ||=
         evaluations_scope.completed.find_by(id: params[:id], evaluable_id: params[:employee_id])
+
       raise ErrorResponderService.new(:record_not_found, 404) unless @completed_evaluation
 
       @completed_evaluation

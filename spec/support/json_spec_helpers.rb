@@ -28,27 +28,6 @@ module JsonSpecHelpers
     }.to_json
   end
 
-  def evaluation_schema(evaluation)
-    employee = evaluation.employee
-
-    {
-      evaluation: {
-        id: evaluation.id,
-        state: evaluation.state,
-        template_name: evaluation.template_name,
-        updated_at: evaluation.updated_at.to_s,
-        completed_at: evaluation.completed_at.to_s,
-        employee_id: evaluation.employee_id,
-        employee_first_name: employee.first_name,
-        employee_last_name: employee.last_name,
-        employee_position: employee.position,
-        employee_hired_on: employee.hired_on,
-        next_evaluation_on: employee.next_evaluation_on
-      },
-      sections: evaluation.sections.map(&method(:section_schema))
-    }.to_json
-  end
-
   def employee_schema(employee)
     latest_evaluation_date = lambda do
       employee.latest_evaluation_date if employee.respond_to?(:latest_evaluation_date)

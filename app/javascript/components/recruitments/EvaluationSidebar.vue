@@ -56,11 +56,11 @@
                   <div class="skill__action">
                     <v-chip-group v-model="skill.value" color="primary" mandatory>
                       <v-chip :value="false" filter-icon="mdi-close" label filter>
-                        {{ $t('components.drafts.section.no') }}
+                        {{ $t('components.evaluations.section.no') }}
                       </v-chip>
 
                       <v-chip :value="true" filter-icon="mdi-check" label filter>
-                        {{ $t('components.drafts.section.yes') }}
+                        {{ $t('components.evaluations.section.yes') }}
                       </v-chip>
                     </v-chip-group>
                   </div>
