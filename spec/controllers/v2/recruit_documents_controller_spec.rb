@@ -22,7 +22,8 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
         expect(json_response.keys).to contain_exactly(
           'recruit_documents',
           'groups',
-          'statuses'
+          'statuses',
+          'positions'
         )
       end
 

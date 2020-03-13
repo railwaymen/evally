@@ -1,5 +1,16 @@
 export default {
   shared: {
+    general:{
+      fields: {
+        firstName: 'First name',
+        lastName: 'Last name',
+        email: 'Email',
+        phoneNumber: 'Phone number',
+        source: 'Source',
+        status: 'Status',
+        group: 'Group'
+      }
+    },
     buttons: {
       cancel: 'Cancel',
       create: 'Create',
@@ -282,6 +293,7 @@ export default {
         lastName: 'Last Name',
         role: 'Role',
         status: 'Status',
+        group: 'Group'
       }
     },
     recruitments: {
@@ -295,7 +307,15 @@ export default {
           status: 'Status',
           position: 'Position',
           receivedAt: 'Received Date'
-        }
+        },
+      },
+      recruitmentForm: {
+        createTitle: 'New recruitment',
+        contact: 'Contact',
+        general: 'General',
+        male: 'male',
+        female: 'female',
+        position: 'Position'
       },
       sidebar: {
         gender: 'Gender',
@@ -437,6 +457,13 @@ export default {
     },
     recruitments: {
       index: {
+        error: 'Recruitments cannot be loaded: {msg}'
+      },
+      create: {
+        ok: 'Recruitment has been create',
+        error: 'Recruitment cannot be created: {msg}'
+      },
+      show: {
         error: 'Recruitments cannot be loaded: {msg}'
       }
     }

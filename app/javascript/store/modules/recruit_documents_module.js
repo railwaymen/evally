@@ -10,10 +10,11 @@ const initialState = () => ({
   recruitDocument: new RecruitDocument(),
   groups: [],
   statuses: [],
+  positions: [],
   loading: true
 })
 
-const RecruitmentsModule = {
+const RecruitDocumentsModule = {
   namespaced: true,
 
   state: initialState(),
@@ -23,6 +24,7 @@ const RecruitmentsModule = {
     recruitDocument: state => state.recruitDocument,
     groups: state => state.groups,
     statuses: state => state.statuses,
+    positions: state => state.positions,
     loading: state => state.loading
   },
 
@@ -31,10 +33,11 @@ const RecruitmentsModule = {
       state.loading = status
       return state
     },
-    setList(state, { recruit_documents, groups, statuses }) {
+    setList(state, { recruit_documents, groups, statuses, positions }) {
       state.recruitDocuments = new RecruitDocumentsList(recruit_documents)
       state.groups = groups
       state.statuses = statuses
+      state.positions = positions
       state.loading = false
       return state
     },
@@ -46,7 +49,11 @@ const RecruitmentsModule = {
     resetState(state) {
       state = Object.assign(state, initialState())
       return state
-    }
+    },
+    addToList(state, recruitDocument) {
+      state.recruitDocuments.add(recruitDocument)
+      return state
+    },
   },
 
   actions: {
@@ -92,12 +99,54 @@ const RecruitmentsModule = {
         .catch(error => {
           commit(
             'NotificationsModule/push',
-            { error: i18n.t('messages.recruitment.show.error', { msg: fetchError(error) }) },
+            { error: i18n.t('messages.recruitments.show.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
     },
+    new({ commit }) {
+      commit('setLoading', true)
+      http.get(RecruitDocument.routes.newRecruitDocumentsPath)
+        .then(response => {
+          commit('setList', response.data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.recruitments.show.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+        })
+    },
+    create({ commit }, recruitDocument ) {
+      const params = {
+        recruit_document: recruitDocument.attributes
+      }
+
+      return new Promise(resolve => {
+        http.post(RecruitDocument.routes.recruitDocumentsPath, params)
+          .then(response => {
+            const { data } = response
+
+            commit('addToList', data)
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.recruitments.create.ok') },
+              { root: true }
+            )
+            resolve(data)
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.recruitments.create.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+
+          })
+      })
+    }
   }
 }
 
-export default RecruitmentsModule
+export default RecruitDocumentsModule

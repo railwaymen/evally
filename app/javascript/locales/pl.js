@@ -1,5 +1,16 @@
 export default {
   shared: {
+    general:{
+      fields: {
+        firstName: 'Imię',
+        lastName: 'Nazwisko',
+        email: 'Email',
+        phoneNumber: 'Numer telefonu',
+        source: 'Żródło',
+        status: 'Status',
+        group: 'Grupa'
+      }
+    },
     buttons: {
       cancel: 'Anuluj',
       create: 'Utwórz',
@@ -139,7 +150,7 @@ export default {
       employeeForm: {
         createTitle: 'Utwórz pracownika',
         updateTitle: 'Zaktualizuj pracownika',
-        general: 'Ogólce',
+        general: 'Ogólne',
         employment: 'Zatrudnienie',
         evaluation: 'Ocena',
         firstName: 'Imię',
@@ -297,6 +308,14 @@ export default {
           receivedAt: 'Data otrzymania'
         }
       },
+      recruitmentForm:{
+          createTitle: 'Nowy rekrutacja',
+          contact: 'Kontact',
+          general: 'Ogólne',
+          male: 'męczyzna',
+          female: 'kobieta',
+          position: 'Pozycja'
+        },
       sidebar: {
         gender: 'Płeć',
         email: 'Email',
@@ -438,6 +457,13 @@ export default {
     recruitments: {
       index: {
         error: 'Błąd przy ładowaniu rekrutacji: {msg}'
+      },
+      create: {
+        ok: 'Rekrutacja została utworzona',
+        error: 'Błąd przy tworzeniu rekrutacji: {msg}'
+      },
+      show: {
+        error: 'Błąd przy wyświetleniu rekrutacji: {msg}'
       }
     }
   },

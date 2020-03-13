@@ -8,8 +8,6 @@
       <div class="panel__nav">
         <v-btn
           color="primary"
-          @click="fetchData"
-          :to="{ name: 'recruitments_path' }"
           exact
           text
         >
@@ -18,6 +16,25 @@
       </div>
 
       <div class="panel__actions">
+        <v-tooltip
+          v-if="$route.name === 'recruitments_path'"
+          key="addNew"
+          bottom
+        >
+          <template #activator="{ on }">
+            <router-link :to="{ name: 'new_recruitment_path'}">
+            <v-btn
+              v-on="on"
+              color="green"
+              icon
+            >
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+            </router-link>
+          </template>
+
+          <span>{{ $t('shared.tooltips.addNew') }}</span>
+        </v-tooltip>
       </div>
     </div>
 
@@ -42,22 +59,25 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
+import { RecruitDocument } from '@models/recruit_document'
+
 import BasicTable from '@components/recruitments/BasicTable'
+import RecruitmentForm from '@components/recruitments/RecruitmentForm'
 
 export default {
   name: 'RecruitmentsIndex',
   components: { BasicTable },
   methods: {
     ...mapActions({
-      fetchData: 'RecruitmentsModule/index'
+      fetchData: 'RecruitDocumentsModule/index'
     })
   },
   computed: {
     ...mapGetters({
-      recruitDocuments: 'RecruitmentsModule/recruitDocuments',
-      groups: 'RecruitmentsModule/groups',
-      statuses: 'RecruitmentsModule/statuses',
-      loading: 'RecruitmentsModule/loading'
+      recruitDocuments: 'RecruitDocumentsModule/recruitDocuments',
+      groups: 'RecruitDocumentsModule/groups',
+      statuses: 'RecruitDocumentsModule/statuses',
+      loading: 'RecruitDocumentsModule/loading'
     })
   },
   created() {

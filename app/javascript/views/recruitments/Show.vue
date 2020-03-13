@@ -29,11 +29,11 @@ export default {
   components: { RecruitmentsSidebar },
   computed: {
      ...mapGetters({
-      recruitDocument: 'RecruitmentsModule/recruitDocument'
+      recruitDocument: 'RecruitDocumentsModule/recruitDocument'
     })
   },
   created() {
-    this.$store.dispatch('RecruitmentsModule/show', this.$route.params.id)
+    this.$store.dispatch('RecruitDocumentsModule/show', this.$route.params.id)
   },
 }
 </script>

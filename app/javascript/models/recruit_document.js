@@ -15,7 +15,7 @@ class RecruitDocument extends Model {
       group: '',
       phone: '',
       position: '',
-      received_at: '',
+      received_at: moment().format('YYYY-MM-DD'),
       source: ''
     };
   }
@@ -32,7 +32,8 @@ class RecruitDocument extends Model {
     return {
       recruitDocumentsPath: '/v2/recruit_documents',
       recruitDocumentsFilterPath: payload => `/v2/recruit_documents?${getURLParams(payload)}`,
-      recruitDocumentPath: id => `/v2/recruit_documents/${id}`
+      recruitDocumentPath: id => `/v2/recruit_documents/${id}`,
+      newRecruitDocumentsPath: '/v2/recruit_documents/new',
     }
   }
 }
