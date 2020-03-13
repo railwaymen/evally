@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/ModuleLength
+
 module JsonSpecHelpers
   def json_response
     JSON.parse(response.body)
@@ -144,4 +146,4 @@ RSpec.configure do |config|
   config.include JsonSpecHelpers, type: :controller
 end
 
-# rubocop:enable
+# rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/ModuleLength
