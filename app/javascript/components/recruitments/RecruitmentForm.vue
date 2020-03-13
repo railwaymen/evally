@@ -104,28 +104,30 @@
             />
           </v-flex>
 
-          <v-flex class="px-2" xs12 lg6>
             <v-menu
-              :close-on-content-click="true"
+            :close-on-content-click="true"
+            transition="scale-transition"
+            offset-y
+            min-width="290px"
             >
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                :value="localRecruitment.received_at"
-                prepend-inner-icon="mdi-calendar"
-                :rules="[vRequired]"
-                readonly
-                v-on="on">
-              </v-text-field>
-            </template>
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  :value="localRecruitment.received_at"
+                  prepend-inner-icon="mdi-calendar"
+                  :rules="[vRequired]"
+                  readonly
+                  v-on="on"
+                />
+              </template>
 
-            <v-date-picker
-              v-model="localRecruitment.received_at"
-              :locale="$i18n.locale"
-              no-title
-              scrollable
-             />
+              <v-date-picker
+                v-model="localRecruitment.received_at"
+                :locale="$i18n.locale"
+                no-title
+                scrollable
+              />
              </v-menu>
-          </v-flex>
+
 
         </v-layout>
       </v-card-text>
