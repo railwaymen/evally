@@ -55,9 +55,9 @@ class Evaluation extends Model {
     }
   }
 
-  browserPath(employeeId) {
+  browsePath(employeeId) {
     return {
-      name: 'evaluation_browser_path',
+      name: 'evaluation_browse_path',
       params: {
         employeeId,
         id: this.id
