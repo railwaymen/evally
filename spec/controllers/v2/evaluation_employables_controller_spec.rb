@@ -69,16 +69,18 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
   describe '#completed' do
     context 'when unauthorized' do
       it 'responds with 401 error' do
-        get :completed, params: { id: 1 }
+        get :completed, params: { employee_id: 1, id: 1 }
         expect(response).to have_http_status 401
       end
 
       it 'responds with 404 error' do
-        completed = FactoryBot.create(:evaluation_completed_employee)
+        employee = FactoryBot.create(:employee)
+
+        completed = FactoryBot.create(:evaluation_completed_employee, evaluable: employee)
         FactoryBot.create(:section, sectionable: completed)
 
         sign_in evaluator
-        get :completed, params: { id: completed.id }
+        get :completed, params: { employee_id: employee.id, id: completed.id }
 
         expect(response).to have_http_status 404
       end
@@ -86,11 +88,13 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
 
     context 'when authorized' do
       it 'responds with completed' do
-        completed = FactoryBot.create(:evaluation_completed_employee)
+        employee = FactoryBot.create(:employee)
+
+        completed = FactoryBot.create(:evaluation_completed_employee, evaluable: employee)
         FactoryBot.create(:section, sectionable: completed)
 
         sign_in admin
-        get :completed, params: { id: completed.id }
+        get :completed, params: { employee_id: employee.id, id: completed.id }
 
         expect(response).to have_http_status 200
         expect(response.body).to be_json_eql evaluation_employable_schema(completed)
@@ -98,9 +102,18 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
 
       it 'responds with 404 error' do
         sign_in admin
-        get :completed, params: { id: 1 }
 
-        expect(response).to have_http_status 404
+        aggregate_failures 'id employee is missing' do
+          get :completed, params: { employee_id: 1, id: 1 }
+          expect(response).to have_http_status 404
+        end
+
+        aggregate_failures 'id evaluation is missing' do
+          employee = FactoryBot.create(:employee)
+
+          get :completed, params: { employee_id: employee.id, id: 1 }
+          expect(response).to have_http_status 404
+        end
       end
     end
   end

@@ -7,7 +7,7 @@ module V2
         scope.joins(tables).where('drafts.ongoing IS NULL').where.not(state: :archived)
       end
 
-      def self.tables
+      def self.tables # rubocop:disable Metrics/MethodLength
         "
           LEFT JOIN LATERAL (
             SELECT

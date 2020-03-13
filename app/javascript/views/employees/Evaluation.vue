@@ -61,7 +61,10 @@ export default {
     $route: {
       immediate: true,
       handler(to, from) {
-        this.$store.dispatch('EmployeesModule/showEvaluation', to.params.id)
+        this.$store.dispatch('EmployeesModule/showEvaluation', {
+          employeeId: to.params.employeeId,
+          id: to.params.id
+        })
       }
     }
   },

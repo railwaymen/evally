@@ -70,7 +70,7 @@ class Evaluation extends Model {
       evaluationEmployablesPath: '/v2/evaluation_employables',
       evaluationEmployablePath: id => `/v2/evaluation_employables/${id}`,
       draftEvaluationEmployablePath: id => `/v2/evaluation_employables/${id}/draft`,
-      completedEvaluationEmployablePath: id => `/v2/evaluation_employables/${id}/completed`,
+      completedEvaluationEmployablePath: (employeeId, id) => `/v2/employees/${employeeId}/evaluations/${id}`,
       formEvaluationEmployablePath: '/v2/evaluation_employables/form',
       browseEvaluationPath: (employeeId, id) => `/v2/browse/employees/${employeeId}/evaluations/${id}`
     }
