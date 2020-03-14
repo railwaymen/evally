@@ -28,13 +28,11 @@ Rails.application.routes.draw do
         get '/evaluations/:id', to: 'evaluation_employables#completed'
       end
 
+      resources :evaluation_recruitables, only: %i[create update]
+
       resources :recruits, only: [] do
         resources :comments, only: %i[create update destroy], shallow: true
-      end
 
-      resources :evaluation_recruitables, only: %i[create]
-
-      resources :recruits, only: [] do
         get '/evaluations/:id', to: 'evaluation_recruitables#show'
       end
 

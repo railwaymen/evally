@@ -133,4 +133,93 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
       end
     end
   end
+
+  describe '#update' do
+    context 'when unauthorized' do
+      it 'responds with 401 error' do
+        params = {
+          id: 1,
+          evaluation: {
+            sections: [
+              {
+                id: 1,
+                name: 'New section name'
+              }
+            ]
+          }
+        }
+
+        put :update, params: params
+
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with updated evaluation' do
+        recruit_document = FactoryBot.create(:recruit_document)
+        recruit = recruit_document.recruit
+
+        evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
+        section = FactoryBot.create(:section, sectionable: evaluation)
+
+        params = {
+          id: evaluation.id,
+          evaluation: {
+            sections: [
+              {
+                id: section.id,
+                skills: [
+                  {
+                    name: 'Description',
+                    value: 'New value',
+                    needToImprove: false
+                  }
+                ]
+              }
+            ]
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          put :update, params: params
+        end.to(change { section.reload.skills.first['value'] }.to('New value'))
+
+        expect(response).to have_http_status 200
+        expect(response.body).to be_json_eql evaluation_recruitable_schema(evaluation.reload)
+      end
+
+      it 'responds with error if invalid section' do
+        recruit_document = FactoryBot.create(:recruit_document)
+        recruit = recruit_document.recruit
+
+        evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
+        section = FactoryBot.create(:section, sectionable: evaluation)
+
+        params = {
+          id: evaluation.id,
+          evaluation: {
+            sections: [
+              {
+                id: section.id,
+                skills: [
+                  {
+                    random: 'parameter'
+                  }
+                ]
+              }
+            ]
+          }
+        }
+
+        sign_in admin
+        put :update, params: params
+
+        expect(response).to have_http_status 422
+        expect(json_response['details'].first).to eq 'Sections skills must have name and value'
+      end
+    end
+  end
 end

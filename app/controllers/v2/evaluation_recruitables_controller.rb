@@ -17,7 +17,12 @@ module V2
       render json: V2::Evaluations::RecruitableShowView.render(presenter), status: :created
     end
 
-    def update; end
+    def update
+      update_form.save
+      presenter = V2::Evaluations::ShowPresenter.new(update_form.draft)
+
+      render json: V2::Evaluations::RecruitableShowView.render(presenter), status: :ok
+    end
 
     def destroy; end
 
@@ -34,6 +39,13 @@ module V2
       @evaluation
     end
 
+    def draft_evaluation
+      @draft_evaluation ||= evaluations_scope.draft.find_by(id: params[:id])
+      raise ErrorResponderService.new(:record_not_found, 404) unless @draft_evaluation
+
+      @draft_evaluation
+    end
+
     def create_form
       @create_form ||= V2::Evaluations::RecruitableCreateForm.new(
         create_params,
@@ -41,8 +53,22 @@ module V2
       )
     end
 
+    def update_form
+      @update_form ||= V2::Evaluations::RecruitableUpdateForm.new(
+        draft_evaluation,
+        params: update_params,
+        user: current_user
+      )
+    end
+
     def create_params
       params.require(:evaluation).permit(:recruit_id, :template_id)
+    end
+
+    def update_params
+      params.require(:evaluation).permit(
+        :state, sections: [:id, skills: %i[name value needToImprove]]
+      )
     end
   end
 end
