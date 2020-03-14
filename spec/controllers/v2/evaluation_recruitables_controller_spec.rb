@@ -222,4 +222,38 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
       end
     end
   end
+
+  describe '#destroy' do
+    context 'when unauthorized' do
+      it 'responds with 401 error' do
+        delete :destroy, params: { id: 1 }
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with no content' do
+        recruit_document = FactoryBot.create(:recruit_document)
+        recruit = recruit_document.recruit
+
+        evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
+        FactoryBot.create(:section, sectionable: evaluation)
+
+        sign_in admin
+
+        expect do
+          delete :destroy, params: { id: evaluation.id }
+        end.to(change { Evaluation.recruitable.draft.count }.by(-1))
+
+        expect(response).to have_http_status 204
+      end
+
+      it 'responds with 404 error' do
+        sign_in admin
+        delete :destroy, params: { id: 1 }
+
+        expect(response).to have_http_status 404
+      end
+    end
+  end
 end

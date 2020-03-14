@@ -24,7 +24,11 @@ module V2
       render json: V2::Evaluations::RecruitableShowView.render(presenter), status: :ok
     end
 
-    def destroy; end
+    def destroy
+      draft_evaluation.destroy
+
+      head :no_content
+    end
 
     private
 
