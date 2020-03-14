@@ -20,6 +20,8 @@ class Evaluation extends Model {
   }
 
   get completedAt() {
+    if (!this.completed_at) return 'Ongoing'
+
     return moment(this.completed_at).format('MMM DD, YYYY')
   }
 
@@ -35,6 +37,10 @@ class Evaluation extends Model {
     if (!this.next_evaluation_on) return 'First time'
 
     return moment(this.next_evaluation_on).format('MMM YYYY')
+  }
+
+  get recruitableSelectOption() {
+    return [this.template_name, this.completedAt].join(' - ')
   }
 
   get updatedAtFromNow() {

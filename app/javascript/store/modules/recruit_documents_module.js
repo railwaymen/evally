@@ -52,10 +52,25 @@ const RecruitDocumentsModule = {
       state.loading = false
       return state
     },
-    setItem(state, { recruit_document, templates }) {
+    setItem(state, data) {
+      const {
+        recruit_document,
+        evaluations,
+        evaluation,
+        sections,
+        templates
+      } = data
+
       state.recruitDocument = new RecruitDocument(recruit_document)
+      state.evaluations = new EvaluationsList(evaluations)
+      state.evaluation = new Evaluation(evaluation)
+      state.sections = new SectionsList(sections)
       state.templates = new TemplatesList(templates)
       state.loading = false
+      return state
+    },
+    replaceSection(state, section) {
+      state.sections.replace(section)
       return state
     },
     resetState(state) {

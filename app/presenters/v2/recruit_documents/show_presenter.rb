@@ -15,7 +15,19 @@ module V2
 
       # def status_changes; end
 
-      # def evaluation; end
+      def evaluations
+        @recruit_document.recruit.evaluations.order(completed_at: :desc)
+      end
+
+      def evaluation
+        evaluations.first
+      end
+
+      def sections
+        return if evaluation.nil?
+
+        evaluation.sections.order(position: :asc)
+      end
 
       # def comments; end
     end

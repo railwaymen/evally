@@ -80,6 +80,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
     context 'when authorized' do
       it 'responds with recruit_document' do
         recruit_document = FactoryBot.create(:recruit_document)
+        FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit_document.recruit)
 
         sign_in admin
         get :show, params: { id: recruit_document.id }
