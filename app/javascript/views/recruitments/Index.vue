@@ -32,11 +32,13 @@
 
             <span>{{ $t('shared.tooltips.addNew') }}</span>
           </v-tooltip>
+        </template>
 
+        <template v-if="$route.name === 'recruitment_path'">
           <v-tooltip bottom key="add_evaluation">
             <template #activator="{ on }">
               <v-btn
-                @click="openAddEvaluationForm"
+                @click="openCreateEvaluationForm"
                 v-on="on"
                 color="green"
                 icon
@@ -73,17 +75,17 @@ import { DialogsBus } from '@utils/dialogs_bus'
 
 import { RecruitDocument } from '@models/recruit_document'
 
-import AddEvaluationForm from '@components/recruitments/AddEvaluationForm'
+import CreateEvaluationForm from '@components/recruitments/CreateEvaluationForm'
 import BasicTable from '@components/recruitments/BasicTable'
 import RecruitmentForm from '@components/recruitments/RecruitmentForm'
 
 export default {
   name: 'RecruitmentsIndex',
-  components: { AddEvaluationForm, BasicTable },
+  components: { CreateEvaluationForm, BasicTable },
   methods: {
-    openAddEvaluationForm() {
+    openCreateEvaluationForm() {
       DialogsBus.$emit('openFormsDialog', {
-        innerComponent: AddEvaluationForm,
+        innerComponent: CreateEvaluationForm,
         props: {
           templates: this.templates
         }

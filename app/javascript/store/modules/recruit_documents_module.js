@@ -3,12 +3,17 @@ import { fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
 
+import { Evaluation, EvaluationsList } from '@models/evaluation'
 import { RecruitDocument, RecruitDocumentsList } from '@models/recruit_document'
+import { SectionsList } from '@models/section'
 import { TemplatesList } from '@models/template'
 
 const initialState = () => ({
   recruitDocuments: new RecruitDocumentsList(),
   recruitDocument: new RecruitDocument(),
+  evaluations: new EvaluationsList(),
+  evaluation: new Evaluation(),
+  sections: new SectionsList(),
   templates: new TemplatesList(),
   groups: [],
   statuses: [],
@@ -25,6 +30,9 @@ const RecruitDocumentsModule = {
     recruitDocuments: state => state.recruitDocuments,
     recruitDocument: state => state.recruitDocument,
     templates: state => state.templates,
+    evaluations: state => state.evaluations,
+    evaluation: state => state.evaluation,
+    sections: state => state.sections,
     groups: state => state.groups,
     statuses: state => state.statuses,
     positions: state => state.positions,
@@ -52,6 +60,10 @@ const RecruitDocumentsModule = {
     },
     resetState(state) {
       state = Object.assign(state, initialState())
+      return state
+    },
+    addEvaluation(state, evaluation) {
+      state.evaluations.add(evaluation)
       return state
     },
     addToList(state, recruitDocument) {
@@ -147,6 +159,37 @@ const RecruitDocumentsModule = {
               { root: true }
             )
 
+          })
+      })
+    },
+    createEvaluation({ state, commit }, { templateId }) {
+      const params = {
+        evaluation: {
+          recruit_document_id: state.recruitDocument.id,
+          template_id: templateId
+        }
+      }
+
+      return new Promise(resolve => {
+        http.post(Evaluation.routes.evaluationRecruitablesPath, params)
+          .then(response => {
+            const { data } = response
+
+            commit('addEvaluation', data.evaluation)
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.evaluations.create.ok') },
+              { root: true }
+            )
+
+            resolve(data)
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.evaluations.create.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
           })
       })
     }

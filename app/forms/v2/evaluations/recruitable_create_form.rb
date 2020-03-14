@@ -32,14 +32,20 @@ module V2
         raise ErrorResponderService.new(:invalid_record, 422, @draft.errors.full_messages)
       end
 
-      def recruit
-        @recruit ||= Recruit.find_by(human_resources_id: @params[:recruit_id])
+      def recruit_document
+        @recruit_document ||= RecruitDocument.find_by(id: @params[:recruit_document_id])
 
-        unless @recruit
+        unless @recruit_document
           raise ErrorResponderService.new(:record_not_found, 404, ['Recruit does not exist'])
         end
 
-        @recruit
+        @recruit_document
+      end
+
+      def recruit
+        @recruit ||= Recruit.find_or_create_by(
+          human_resources_id: recruit_document.encrypted_email
+        )
       end
 
       def template

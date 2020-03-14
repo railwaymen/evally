@@ -66,7 +66,7 @@ module V2
     end
 
     def create_params
-      params.require(:evaluation).permit(:recruit_id, :template_id)
+      params.require(:evaluation).permit(:recruit_document_id, :template_id)
     end
 
     def update_params

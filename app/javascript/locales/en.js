@@ -315,7 +315,7 @@ export default {
         female: 'female',
         position: 'Position'
       },
-      addEvaluationForm: {
+      createEvaluationForm: {
         title: 'Add Evaluation',
         selectTemplate: 'Select Template',
         templateLabel: 'Template Name'

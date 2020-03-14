@@ -314,7 +314,7 @@ export default {
         female: 'kobieta',
         position: 'Stanowisko'
       },
-      addEvaluationForm: {
+      createEvaluationForm: {
         title: 'Stwórz ocenę',
         selectTemplate: 'Wybierz szablon',
         templateLabel: 'Nazwa szablonu'

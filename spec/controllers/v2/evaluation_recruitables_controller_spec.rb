@@ -52,7 +52,7 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
       it 'responds with 401 error' do
         params = {
           evaluation: {
-            recruit_id: 1,
+            recruit_document_id: 1,
             template_id: 1
           }
         }
@@ -73,7 +73,7 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
 
         params = {
           evaluation: {
-            recruit_id: recruit.human_resources_id,
+            recruit_document_id: recruit_document.id,
             template_id: template.id
           }
         }
@@ -96,7 +96,7 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
 
         params = {
           evaluation: {
-            recruit_id: 1,
+            recruit_document_id: 1,
             template_id: template.id
           }
         }
@@ -117,7 +117,7 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
 
         params = {
           evaluation: {
-            recruit_id: recruit.human_resources_id,
+            recruit_document_id: recruit_document.id,
             template_id: 1
           }
         }
@@ -143,7 +143,7 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
 
         params = {
           evaluation: {
-            recruit_id: recruit.human_resources_id,
+            recruit_document_id: recruit_document.id,
             template_id: template.id
           }
         }
