@@ -32,6 +32,8 @@ Rails.application.routes.draw do
         resources :comments, only: %i[create update destroy], shallow: true
       end
 
+      resources :evaluation_recruitables, only: %i[create]
+
       resources :recruit_documents, only: %i[index show new create edit update]
 
       resources :templates, only: %i[index show create update destroy]

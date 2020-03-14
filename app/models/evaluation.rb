@@ -39,4 +39,16 @@ class Evaluation < ApplicationRecord
   def employee
     evaluable if employee_type?
   end
+
+  def recruit_type?
+    evaluable_type == 'Recruit'
+  end
+
+  def recruit_id
+    evaluable_id if recruit_type?
+  end
+
+  def recruit
+    evaluable if recruit_type?
+  end
 end
