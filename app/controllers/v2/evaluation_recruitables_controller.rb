@@ -4,7 +4,11 @@ module V2
   class EvaluationRecruitablesController < ApplicationController
     before_action :authenticate_user!
 
-    def show; end
+    def show
+      presenter = V2::Evaluations::ShowPresenter.new(evaluation)
+
+      render json: V2::Evaluations::RecruitableShowView.render(presenter), status: :ok
+    end
 
     def create
       create_form.save
@@ -18,6 +22,17 @@ module V2
     def destroy; end
 
     private
+
+    def evaluations_scope
+      policy_scope([:v2, Evaluation]).recruitable.includes(:evaluable)
+    end
+
+    def evaluation
+      @evaluation ||= evaluations_scope.find_by(evaluable_id: params[:recruit_id], id: params[:id])
+      raise ErrorResponderService.new(:record_not_found, 404) unless @evaluation
+
+      @evaluation
+    end
 
     def create_form
       @create_form ||= V2::Evaluations::RecruitableCreateForm.new(

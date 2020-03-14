@@ -40,8 +40,6 @@ module JsonSpecHelpers
   end
 
   def evaluation_recruitable_schema(draft)
-    recruit = draft.recruit
-
     {
       evaluation: {
         id: draft.id,

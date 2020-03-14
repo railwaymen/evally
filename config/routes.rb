@@ -34,6 +34,10 @@ Rails.application.routes.draw do
 
       resources :evaluation_recruitables, only: %i[create]
 
+      resources :recruits, only: [] do
+        get '/evaluations/:id', to: 'evaluation_recruitables#show'
+      end
+
       resources :recruit_documents, only: %i[index show new create edit update]
 
       resources :templates, only: %i[index show create update destroy]
