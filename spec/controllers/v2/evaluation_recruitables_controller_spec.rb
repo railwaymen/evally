@@ -131,6 +131,29 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
         expect(response).to have_http_status 404
         expect(json_response['details'].first).to eq 'Template does not exist'
       end
+
+      it 'responds with error if similar draft already exists' do
+        recruit_document = FactoryBot.create(:recruit_document)
+        recruit = recruit_document.recruit
+
+        FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
+
+        template = FactoryBot.create(:template, destination: 'recruits')
+        FactoryBot.create(:section, sectionable: template)
+
+        params = {
+          evaluation: {
+            recruit_id: recruit.human_resources_id,
+            template_id: template.id
+          }
+        }
+
+        sign_in admin
+        post :create, params: params
+
+        expect(response).to have_http_status 422
+        expect(json_response['details'].first).to eq 'Evaluable record has already draft evaluation'
+      end
     end
   end
 
