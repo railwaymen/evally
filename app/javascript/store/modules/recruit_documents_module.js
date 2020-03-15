@@ -77,8 +77,16 @@ const RecruitDocumentsModule = {
       state = Object.assign(state, initialState())
       return state
     },
-    addEvaluation(state, evaluation) {
+    addEvaluation(state, { evaluation, sections }) {
+      state.evaluation = new Evaluation(evaluation)
+      state.sections = new SectionsList(sections)
       state.evaluations.add(evaluation)
+      return state
+    },
+    removeEvaluation(state, id) {
+      state.evaluation = new Evaluation()
+      state.sections = new SectionsList()
+      state.evaluations.remove(id)
       return state
     },
     addToList(state, recruitDocument) {
@@ -190,7 +198,7 @@ const RecruitDocumentsModule = {
           .then(response => {
             const { data } = response
 
-            commit('addEvaluation', data.evaluation)
+            commit('addEvaluation', data)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.evaluations.create.ok') },
@@ -207,6 +215,27 @@ const RecruitDocumentsModule = {
             )
           })
       })
+    },
+    destroyEvaluation({ state, commit }) {
+      const { evaluation } = state;
+
+      http.delete(Evaluation.routes.evaluationRecruitablePath(evaluation.id))
+        .then(() => {
+          commit('removeEvaluation', evaluation.id)
+
+          commit(
+            'NotificationsModule/push',
+            { success: i18n.t('messages.evaluations.delete.ok') },
+            { root: true }
+          )
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.evaluations.delete.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+        })
     }
   }
 }

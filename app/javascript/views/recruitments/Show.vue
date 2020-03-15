@@ -10,6 +10,7 @@
       <v-layout row wrap>
         <v-flex xs12 lg6>
           <evaluations-sidebar
+            :templates="templates"
             :evaluations="evaluations"
             :evaluation="evaluation"
             :sections="sections"
@@ -36,6 +37,7 @@ export default {
   computed: {
      ...mapGetters({
       recruitDocument: 'RecruitDocumentsModule/recruitDocument',
+      templates: 'RecruitDocumentsModule/templates',
       evaluations: 'RecruitDocumentsModule/evaluations',
       evaluation: 'RecruitDocumentsModule/evaluation',
       sections: 'RecruitDocumentsModule/sections'

@@ -16,11 +16,11 @@ module V2
       # def status_changes; end
 
       def evaluations
-        @recruit_document.recruit.evaluations.order(completed_at: :desc)
+        @evaluations ||= @recruit_document.recruit.evaluations.order(completed_at: :desc)
       end
 
       def evaluation
-        evaluations.first
+        @evaluation ||= evaluations.to_a.first
       end
 
       def sections

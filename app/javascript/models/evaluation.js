@@ -25,12 +25,20 @@ class Evaluation extends Model {
     return moment(this.completed_at).format('MMM DD, YYYY')
   }
 
+  get editable() {
+    return this.isPersisted && this.isDraft
+  }
+
   get fullname() {
     return [this.first_name, this.last_name].join(' ')
   }
 
   get hiredOn() {
     return moment(this.hired_on).format('MMMM YYYY')
+  }
+
+  get isDraft() {
+    return this.state === 'draft'
   }
 
   get nextEvaluationOn() {
@@ -79,6 +87,7 @@ class Evaluation extends Model {
       completedEvaluationEmployablePath: (employeeId, id) => `/v2/employees/${employeeId}/evaluations/${id}`,
       formEvaluationEmployablePath: '/v2/evaluation_employables/form',
       evaluationRecruitablesPath: '/v2/evaluation_recruitables',
+      evaluationRecruitablePath: id => `/v2/evaluation_recruitables/${id}`,
       browseEvaluationPath: (employeeId, id) => `/v2/browse/employees/${employeeId}/evaluations/${id}`
     }
   }

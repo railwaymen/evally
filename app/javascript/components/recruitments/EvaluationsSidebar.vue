@@ -11,47 +11,120 @@
       />
     </div>
 
-    <v-form ref="form" @submit.prevent="submit">
+    <div class="sidebar__section">
+      <div class="sidebar__actions">
+        <v-tooltip bottom key="add">
+          <template #activator="{ on }">
+            <v-btn
+              @click="openCreateEvaluationForm"
+              v-on="on"
+              color="green"
+              icon
+            >
+              <v-icon>mdi-clipboard-plus-outline</v-icon>
+            </v-btn>
+          </template>
+
+          <span>{{ $t('shared.tooltips.addNew') }}</span>
+        </v-tooltip>
+
+        <v-tooltip bottom key="complete">
+          <template #activator="{ on }">
+            <v-btn
+              v-on="on"
+              color="green"
+              icon
+              :disabled="!evaluation.editable"
+            >
+              <v-icon>mdi-clipboard-check-outline</v-icon>
+            </v-btn>
+          </template>
+
+          <span>{{ $t('shared.tooltips.complete') }}</span>
+        </v-tooltip>
+
+        <v-tooltip bottom key="save">
+          <template #activator="{ on }">
+            <v-btn
+              v-on="on"
+              color="black"
+              icon
+              :disabled="!evaluation.editable"
+            >
+              <v-icon>mdi-content-save-outline</v-icon>
+            </v-btn>
+          </template>
+
+          <span>{{ $t('shared.tooltips.save') }}</span>
+        </v-tooltip>
+
+        <v-tooltip bottom key="reset">
+          <template #activator="{ on }">
+            <v-btn
+              v-on="on"
+              color="black"
+              icon
+              :disabled="!evaluation.editable"
+            >
+              <v-icon>mdi-restore</v-icon>
+            </v-btn>
+          </template>
+
+          <span>{{ $t('shared.tooltips.reset') }}</span>
+        </v-tooltip>
+
+        <v-tooltip bottom key="delete">
+          <template #activator="{ on }">
+            <v-btn
+              @click="openDeleteEvaluationConfirm"
+              v-on="on"
+              color="red"
+              icon
+              :disabled="!evaluation.editable"
+            >
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
+          </template>
+
+          <span>{{ $t('shared.tooltips.delete') }}</span>
+        </v-tooltip>
+      </div>
+    </div>
+
+    <v-form ref="form">
       <div class="sidebar__section">
-        <v-expansion-panels v-model="panel" multiple accordion>
+        <v-expansion-panels v-model="panels" multiple accordion>
           <expandable-section-box
             v-for="section in sections.models"
             :section="section"
             :key="section.id"
           />
         </v-expansion-panels>
-
-        <div class="sidebar__actions text-right">
-          <v-btn
-            color="grey darken-1"
-            text
-          >
-            {{ $t('shared.buttons.reset') }}
-          </v-btn>
-
-          <v-btn
-            type="submit"
-            color="green darken-1"
-            text
-          >
-            {{ $t('shared.buttons.save') }}
-          </v-btn>
-        </div>
       </div>
     </v-form>
   </div>
 </template>
 
 <script>
+import { DialogsBus } from '@utils/dialogs_bus'
+
 import { Evaluation, EvaluationsList } from '@models/evaluation'
 import { SectionsList } from '@models/section'
+import { TemplatesList } from '@models/template'
 
+import CreateEvaluationForm from '@components/recruitments/CreateEvaluationForm'
+import DeleteEvaluationConfirm from '@components/recruitments/DeleteEvaluationConfirm'
 import ExpandableSectionBox from '@components/recruitments/ExpandableSectionBox'
 
 export default {
   name: 'EvaluationsSidebar',
   components: { ExpandableSectionBox },
   props: {
+    templates: {
+      type: TemplatesList,
+      required: true,
+      default: () => new TemplatesList()
+    },
     evaluations: {
       type: EvaluationsList,
       required: true,
@@ -70,12 +143,32 @@ export default {
   },
   data() {
     return {
-      panel: [0, 1, 2]
+      openSections: null
     }
   },
   methods: {
-    submit() {
-      console.log('Submitted!')
+    openCreateEvaluationForm() {
+      DialogsBus.$emit('openFormsDialog', {
+        innerComponent: CreateEvaluationForm,
+        props: {
+          templates: this.templates
+        }
+      })
+    },
+    openDeleteEvaluationConfirm() {
+      DialogsBus.$emit('openConfirmDialog', {
+        innerComponent: DeleteEvaluationConfirm
+      })
+    }
+  },
+  computed: {
+    panels: {
+      get() {
+        return this.openSections || this.sections.models.map((_model, index) => index)
+      },
+      set(val) {
+        this.openSections = val
+      }
     }
   }
 }
