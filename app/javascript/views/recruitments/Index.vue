@@ -75,6 +75,9 @@ export default {
   },
   created() {
     this.fetchData()
+  },
+  beforeDestroy() {
+    this.$store.commit('RecruitDocumentsModule/resetState')
   }
 }
 </script>

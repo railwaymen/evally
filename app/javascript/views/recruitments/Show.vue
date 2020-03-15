@@ -14,6 +14,7 @@
             :evaluations="evaluations"
             :evaluation="evaluation"
             :sections="sections"
+            :loading="loading"
           />
         </v-flex>
 
@@ -40,7 +41,8 @@ export default {
       templates: 'RecruitDocumentsModule/templates',
       evaluations: 'RecruitDocumentsModule/evaluations',
       evaluation: 'RecruitDocumentsModule/evaluation',
-      sections: 'RecruitDocumentsModule/sections'
+      sections: 'RecruitDocumentsModule/sections',
+      loading: 'RecruitDocumentsModule/loading'
     })
   },
   created() {

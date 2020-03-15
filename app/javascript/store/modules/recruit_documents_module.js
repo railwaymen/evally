@@ -199,6 +199,8 @@ const RecruitDocumentsModule = {
         }
       }
 
+      commit('setLoading', true)
+
       return new Promise(resolve => {
         http.post(Evaluation.routes.evaluationRecruitablesPath, params)
           .then(response => {
@@ -220,10 +222,13 @@ const RecruitDocumentsModule = {
               { root: true }
             )
           })
+          .finally(() => commit('setLoading', false))
       })
     },
     showEvaluation({ state, commit }, evaluationId) {
       const { id, recruit_id } = state.evaluations.findById(evaluationId)
+
+      if (Number(state.evaluation.id) !== Number(evaluationId)) commit('setLoading', true)
 
       http.get(Evaluation.routes.showEvaluationRecruitablePath(recruit_id, id))
         .then(response => {
@@ -236,6 +241,7 @@ const RecruitDocumentsModule = {
             { root: true }
           )
         })
+        .finally(() => commit('setLoading', false))
     },
     updateEvaluation({ state, commit }) {
       const { evaluation, sections } = state;

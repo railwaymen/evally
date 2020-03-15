@@ -5,7 +5,7 @@
     </v-card-title>
 
     <v-card-text>
-      <p class="subtitle-1">
+      <p class="subtitle-1 text-center">
         {{ $t('components.evaluations.completeForm.question') }}<br />
         {{ $t('components.evaluations.completeForm.warning') }}
       </p>

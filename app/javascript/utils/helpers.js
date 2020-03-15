@@ -1,5 +1,6 @@
 import filter from 'lodash/filter'
 import map from 'lodash/map'
+import range from 'lodash/range'
 import uniq from 'lodash/uniq'
 
 export const pluckUniq = (arr, attribute) => (
@@ -16,6 +17,8 @@ export const fetchError = ({ response }) => {
   const details = response.data.details.join(', ')
   return details !== '' ? details : response.data.message
 }
+
+export const arrayRange = (start = 0, end, step = 1) => range(start, end, step)
 
 export const colors = [
   '#EF5350',

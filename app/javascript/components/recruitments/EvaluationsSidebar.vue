@@ -2,9 +2,10 @@
   <div class="sidebar sidebar--boxed">
     <div class="sidebar__section">
       <v-select
+        @change="showEvaluation"
         :value="evaluation.id"
         :items="evaluations.models"
-        label="Evaluation"
+        :label="$t('components.recruitments.evaluationsSidebar.selectLabel')"
         item-value="id"
         item-text="recruitableSelectOption"
         outlined
@@ -63,7 +64,7 @@
         <v-tooltip bottom key="reset">
           <template #activator="{ on }">
             <v-btn
-              @click="reset"
+              @click="showEvaluation(evaluation.id)"
               v-on="on"
               color="black"
               icon
@@ -85,7 +86,7 @@
               icon
               :disabled="!evaluation.editable"
             >
-              <v-icon>mdi-delete</v-icon>
+              <v-icon>mdi-delete-outline</v-icon>
             </v-btn>
           </template>
 
@@ -96,10 +97,20 @@
 
     <v-form ref="form">
       <div class="sidebar__section">
-        <v-expansion-panels v-model="panels" multiple accordion>
+        <div v-if="loading" class="section__loader">
+          <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
+        </div>
+
+        <v-expansion-panels
+          v-else
+          v-model="openSections"
+          multiple
+          accordion
+        >
           <expandable-section-box
             v-for="section in sections.models"
             :section="section"
+            :editable="evaluation.editable"
             :key="section.id"
           />
         </v-expansion-panels>
@@ -120,6 +131,8 @@ import CreateEvaluationForm from '@components/recruitments/CreateEvaluationForm'
 import CompleteEvaluationConfirm from '@components/recruitments/CompleteEvaluationConfirm'
 import DeleteEvaluationConfirm from '@components/recruitments/DeleteEvaluationConfirm'
 import ExpandableSectionBox from '@components/recruitments/ExpandableSectionBox'
+
+import { arrayRange } from '@utils/helpers'
 
 export default {
   name: 'EvaluationsSidebar',
@@ -144,11 +157,16 @@ export default {
       type: SectionsList,
       required: true,
       default: () => new SectionsList()
+    },
+    loading: {
+      type: Boolean,
+      required: true,
+      default: false
     }
   },
   data() {
     return {
-      openSections: null
+      openSections: arrayRange(this.sections.models.length)
     }
   },
   methods: {
@@ -170,22 +188,14 @@ export default {
         innerComponent: CompleteEvaluationConfirm
       })
     },
-    reset() {
-      this.showEvaluation(this.evaluation.id)
-    },
     ...mapActions({
       showEvaluation: 'RecruitDocumentsModule/showEvaluation',
       updateEvaluation: 'RecruitDocumentsModule/updateEvaluation'
     })
   },
-  computed: {
-    panels: {
-      get() {
-        return this.openSections || this.sections.models.map((_model, index) => index)
-      },
-      set(val) {
-        this.openSections = val
-      }
+  watch: {
+    sections(val) {
+      this.openSections = arrayRange(val.models.length)
     }
   }
 }

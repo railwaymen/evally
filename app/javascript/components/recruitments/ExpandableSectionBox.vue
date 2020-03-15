@@ -16,6 +16,7 @@
           <div class="skill__action">
             <v-rating
               v-model="skill.value"
+              :readonly="!editable"
               background-color="grey"
               length="3"
               hover
@@ -36,7 +37,20 @@
           <div class="skill__name">{{ skill.name }}</div>
 
           <div class="skill__action">
-            <v-chip-group v-model="skill.value" color="primary" mandatory>
+            <v-chip
+              v-if="!editable"
+              :color="skill.value ? 'primary' : ''"
+              label
+            >
+              {{ skill.value ? $t('components.evaluations.staticSection.yes') : $t('components.evaluations.staticSection.no') }}
+            </v-chip>
+
+            <v-chip-group
+              v-else
+              v-model="skill.value"
+              color="primary"
+              mandatory
+            >
               <v-chip :value="false" filter-icon="mdi-close" label filter>
                 {{ $t('components.evaluations.section.no') }}
               </v-chip>
@@ -53,7 +67,13 @@
     <v-expansion-panel-content v-if="section.isText">
       <div class="section__text">
         <div v-for="(skill, index) in section.skills" :key="index">
+          <div v-if="!editable">
+            <h4>{{ skill.name }}</h4>
+            <p> {{ skill.value }}</p>
+          </div>
+
           <v-textarea
+            v-else
             :label="skill.name"
             v-model="skill.value"
             :name="`input-${section.id}-${index}`"
@@ -77,6 +97,11 @@ export default {
       type: Section,
       required: true,
       default: () => new Section()
+    },
+    editable: {
+      type: Boolean,
+      required: true,
+      default: true
     }
   },
   watch: {
