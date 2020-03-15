@@ -18,7 +18,7 @@ Rails.application.routes.draw do
         get :draft, on: :member
       end
 
-      resources :employees, only: %i[index show create update destroy], shallow: true do
+      resources :employees, only: %i[index show create update destroy] do
         get :skills, on: :collection
         get :search, on: :collection
         get :overview, on: :collection
@@ -26,6 +26,10 @@ Rails.application.routes.draw do
         get :archived, on: :collection
 
         get '/evaluations/:id', to: 'evaluation_employables#completed'
+      end
+
+      resources :recruits, only: [] do
+        resources :comments, only: %i[create update destroy], shallow: true
       end
 
       resources :recruit_documents, only: %i[index show new create edit update]
