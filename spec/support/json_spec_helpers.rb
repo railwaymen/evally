@@ -46,6 +46,7 @@ module JsonSpecHelpers
         state: draft.state,
         template_name: draft.template_name,
         updated_at: draft.updated_at.to_s,
+        completed_at: draft.completed_at ? draft.completed_at.to_s : nil,
         recruit_id: draft.recruit_id
       },
       sections: draft.sections.map(&method(:section_schema))

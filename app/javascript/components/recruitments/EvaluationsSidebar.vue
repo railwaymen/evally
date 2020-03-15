@@ -31,6 +31,7 @@
         <v-tooltip bottom key="complete">
           <template #activator="{ on }">
             <v-btn
+              @click="openCompleteEvaluationConfirm"
               v-on="on"
               color="green"
               icon
@@ -116,6 +117,7 @@ import { SectionsList } from '@models/section'
 import { TemplatesList } from '@models/template'
 
 import CreateEvaluationForm from '@components/recruitments/CreateEvaluationForm'
+import CompleteEvaluationConfirm from '@components/recruitments/CompleteEvaluationConfirm'
 import DeleteEvaluationConfirm from '@components/recruitments/DeleteEvaluationConfirm'
 import ExpandableSectionBox from '@components/recruitments/ExpandableSectionBox'
 
@@ -161,6 +163,11 @@ export default {
     openDeleteEvaluationConfirm() {
       DialogsBus.$emit('openConfirmDialog', {
         innerComponent: DeleteEvaluationConfirm
+      })
+    },
+    openCompleteEvaluationConfirm() {
+      DialogsBus.$emit('openConfirmDialog', {
+        innerComponent: CompleteEvaluationConfirm
       })
     },
     reset() {

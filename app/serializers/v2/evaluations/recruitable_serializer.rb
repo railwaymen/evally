@@ -5,7 +5,7 @@ module V2
     class RecruitableSerializer < Blueprinter::Base
       identifier :id
 
-      fields :recruit_id, :state, :template_name, :updated_at
+      fields :recruit_id, :state, :template_name, :updated_at, :completed_at
     end
   end
 end

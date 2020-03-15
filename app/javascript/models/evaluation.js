@@ -20,7 +20,7 @@ class Evaluation extends Model {
   }
 
   get completedAt() {
-    if (!this.completed_at) return 'Ongoing'
+    if (!this.completed_at || this.isDraft) return 'Ongoing'
 
     return moment(this.completed_at).format('MMM DD, YYYY')
   }

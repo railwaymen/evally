@@ -45,6 +45,7 @@ const RecruitDocumentsModule = {
       return state
     },
     setEvaluation(state, { evaluation, sections }) {
+      state.evaluations.refresh(evaluation)
       state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
       return state
@@ -267,6 +268,38 @@ const RecruitDocumentsModule = {
           })
       })
 
+    },
+    completeEvaluation({ state, commit }) {
+      const { evaluation, sections } = state;
+
+      const params = {
+        evaluation: {
+          state: 'completed',
+          sections: sections.models
+        }
+      }
+
+      return new Promise(resolve => {
+        http.put(Evaluation.routes.evaluationRecruitablePath(evaluation.id), params)
+          .then((response) => {
+            commit('setEvaluation', response.data)
+
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.evaluations.complete.ok') },
+              { root: true }
+            )
+
+            resolve()
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.evaluations.complete.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      })
     },
     destroyEvaluation({ state, commit }) {
       const { evaluation } = state;

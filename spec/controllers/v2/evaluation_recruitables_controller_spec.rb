@@ -113,7 +113,6 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
 
       it 'responds with 404 error if template not found' do
         recruit_document = FactoryBot.create(:recruit_document)
-        recruit = recruit_document.recruit
 
         params = {
           evaluation: {
