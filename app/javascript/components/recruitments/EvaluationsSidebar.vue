@@ -61,6 +61,7 @@
         <v-tooltip bottom key="reset">
           <template #activator="{ on }">
             <v-btn
+              @click="reset"
               v-on="on"
               color="black"
               icon
@@ -106,6 +107,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import { Evaluation, EvaluationsList } from '@models/evaluation'
@@ -159,7 +161,13 @@ export default {
       DialogsBus.$emit('openConfirmDialog', {
         innerComponent: DeleteEvaluationConfirm
       })
-    }
+    },
+    reset() {
+      this.showEvaluation(this.evaluation.id)
+    },
+    ...mapActions({
+      showEvaluation: 'RecruitDocumentsModule/showEvaluation'
+    })
   },
   computed: {
     panels: {

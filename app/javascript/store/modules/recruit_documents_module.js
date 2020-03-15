@@ -44,6 +44,11 @@ const RecruitDocumentsModule = {
       state.loading = status
       return state
     },
+    setEvaluation(state, { evaluation, sections }) {
+      state.evaluation = new Evaluation(evaluation)
+      state.sections = new SectionsList(sections)
+      return state
+    },
     setList(state, { recruit_documents, groups, statuses, positions }) {
       state.recruitDocuments = new RecruitDocumentsList(recruit_documents)
       state.groups = groups
@@ -215,6 +220,21 @@ const RecruitDocumentsModule = {
             )
           })
       })
+    },
+    showEvaluation({ state, commit }, evaluationId) {
+      const { id, recruit_id } = state.evaluations.findById(evaluationId)
+
+      http.get(Evaluation.routes.showEvaluationRecruitablePath(recruit_id, id))
+        .then(response => {
+          commit('setEvaluation', response.data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.evaluations.show.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+        })
     },
     destroyEvaluation({ state, commit }) {
       const { evaluation } = state;
