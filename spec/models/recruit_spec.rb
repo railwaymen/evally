@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe Recruit, type: :model do
   it { is_expected.to belong_to(:evaluator).class_name('User').optional }
 
+  it { is_expected.to have_many(:comments) }
+
   it do
     is_expected
       .to have_many(:recruit_documents)

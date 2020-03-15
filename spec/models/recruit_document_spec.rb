@@ -28,8 +28,16 @@ RSpec.describe RecruitDocument, type: :model do
   it { is_expected.to validate_presence_of(:status) }
 
   describe 'enums' do
-    it 'expects correct values for state' do
-      is_expected.to define_enum_for(:status).backed_by_column_of_type(:string)
+    it do
+      is_expected.to(
+        define_enum_for(:status)
+          .with_values(
+            fresh: 'fresh',
+            accepted: 'accepted',
+            rejected: 'rejected'
+          )
+          .backed_by_column_of_type(:string)
+      )
     end
   end
 end
