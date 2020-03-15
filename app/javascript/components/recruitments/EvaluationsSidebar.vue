@@ -46,6 +46,7 @@
         <v-tooltip bottom key="save">
           <template #activator="{ on }">
             <v-btn
+              @click="updateEvaluation"
               v-on="on"
               color="black"
               icon
@@ -166,7 +167,8 @@ export default {
       this.showEvaluation(this.evaluation.id)
     },
     ...mapActions({
-      showEvaluation: 'RecruitDocumentsModule/showEvaluation'
+      showEvaluation: 'RecruitDocumentsModule/showEvaluation',
+      updateEvaluation: 'RecruitDocumentsModule/updateEvaluation'
     })
   },
   computed: {

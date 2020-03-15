@@ -236,6 +236,38 @@ const RecruitDocumentsModule = {
           )
         })
     },
+    updateEvaluation({ state, commit }) {
+      const { evaluation, sections } = state;
+
+      const params = {
+        evaluation: {
+          sections: sections.models
+        }
+      }
+
+      return new Promise(resolve => {
+        http.put(Evaluation.routes.evaluationRecruitablePath(evaluation.id), params)
+          .then(response => {
+            commit('setEvaluation', response.data)
+
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.evaluations.update.ok') },
+              { root: true }
+            )
+
+            resolve()
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.evaluations.update.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      })
+
+    },
     destroyEvaluation({ state, commit }) {
       const { evaluation } = state;
 

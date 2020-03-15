@@ -57,8 +57,9 @@
             :label="skill.name"
             v-model="skill.value"
             :name="`input-${section.id}-${index}`"
-            rows="1"
+            rows="2"
             auto-grow
+            outlined
           />
         </div>
       </div>
