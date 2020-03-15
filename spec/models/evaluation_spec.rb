@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe Evaluation, type: :model do
   it { is_expected.to belong_to(:evaluable) }
 
+  it { is_expected.to validate_presence_of(:position) }
+
   it do
     is_expected.to(
       define_enum_for(:state)

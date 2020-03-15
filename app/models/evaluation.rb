@@ -24,6 +24,7 @@ class Evaluation < ApplicationRecord
     message: :draft_evaluation_exists
   }, if: :draft?
 
+  validates :position, presence: true
   validates :state, inclusion: { in: Evaluation.states.keys, message: :invalid_inclusion }
 
   # # Methods

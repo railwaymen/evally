@@ -5,7 +5,7 @@ module V2
     class EmployableSerializer < Blueprinter::Base
       identifier :id
 
-      fields :employee_id, :state, :template_name, :updated_at, :completed_at
+      fields :employee_id, :position, :state, :template_name, :updated_at, :completed_at
 
       field :first_name do |ev, _options|
         ev.employee.first_name
@@ -13,10 +13,6 @@ module V2
 
       field :last_name do |ev, _options|
         ev.employee.last_name
-      end
-
-      field :position do |ev, _options|
-        ev.employee.position
       end
 
       field :hired_on do |ev, _options|

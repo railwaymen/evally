@@ -25,6 +25,7 @@ module V2
       def build_draft
         @draft = employee.evaluations.build(
           state: :draft,
+          position: employee.position,
           template_name: resolve_template_name,
           sections_attributes: sections
         )
