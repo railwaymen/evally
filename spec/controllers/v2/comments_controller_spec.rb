@@ -62,7 +62,7 @@ RSpec.describe V2::CommentsController, type: :controller do
         expect(response).to have_http_status 422
       end
 
-      it 'responds with 404 ifn no recruit' do
+      it 'responds with 404 if no recruit' do
         params = {
           recruit_id: 1,
           comment: {

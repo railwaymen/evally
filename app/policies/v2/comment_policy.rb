@@ -7,7 +7,7 @@ module V2
     end
 
     def destroy?
-      user.id == record.user_id && record.created_at > 15.minutes.ago
+      update?
     end
   end
 end
