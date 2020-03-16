@@ -8,11 +8,11 @@ class User < ApplicationRecord
   has_one :setting, dependent: :destroy
 
   has_many :activities, dependent: :destroy
+  has_many :comments, dependent: :nullify
   has_many :employees, foreign_key: :evaluator_id, inverse_of: :evaluator, dependent: :nullify
   has_many :recruits, foreign_key: :evaluator_id, inverse_of: :evaluator, dependent: :nullify
   has_many :templates, foreign_key: :creator_id, inverse_of: :creator, dependent: :nullify
   has_many :evaluations, through: :employees
-  has_many :comments, dependent: :nullify
 
   # # Validation
   #
@@ -32,6 +32,10 @@ class User < ApplicationRecord
 
   # # Methods
   #
+  def recruit_documents
+    RecruitDocument.where(encrypted_email: recruits.pluck(:human_resources_id).compact)
+  end
+
   def fullname
     [first_name, last_name].join(' ').strip
   end

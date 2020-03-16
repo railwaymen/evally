@@ -29,69 +29,67 @@
           <span>{{ $t('shared.tooltips.addNew') }}</span>
         </v-tooltip>
 
-        <v-tooltip bottom key="complete">
-          <template #activator="{ on }">
-            <v-btn
-              @click="openCompleteEvaluationConfirm"
-              v-on="on"
-              color="green"
-              icon
-              :disabled="!evaluation.editable"
-            >
-              <v-icon>mdi-clipboard-check-outline</v-icon>
-            </v-btn>
-          </template>
+        <template v-if="evaluation.editable">
+          <v-tooltip bottom key="complete">
+            <template #activator="{ on }">
+              <v-btn
+                @click="openCompleteEvaluationConfirm"
+                v-on="on"
+                color="green"
+                icon
+              >
+                <v-icon>mdi-clipboard-check-outline</v-icon>
+              </v-btn>
+            </template>
 
-          <span>{{ $t('shared.tooltips.complete') }}</span>
-        </v-tooltip>
+            <span>{{ $t('shared.tooltips.complete') }}</span>
+          </v-tooltip>
 
-        <v-tooltip bottom key="save">
-          <template #activator="{ on }">
-            <v-btn
-              @click="updateEvaluation"
-              v-on="on"
-              color="black"
-              icon
-              :disabled="!evaluation.editable"
-            >
-              <v-icon>mdi-content-save-outline</v-icon>
-            </v-btn>
-          </template>
+          <v-tooltip bottom key="save">
+            <template #activator="{ on }">
+              <v-btn
+                @click="updateEvaluation"
+                v-on="on"
+                color="black"
+                icon
+              >
+                <v-icon>mdi-content-save-outline</v-icon>
+              </v-btn>
+            </template>
 
-          <span>{{ $t('shared.tooltips.save') }}</span>
-        </v-tooltip>
+            <span>{{ $t('shared.tooltips.save') }}</span>
+          </v-tooltip>
 
-        <v-tooltip bottom key="reset">
-          <template #activator="{ on }">
-            <v-btn
-              @click="showEvaluation(evaluation.id)"
-              v-on="on"
-              color="black"
-              icon
-              :disabled="!evaluation.editable"
-            >
-              <v-icon>mdi-restore</v-icon>
-            </v-btn>
-          </template>
+          <v-tooltip bottom key="reset">
+            <template #activator="{ on }">
+              <v-btn
+                @click="showEvaluation(evaluation.id)"
+                v-on="on"
+                color="black"
+                icon
+              >
+                <v-icon>mdi-restore</v-icon>
+              </v-btn>
+            </template>
 
-          <span>{{ $t('shared.tooltips.reset') }}</span>
-        </v-tooltip>
+            <span>{{ $t('shared.tooltips.reset') }}</span>
+          </v-tooltip>
 
-        <v-tooltip bottom key="delete">
-          <template #activator="{ on }">
-            <v-btn
-              @click="openDeleteEvaluationConfirm"
-              v-on="on"
-              color="red"
-              icon
-              :disabled="!evaluation.editable"
-            >
-              <v-icon>mdi-delete-outline</v-icon>
-            </v-btn>
-          </template>
+          <v-tooltip bottom key="delete">
+            <template #activator="{ on }">
+              <v-btn
+                @click="openDeleteEvaluationConfirm"
+                v-on="on"
+                color="red"
+                icon
+              >
+                <v-icon>mdi-delete-outline</v-icon>
+              </v-btn>
+            </template>
 
-          <span>{{ $t('shared.tooltips.delete') }}</span>
-        </v-tooltip>
+            <span>{{ $t('shared.tooltips.delete') }}</span>
+          </v-tooltip>
+        </template>
       </div>
     </div>
 

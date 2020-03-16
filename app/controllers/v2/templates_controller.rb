@@ -12,21 +12,21 @@ module V2
     end
 
     def show
-      presenter = V2::Templates::ShowPresenter.new(template)
+      presenter = V2::Templates::ShowPresenter.new(current_user, template)
 
       render json: V2::Templates::ShowView.render(presenter), status: :ok
     end
 
     def create
       create_form.save
-      presenter = V2::Templates::ShowPresenter.new(create_form.template)
+      presenter = V2::Templates::ShowPresenter.new(current_user, create_form.template)
 
       render json: V2::Templates::ShowView.render(presenter), status: :created
     end
 
     def update
       update_form.save
-      presenter = V2::Templates::ShowPresenter.new(update_form.template)
+      presenter = V2::Templates::ShowPresenter.new(current_user, update_form.template)
 
       render json: V2::Templates::ShowView.render(presenter), status: :ok
     end
