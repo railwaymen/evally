@@ -13,7 +13,7 @@ module V2
     end
 
     def show
-      presenter = V2::RecruitDocuments::ShowPresenter.new(recruit_document)
+      presenter = V2::RecruitDocuments::ShowPresenter.new(current_user, recruit_document)
 
       render json: V2::RecruitDocuments::ShowView.render(presenter), status: :ok
     end

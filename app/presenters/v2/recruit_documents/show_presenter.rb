@@ -5,7 +5,8 @@ module V2
     class ShowPresenter
       attr_reader :recruit_document
 
-      def initialize(recruit_document)
+      def initialize(user, recruit_document)
+        @user = user
         @recruit_document = recruit_document
       end
 
@@ -24,12 +25,18 @@ module V2
       end
 
       def sections
-        return if evaluation.nil?
-
-        evaluation.sections.order(position: :asc)
+        Pundit.policy_scope!(@user, [:v2, sections_scope])
       end
 
       # def comments; end
+
+      private
+
+      def sections_scope
+        return Section.none if evaluation.nil?
+
+        evaluation.sections.order(position: :asc)
+      end
     end
   end
 end

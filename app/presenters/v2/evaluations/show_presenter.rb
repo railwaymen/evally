@@ -5,11 +5,18 @@ module V2
     class ShowPresenter
       attr_reader :evaluation
 
-      def initialize(evaluation)
+      def initialize(user, evaluation)
+        @user = user
         @evaluation = evaluation
       end
 
       def sections
+        Pundit.policy_scope!(@user, [:v2, sections_scope])
+      end
+
+      private
+
+      def sections_scope
         @evaluation.sections.order(position: :asc)
       end
     end

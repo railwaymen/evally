@@ -493,6 +493,7 @@ export default {
     user: {
       roles: {
         admin: 'Admin',
+        recruiter: 'Recruiter',
         evaluator: 'Evaluator'
       },
       statuses: {

@@ -11,13 +11,13 @@ module V2
     end
 
     def draft
-      presenter = V2::Evaluations::ShowPresenter.new(draft_evaluation)
+      presenter = V2::Evaluations::ShowPresenter.new(current_user, draft_evaluation)
 
       render json: V2::Evaluations::EmployableShowView.render(presenter), status: :ok
     end
 
     def completed
-      presenter = V2::Evaluations::ShowPresenter.new(completed_evaluation)
+      presenter = V2::Evaluations::ShowPresenter.new(current_user, completed_evaluation)
 
       render json: V2::Evaluations::EmployableShowView.render(presenter), status: :ok
     end
@@ -30,14 +30,14 @@ module V2
 
     def create
       create_form.save
-      presenter = V2::Evaluations::ShowPresenter.new(create_form.draft)
+      presenter = V2::Evaluations::ShowPresenter.new(current_user, create_form.draft)
 
       render json: V2::Evaluations::EmployableShowView.render(presenter), status: :created
     end
 
     def update
       update_form.save
-      presenter = V2::Evaluations::ShowPresenter.new(update_form.draft)
+      presenter = V2::Evaluations::ShowPresenter.new(current_user, update_form.draft)
 
       render json: V2::Evaluations::EmployableShowView.render(presenter), status: :ok
     end
