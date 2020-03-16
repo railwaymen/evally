@@ -3,9 +3,7 @@
 module V2
   class TemplatePolicy < ApplicationPolicy
     def update?
-      return true if user.admin? || recruitable_template? || employable_template?
-
-      false
+      user.admin? || recruitable_template? || employable_template?
     end
 
     def destroy?

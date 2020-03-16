@@ -3,6 +3,7 @@
 module V2
   class RecruitDocumentsController < ApplicationController
     before_action :authenticate_user!
+    before_action :authorize!
 
     def index
       presenter = V2::RecruitDocuments::IndexPresenter.new(
@@ -49,6 +50,10 @@ module V2
     end
 
     private
+
+    def authorize!
+      authorize [:v2, RecruitDocument]
+    end
 
     def recruit_document
       @recruit_document ||= RecruitDocument.find_by(id: params[:id])
