@@ -39,6 +39,20 @@ module JsonSpecHelpers
     }.to_json
   end
 
+  def evaluation_recruitable_schema(draft)
+    {
+      evaluation: {
+        id: draft.id,
+        state: draft.state,
+        template_name: draft.template_name,
+        updated_at: draft.updated_at.to_s,
+        completed_at: draft.completed_at ? draft.completed_at.to_s : nil,
+        recruit_id: draft.recruit_id
+      },
+      sections: draft.sections.map(&method(:section_schema))
+    }.to_json
+  end
+
   def employee_schema(employee)
     latest_evaluation_date = lambda do
       employee.latest_evaluation_date if employee.respond_to?(:latest_evaluation_date)

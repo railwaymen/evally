@@ -20,7 +20,13 @@ class Evaluation extends Model {
   }
 
   get completedAt() {
+    if (!this.completed_at || this.isDraft) return 'Ongoing'
+
     return moment(this.completed_at).format('MMM DD, YYYY')
+  }
+
+  get editable() {
+    return this.isPersisted && this.isDraft
   }
 
   get fullname() {
@@ -31,10 +37,18 @@ class Evaluation extends Model {
     return moment(this.hired_on).format('MMMM YYYY')
   }
 
+  get isDraft() {
+    return this.state === 'draft'
+  }
+
   get nextEvaluationOn() {
     if (!this.next_evaluation_on) return 'First time'
 
     return moment(this.next_evaluation_on).format('MMM YYYY')
+  }
+
+  get recruitableSelectOption() {
+    return [this.template_name, this.completedAt].join(' - ')
   }
 
   get updatedAtFromNow() {
@@ -72,6 +86,9 @@ class Evaluation extends Model {
       draftEvaluationEmployablePath: id => `/v2/evaluation_employables/${id}/draft`,
       completedEvaluationEmployablePath: (employeeId, id) => `/v2/employees/${employeeId}/evaluations/${id}`,
       formEvaluationEmployablePath: '/v2/evaluation_employables/form',
+      evaluationRecruitablesPath: '/v2/evaluation_recruitables',
+      evaluationRecruitablePath: id => `/v2/evaluation_recruitables/${id}`,
+      showEvaluationRecruitablePath: (recruitId, id) => `/v2/recruits/${recruitId}/evaluations/${id}`,
       browseEvaluationPath: (employeeId, id) => `/v2/browse/employees/${employeeId}/evaluations/${id}`
     }
   }

@@ -9,6 +9,15 @@
     padding: rem2dec(.5rem);
   }
 
+  &__actions  {
+    text-align: right;
+    bottom: rem2dec(.5rem);
+
+    & > * {
+      margin: rem2dec(0 .5rem);
+    }
+  }
+
   &__list  {
     background: #fff;
     max-height: calc(100vh - 204px);

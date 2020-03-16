@@ -88,8 +88,8 @@ export default {
         no: 'Nie',
       },
       deleteConfirm: {
-        title: 'Usuń szkic',
-        body: 'Czy na pewno chcesz usunąć ten szkic?'
+        title: 'Usuń szkic oceny',
+        body: 'Czy na pewno chcesz usunąć ten szkic oceny?'
       },
       completeForm: {
         title: 'Zakończ ocenę',
@@ -314,10 +314,13 @@ export default {
         female: 'kobieta',
         position: 'Stanowisko'
       },
-      addEvaluationForm: {
+      createEvaluationForm: {
         title: 'Stwórz ocenę',
         selectTemplate: 'Wybierz szablon',
         templateLabel: 'Nazwa szablonu'
+      },
+      evaluationsSidebar: {
+        selectLabel: 'Ocena'
       },
       sidebar: {
         gender: 'Płeć',

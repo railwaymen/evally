@@ -1,7 +1,7 @@
 <template>
   <v-card class="pa-3">
     <v-card-title>
-      <span class="headline">{{ $t('components.recruitments.addEvaluationForm.title') }}</span>
+      <span class="headline">{{ $t('components.recruitments.createEvaluationForm.title') }}</span>
     </v-card-title>
 
     <v-form @submit.prevent="create">
@@ -14,7 +14,7 @@
               </v-avatar>
 
               <span class="step__text black--text">
-                {{ $t('components.recruitments.addEvaluationForm.selectTemplate') }}
+                {{ $t('components.recruitments.createEvaluationForm.selectTemplate') }}
               </span>
             </v-chip>
           </div>
@@ -25,7 +25,7 @@
               :items="templates.models"
               item-value="id"
               item-text="name"
-              :label="$t('components.recruitments.addEvaluationForm.templateLabel')"
+              :label="$t('components.recruitments.createEvaluationForm.templateLabel')"
             />
           </div>
         </div>
@@ -58,7 +58,7 @@
 import { TemplatesList } from '@models/template'
 
 export default {
-  name: 'AddEvaluationForm',
+  name: 'CreateEvaluationForm',
   props: {
     templates: {
       type: TemplatesList,
@@ -74,6 +74,10 @@ export default {
   methods: {
     closeDialog() {
       this.$emit('closeDialog')
+    },
+    create() {
+      this.$store.dispatch('RecruitDocumentsModule/createEvaluation', this.$data)
+        .then(this.closeDialog)
     }
   }
 }

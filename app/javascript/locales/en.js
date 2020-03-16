@@ -88,13 +88,13 @@ export default {
         no: 'No',
       },
       deleteConfirm: {
-        title: 'Delete Draft',
-        body: 'Are you sure you want to delete this draft?'
+        title: 'Delete Evaluation',
+        body: 'Are you sure you want to delete this draft evaluation?'
       },
       completeForm: {
         title: 'Complete Evaluation',
         question: 'Are you sure you want to complete this evaluation?',
-        warning: 'This action cannot be undo',
+        warning: 'This action cannot be undo.',
         nextEvaluation: 'Next Evaluation',
       },
       createForm: {
@@ -315,10 +315,13 @@ export default {
         female: 'female',
         position: 'Position'
       },
-      addEvaluationForm: {
+      createEvaluationForm: {
         title: 'Add Evaluation',
         selectTemplate: 'Select Template',
         templateLabel: 'Template Name'
+      },
+      evaluationsSidebar: {
+        selectLabel: 'Evaluation'
       },
       sidebar: {
         gender: 'Gender',
