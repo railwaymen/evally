@@ -5,28 +5,45 @@
     </h5>
 
     <v-form @submit.prevent="addSection" class="pa-3">
-      <span class="section-form__label">
-        {{ $t('components.templates.sectionForm.width.title') }}
-      </span>
-      <v-radio-group v-model="section.width" row>
-        <v-radio
-          :label="$t('components.templates.sectionForm.width.full')"
-          value="full"
-        />
+      <v-layout row wrap>
+        <v-flex xs6>
+          <span class="section-form__label">
+            {{ $t('components.templates.sectionForm.width.title') }}
+          </span>
+          <v-radio-group v-model="section.width" row>
+            <v-radio
+              :label="$t('components.templates.sectionForm.width.full')"
+              value="full"
+            />
 
-        <v-radio
-          :label="$t('components.templates.sectionForm.width.half')"
-          :disabled="constantWidth"
-          value="half"
-        />
-      </v-radio-group>
+            <v-radio
+              :label="$t('components.templates.sectionForm.width.half')"
+              :disabled="recruitable"
+              value="half"
+            />
+          </v-radio-group>
+        </v-flex>
 
-      <span class="section-form__label">{{ $t('components.templates.sectionForm.group.title') }}</span>
-      <v-radio-group v-model="section.group" row>
-        <v-radio :label="$t('components.templates.sectionForm.group.rating')" value="rating" />
-        <v-radio :label="$t('components.templates.sectionForm.group.bool')" value="bool" />
-        <v-radio :label="$t('components.templates.sectionForm.group.text')" value="text" />
-      </v-radio-group>
+        <v-flex xs6>
+          <span class="section-form__label">
+            {{ $t('components.templates.sectionForm.sensitive.title') }}
+          </span>
+          <v-checkbox
+            v-model="section.sensitive"
+            :label="section.sensitive ? $t('components.templates.sectionForm.sensitive.yes') : $t('components.templates.sectionForm.sensitive.no')"
+            :disabled="!recruitable"
+          />
+        </v-flex>
+
+        <v-flex xs12>
+          <span class="section-form__label">{{ $t('components.templates.sectionForm.group.title') }}</span>
+          <v-radio-group v-model="section.group" row>
+            <v-radio :label="$t('components.templates.sectionForm.group.rating')" value="rating" />
+            <v-radio :label="$t('components.templates.sectionForm.group.bool')" value="bool" />
+            <v-radio :label="$t('components.templates.sectionForm.group.text')" value="text" />
+          </v-radio-group>
+        </v-flex>
+      </v-layout>
 
       <v-btn
         type="submit"
@@ -52,7 +69,7 @@ export default {
       required: true,
       default: () => []
     },
-    constantWidth: {
+    recruitable: {
       type: Boolean,
       required: true,
       default: false
@@ -63,7 +80,8 @@ export default {
       section: new Section({
         width: 'full',
         group: 'rating',
-        position: this.value.length
+        position: this.value.length,
+        sensitive: false
       })
     }
   },
@@ -74,7 +92,8 @@ export default {
       this.section = new Section({
         width: 'full',
         group: 'rating',
-        position: this.value.length
+        position: this.value.length,
+        sensitive: false
       })
     }
   }

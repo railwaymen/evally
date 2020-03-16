@@ -39,7 +39,9 @@ export default {
       halfWidth: 'Half Width',
       copyLink: 'Copy Link',
       close: 'Close',
-      archive: 'Archive'
+      archive: 'Archive',
+      openInfo: 'Open Information',
+      sensitiveInfo: 'Sensitive Information'
     },
     navbar: {
       dashboard: 'Dashboard',
@@ -256,6 +258,11 @@ export default {
           rating: 'Rating',
           bool: 'Yes/No',
           text: 'Text',
+        },
+        sensitive: {
+          title: 'Sensitive Content',
+          yes: 'Yes',
+          no: 'No'
         },
         button: 'Add Section'
       },

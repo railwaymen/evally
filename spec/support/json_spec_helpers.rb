@@ -120,6 +120,7 @@ module JsonSpecHelpers
       group: section.group,
       width: section.width,
       position: section.position,
+      sensitive: section.sensitive,
       name: section.name,
       skills: section.skills
     }

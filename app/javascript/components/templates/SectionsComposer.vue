@@ -23,10 +23,38 @@
               v-model="section.name"
               :label="$t('components.templates.sectionComposer.title')"
               :rules="[vRequired]"
-            />
+            >
+              <template #prepend>
+                <v-tooltip left>
+                  <template #activator="{ on }">
+                    <v-icon
+                      @click="switchSensitive(section.id, index)"
+                      :color="section.sensitive ? 'red' : 'green'"
+                      :disabled="!recruitable"
+                      v-on="on"
+                    >
+                      {{ section.sensitive ? `mdi-lock-outline` : `mdi-lock-open-variant-outline`  }}
+                    </v-icon>
+                  </template>
+
+                  <span>
+                    {{ section.sensitive ? $t('shared.tooltips.sensitiveInfo') : $t('shared.tooltips.openInfo')  }}
+                  </span>
+                </v-tooltip>
+              </template>
+            </v-text-field>
           </span>
 
-          <span v-else>{{ section.name }}</span>
+          <span v-else>
+            <v-icon
+              :color="section.sensitive ? 'red' : 'green'"
+              class="mr-1"
+            >
+              {{ section.sensitive ? `mdi-lock-outline` : `mdi-lock-open-variant-outline`  }}
+            </v-icon>
+
+            {{ section.name }}
+          </span>
         </h5>
 
         <div class="section__actions" v-if="editable">
@@ -34,7 +62,7 @@
             <template #activator="{ on }">
               <v-btn
                 @click="resize(section.id, index)"
-                :disabled="constantWidth"
+                :disabled="recruitable"
                 v-on="on"
                 icon
               >
@@ -95,7 +123,7 @@ export default {
       required: true,
       default: false
     },
-    constantWidth: {
+    recruitable: {
       type: Boolean,
       required: true,
       default: false
@@ -115,6 +143,14 @@ export default {
         if (section.id !== sectionId) return section
 
         section.set('_destroy', 1)
+        return section
+      }))
+    },
+    switchSensitive(sectionId, index) {
+      this.$emit('input', this.value.map(section => {
+        if (section.id !== sectionId) return section
+
+        section.set('sensitive', section.sensitive ? false : true)
         return section
       }))
     },

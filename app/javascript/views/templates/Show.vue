@@ -55,7 +55,7 @@
           <sections-composer
             v-model="sections.models"
             :editable="template.editable"
-            :constant-width="template.isForRecruits"
+            :recruitable="template.isForRecruits"
           />
         </v-flex>
       </v-layout>
@@ -66,7 +66,7 @@
         <section-form
           v-if="template.editable"
           v-model="sections.models"
-          :constant-width="template.isForRecruits"
+          :recruitable="template.isForRecruits"
         />
       </v-flex>
     </v-layout>

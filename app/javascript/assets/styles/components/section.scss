@@ -13,7 +13,6 @@
       padding: rem2dec(1rem 2rem);
       margin-left: rem2dec(3rem);
       position: relative;
-      width: rem2dec(20rem);
       z-index: 10;
     }
 
@@ -26,6 +25,11 @@
       position: absolute;
       top: 50%;
       z-index: 5;
+    }
+
+    .v-tooltip {
+      margin: 0;
+      padding: 0;
     }
   }
 

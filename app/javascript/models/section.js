@@ -8,6 +8,7 @@ class Section extends Model {
       name: '',
       position: null,
       skills: [],
+      sensitive: false,
       _destroy: 0
     }
   }
