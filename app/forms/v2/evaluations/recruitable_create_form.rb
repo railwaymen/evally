@@ -21,6 +21,7 @@ module V2
       def build_draft
         @draft = recruit.evaluations.build(
           state: :draft,
+          position: recruit_document.position,
           template_name: template.name,
           sections_attributes: sections
         )

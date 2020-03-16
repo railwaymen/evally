@@ -48,7 +48,7 @@ class Evaluation extends Model {
   }
 
   get recruitableSelectOption() {
-    return [this.template_name, this.completedAt].join(' - ')
+    return [this.position, this.completedAt].join(' - ')
   }
 
   get updatedAtFromNow() {

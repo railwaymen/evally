@@ -28,10 +28,10 @@ module JsonSpecHelpers
         template_name: draft.template_name,
         updated_at: draft.updated_at.to_s,
         completed_at: draft.completed_at ? draft.completed_at.to_s : nil,
+        position: draft.position,
         employee_id: draft.employee_id,
         first_name: employee.first_name,
         last_name: employee.last_name,
-        position: employee.position,
         hired_on: employee.hired_on,
         next_evaluation_on: employee.next_evaluation_on
       },
@@ -47,6 +47,7 @@ module JsonSpecHelpers
         template_name: draft.template_name,
         updated_at: draft.updated_at.to_s,
         completed_at: draft.completed_at ? draft.completed_at.to_s : nil,
+        position: draft.position,
         recruit_id: draft.recruit_id
       },
       sections: draft.sections.map(&method(:section_schema))

@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :evaluation do
     sequence(:template_name) { |n| "Template no.#{n}" }
+    position                 { 'Just Employee' }
 
     trait :employee do
       evaluable { |a| a.association(:employee) }
