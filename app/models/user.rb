@@ -27,7 +27,7 @@ class User < ApplicationRecord
 
   # # Enums
   #
-  enum role: { admin: 'admin', evaluator: 'evaluator' }
+  enum role: { admin: 'admin', evaluator: 'evaluator', recruiter: 'recruiter' }
   enum status: { active: 'active', inactive: 'inactive' }
 
   # # Methods
