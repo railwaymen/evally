@@ -25,6 +25,7 @@ class Section < ApplicationRecord
   validates :position, presence: true, numericality: { only_integer: true }
 
   validate :skills_format, unless: proc { |section| section.skills.blank? }
+  validate :sensitive_presence
 
   private
 
@@ -35,5 +36,11 @@ class Section < ApplicationRecord
     else
       errors.add(:skills, :skills_array)
     end
+  end
+
+  def sensitive_presence
+    return if %w[TrueClass FalseClass].include?(sensitive.class.name)
+
+    errors.add(:sensitive, :blank)
   end
 end

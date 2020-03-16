@@ -6,6 +6,7 @@ FactoryBot.define do
     group               { 'text' }
     width               { 'full' }
     sequence(:position) { |n| n }
+    sensitive           { false }
 
     skills do
       [
