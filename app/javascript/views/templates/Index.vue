@@ -21,53 +21,55 @@
           <span>{{ $t('shared.tooltips.addNew') }}</span>
         </v-tooltip>
 
-        <v-tooltip v-if="actionPermitted" bottom>
-          <template #activator="{ on }">
-            <v-btn
-              @click="save"
-              v-on="on"
-              :disabled="!template.editable"
-              color="black"
-              icon
-            >
-              <v-icon>mdi-content-save-outline</v-icon>
-            </v-btn>
-          </template>
+        <template v-if="$route.name === 'template_path'">
+          <v-tooltip bottom>
+            <template #activator="{ on }">
+              <v-btn
+                @click="save"
+                v-on="on"
+                :disabled="!templatePolicy.canSave"
+                color="black"
+                icon
+              >
+                <v-icon>mdi-content-save-outline</v-icon>
+              </v-btn>
+            </template>
 
-          <span>{{ $t('shared.tooltips.save') }}</span>
-        </v-tooltip>
+            <span>{{ $t('shared.tooltips.save') }}</span>
+          </v-tooltip>
 
-        <v-tooltip v-if="actionPermitted" bottom>
-          <template #activator="{ on }">
-            <v-btn
-              @click="edit"
-              v-on="on"
-              :disabled="template.isNewRecord"
-              color="black"
-              icon
-            >
-              <v-icon>mdi-pencil</v-icon>
-            </v-btn>
-          </template>
+          <v-tooltip bottom>
+            <template #activator="{ on }">
+              <v-btn
+                @click="edit"
+                v-on="on"
+                :disabled="!templatePolicy.canEdit"
+                color="black"
+                icon
+              >
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </template>
 
-          <span>{{ $t('shared.tooltips.edit') }}</span>
-        </v-tooltip>
+            <span>{{ $t('shared.tooltips.edit') }}</span>
+          </v-tooltip>
 
-        <v-tooltip v-if="actionPermitted" bottom>
-          <template #activator="{ on }">
-            <v-btn
-              @click="openDeleteConfirm"
-              color="red"
-              v-on="on"
-              :disabled="template.isNewRecord"
-              icon
-            >
-              <v-icon>mdi-delete-outline</v-icon>
-            </v-btn>
-          </template>
+          <v-tooltip bottom>
+            <template #activator="{ on }">
+              <v-btn
+                @click="openDeleteConfirm"
+                color="red"
+                v-on="on"
+                :disabled="!templatePolicy.canDestroy"
+                icon
+              >
+                <v-icon>mdi-delete-outline</v-icon>
+              </v-btn>
+            </template>
 
-          <span>{{ $t('shared.tooltips.delete') }}</span>
-        </v-tooltip>
+            <span>{{ $t('shared.tooltips.delete') }}</span>
+          </v-tooltip>
+        </template>
       </div>
     </div>
 
@@ -104,6 +106,8 @@
 import { mapGetters, mapActions } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
+import { TemplatePolicy } from '@policies/template_policy'
+
 import DeleteConfirm from '@components/templates/DeleteConfirm'
 import TemplatesSearchList from '@components/templates/TemplatesSearchList'
 
@@ -134,10 +138,8 @@ export default {
     })
   },
   computed: {
-    actionPermitted() {
-      return (
-        this.template.isNewRecord || this.user.isAdmin || this.user.id === this.template.creator_id
-      )
+    templatePolicy() {
+      return new TemplatePolicy(this.user, this.template)
     },
     ...mapGetters({
       user: 'AuthenticationModule/user',

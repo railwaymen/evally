@@ -2,6 +2,14 @@
 
 module V2
   class RecruitDocumentPolicy < ApplicationPolicy
+    class Scope < Scope
+      def resolve
+        return scope.all if user.admin? || user.recruiter?
+
+        user.recruit_documents
+      end
+    end
+
     def index?
       true
     end

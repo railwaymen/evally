@@ -5,7 +5,8 @@ module V2
     class ShowPresenter
       attr_reader :template
 
-      def initialize(template)
+      def initialize(user, template)
+        @user = user
         @template = template
       end
 
@@ -16,7 +17,13 @@ module V2
           section
         end
 
-        @template.sections.order(position: :asc).map(&set_section_width)
+        Pundit.policy_scope!(@user, [:v2, sections_scope]).map(&set_section_width)
+      end
+
+      private
+
+      def sections_scope
+        @template.sections.order(position: :asc)
       end
     end
   end

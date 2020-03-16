@@ -7,6 +7,7 @@ module.exports = {
       '@components': path.resolve(__dirname, '..', '..', 'app/javascript/components'),
       '@locales': path.resolve(__dirname, '..', '..', 'app/javascript/locales'),
       '@models': path.resolve(__dirname, '..', '..', 'app/javascript/models'),
+      '@policies': path.resolve(__dirname, '..', '..', 'app/javascript/policies'),
       '@plugins': path.resolve(__dirname, '..', '..', 'app/javascript/plugins'),
       '@router': path.resolve(__dirname, '..', '..', 'app/javascript/router'),
       '@store': path.resolve(__dirname, '..', '..', 'app/javascript/store'),
