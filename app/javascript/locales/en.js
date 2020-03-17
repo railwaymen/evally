@@ -313,7 +313,9 @@ export default {
         general: 'General',
         male: 'male',
         female: 'female',
-        position: 'Position'
+        position: 'Position',
+        acceptCurrentProcess: 'Accept for recruitment',
+        acceptFutureProcesses: 'Accept for future recruitments'
       },
       createEvaluationForm: {
         title: 'Add Evaluation',

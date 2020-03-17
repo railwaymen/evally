@@ -110,7 +110,9 @@ module JsonSpecHelpers
       group: recruit_document.group,
       position: recruit_document.position,
       received_at: recruit_document.received_at.to_s,
-      source: recruit_document.source
+      source: recruit_document.source,
+      accept_current_process: recruit_document.accept_current_process,
+      accept_future_processes: recruit_document.accept_future_processes
     }.to_json
   end
 
