@@ -99,6 +99,7 @@ export default {
       localUser: new User({ ...this.user }),
       roles: [
         { text: this.$t('models.user.roles.admin'), value: 'admin' },
+        { text: this.$t('models.user.roles.recruiter'), value: 'recruiter' },
         { text: this.$t('models.user.roles.evaluator'), value: 'evaluator' }
       ]
     }

@@ -39,7 +39,9 @@ export default {
       halfWidth: 'Zwęź',
       copyLink: 'Skopiuj link',
       close: 'Zamknij',
-      archive: 'Archiwizuj'
+      archive: 'Archiwizuj',
+      openInfo: 'Otwarte dane',
+      sensitiveInfo: 'Wrażliwe dane'
     },
     navbar: {
       dashboard: 'Kokpit',
@@ -256,6 +258,11 @@ export default {
           rating: 'Ratingowy',
           bool: 'Tak/Nie',
           text: 'Tekstowy',
+        },
+        sensitive: {
+          title: 'Dane wrażliwe',
+          yes: 'Tak',
+          no: 'Nie'
         },
         button: 'Dodaj sekcję'
       },

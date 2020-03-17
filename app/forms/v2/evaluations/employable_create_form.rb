@@ -82,7 +82,7 @@ module V2
 
       def sections
         template.sections.collect do |section|
-          section.attributes.slice('name', 'group', 'width', 'position', 'skills')
+          section.attributes.slice('name', 'group', 'width', 'position', 'sensitive', 'skills')
         end
       end
 

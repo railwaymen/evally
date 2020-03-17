@@ -5,21 +5,21 @@ module V2
     before_action :authenticate_user!
 
     def show
-      presenter = V2::Evaluations::ShowPresenter.new(evaluation)
+      presenter = V2::Evaluations::ShowPresenter.new(current_user, evaluation)
 
       render json: V2::Evaluations::RecruitableShowView.render(presenter), status: :ok
     end
 
     def create
       create_form.save
-      presenter = V2::Evaluations::ShowPresenter.new(create_form.draft)
+      presenter = V2::Evaluations::ShowPresenter.new(current_user, create_form.draft)
 
       render json: V2::Evaluations::RecruitableShowView.render(presenter), status: :created
     end
 
     def update
       update_form.save
-      presenter = V2::Evaluations::ShowPresenter.new(update_form.draft)
+      presenter = V2::Evaluations::ShowPresenter.new(current_user, update_form.draft)
 
       render json: V2::Evaluations::RecruitableShowView.render(presenter), status: :ok
     end

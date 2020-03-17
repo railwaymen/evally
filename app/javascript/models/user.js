@@ -28,6 +28,14 @@ class User extends Model {
     return this.role === 'admin'
   }
 
+  get isEvaluator() {
+    return this.role === 'evaluator'
+  }
+
+  get isRecruiter() {
+    return this.role === 'recruiter'
+  }
+
   get lastSignInAt() {
     if (!this.last_sign_in_at) return '---'
 

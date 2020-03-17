@@ -4,7 +4,7 @@ module V2
   module Browse
     class EvaluationsController < ApplicationController
       def show
-        presenter = V2::Evaluations::ShowPresenter.new(evaluation)
+        presenter = V2::Evaluations::ShowPresenter.new(nil, evaluation)
 
         render json: V2::Evaluations::EmployableShowView.render(presenter), status: :ok
       end

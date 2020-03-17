@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe V2::RecruitDocumentsController, type: :controller do
-  let(:admin) { create(:user, role: 'admin') }
+  let(:recruiter) { create(:user, role: 'recruiter') }
+  let(:evaluator) { create(:user, role: 'evaluator') }
 
   describe '#index' do
     context 'when unauthorized' do
@@ -15,7 +16,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
 
     context 'when authorized' do
       it 'responds with empty recruit_documents, groups and statuses' do
-        sign_in admin
+        sign_in recruiter
         get :index
 
         expect(response).to have_http_status 200
@@ -30,7 +31,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
       it 'responds with serialized recruit_documents' do
         FactoryBot.create(:recruit_document)
 
-        sign_in admin
+        sign_in recruiter
         get :index
 
         expect(response).to have_http_status 200
@@ -41,7 +42,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
         recruit_document1 = FactoryBot.create(:recruit_document, group: 'Ruby')
         FactoryBot.create(:recruit_document, group: 'Android')
 
-        sign_in admin
+        sign_in recruiter
         get :index, params: { group: 'Ruby' }
 
         expect(response).to have_http_status 200
@@ -56,7 +57,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
         recruit_document1 = FactoryBot.create(:recruit_document, status: 'accepted')
         FactoryBot.create(:recruit_document, status: 'fresh')
 
-        sign_in admin
+        sign_in recruiter
         get :index, params: { status: 'accepted' }
 
         expect(response).to have_http_status 200
@@ -82,7 +83,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
         recruit_document = FactoryBot.create(:recruit_document)
         FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit_document.recruit)
 
-        sign_in admin
+        sign_in recruiter
         get :show, params: { id: recruit_document.id }
 
         expect(response).to have_http_status 200
@@ -92,7 +93,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
       end
 
       it 'responds with 404 if invalid recruit_document' do
-        sign_in admin
+        sign_in recruiter
         get :show, params: { id: 1 }
 
         expect(response).to have_http_status 404
@@ -102,9 +103,16 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
 
   describe '#new' do
     context 'when unauthorized' do
-      it 'responds with error' do
+      it 'responds with 401 error' do
         get :new
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 403 error' do
+        sign_in evaluator
+
+        get :new
+        expect(response).to have_http_status 403
       end
     end
 
@@ -112,7 +120,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
       it 'responds with statuses, groups, positions and evaluators' do
         FactoryBot.create(:recruit_document, group: 'Ruby', position: 'Junior Dev')
 
-        sign_in admin
+        sign_in recruiter
         get :new
 
         expect(response).to have_http_status 200
@@ -125,26 +133,28 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
 
   describe '#create' do
     context 'when unauthorized' do
-      it 'responds with error' do
+      it 'responds with 401 error' do
         params = {
           recruit_document: {
-            first_name: 'Franek',
-            last_name: 'Kimono',
-            email: 'fkimono@example.com',
-            gender: 'male',
-            phone: '000-000-000',
-            status: 'fresh',
-            position: 'Junior RoR Dev',
-            group: 'Ruby',
-            received_at: 1.minute.ago.to_s,
-            source: 'website',
-            accept_current_process: '1',
-            accept_future_processes: '0'
+            first_name: 'Franek'
           }
         }
 
         post :create, params: params
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 403 error' do
+        params = {
+          recruit_document: {
+            first_name: 'Franek'
+          }
+        }
+
+        sign_in evaluator
+
+        post :create, params: params
+        expect(response).to have_http_status 403
       end
     end
 
@@ -167,7 +177,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
           }
         }
 
-        sign_in admin
+        sign_in recruiter
 
         expect do
           post :create, params: params
@@ -193,7 +203,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
           }
         }
 
-        sign_in admin
+        sign_in recruiter
 
         expect do
           post :create, params: params
@@ -221,7 +231,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
           }
         }
 
-        sign_in admin
+        sign_in recruiter
 
         expect do
           post :create, params: params
@@ -235,9 +245,16 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
 
   describe '#edit' do
     context 'when unauthorized' do
-      it 'responds with error' do
+      it 'responds with 401 error' do
         get :edit, params: { id: 1 }
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 403 error' do
+        sign_in evaluator
+
+        get :edit, params: { id: 1 }
+        expect(response).to have_http_status 403
       end
     end
 
@@ -249,7 +266,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
           position: 'Junior Dev'
         )
 
-        sign_in admin
+        sign_in recruiter
         get :edit, params: { id: recruit_document.id }
 
         expect(response).to have_http_status 200
@@ -262,7 +279,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
       end
 
       it 'responds with 404 if no recruit document' do
-        sign_in admin
+        sign_in recruiter
         get :edit, params: { id: 1 }
 
         expect(response).to have_http_status 404
@@ -272,7 +289,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
 
   describe '#update' do
     context 'when unauthorized' do
-      it 'responds with 401' do
+      it 'responds with 401 error' do
         params = {
           id: 1,
           recruit_document: {
@@ -282,6 +299,20 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
 
         put :update, params: params
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 403' do
+        params = {
+          id: 1,
+          recruit_document: {
+            first_name: 'Franek'
+          }
+        }
+
+        sign_in evaluator
+
+        put :update, params: params
+        expect(response).to have_http_status 403
       end
     end
 
@@ -296,7 +327,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
           }
         }
 
-        sign_in admin
+        sign_in recruiter
 
         expect do
           put :update, params: params
@@ -318,7 +349,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
           }
         }
 
-        sign_in admin
+        sign_in recruiter
 
         expect do
           put :update, params: params
@@ -340,7 +371,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
           }
         }
 
-        sign_in admin
+        sign_in recruiter
 
         expect do
           put :update, params: params
@@ -358,7 +389,7 @@ RSpec.describe V2::RecruitDocumentsController, type: :controller do
           }
         }
 
-        sign_in admin
+        sign_in recruiter
         put :update, params: params
 
         expect(response).to have_http_status 404

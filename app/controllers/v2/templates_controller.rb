@@ -12,21 +12,21 @@ module V2
     end
 
     def show
-      presenter = V2::Templates::ShowPresenter.new(template)
+      presenter = V2::Templates::ShowPresenter.new(current_user, template)
 
       render json: V2::Templates::ShowView.render(presenter), status: :ok
     end
 
     def create
       create_form.save
-      presenter = V2::Templates::ShowPresenter.new(create_form.template)
+      presenter = V2::Templates::ShowPresenter.new(current_user, create_form.template)
 
       render json: V2::Templates::ShowView.render(presenter), status: :created
     end
 
     def update
       update_form.save
-      presenter = V2::Templates::ShowPresenter.new(update_form.template)
+      presenter = V2::Templates::ShowPresenter.new(current_user, update_form.template)
 
       render json: V2::Templates::ShowView.render(presenter), status: :ok
     end
@@ -77,7 +77,7 @@ module V2
     def create_params
       params.require(:template).permit(
         :name, :destination, sections: [
-          :name, :width, :group, :position, skills: %i[name value needToImprove]
+          :name, :width, :group, :position, :sensitive, skills: %i[name value needToImprove]
         ]
       )
     end
@@ -85,7 +85,8 @@ module V2
     def update_params
       params.require(:template).permit(
         :name, :destination, sections: [
-          :id, :name, :group, :width, :position, :_destroy, skills: %i[name value needToImprove]
+          :id, :name, :group, :width, :position, :sensitive, :_destroy,
+          skills: %i[name value needToImprove]
         ]
       )
     end

@@ -3,17 +3,18 @@
 module V2
   class RecruitDocumentsController < ApplicationController
     before_action :authenticate_user!
+    before_action :authorize!
 
     def index
       presenter = V2::RecruitDocuments::IndexPresenter.new(
-        scope: RecruitDocument.by_group(params.dig(:group)).by_status(params.dig(:status))
+        scope: recruit_documents_scope.by_group(params.dig(:group)).by_status(params.dig(:status))
       )
 
       render json: V2::RecruitDocuments::IndexView.render(presenter), status: :ok
     end
 
     def show
-      presenter = V2::RecruitDocuments::ShowPresenter.new(recruit_document)
+      presenter = V2::RecruitDocuments::ShowPresenter.new(current_user, recruit_document)
 
       render json: V2::RecruitDocuments::ShowView.render(presenter), status: :ok
     end
@@ -50,8 +51,16 @@ module V2
 
     private
 
+    def authorize!
+      authorize [:v2, RecruitDocument]
+    end
+
+    def recruit_documents_scope
+      policy_scope([:v2, RecruitDocument])
+    end
+
     def recruit_document
-      @recruit_document ||= RecruitDocument.find_by(id: params[:id])
+      @recruit_document ||= recruit_documents_scope.find_by(id: params[:id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @recruit_document
 
       @recruit_document

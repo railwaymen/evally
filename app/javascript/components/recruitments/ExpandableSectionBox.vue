@@ -1,7 +1,15 @@
 <template>
   <v-expansion-panel>
     <v-expansion-panel-header>
-      <h5 class="body-2">{{ section.name }}</h5>
+      <h5 class="body-2">
+        <v-icon
+          :color="section.sensitive ? 'red' : 'green'"
+          class="mr-1"
+        >
+          {{ section.sensitive ? `mdi-lock-outline` : `mdi-lock-open-variant-outline`  }}
+        </v-icon>
+        {{ section.name }}
+      </h5>
     </v-expansion-panel-header>
 
     <v-expansion-panel-content v-if="section.isRating">

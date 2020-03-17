@@ -5,7 +5,7 @@ module V2
     class Serializer < Blueprinter::Base
       identifier :id
 
-      fields :name, :group, :width, :position, :skills
+      fields :name, :group, :width, :position, :sensitive, :skills
     end
   end
 end

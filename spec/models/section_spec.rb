@@ -39,20 +39,39 @@ RSpec.describe Section, type: :model do
   it { should validate_numericality_of(:position).only_integer }
 
   context 'custom validation' do
-    it 'expect to be invalid', :aggregate_failures do
+    it 'expects to be invalid', :aggregate_failures do
       aggregate_failures 'when skills is not an array' do
-        attrs = attributes_for(:section, skills: 'Lorem ipsum')
+        attrs = FactoryBot.attributes_for(:section, skills: 'Lorem ipsum')
         expect(Section.new(attrs)).to be_invalid
       end
 
       aggregate_failures 'when skilll do not have value' do
-        attrs = attributes_for(:section, skills: [{ name: 'Lorem' }])
+        attrs = FactoryBot.attributes_for(:section, skills: [{ name: 'Lorem' }])
         expect(Section.new(attrs)).to be_invalid
       end
 
       aggregate_failures 'when skilll do not have name' do
-        attrs = attributes_for(:section, skills: [{ value: 10 }])
+        attrs = FactoryBot.attributes_for(:section, skills: [{ value: 10 }])
         expect(Section.new(attrs)).to be_invalid
+      end
+
+      aggregate_failures 'when sensitive is nil' do
+        attrs = FactoryBot.attributes_for(:section, sensitive: nil)
+        expect(Section.new(attrs)).to be_invalid
+      end
+    end
+
+    it 'expects to be valid' do
+      template = FactoryBot.create(:template)
+
+      aggregate_failures 'when sensitive is false' do
+        attrs = FactoryBot.attributes_for(:section, sectionable: template, sensitive: false)
+        expect(Section.new(attrs)).to be_valid
+      end
+
+      aggregate_failures 'when sensitive is true' do
+        attrs = FactoryBot.attributes_for(:section, sectionable: template, sensitive: true)
+        expect(Section.new(attrs)).to be_valid
       end
     end
   end
