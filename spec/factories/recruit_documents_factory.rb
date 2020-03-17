@@ -10,6 +10,8 @@ FactoryBot.define do
     group             { 'Ruby' }
     received_at       { 1.minute.ago }
     source            { 'website' }
+    accept_current_process 1
+    accept_future_processes 0
 
     after(:create) do |document|
       create(:recruit, human_resources_id: document.encrypted_email)

@@ -17,7 +17,7 @@ class RecruitDocument < HumanResourcesRecord
   #
   validates :email, presence: true, format: URI::MailTo::EMAIL_REGEXP
   validates :first_name, :last_name, :position, :group, :received_at, :source, :encrypted_email,
-            :status, presence: true
+            :status, :accept_current_process, presence: true
 
   # # Enums
   #
