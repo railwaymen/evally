@@ -128,13 +128,13 @@
              </v-menu>
           <v-flex class="px-2" xs12 lg12>
             <v-flex class="px-2" xs12 lg6>
-              <v-checkbox :label="$t('components.recruitments.recruitmentForm.accept_current_process')"
+              <v-checkbox :label="$t('components.recruitments.recruitmentForm.acceptCurrentProcess')"
                           :rules="[vRequired]"
                           value="1"
                           v-model="localRecruitment.accept_current_process"/>
             </v-flex>
             <v-flex class="px-2" xs12 lg6>
-              <v-checkbox :label="$t('components.recruitments.recruitmentForm.accept_future_processes')"
+              <v-checkbox :label="$t('components.recruitments.recruitmentForm.acceptFutureProcesses')"
                           value="1"
                           v-model="localRecruitment.accept_future_processes"/>
             </v-flex>

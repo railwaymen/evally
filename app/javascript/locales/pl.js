@@ -313,8 +313,8 @@ export default {
         male: 'mężczyzna',
         female: 'kobieta',
         position: 'Stanowisko',
-        accept_current_process: 'Zgodan na przetwarzanie',
-        accept_future_processes: 'Zgodan na przetwarzanie w przyszyłych rekrutacja'
+        acceptCurrentProcess: 'Zgodan na przetwarzanie',
+        acceptFutureProcesses: 'Zgodan na przetwarzanie w przyszyłych rekrutacja'
       },
       addEvaluationForm: {
         title: 'Stwórz ocenę',

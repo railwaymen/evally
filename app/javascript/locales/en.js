@@ -314,8 +314,8 @@ export default {
         male: 'male',
         female: 'female',
         position: 'Position',
-        accept_current_process: 'Accept for recruitment',
-        accept_future_processes: 'Accept for future recruitments'
+        acceptCurrentProcess: 'Accept for recruitment',
+        acceptFutureProcesses: 'Accept for future recruitments'
       },
       addEvaluationForm: {
         title: 'Add Evaluation',
