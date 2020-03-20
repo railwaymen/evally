@@ -172,6 +172,8 @@ import { mapGetters } from 'vuex'
 import FormsDialog from '@components/shared/FormsDialog'
 import ConfirmDialog from '@components/shared/ConfirmDialog'
 
+import { recruitableApiClient } from '@utils/api_clients'
+
 export default {
   name: 'Base',
   components: { ConfirmDialog, FormsDialog },
@@ -191,7 +193,7 @@ export default {
         .then(() => this.$router.push({ name: 'login_path' }))
     },
     greeting() {
-      this.$http.get('http://localhost:3030')
+      recruitableApiClient.get('/')
         .then(response => this.flash({ success: response.data.message }))
     }
   },
