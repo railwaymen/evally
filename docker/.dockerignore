@@ -2,8 +2,7 @@
 .dockerignore
 .byebug_history
 .env
-.env_example
+.env.example
 log/*
-tmp/*
 node_modules/*
 coverage/*

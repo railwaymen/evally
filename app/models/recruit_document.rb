@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RecruitDocument < HumanResourcesRecord
+class RecruitDocument < ApplicationRecord
   attr_readonly :encrypted_email
 
   # # Associations
