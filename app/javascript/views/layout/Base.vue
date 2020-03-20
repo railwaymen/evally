@@ -14,6 +14,10 @@
 
       <v-spacer />
 
+      <v-btn icon color="pink" @click="greeting">
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+
       <v-menu transition="slide-y-transition" offset-y>
         <template #activator="{ on }">
           <span class="profile" v-on="on" v-ripple>
@@ -185,6 +189,10 @@ export default {
     logout () {
       this.$store.dispatch('AuthenticationModule/destroy')
         .then(() => this.$router.push({ name: 'login_path' }))
+    },
+    greeting() {
+      this.$http.get('http://localhost:3030')
+        .then(response => this.flash({ success: response.data.message }))
     }
   },
   created() {

@@ -12,4 +12,6 @@ RUN yarn install --check-files
 
 COPY . .
 
-CMD ["bundle", "exec", "rails", "server"]
+EXPOSE 3000
+
+CMD ["bundle", "exec", "rails", "server", "-P", "3000"]

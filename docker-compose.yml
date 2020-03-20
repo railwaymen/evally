@@ -7,26 +7,34 @@ services:
       - postgres:/var/lib/postgresql/data
 
   webpacker:
-    build: .
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
     container_name: evally_webpacker
     command: ./bin/webpack-dev-server
+    user: ${CURRENT_USER}
     volumes:
       - .:/app
+      - ./docker/database.yml:/app/config/database.yml
+      - ./docker/webpacker.yml:/app/config/webpacker.yml
     ports:
       - '3035:3035'
-    user: ${CURRENT_USER}
 
   app:
     env_file:
-      - ./docker.env
-    build: .
+      - ./docker/docker.env
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
     container_name: evally_app
     command: bin/rails s -p 3000 -b '0.0.0.0'
+    user: ${CURRENT_USER}
     volumes:
       - .:/app
+      - ./docker/database.yml:/app/config/database.yml
+      - ./docker/webpacker.yml:/app/config/webpacker.yml
     ports:
       - '3000:3000'
-    user: ${CURRENT_USER}
     depends_on:
       - webpacker
       - db
@@ -34,9 +42,4 @@ services:
 volumes:
   postgres:
 
-# CURRENT_USER=$(id -u):$(id -g) need to be set in .bashrc / .zshrc to guarantee files creation as non-roor user
-
-# # Useful commands
-
-# docker-compose up -> start project
-# docker-compose run app <command> -> run command like 'rails c' inside app container
+# CURRENT_USER=$(id -u):$(id -g) add to .bashrc / .zshrc to run container as non-root user

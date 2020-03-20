@@ -26,6 +26,6 @@
 
 Rails.application.config.content_security_policy do |policy|
   if Rails.env.development?
-    policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035', 'http://0.0.0.0:3035', 'ws://0.0.0.0:3035'
+    policy.connect_src :self, :https, 'http://localhost:3035', 'ws://localhost:3035', 'http://localhost:3030', 'http://0.0.0.0:3035', 'ws://0.0.0.0:3035', 'http://0.0.0.0:3030'
   end
 end
