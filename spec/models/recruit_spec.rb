@@ -7,13 +7,5 @@ RSpec.describe Recruit, type: :model do
 
   it { is_expected.to have_many(:comments) }
 
-  it do
-    is_expected
-      .to have_many(:recruit_documents)
-      .with_primary_key('human_resources_id')
-      .with_foreign_key('encrypted_email')
-      .dependent(:destroy)
-  end
-
-  it { is_expected.to validate_presence_of(:human_resources_id) }
+  it { is_expected.to validate_presence_of(:public_recruit_id) }
 end

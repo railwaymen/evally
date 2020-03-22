@@ -15,10 +15,11 @@ class RecruitDocument extends Model {
       group: '',
       phone: '',
       position: '',
+      source: '',
       received_at: moment().format('YYYY-MM-DD'),
-      accept_current_process: '',
-      accept_future_processes: '',
-      source: ''
+      accept_current_processing: false,
+      accept_future_processing: false,
+      public_recruit_id: ''
     };
   }
 
@@ -35,7 +36,7 @@ class RecruitDocument extends Model {
       recruitDocumentsPath: '/v2/recruit_documents',
       recruitDocumentsFilterPath: payload => `/v2/recruit_documents?${getURLParams(payload)}`,
       recruitDocumentPath: id => `/v2/recruit_documents/${id}`,
-      newRecruitDocumentsPath: '/v2/recruit_documents/new',
+      recruitPath: publicRecruitId => `/v2/recruits/${publicRecruitId}`
     }
   }
 }

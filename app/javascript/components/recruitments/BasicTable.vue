@@ -57,7 +57,7 @@
           </template>
 
           <template #item.fullname="{ item }">
-            <router-link :to="{ name: 'recruitment_path', params: { id: item.id }}">
+            <router-link :to="{ name: 'recruitment_path', params: { publicRecruitId: item.public_recruit_id, id: item.id }}">
               {{ item.fullname }}
             </router-link>
           </template>

@@ -812,6 +812,11 @@
   resolved "https://registry.yarnpkg.com/@kazupon/vue-i18n-loader/-/vue-i18n-loader-0.3.0.tgz#e068de2d75d891275814ae28ad1fcaf1b537694f"
   integrity sha512-M2280E9PMxetu6mOdtyh1d6Dif7LwH4gvxD2dgsu7HOyzR26AUNok8DxZ1Y5YAexJvPfbBXC75Llui2myO05Hg==
 
+"@mdi/font@^5.0.45":
+  version "5.0.45"
+  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-5.0.45.tgz#8eda40c41dc7ee9e7a51dbe9191c5c38b8482422"
+  integrity sha512-3sOO/UMyQqrmizW5zjvhKJP4FZFO7LblRw4G0alDxK1ekUwNxNXI7hYv8ACAv8H44riBuqlVJ7u39XDqv/Xwuw==
+
 "@rails/webpacker@^4.0.7":
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-4.2.2.tgz#b9dd3235fdf4d0badbda8e33f6ebee742a9f3abb"

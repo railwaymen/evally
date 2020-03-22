@@ -46,7 +46,10 @@ export default {
     })
   },
   created() {
-    this.$store.dispatch('RecruitDocumentsModule/show', this.$route.params.id)
+    this.$store.dispatch('RecruitDocumentsModule/show', {
+      publicRecruitId: this.$route.params.publicRecruitId,
+      id: this.$route.params.id
+    })
   },
 }
 </script>

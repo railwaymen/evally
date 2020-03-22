@@ -77,7 +77,7 @@ export default new Router({
               component: () => import(/* webpackChunkName: 'recruitment' */ '@views/recruitments/New'),
             },
             {
-              path: ':id',
+              path: ':publicRecruitId/documents/:id',
               name: 'recruitment_path',
               component: () => import(/* webpackChunkName: 'recruitment' */ '@views/recruitments/Show'),
             }

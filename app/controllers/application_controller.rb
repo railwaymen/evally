@@ -3,9 +3,7 @@
 class ApplicationController < ActionController::Base
   include Pundit
 
-  protect_from_forgery with: :exception, unless: lambda {
-    Rails.env.production? || request.format.json?
-  }
+  skip_before_action :verify_authenticity_token, if: -> { request.format.json? }
 
   rescue_from ErrorResponderService, with: :render_error_response
   rescue_from Pundit::NotAuthorizedError, with: :forbidden_response

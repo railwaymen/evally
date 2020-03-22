@@ -5,9 +5,9 @@ module V2
     class ShowPresenter
       attr_reader :evaluation
 
-      def initialize(user, evaluation)
-        @user = user
+      def initialize(evaluation, user)
         @evaluation = evaluation
+        @user = user
       end
 
       def sections

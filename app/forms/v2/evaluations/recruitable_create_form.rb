@@ -21,7 +21,7 @@ module V2
       def build_draft
         @draft = recruit.evaluations.build(
           state: :draft,
-          position: recruit_document.position,
+          position: @params.fetch('position', 'Unknown'),
           template_name: template.name,
           sections_attributes: sections
         )
@@ -33,19 +33,9 @@ module V2
         raise ErrorResponderService.new(:invalid_record, 422, @draft.errors.full_messages)
       end
 
-      def recruit_document
-        @recruit_document ||= RecruitDocument.find_by(id: @params[:recruit_document_id])
-
-        unless @recruit_document
-          raise ErrorResponderService.new(:record_not_found, 404, ['Recruit does not exist'])
-        end
-
-        @recruit_document
-      end
-
       def recruit
         @recruit ||= Recruit.find_or_create_by(
-          human_resources_id: recruit_document.encrypted_email
+          public_recruit_id: @params[:public_recruit_id]
         )
       end
 

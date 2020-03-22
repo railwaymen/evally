@@ -7,7 +7,7 @@ module V2
         raise ErrorResponderService.new(:unauthorized, 401)
       end
 
-      render json: { jwt: JwtService.encode(user.id) }, status: :created
+      render json: { jwt: JwtService.encode(user) }, status: :created
     end
 
     private

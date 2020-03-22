@@ -39,6 +39,8 @@ module Evally
 
     config.eager_load_paths << Rails.root.join('app', 'forms')
     config.eager_load_paths << Rails.root.join('app', 'policies')
+    config.eager_load_paths << Rails.root.join('app', 'presenters')
+    config.eager_load_paths << Rails.root.join('app', 'queries')
     config.eager_load_paths << Rails.root.join('app', 'serializers')
     config.eager_load_paths << Rails.root.join('app', 'services')
 

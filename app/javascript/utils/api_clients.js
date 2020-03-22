@@ -11,24 +11,25 @@ const initClient = (baseUrl = null) => {
   const evallyTokenKey = 'ev411y_t0k3n'
   const evallyLangKey = 'ev411y_l4ng'
 
-  const language = localStorage.getItem(evallyLangKey) || 'en'
-  const token = localStorage.getItem(evallyTokenKey)
+  const getBaseUrl = () => [baseUrl, (localStorage.getItem(evallyLangKey) || 'en')].join('/')
+  const getToken = () => localStorage.getItem(evallyTokenKey)
 
-  const options = {
-    baseURL: [baseUrl, language].join('/'),
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-      'Token': token
-    }
-  }
-
-  const client = axios.create(options)
+  const client = axios.create()
 
   // Add a request interceptor
   client.interceptors.request.use(
-    requestConfig => requestConfig,
+    (requestConfig) => {
+      const options = {
+        baseURL: getBaseUrl(),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Token': getToken()
+        }
+      }
+
+      return { ...requestConfig, ...options }
+    },
     (requestError) => {
       // Raven.captureException(requestError)
 
