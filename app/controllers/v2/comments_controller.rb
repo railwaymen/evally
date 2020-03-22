@@ -37,7 +37,7 @@ module V2
     end
 
     def recruit
-      @recruit ||= Recruit.find_by(human_resources_id: params[:recruit_id])
+      @recruit ||= Recruit.find_by(public_recruit_id: params[:recruit_id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @recruit
 
       @recruit

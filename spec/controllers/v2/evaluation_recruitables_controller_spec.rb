@@ -15,8 +15,7 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
 
     context 'when authorized' do
       it 'responds with evaluation' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        recruit = recruit_document.recruit
+        recruit = FactoryBot.create(:recruit)
 
         evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
         FactoryBot.create(:section, sectionable: evaluation)
@@ -37,8 +36,7 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
         end
 
         aggregate_failures 'id evaluation is missing' do
-          recruit_document = FactoryBot.create(:recruit_document)
-          recruit = recruit_document.recruit
+          recruit = FactoryBot.create(:recruit)
 
           get :show, params: { recruit_id: recruit.id, id: 1 }
           expect(response).to have_http_status 404
@@ -52,8 +50,9 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
       it 'responds with 401 error' do
         params = {
           evaluation: {
-            recruit_document_id: 1,
-            template_id: 1
+            public_recruit_id: 1,
+            template_id: 1,
+            position: 'Ruby Developer'
           }
         }
 
@@ -65,15 +64,14 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
 
     context 'when authorized' do
       it 'responds with new evaluation' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        recruit = recruit_document.recruit
+        recruit = FactoryBot.create(:recruit)
 
         template = FactoryBot.create(:template, destination: 'recruits')
         FactoryBot.create(:section, sectionable: template)
 
         params = {
           evaluation: {
-            recruit_document_id: recruit_document.id,
+            public_recruit_id: recruit.public_recruit_id,
             template_id: template.id
           }
         }
@@ -90,33 +88,12 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
         )
       end
 
-      it 'responds with 404 error if recruit not found' do
-        template = FactoryBot.create(:template, destination: 'recruits')
-        FactoryBot.create(:section, sectionable: template)
-
-        params = {
-          evaluation: {
-            recruit_document_id: 1,
-            template_id: template.id
-          }
-        }
-
-        sign_in admin
-
-        expect do
-          post :create, params: params
-        end.not_to(change { Evaluation.recruitable.count })
-
-        expect(response).to have_http_status 404
-        expect(json_response['details'].first).to eq 'Recruit does not exist'
-      end
-
       it 'responds with 404 error if template not found' do
-        recruit_document = FactoryBot.create(:recruit_document)
+        recruit = FactoryBot.create(:recruit)
 
         params = {
           evaluation: {
-            recruit_document_id: recruit_document.id,
+            public_recruit_id: recruit.public_recruit_id,
             template_id: 1
           }
         }
@@ -132,8 +109,7 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
       end
 
       it 'responds with error if similar draft already exists' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        recruit = recruit_document.recruit
+        recruit = FactoryBot.create(:recruit)
 
         FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
 
@@ -142,7 +118,7 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
 
         params = {
           evaluation: {
-            recruit_document_id: recruit_document.id,
+            public_recruit_id: recruit.public_recruit_id,
             template_id: template.id
           }
         }
@@ -179,8 +155,7 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
 
     context 'when authorized' do
       it 'responds with updated evaluation' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        recruit = recruit_document.recruit
+        recruit = FactoryBot.create(:recruit)
 
         evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
         section = FactoryBot.create(:section, sectionable: evaluation)
@@ -214,8 +189,7 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
       end
 
       it 'responds with error if invalid section' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        recruit = recruit_document.recruit
+        recruit = FactoryBot.create(:recruit)
 
         evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
         section = FactoryBot.create(:section, sectionable: evaluation)
@@ -255,131 +229,7 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
 
     context 'when authorized' do
       it 'responds with no content' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        recruit = recruit_document.recruit
-
-        evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
-        FactoryBot.create(:section, sectionable: evaluation)
-
-        sign_in admin
-
-        expect do
-          delete :destroy, params: { id: evaluation.id }
-        end.to(change { Evaluation.recruitable.draft.count }.by(-1))
-
-        expect(response).to have_http_status 204
-      end
-
-      it 'responds with 404 error' do
-        sign_in admin
-        delete :destroy, params: { id: 1 }
-
-        expect(response).to have_http_status 404
-      end
-    end
-  end
-
-  describe '#update' do
-    context 'when unauthorized' do
-      it 'responds with 401 error' do
-        params = {
-          id: 1,
-          evaluation: {
-            sections: [
-              {
-                id: 1,
-                name: 'New section name'
-              }
-            ]
-          }
-        }
-
-        put :update, params: params
-
-        expect(response).to have_http_status 401
-      end
-    end
-
-    context 'when authorized' do
-      it 'responds with updated evaluation' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        recruit = recruit_document.recruit
-
-        evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
-        section = FactoryBot.create(:section, sectionable: evaluation)
-
-        params = {
-          id: evaluation.id,
-          evaluation: {
-            sections: [
-              {
-                id: section.id,
-                skills: [
-                  {
-                    name: 'Description',
-                    value: 'New value',
-                    needToImprove: false
-                  }
-                ]
-              }
-            ]
-          }
-        }
-
-        sign_in admin
-
-        expect do
-          put :update, params: params
-        end.to(change { section.reload.skills.first['value'] }.to('New value'))
-
-        expect(response).to have_http_status 200
-        expect(response.body).to be_json_eql evaluation_recruitable_schema(evaluation.reload)
-      end
-
-      it 'responds with error if invalid section' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        recruit = recruit_document.recruit
-
-        evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
-        section = FactoryBot.create(:section, sectionable: evaluation)
-
-        params = {
-          id: evaluation.id,
-          evaluation: {
-            sections: [
-              {
-                id: section.id,
-                skills: [
-                  {
-                    random: 'parameter'
-                  }
-                ]
-              }
-            ]
-          }
-        }
-
-        sign_in admin
-        put :update, params: params
-
-        expect(response).to have_http_status 422
-        expect(json_response['details'].first).to eq 'Sections skills must have name and value'
-      end
-    end
-  end
-
-  describe '#destroy' do
-    context 'when unauthorized' do
-      it 'responds with 401 error' do
-        delete :destroy, params: { id: 1 }
-        expect(response).to have_http_status 401
-      end
-    end
-
-    context 'when authorized' do
-      it 'responds with no content' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        recruit = recruit_document.recruit
+        recruit = FactoryBot.create(:recruit)
 
         evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
         FactoryBot.create(:section, sectionable: evaluation)

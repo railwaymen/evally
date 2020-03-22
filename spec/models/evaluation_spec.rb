@@ -31,9 +31,7 @@ RSpec.describe Evaluation, type: :model do
       end
 
       it 'returns nil' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        recruit = recruit_document.recruit
-
+        recruit = FactoryBot.create(:recruit)
         evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
 
         expect(evaluation.employee).to eq nil
@@ -49,9 +47,7 @@ RSpec.describe Evaluation, type: :model do
       end
 
       it 'returns employee' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        recruit = recruit_document.recruit
-
+        recruit = FactoryBot.create(:recruit)
         evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
 
         expect(evaluation.recruit).to eq recruit

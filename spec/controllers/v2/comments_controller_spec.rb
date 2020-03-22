@@ -22,11 +22,10 @@ RSpec.describe V2::CommentsController, type: :controller do
 
     context 'when authorized' do
       it 'creates comment for recruit' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        recruit = recruit_document.recruit
+        recruit = FactoryBot.create(:recruit)
 
         params = {
-          recruit_id: recruit.human_resources_id,
+          recruit_id: recruit.public_recruit_id,
           comment: {
             body: 'Lorem ipsum dolor sit amet ...'
           }
@@ -43,11 +42,10 @@ RSpec.describe V2::CommentsController, type: :controller do
       end
 
       it 'responds with 422 if comment body is blank' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        recruit = recruit_document.recruit
+        recruit = FactoryBot.create(:recruit)
 
         params = {
-          recruit_id: recruit.human_resources_id,
+          recruit_id: recruit.public_recruit_id,
           comment: {
             body: ''
           }
@@ -95,8 +93,8 @@ RSpec.describe V2::CommentsController, type: :controller do
 
     context 'when authorized' do
       it 'responds with updated comment' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        comment = FactoryBot.create(:comment, user: admin, recruit: recruit_document.recruit)
+        recruit = FactoryBot.create(:recruit)
+        comment = FactoryBot.create(:comment, user: admin, recruit: recruit)
 
         params = {
           id: comment.id,
@@ -132,11 +130,12 @@ RSpec.describe V2::CommentsController, type: :controller do
       end
 
       it 'responds with 403 if comment older than 15 minutes' do
-        recruit_document = FactoryBot.create(:recruit_document)
+        recruit = FactoryBot.create(:recruit)
+
         comment = FactoryBot.create(
           :comment,
           user: admin,
-          recruit: recruit_document.recruit,
+          recruit: recruit,
           created_at: 16.minutes.ago
         )
 
@@ -157,8 +156,8 @@ RSpec.describe V2::CommentsController, type: :controller do
       end
 
       it 'responds with 403 if foreign comment' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        comment = FactoryBot.create(:comment, recruit: recruit_document.recruit)
+        recruit = FactoryBot.create(:recruit)
+        comment = FactoryBot.create(:comment, recruit: recruit)
 
         params = {
           id: comment.id,
@@ -177,8 +176,8 @@ RSpec.describe V2::CommentsController, type: :controller do
       end
 
       it 'responds with 422 if comment body is blank' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        comment = FactoryBot.create(:comment, user: admin, recruit: recruit_document.recruit)
+        recruit = FactoryBot.create(:recruit)
+        comment = FactoryBot.create(:comment, user: admin, recruit: recruit)
 
         params = {
           id: comment.id,
@@ -208,8 +207,8 @@ RSpec.describe V2::CommentsController, type: :controller do
 
     context 'when authorized' do
       it 'responds with comment deleted placeholder' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        comment = FactoryBot.create(:comment, user: admin, recruit: recruit_document.recruit)
+        recruit = FactoryBot.create(:recruit)
+        comment = FactoryBot.create(:comment, user: admin, recruit: recruit)
 
         sign_in admin
 
@@ -231,12 +230,13 @@ RSpec.describe V2::CommentsController, type: :controller do
       end
 
       it 'responds with 403 if comment older than 15 minutes' do
-        recruit_document = FactoryBot.create(:recruit_document)
+        recruit = FactoryBot.create(:recruit)
+
         comment = FactoryBot.create(
           :comment,
           user: admin,
           created_at: 16.minutes.ago,
-          recruit: recruit_document.recruit
+          recruit: recruit
         )
 
         sign_in admin
@@ -249,8 +249,8 @@ RSpec.describe V2::CommentsController, type: :controller do
       end
 
       it 'responds with 403 if foreign comment' do
-        recruit_document = FactoryBot.create(:recruit_document)
-        comment = FactoryBot.create(:comment, recruit: recruit_document.recruit)
+        recruit = FactoryBot.create(:recruit)
+        comment = FactoryBot.create(:comment, recruit: recruit)
 
         sign_in admin
 

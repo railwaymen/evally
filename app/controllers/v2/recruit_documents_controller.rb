@@ -5,20 +5,6 @@ module V2
     before_action :authenticate_user!
     before_action :authorize!
 
-    def index
-      presenter = V2::RecruitDocuments::IndexPresenter.new(
-        scope: recruit_documents_scope.by_group(params.dig(:group)).by_status(params.dig(:status))
-      )
-
-      render json: V2::RecruitDocuments::IndexView.render(presenter), status: :ok
-    end
-
-    def show
-      presenter = V2::RecruitDocuments::ShowPresenter.new(current_user, recruit_document)
-
-      render json: V2::RecruitDocuments::ShowView.render(presenter), status: :ok
-    end
-
     def new
       presenter = V2::RecruitDocuments::NewPresenter.new
 

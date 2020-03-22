@@ -9,8 +9,8 @@ RSpec.describe V2::SectionPolicy, type: :policy do
       recruiter = FactoryBot.create(:user, role: 'recruiter')
       evaluator = FactoryBot.create(:user, role: 'evaluator')
 
-      recruit_document = FactoryBot.create(:recruit_document)
-      evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit_document.recruit)
+      recruit = FactoryBot.create(:recruit)
+      evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
 
       open_section = FactoryBot.create(:section, sectionable: evaluation, sensitive: false)
       sensitive_section = FactoryBot.create(:section, sectionable: evaluation, sensitive: true)
