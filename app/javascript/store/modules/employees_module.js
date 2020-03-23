@@ -1,4 +1,4 @@
-import http from '@utils/http'
+import { coreApiClient } from '@utils/api_clients'
 import { fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
@@ -39,56 +39,45 @@ const EmployeesModule = {
   mutations: {
     addToList(state, data) {
       state.employees.add(data)
-      return state
     },
     refreshItem(state, data) {
       state.employee.assign(data)
-      return state
     },
     refreshListItem(state, data) {
       state.employees.refresh(data)
-      return state
     },
     setEvaluation(state, { evaluation, sections }) {
       state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
-      return state
     },
     setItem(state, { employee, evaluations, position_changes }) {
       state.employee = new Employee(employee)
       state.evaluations = new EvaluationsList(evaluations)
       state.positionChanges = new PositionChangesList(position_changes)
-      return state
     },
     setList(state, { employees, evaluators }) {
       state.employees = new EmployeesList(employees)
       state.evaluators = new UsersList(evaluators)
       state.loading = false
-      return state
     },
     setLoading(state, status) {
       state.loading = status
-      return state
     },
     removeFromList(state, id) {
       state.employee = new Employee()
       state.employees.remove(id)
-      return state
     },
     resetEvaluation(state) {
       state.evaluation = new Evaluation()
       state.sections = new SectionsList()
-      return state
     },
     resetItem(state) {
       state.employee = new Employee()
       state.evaluations = new EvaluationsList()
       state.positionChanges = new PositionChangesList()
-      return state
     },
     resetState(state) {
       state = Object.assign(state, initialState())
-      return state
     }
   },
 
@@ -96,7 +85,8 @@ const EmployeesModule = {
     index({ commit }) {
       commit('setLoading', true)
 
-      http.get(Employee.routes.employeesPath)
+      coreApiClient
+        .get(Employee.routes.employeesPath)
         .then(response => {
           commit('setList', response.data)
         })
@@ -112,7 +102,8 @@ const EmployeesModule = {
     archived({ commit }) {
       commit('setLoading', true)
 
-      http.get(Employee.routes.employeesArchivedPath)
+      coreApiClient
+        .get(Employee.routes.employeesArchivedPath)
         .then(response => {
           commit('setList', response.data)
         })
@@ -126,7 +117,8 @@ const EmployeesModule = {
         .finally(() => commit('setLoading', false))
     },
     show({ commit }, id) {
-      http.get(Employee.routes.employeePath(id))
+      coreApiClient
+        .get(Employee.routes.employeePath(id))
         .then(response => {
           commit('setItem', response.data)
         })
@@ -139,7 +131,8 @@ const EmployeesModule = {
         })
     },
     showEvaluation({ commit }, { employeeId, id }) {
-      http.get(Evaluation.routes.completedEvaluationEmployablePath(employeeId, id))
+      coreApiClient
+        .get(Evaluation.routes.completedEvaluationEmployablePath(employeeId, id))
         .then(response => {
           commit('setEvaluation', response.data)
         })
@@ -152,7 +145,8 @@ const EmployeesModule = {
         })
     },
     browse({ commit }, id) {
-      http.get(Employee.routes.browseEmployeePath(id))
+      coreApiClient
+        .get(Employee.routes.browseEmployeePath(id))
         .then(response => {
           commit('setItem', response.data)
         })
@@ -165,7 +159,8 @@ const EmployeesModule = {
         })
     },
     browseEvaluation({ commit }, { employeeId, id }) {
-      http.get(Evaluation.routes.browseEvaluationPath(employeeId, id))
+      coreApiClient
+        .get(Evaluation.routes.browseEvaluationPath(employeeId, id))
         .then(response => {
           commit('setEvaluation', response.data)
         })
@@ -182,19 +177,19 @@ const EmployeesModule = {
         employee: employee.attributes
       }
 
-      return new Promise(resolve => {
-        http.post(Employee.routes.employeesPath, params)
+      return (
+        coreApiClient
+          .post(Employee.routes.employeesPath, params)
           .then(response => {
-            const { data } = response
+            commit('addToList', response.data)
 
-            commit('addToList', data)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.employees.create.ok') },
               { root: true }
             )
 
-            resolve(data)
+            return Promise.resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -203,26 +198,26 @@ const EmployeesModule = {
               { root: true }
             )
           })
-      })
+      )
     },
     update({ commit }, employee) {
       const params = {
         employee: employee.attributes
       }
 
-      return new Promise(resolve => {
-        http.put(Employee.routes.employeePath(employee.id), params)
+      return (
+        coreApiClient
+          .put(Employee.routes.employeePath(employee.id), params)
           .then(response => {
-            const { data } = response
+            commit('refreshListItem', response.data)
 
-            commit('refreshListItem', data)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.employees.update.ok') },
               { root: true }
             )
 
-            resolve(data)
+            return Promise.resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -231,13 +226,14 @@ const EmployeesModule = {
               { root: true }
             )
           })
-      })
+      )
     },
     destroy({ state, commit }) {
       const { employee } = state;
 
-      return new Promise(resolve => {
-        http.delete(Employee.routes.employeePath(employee.id))
+      return (
+        coreApiClient
+          .delete(Employee.routes.employeePath(employee.id))
           .then(() => {
             commit('removeFromList', employee.id)
 
@@ -247,7 +243,7 @@ const EmployeesModule = {
               { root: true }
             )
 
-            resolve()
+            return Promise.resolve()
           })
           .catch(error => {
             commit(
@@ -256,24 +252,24 @@ const EmployeesModule = {
               { root: true }
             )
           })
-      })
+      )
     },
     archive({ commit, state }, archivedDate){
-      const { employee } = state;
       const params = { employee: { archived_on: archivedDate } }
 
-      return new Promise(resolve => {
-        http.put(Employee.routes.employeeArchivePath(employee.id), params)
+      return (
+        coreApiClient
+          .put(Employee.routes.employeeArchivePath(state.employee.id), params)
           .then(response => {
-            const { data } = response
+            commit('refreshItem', response.data)
 
-            commit('refreshItem', data)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.employees.archive.ok') },
               { root: true }
             )
-            resolve(data)
+
+            return Promise.resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -282,7 +278,7 @@ const EmployeesModule = {
               { root: true }
             )
           })
-      })
+      )
     }
   }
 }
