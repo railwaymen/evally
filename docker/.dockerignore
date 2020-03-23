@@ -4,5 +4,6 @@
 .env
 .env.example
 log/*
+tmp/*
 node_modules/*
 coverage/*

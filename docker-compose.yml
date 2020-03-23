@@ -21,8 +21,8 @@ services:
       - '3035:3035'
 
   app:
-    env_file:
-      - ./docker/docker.env
+    environment:
+      - RAILS_ENV=development
     build:
       context: .
       dockerfile: ./docker/Dockerfile
@@ -35,6 +35,7 @@ services:
       - ./docker/webpacker.yml:/app/config/webpacker.yml
     ports:
       - '3000:3000'
+      - '1025:1025'
     depends_on:
       - webpacker
       - db
@@ -42,4 +43,10 @@ services:
 volumes:
   postgres:
 
+networks:
+  default:
+    external:
+      name: evally_network
+
+# docker network create evally_network --subnet 172.24.24.0/24
 # CURRENT_USER=$(id -u):$(id -g) add to .bashrc / .zshrc to run container as non-root user

@@ -1,9 +1,10 @@
 default: &default
   adapter: postgresql
   encoding: utf8
-  host: <%= ENV['db_host'] %>
-  username: <%= ENV['db_username'] %>
-  password: <%= ENV['db_password'] %>
+  host: <%= Rails.application.config.env.fetch(:database).fetch(:host) %>
+  username: <%= Rails.application.config.env.fetch(:database).fetch(:username) %>
+  password: <%= Rails.application.config.env.fetch(:database).fetch(:password) %>
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
 
 development:
   <<: *default
