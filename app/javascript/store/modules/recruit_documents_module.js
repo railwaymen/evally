@@ -91,6 +91,7 @@ const RecruitDocumentsModule = {
     },
     resetState(state) {
       state = Object.assign(state, initialState())
+      return state
     }
   },
 

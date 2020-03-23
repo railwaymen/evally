@@ -1,4 +1,4 @@
-import http from '@utils/http'
+import { coreApiClient } from '@utils/api_clients'
 import { fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
@@ -26,30 +26,23 @@ const AuthenticationModule = {
   mutations: {
     setLoading(state, status) {
       state.loading = status
-      return state
     },
     setSetting(state, setting) {
       state.setting = new Setting(setting)
-      return state
     },
     setSession(state, { user, setting }) {
       state.user = new User(user)
       state.setting = new Setting(setting)
-      return state
     },
-    setToken(state, jwt) {
+    setToken(_state, jwt) {
       localStorage.setItem('ev411y_t0k3n', jwt)
-      return state
     },
     setUser(state, user) {
       state.user = new User(user)
-      return state
     },
     resetState(state) {
       localStorage.removeItem('ev411y_t0k3n')
-
-      state = Object.assign(state, initialState())
-      return state
+      Object.assign(state, initialState())
     },
     clearStore() {
       const modules = [
@@ -68,16 +61,17 @@ const AuthenticationModule = {
 
   actions: {
     acceptInvitation({ commit }, data) {
-      return new Promise((resolve) => {
-        http.put(User.routes.invitationPath(data.invitationToken), { invitation: data.invitation })
-          .then(response => {
+      return (
+        coreApiClient
+          .put(User.routes.invitationPath(data.invitationToken), { invitation: data.invitation })
+          .then(() => {
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.session.acceptInvitation.ok') },
               { root: true }
             )
 
-            resolve(response)
+            return Promise.resolve()
           })
           .catch(error => {
             commit(
@@ -86,19 +80,20 @@ const AuthenticationModule = {
               { root: true }
             )
           })
-      })
+      )
     },
     forgotPassword({ commit }, email) {
-      return new Promise((resolve) => {
-        http.post(User.routes.passwordsPath, { password: { email } })
-          .then(response => {
+      return (
+        coreApiClient
+          .post(User.routes.passwordsPath, { password: { email } })
+          .then(() => {
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.session.forgotPassword.ok') },
               { root: true }
             )
 
-            resolve(response)
+            return Promise.resolve()
           })
           .catch(error => {
             commit(
@@ -107,19 +102,20 @@ const AuthenticationModule = {
               { root: true }
             )
           })
-      })
+      )
     },
     resetPassword({ commit }, data) {
-      return new Promise((resolve) => {
-        http.put(User.routes.passwordPath(data.resetPasswordToken), { password: data.reset })
-          .then(response => {
+      return (
+        coreApiClient
+          .put(User.routes.passwordPath(data.resetPasswordToken), { password: data.reset })
+          .then(() => {
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.session.resetPassword.ok') },
               { root: true }
             )
 
-            resolve(response)
+            return Promise.resolve()
           })
           .catch(error => {
             commit(
@@ -128,20 +124,21 @@ const AuthenticationModule = {
               { root: true }
             )
           })
-      })
+      )
     },
     show({ commit }) {
       commit('setLoading', true)
 
-      return new Promise((resolve) => {
-        http.get(User.routes.profilePath)
+      return (
+        coreApiClient
+          .get(User.routes.profilePath)
           .then(response => {
             const { data } = response
 
             localStorage.setItem('ev411y_l4ng', data.setting.lang || 'en')
             commit('setSession', data)
 
-            resolve(data)
+            return Promise.resolve(data)
           })
           .catch(error => {
             commit(
@@ -151,11 +148,12 @@ const AuthenticationModule = {
             )
           })
           .finally(() => commit('setLoading', false))
-      })
+      )
     },
     create({ commit }, credentials) {
-      return new Promise((resolve, reject) => {
-        http.post(User.routes.sessionPath, { session: credentials })
+      return (
+        coreApiClient
+          .post(User.routes.sessionPath, { session: credentials })
           .then(response => {
             commit('setToken', response.data.jwt)
             commit(
@@ -164,7 +162,7 @@ const AuthenticationModule = {
               { root: true }
             )
 
-            resolve()
+            return Promise.resolve()
           })
           .catch(() => {
             commit('resetState')
@@ -174,17 +172,18 @@ const AuthenticationModule = {
               { root: true }
             )
 
-            reject()
+            return Promise.reject()
           })
-      })
+      )
     },
     updateSetting({ commit }, setting) {
       const params = {
         setting: setting.attributes
       }
 
-      return new Promise((resolve) => {
-        http.put(Setting.routes.settingsPath, params)
+      return (
+        coreApiClient
+          .put(Setting.routes.settingsPath, params)
           .then(response => {
             const { data } = response
 
@@ -197,7 +196,7 @@ const AuthenticationModule = {
               { root: true }
             )
 
-            resolve(data)
+            return Promise.resolve(data)
           })
           .catch(error => {
             commit(
@@ -206,14 +205,15 @@ const AuthenticationModule = {
               { root: true }
             )
           })
-        })
+        )
     },
     updateUser({ commit }, user) {
       const params = {
         profile: user.attributes
       }
 
-      http.put(User.routes.profilePath, params)
+      coreApiClient
+        .put(User.routes.profilePath, params)
         .then(response => {
           commit('setUser', response.data)
 
@@ -234,19 +234,19 @@ const AuthenticationModule = {
     updatePassword({ commit }, passwords) {
       const params = { profile: passwords }
 
-      return new Promise((resolve) => {
-        http.put(User.routes.profilePasswordPath, params)
+      return (
+        coreApiClient
+          .put(User.routes.profilePasswordPath, params)
           .then(() => {
-            delete http.defaults.headers.common['Authorization']
-
             commit('resetState')
+
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.session.updatePassword.ok') },
               { root: true }
             )
 
-            resolve()
+            return Promise.resolve()
           })
           .catch(error => {
             commit(
@@ -255,22 +255,19 @@ const AuthenticationModule = {
               { root: true }
             )
           })
-      })
+      )
     },
     destroy({ commit }) {
-      return new Promise((resolve) => {
-        delete http.defaults.headers.common['Authorization']
+      commit('clearStore')
+      commit('resetState')
 
-        // context.commit('clearStore')
-        commit('resetState')
-        commit(
-          'NotificationsModule/push',
-          { success: i18n.t('messages.session.destroy.ok') },
-          { root: true }
-        )
+      commit(
+        'NotificationsModule/push',
+        { success: i18n.t('messages.session.destroy.ok') },
+        { root: true }
+      )
 
-        resolve()
-      })
+      return Promise.resolve()
     }
   }
 }
