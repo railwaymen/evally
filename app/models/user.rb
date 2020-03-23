@@ -32,9 +32,6 @@ class User < ApplicationRecord
 
   # # Methods
   #
-  def recruit_documents
-    RecruitDocument.where(encrypted_email: recruits.pluck(:human_resources_id).compact)
-  end
 
   def fullname
     [first_name, last_name].join(' ').strip

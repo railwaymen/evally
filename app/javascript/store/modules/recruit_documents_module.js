@@ -60,6 +60,11 @@ const RecruitDocumentsModule = {
       state.sections = new SectionsList(sections)
       state.evaluations.refresh(evaluation)
     },
+    setForm(state, { positions, groups, statuses }) {
+      state.positions = positions
+      state.groups = groups
+      state.statuses = statuses
+    },
     setRecruit(state, data) {
       const {
         evaluations,
@@ -145,11 +150,47 @@ const RecruitDocumentsModule = {
         })
         .finally(() => commit('setLoading', false))
     },
-    new({ commit }) {
-      console.log('New!')
+    form({ commit }) {
+      recruitableApiClient
+        .get(RecruitDocument.routes.recruitDocumentsFormPath)
+        .then(response => {
+          commit('setForm', response.data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.recruitments.show.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+        })
     },
-    create({ commit }) {
-      console.log('Create!')
+    create({ commit }, recruitDocument) {
+      const params = {
+        recruit_document: recruitDocument.attributes
+      }
+
+      return (
+        recruitableApiClient
+          .post(RecruitDocument.routes.recruitDocumentsPath, params)
+          .then(response => {
+            commit('setRecruitDocument', response.data)
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.recruitments.create.ok') },
+              { root: true }
+            )
+
+            return Promise.resolve(response.data)
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.recruitments.create.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+
+          })
+      )
     },
     showEvaluation({ state, commit }, evaluationId) {
       const { id, recruit_id } = state.evaluations.findById(evaluationId)
@@ -293,121 +334,3 @@ const RecruitDocumentsModule = {
 }
 
 export default RecruitDocumentsModule
-
-// import http from '@utils/http'
-// import { fetchError } from '@utils/helpers'
-
-// import i18n from '@locales/i18n'
-
-// import { RecruitDocument, RecruitDocumentsList } from '@models/recruit_document'
-
-// const initialState = () => ({
-//   recruitDocuments: new RecruitDocumentsList(),
-//   recruitDocument: new RecruitDocument(),
-//   groups: [],
-//   statuses: [],
-//   positions: [],
-//   loading: true
-// })
-
-// const RecruitDocumentsModule = {
-//   namespaced: true,
-
-//   state: initialState(),
-
-//   getters: {
-//     recruitDocuments: state => state.recruitDocuments,
-//     recruitDocument: state => state.recruitDocument,
-//     groups: state => state.groups,
-//     statuses: state => state.statuses,
-//     positions: state => state.positions,
-//     loading: state => state.loading
-//   },
-
-//   mutations:{
-//     setLoading(state, status) {
-//       state.loading = status
-//       return state
-//     },
-//     setList(state, { recruit_documents, groups, statuses, positions }) {
-//       state.recruitDocuments = new RecruitDocumentsList(recruit_documents)
-//       state.groups = groups
-//       state.statuses = statuses
-//       state.positions = positions
-//       state.loading = false
-//       return state
-//     },
-//     setItem(state, data) {
-//       const {
-//         recruit_document,
-//         evaluations,
-//         evaluation,
-//         sections,
-//         templates
-//       } = data
-
-//       state.recruitDocument = new RecruitDocument(recruit_document)
-//       state.evaluations = new EvaluationsList(evaluations)
-//       state.evaluation = new Evaluation(evaluation)
-//       state.sections = new SectionsList(sections)
-//       state.templates = new TemplatesList(templates)
-//       state.loading = false
-//       return state
-//     },
-//     resetState(state) {
-//       state = Object.assign(state, initialState())
-//       return state
-//     },
-//     addToList(state, recruitDocument) {
-//       state.recruitDocuments.add(recruitDocument)
-//       return state
-//     },
-//   },
-
-//   actions: {
-//     new({ commit }) {
-//       commit('setLoading', true)
-//       http.get(RecruitDocument.routes.newRecruitDocumentsPath)
-//         .then(response => {
-//           commit('setList', response.data)
-//         })
-//         .catch(error => {
-//           commit(
-//             'NotificationsModule/push',
-//             { error: i18n.t('messages.recruitments.show.error', { msg: fetchError(error) }) },
-//             { root: true }
-//           )
-//         })
-//     },
-//     create({ commit }, recruitDocument ) {
-//       const params = {
-//         recruit_document: recruitDocument.attributes
-//       }
-
-//       return new Promise(resolve => {
-//         http.post(RecruitDocument.routes.recruitDocumentsPath, params)
-//           .then(response => {
-//             const { data } = response
-
-//             commit('addToList', data)
-//             commit(
-//               'NotificationsModule/push',
-//               { success: i18n.t('messages.recruitments.create.ok') },
-//               { root: true }
-//             )
-//             resolve(data)
-//           })
-//           .catch(error => {
-//             commit(
-//               'NotificationsModule/push',
-//               { error: i18n.t('messages.recruitments.create.error', { msg: fetchError(error) }) },
-//               { root: true }
-//             )
-
-//           })
-//       })
-//     }
-//   }
-// }
-
-// export default RecruitDocumentsModule

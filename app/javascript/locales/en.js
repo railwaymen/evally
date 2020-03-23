@@ -315,14 +315,16 @@ export default {
         },
       },
       recruitmentForm: {
-        createTitle: 'New recruitment',
+        createTitle: 'New Recruitment',
         contact: 'Contact',
         general: 'General',
+        agreements: 'Agreements',
         male: 'male',
         female: 'female',
         position: 'Position',
-        acceptCurrentProcess: 'Accept for recruitment',
-        acceptFutureProcesses: 'Accept for future recruitments'
+        receivedDate: 'Received Date',
+        acceptCurrentProcessing: 'Accept for current recruitment',
+        acceptFutureProcessing: 'Accept for future recruitments'
       },
       createEvaluationForm: {
         title: 'Add Evaluation',

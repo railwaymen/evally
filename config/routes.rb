@@ -31,12 +31,12 @@ Rails.application.routes.draw do
       resources :evaluation_recruitables, only: %i[create update destroy]
 
       resources :recruits, only: %i[show] do
+        post :webhook, on: :collection
+
         resources :comments, only: %i[create update destroy], shallow: true
 
         resources :evaluation_recruitables, path: '/evaluations', only: %i[show]
       end
-
-      # resources :recruit_documents, only: %i[index show new create edit update]
 
       resources :templates, only: %i[index show create update destroy]
 

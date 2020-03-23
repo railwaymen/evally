@@ -10,6 +10,12 @@ module V2
       render json: V2::Recruits::ShowView.render(presenter), status: :ok
     end
 
+    def webhook
+      recruit = Recruit.find_or_initialize_by(webhook_params)
+
+      head(recruit.save ? :no_content : :unprocessable_entity)
+    end
+
     private
 
     def recruit
@@ -17,6 +23,10 @@ module V2
       raise ErrorResponderService.new(:record_not_found, 404) unless @recruit
 
       @recruit
+    end
+
+    def webhook_params
+      params.require(:recruit).permit(:public_recruit_id)
     end
   end
 end

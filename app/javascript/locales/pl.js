@@ -317,11 +317,13 @@ export default {
         createTitle: 'Nowa rekrutacja',
         contact: 'Kontakt',
         general: 'Ogólne',
+        agreements: 'Zgody',
         male: 'mężczyzna',
         female: 'kobieta',
         position: 'Stanowisko',
-        acceptCurrentProcess: 'Zgodan na przetwarzanie',
-        acceptFutureProcesses: 'Zgodan na przetwarzanie w przyszyłych rekrutacja'
+        receivedDate: 'Data odebrania',
+        acceptCurrentProcessing: 'Zgoda na obecną rekrutację',
+        acceptFutureProcessing: 'Zgoda na przyszłe rekrutacje'
       },
       createEvaluationForm: {
         title: 'Stwórz ocenę',
