@@ -77,7 +77,7 @@ const EmployeesModule = {
       state.positionChanges = new PositionChangesList()
     },
     resetState(state) {
-      state = Object.assign(state, initialState())
+      Object.assign(state, initialState())
     }
   },
 

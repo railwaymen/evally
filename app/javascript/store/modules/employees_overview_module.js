@@ -1,4 +1,4 @@
-import http from '@utils/http'
+import { coreApiClient } from '@utils/api_clients'
 import i18n from '@locales/i18n'
 import { fetchError } from '@utils/helpers'
 
@@ -52,16 +52,12 @@ const EmployeesOverviewModule = {
       state.employeesByUsersChartData = employees_by_users_chart_data
       state.evaluationsPastYearChartData = evaluations_past_year_chart_data
       state.evaluationsAnalytics = new EvaluationsAnalytics(evaluations_analytics)
-
-      return state
     },
     setLoading(state, status) {
       state.loading = status
-      return state
     },
     resetState(state) {
-      state = Object.assign(state, initialState())
-      return state
+      Object.assign(state, initialState())
     }
   },
 
@@ -69,7 +65,8 @@ const EmployeesOverviewModule = {
     overview({ commit }) {
       commit('setLoading', true)
 
-      http.get(Employee.routes.employeesOverviewPath)
+      coreApiClient
+        .get(Employee.routes.employeesOverviewPath)
         .then(response => {
           commit('setData', response.data)
         })

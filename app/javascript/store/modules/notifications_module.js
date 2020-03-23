@@ -16,7 +16,6 @@ const NotificationsModule = {
       const type = Object.keys(message).shift()
 
       state.messages.push({ text: message[type], type: type })
-      return state
     },
     shift(state) {
       state.message = state.messages.shift()
@@ -25,10 +24,8 @@ const NotificationsModule = {
 
   actions: {
     flash: context => {
-      return new Promise(resolve => {
-        context.commit('shift')
-        resolve()
-      })
+      context.commit('shift')
+      return Promise.resolve()
     }
   }
 }

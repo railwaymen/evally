@@ -90,8 +90,7 @@ const RecruitDocumentsModule = {
       state.loading = status
     },
     resetState(state) {
-      state = Object.assign(state, initialState())
-      return state
+      Object.assign(state, initialState())
     }
   },
 

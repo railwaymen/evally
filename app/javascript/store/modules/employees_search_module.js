@@ -1,4 +1,4 @@
-import http from '@utils/http'
+import { coreApiClient } from '@utils/api_clients'
 
 import { Employee, EmployeesList } from '@models/employee'
 import { EmployeesSearchQuery } from '@models/employees_search_query'
@@ -25,30 +25,26 @@ const EmployeesModule = {
   mutations: {
     setEmployees(state, employees) {
       state.employees = new EmployeesList(employees)
-      return state
     },
     setLoading(state, status) {
       state.loading = status
-      return state
     },
     setSkills(state, skills) {
       state.skills = skills
-      return state
     },
     setQuery(state, query) {
       state.query = query
-      return state
     },
     resetState(state) {
       state.employees = new EmployeesList()
       state.query = new EmployeesSearchQuery()
-      return state
     }
   },
 
   actions: {
     skills({ commit }) {
-      http.get(Employee.routes.employeesSkillsPath)
+      coreApiClient
+        .get(Employee.routes.employeesSkillsPath)
         .then(response => {
           commit('setSkills', response.data)
         })
@@ -63,7 +59,8 @@ const EmployeesModule = {
     search({ commit }, query) {
       commit('setLoading', true)
 
-      http.get(Employee.routes.employeesSearchPath, { params: query.attributes })
+      coreApiClient
+        .get(Employee.routes.employeesSearchPath, { params: query.attributes })
         .then(response => {
           commit('setQuery', query)
           commit('setEmployees', response.data)

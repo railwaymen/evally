@@ -46,6 +46,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import { coreApiClient } from '@utils/api_clients'
+
 import { Employee, EmployeesList } from '@models/employee'
 import { EvaluationsList } from '@models/evaluation'
 import { ActivitiesList } from '@models/activity'
@@ -75,7 +77,8 @@ export default {
     })
   },
   created() {
-    this.$http.get('/v2/dashboard')
+    coreApiClient
+      .get('/v2/dashboard')
       .then(response => {
         const { employees, drafts, activities, templates } = response.data
 

@@ -1,4 +1,4 @@
-import http from '@utils/http'
+import { coreApiClient } from '@utils/api_clients'
 import { fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
@@ -25,28 +25,22 @@ const UsersModule = {
   mutations: {
     addToList(state, data) {
       state.users.add(data)
-      return state
     },
     refreshListItem(state, data) {
       state.users.refresh(data)
-      return state
     },
     setItem(state, user) {
       state.user = new User(user)
-      return state
     },
     setList(state, users) {
       state.users = new UsersList(users)
       state.loading = false
-      return state
     },
     setLoading(state, status) {
       state.loading = status
-      return state
     },
     resetState(state) {
-      state = Object.assign(state, initialState())
-      return state
+      Object.assign(state, initialState())
     }
   },
 
@@ -54,7 +48,8 @@ const UsersModule = {
     index({ commit }) {
       commit('setLoading', true)
 
-      http.get(User.routes.usersPath)
+      coreApiClient
+        .get(User.routes.usersPath)
         .then(response => {
           commit('setList', response.data)
         })
@@ -72,19 +67,19 @@ const UsersModule = {
         invitation: user.attributes
       }
 
-      return new Promise(resolve => {
-        http.post(User.routes.invitationsPath, params)
+      return (
+        coreApiClient
+          .post(User.routes.invitationsPath, params)
           .then(response => {
-            const { data } = response
+            commit('addToList', response.data)
 
-            commit('addToList', data)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.users.create.ok') },
               { root: true }
             )
 
-            resolve(data)
+            return Promise.resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -93,26 +88,26 @@ const UsersModule = {
               { root: true }
             )
           })
-      })
+      )
     },
     update({ commit }, user) {
       const params = {
         user: user.attributes
       }
 
-      return new Promise(resolve => {
-        http.put(User.routes.userPath(user.id), params)
+      return (
+        coreApiClient
+          .put(User.routes.userPath(user.id), params)
           .then(response => {
-            const { data } = response
+            commit('refreshListItem', response.data)
 
-            commit('refreshListItem', data)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.users.update.ok') },
               { root: true }
             )
 
-            resolve(data)
+            return Promise.resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -121,7 +116,7 @@ const UsersModule = {
               { root: true }
             )
           })
-      })
+      )
     }
   }
 }

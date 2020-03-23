@@ -1,4 +1,4 @@
-import http from '@utils/http'
+import { coreApiClient } from '@utils/api_clients'
 import { fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
@@ -33,51 +33,43 @@ const EvaluationEmployablesModule = {
   mutations: {
     addToList(state, data) {
       state.evaluations.add(data)
-      return state
     },
     setForm(state, { employees, templates }) {
       state.employees = new EmployeesList(employees)
       state.templates = new TemplatesList(templates)
-      return state
     },
     setItem(state, { evaluation, sections }) {
       state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
-      return state
     },
     setList(state, evaluations) {
       state.evaluations = new EvaluationsList(evaluations)
-      return state
     },
     setLoading(state, status) {
       state.loading = status
-      return state
     },
     removeFromList(state, id) {
       state.evaluation = new Evaluation()
       state.sections = new SectionsList()
       state.evaluations.remove(id)
-      return state
     },
     replaceSection(state, section) {
       state.sections.replace(section)
-      return state
     },
     resetItem(state) {
       state.evaluation = new Evaluation()
       state.sections = new SectionsList()
-      return state
     },
     resetState(state) {
-      state = Object.assign(state, initialState())
-      return state
+      Object.assign(state, initialState())
     }
   },
   actions: {
     index({ commit }) {
       commit('setLoading', true)
 
-      http.get(Evaluation.routes.evaluationEmployablesPath)
+      coreApiClient
+        .get(Evaluation.routes.evaluationEmployablesPath)
         .then(response => {
           commit('setList', response.data)
         })
@@ -91,7 +83,8 @@ const EvaluationEmployablesModule = {
         .finally(() => commit('setLoading', false))
     },
     show({ commit }, id) {
-      http.get(Evaluation.routes.draftEvaluationEmployablePath(id))
+      coreApiClient
+        .get(Evaluation.routes.draftEvaluationEmployablePath(id))
         .then(response => {
           commit('setItem', response.data)
         })
@@ -104,11 +97,13 @@ const EvaluationEmployablesModule = {
         })
     },
     form({ commit }) {
-      return new Promise(resolve => {
-        http.get(Evaluation.routes.formEvaluationEmployablePath)
+      return (
+        coreApiClient
+          .get(Evaluation.routes.formEvaluationEmployablePath)
           .then(response => {
             commit('setForm', response.data)
-            resolve()
+
+            return Promise.resolve()
           })
           .catch(error => {
             commit(
@@ -117,7 +112,7 @@ const EvaluationEmployablesModule = {
               { root: true }
             )
           })
-        })
+      )
     },
     create({ commit }, { employeeId, templateId, useLatest }) {
       const params = {
@@ -128,19 +123,19 @@ const EvaluationEmployablesModule = {
         }
       }
 
-      return new Promise(resolve => {
-        http.post(Evaluation.routes.evaluationEmployablesPath, params)
+      return (
+        coreApiClient
+          .post(Evaluation.routes.evaluationEmployablesPath, params)
           .then(response => {
-            const { data } = response
+            commit('addToList', response.data.evaluation)
 
-            commit('addToList', data.evaluation)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.evaluations.create.ok') },
               { root: true }
             )
 
-            resolve(data)
+            return Promise.resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -149,7 +144,7 @@ const EvaluationEmployablesModule = {
               { root: true }
             )
           })
-      })
+      )
     },
     update({ state, commit }) {
       const { evaluation, sections } = state;
@@ -160,17 +155,19 @@ const EvaluationEmployablesModule = {
         }
       }
 
-      return new Promise(resolve => {
-        http.put(Evaluation.routes.evaluationEmployablePath(evaluation.id), params)
+      return (
+        coreApiClient
+          .put(Evaluation.routes.evaluationEmployablePath(evaluation.id), params)
           .then(response => {
             commit('setItem', response.data)
+
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.evaluations.update.ok') },
               { root: true }
             )
 
-            resolve()
+            return Promise.resolve()
           })
           .catch(error => {
             commit(
@@ -179,7 +176,7 @@ const EvaluationEmployablesModule = {
               { root: true }
             )
           })
-      })
+      )
 
     },
     complete({ state, commit }, { nextEvaluationDate }) {
@@ -193,17 +190,19 @@ const EvaluationEmployablesModule = {
         }
       }
 
-      return new Promise(resolve => {
-        http.put(Evaluation.routes.evaluationEmployablePath(evaluation.id), params)
+      return (
+        coreApiClient
+          .put(Evaluation.routes.evaluationEmployablePath(evaluation.id), params)
           .then(() => {
             commit('removeFromList', evaluation.id)
+
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.evaluations.complete.ok') },
               { root: true }
             )
 
-            resolve()
+            return Promise.resolve()
           })
           .catch(error => {
             commit(
@@ -212,12 +211,13 @@ const EvaluationEmployablesModule = {
               { root: true }
             )
           })
-      })
+      )
     },
     destroy({ state, commit }) {
       const { evaluation } = state;
 
-      http.delete(Evaluation.routes.evaluationEmployablePath(evaluation.id))
+      coreApiClient
+        .delete(Evaluation.routes.evaluationEmployablePath(evaluation.id))
         .then(() => {
           commit('removeFromList', evaluation.id)
 
