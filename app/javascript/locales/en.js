@@ -336,11 +336,14 @@ export default {
       },
       sidebar: {
         gender: 'Gender',
+        nationality: 'Nationality',
         email: 'Email',
-        phoneNumber: 'Phone number',
+        phoneNumber: 'Phone Number',
+        status: 'Status',
         group: 'Group',
         position: 'Position',
-        received_at: 'Received at'
+        source: 'Source',
+        receivedDate: 'Received Date'
       }
     }
   },

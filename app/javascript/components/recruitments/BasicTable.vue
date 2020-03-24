@@ -22,12 +22,11 @@
       </v-flex>
 
        <v-flex xs12 lg4>
-         <v-select
+         <status-select
           v-model="filters.status"
           :items="statuses"
           :label="$t('components.recruitments.table.statusFilter')"
           clearable
-          chips
           solo
         />
       </v-flex>
@@ -62,10 +61,20 @@
             </router-link>
           </template>
 
+          <template #item.status="{ item }">
+            <v-chip
+              :color="item.status.color"
+              dark
+              small
+              label
+            >
+              <strong>{{ item.status.label }}</strong>
+            </v-chip>
+          </template>
+
           <template #item.received_at="{ item }">
             {{ item.receivedAt }}
           </template>
-
         </v-data-table>
       </v-flex>
     </v-layout>
@@ -75,8 +84,11 @@
 <script>
 import { RecruitDocumentsList } from '@models/recruit_document'
 
+import StatusSelect from '@components/recruitments/RecruitmentStatusSelect'
+
 export default {
   name: 'BasicTable',
+  components: { StatusSelect },
   props: {
     loading: {
       type: Boolean,

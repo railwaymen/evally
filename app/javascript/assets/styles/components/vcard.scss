@@ -1,32 +1,50 @@
-.vcard  {
+.vcard {
   font-weight: 200;
 
-  &__fullname  {
+  &__fullname {
     font-size: rem2dec(2.4rem);
     font-weight: inherit;
   }
 
-  &__position  {
+  &__socials {
+    padding: rem2dec(.5rem 0);
+  }
+
+  &__position {
     font-size: rem2dec(1.6rem);
     color: $font-gray-dark;
     text-transform: uppercase;
     font-weight: inherit;
   }
 
-  &__content  {
+  &__content {
     margin: rem2dec(2rem 0);
   }
 
-  &__info  {
+  &__subheader {
+    font-size: rem2dec(1.6rem);
+    padding: rem2dec(1rem .5rem);
+  }
+
+  &__info {
     display: flex;
     flex-direction: row;
     font-size: rem2dec(1.4rem);
-    padding: rem2dec(.5rem 0);
+    padding: rem2dec(1.6rem 0);
 
+    &--editable {
+      padding: 0;
+      align-items: baseline;
+    }
   }
 
-  &__value  {
+  &__value {
     margin-left: auto;
     font-weight: bold;
+  }
+
+  &__input {
+    max-width: 60%;
+    margin-left: auto
   }
 }

@@ -66,12 +66,7 @@ const RecruitDocumentsModule = {
       state.statuses = statuses
     },
     setRecruit(state, data) {
-      const {
-        evaluations,
-        evaluation,
-        sections,
-        templates
-      } = data
+      const { evaluations, evaluation, sections, templates } = data
 
       state.evaluations = new EvaluationsList(evaluations)
       state.evaluation = new Evaluation(evaluation)
@@ -81,8 +76,11 @@ const RecruitDocumentsModule = {
     setRecruitDocument(state, recruitDocument) {
       state.recruitDocument = new RecruitDocument(recruitDocument)
     },
-    setRecruitDocuments(state, { recruit_documents, groups, statuses }) {
+    setRecruitDocuments(state, data) {
+      const { recruit_documents, groups, statuses, positions } = data
+
       state.recruitDocuments = new RecruitDocumentsList(recruit_documents)
+      state.positions = positions
       state.statuses = statuses
       state.groups = groups
     },

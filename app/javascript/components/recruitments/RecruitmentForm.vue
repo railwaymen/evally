@@ -8,14 +8,14 @@
       <v-card-text>
         <v-layout row wrap>
           <v-flex class="px-2" xs12 lg6>
-            <v-select
+            <status-select
               v-model="localRecruitment.status"
               :items="statuses"
               :rules="[vRequired]"
               append-icon="mdi-chevron-down"
               prepend-inner-icon="mdi-label-outline"
-              chips
               :label="$t('shared.general.fields.status')"
+              small
             />
           </v-flex>
 
@@ -177,8 +177,11 @@ import { mapActions } from 'vuex'
 
 import { RecruitDocument } from '@models/recruit_document'
 
+import StatusSelect from '@components/recruitments/RecruitmentStatusSelect'
+
 export default {
   name: 'RecruitmentForm',
+  components: { StatusSelect },
   props: {
     groups: {
       type: Array,

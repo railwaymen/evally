@@ -335,11 +335,14 @@ export default {
       },
       sidebar: {
         gender: 'Płeć',
+        nationality: 'Narodowość',
         email: 'Email',
         phoneNumber: 'Numer telefonu',
+        status: 'Status',
         group: 'Grupa',
         position: 'Stanowisko',
-        received_at: 'Data otrzymania'
+        source: 'Źródło',
+        receivedDate: 'Data otrzymania'
       }
     }
   },
