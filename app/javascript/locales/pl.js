@@ -343,6 +343,9 @@ export default {
         position: 'Stanowisko',
         source: 'Źródło',
         receivedDate: 'Data otrzymania'
+      },
+      statusChangeForm: {
+        title: 'Zmień status'
       }
     }
   },

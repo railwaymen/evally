@@ -11,7 +11,6 @@ class RecruitDocument extends Model {
       first_name: '',
       last_name: '',
       email: '',
-      status: '',
       group: '',
       phone: '',
       position: '',
@@ -19,7 +18,13 @@ class RecruitDocument extends Model {
       received_at: moment().format('YYYY-MM-DD'),
       accept_current_processing: false,
       accept_future_processing: false,
-      public_recruit_id: ''
+      public_recruit_id: '',
+      status: {
+        value: '',
+        label: '',
+        color: '',
+        required_fields: []
+      }
     };
   }
 

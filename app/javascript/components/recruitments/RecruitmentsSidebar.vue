@@ -46,10 +46,11 @@
           <div class="vcard__input">
             <status-select
               :items="statuses"
-              :value="recruitDocument.status"
+              v-model="recruitDocument.status"
+              @input="updateStatus"
               item-value="value"
               item-text="label"
-              filled
+              return-object
               dense
               block
             />
@@ -136,9 +137,13 @@
 </template>
 
 <script>
-import { RecruitDocument } from '@models/recruit_document'
+import { DialogsBus } from '@utils/dialogs_bus'
 
-import StatusSelect from '@components/recruitments/RecruitmentStatusSelect'
+import { RecruitDocument } from '@models/recruit_document'
+import { Status } from '@models/status'
+
+import StatusChangeForm from '@components/recruitments/StatusChangeForm'
+import StatusSelect from '@components/recruitments/StatusSelect'
 
 export default {
   name: 'RecruitmentsSidebar',
@@ -163,6 +168,22 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    }
+  },
+
+  methods: {
+    updateStatus(selected) {
+      const status = new Status({ ...selected })
+
+      if (status.required_fields.length === 0) {
+        return console.log('Save!')
+      }
+
+      DialogsBus.$emit('openFormsDialog', {
+        innerComponent: StatusChangeForm,
+        maxWidth: 500,
+        props: { status }
+      })
     }
   }
 }

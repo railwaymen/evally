@@ -344,6 +344,9 @@ export default {
         position: 'Position',
         source: 'Source',
         receivedDate: 'Received Date'
+      },
+      statusChangeForm: {
+        title: 'Change Status'
       }
     }
   },

@@ -177,7 +177,7 @@ import { mapActions } from 'vuex'
 
 import { RecruitDocument } from '@models/recruit_document'
 
-import StatusSelect from '@components/recruitments/RecruitmentStatusSelect'
+import StatusSelect from '@components/recruitments/StatusSelect'
 
 export default {
   name: 'RecruitmentForm',
