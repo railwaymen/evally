@@ -12,31 +12,31 @@
               Please provide additional information required to change status to:
 
               <v-chip
-                :color="status.color"
+                :color="recruitDocument.status.color"
                 small
                 dark
                 label
               >
-                {{ status.label }}
+                {{ recruitDocument.status.label }}
               </v-chip>
             </p>
           </v-flex>
 
           <v-flex
-            v-for="field in status.required_fields"
+            v-for="field in recruitDocument.status.required_fields"
             :key="field.value"
             class="pa-2"
             xs12
           >
             <datetime-field
               v-if="field.type === 'datetime'"
-              v-model="form[field.value]"
+              v-model="recruitDocument[field.value]"
               :label="field.label"
             />
 
             <v-textarea
-              v-if="field.type === 'string'"
-              v-model="form[field.value]"
+              v-if="field.type === 'text'"
+              v-model="recruitDocument[field.value]"
               :label="field.label"
               :rules="[vRequired]"
               rows="2"
@@ -70,6 +70,7 @@
 <script>
 import { mapActions } from 'vuex'
 
+import { RecruitDocument } from '@models/recruit_document'
 import { Status } from '@models/status'
 
 import DatetimeField from '@components/shared/DatetimeField'
@@ -78,28 +79,30 @@ export default {
   name: 'StatusChangeForm',
   components: { DatetimeField },
   props: {
-    status: {
+    recruitDocument: {
+      type: RecruitDocument,
+      required: true,
+      default: () => new RecruitDocument()
+    },
+    prevStatus: {
       type: Status,
       required: true,
       default: () => new Status(),
     }
   },
-  data() {
-    return {
-      form : Object.assign({}, ...this.status.required_fields.map(field => ({ [field['value']]: '' }))),
-      test: ''
-    }
-  },
   methods: {
     closeDialog() {
+      this.recruitDocument.status = this.prevStatus
       this.$emit('closeDialog')
     },
     save() {
       this.$refs.form.validate()
-      console.log(this.form)
+
+      this.update(this.recruitDocument)
+        .then(() => this.$emit('closeDialog'))
     },
     ...mapActions({
-
+      update: 'RecruitDocumentsModule/update'
     })
   },
 }

@@ -47,6 +47,10 @@ const RecruitDocumentsModule = {
       state.sections = new SectionsList(sections)
       state.evaluations.add(evaluation)
     },
+    addRecruitDocument(state, recruitDocument) {
+      state.recruitDocument = new RecruitDocument(recruitDocument)
+      state.recruitDocuments.add(recruitDocument)
+    },
     replaceSection(state, section) {
       state.sections.replace(section)
     },
@@ -89,6 +93,10 @@ const RecruitDocumentsModule = {
     },
     resetState(state) {
       Object.assign(state, initialState())
+    },
+    updateRecruitDocument(state, recruitDocument) {
+      state.recruitDocument = new RecruitDocument(recruitDocument)
+      state.recruitDocuments.refresh(recruitDocument)
     }
   },
 
@@ -171,7 +179,37 @@ const RecruitDocumentsModule = {
         recruitableApiClient
           .post(RecruitDocument.routes.recruitDocumentsPath, params)
           .then(response => {
-            commit('setRecruitDocument', response.data)
+            commit('addRecruitDocument', response.data)
+
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.recruitments.create.ok') },
+              { root: true }
+            )
+
+            return Promise.resolve(response.data)
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.recruitments.create.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+
+          })
+      )
+    },
+    update({ commit }, recruitDocument) {
+      const params = {
+        recruit_document: recruitDocument.attributes
+      }
+
+      return (
+        recruitableApiClient
+          .put(RecruitDocument.routes.recruitDocumentPath(recruitDocument.id), params)
+          .then(response => {
+            commit('updateRecruitDocument', response.data)
+
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.recruitments.create.ok') },

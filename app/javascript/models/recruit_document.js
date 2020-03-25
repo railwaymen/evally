@@ -24,7 +24,13 @@ class RecruitDocument extends Model {
         label: '',
         color: '',
         required_fields: []
-      }
+      },
+      task_sent_at: '',
+      call_scheduled_at: '',
+      interview_scheduled_at: '',
+      decision_made_at: '',
+      recruit_accepted_at: '',
+      rejection_reason: ''
     };
   }
 
@@ -33,7 +39,37 @@ class RecruitDocument extends Model {
   }
 
   get receivedAt() {
-    return moment(this.received_at).format('MMM DD, YYYY HH:mm')
+    return moment(this.received_at).format('YYYY-MM-DD HH:mm')
+  }
+
+  get taskSentAt() {
+    if (!this.task_sent_at) return '---'
+
+    return moment(this.task_sent_at).format('YYYY-MM-DD HH:mm')
+  }
+
+  get callScheduledAt() {
+    if (!this.call_scheduled_at) return '---'
+
+    return moment(this.call_scheduled_at).format('YYYY-MM-DD HH:mm')
+  }
+
+  get interviewScheduledAt() {
+    if (!this.interview_scheduled_at) return '---'
+
+    return moment(this.interview_scheduled_at).format('YYYY-MM-DD HH:mm')
+  }
+
+  get decisionMadeAt() {
+    if (!this.decision_made_at) return '---'
+
+    return moment(this.task_sent_at).format('YYYY-MM-DD HH:mm')
+  }
+
+  get recruitAcceptedAt() {
+    if (!this.recruit_accepted_at) return '---'
+
+    return moment(this.recruit_accepted_at).format('YYYY-MM-DD HH:mm')
   }
 
   static get routes() {

@@ -41,13 +41,13 @@ export default {
   computed: {
      ...mapGetters({
       recruitDocument: 'RecruitDocumentsModule/recruitDocument',
+      statuses: 'RecruitDocumentsModule/statuses',
+      groups: 'RecruitDocumentsModule/groups',
+      positions: 'RecruitDocumentsModule/positions',
       templates: 'RecruitDocumentsModule/templates',
       evaluations: 'RecruitDocumentsModule/evaluations',
       evaluation: 'RecruitDocumentsModule/evaluation',
       sections: 'RecruitDocumentsModule/sections',
-      statuses: 'RecruitDocumentsModule/statuses',
-      groups: 'RecruitDocumentsModule/groups',
-      positions: 'RecruitDocumentsModule/positions',
       loading: 'RecruitDocumentsModule/loading'
     })
   },

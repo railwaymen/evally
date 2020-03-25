@@ -2,7 +2,7 @@
   <div class="sidebar sidebar--boxed">
     <div class="vcard">
       <div class="vcard__header">
-        <h3 class="vcard__fullname">{{ recruitDocument.fullname }}</h3>
+        <h3 class="vcard__fullname">{{ localRecruitDocument.fullname }}</h3>
 
         <div class="vcard__socials">
           <v-btn icon href="http://github.com" target="_blank">
@@ -18,24 +18,24 @@
       <div class="vcard__content">
         <div class="vcard__info">
           <div class="vcard__label">{{ $t('components.recruitments.sidebar.gender') }}</div>
-          <div class="vcard__value">{{ recruitDocument.gender }}</div>
+          <div class="vcard__value">{{ localRecruitDocument.gender }}</div>
         </div>
 
         <div class="vcard__info">
           <div class="vcard__label">{{ $t('components.recruitments.sidebar.nationality') }}</div>
-          <div class="vcard__value">{{ recruitDocument.nationality }}</div>
+          <div class="vcard__value">{{ localRecruitDocument.nationality }}</div>
         </div>
 
         <h4 class="vcard__subheader">Contact Information</h4>
 
         <div class="vcard__info">
           <div class="vcard__label">{{ $t('components.recruitments.sidebar.phoneNumber') }}</div>
-          <div class="vcard__value">{{ recruitDocument.phone }}</div>
+          <div class="vcard__value">{{ localRecruitDocument.phone }}</div>
         </div>
 
         <div class="vcard__info">
           <div class="vcard__label">{{ $t('components.recruitments.sidebar.email') }}</div>
-          <div class="vcard__value">{{ recruitDocument.email }}</div>
+          <div class="vcard__value">{{ localRecruitDocument.email }}</div>
         </div>
 
         <h4 class="vcard__subheader">Application Details</h4>
@@ -46,8 +46,8 @@
           <div class="vcard__input">
             <status-select
               :items="statuses"
-              :value="recruitDocument.status"
-              @input="updateStatus"
+              v-model="localRecruitDocument.status"
+              @change="updateStatus"
               item-value="value"
               item-text="label"
               return-object
@@ -63,7 +63,7 @@
           <div class="vcard__input">
             <v-combobox
               :items="groups"
-              :value="recruitDocument.group"
+              :value="localRecruitDocument.group"
               filled
               dense
             />
@@ -76,7 +76,7 @@
           <div class="vcard__input">
             <v-combobox
               :items="positions"
-              :value="recruitDocument.position"
+              :value="localRecruitDocument.position"
               filled
               dense
             />
@@ -85,12 +85,12 @@
 
         <div class="vcard__info">
           <div class="vcard__label">{{ $t('components.recruitments.sidebar.source') }}</div>
-          <div class="vcard__value">{{ recruitDocument.source }}</div>
+          <div class="vcard__value">{{ localRecruitDocument.source }}</div>
         </div>
 
         <div class="vcard__info">
           <div class="vcard__label">{{ $t('components.recruitments.sidebar.receivedDate') }}</div>
-          <div class="vcard__value">{{ recruitDocument.receivedAt }}</div>
+          <div class="vcard__value">{{ localRecruitDocument.receivedAt }}</div>
         </div>
 
         <h4 class="vcard__subheader">Attached Files</h4>
@@ -132,11 +132,11 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import { RecruitDocument } from '@models/recruit_document'
@@ -170,21 +170,33 @@ export default {
       default: () => []
     }
   },
-
+  data() {
+    return {
+      localRecruitDocument: new RecruitDocument({ ...this.recruitDocument })
+    }
+  },
   methods: {
-    updateStatus(selected) {
-      const status = new Status({ ...selected })
-
-
-      if (status.required_fields.length === 0) {
-        return console.log('Save!')
+    updateStatus(selectedStatus) {
+      if (selectedStatus.required_fields.length === 0) {
+        return this.update(this.localRecruitDocument)
       }
 
       DialogsBus.$emit('openFormsDialog', {
         innerComponent: StatusChangeForm,
         maxWidth: 500,
-        props: { status }
+        props: {
+          recruitDocument: this.localRecruitDocument,
+          prevStatus: new Status(this.recruitDocument.status)
+        }
       })
+    },
+    ...mapActions({
+      update: 'RecruitDocumentsModule/update'
+    })
+  },
+  watch: {
+    recruitDocument(newDoc, prevDoc) {
+      this.localRecruitDocument = new RecruitDocument({ ...newDoc })
     }
   }
 }

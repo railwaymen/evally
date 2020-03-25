@@ -26,6 +26,6 @@
 
 <script>
 export default {
-  name: 'RecruitmentStatusSelect'
+  name: 'StatusSelect'
 }
 </script>
