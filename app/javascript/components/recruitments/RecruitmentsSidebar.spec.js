@@ -11,13 +11,20 @@ describe('RecruitmentsSidebar', () => {
       email: 'e@domain.org',
       received_at: '2020-02-10'
     }),
+    statuses: ['accepted', 'rejected'],
+    groups: ['Ruby', 'Android'],
+    positions: ['Junior', 'Senior']
   }
 
   const wrapper = shallowMount(
     RecruitmentsSidebar,
     {
       propsData: props,
-      stubs: ['v-layout', 'v-flex', 'v-text-field'],
+      stubs: [
+        'v-layout', 'v-flex', 'v-text-field', 'v-btn', 'v-icon', 'v-combobox', 'v-list',
+        'v-list-item', 'v-list-item-action', 'v-list-item-content', 'v-list-item-title',
+        'v-list-item-subtitle'
+      ],
       mocks: {
         $t: key => i18n.t(key)
       }

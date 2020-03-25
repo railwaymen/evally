@@ -335,11 +335,17 @@ export default {
       },
       sidebar: {
         gender: 'Płeć',
+        nationality: 'Narodowość',
         email: 'Email',
         phoneNumber: 'Numer telefonu',
+        status: 'Status',
         group: 'Grupa',
         position: 'Stanowisko',
-        received_at: 'Data otrzymania'
+        source: 'Źródło',
+        receivedDate: 'Data otrzymania'
+      },
+      statusChangeForm: {
+        title: 'Zmień status'
       }
     }
   },
@@ -473,14 +479,20 @@ export default {
     },
     recruitments: {
       index: {
-        error: 'Błąd przy ładowaniu rekrutacji: {msg}'
+        error: 'Błąd przy ładowaniu zgłoszeń rekrutacyjnych: {msg}'
       },
       create: {
-        ok: 'Rekrutacja została utworzona',
-        error: 'Błąd przy tworzeniu rekrutacji: {msg}'
+        ok: 'Zgłoszenie rekrutacyjne zostało utworzone',
+        error: 'Błąd przy tworzeniu zgłoszenia rekrutacyjnego: {msg}'
+      },
+      update: {
+        ok: 'Zgłoszenie rekrutacyjne zostało zaktualizowane',
+        error: 'Błąd przy aktualizacji zgłoszenia rekrutacyjnego: {msg}'
       },
       show: {
-        error: 'Błąd przy wyświetleniu rekrutacji: {msg}'
+        error: 'Błąd przy ładowaniu zgłoszenia rekrutacyjnego: {msg}',
+        positionError: 'Stanowisko nie może być puste',
+        groupError: 'Grupa nie może być pusta'
       }
     }
   },

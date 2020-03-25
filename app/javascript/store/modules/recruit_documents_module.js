@@ -47,6 +47,10 @@ const RecruitDocumentsModule = {
       state.sections = new SectionsList(sections)
       state.evaluations.add(evaluation)
     },
+    addRecruitDocument(state, recruitDocument) {
+      state.recruitDocument = new RecruitDocument(recruitDocument)
+      state.recruitDocuments.add(recruitDocument)
+    },
     replaceSection(state, section) {
       state.sections.replace(section)
     },
@@ -66,12 +70,7 @@ const RecruitDocumentsModule = {
       state.statuses = statuses
     },
     setRecruit(state, data) {
-      const {
-        evaluations,
-        evaluation,
-        sections,
-        templates
-      } = data
+      const { evaluations, evaluation, sections, templates } = data
 
       state.evaluations = new EvaluationsList(evaluations)
       state.evaluation = new Evaluation(evaluation)
@@ -81,8 +80,11 @@ const RecruitDocumentsModule = {
     setRecruitDocument(state, recruitDocument) {
       state.recruitDocument = new RecruitDocument(recruitDocument)
     },
-    setRecruitDocuments(state, { recruit_documents, groups, statuses }) {
+    setRecruitDocuments(state, data) {
+      const { recruit_documents, groups, statuses, positions } = data
+
       state.recruitDocuments = new RecruitDocumentsList(recruit_documents)
+      state.positions = positions
       state.statuses = statuses
       state.groups = groups
     },
@@ -91,6 +93,10 @@ const RecruitDocumentsModule = {
     },
     resetState(state) {
       Object.assign(state, initialState())
+    },
+    updateRecruitDocument(state, recruitDocument) {
+      state.recruitDocument = new RecruitDocument(recruitDocument)
+      state.recruitDocuments.refresh(recruitDocument)
     }
   },
 
@@ -173,7 +179,8 @@ const RecruitDocumentsModule = {
         recruitableApiClient
           .post(RecruitDocument.routes.recruitDocumentsPath, params)
           .then(response => {
-            commit('setRecruitDocument', response.data)
+            commit('addRecruitDocument', response.data)
+
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.recruitments.create.ok') },
@@ -186,6 +193,35 @@ const RecruitDocumentsModule = {
             commit(
               'NotificationsModule/push',
               { error: i18n.t('messages.recruitments.create.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+
+          })
+      )
+    },
+    update({ commit }, recruitDocument) {
+      const params = {
+        recruit_document: recruitDocument.attributes
+      }
+
+      return (
+        recruitableApiClient
+          .put(RecruitDocument.routes.recruitDocumentPath(recruitDocument.id), params)
+          .then(response => {
+            commit('updateRecruitDocument', response.data)
+
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.recruitments.update.ok') },
+              { root: true }
+            )
+
+            return Promise.resolve(response.data)
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.recruitments.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
 

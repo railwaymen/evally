@@ -10,7 +10,7 @@ exports[`BasicTable matches do snapshot 1`] = `
       <v-select-stub items="ror,android" label="Group" clearable="" chips="" solo="" value=""></v-select-stub>
     </v-flex-stub>
     <v-flex-stub xs12="" lg4="">
-      <v-select-stub items="fresh,accepted" label="Status" clearable="" chips="" solo="" value=""></v-select-stub>
+      <status-select-stub items="fresh,accepted" label="Status" clearable="" solo="" value=""></status-select-stub>
     </v-flex-stub>
     <v-flex-stub xs12="">
       <v-data-table-stub headers="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]" items="" search=""></v-data-table-stub>

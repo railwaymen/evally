@@ -1,8 +1,11 @@
 <template>
   <v-layout row wrap class="align-stretch">
-    <v-flex xs10 offset-xs1 lg3 offset-lg0>
+    <v-flex xs12 lg3 >
       <recruitments-sidebar
         :recruitDocument="recruitDocument"
+        :positions="positions"
+        :statuses="statuses"
+        :groups="groups"
       />
     </v-flex>
 
@@ -38,6 +41,9 @@ export default {
   computed: {
      ...mapGetters({
       recruitDocument: 'RecruitDocumentsModule/recruitDocument',
+      statuses: 'RecruitDocumentsModule/statuses',
+      groups: 'RecruitDocumentsModule/groups',
+      positions: 'RecruitDocumentsModule/positions',
       templates: 'RecruitDocumentsModule/templates',
       evaluations: 'RecruitDocumentsModule/evaluations',
       evaluation: 'RecruitDocumentsModule/evaluation',

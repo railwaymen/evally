@@ -1,0 +1,19 @@
+.dotted-list {
+  &__item {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+  }
+
+  &__dot {
+    display: inline-block;
+    margin-right: rem2dec(1rem);
+    width: rem2dec(1.3rem);
+    height: rem2dec(1.3rem);
+    border-radius: 50%;
+  }
+
+  &__label {
+    font-size: rem2dec(1.3rem);
+  }
+}

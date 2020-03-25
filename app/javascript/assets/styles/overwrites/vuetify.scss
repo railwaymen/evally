@@ -17,3 +17,27 @@
 .v-expansion-panel::before {
   box-shadow: none;
 }
+
+.v-list-item--disabled {
+  border-bottom: 1px dashed #ccc;
+}
+
+
+.v-menu__content::-webkit-scrollbar  {
+  width: rem2dec(1rem);
+  background-color: $grey;
+}
+
+.v-menu__content::-webkit-scrollbar-thumb  {
+  background-color: $background-dark;
+  background-image: -webkit-linear-gradient(
+    45deg,
+  rgba(255, 255, 255, 0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+  rgba(255, 255, 255, 0.2) 50%,
+  rgba(255, 255, 255, 0.2) 75%,
+    transparent 75%,
+    transparent
+  );
+}

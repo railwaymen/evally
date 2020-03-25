@@ -11,7 +11,6 @@ class RecruitDocument extends Model {
       first_name: '',
       last_name: '',
       email: '',
-      status: '',
       group: '',
       phone: '',
       position: '',
@@ -19,7 +18,19 @@ class RecruitDocument extends Model {
       received_at: moment().format('YYYY-MM-DD'),
       accept_current_processing: false,
       accept_future_processing: false,
-      public_recruit_id: ''
+      public_recruit_id: '',
+      status: {
+        value: '',
+        label: '',
+        color: '',
+        required_fields: []
+      },
+      task_sent_at: '',
+      call_scheduled_at: '',
+      interview_scheduled_at: '',
+      decision_made_at: '',
+      recruit_accepted_at: '',
+      rejection_reason: ''
     };
   }
 
@@ -28,7 +39,13 @@ class RecruitDocument extends Model {
   }
 
   get receivedAt() {
-    return moment(this.received_at).format('MMM DD, YYYY HH:mm')
+    return moment(this.received_at).format('YYYY-MM-DD HH:mm')
+  }
+
+  datetimeFormattedProperty(property) {
+    if (!this[property]) return '---'
+
+    return moment(this[property]).format('YYYY-MM-DD HH:mm')
   }
 
   static get routes() {
