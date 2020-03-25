@@ -1,0 +1,15 @@
+.datetime-field {
+  display: flex;
+
+  &__date {
+    flex: 1 1 auto;
+  }
+
+  &__time {
+    width: rem2dec(16rem)
+  }
+
+  & > * {
+    padding: rem2dec(.5rem)
+  }
+}

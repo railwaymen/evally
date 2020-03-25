@@ -46,7 +46,7 @@
           <div class="vcard__input">
             <status-select
               :items="statuses"
-              v-model="recruitDocument.status"
+              :value="recruitDocument.status"
               @input="updateStatus"
               item-value="value"
               item-text="label"
@@ -174,6 +174,7 @@ export default {
   methods: {
     updateStatus(selected) {
       const status = new Status({ ...selected })
+
 
       if (status.required_fields.length === 0) {
         return console.log('Save!')

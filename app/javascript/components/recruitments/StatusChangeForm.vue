@@ -28,32 +28,19 @@
             class="pa-2"
             xs12
           >
-            <template v-if="field.type === 'datetime'">
-              <v-menu
-                :close-on-content-click="true"
-                :nudge-right="40"
-                transition="scale-transition"
-                offset-y
-                min-width="290px"
-              >
-                <template v-slot:activator="{ on }">
-                  <v-text-field
-                    :value="form[field.value]"
-                    :label="field.label"
-                    :rules="[vRequired]"
-                    prepend-inner-icon="mdi-calendar"
-                    readonly
-                    v-on="on"
-                  />
-                </template>
-                <v-date-picker
-                  v-model="form[field.value]"
-                  :locale="$i18n.locale"
-                  no-title
-                  scrollable
-                />
-              </v-menu>
-            </template>
+            <datetime-field
+              v-if="field.type === 'datetime'"
+              v-model="form[field.value]"
+              :label="field.label"
+            />
+
+            <v-textarea
+              v-if="field.type === 'string'"
+              v-model="form[field.value]"
+              :label="field.label"
+              :rules="[vRequired]"
+              rows="2"
+            />
           </v-flex>
         </v-layout>
       </v-card-text>
@@ -85,8 +72,11 @@ import { mapActions } from 'vuex'
 
 import { Status } from '@models/status'
 
+import DatetimeField from '@components/shared/DatetimeField'
+
 export default {
   name: 'StatusChangeForm',
+  components: { DatetimeField },
   props: {
     status: {
       type: Status,
@@ -105,7 +95,8 @@ export default {
       this.$emit('closeDialog')
     },
     save() {
-      console.log('Save!')
+      this.$refs.form.validate()
+      console.log(this.form)
     },
     ...mapActions({
 
