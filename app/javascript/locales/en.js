@@ -480,14 +480,20 @@ export default {
     },
     recruitments: {
       index: {
-        error: 'Recruitments cannot be loaded: {msg}'
+        error: 'Recruit documents cannot be loaded: {msg}'
       },
       create: {
-        ok: 'Recruitment has been create',
-        error: 'Recruitment cannot be created: {msg}'
+        ok: 'Recruit document has been created',
+        error: 'Recruit document cannot be created: {msg}'
+      },
+      update: {
+        ok: 'Recruit document has been updated',
+        error: 'Recruit document cannot be updated: {msg}'
       },
       show: {
-        error: 'Recruitments cannot be loaded: {msg}'
+        error: 'Recruit document cannot be loaded: {msg}',
+        positionError: 'Position cannot be blank',
+        groupError: 'Group cannot be blank'
       }
     }
   },

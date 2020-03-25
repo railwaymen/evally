@@ -16,14 +16,40 @@
       </div>
 
       <div class="vcard__content">
-        <div class="vcard__info">
-          <div class="vcard__label">{{ $t('components.recruitments.sidebar.gender') }}</div>
-          <div class="vcard__value">{{ localRecruitDocument.gender }}</div>
+        <div class="vcard__info vcard__info--editable">
+          <div class="vcard__label">{{ $t('components.recruitments.sidebar.status') }}</div>
+
+          <div class="vcard__input">
+            <status-select
+              :items="statuses"
+              v-model="localRecruitDocument.status"
+              @change="updateStatus"
+              item-value="value"
+              item-text="label"
+              return-object
+              filled
+              dense
+            />
+          </div>
         </div>
 
-        <div class="vcard__info">
-          <div class="vcard__label">{{ $t('components.recruitments.sidebar.nationality') }}</div>
-          <div class="vcard__value">{{ localRecruitDocument.nationality }}</div>
+        <div
+          v-for="field in localRecruitDocument.status.required_fields"
+          :key="field.value"
+          class="vcard__info"
+        >
+          <template v-if="field.type === 'datetime'">
+            <div class="vcard__label">{{ field.label }}</div>
+            <div class="vcard__value">{{ recruitDocument.datetimeFormattedProperty(field.value) }}</div>
+          </template>
+
+          <v-textarea
+            v-if="field.type === 'text'"
+            :value="recruitDocument[field.value]"
+            :label="field.label"
+            readonly
+            filled
+          />
         </div>
 
         <h4 class="vcard__subheader">Contact Information</h4>
@@ -41,29 +67,14 @@
         <h4 class="vcard__subheader">Application Details</h4>
 
         <div class="vcard__info vcard__info--editable">
-          <div class="vcard__label">{{ $t('components.recruitments.sidebar.status') }}</div>
-
-          <div class="vcard__input">
-            <status-select
-              :items="statuses"
-              v-model="localRecruitDocument.status"
-              @change="updateStatus"
-              item-value="value"
-              item-text="label"
-              return-object
-              dense
-              block
-            />
-          </div>
-        </div>
-
-        <div class="vcard__info vcard__info--editable">
           <div class="vcard__label">{{ $t('components.recruitments.sidebar.group') }}</div>
 
           <div class="vcard__input">
             <v-combobox
               :items="groups"
-              :value="localRecruitDocument.group"
+              v-model="localRecruitDocument.group"
+              @change="updateGroup"
+              :rules="[vRequired]"
               filled
               dense
             />
@@ -76,7 +87,9 @@
           <div class="vcard__input">
             <v-combobox
               :items="positions"
-              :value="localRecruitDocument.position"
+              v-model="localRecruitDocument.position"
+              @change="updatePosition"
+              :rules="[vRequired]"
               filled
               dense
             />
@@ -176,6 +189,20 @@ export default {
     }
   },
   methods: {
+    updateGroup(selectedGroup) {
+      if (!selectedGroup) {
+        return this.flash({ error: this.$i18n.t('messages.recruitments.show.groupError') })
+      }
+
+      this.update(this.localRecruitDocument)
+    },
+    updatePosition(selectedPosition) {
+      if (!selectedPosition) {
+        return this.flash({ error: this.$i18n.t('messages.recruitments.show.positionError') })
+      }
+
+      this.update(this.localRecruitDocument)
+    },
     updateStatus(selectedStatus) {
       if (selectedStatus.required_fields.length === 0) {
         return this.update(this.localRecruitDocument)

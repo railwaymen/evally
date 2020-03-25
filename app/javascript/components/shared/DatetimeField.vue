@@ -67,13 +67,13 @@ export default {
   },
   methods: {
     updateDate(value) {
-      this.datetime = `${value} ${this.computedTime || '00:00:00'}`
+      this.datetime = this.$moment(`${value} ${this.computedTime || '00:00:00'}`).format()
     },
     updateTime(e) {
       let time = e.target.value
 
       if (!time.match(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)) time = '00:00'
-      this.datetime = `${this.computedDate} ${time}:00`
+      this.datetime = this.$moment(`${this.computedDate} ${time}:00`).format()
     }
   },
   computed: {

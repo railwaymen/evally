@@ -6,6 +6,7 @@ class Status extends Model {
       value: '',
       label: '',
       color: '',
+      disabled: false,
       required_fields: []
     }
   }

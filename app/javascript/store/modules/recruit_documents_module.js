@@ -212,7 +212,7 @@ const RecruitDocumentsModule = {
 
             commit(
               'NotificationsModule/push',
-              { success: i18n.t('messages.recruitments.create.ok') },
+              { success: i18n.t('messages.recruitments.update.ok') },
               { root: true }
             )
 
@@ -221,7 +221,7 @@ const RecruitDocumentsModule = {
           .catch(error => {
             commit(
               'NotificationsModule/push',
-              { error: i18n.t('messages.recruitments.create.error', { msg: fetchError(error) }) },
+              { error: i18n.t('messages.recruitments.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
 

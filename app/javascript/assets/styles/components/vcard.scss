@@ -38,13 +38,17 @@
     }
   }
 
+  &__label {
+    flex: 1 1 auto;
+  }
+
   &__value {
-    margin-left: auto;
+    width: 60%;
     font-weight: bold;
+    text-align: right;
   }
 
   &__input {
-    max-width: 60%;
-    margin-left: auto
+    width: 60%;
   }
 }

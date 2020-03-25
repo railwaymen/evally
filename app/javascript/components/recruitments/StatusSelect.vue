@@ -2,6 +2,7 @@
   <v-select
     v-bind="$attrs"
     v-on="$listeners"
+    item-disabled="disabled"
   >
     <template #selection="{ item, selected }">
       <v-chip

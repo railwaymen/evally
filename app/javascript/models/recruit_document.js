@@ -42,34 +42,10 @@ class RecruitDocument extends Model {
     return moment(this.received_at).format('YYYY-MM-DD HH:mm')
   }
 
-  get taskSentAt() {
-    if (!this.task_sent_at) return '---'
+  datetimeFormattedProperty(property) {
+    if (!this[property]) return '---'
 
-    return moment(this.task_sent_at).format('YYYY-MM-DD HH:mm')
-  }
-
-  get callScheduledAt() {
-    if (!this.call_scheduled_at) return '---'
-
-    return moment(this.call_scheduled_at).format('YYYY-MM-DD HH:mm')
-  }
-
-  get interviewScheduledAt() {
-    if (!this.interview_scheduled_at) return '---'
-
-    return moment(this.interview_scheduled_at).format('YYYY-MM-DD HH:mm')
-  }
-
-  get decisionMadeAt() {
-    if (!this.decision_made_at) return '---'
-
-    return moment(this.task_sent_at).format('YYYY-MM-DD HH:mm')
-  }
-
-  get recruitAcceptedAt() {
-    if (!this.recruit_accepted_at) return '---'
-
-    return moment(this.recruit_accepted_at).format('YYYY-MM-DD HH:mm')
+    return moment(this[property]).format('YYYY-MM-DD HH:mm')
   }
 
   static get routes() {

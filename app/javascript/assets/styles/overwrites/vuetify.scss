@@ -18,6 +18,10 @@
   box-shadow: none;
 }
 
+.v-list-item--disabled {
+  border-bottom: 1px dashed #ccc;
+}
+
 
 .v-menu__content::-webkit-scrollbar  {
   width: rem2dec(1rem);
