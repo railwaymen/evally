@@ -9,10 +9,12 @@ import { Evaluation, EvaluationsList } from '@models/evaluation'
 import { RecruitDocument, RecruitDocumentsList } from '@models/recruit_document'
 import { SectionsList } from '@models/section'
 import { TemplatesList } from '@models/template'
+import { FilesList } from '@models/file'
 
 const initialState = () => ({
   recruitDocuments: new RecruitDocumentsList(),
   recruitDocument: new RecruitDocument(),
+  files: new FilesList(),
   evaluations: new EvaluationsList(),
   evaluation: new Evaluation(),
   sections: new SectionsList(),
@@ -31,6 +33,7 @@ const RecruitDocumentsModule = {
   getters: {
     recruitDocuments: state => state.recruitDocuments,
     recruitDocument: state => state.recruitDocument,
+    files: state => state.files,
     templates: state => state.templates,
     evaluations: state => state.evaluations,
     evaluation: state => state.evaluation,
@@ -59,10 +62,16 @@ const RecruitDocumentsModule = {
       state.sections = new SectionsList()
       state.evaluations.remove(id)
     },
+    removeFile(state, id) {
+      state.files.remove(id)
+    },
     setEvaluation(state, { evaluation, sections }) {
       state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
       state.evaluations.refresh(evaluation)
+    },
+    setFiles(state, files) {
+      state.files = new FilesList(files)
     },
     setForm(state, { positions, groups, statuses }) {
       state.positions = positions
@@ -77,8 +86,9 @@ const RecruitDocumentsModule = {
       state.sections = new SectionsList(sections)
       state.templates = new TemplatesList(templates)
     },
-    setRecruitDocument(state, recruitDocument) {
-      state.recruitDocument = new RecruitDocument(recruitDocument)
+    setRecruitDocument(state, { recruit_document, files }) {
+      state.recruitDocument = new RecruitDocument(recruit_document)
+      state.files = new FilesList(files)
     },
     setRecruitDocuments(state, data) {
       const { recruit_documents, groups, statuses, positions } = data
@@ -225,6 +235,59 @@ const RecruitDocumentsModule = {
               { root: true }
             )
 
+          })
+      )
+    },
+    uploadFiles({ state, commit }, files) {
+      const headers = { 'Content-Type': 'multipart/form-data' }
+
+      const formData = new FormData();
+      files.map(file => formData.append('files[]', file))
+
+      return (
+        recruitableApiClient
+          .post(RecruitDocument.routes.recruitDocumentFilesPath(state.recruitDocument.id), formData, { headers })
+          .then(response => {
+            commit('setFiles', response.data)
+
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.recruitments.uploadFiles.ok') },
+              { root: true }
+            )
+
+            return Promise.resolve(response.data)
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.recruitments.uploadFiles.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      )
+    },
+    destroyFile({ state, commit }, id) {
+      return (
+        recruitableApiClient
+          .delete(RecruitDocument.routes.recruitDocumentFilePath(state.recruitDocument.id, id))
+          .then(() => {
+            commit('removeFile', id)
+
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.recruitments.destroyFile.ok') },
+              { root: true }
+            )
+
+            return Promise.resolve()
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.recruitments.destroyFile.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
           })
       )
     },
