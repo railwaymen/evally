@@ -103,28 +103,40 @@ If you want to use live code reloading, or you have enough JavaScript that on-de
 ```bash
  ./bin/setup_for_docker
 ```
+##### 2. Create image for evally_recruitable
 
-##### 2. Start the app
+In evally_recruitable project dir run
+```bash
+   cp config/database.docker.yml config/database.yml
+   docker-compose build app
+```
+
+##### 3. Start the app
 ```bash
  docker-compose up
 ```
 
-##### 3. Create database
+##### 4. Create database
 
 ```bash
  docker exec evally_app rails db:create
 ```
 
- ##### 4. Load db schema
+ ##### 5. Load db schema
 
 ```bash
  docker exec evally_app rails db:schema:load
  ```
 
- ##### 5. Run seed
+ ##### 6. Run seed
 
 ```bash
  docker exec evally_app rails db:seed
+```
+
+```bash
+  docker exec evally_recruitable_app rake db:create
+  docker exec evally_recruitable_app rake db:migrate
 ```
 
 ## Feedback
