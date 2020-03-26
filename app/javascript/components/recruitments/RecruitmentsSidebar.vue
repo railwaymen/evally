@@ -52,7 +52,7 @@
           />
         </div>
 
-        <h4 class="vcard__subheader">Contact Information</h4>
+        <h4 class="vcard__subheader">{{ $t('components.recruitments.sidebar.contactInformation') }}</h4>
 
         <div class="vcard__info">
           <div class="vcard__label">{{ $t('components.recruitments.sidebar.phoneNumber') }}</div>
@@ -64,7 +64,7 @@
           <div class="vcard__value">{{ localRecruitDocument.email }}</div>
         </div>
 
-        <h4 class="vcard__subheader">Application Details</h4>
+        <h4 class="vcard__subheader">{{ $t('components.recruitments.sidebar.applicationDetails') }}</h4>
 
         <div class="vcard__info vcard__info--editable">
           <div class="vcard__label">{{ $t('components.recruitments.sidebar.group') }}</div>
@@ -106,41 +106,46 @@
           <div class="vcard__value">{{ localRecruitDocument.receivedAt }}</div>
         </div>
 
-        <h4 class="vcard__subheader">Attached Files</h4>
+        <h4 class="vcard__subheader">{{ $t('components.recruitments.sidebar.attachedFiles', { n: files.models.length }) }}</h4>
 
         <div class="vcard__list">
-          <v-list-item two-line>
+          <v-list-item
+            v-for="file in files.models"
+            :key="file.id"
+            two-line
+          >
             <v-list-item-action>
-              <v-icon>mdi-file-pdf</v-icon>
+              <v-icon>{{ file.icon }}</v-icon>
             </v-list-item-action>
 
             <v-list-item-content>
-              <v-list-item-title>CV.pdf</v-list-item-title>
-              <v-list-item-subtitle>354kB</v-list-item-subtitle>
+              <v-list-item-title>
+                <a :href="file.path" target="_blank">{{ file.filename }}</a>
+              </v-list-item-title>
+
+              <v-list-item-subtitle>{{ file.kilobyte_size }}</v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-action>
-              <v-btn icon>
-                <v-icon>mdi-close</v-icon>
+              <v-btn @click.stop="openDeleteFileConfirm(file)" icon>
+                <v-icon>mdi-delete-outline</v-icon>
               </v-btn>
             </v-list-item-action>
           </v-list-item>
 
-          <v-list-item two-line>
-            <v-list-item-action>
-              <v-icon>mdi-folder-zip</v-icon>
-            </v-list-item-action>
-
+          <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>portfolio.zip</v-list-item-title>
-              <v-list-item-subtitle>1758kB</v-list-item-subtitle>
+              <v-file-input
+                @change="upload"
+                v-model="localFiles"
+                :label="$t('components.recruitments.sidebar.addFile')"
+                prepend-inner-icon="mdi-paperclip"
+                prepend-icon=""
+                multiple
+                filled
+                dense
+              />
             </v-list-item-content>
-
-            <v-list-item-action>
-              <v-btn icon>
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-            </v-list-item-action>
           </v-list-item>
         </div>
       </div>
@@ -152,9 +157,11 @@
 import { mapActions } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
+import { FilesList } from '@models/file'
 import { RecruitDocument } from '@models/recruit_document'
 import { Status } from '@models/status'
 
+import DeleteFileConfirm from '@components/recruitments/DeleteFileConfirm'
 import StatusChangeForm from '@components/recruitments/StatusChangeForm'
 import StatusSelect from '@components/recruitments/StatusSelect'
 
@@ -181,14 +188,26 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    files: {
+      type: FilesList,
+      required: true,
+      default: () => new FilesList()
     }
   },
   data() {
     return {
-      localRecruitDocument: new RecruitDocument({ ...this.recruitDocument })
+      localRecruitDocument: new RecruitDocument({ ...this.recruitDocument }),
+      localFiles: []
     }
   },
   methods: {
+    openDeleteFileConfirm(file) {
+      DialogsBus.$emit('openFormsDialog', {
+        innerComponent: DeleteFileConfirm,
+        props: { file }
+      })
+    },
     updateGroup(selectedGroup) {
       if (!selectedGroup) {
         return this.flash({ error: this.$i18n.t('messages.recruitments.show.groupError') })
@@ -217,8 +236,15 @@ export default {
         }
       })
     },
+    upload() {
+      if (this.localFiles.length > 0) {
+        this.uploadFiles(this.localFiles)
+          .then(() => this.localFiles = [])
+      }
+    },
     ...mapActions({
-      update: 'RecruitDocumentsModule/update'
+      update: 'RecruitDocumentsModule/update',
+      uploadFiles: 'RecruitDocumentsModule/uploadFiles'
     })
   },
   watch: {

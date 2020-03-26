@@ -3,6 +3,7 @@ import i18n from '@locales/i18n'
 
 import RecruitmentsSidebar from './RecruitmentsSidebar'
 
+import { FilesList } from '@models/file'
 import { RecruitDocument } from '@models/recruit_document'
 
 describe('RecruitmentsSidebar', () => {
@@ -11,6 +12,7 @@ describe('RecruitmentsSidebar', () => {
       email: 'e@domain.org',
       received_at: '2020-02-10'
     }),
+    files: new FilesList(),
     statuses: ['accepted', 'rejected'],
     groups: ['Ruby', 'Android'],
     positions: ['Junior', 'Senior']
@@ -23,7 +25,7 @@ describe('RecruitmentsSidebar', () => {
       stubs: [
         'v-layout', 'v-flex', 'v-text-field', 'v-btn', 'v-icon', 'v-combobox', 'v-list',
         'v-list-item', 'v-list-item-action', 'v-list-item-content', 'v-list-item-title',
-        'v-list-item-subtitle'
+        'v-list-item-subtitle', 'v-file-input'
       ],
       mocks: {
         $t: key => i18n.t(key)

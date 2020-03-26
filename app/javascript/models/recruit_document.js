@@ -19,18 +19,18 @@ class RecruitDocument extends Model {
       accept_current_processing: false,
       accept_future_processing: false,
       public_recruit_id: '',
-      status: {
-        value: '',
-        label: '',
-        color: '',
-        required_fields: []
-      },
       task_sent_at: '',
       call_scheduled_at: '',
       interview_scheduled_at: '',
       decision_made_at: '',
       recruit_accepted_at: '',
-      rejection_reason: ''
+      rejection_reason: '',
+      status: {
+        value: '',
+        label: '',
+        color: '',
+        required_fields: []
+      }
     };
   }
 
@@ -54,7 +54,9 @@ class RecruitDocument extends Model {
       recruitDocumentsFilterPath: payload => `/v2/recruit_documents?${getURLParams(payload)}`,
       recruitDocumentsFormPath: '/v2/recruit_documents/form',
       recruitDocumentPath: id => `/v2/recruit_documents/${id}`,
-      recruitPath: publicRecruitId => `/v2/recruits/${publicRecruitId}`
+      recruitPath: publicRecruitId => `/v2/recruits/${publicRecruitId}`,
+      recruitDocumentFilesPath: recruitDocumentId => `/v2/recruit_documents/${recruitDocumentId}/files`,
+      recruitDocumentFilePath: (recruitDocumentId, id) => `/v2/recruit_documents/${recruitDocumentId}/files/${id}`,
     }
   }
 }

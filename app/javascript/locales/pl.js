@@ -333,7 +333,14 @@ export default {
       evaluationsSidebar: {
         selectLabel: 'Ocena'
       },
+      deleteFileConfirm: {
+        title: 'Usuń plik',
+        body: 'Czy na pewno chcesz usunąć ten plik?'
+      },
       sidebar: {
+        contactInformation: 'Dane kontaktowe',
+        applicationDetails: 'Szczegóły zgłoszenia',
+        attachedFiles: 'Dołączone pliki ({n})',
         gender: 'Płeć',
         nationality: 'Narodowość',
         email: 'Email',
@@ -342,7 +349,8 @@ export default {
         group: 'Grupa',
         position: 'Stanowisko',
         source: 'Źródło',
-        receivedDate: 'Data otrzymania'
+        receivedDate: 'Data otrzymania',
+        addFile: 'Doda plik'
       },
       statusChangeForm: {
         title: 'Zmień status'
@@ -493,6 +501,14 @@ export default {
         error: 'Błąd przy ładowaniu zgłoszenia rekrutacyjnego: {msg}',
         positionError: 'Stanowisko nie może być puste',
         groupError: 'Grupa nie może być pusta'
+      },
+      uploadFiles: {
+        ok: 'Plik został wgrany',
+        error: 'Błąd przy wgrywaniu pliku: {msg}'
+      },
+      destroyFile: {
+        ok: 'Plik został usunięty',
+        error: 'Błąd przy usuwaniu pliku: {msg}'
       }
     }
   },

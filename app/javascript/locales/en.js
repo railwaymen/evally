@@ -334,7 +334,14 @@ export default {
       evaluationsSidebar: {
         selectLabel: 'Evaluation'
       },
+      deleteFileConfirm: {
+        title: 'Delete File',
+        body: 'Are you sure you want to delete this file?'
+      },
       sidebar: {
+        contactInformation: 'Contact Information',
+        applicationDetails: 'Application Details',
+        attachedFiles: 'Attached Files ({n})',
         gender: 'Gender',
         nationality: 'Nationality',
         email: 'Email',
@@ -343,7 +350,8 @@ export default {
         group: 'Group',
         position: 'Position',
         source: 'Source',
-        receivedDate: 'Received Date'
+        receivedDate: 'Received Date',
+        addFile: 'Add File'
       },
       statusChangeForm: {
         title: 'Change Status'
@@ -494,6 +502,14 @@ export default {
         error: 'Recruit document cannot be loaded: {msg}',
         positionError: 'Position cannot be blank',
         groupError: 'Group cannot be blank'
+      },
+      uploadFiles: {
+        ok: 'Files has been uploaded',
+        error: 'Files cant be uploaded: {msg}'
+      },
+      destroyFile: {
+        ok: 'File has been deleted',
+        error: 'File cannot be deleted: {msg}'
       }
     }
   },

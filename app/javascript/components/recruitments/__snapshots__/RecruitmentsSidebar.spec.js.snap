@@ -51,35 +51,12 @@ exports[`RecruitmentsSidebar matches do snapshot 1`] = `
         <div class="vcard__label">Received Date</div>
         <div class="vcard__value">2020-02-10 00:00</div>
       </div>
-      <h4 class="vcard__subheader">Attached Files</h4>
+      <h4 class="vcard__subheader">Attached Files ({n})</h4>
       <div class="vcard__list">
-        <v-list-item-stub two-line="">
-          <v-list-item-action-stub>
-            <v-icon-stub>mdi-file-pdf</v-icon-stub>
-          </v-list-item-action-stub>
+        <v-list-item-stub>
           <v-list-item-content-stub>
-            <v-list-item-title-stub>CV.pdf</v-list-item-title-stub>
-            <v-list-item-subtitle-stub>354kB</v-list-item-subtitle-stub>
+            <v-file-input-stub label="Add File" prepend-inner-icon="mdi-paperclip" prepend-icon="" multiple="" filled="" dense="" value=""></v-file-input-stub>
           </v-list-item-content-stub>
-          <v-list-item-action-stub>
-            <v-btn-stub icon="">
-              <v-icon-stub>mdi-close</v-icon-stub>
-            </v-btn-stub>
-          </v-list-item-action-stub>
-        </v-list-item-stub>
-        <v-list-item-stub two-line="">
-          <v-list-item-action-stub>
-            <v-icon-stub>mdi-folder-zip</v-icon-stub>
-          </v-list-item-action-stub>
-          <v-list-item-content-stub>
-            <v-list-item-title-stub>portfolio.zip</v-list-item-title-stub>
-            <v-list-item-subtitle-stub>1758kB</v-list-item-subtitle-stub>
-          </v-list-item-content-stub>
-          <v-list-item-action-stub>
-            <v-btn-stub icon="">
-              <v-icon-stub>mdi-close</v-icon-stub>
-            </v-btn-stub>
-          </v-list-item-action-stub>
         </v-list-item-stub>
       </div>
     </div>
