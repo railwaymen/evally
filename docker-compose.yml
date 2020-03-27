@@ -29,9 +29,9 @@ services:
     depends_on:
       - db_recruitable
     environment:
-      DB_HOST: db_recruitable
-      DB_USERNAME: postgres
-      DB_PASSWORD: ''
+      DATABASE_HOST: db_recruitable
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: ''
     ports:
       - '3030:3030'
   app:
