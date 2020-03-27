@@ -7,9 +7,7 @@ services:
       - postgres:/var/lib/postgresql/data
 
   webpacker:
-    build:
-      context: .
-      dockerfile: ./docker/Dockerfile
+    image: evally_app:latest
     container_name: evally_webpacker
     command: ./bin/webpack-dev-server
     user: ${CURRENT_USER}
@@ -37,11 +35,9 @@ services:
     ports:
       - '3030:3030'
   app:
+    image: evally_app:latest
     env_file:
       - ./docker/docker.env
-    build:
-      context: .
-      dockerfile: ./docker/Dockerfile
     container_name: evally_app
     user: ${CURRENT_USER}
     volumes:
@@ -54,7 +50,6 @@ services:
     depends_on:
       - webpacker
       - db
-
 
 volumes:
   postgres:

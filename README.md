@@ -96,19 +96,18 @@ If you want to use live code reloading, or you have enough JavaScript that on-de
 # run webpack dev server
 ./bin/webpack-dev-server
 ```
+## Run the app using docker-compose
 
-## Run the app using docker
-
-##### 1. Setup config for docker
+##### 1. Build docker image
 ```bash
- ./bin/setup_for_docker
+  docker build -t evally_app:latest -f docker/Dockerfile .
 ```
 ##### 2. Create image for evally_recruitable
 
 In evally_recruitable project dir run
 ```bash
    cp config/database.docker.yml config/database.yml
-   docker-compose build app
+   docker build -t evally_recruitable_app:latest -f docker/Dockerfile .
 ```
 
 ##### 3. Start the app
