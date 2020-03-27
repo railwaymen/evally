@@ -15,7 +15,29 @@
               append-icon="mdi-chevron-down"
               prepend-inner-icon="mdi-label-outline"
               :label="$t('shared.general.fields.status')"
+              return-object
               small
+            />
+          </v-flex>
+
+          <v-flex
+            v-for="field in localRecruitment.status.required_fields"
+            :key="field.value"
+            class="px-2"
+            xs12
+          >
+            <datetime-field
+              v-if="field.type === 'datetime'"
+              v-model="localRecruitment[field.value]"
+              :label="field.label"
+            />
+
+            <v-textarea
+              v-if="field.type === 'text'"
+              v-model="localRecruitment[field.value]"
+              :label="field.label"
+              :rules="[vRequired]"
+              rows="2"
             />
           </v-flex>
 
@@ -177,11 +199,12 @@ import { mapActions } from 'vuex'
 
 import { RecruitDocument } from '@models/recruit_document'
 
+import DatetimeField from '@components/shared/DatetimeField'
 import StatusSelect from '@components/recruitments/StatusSelect'
 
 export default {
   name: 'RecruitmentForm',
-  components: { StatusSelect },
+  components: { DatetimeField, StatusSelect },
   props: {
     groups: {
       type: Array,
