@@ -5,16 +5,16 @@ import { fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
 
+import { AttachmentsList } from '@models/attachment'
 import { Evaluation, EvaluationsList } from '@models/evaluation'
 import { RecruitDocument, RecruitDocumentsList } from '@models/recruit_document'
 import { SectionsList } from '@models/section'
 import { TemplatesList } from '@models/template'
-import { FilesList } from '@models/file'
 
 const initialState = () => ({
   recruitDocuments: new RecruitDocumentsList(),
   recruitDocument: new RecruitDocument(),
-  files: new FilesList(),
+  attachments: new AttachmentsList(),
   evaluations: new EvaluationsList(),
   evaluation: new Evaluation(),
   sections: new SectionsList(),
@@ -33,7 +33,7 @@ const RecruitDocumentsModule = {
   getters: {
     recruitDocuments: state => state.recruitDocuments,
     recruitDocument: state => state.recruitDocument,
-    files: state => state.files,
+    attachments: state => state.attachments,
     templates: state => state.templates,
     evaluations: state => state.evaluations,
     evaluation: state => state.evaluation,
@@ -54,6 +54,10 @@ const RecruitDocumentsModule = {
       state.recruitDocument = new RecruitDocument(recruitDocument)
       state.recruitDocuments.add(recruitDocument)
     },
+    clearRecruitDocument(state) {
+      state.recruitDocument = new RecruitDocument()
+      state.attachments = new AttachmentsList()
+    },
     replaceSection(state, section) {
       state.sections.replace(section)
     },
@@ -62,21 +66,16 @@ const RecruitDocumentsModule = {
       state.sections = new SectionsList()
       state.evaluations.remove(id)
     },
-    removeFile(state, id) {
-      state.files.remove(id)
+    removeAttachment(state, id) {
+      state.attachments.remove(id)
     },
     setEvaluation(state, { evaluation, sections }) {
       state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
       state.evaluations.refresh(evaluation)
     },
-    setFiles(state, files) {
-      state.files = new FilesList(files)
-    },
-    setForm(state, { positions, groups, statuses }) {
-      state.positions = positions
-      state.groups = groups
-      state.statuses = statuses
+    setAttachments(state, attachments) {
+      state.attachments = new AttachmentsList(attachments)
     },
     setRecruit(state, data) {
       const { evaluations, evaluation, sections, templates } = data
@@ -86,12 +85,28 @@ const RecruitDocumentsModule = {
       state.sections = new SectionsList(sections)
       state.templates = new TemplatesList(templates)
     },
-    setRecruitDocument(state, { recruit_document, files }) {
+    setRecruitDocument(state, data) {
+      const {
+        recruit_document,
+        attachments,
+        positions,
+        statuses,
+        groups
+      } = data
+
       state.recruitDocument = new RecruitDocument(recruit_document)
-      state.files = new FilesList(files)
+      state.attachments = new AttachmentsList(attachments)
+      state.positions = positions
+      state.groups = groups
+      state.statuses = statuses
     },
     setRecruitDocuments(state, data) {
-      const { recruit_documents, groups, statuses, positions } = data
+      const {
+        recruit_documents,
+        groups,
+        statuses,
+        positions
+      } = data
 
       state.recruitDocuments = new RecruitDocumentsList(recruit_documents)
       state.positions = positions
@@ -166,11 +181,11 @@ const RecruitDocumentsModule = {
         })
         .finally(() => commit('setLoading', false))
     },
-    form({ commit }) {
+    newForm({ commit }) {
       recruitableApiClient
-        .get(RecruitDocument.routes.recruitDocumentsFormPath)
+        .get(RecruitDocument.routes.recruitDocumentsNewFormPath)
         .then(response => {
-          commit('setForm', response.data)
+          commit('setRecruitDocument', response.data)
         })
         .catch(error => {
           commit(
@@ -180,14 +195,18 @@ const RecruitDocumentsModule = {
           )
         })
     },
-    create({ commit }, recruitDocument) {
-      const params = {
-        recruit_document: recruitDocument.attributes
+    create({ commit }, { recruitDocument, attachments }) {
+      const formData = new FormData();
+
+      for (let key in recruitDocument) {
+        formData.append(`recruit_document[${key}]`, recruitDocument[key]);
       }
+
+      attachments.map(attachment => formData.append('recruit_document[files][]', attachment))
 
       return (
         recruitableApiClient
-          .post(RecruitDocument.routes.recruitDocumentsPath, params)
+          .post(RecruitDocument.routes.recruitDocumentsPath, formData)
           .then(response => {
             commit('addRecruitDocument', response.data)
 
@@ -238,21 +257,21 @@ const RecruitDocumentsModule = {
           })
       )
     },
-    uploadFiles({ state, commit }, files) {
+    uploadAttachments({ state, commit }, attachments) {
       const headers = { 'Content-Type': 'multipart/form-data' }
 
       const formData = new FormData();
-      files.map(file => formData.append('files[]', file))
+      attachments.map(attachment => formData.append('files[]', attachment))
 
       return (
         recruitableApiClient
-          .post(RecruitDocument.routes.recruitDocumentFilesPath(state.recruitDocument.id), formData, { headers })
+          .post(RecruitDocument.routes.attachmentsPath(state.recruitDocument.id), formData, { headers })
           .then(response => {
-            commit('setFiles', response.data)
+            commit('setAttachments', response.data)
 
             commit(
               'NotificationsModule/push',
-              { success: i18n.t('messages.recruitments.uploadFiles.ok') },
+              { success: i18n.t('messages.recruitments.uploadAttachments.ok') },
               { root: true }
             )
 
@@ -261,22 +280,22 @@ const RecruitDocumentsModule = {
           .catch(error => {
             commit(
               'NotificationsModule/push',
-              { error: i18n.t('messages.recruitments.uploadFiles.error', { msg: fetchError(error) }) },
+              { error: i18n.t('messages.recruitments.uploadAttachments.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
       )
     },
-    destroyFile({ state, commit }, id) {
+    destroyAttachment({ state, commit }, id) {
       return (
         recruitableApiClient
-          .delete(RecruitDocument.routes.recruitDocumentFilePath(state.recruitDocument.id, id))
+          .delete(RecruitDocument.routes.attachmentPath(state.recruitDocument.id, id))
           .then(() => {
-            commit('removeFile', id)
+            commit('removeAttachment', id)
 
             commit(
               'NotificationsModule/push',
-              { success: i18n.t('messages.recruitments.destroyFile.ok') },
+              { success: i18n.t('messages.recruitments.destroyAttachment.ok') },
               { root: true }
             )
 
@@ -285,7 +304,7 @@ const RecruitDocumentsModule = {
           .catch(error => {
             commit(
               'NotificationsModule/push',
-              { error: i18n.t('messages.recruitments.destroyFile.error', { msg: fetchError(error) }) },
+              { error: i18n.t('messages.recruitments.destroyAttachment.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })

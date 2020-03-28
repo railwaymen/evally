@@ -6,7 +6,7 @@
         :positions="positions"
         :statuses="statuses"
         :groups="groups"
-        :files="files"
+        :attachments="attachments"
       />
     </v-flex>
 
@@ -42,7 +42,7 @@ export default {
   computed: {
      ...mapGetters({
       recruitDocument: 'RecruitDocumentsModule/recruitDocument',
-      files: 'RecruitDocumentsModule/files',
+      attachments: 'RecruitDocumentsModule/attachments',
       statuses: 'RecruitDocumentsModule/statuses',
       groups: 'RecruitDocumentsModule/groups',
       positions: 'RecruitDocumentsModule/positions',

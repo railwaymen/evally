@@ -319,12 +319,17 @@ export default {
         contact: 'Contact',
         general: 'General',
         agreements: 'Agreements',
+        addFiles: 'Add Files ...',
         male: 'male',
         female: 'female',
         position: 'Position',
         receivedDate: 'Received Date',
         acceptCurrentProcessing: 'Accept for current recruitment',
-        acceptFutureProcessing: 'Accept for future recruitments'
+        acceptFutureProcessing: 'Accept for future recruitments',
+        attachments: 'Attachments'
+      },
+      recruitmentFilePreview: {
+        label: 'Select Attached File'
       },
       createEvaluationForm: {
         title: 'Add Evaluation',
@@ -334,14 +339,14 @@ export default {
       evaluationsSidebar: {
         selectLabel: 'Evaluation'
       },
-      deleteFileConfirm: {
-        title: 'Delete File',
-        body: 'Are you sure you want to delete this file?'
+      deleteAttachmentConfirm: {
+        title: 'Delete Attachment',
+        body: 'Are you sure you want to delete this attachment?'
       },
       sidebar: {
         contactInformation: 'Contact Information',
         applicationDetails: 'Application Details',
-        attachedFiles: 'Attached Files ({n})',
+        attachments: 'Attachments ({n})',
         gender: 'Gender',
         nationality: 'Nationality',
         email: 'Email',
@@ -503,13 +508,13 @@ export default {
         positionError: 'Position cannot be blank',
         groupError: 'Group cannot be blank'
       },
-      uploadFiles: {
-        ok: 'Files has been uploaded',
-        error: 'Files cant be uploaded: {msg}'
+      uploadAttachments: {
+        ok: 'Attachments has been uploaded',
+        error: 'Attachments cant be uploaded: {msg}'
       },
-      destroyFile: {
-        ok: 'File has been deleted',
-        error: 'File cannot be deleted: {msg}'
+      destroyAttachment: {
+        ok: 'Attachment has been deleted',
+        error: 'Attachment cannot be deleted: {msg}'
       }
     }
   },

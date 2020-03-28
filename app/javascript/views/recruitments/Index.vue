@@ -20,7 +20,7 @@
         <v-tooltip bottom key="addNew" >
           <template #activator="{ on }">
             <v-btn
-              :to="{ name: 'new_recruitment_path'}"
+              :to="{ name: 'new_recruitment_path' }"
               v-on="on"
               color="green"
               icon

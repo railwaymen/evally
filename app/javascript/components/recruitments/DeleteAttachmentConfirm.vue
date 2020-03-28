@@ -1,12 +1,12 @@
 <template>
   <v-card class="pa-3" data-cy="delete-modal">
     <v-card-title>
-      <span class="headline">{{ $t('components.recruitments.deleteFileConfirm.title') }}</span>
+      <span class="headline">{{ $t('components.recruitments.deleteAttachmentConfirm.title') }}</span>
     </v-card-title>
 
     <v-card-text>
-      <p class="subtitle-1">{{ $t('components.recruitments.deleteFileConfirm.body') }}</p>
-      <p class=" body-1 mt-2 text-center">{{ file.filename }}</p>
+      <p class="subtitle-1">{{ $t('components.recruitments.deleteAttachmentConfirm.body') }}</p>
+      <p class=" body-1 mt-2 text-center">{{ attachment.name }} ({{ attachment.size }})</p>
     </v-card-text>
 
     <v-card-actions>
@@ -35,15 +35,15 @@
 </template>
 
 <script>
-import { File } from '@models/file'
+import { Attachment } from '@models/attachment'
 
 export default {
-  name: 'DeleteFileConfirm',
+  name: 'DeleteAttachmentConfirm',
   props: {
-    file: {
-      type: File,
+    attachment: {
+      type: Attachment,
       required: true,
-      default: () => new File()
+      default: () => new Attachment()
     }
   },
   methods: {
@@ -51,7 +51,7 @@ export default {
       this.$emit('closeDialog')
     },
     destroy() {
-      this.$store.dispatch('RecruitDocumentsModule/destroyFile', this.file.id)
+      this.$store.dispatch('RecruitDocumentsModule/destroyAttachment', this.attachment.id)
         .then(this.closeDialog)
     }
   }

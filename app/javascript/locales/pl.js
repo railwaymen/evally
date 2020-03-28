@@ -318,12 +318,17 @@ export default {
         contact: 'Kontakt',
         general: 'Ogólne',
         agreements: 'Zgody',
+        addFiles: 'Dodaj pliki ...',
         male: 'mężczyzna',
         female: 'kobieta',
         position: 'Stanowisko',
         receivedDate: 'Data odebrania',
         acceptCurrentProcessing: 'Zgoda na obecną rekrutację',
-        acceptFutureProcessing: 'Zgoda na przyszłe rekrutacje'
+        acceptFutureProcessing: 'Zgoda na przyszłe rekrutacje',
+        attachments: 'Załączniki'
+      },
+      recruitmentFilePreview: {
+        label: 'Wybierz załączony plik'
       },
       createEvaluationForm: {
         title: 'Stwórz ocenę',
@@ -333,14 +338,14 @@ export default {
       evaluationsSidebar: {
         selectLabel: 'Ocena'
       },
-      deleteFileConfirm: {
+      deleteAttachmentConfirm: {
         title: 'Usuń plik',
         body: 'Czy na pewno chcesz usunąć ten plik?'
       },
       sidebar: {
         contactInformation: 'Dane kontaktowe',
         applicationDetails: 'Szczegóły zgłoszenia',
-        attachedFiles: 'Dołączone pliki ({n})',
+        attachments: 'Dołączone pliki ({n})',
         gender: 'Płeć',
         nationality: 'Narodowość',
         email: 'Email',
