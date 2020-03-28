@@ -106,28 +106,32 @@
           <div class="vcard__value">{{ localRecruitDocument.receivedAt }}</div>
         </div>
 
-        <h4 class="vcard__subheader">{{ $t('components.recruitments.sidebar.attachedFiles', { n: files.models.length }) }}</h4>
+        <h4 class="vcard__subheader">{{ $t('components.recruitments.sidebar.attachments', { n: attachments.models.length }) }}</h4>
 
         <div class="vcard__list">
           <v-list-item
-            v-for="file in files.models"
-            :key="file.id"
+            v-for="attachment in attachments.models"
+            :key="attachment.id"
             two-line
           >
             <v-list-item-action>
-              <v-icon>{{ file.icon }}</v-icon>
+              <v-icon>{{ attachment.content_type | contentType2Icon }}</v-icon>
             </v-list-item-action>
 
             <v-list-item-content>
               <v-list-item-title>
-                <a :href="file.path" target="_blank">{{ file.filename }}</a>
+                <a :href="attachment.url" target="_blank">{{ attachment.name }}</a>
               </v-list-item-title>
 
-              <v-list-item-subtitle>{{ file.kilobyte_size }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ attachment.size }}</v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-action>
-              <v-btn @click.stop="openDeleteFileConfirm(file)" icon>
+              <v-btn
+                @click.stop="openDeleteAttachmentConfirm(attachment)"
+                color="red lighten-3"
+                icon
+              >
                 <v-icon>mdi-delete-outline</v-icon>
               </v-btn>
             </v-list-item-action>
@@ -137,7 +141,7 @@
             <v-list-item-content>
               <v-file-input
                 @change="upload"
-                v-model="localFiles"
+                v-model="localAttachments"
                 :label="$t('components.recruitments.sidebar.addFile')"
                 prepend-inner-icon="mdi-paperclip"
                 prepend-icon=""
@@ -157,11 +161,11 @@
 import { mapActions } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
-import { FilesList } from '@models/file'
+import { AttachmentsList } from '@models/attachment'
 import { RecruitDocument } from '@models/recruit_document'
 import { Status } from '@models/status'
 
-import DeleteFileConfirm from '@components/recruitments/DeleteFileConfirm'
+import DeleteAttachmentConfirm from '@components/recruitments/DeleteAttachmentConfirm'
 import StatusChangeForm from '@components/recruitments/StatusChangeForm'
 import StatusSelect from '@components/recruitments/StatusSelect'
 
@@ -189,23 +193,23 @@ export default {
       required: true,
       default: () => []
     },
-    files: {
-      type: FilesList,
+    attachments: {
+      type: AttachmentsList,
       required: true,
-      default: () => new FilesList()
+      default: () => new AttachmentsList()
     }
   },
   data() {
     return {
       localRecruitDocument: new RecruitDocument({ ...this.recruitDocument }),
-      localFiles: []
+      localAttachments: []
     }
   },
   methods: {
-    openDeleteFileConfirm(file) {
+    openDeleteAttachmentConfirm(attachment) {
       DialogsBus.$emit('openFormsDialog', {
-        innerComponent: DeleteFileConfirm,
-        props: { file }
+        innerComponent: DeleteAttachmentConfirm,
+        props: { attachment }
       })
     },
     updateGroup(selectedGroup) {
@@ -237,19 +241,22 @@ export default {
       })
     },
     upload() {
-      if (this.localFiles.length > 0) {
-        this.uploadFiles(this.localFiles)
-          .then(() => this.localFiles = [])
+      if (this.localAttachments.length > 0) {
+        this.uploadAttachments(this.localAttachments)
+          .then(() => this.localAttachments = [])
       }
     },
     ...mapActions({
       update: 'RecruitDocumentsModule/update',
-      uploadFiles: 'RecruitDocumentsModule/uploadFiles'
+      uploadAttachments: 'RecruitDocumentsModule/uploadAttachments'
     })
   },
   watch: {
-    recruitDocument(newDoc, prevDoc) {
-      this.localRecruitDocument = new RecruitDocument({ ...newDoc })
+    recruitDocument: {
+      deep: true,
+      handler(newDoc) {
+        this.localRecruitDocument = new RecruitDocument({ ...newDoc })
+      }
     }
   }
 }

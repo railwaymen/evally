@@ -52,11 +52,10 @@ class RecruitDocument extends Model {
     return {
       recruitDocumentsPath: '/v2/recruit_documents',
       recruitDocumentsFilterPath: payload => `/v2/recruit_documents?${getURLParams(payload)}`,
-      recruitDocumentsFormPath: '/v2/recruit_documents/form',
       recruitDocumentPath: id => `/v2/recruit_documents/${id}`,
       recruitPath: publicRecruitId => `/v2/recruits/${publicRecruitId}`,
-      recruitDocumentFilesPath: recruitDocumentId => `/v2/recruit_documents/${recruitDocumentId}/files`,
-      recruitDocumentFilePath: (recruitDocumentId, id) => `/v2/recruit_documents/${recruitDocumentId}/files/${id}`,
+      attachmentsPath: recruitDocumentId => `/v2/recruit_documents/${recruitDocumentId}/attachments`,
+      attachmentPath: (recruitDocumentId, id) => `/v2/recruit_documents/${recruitDocumentId}/attachments/${id}`,
     }
   }
 }

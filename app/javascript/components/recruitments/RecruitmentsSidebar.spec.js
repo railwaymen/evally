@@ -3,7 +3,7 @@ import i18n from '@locales/i18n'
 
 import RecruitmentsSidebar from './RecruitmentsSidebar'
 
-import { FilesList } from '@models/file'
+import { AttachmentsList } from '@models/attachment'
 import { RecruitDocument } from '@models/recruit_document'
 
 describe('RecruitmentsSidebar', () => {
@@ -12,7 +12,7 @@ describe('RecruitmentsSidebar', () => {
       email: 'e@domain.org',
       received_at: '2020-02-10'
     }),
-    files: new FilesList(),
+    attachments: new AttachmentsList(),
     statuses: ['accepted', 'rejected'],
     groups: ['Ruby', 'Android'],
     positions: ['Junior', 'Senior']

@@ -1,4 +1,20 @@
 export default {
+  filters: {
+    contentType2Icon(value) {
+      switch(value) {
+        case 'application/pdf':
+          return 'mdi-file-pdf-outline'
+        case 'application/zip':
+          return 'mdi-archive-outline'
+        case 'image/gif':
+        case 'image/png':
+        case 'image/jpeg':
+          return 'mdi-file-image-outline'
+        default:
+          return 'mdi-file-outline'
+      }
+    }
+  },
   methods: {
     flash (message) {
       this.$store.commit('NotificationsModule/push', message)
@@ -8,10 +24,6 @@ export default {
       this.$i18n.locale = locale
       this.$vuetify.lang.current = locale
       this.$moment.locale(locale)
-    },
-
-    vIsString(val) {
-      return this.$_.isString(val) || this.$t('shared.validations.isString')
     },
 
     vMin6(val) {
