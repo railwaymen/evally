@@ -181,20 +181,6 @@ const RecruitDocumentsModule = {
         })
         .finally(() => commit('setLoading', false))
     },
-    newForm({ commit }) {
-      recruitableApiClient
-        .get(RecruitDocument.routes.recruitDocumentsNewFormPath)
-        .then(response => {
-          commit('setRecruitDocument', response.data)
-        })
-        .catch(error => {
-          commit(
-            'NotificationsModule/push',
-            { error: i18n.t('messages.recruitments.show.error', { msg: fetchError(error) }) },
-            { root: true }
-          )
-        })
-    },
     create({ commit }, { recruitDocument, attachments }) {
       const formData = new FormData();
 
