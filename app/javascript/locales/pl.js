@@ -314,7 +314,7 @@ export default {
         }
       },
       recruitmentForm: {
-        createTitle: 'Nowa rekrutacja',
+        createTitle: 'Nowe zgłoszenie rekrutacyjne',
         contact: 'Kontakt',
         general: 'Ogólne',
         agreements: 'Zgody',
@@ -326,6 +326,10 @@ export default {
         acceptCurrentProcessing: 'Zgoda na obecną rekrutację',
         acceptFutureProcessing: 'Zgoda na przyszłe rekrutacje',
         attachments: 'Załączniki'
+      },
+      deleteConfirm: {
+        title: 'Usuń zgłoszenie rekrutacyjne',
+        body: 'Czy na pewno chcesz usunąć to zgłoszenie?'
       },
       recruitmentFilePreview: {
         label: 'Wybierz załączony plik'
@@ -506,6 +510,10 @@ export default {
         error: 'Błąd przy ładowaniu zgłoszenia rekrutacyjnego: {msg}',
         positionError: 'Stanowisko nie może być puste',
         groupError: 'Grupa nie może być pusta'
+      },
+      destroy: {
+        ok: 'Zgłoszenie rekrutacyjne zostało usunięte',
+        error: 'Błąd przy usuwaniu zgłoszenia rekrutacyjnego: {msg}'
       },
       uploadFiles: {
         ok: 'Plik został wgrany',

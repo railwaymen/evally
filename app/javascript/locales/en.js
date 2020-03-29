@@ -315,7 +315,7 @@ export default {
         },
       },
       recruitmentForm: {
-        createTitle: 'New Recruitment',
+        createTitle: 'New Recruit Document',
         contact: 'Contact',
         general: 'General',
         agreements: 'Agreements',
@@ -327,6 +327,10 @@ export default {
         acceptCurrentProcessing: 'Accept for current recruitment',
         acceptFutureProcessing: 'Accept for future recruitments',
         attachments: 'Attachments'
+      },
+      deleteConfirm: {
+        title: 'Delete Recruit Document',
+        body: 'Are you sure you want to delete this recruit document?'
       },
       recruitmentFilePreview: {
         label: 'Select Attached File'
@@ -507,6 +511,10 @@ export default {
         error: 'Recruit document cannot be loaded: {msg}',
         positionError: 'Position cannot be blank',
         groupError: 'Group cannot be blank'
+      },
+      destroy: {
+        ok: 'Recruit document has been deleted',
+        error: 'Recruit document cannot be deleted: {msg}'
       },
       uploadAttachments: {
         ok: 'Attachments has been uploaded',

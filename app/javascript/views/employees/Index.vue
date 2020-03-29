@@ -188,7 +188,6 @@ export default {
         innerComponent: DeleteConfirm
       })
     },
-
     openArchiveForm() {
       DialogsBus.$emit('openFormsDialog', {
         innerComponent: ArchiveForm

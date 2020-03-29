@@ -31,6 +31,23 @@
 
           <span>{{ $t('shared.tooltips.addNew') }}</span>
         </v-tooltip>
+
+        <template v-if="$route.name === 'recruitment_path'">
+          <v-tooltip key="delete" bottom >
+            <template #activator="{ on }">
+              <v-btn
+                @click="openDeleteConfirm"
+                v-on="on"
+                color="red"
+                icon
+              >
+                <v-icon>mdi-delete-outline</v-icon>
+              </v-btn>
+            </template>
+
+            <span>{{ $t('shared.tooltips.delete') }}</span>
+          </v-tooltip>
+        </template>
       </div>
     </div>
 
@@ -52,15 +69,22 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { DialogsBus } from '@utils/dialogs_bus'
 
 import { RecruitDocument } from '@models/recruit_document'
 
 import BasicTable from '@components/recruitments/BasicTable'
+import DeleteConfirm from '@components/recruitments/DeleteConfirm'
 
 export default {
   name: 'RecruitmentsIndex',
   components: { BasicTable },
   methods: {
+    openDeleteConfirm() {
+      DialogsBus.$emit('openConfirmDialog', {
+        innerComponent: DeleteConfirm
+      })
+    },
     ...mapActions({
       fetchData: 'RecruitDocumentsModule/index'
     })
