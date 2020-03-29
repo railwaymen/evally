@@ -69,6 +69,11 @@ const RecruitDocumentsModule = {
     removeAttachment(state, id) {
       state.attachments.remove(id)
     },
+    removeRecruitDocument(state, id) {
+      state.recruitDocument = new RecruitDocument()
+      state.attachments = new AttachmentsList()
+      state.recruitDocuments.remove(id)
+    },
     setEvaluation(state, { evaluation, sections }) {
       state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
@@ -240,6 +245,32 @@ const RecruitDocumentsModule = {
               { root: true }
             )
 
+          })
+      )
+    },
+    destroy({ state, commit }) {
+      const { recruitDocument } = state;
+
+      return (
+        recruitableApiClient
+          .delete(RecruitDocument.routes.recruitDocumentPath(recruitDocument.id))
+          .then(() => {
+            commit('removeRecruitDocument', recruitDocument.id)
+
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.recruitments.destroy.ok') },
+              { root: true }
+            )
+
+            return Promise.resolve()
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.recruitments.destroy.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
           })
       )
     },
