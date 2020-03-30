@@ -44,8 +44,15 @@ export default {
       positions: 'RecruitDocumentsModule/positions'
     })
   },
-   created() {
-    this.$store.commit('RecruitDocumentsModule/clearRecruitDocument')
-   }
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to) {
+        if (to.name === 'new_recruitment_path') {
+          this.$store.dispatch('RecruitDocumentsModule/newForm')
+        }
+      }
+    }
+  }
 }
 </script>

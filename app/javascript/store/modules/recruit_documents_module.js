@@ -10,7 +10,7 @@ import { Evaluation, EvaluationsList } from '@models/evaluation'
 import { RecruitDocument, RecruitDocumentsList } from '@models/recruit_document'
 import { SectionsList } from '@models/section'
 import { TemplatesList } from '@models/template'
-import { UsersList } from '@models/user'
+import { User, UsersList } from '@models/user'
 
 const initialState = () => ({
   recruitDocuments: new RecruitDocumentsList(),
@@ -81,6 +81,9 @@ const RecruitDocumentsModule = {
       state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
       state.evaluations.refresh(evaluation)
+    },
+    setEvaluators(state, evaluators) {
+      state.evaluators = new UsersList(evaluators)
     },
     setAttachments(state, attachments) {
       state.attachments = new AttachmentsList(attachments)
@@ -196,6 +199,25 @@ const RecruitDocumentsModule = {
         })
         .finally(() => commit('setLoading', false))
     },
+    newForm({ commit }) {
+      axios
+        .all([
+          recruitableApiClient.get(RecruitDocument.routes.formRecruitDocumentPath),
+          coreApiClient.get(User.routes.activeUsersPath)
+        ])
+        .then(axios.spread((recruitableApiResponse, coreApiResponse) => {
+          commit('setRecruitDocument', recruitableApiResponse.data)
+          commit('setEvaluators', coreApiResponse.data)
+        }))
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.recruitments.show.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+
+        })
+    },
     create({ commit }, { recruitDocument, attachments }) {
       const formData = new FormData();
 
@@ -228,6 +250,21 @@ const RecruitDocumentsModule = {
 
           })
       )
+    },
+    editForm({ commit }, id) {
+      recruitableApiClient
+        .get(RecruitDocument.routes.recruitDocumentPath(id))
+        .then(response => {
+          commit('setRecruitDocument', response.data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.recruitments.show.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+
+        })
     },
     update({ commit }, recruitDocument) {
       const params = {

@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import { RecruitDocument } from '@models/recruit_document'
@@ -84,10 +84,7 @@ export default {
       DialogsBus.$emit('openConfirmDialog', {
         innerComponent: DeleteConfirm
       })
-    },
-    ...mapActions({
-      fetchData: 'RecruitDocumentsModule/index'
-    })
+    }
   },
   computed: {
     ...mapGetters({
@@ -97,8 +94,15 @@ export default {
       loading: 'RecruitDocumentsModule/loading'
     })
   },
-  created() {
-    this.fetchData()
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to) {
+        if (to.name === 'recruitments_path') {
+          this.$store.dispatch('RecruitDocumentsModule/index')
+        }
+      }
+    }
   },
   beforeDestroy() {
     this.$store.commit('RecruitDocumentsModule/resetState')

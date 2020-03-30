@@ -48,6 +48,7 @@ class User extends Model {
       profilePasswordPath: '/v2/profile/password',
       sessionPath: '/v2/session',
       usersPath: '/v2/users',
+      activeUsersPath: '/v2/users/active',
       userPath: id => `/v2/users/${id}`,
       invitationsPath: '/v2/invitations',
       invitationPath: token => `/v2/invitations/${token}`,

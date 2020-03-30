@@ -54,6 +54,7 @@ class RecruitDocument extends Model {
       recruitDocumentsPath: '/v2/recruit_documents',
       recruitDocumentsFilterPath: payload => `/v2/recruit_documents?${getURLParams(payload)}`,
       recruitDocumentPath: id => `/v2/recruit_documents/${id}`,
+      formRecruitDocumentPath: '/v2/recruit_documents/form',
       recruitPath: publicRecruitId => `/v2/recruits/${publicRecruitId}`,
       attachmentsPath: recruitDocumentId => `/v2/recruit_documents/${recruitDocumentId}/attachments`,
       attachmentPath: (recruitDocumentId, id) => `/v2/recruit_documents/${recruitDocumentId}/attachments/${id}`,

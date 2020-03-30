@@ -25,7 +25,7 @@ RSpec.describe V2::RecruitsController, type: :controller do
 
         expect(response).to have_http_status 200
         expect(json_response.keys).to contain_exactly(
-          'evaluations', 'evaluation', 'sections', 'templates'
+          'evaluations', 'evaluation', 'evaluators', 'sections', 'templates'
         )
       end
     end

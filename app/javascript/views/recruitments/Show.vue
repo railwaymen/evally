@@ -55,11 +55,18 @@ export default {
       loading: 'RecruitDocumentsModule/loading'
     })
   },
-  created() {
-    this.$store.dispatch('RecruitDocumentsModule/show', {
-      publicRecruitId: this.$route.params.publicRecruitId,
-      id: this.$route.params.id
-    })
-  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to) {
+        if (to.name === 'recruitment_path') {
+          this.$store.dispatch('RecruitDocumentsModule/show', {
+            publicRecruitId: to.params.publicRecruitId,
+            id: to.params.id
+          })
+        }
+      }
+    }
+  }
 }
 </script>

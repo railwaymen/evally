@@ -6,9 +6,11 @@ module V2
     before_action :authorize!
 
     def index
-      users = User.order(status: :asc, first_name: :asc)
+      render json: V2::Users::Serializer.render(users_scope), status: :ok
+    end
 
-      render json: V2::Users::Serializer.render(users), status: :ok
+    def active
+      render json: V2::Users::Serializer.render(users_scope.active), status: :ok
     end
 
     def update
@@ -21,6 +23,10 @@ module V2
 
     def authorize!
       authorize [:v2, User]
+    end
+
+    def users_scope
+      User.order(status: :asc, first_name: :asc)
     end
 
     def user
