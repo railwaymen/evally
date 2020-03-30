@@ -43,6 +43,12 @@ exports[`RecruitmentsSidebar matches do snapshot 1`] = `
           <v-combobox-stub items="Junior,Senior" rules="" filled="" dense="" value=""></v-combobox-stub>
         </div>
       </div>
+      <div class="vcard__info vcard__info--editable">
+        <div class="vcard__label">Evaluator</div>
+        <div class="vcard__input">
+          <v-select-stub items="" clearable="true" item-value="id" item-text="fullname" filled="" dense=""></v-select-stub>
+        </div>
+      </div>
       <div class="vcard__info">
         <div class="vcard__label">Source</div>
         <div class="vcard__value"></div>
