@@ -8,7 +8,8 @@ export default {
         phoneNumber: 'Phone number',
         source: 'Source',
         status: 'Status',
-        group: 'Group'
+        group: 'Group',
+        evaluator: 'Evaluator'
       }
     },
     buttons: {
@@ -358,6 +359,7 @@ export default {
         status: 'Status',
         group: 'Group',
         position: 'Position',
+        evaluator: 'Evaluator',
         source: 'Source',
         receivedDate: 'Received Date',
         addFile: 'Add File'

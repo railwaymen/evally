@@ -11,9 +11,7 @@ module V2
     end
 
     def webhook
-      recruit = Recruit.find_or_initialize_by(webhook_params)
-
-      head(recruit.save ? :no_content : :unprocessable_entity)
+      head webhook_form.save ? :no_content : :unprocessable_entity
     end
 
     private
@@ -25,8 +23,12 @@ module V2
       @recruit
     end
 
+    def webhook_form
+      @webhook_form ||= V2::Recruits::WebhookForm.new(params: webhook_params)
+    end
+
     def webhook_params
-      params.require(:recruit).permit(:public_recruit_id)
+      params.require(:recruit).permit(:public_recruit_id, :evaluator_id)
     end
   end
 end

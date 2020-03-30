@@ -5,6 +5,7 @@
         :groups="groups"
         :positions="positions"
         :statuses="statuses"
+        :evaluators="evaluators"
         :attachments="attachments"
         @selectFile="file => currentAttachment = file"
       />
@@ -37,6 +38,7 @@ export default {
      ...mapGetters({
       recruitment: 'RecruitDocumentsModule/recruitDocument',
       attachments: 'RecruitDocumentsModule/attachments',
+      evaluators: 'RecruitDocumentsModule/evaluators',
       groups: 'RecruitDocumentsModule/groups',
       statuses: 'RecruitDocumentsModule/statuses',
       positions: 'RecruitDocumentsModule/positions'

@@ -3,6 +3,8 @@
 module V2
   module Recruits
     class ShowView < Blueprinter::Base
+      association :evaluators, blueprint: V2::Users::Serializer, default: []
+
       association :evaluations, blueprint: V2::Evaluations::RecruitableSerializer, default: []
 
       association :evaluation, blueprint: V2::Evaluations::RecruitableSerializer, default: {}

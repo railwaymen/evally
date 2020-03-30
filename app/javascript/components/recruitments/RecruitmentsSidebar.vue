@@ -96,6 +96,23 @@
           </div>
         </div>
 
+        <div class="vcard__info vcard__info--editable">
+          <div class="vcard__label">{{ $t('components.recruitments.sidebar.evaluator') }}</div>
+
+          <div class="vcard__input">
+            <v-select
+              :items="evaluators.models"
+              :value="localRecruitDocument.evaluator_id"
+              @input="assignEvaluator"
+              item-value="id"
+              item-text="fullname"
+              clearable
+              filled
+              dense
+            />
+          </div>
+        </div>
+
         <div class="vcard__info">
           <div class="vcard__label">{{ $t('components.recruitments.sidebar.source') }}</div>
           <div class="vcard__value">{{ localRecruitDocument.source }}</div>
@@ -164,6 +181,7 @@ import { DialogsBus } from '@utils/dialogs_bus'
 import { AttachmentsList } from '@models/attachment'
 import { RecruitDocument } from '@models/recruit_document'
 import { Status } from '@models/status'
+import { UsersList } from '@models/user'
 
 import DeleteAttachmentConfirm from '@components/recruitments/DeleteAttachmentConfirm'
 import StatusChangeForm from '@components/recruitments/StatusChangeForm'
@@ -197,6 +215,11 @@ export default {
       type: AttachmentsList,
       required: true,
       default: () => new AttachmentsList()
+    },
+    evaluators: {
+      type: UsersList,
+      required: true,
+      default: () => new UsersList()
     }
   },
   data() {
@@ -206,6 +229,11 @@ export default {
     }
   },
   methods: {
+    assignEvaluator(value = null) {
+      this.localRecruitDocument.evaluator_id = value
+
+      this.update(this.localRecruitDocument)
+    },
     openDeleteAttachmentConfirm(attachment) {
       DialogsBus.$emit('openFormsDialog', {
         innerComponent: DeleteAttachmentConfirm,

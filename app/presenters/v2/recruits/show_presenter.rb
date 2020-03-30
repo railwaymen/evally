@@ -10,6 +10,10 @@ module V2
         @user = user
       end
 
+      def evaluators
+        User.active
+      end
+
       def evaluations
         @evaluations ||= @recruit.evaluations.order(completed_at: :desc)
       end

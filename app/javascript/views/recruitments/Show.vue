@@ -7,6 +7,7 @@
         :statuses="statuses"
         :groups="groups"
         :attachments="attachments"
+        :evaluators="evaluators"
       />
     </v-flex>
 
@@ -47,6 +48,7 @@ export default {
       groups: 'RecruitDocumentsModule/groups',
       positions: 'RecruitDocumentsModule/positions',
       templates: 'RecruitDocumentsModule/templates',
+      evaluators: 'RecruitDocumentsModule/evaluators',
       evaluations: 'RecruitDocumentsModule/evaluations',
       evaluation: 'RecruitDocumentsModule/evaluation',
       sections: 'RecruitDocumentsModule/sections',

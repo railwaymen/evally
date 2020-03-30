@@ -20,6 +20,18 @@
             />
           </v-flex>
 
+          <v-flex class="px-2" xs12 lg6>
+            <v-select
+              :items="evaluators.models"
+              v-model="localRecruitment.evaluator_id"
+              :label="$t('shared.general.fields.evaluator')"
+              item-value="id"
+              item-text="fullname"
+              clearable
+              small
+            />
+          </v-flex>
+
           <v-flex
             v-for="field in localRecruitment.status.required_fields"
             :key="field.value"
@@ -281,6 +293,7 @@ import { DialogsBus } from '@utils/dialogs_bus'
 
 import { Attachment, AttachmentsList } from '@models/attachment'
 import { RecruitDocument } from '@models/recruit_document'
+import { UsersList } from '@models/user'
 
 import DatetimeField from '@components/shared/DatetimeField'
 import DeleteAttachmentConfirm from '@components/recruitments/DeleteAttachmentConfirm'
@@ -314,6 +327,11 @@ export default {
       type: AttachmentsList,
       required: true,
       default: () => new AttachmentsList()
+    },
+    evaluators: {
+      type: UsersList,
+      required: true,
+      default: () => new UsersList()
     }
   },
   data() {
