@@ -59,7 +59,8 @@ module V2
     private
 
     def evaluations_scope
-      policy_scope([:v2, Evaluation]).employable.includes(:evaluable)
+      V2::EvaluationPolicy::EmployableScope
+        .new(current_user, Evaluation).resolve.includes(:evaluable)
     end
 
     def draft_evaluation

@@ -8,6 +8,7 @@
         :groups="groups"
         :attachments="attachments"
         :evaluators="evaluators"
+        :policy="policy"
       />
     </v-flex>
 
@@ -34,6 +35,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import { RecruitDocumentPolicy } from '@policies/recruit_document_policy'
+
 import EvaluationsSidebar from '@components/recruitments/EvaluationsSidebar'
 import RecruitmentsSidebar from '@components/recruitments/RecruitmentsSidebar'
 
@@ -41,7 +44,10 @@ export default {
   name: 'RecruitmentsShow',
   components: { EvaluationsSidebar, RecruitmentsSidebar },
   computed: {
-     ...mapGetters({
+    policy() {
+      return new RecruitDocumentPolicy(this.user, this.recruitDocument)
+    },
+    ...mapGetters({
       recruitDocument: 'RecruitDocumentsModule/recruitDocument',
       attachments: 'RecruitDocumentsModule/attachments',
       statuses: 'RecruitDocumentsModule/statuses',
@@ -52,7 +58,8 @@ export default {
       evaluations: 'RecruitDocumentsModule/evaluations',
       evaluation: 'RecruitDocumentsModule/evaluation',
       sections: 'RecruitDocumentsModule/sections',
-      loading: 'RecruitDocumentsModule/loading'
+      loading: 'RecruitDocumentsModule/loading',
+      user: 'AuthenticationModule/user'
     })
   },
   watch: {

@@ -33,7 +33,8 @@ module V2
     private
 
     def evaluations_scope
-      policy_scope([:v2, Evaluation]).recruitable.includes(:evaluable)
+      V2::EvaluationPolicy::RecruitableScope
+        .new(current_user, Evaluation).resolve.includes(:evaluable)
     end
 
     def evaluation

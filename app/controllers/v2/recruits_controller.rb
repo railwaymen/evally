@@ -16,8 +16,12 @@ module V2
 
     private
 
+    def recruits_scope
+      V2::RecruitPolicy::Scope.new(current_user, Recruit).resolve
+    end
+
     def recruit
-      @recruit ||= Recruit.find_by(public_recruit_id: params[:id])
+      @recruit ||= recruits_scope.find_by(public_recruit_id: params[:id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @recruit
 
       @recruit

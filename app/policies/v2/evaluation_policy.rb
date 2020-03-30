@@ -2,11 +2,19 @@
 
 module V2
   class EvaluationPolicy < ApplicationPolicy
-    class Scope < Scope
+    class EmployableScope < Scope
       def resolve
-        return scope.all if user.admin?
+        return scope.employable if user.admin?
 
-        user.evaluations
+        Evaluation.employable.where(evaluable_id: user.employees.ids)
+      end
+    end
+
+    class RecruitableScope < Scope
+      def resolve
+        return scope.recruitable if user.admin? || user.recruiter?
+
+        Evaluation.recruitable.where(evaluable_id: user.recruits.ids)
       end
     end
   end

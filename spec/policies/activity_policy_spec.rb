@@ -12,13 +12,13 @@ RSpec.describe V2::ActivityPolicy, type: :policy do
       activity2 = FactoryBot.create(:employee_activity, user: evaluator)
 
       aggregate_failures 'for admin' do
-        scope = Pundit.policy_scope!(admin, [:v2, Activity])
+        scope = V2::ActivityPolicy::Scope.new(admin, Activity).resolve
 
         expect(scope.ids).to contain_exactly(activity1.id, activity2.id)
       end
 
       aggregate_failures 'for evaluator' do
-        scope = Pundit.policy_scope!(evaluator, [:v2, Activity])
+        scope = V2::ActivityPolicy::Scope.new(evaluator, Activity).resolve
 
         expect(scope.ids).to contain_exactly(activity2.id)
       end

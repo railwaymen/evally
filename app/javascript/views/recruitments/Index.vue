@@ -17,7 +17,11 @@
       </div>
 
       <div class="panel__actions">
-        <v-tooltip bottom key="addNew" >
+        <v-tooltip
+          v-if="policy.canAdd"
+          key="addNew"
+          bottom
+        >
           <template #activator="{ on }">
             <v-btn
               :to="{ name: 'new_recruitment_path' }"
@@ -33,7 +37,11 @@
         </v-tooltip>
 
         <template v-if="$route.name === 'recruitment_path'">
-          <v-tooltip key="delete" bottom >
+          <v-tooltip
+            v-if="policy.canEdit"
+            key="delete"
+            bottom
+          >
             <template #activator="{ on }">
               <v-btn
                 @click="openDeleteConfirm"
@@ -71,6 +79,8 @@
 import { mapGetters } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
+import { RecruitDocumentPolicy } from '@policies/recruit_document_policy'
+
 import { RecruitDocument } from '@models/recruit_document'
 
 import BasicTable from '@components/recruitments/BasicTable'
@@ -87,11 +97,15 @@ export default {
     }
   },
   computed: {
+    policy() {
+      return new RecruitDocumentPolicy(this.user)
+    },
     ...mapGetters({
       recruitDocuments: 'RecruitDocumentsModule/recruitDocuments',
       groups: 'RecruitDocumentsModule/groups',
       statuses: 'RecruitDocumentsModule/statuses',
-      loading: 'RecruitDocumentsModule/loading'
+      loading: 'RecruitDocumentsModule/loading',
+      user: 'AuthenticationModule/user'
     })
   },
   watch: {
