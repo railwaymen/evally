@@ -6,12 +6,16 @@ module V2
       user.admin?
     end
 
+    def active?
+      %w[admin recruiter].include? user.role
+    end
+
     def create?
-      user.admin?
+      index?
     end
 
     def update?
-      user.admin?
+      index?
     end
   end
 end

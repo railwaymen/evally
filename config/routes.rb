@@ -45,7 +45,11 @@ Rails.application.routes.draw do
       end
 
       resource :settings, only: :update
-      resources :users, only: %i[index update]
+      resources :users, only: %i[index update] do
+        collection do
+          get :active
+        end
+      end
 
       namespace :browse do
         resources :employees, only: :show do

@@ -16,19 +16,19 @@ RSpec.describe V2::SectionPolicy, type: :policy do
       sensitive_section = FactoryBot.create(:section, sectionable: evaluation, sensitive: true)
 
       aggregate_failures 'for admin' do
-        scope = Pundit.policy_scope!(admin, [:v2, evaluation.sections])
+        scope = V2::SectionPolicy::Scope.new(admin, evaluation.sections).resolve
 
         expect(scope.ids).to contain_exactly(open_section.id, sensitive_section.id)
       end
 
       aggregate_failures 'for recruiter' do
-        scope = Pundit.policy_scope!(recruiter, [:v2, evaluation.sections])
+        scope = V2::SectionPolicy::Scope.new(recruiter, evaluation.sections).resolve
 
         expect(scope.ids).to contain_exactly(open_section.id, sensitive_section.id)
       end
 
       aggregate_failures 'for evaluator' do
-        scope = Pundit.policy_scope!(evaluator, [:v2, evaluation.sections])
+        scope = V2::SectionPolicy::Scope.new(evaluator, evaluation.sections).resolve
 
         expect(scope.ids).to contain_exactly(open_section.id)
       end

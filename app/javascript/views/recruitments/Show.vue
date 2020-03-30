@@ -7,6 +7,8 @@
         :statuses="statuses"
         :groups="groups"
         :attachments="attachments"
+        :evaluators="evaluators"
+        :policy="policy"
       />
     </v-flex>
 
@@ -33,6 +35,8 @@
 <script>
 import { mapGetters } from 'vuex'
 
+import { RecruitDocumentPolicy } from '@policies/recruit_document_policy'
+
 import EvaluationsSidebar from '@components/recruitments/EvaluationsSidebar'
 import RecruitmentsSidebar from '@components/recruitments/RecruitmentsSidebar'
 
@@ -40,24 +44,36 @@ export default {
   name: 'RecruitmentsShow',
   components: { EvaluationsSidebar, RecruitmentsSidebar },
   computed: {
-     ...mapGetters({
+    policy() {
+      return new RecruitDocumentPolicy(this.user, this.recruitDocument)
+    },
+    ...mapGetters({
       recruitDocument: 'RecruitDocumentsModule/recruitDocument',
       attachments: 'RecruitDocumentsModule/attachments',
       statuses: 'RecruitDocumentsModule/statuses',
       groups: 'RecruitDocumentsModule/groups',
       positions: 'RecruitDocumentsModule/positions',
       templates: 'RecruitDocumentsModule/templates',
+      evaluators: 'RecruitDocumentsModule/evaluators',
       evaluations: 'RecruitDocumentsModule/evaluations',
       evaluation: 'RecruitDocumentsModule/evaluation',
       sections: 'RecruitDocumentsModule/sections',
-      loading: 'RecruitDocumentsModule/loading'
+      loading: 'RecruitDocumentsModule/loading',
+      user: 'AuthenticationModule/user'
     })
   },
-  created() {
-    this.$store.dispatch('RecruitDocumentsModule/show', {
-      publicRecruitId: this.$route.params.publicRecruitId,
-      id: this.$route.params.id
-    })
-  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to) {
+        if (to.name === 'recruitment_path') {
+          this.$store.dispatch('RecruitDocumentsModule/show', {
+            publicRecruitId: to.params.publicRecruitId,
+            id: to.params.id
+          })
+        }
+      }
+    }
+  }
 }
 </script>

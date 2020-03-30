@@ -75,6 +75,7 @@
               v-model="localRecruitDocument.group"
               @change="updateGroup"
               :rules="[vRequired]"
+              :disabled="!policy.canEdit"
               filled
               dense
             />
@@ -90,6 +91,25 @@
               v-model="localRecruitDocument.position"
               @change="updatePosition"
               :rules="[vRequired]"
+              :disabled="!policy.canEdit"
+              filled
+              dense
+            />
+          </div>
+        </div>
+
+        <div class="vcard__info vcard__info--editable">
+          <div class="vcard__label">{{ $t('components.recruitments.sidebar.evaluator') }}</div>
+
+          <div class="vcard__input">
+            <v-select
+              :items="evaluators.models"
+              :value="localRecruitDocument.evaluator_id"
+              @input="assignEvaluator"
+              :disabled="!policy.canEdit"
+              :clearable="policy.canEdit"
+              item-value="id"
+              item-text="fullname"
               filled
               dense
             />
@@ -126,7 +146,7 @@
               <v-list-item-subtitle>{{ attachment.size }}</v-list-item-subtitle>
             </v-list-item-content>
 
-            <v-list-item-action>
+            <v-list-item-action v-if="policy.canEdit">
               <v-btn
                 @click.stop="openDeleteAttachmentConfirm(attachment)"
                 color="red lighten-3"
@@ -137,7 +157,7 @@
             </v-list-item-action>
           </v-list-item>
 
-          <v-list-item>
+          <v-list-item v-if="policy.canEdit">
             <v-list-item-content>
               <v-file-input
                 @change="upload"
@@ -161,9 +181,12 @@
 import { mapActions } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
+import { RecruitDocumentPolicy } from '@policies/recruit_document_policy'
+
 import { AttachmentsList } from '@models/attachment'
 import { RecruitDocument } from '@models/recruit_document'
 import { Status } from '@models/status'
+import { User, UsersList } from '@models/user'
 
 import DeleteAttachmentConfirm from '@components/recruitments/DeleteAttachmentConfirm'
 import StatusChangeForm from '@components/recruitments/StatusChangeForm'
@@ -197,6 +220,16 @@ export default {
       type: AttachmentsList,
       required: true,
       default: () => new AttachmentsList()
+    },
+    evaluators: {
+      type: UsersList,
+      required: true,
+      default: () => new UsersList()
+    },
+    policy: {
+      type: RecruitDocumentPolicy,
+      required: true,
+      default: () => new RecruitDocumentPolicy()
     }
   },
   data() {
@@ -206,6 +239,11 @@ export default {
     }
   },
   methods: {
+    assignEvaluator(value = null) {
+      this.localRecruitDocument.evaluator_id = value
+
+      this.update(this.localRecruitDocument)
+    },
     openDeleteAttachmentConfirm(attachment) {
       DialogsBus.$emit('openFormsDialog', {
         innerComponent: DeleteAttachmentConfirm,

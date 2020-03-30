@@ -34,13 +34,19 @@ exports[`RecruitmentsSidebar matches do snapshot 1`] = `
       <div class="vcard__info vcard__info--editable">
         <div class="vcard__label">Group</div>
         <div class="vcard__input">
-          <v-combobox-stub items="Ruby,Android" rules="" filled="" dense="" value=""></v-combobox-stub>
+          <v-combobox-stub items="Ruby,Android" rules="" disabled="true" filled="" dense="" value=""></v-combobox-stub>
         </div>
       </div>
       <div class="vcard__info vcard__info--editable">
         <div class="vcard__label">Position</div>
         <div class="vcard__input">
-          <v-combobox-stub items="Junior,Senior" rules="" filled="" dense="" value=""></v-combobox-stub>
+          <v-combobox-stub items="Junior,Senior" rules="" disabled="true" filled="" dense="" value=""></v-combobox-stub>
+        </div>
+      </div>
+      <div class="vcard__info vcard__info--editable">
+        <div class="vcard__label">Evaluator</div>
+        <div class="vcard__input">
+          <v-select-stub items="" disabled="true" item-value="id" item-text="fullname" filled="" dense=""></v-select-stub>
         </div>
       </div>
       <div class="vcard__info">
@@ -53,11 +59,7 @@ exports[`RecruitmentsSidebar matches do snapshot 1`] = `
       </div>
       <h4 class="vcard__subheader">Attachments ({n})</h4>
       <div class="vcard__list">
-        <v-list-item-stub>
-          <v-list-item-content-stub>
-            <v-file-input-stub label="Add File" prepend-inner-icon="mdi-paperclip" prepend-icon="" multiple="" filled="" dense="" value=""></v-file-input-stub>
-          </v-list-item-content-stub>
-        </v-list-item-stub>
+        <!---->
       </div>
     </div>
   </div>

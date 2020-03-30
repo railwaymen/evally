@@ -78,7 +78,7 @@ module V2
     end
 
     def employees_scope
-      policy_scope([:v2, Employee])
+      V2::EmployeePolicy::Scope.new(current_user, Employee).resolve
     end
 
     def employee

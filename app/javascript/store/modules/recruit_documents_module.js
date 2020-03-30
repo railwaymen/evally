@@ -10,11 +10,13 @@ import { Evaluation, EvaluationsList } from '@models/evaluation'
 import { RecruitDocument, RecruitDocumentsList } from '@models/recruit_document'
 import { SectionsList } from '@models/section'
 import { TemplatesList } from '@models/template'
+import { User, UsersList } from '@models/user'
 
 const initialState = () => ({
   recruitDocuments: new RecruitDocumentsList(),
   recruitDocument: new RecruitDocument(),
   attachments: new AttachmentsList(),
+  evaluators: new UsersList(),
   evaluations: new EvaluationsList(),
   evaluation: new Evaluation(),
   sections: new SectionsList(),
@@ -34,10 +36,11 @@ const RecruitDocumentsModule = {
     recruitDocuments: state => state.recruitDocuments,
     recruitDocument: state => state.recruitDocument,
     attachments: state => state.attachments,
-    templates: state => state.templates,
+    evaluators: state => state.evaluators,
     evaluations: state => state.evaluations,
     evaluation: state => state.evaluation,
     sections: state => state.sections,
+    templates: state => state.templates,
     groups: state => state.groups,
     statuses: state => state.statuses,
     positions: state => state.positions,
@@ -79,12 +82,22 @@ const RecruitDocumentsModule = {
       state.sections = new SectionsList(sections)
       state.evaluations.refresh(evaluation)
     },
+    setEvaluators(state, evaluators) {
+      state.evaluators = new UsersList(evaluators)
+    },
     setAttachments(state, attachments) {
       state.attachments = new AttachmentsList(attachments)
     },
     setRecruit(state, data) {
-      const { evaluations, evaluation, sections, templates } = data
+      const {
+        evaluators,
+        evaluations,
+        evaluation,
+        sections,
+        templates
+      } = data
 
+      state.evaluators = new UsersList(evaluators)
       state.evaluations = new EvaluationsList(evaluations)
       state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
@@ -186,6 +199,25 @@ const RecruitDocumentsModule = {
         })
         .finally(() => commit('setLoading', false))
     },
+    newForm({ commit }) {
+      axios
+        .all([
+          recruitableApiClient.get(RecruitDocument.routes.formRecruitDocumentPath),
+          coreApiClient.get(User.routes.activeUsersPath)
+        ])
+        .then(axios.spread((recruitableApiResponse, coreApiResponse) => {
+          commit('setRecruitDocument', recruitableApiResponse.data)
+          commit('setEvaluators', coreApiResponse.data)
+        }))
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.recruitments.show.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+
+        })
+    },
     create({ commit }, { recruitDocument, attachments }) {
       const formData = new FormData();
 
@@ -218,6 +250,21 @@ const RecruitDocumentsModule = {
 
           })
       )
+    },
+    editForm({ commit }, id) {
+      recruitableApiClient
+        .get(RecruitDocument.routes.recruitDocumentPath(id))
+        .then(response => {
+          commit('setRecruitDocument', response.data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.recruitments.show.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+
+        })
     },
     update({ commit }, recruitDocument) {
       const params = {

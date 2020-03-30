@@ -31,6 +31,34 @@ RSpec.describe V2::UsersController, type: :controller do
     end
   end
 
+  describe '#active' do
+    context 'when unauthorized' do
+      it 'responds with 401 error' do
+        get :active
+        expect(response).to have_http_status 401
+      end
+
+      it 'responds with 403 error' do
+        sign_in evaluator
+
+        get :active
+        expect(response).to have_http_status 403
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with empty users' do
+        FactoryBot.create(:user, status: 'inactive')
+
+        sign_in admin
+        get :active
+
+        expect(response).to have_http_status 200
+        expect(response.body).to have_json_size 1
+      end
+    end
+  end
+
   describe '#update' do
     context 'when unauthorized' do
       it 'responds with 401 error' do

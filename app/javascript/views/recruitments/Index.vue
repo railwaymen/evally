@@ -17,7 +17,11 @@
       </div>
 
       <div class="panel__actions">
-        <v-tooltip bottom key="addNew" >
+        <v-tooltip
+          v-if="policy.canCreate"
+          key="addNew"
+          bottom
+        >
           <template #activator="{ on }">
             <v-btn
               :to="{ name: 'new_recruitment_path' }"
@@ -33,7 +37,11 @@
         </v-tooltip>
 
         <template v-if="$route.name === 'recruitment_path'">
-          <v-tooltip key="delete" bottom >
+          <v-tooltip
+            v-if="policy.canEdit"
+            key="delete"
+            bottom
+          >
             <template #activator="{ on }">
               <v-btn
                 @click="openDeleteConfirm"
@@ -68,8 +76,10 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
+
+import { RecruitDocumentPolicy } from '@policies/recruit_document_policy'
 
 import { RecruitDocument } from '@models/recruit_document'
 
@@ -84,21 +94,29 @@ export default {
       DialogsBus.$emit('openConfirmDialog', {
         innerComponent: DeleteConfirm
       })
-    },
-    ...mapActions({
-      fetchData: 'RecruitDocumentsModule/index'
-    })
+    }
   },
   computed: {
+    policy() {
+      return new RecruitDocumentPolicy(this.user)
+    },
     ...mapGetters({
       recruitDocuments: 'RecruitDocumentsModule/recruitDocuments',
       groups: 'RecruitDocumentsModule/groups',
       statuses: 'RecruitDocumentsModule/statuses',
-      loading: 'RecruitDocumentsModule/loading'
+      loading: 'RecruitDocumentsModule/loading',
+      user: 'AuthenticationModule/user'
     })
   },
-  created() {
-    this.fetchData()
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to) {
+        if (to.name === 'recruitments_path') {
+          this.$store.dispatch('RecruitDocumentsModule/index')
+        }
+      }
+    }
   },
   beforeDestroy() {
     this.$store.commit('RecruitDocumentsModule/resetState')
