@@ -1,7 +1,7 @@
 import { BasePolicy } from './base_policy'
 
 export class RecruitDocumentPolicy extends BasePolicy{
-  get canAdd() {
+  get canCreate() {
     return ['admin', 'recruiter'].includes(this.user.role)
   }
 

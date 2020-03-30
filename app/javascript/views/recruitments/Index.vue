@@ -18,7 +18,7 @@
 
       <div class="panel__actions">
         <v-tooltip
-          v-if="policy.canAdd"
+          v-if="policy.canCreate"
           key="addNew"
           bottom
         >
