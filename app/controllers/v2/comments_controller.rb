@@ -3,7 +3,7 @@
 module V2
   class CommentsController < ApplicationController
     before_action :authenticate_user!
-    before_action :authorize!, except: :create
+    before_action :authorize!, except: %i[create webhook]
 
     def create
       create_form.save
@@ -23,6 +23,10 @@ module V2
       render json: V2::Comments::Serializer.render(comment), status: :ok
     end
 
+    def webhook
+      head webhook_form.save ? :no_content : :unprocessable_entity
+    end
+
     private
 
     def authorize!
@@ -30,7 +34,7 @@ module V2
     end
 
     def comment
-      @comment ||= Comment.includes(:user).find_by(id: params[:id])
+      @comment ||= recruit.comments.find_by(id: params[:id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @comment
 
       @comment
@@ -57,8 +61,19 @@ module V2
       )
     end
 
+    def webhook_form
+      @webhook_form ||= V2::Comments::WebhookForm.new(
+        recruit: recruit,
+        params: webhook_params
+      )
+    end
+
     def comment_params
       params.require(:comment).permit(:body)
+    end
+
+    def webhook_params
+      params.require(:comment).permit(:body, :created_at, :change_id)
     end
   end
 end
