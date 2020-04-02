@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import { coreApiClient, recruitableApiClient } from '@utils/api_clients'
-import { fetchError } from '@utils/helpers'
+import { objectToFormData, fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
 
@@ -218,13 +218,8 @@ const RecruitDocumentsModule = {
 
         })
     },
-    create({ commit }, { recruitDocument, attachments }) {
-      const formData = new FormData();
-
-      for (let key in recruitDocument) {
-        formData.append(`recruit_document[${key}]`, recruitDocument[key]);
-      }
-
+    create({ commit }, { recruitDocument, attachments = [] }) {
+      const formData = objectToFormData(recruitDocument, 'recruit_document')
       attachments.map(attachment => formData.append('recruit_document[files][]', attachment))
 
       return (
@@ -266,14 +261,13 @@ const RecruitDocumentsModule = {
 
         })
     },
-    update({ commit }, recruitDocument) {
-      const params = {
-        recruit_document: recruitDocument.attributes
-      }
+    update({ commit }, { recruitDocument, attachments = [] }) {
+      const formData = objectToFormData(recruitDocument, 'recruit_document')
+      attachments.map(attachment => formData.append('recruit_document[files][]', attachment))
 
       return (
         recruitableApiClient
-          .put(RecruitDocument.routes.recruitDocumentPath(recruitDocument.id), params)
+          .put(RecruitDocument.routes.recruitDocumentPath(recruitDocument.id), formData)
           .then(response => {
             commit('updateRecruitDocument', response.data)
 

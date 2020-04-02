@@ -74,12 +74,17 @@ export default new Router({
             {
               path: 'new',
               name: 'new_recruitment_path',
-              component: () => import(/* webpackChunkName: 'recruitment' */ '@views/recruitments/New'),
+              component: () => import(/* webpackChunkName: 'new_recruitment' */ '@views/recruitments/New'),
             },
             {
               path: ':publicRecruitId/documents/:id',
               name: 'recruitment_path',
               component: () => import(/* webpackChunkName: 'recruitment' */ '@views/recruitments/Show'),
+            },
+            {
+              path: ':publicRecruitId/documents/:id/edit',
+              name: 'edit_recruitment_path',
+              component: () => import(/* webpackChunkName: 'edit_recruitment' */ '@views/recruitments/Edit'),
             }
           ]
         },

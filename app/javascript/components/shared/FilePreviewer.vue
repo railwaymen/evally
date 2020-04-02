@@ -1,22 +1,24 @@
 <template>
-  <v-card class="pa-5 height-100">
-    <div class="bg-placeholder height-100">
-      <object v-if="url" :data="url" width="100%" height="100%">
-        <embed :src="url" />
+  <v-card class="height-100">
+    <div class="file-previewer">
+      <object :data="attachment.url" :key="attachment.size">
+        <embed :src="attachment.url" />
       </object>
     </div>
   </v-card>
 </template>
 
 <script>
+import { Attachment } from '@models/attachment'
+
 export default {
   name: 'FilePreviewer',
   props: {
-    url: {
-      type: String,
+    attachment: {
+      type: Attachment,
       required: true,
-      default: ''
+      default: () => new Attachment()
     }
-  },
+  }
 }
 </script>

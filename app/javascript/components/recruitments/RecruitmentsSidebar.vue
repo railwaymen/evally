@@ -242,7 +242,7 @@ export default {
     assignEvaluator(value = null) {
       this.localRecruitDocument.evaluator_id = value
 
-      this.update(this.localRecruitDocument)
+      this.update({ recruitDocument: this.localRecruitDocument })
     },
     openDeleteAttachmentConfirm(attachment) {
       DialogsBus.$emit('openFormsDialog', {
@@ -255,18 +255,18 @@ export default {
         return this.flash({ error: this.$i18n.t('messages.recruitments.show.groupError') })
       }
 
-      this.update(this.localRecruitDocument)
+      this.update({ recruitDocument: this.localRecruitDocument })
     },
     updatePosition(selectedPosition) {
       if (!selectedPosition) {
         return this.flash({ error: this.$i18n.t('messages.recruitments.show.positionError') })
       }
 
-      this.update(this.localRecruitDocument)
+      this.update({ recruitDocument: this.localRecruitDocument })
     },
     updateStatus(selectedStatus) {
       if (selectedStatus.required_fields.length === 0) {
-        return this.update(this.localRecruitDocument)
+        return this.update({ recruitDocument: this.localRecruitDocument })
       }
 
       DialogsBus.$emit('openFormsDialog', {

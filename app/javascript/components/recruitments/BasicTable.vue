@@ -42,7 +42,7 @@
             <v-tooltip bottom>
               <template #activator="{ on }">
                 <v-icon
-                  @click="$emit('edit', item.id)"
+                  @click="$router.push(item.editPath)"
                   v-on="on"
                   class="mx-2"
                   small

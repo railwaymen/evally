@@ -35,6 +35,16 @@ class RecruitDocument extends Model {
     };
   }
 
+  get editPath() {
+    return {
+      name: 'edit_recruitment_path',
+      params: {
+        publicRecruitId: this.public_recruit_id,
+        id: this.id
+      }
+    }
+  }
+
   get fullname() {
     return [this.first_name, this.last_name].join(' ')
   }

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-3">
+  <v-card class="pa-3 height-100">
     <v-card-title>
       <span class="headline">{{ $t(`components.recruitments.recruitmentForm.${formAction}Title`) }}</span>
     </v-card-title>
@@ -92,6 +92,7 @@
               :rules="[vRequired]"
               :label="$t('shared.general.fields.email')"
               prepend-inner-icon="mdi-at"
+              :disabled="localRecruitment.isPersisted"
             />
           </v-flex>
 
@@ -374,7 +375,10 @@ export default {
     save() {
       if (!this.$refs.form.validate()) return
 
-      this.create({ recruitDocument: this.localRecruitment, attachments: this.localFiles })
+      (this.localRecruitment.isPersisted ? this.update : this.create)({
+        recruitDocument: this.localRecruitment,
+        attachments: this.localFiles
+      })
         .then(data => {
           this.$router.push({
             name: 'recruitment_path',
@@ -384,6 +388,7 @@ export default {
     },
     ...mapActions({
       create: 'RecruitDocumentsModule/create',
+      update: 'RecruitDocumentsModule/update'
     })
   },
   computed: {

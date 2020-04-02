@@ -1,7 +1,13 @@
 <template>
   <v-layout row wrap class="d-flex align-stretch">
     <v-flex xs12 lg6>
+      <div v-if="loading" class="widget__loader">
+				<v-progress-circular :size="30" :width="3" color="primary" indeterminate />
+			</div>
+
       <recruitment-form
+        v-else
+        :recruitment="recruitment"
         :groups="groups"
         :positions="positions"
         :statuses="statuses"
@@ -12,7 +18,11 @@
     </v-flex>
 
     <v-flex xs12 lg6>
-      <file-previewer :url="currentAttachment.url" />
+      <div v-if="loading" class="widget__loader">
+				<v-progress-circular :size="30" :width="3" color="primary" indeterminate />
+			</div>
+
+      <file-previewer v-else :attachment="currentAttachment" />
     </v-flex>
   </v-layout>
 </template>
@@ -27,7 +37,7 @@ import FilePreviewer from '@components/shared/FilePreviewer'
 import RecruitmentForm from '@components/recruitments/RecruitmentForm'
 
 export default {
-  name: 'RecruitmentNew',
+  name: 'RecruitmentEdit',
   components: { FilePreviewer, RecruitmentForm },
   data() {
     return {
@@ -41,15 +51,19 @@ export default {
       evaluators: 'RecruitDocumentsModule/evaluators',
       groups: 'RecruitDocumentsModule/groups',
       statuses: 'RecruitDocumentsModule/statuses',
-      positions: 'RecruitDocumentsModule/positions'
+      positions: 'RecruitDocumentsModule/positions',
+      loading: 'RecruitDocumentsModule/loading'
     })
   },
   watch: {
     $route: {
       immediate: true,
       handler(to) {
-        if (to.name === 'new_recruitment_path') {
-          this.$store.dispatch('RecruitDocumentsModule/newForm')
+        if (to.name === 'edit_recruitment_path') {
+          this.$store.dispatch('RecruitDocumentsModule/show', {
+            publicRecruitId: to.params.publicRecruitId,
+            id: to.params.id
+          })
         }
       }
     }

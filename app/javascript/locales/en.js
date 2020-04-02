@@ -317,6 +317,7 @@ export default {
       },
       recruitmentForm: {
         createTitle: 'New Recruit Document',
+        updateTitle: 'Edit Recruit Document',
         contact: 'Contact',
         general: 'General',
         agreements: 'Agreements',
