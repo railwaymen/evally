@@ -39,6 +39,25 @@
         <template v-if="$route.name === 'recruitment_path'">
           <v-tooltip
             v-if="policy.canEdit"
+            key="edit"
+            bottom
+          >
+            <template #activator="{ on }">
+              <v-btn
+                :to="recruitDocument.editPath"
+                v-on="on"
+                color="black"
+                icon
+              >
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </template>
+
+            <span>{{ $t('shared.tooltips.edit') }}</span>
+          </v-tooltip>
+
+          <v-tooltip
+            v-if="policy.canEdit"
             key="delete"
             bottom
           >
@@ -102,6 +121,7 @@ export default {
     },
     ...mapGetters({
       recruitDocuments: 'RecruitDocumentsModule/recruitDocuments',
+      recruitDocument: 'RecruitDocumentsModule/recruitDocument',
       groups: 'RecruitDocumentsModule/groups',
       statuses: 'RecruitDocumentsModule/statuses',
       loading: 'RecruitDocumentsModule/loading',

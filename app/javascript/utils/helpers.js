@@ -18,6 +18,34 @@ export const fetchError = ({ response }) => {
   return details !== '' ? details : response.data.message
 }
 
+export const objectToFormData = (obj, namespace, form = new FormData()) => {
+  let formKey
+
+  for(let property in obj) {
+    // eslint-disable-next-line
+    if(obj.hasOwnProperty(property)) {
+      if (namespace) {
+        formKey = namespace + '[' + property + ']'
+      } else {
+        formKey = property
+      }
+
+      if (obj[property] === null) {
+        // WTF: typeof null -> object?
+        form.append(formKey, '')
+      } else if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
+        // if the property is an object, but not a File, use recursivity.
+        objectToFormData(obj[property], formKey, form)
+      } else {
+        // if it's a string or a File object
+        form.append(formKey, obj[property])
+      }
+    }
+  }
+
+  return form
+}
+
 export const arrayRange = (start = 0, end, step = 1) => range(start, end, step)
 
 export const colors = [
