@@ -22,6 +22,7 @@ export const objectToFormData = (obj, namespace, form = new FormData()) => {
   let formKey
 
   for(let property in obj) {
+    // eslint-disable-next-line
     if(obj.hasOwnProperty(property)) {
       if (namespace) {
         formKey = namespace + '[' + property + ']'
