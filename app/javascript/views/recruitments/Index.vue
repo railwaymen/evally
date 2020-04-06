@@ -117,7 +117,7 @@ export default {
   },
   computed: {
     policy() {
-      return new RecruitDocumentPolicy(this.user)
+      return new RecruitDocumentPolicy(this.user, this.recruitDocument)
     },
     ...mapGetters({
       recruitDocuments: 'RecruitDocumentsModule/recruitDocuments',

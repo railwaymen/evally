@@ -5,7 +5,7 @@ module V2
     class Serializer < Blueprinter::Base
       identifier :id
 
-      fields :created_at
+      fields :user_id, :created_at
 
       field :body do |comment|
         if comment.discarded_at.blank?
@@ -15,8 +15,12 @@ module V2
         end
       end
 
-      field :user_fullname do |comment|
-        comment.user&.fullname
+      field :created_by do |comment|
+        comment.user&.fullname || 'Bot'
+      end
+
+      field :editable do |comment|
+        comment.user.present? && comment.created_recently?
       end
     end
   end

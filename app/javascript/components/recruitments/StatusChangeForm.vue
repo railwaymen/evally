@@ -98,7 +98,7 @@ export default {
     save() {
       this.$refs.form.validate()
 
-      this.update(this.recruitDocument)
+      this.update({ recruitDocument: this.recruitDocument })
         .then(() => this.$emit('closeDialog'))
     },
     ...mapActions({

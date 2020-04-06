@@ -6,6 +6,7 @@ import { objectToFormData, fetchError } from '@utils/helpers'
 import i18n from '@locales/i18n'
 
 import { AttachmentsList } from '@models/attachment'
+import { Comment, CommentsList } from '@models/comment'
 import { Evaluation, EvaluationsList } from '@models/evaluation'
 import { RecruitDocument, RecruitDocumentsList } from '@models/recruit_document'
 import { SectionsList } from '@models/section'
@@ -21,6 +22,7 @@ const initialState = () => ({
   evaluation: new Evaluation(),
   sections: new SectionsList(),
   templates: new TemplatesList(),
+  comments: new CommentsList(),
   groups: [],
   statuses: [],
   positions: [],
@@ -41,6 +43,7 @@ const RecruitDocumentsModule = {
     evaluation: state => state.evaluation,
     sections: state => state.sections,
     templates: state => state.templates,
+    comments: state => state.comments,
     groups: state => state.groups,
     statuses: state => state.statuses,
     positions: state => state.positions,
@@ -48,6 +51,9 @@ const RecruitDocumentsModule = {
   },
 
   mutations: {
+    addComment(state, comment) {
+      state.comments.add(comment)
+    },
     addEvaluation(state, { evaluation, sections }) {
       state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
@@ -94,7 +100,8 @@ const RecruitDocumentsModule = {
         evaluations,
         evaluation,
         sections,
-        templates
+        templates,
+        comments
       } = data
 
       state.evaluators = new UsersList(evaluators)
@@ -102,6 +109,7 @@ const RecruitDocumentsModule = {
       state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
       state.templates = new TemplatesList(templates)
+      state.comments = new CommentsList(comments)
     },
     setRecruitDocument(state, data) {
       const {
@@ -363,6 +371,35 @@ const RecruitDocumentsModule = {
             commit(
               'NotificationsModule/push',
               { error: i18n.t('messages.recruitments.destroyAttachment.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      )
+    },
+    createComment({ state, commit }, comment) {
+      const params = {
+        comment: {
+          body: comment.body
+        }
+      }
+
+      return (
+        coreApiClient
+          .post(Comment.routes.commentsPath(state.recruitDocument.public_recruit_id), params)
+          .then(response => {
+            commit('addComment', response.data)
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.comments.create.ok') },
+              { root: true }
+            )
+
+            return Promise.resolve(response.data)
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.comments.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })

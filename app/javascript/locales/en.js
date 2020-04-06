@@ -371,6 +371,20 @@ export default {
     }
   },
   messages: {
+    comments: {
+      create: {
+        ok: 'Comment has been created',
+        error: 'Comment cannot be created: {msg}'
+      },
+      update: {
+        ok: 'Comment has been updated',
+        error: 'Comment cannot be updated: {msg}'
+      },
+      delete: {
+        ok: 'Comment has been deleted',
+        error: 'Comment cannot be deleted: {msg}'
+      }
+    },
     evaluations: {
       index: {
         error: 'Evaluation drafts cannot be loaded: {msg}'

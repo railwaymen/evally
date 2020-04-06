@@ -369,6 +369,20 @@ export default {
     }
   },
   messages: {
+    comments: {
+      create: {
+        ok: 'Komentarz został dodany',
+        error: 'Błąd przy dodawaniu domentarza: {msg}'
+      },
+      update: {
+        ok: 'Komentarz został zaktualizowany',
+        error: 'Błąd przy aktualizacji komentarza: {msg}'
+      },
+      delete: {
+        ok: 'Komentarz został usunięty',
+        error: 'Błąd przy usuwaniu komentarza: {msg}'
+      }
+    },
     evaluations: {
       index: {
         error: 'Błąd przy wczytywaniu szkiców ocen: {msg}'
