@@ -3,10 +3,11 @@
     <div class="comment__header">
       <div class="comment__author">{{ comment.created_by }}</div>
 
-      <div v-if="actionsVisible" class="comment__actions">
+      <div v-if="actionsVisible && comment.editable" class="comment__actions">
         <v-tooltip bottom>
           <template #activator="{ on }">
             <v-icon
+              @click="$emit('edit', comment)"
               v-on="on"
               class="mx-2"
               small
@@ -21,6 +22,7 @@
         <v-tooltip bottom>
           <template #activator="{ on }">
             <v-icon
+              @click="openDeleteCommentConfirm(comment)"
               v-on="on"
               class="mx-2"
               small
@@ -49,8 +51,12 @@
 </template>
 
 <script>
+import { DialogsBus } from '@utils/dialogs_bus'
+
 import { Comment } from '@models/comment'
 import { User } from '@models/user'
+
+import DeleteCommentConfirm from '@components/recruitments/DeleteCommentConfirm'
 
 export default {
   name: 'CommentBubble',
@@ -69,6 +75,14 @@ export default {
   data() {
     return {
       actionsVisible: this.comment.editable,
+    }
+  },
+  methods: {
+    openDeleteCommentConfirm(comment) {
+      DialogsBus.$emit('openFormsDialog', {
+        innerComponent: DeleteCommentConfirm,
+        props: { comment }
+      })
     }
   },
   computed: {

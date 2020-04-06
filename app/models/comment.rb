@@ -19,6 +19,6 @@ class Comment < ApplicationRecord
   #
 
   def created_recently?
-    created_at > 15.minutes.ago
+    discarded_at.blank? && created_at > 15.minutes.ago
   end
 end

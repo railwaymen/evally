@@ -349,6 +349,10 @@ export default {
         title: 'Delete Attachment',
         body: 'Are you sure you want to delete this attachment?'
       },
+      deleteCommentConfirm: {
+        title: 'Delete Comment',
+        body: 'Are you sure you want to delete this comment?'
+      },
       sidebar: {
         contactInformation: 'Contact Information',
         applicationDetails: 'Application Details',

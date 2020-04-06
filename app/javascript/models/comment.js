@@ -34,7 +34,8 @@ class Comment extends Model {
 
   static get routes() {
     return {
-      commentsPath: publicRecruitId => `/v2/recruits/${publicRecruitId}/comments`
+      commentsPath: publicRecruitId => `/v2/recruits/${publicRecruitId}/comments`,
+      commentPath: (publicRecruitId, id) => `/v2/recruits/${publicRecruitId}/comments/${id}`
     }
   }
 }

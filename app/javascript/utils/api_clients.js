@@ -49,8 +49,6 @@ const initClient = (baseUrl = null) => {
           router.push({ name: 'login_path' })
           break
         case 403:
-          router.push({ name: 'dashboard_path' })
-          break
         case 404:
         case 422:
           break

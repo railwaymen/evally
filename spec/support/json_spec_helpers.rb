@@ -12,7 +12,7 @@ module JsonSpecHelpers
 
     {
       id: comment.id,
-      body: comment.discarded_at.blank? ? comment.body : 'Comment has been deleted',
+      body: comment.discarded_at.blank? ? comment.body : '~~ Comment has been deleted ~~',
       created_at: comment.created_at.to_s,
       created_by: user.fullname,
       user_id: user.id,

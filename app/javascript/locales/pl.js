@@ -347,6 +347,10 @@ export default {
         title: 'Usuń plik',
         body: 'Czy na pewno chcesz usunąć ten plik?'
       },
+      deleteCommentConfirm: {
+        title: 'Usuń komentarz',
+        body: 'Czy na pewno chcesz usunąć ten komentarz?'
+      },
       sidebar: {
         contactInformation: 'Dane kontaktowe',
         applicationDetails: 'Szczegóły zgłoszenia',

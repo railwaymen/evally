@@ -12,7 +12,7 @@
           </v-expansion-panel-header>
 
           <v-expansion-panel-content>
-            <v-form @submit.prevent="addComment">
+            <v-form @submit.prevent="save">
               <vue-editor
                 v-model="localComment.body"
                 :editor-toolbar="toolbar"
@@ -49,6 +49,7 @@
           :key="comment.id"
           :comment="comment"
           :user="user"
+          @edit="setComment"
         />
       </div>
     </div>
@@ -56,7 +57,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { VueEditor } from 'vue2-editor';
 
 import { Comment, CommentsList } from '@models/comment'
@@ -95,16 +96,24 @@ export default {
     }
   },
   methods: {
-    addComment() {
+    save() {
       if (!this.localComment.body) return
 
-      this.$store.dispatch('RecruitDocumentsModule/createComment', this.localComment)
+      (this.localComment.isPersisted ? this.update : this.create)(this.localComment)
         .then(() => this.cancel())
     },
     cancel() {
       this.localComment = new Comment()
       this.panel = null
-    }
+    },
+    setComment(comment) {
+      this.localComment = new Comment({ ...comment })
+      this.panel = 0
+    },
+    ...mapActions({
+      create: 'RecruitDocumentsModule/createComment',
+      update: 'RecruitDocumentsModule/updateComment'
+    })
   },
   computed: {
     ...mapGetters({

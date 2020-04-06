@@ -145,6 +145,9 @@ const RecruitDocumentsModule = {
     resetState(state) {
       Object.assign(state, initialState())
     },
+    updateComment(state, comment) {
+      state.comments.refresh(comment)
+    },
     updateRecruitDocument(state, recruitDocument) {
       state.recruitDocument = new RecruitDocument(recruitDocument)
       state.recruitDocuments.refresh(recruitDocument)
@@ -400,6 +403,58 @@ const RecruitDocumentsModule = {
             commit(
               'NotificationsModule/push',
               { error: i18n.t('messages.comments.create.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      )
+    },
+    updateComment({ state, commit }, comment) {
+      const params = {
+        comment: {
+          body: comment.body
+        }
+      }
+
+      return (
+        coreApiClient
+          .put(Comment.routes.commentPath(state.recruitDocument.public_recruit_id, comment.id), params)
+          .then(response => {
+            commit('updateComment', response.data)
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.comments.update.ok') },
+              { root: true }
+            )
+
+            return Promise.resolve(response.data)
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.comments.update.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      )
+    },
+    destroyComment({ state, commit }, id) {
+      return (
+        coreApiClient
+          .delete(Comment.routes.commentPath(state.recruitDocument.public_recruit_id, id))
+          .then(response => {
+            commit('updateComment', response.data)
+            commit(
+              'NotificationsModule/push',
+              { success: i18n.t('messages.comments.delete.ok') },
+              { root: true }
+            )
+
+            return Promise.resolve(response.data)
+          })
+          .catch(error => {
+            commit(
+              'NotificationsModule/push',
+              { error: i18n.t('messages.comments.delete.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
