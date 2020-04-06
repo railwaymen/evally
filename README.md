@@ -96,47 +96,49 @@ If you want to use live code reloading, or you have enough JavaScript that on-de
 # run webpack dev server
 ./bin/webpack-dev-server
 ```
+
+
 ## Run the app using docker-compose
 
-##### 1. Build docker image
-```bash
-  docker build -t evally_app:latest -f docker/Dockerfile .
-```
-##### 2. Create image for evally_recruitable
+##### 1. Create docker network
 
-In evally_recruitable project dir run
 ```bash
-   cp config/database.docker.yml config/database.yml
-   docker build -t evally_recruitable_app:latest -f docker/Dockerfile .
+docker network create evally_network --subnet 172.24.24.0/24
 ```
 
-##### 3. Start the app
+##### 2. Create images for evally_recruitable app
+
+Go to evally_recruitable project directory and run:
+
 ```bash
- docker-compose up
+docker-compose build
 ```
 
-##### 4. Create database
+##### 3. Create images for evally_core app
+
+Go to evally project directory and run:
 
 ```bash
- docker exec evally_app rails db:create
+docker-compose build
 ```
 
- ##### 5. Load db schema
-
+##### 4. Start the app
 ```bash
- docker exec evally_app rails db:schema:load
- ```
-
- ##### 6. Run seed
-
-```bash
- docker exec evally_app rails db:seed
+docker-compose up
 ```
 
+##### 5. Setup evally_core database
+
 ```bash
-  docker exec evally_recruitable_app rake db:create
-  docker exec evally_recruitable_app rake db:migrate
+docker exec -it evally_core_app rails db:create db:schema:load db:seed
 ```
+
+ ##### 6. Setup evally_recruitable database
+
+```bash
+docker exec -it evally_recruitable_app rails db:create db:schema:load db:seed
+```
+
 
 ## Feedback
 

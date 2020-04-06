@@ -1,55 +1,64 @@
 version: '3'
 services:
-  db:
-    container_name: evally_db
+  core_db:
+    container_name: evally_core_db
     image: postgres:10.6-alpine
     volumes:
       - postgres:/var/lib/postgresql/data
 
   webpacker:
-    image: evally_app:latest
+    environment:
+      - RAILS_ENV=development
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
     container_name: evally_webpacker
     command: ./bin/webpack-dev-server
     user: ${CURRENT_USER}
     volumes:
       - .:/app
-      - ./docker/database.yml:/app/config/database.yml
+      - ./config/database.example.yml:/app/config/database.yml
+      - ./docker/env.example.yml:/app/config/env.yml
       - ./docker/webpacker.yml:/app/config/webpacker.yml
     ports:
       - '3035:3035'
-  db_recruitable:
+
+  recruitable_db:
     container_name: evally_recruitable_db
     image: postgres:10.6-alpine
     volumes:
       - postgres_recruitable:/var/lib/postgresql/data
-  evally_recruitable:
-    image: evally_recruitable_app:latest
+
+  evally_recruitable_app:
+    image: evally_recruitable_recruitable_app:latest
     container_name: evally_recruitable_app
     command: bin/rails s -p 3030 -b '0.0.0.0'
-    depends_on:
-      - db_recruitable
-    environment:
-      DATABASE_HOST: db_recruitable
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: ''
+    volumes:
+      - ./docker/env.example.yml:/app/config/env.yml
     ports:
       - '3030:3030'
-  app:
-    image: evally_app:latest
-    env_file:
-      - ./docker/docker.env
-    container_name: evally_app
+    depends_on:
+      - recruitable_db
+
+  core_app:
+    environment:
+      - RAILS_ENV=development
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    container_name: evally_core_app
     user: ${CURRENT_USER}
     volumes:
       - .:/app
-      - ./docker/database.yml:/app/config/database.yml
+      - ./config/database.example.yml:/app/config/database.yml
+      - ./docker/env.example.yml:/app/config/env.yml
       - ./docker/webpacker.yml:/app/config/webpacker.yml
     ports:
       - '3000:3000'
       - '1025:1025'
     depends_on:
       - webpacker
-      - db
+      - core_db
 
 volumes:
   postgres:
