@@ -30,6 +30,10 @@ module V2
         Pundit.policy_scope!(@user, [:v2, sections_scope])
       end
 
+      def comments
+        @recruit.comments.order(created_at: :desc)
+      end
+
       private
 
       def sections_scope

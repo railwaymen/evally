@@ -3,7 +3,7 @@
 module V2
   class CommentPolicy < ApplicationPolicy
     def update?
-      comment_owner? && comment_created_recently?
+      comment_owner? && record.created_recently?
     end
 
     def destroy?
@@ -14,10 +14,6 @@ module V2
 
     def comment_owner?
       user.id == record.user_id
-    end
-
-    def comment_created_recently?
-      record.created_at > 15.minutes.ago
     end
   end
 end

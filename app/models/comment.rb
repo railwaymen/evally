@@ -14,4 +14,11 @@ class Comment < ApplicationRecord
   # # Enums
   #
   enum created_by: { human: 'human', bot: 'bot' }, _prefix: true
+
+  # # Mathods
+  #
+
+  def created_recently?
+    discarded_at.blank? && created_at > 15.minutes.ago
+  end
 end

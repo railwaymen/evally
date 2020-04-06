@@ -12,17 +12,20 @@ import { User, UsersList } from '@models/user'
 describe('RecruitmentsSidebar', () => {
   const admin = new User({role: 'admin'})
 
+  const recruitDocument = new RecruitDocument({
+    id: 1,
+    email: 'e@domain.org',
+    received_at: '2020-02-10'
+  })
+
   const props = {
-    recruitDocument: new RecruitDocument({
-      email: 'e@domain.org',
-      received_at: '2020-02-10'
-    }),
+    recruitDocument,
     attachments: new AttachmentsList(),
     statuses: ['accepted', 'rejected'],
     groups: ['Ruby', 'Android'],
     positions: ['Junior', 'Senior'],
     evaluators: new UsersList(),
-    policy: new RecruitDocumentPolicy(admin)
+    policy: new RecruitDocumentPolicy(admin, recruitDocument)
   }
 
   const wrapper = shallowMount(

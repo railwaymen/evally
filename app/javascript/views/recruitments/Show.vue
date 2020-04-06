@@ -25,7 +25,7 @@
         </v-flex>
 
         <v-flex xs12 lg6>
-          Comments
+          <comments-sidebar />
         </v-flex>
       </v-layout>
     </v-flex>
@@ -37,12 +37,13 @@ import { mapGetters } from 'vuex'
 
 import { RecruitDocumentPolicy } from '@policies/recruit_document_policy'
 
+import CommentsSidebar from '@components/recruitments/CommentsSidebar'
 import EvaluationsSidebar from '@components/recruitments/EvaluationsSidebar'
 import RecruitmentsSidebar from '@components/recruitments/RecruitmentsSidebar'
 
 export default {
   name: 'RecruitmentsShow',
-  components: { EvaluationsSidebar, RecruitmentsSidebar },
+  components: { CommentsSidebar, EvaluationsSidebar, RecruitmentsSidebar },
   computed: {
     policy() {
       return new RecruitDocumentPolicy(this.user, this.recruitDocument)

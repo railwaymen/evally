@@ -8,4 +8,4 @@ en:
         name_and_value: 'must have name and value'
         skills_array: 'must be an Array of skills'
         has_draft_evaluations: 'Employee has draft evaluations'
-        comment_deleted: Comment has been deleted
+        comment_deleted: '~~ Comment has been deleted ~~'

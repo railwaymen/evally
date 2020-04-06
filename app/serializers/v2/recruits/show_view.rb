@@ -12,6 +12,8 @@ module V2
       association :sections, blueprint: V2::Sections::Serializer, default: []
 
       association :templates, blueprint: V2::Templates::Serializer, default: []
+
+      association :comments, blueprint: V2::Comments::Serializer, default: []
     end
   end
 end

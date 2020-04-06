@@ -6,6 +6,6 @@ export class RecruitDocumentPolicy extends BasePolicy{
   }
 
   get canEdit() {
-    return this.canCreate
+    return this.canCreate && this.object.isPersisted
   }
 }
