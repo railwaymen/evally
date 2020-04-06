@@ -1,12 +1,14 @@
 version: '3'
 services:
-  db:
-    container_name: evally_db
+  core_db:
+    container_name: evally_core_db
     image: postgres:10.6-alpine
     volumes:
       - postgres:/var/lib/postgresql/data
 
   webpacker:
+    environment:
+      - RAILS_ENV=development
     build:
       context: .
       dockerfile: ./docker/Dockerfile
@@ -15,33 +17,52 @@ services:
     user: ${CURRENT_USER}
     volumes:
       - .:/app
-      - ./docker/database.yml:/app/config/database.yml
+      - ./config/database.example.yml:/app/config/database.yml
+      - ./docker/env.example.yml:/app/config/env.yml
       - ./docker/webpacker.yml:/app/config/webpacker.yml
     ports:
       - '3035:3035'
 
-  app:
+  recruitable_db:
+    container_name: evally_recruitable_db
+    image: postgres:10.6-alpine
+    volumes:
+      - postgres_recruitable:/var/lib/postgresql/data
+
+  evally_recruitable_app:
+    image: evally_recruitable_recruitable_app:latest
+    container_name: evally_recruitable_app
+    command: bin/rails s -p 3030 -b '0.0.0.0'
+    volumes:
+      - ./docker/env.example.yml:/app/config/env.yml
+    ports:
+      - '3030:3030'
+    depends_on:
+      - recruitable_db
+
+  core_app:
     environment:
       - RAILS_ENV=development
     build:
       context: .
       dockerfile: ./docker/Dockerfile
-    container_name: evally_app
-    command: bin/rails s -p 3000 -b '0.0.0.0'
+    container_name: evally_core_app
     user: ${CURRENT_USER}
     volumes:
       - .:/app
-      - ./docker/database.yml:/app/config/database.yml
+      - ./config/database.example.yml:/app/config/database.yml
+      - ./docker/env.example.yml:/app/config/env.yml
       - ./docker/webpacker.yml:/app/config/webpacker.yml
     ports:
       - '3000:3000'
       - '1025:1025'
     depends_on:
       - webpacker
-      - db
+      - core_db
 
 volumes:
   postgres:
+  postgres_recruitable:
 
 networks:
   default:

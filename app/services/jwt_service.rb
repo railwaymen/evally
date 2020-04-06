@@ -13,7 +13,7 @@ class JwtService
   end
 
   def self.api_key
-    Rails.application.credentials.evally.fetch(:api_key)
+    Rails.application.config.env.fetch(:api_key)
   end
 
   def self.secret
