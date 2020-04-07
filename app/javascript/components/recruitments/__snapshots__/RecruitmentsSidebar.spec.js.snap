@@ -5,14 +5,7 @@ exports[`RecruitmentsSidebar matches do snapshot 1`] = `
   <div class="vcard">
     <div class="vcard__header">
       <h3 class="vcard__fullname"> </h3>
-      <div class="vcard__socials">
-        <v-btn-stub icon="" href="http://github.com" target="_blank">
-          <v-icon-stub>mdi-github</v-icon-stub>
-        </v-btn-stub>
-        <v-btn-stub icon="" href="http://linkedin.com" target="_blank">
-          <v-icon-stub>mdi-linkedin</v-icon-stub>
-        </v-btn-stub>
-      </div>
+      <div class="vcard__socials"></div>
     </div>
     <div class="vcard__content">
       <div class="vcard__info vcard__info--editable">

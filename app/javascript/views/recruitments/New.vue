@@ -12,7 +12,7 @@
     </v-flex>
 
     <v-flex xs12 lg6>
-      <file-previewer :url="currentAttachment.url" />
+      <file-previewer :attachment="currentAttachment" />
     </v-flex>
   </v-layout>
 </template>

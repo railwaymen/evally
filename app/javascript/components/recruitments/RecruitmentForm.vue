@@ -245,6 +245,14 @@
           </v-flex>
 
           <v-flex class="pa-2" xs12 >
+            <h3 class="subtitle-1">{{ $t('components.recruitments.recruitmentForm.socials') }}</h3>
+          </v-flex>
+
+          <v-flex xs12>
+            <social-links-field v-model="localRecruitment.social_links"/>
+          </v-flex>
+
+          <v-flex class="pa-2" xs12 >
             <h3 class="subtitle-1">{{ $t('components.recruitments.recruitmentForm.agreements') }}</h3>
           </v-flex>
 
@@ -269,7 +277,7 @@
         <v-spacer />
 
         <v-btn
-          type="reset"
+          @click="reset"
           color="grey darken-1"
           text
         >
@@ -297,12 +305,13 @@ import { RecruitDocument } from '@models/recruit_document'
 import { UsersList } from '@models/user'
 
 import DatetimeField from '@components/shared/DatetimeField'
+import SocialLinksField from '@components/shared/SocialLinksField'
 import DeleteAttachmentConfirm from '@components/recruitments/DeleteAttachmentConfirm'
 import StatusSelect from '@components/recruitments/StatusSelect'
 
 export default {
   name: 'RecruitmentForm',
-  components: { DatetimeField, StatusSelect },
+  components: { DatetimeField, SocialLinksField, StatusSelect },
   props: {
     groups: {
       type: Array,
@@ -371,6 +380,10 @@ export default {
         innerComponent: DeleteAttachmentConfirm,
         props: { attachment }
       })
+    },
+    reset() {
+      this.localRecruitment = new RecruitDocument({ ...this.recruitment })
+      this.localFiles = []
     },
     save() {
       if (!this.$refs.form.validate()) return
