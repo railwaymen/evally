@@ -26,6 +26,7 @@ class RecruitDocument extends Model {
       recruit_accepted_at: '',
       rejection_reason: '',
       evaluator_id: null,
+      social_links: [],
       status: {
         value: '',
         label: '',

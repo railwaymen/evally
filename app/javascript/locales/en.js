@@ -328,7 +328,8 @@ export default {
         receivedDate: 'Received Date',
         acceptCurrentProcessing: 'Accept for current recruitment',
         acceptFutureProcessing: 'Accept for future recruitments',
-        attachments: 'Attachments'
+        attachments: 'Attachments',
+        socials: 'Socials'
       },
       deleteConfirm: {
         title: 'Delete Recruit Document',

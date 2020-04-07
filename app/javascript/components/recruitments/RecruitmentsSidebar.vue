@@ -5,12 +5,14 @@
         <h3 class="vcard__fullname">{{ localRecruitDocument.fullname }}</h3>
 
         <div class="vcard__socials">
-          <v-btn icon href="http://github.com" target="_blank">
-            <v-icon>mdi-github</v-icon>
-          </v-btn>
-
-          <v-btn icon href="http://linkedin.com" target="_blank">
-            <v-icon>mdi-linkedin</v-icon>
+          <v-btn
+            v-for="(link, index) in localRecruitDocument.social_links"
+            :key="index"
+            :href="link"
+            target="_blank"
+            icon
+          >
+            <v-icon>{{ icons[index] }}</v-icon>
           </v-btn>
         </div>
       </div>
@@ -192,6 +194,8 @@ import DeleteAttachmentConfirm from '@components/recruitments/DeleteAttachmentCo
 import StatusChangeForm from '@components/recruitments/StatusChangeForm'
 import StatusSelect from '@components/recruitments/StatusSelect'
 
+import { linksToIcons } from '@utils/helpers'
+
 export default {
   name: 'RecruitmentsSidebar',
   components: { StatusSelect },
@@ -288,6 +292,11 @@ export default {
       update: 'RecruitDocumentsModule/update',
       uploadAttachments: 'RecruitDocumentsModule/uploadAttachments'
     })
+  },
+  computed: {
+    icons() {
+      return linksToIcons(this.localRecruitDocument.social_links)
+    }
   },
   watch: {
     recruitDocument: {

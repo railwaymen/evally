@@ -18,6 +18,29 @@ export const fetchError = ({ response }) => {
   return details !== '' ? details : response.data.message
 }
 
+export const linksToIcons = linksArr => (
+  linksArr.map(link => {
+    const matcher = link.trim().match(
+      /^https?:\/\/.*(linkedin\.com|github\.com|gitlab\.com|bitbucket\.org)\/.+$/
+    )
+
+    if (!matcher) return 'mdi-link-variant'
+
+    switch (matcher[1].split('.')[0]) {
+      case 'linkedin':
+        return 'mdi-linkedin'
+      case 'github':
+        return 'mdi-github'
+      case 'gitlab':
+        return 'mdi-gitlab'
+      case 'bitbucket':
+        return 'mdi-bitbucket'
+      default:
+        return 'mdi-link-variant'
+    }
+  })
+)
+
 export const objectToFormData = (obj, namespace, form = new FormData()) => {
   let formKey
 
@@ -33,7 +56,7 @@ export const objectToFormData = (obj, namespace, form = new FormData()) => {
       if (obj[property] === null) {
         // WTF: typeof null -> object?
         form.append(formKey, '')
-      } else if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
+      } else if (typeof obj[property] === 'object' && !(obj[property] instanceof File) && !(obj[property] instanceof Array)) {
         // if the property is an object, but not a File, use recursivity.
         objectToFormData(obj[property], formKey, form)
       } else {

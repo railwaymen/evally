@@ -326,7 +326,8 @@ export default {
         receivedDate: 'Data odebrania',
         acceptCurrentProcessing: 'Zgoda na obecną rekrutację',
         acceptFutureProcessing: 'Zgoda na przyszłe rekrutacje',
-        attachments: 'Załączniki'
+        attachments: 'Załączniki',
+        socials: 'Społeczności'
       },
       deleteConfirm: {
         title: 'Usuń zgłoszenie rekrutacyjne',
