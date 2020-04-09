@@ -36,7 +36,6 @@ export default {
   },
   computed: {
      ...mapGetters({
-      recruitment: 'RecruitDocumentsModule/recruitDocument',
       attachments: 'RecruitDocumentsModule/attachments',
       evaluators: 'RecruitDocumentsModule/evaluators',
       groups: 'RecruitDocumentsModule/groups',

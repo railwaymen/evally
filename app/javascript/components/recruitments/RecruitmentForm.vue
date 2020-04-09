@@ -9,7 +9,7 @@
         <v-layout row wrap>
           <v-flex class="px-2" xs12 lg6>
             <status-select
-              v-model="localRecruitment.status"
+              v-model="localRecruitDocument.status"
               :items="statuses"
               :rules="[vRequired]"
               append-icon="mdi-chevron-down"
@@ -23,7 +23,7 @@
           <v-flex class="px-2" xs12 lg6>
             <v-select
               :items="evaluators.models"
-              v-model="localRecruitment.evaluator_id"
+              v-model="localRecruitDocument.evaluator_id"
               :label="$t('shared.general.fields.evaluator')"
               item-value="id"
               item-text="fullname"
@@ -33,20 +33,21 @@
           </v-flex>
 
           <v-flex
-            v-for="field in localRecruitment.status.required_fields"
+            v-for="field in localRecruitDocument.status.required_fields"
             :key="field.value"
             class="px-2"
             xs12
           >
             <datetime-field
               v-if="field.type === 'datetime'"
-              v-model="localRecruitment[field.value]"
+              v-model="localRecruitDocument[field.value]"
               :label="field.label"
+              :rules="[vRequired]"
             />
 
             <v-textarea
               v-if="field.type === 'text'"
-              v-model="localRecruitment[field.value]"
+              v-model="localRecruitDocument[field.value]"
               :label="field.label"
               :rules="[vRequired]"
               rows="2"
@@ -59,7 +60,7 @@
 
           <v-flex class="px-2" xs12 lg4>
             <v-text-field
-              v-model="localRecruitment.first_name"
+              v-model="localRecruitDocument.first_name"
               :rules="[vRequired]"
               :label="$t('shared.general.fields.firstName')"
               prepend-inner-icon="mdi-account-outline"
@@ -68,7 +69,7 @@
 
           <v-flex class="px-2" xs12 lg4>
             <v-text-field
-              v-model="localRecruitment.last_name"
+              v-model="localRecruitDocument.last_name"
               :rules="[vRequired]"
               :label="$t('shared.general.fields.lastName')"
               prepend-inner-icon="mdi-account-outline"
@@ -76,7 +77,7 @@
           </v-flex>
 
           <v-flex class="px-2" xs12 lg4>
-            <v-radio-group v-model="localRecruitment.gender" row>
+            <v-radio-group v-model="localRecruitDocument.gender" row>
               <v-radio :label="$t('components.recruitments.recruitmentForm.male')" value="male" />
               <v-radio :label="$t('components.recruitments.recruitmentForm.female')" value="female" />
             </v-radio-group>
@@ -88,17 +89,17 @@
 
           <v-flex class="px-2" xs12 lg6>
             <v-text-field
-              v-model="localRecruitment.email"
+              v-model="localRecruitDocument.email"
               :rules="[vRequired]"
               :label="$t('shared.general.fields.email')"
               prepend-inner-icon="mdi-at"
-              :disabled="localRecruitment.isPersisted"
+              :disabled="localRecruitDocument.isPersisted"
             />
           </v-flex>
 
           <v-flex class="px-2" xs12 lg6>
-            <v-text-field
-              v-model="localRecruitment.phone"
+            <phone-number-field
+              v-model="localRecruitDocument.phone"
               :label="$t('shared.general.fields.phoneNumber')"
               prepend-inner-icon="mdi-phone"
             />
@@ -106,7 +107,7 @@
 
           <v-flex class="px-2" xs12 lg6>
             <v-combobox
-              v-model="localRecruitment.group"
+              v-model="localRecruitDocument.group"
               :items="groups"
               :rules="[vRequired]"
               prepend-inner-icon="mdi-account-multiple-outline"
@@ -117,7 +118,7 @@
 
           <v-flex class="px-2" xs12 lg6>
             <v-combobox
-              v-model="localRecruitment.position"
+              v-model="localRecruitDocument.position"
               :items="positions"
               :rules="[vRequired]"
               append-icon="mdi-chevron-down"
@@ -129,38 +130,18 @@
 
           <v-flex class="px-2" xs12 lg6>
             <v-text-field
-              v-model="localRecruitment.source"
+              v-model="localRecruitDocument.source"
               :label="$t('shared.general.fields.source')"
               prepend-inner-icon="mdi-email-receive-outline"
             />
           </v-flex>
 
           <v-flex class="px-2" xs12 lg6>
-            <v-menu
-              :close-on-content-click="true"
-              transition="scale-transition"
-              :nudge-right="40"
-              offset-y
-              min-width="290px"
-            >
-              <template #activator="{ on }">
-                <v-text-field
-                  :value="localRecruitment.received_at"
-                  :label="$t('components.recruitments.recruitmentForm.receivedDate')"
-                  prepend-inner-icon="mdi-calendar"
-                  :rules="[vRequired]"
-                  readonly
-                  v-on="on"
-                />
-              </template>
-
-              <v-date-picker
-                v-model="localRecruitment.received_at"
-                :locale="$i18n.locale"
-                no-title
-                scrollable
-              />
-            </v-menu>
+            <datetime-field
+              v-model="localRecruitDocument.received_at"
+              :label="$t('components.recruitments.recruitmentForm.receivedDate')"
+              :rules="[vRequired]"
+            />
           </v-flex>
 
           <v-flex class="pa-2" xs12 >
@@ -249,7 +230,7 @@
           </v-flex>
 
           <v-flex xs12>
-            <social-links-field v-model="localRecruitment.social_links"/>
+            <social-links-field v-model="localRecruitDocument.social_links"/>
           </v-flex>
 
           <v-flex class="pa-2" xs12 >
@@ -259,7 +240,7 @@
           <v-flex class="px-2" xs12 lg6>
             <v-checkbox
               :label="$t('components.recruitments.recruitmentForm.acceptCurrentProcessing')"
-              v-model="localRecruitment.accept_current_processing"
+              v-model="localRecruitDocument.accept_current_processing"
               :rules="[vRequired]"
             />
           </v-flex>
@@ -267,7 +248,7 @@
           <v-flex class="px-2" xs12 lg6>
             <v-checkbox
               :label="$t('components.recruitments.recruitmentForm.acceptFutureProcessing')"
-              v-model="localRecruitment.accept_future_processing"
+              v-model="localRecruitDocument.accept_future_processing"
             />
           </v-flex>
         </v-layout>
@@ -305,13 +286,19 @@ import { RecruitDocument } from '@models/recruit_document'
 import { UsersList } from '@models/user'
 
 import DatetimeField from '@components/shared/DatetimeField'
+import PhoneNumberField from '@components/shared/PhoneNumberField'
 import SocialLinksField from '@components/shared/SocialLinksField'
 import DeleteAttachmentConfirm from '@components/recruitments/DeleteAttachmentConfirm'
 import StatusSelect from '@components/recruitments/StatusSelect'
 
 export default {
   name: 'RecruitmentForm',
-  components: { DatetimeField, SocialLinksField, StatusSelect },
+  components: {
+    DatetimeField,
+    PhoneNumberField,
+    SocialLinksField,
+    StatusSelect
+  },
   props: {
     groups: {
       type: Array,
@@ -328,7 +315,7 @@ export default {
       required: true,
       default: () => []
     },
-    recruitment: {
+    recruitDocument: {
       type: RecruitDocument,
       required: false,
       default: () => new RecruitDocument()
@@ -346,7 +333,7 @@ export default {
   },
   data() {
     return {
-      localRecruitment: new RecruitDocument({ ...this.recruitment }),
+      localRecruitDocument: new RecruitDocument({ ...this.recruitDocument }),
       selectedFile: new Attachment(),
       localFiles: []
     }
@@ -382,14 +369,14 @@ export default {
       })
     },
     reset() {
-      this.localRecruitment = new RecruitDocument({ ...this.recruitment })
+      this.localRecruitDocument = new RecruitDocument({ ...this.recruitDocument })
       this.localFiles = []
     },
     save() {
       if (!this.$refs.form.validate()) return
 
-      (this.localRecruitment.isPersisted ? this.update : this.create)({
-        recruitDocument: this.localRecruitment,
+      (this.localRecruitDocument.isPersisted ? this.update : this.create)({
+        recruitDocument: this.localRecruitDocument,
         attachments: this.localFiles
       })
         .then(data => {
@@ -406,7 +393,7 @@ export default {
   },
   computed: {
     formAction() {
-      return this.localRecruitment.isPersisted ? 'update' : 'create'
+      return this.localRecruitDocument.isPersisted ? 'update' : 'create'
     }
   },
   watch: {

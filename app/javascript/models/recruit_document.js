@@ -15,7 +15,7 @@ class RecruitDocument extends Model {
       phone: '',
       position: '',
       source: '',
-      received_at: moment().format('YYYY-MM-DD'),
+      received_at: '',
       accept_current_processing: false,
       accept_future_processing: false,
       public_recruit_id: '',

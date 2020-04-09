@@ -7,7 +7,7 @@
 
       <recruitment-form
         v-else
-        :recruitment="recruitment"
+        :recruitDocument="recruitDocument"
         :groups="groups"
         :positions="positions"
         :statuses="statuses"
@@ -46,7 +46,7 @@ export default {
   },
   computed: {
      ...mapGetters({
-      recruitment: 'RecruitDocumentsModule/recruitDocument',
+      recruitDocument: 'RecruitDocumentsModule/recruitDocument',
       attachments: 'RecruitDocumentsModule/attachments',
       evaluators: 'RecruitDocumentsModule/evaluators',
       groups: 'RecruitDocumentsModule/groups',
