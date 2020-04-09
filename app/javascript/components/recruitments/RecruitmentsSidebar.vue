@@ -243,7 +243,7 @@ export default {
     }
   },
   methods: {
-    assignEvaluator(value = null) {
+    assignEvaluator(value) {
       this.localRecruitDocument.evaluator_id = value
 
       this.update({ recruitDocument: this.localRecruitDocument })

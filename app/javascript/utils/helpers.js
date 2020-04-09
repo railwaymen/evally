@@ -53,7 +53,7 @@ export const objectToFormData = (obj, namespace, form = new FormData()) => {
         formKey = property
       }
 
-      if (obj[property] === null) {
+      if ([null, undefined, ''].includes(obj[property])) {
         // WTF: typeof null -> object?
         form.append(formKey, '')
       } else if (typeof obj[property] === 'object' && !(obj[property] instanceof File) && !(obj[property] instanceof Array)) {
