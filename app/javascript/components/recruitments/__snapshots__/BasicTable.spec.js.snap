@@ -13,7 +13,7 @@ exports[`BasicTable matches do snapshot 1`] = `
       <status-select-stub items="fresh,accepted" label="Status" clearable="" solo="" value=""></status-select-stub>
     </v-flex-stub>
     <v-flex-stub xs12="">
-      <v-data-table-stub headers="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]" items="" search=""></v-data-table-stub>
+      <v-data-table-stub headers="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]" items="" search="" footer-props="[object Object]"></v-data-table-stub>
     </v-flex-stub>
   </v-layout-stub>
 </div>
