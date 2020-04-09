@@ -129,10 +129,12 @@
           </v-flex>
 
           <v-flex class="px-2" xs12 lg6>
-            <v-text-field
+            <v-combobox
               v-model="localRecruitDocument.source"
-              :label="$t('shared.general.fields.source')"
+              :items="sources"
               prepend-inner-icon="mdi-email-receive-outline"
+              :label="$t('shared.general.fields.source')"
+              chips
             />
           </v-flex>
 
@@ -215,7 +217,7 @@
 
               <v-list-item-action>
                 <v-btn
-                  @click="openDeleteAttachmentConfirm(attachment)"
+                  @click.stop="openDeleteAttachmentConfirm(attachment)"
                   color="red lighten-3"
                   icon
                 >
@@ -302,17 +304,22 @@ export default {
   props: {
     groups: {
       type: Array,
-      required: true,
+      required: false,
       default: () => []
     },
     positions: {
       type: Array,
-      required: true,
+      required: false,
       default: () => []
     },
     statuses: {
       type: Array,
-      required: true,
+      required: false,
+      default: () => []
+    },
+    sources: {
+      type: Array,
+      required: false,
       default: () => []
     },
     recruitDocument: {

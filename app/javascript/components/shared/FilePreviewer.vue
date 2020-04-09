@@ -2,7 +2,7 @@
   <v-card class="height-100">
     <div class="file-previewer">
       <object :data="attachment.url" :key="attachment.size">
-        <embed :src="attachment.url" />
+        <embed :src="attachment.url" :type="attachment.content_type" />
       </object>
     </div>
   </v-card>

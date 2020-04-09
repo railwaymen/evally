@@ -5,6 +5,7 @@
         :groups="groups"
         :positions="positions"
         :statuses="statuses"
+        :sources="sources"
         :evaluators="evaluators"
         :attachments="attachments"
         @selectFile="file => currentAttachment = file"
@@ -40,7 +41,8 @@ export default {
       evaluators: 'RecruitDocumentsModule/evaluators',
       groups: 'RecruitDocumentsModule/groups',
       statuses: 'RecruitDocumentsModule/statuses',
-      positions: 'RecruitDocumentsModule/positions'
+      positions: 'RecruitDocumentsModule/positions',
+      sources: 'RecruitDocumentsModule/sources'
     })
   },
   watch: {
