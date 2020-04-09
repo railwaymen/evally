@@ -12,11 +12,12 @@
           <v-text-field
             :value="computedDate"
             :label="label"
-            :rules="[vRequired]"
+            :rules="rules"
             prepend-inner-icon="mdi-calendar"
-            clearable
+            append-icon="mdi-close"
             readonly
             v-on="on"
+            @click:append="$emit('input', null)"
           />
         </template>
         <v-date-picker
@@ -34,9 +35,10 @@
         v-mask="'##:##'"
         :value="computedTime"
         @blur="updateTime"
-        :rules="[vRequired]"
-        :disabled="!datetime"
+        :rules="rules"
+        :disabled="!computedDate"
         prepend-inner-icon="mdi-clock-outline"
+        placeholder="00:00"
       />
     </div>
   </div>
@@ -58,22 +60,22 @@ export default {
       type: String,
       required: false,
       default: null
-    }
-  },
-  data() {
-    return {
-      datetime: this.value
+    },
+    rules: {
+      type: Array,
+      required: false,
+      default: () => []
     }
   },
   methods: {
     updateDate(value) {
-      this.datetime = this.$moment(`${value} ${this.computedTime || '00:00:00'}`).format()
+      this.$emit('input', this.$moment(`${value} ${this.computedTime || '00:00:00'}`).format())
     },
     updateTime(e) {
       let time = e.target.value
 
       if (!time.match(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)) time = '00:00'
-      this.datetime = this.$moment(`${this.computedDate} ${time}:00`).format()
+      this.$emit('input', this.$moment(`${this.computedDate} ${time}:00`).format())
     }
   },
   computed: {
@@ -84,13 +86,8 @@ export default {
       return this.mDatetime ? this.mDatetime.format('HH:mm') : ''
     },
     mDatetime() {
-      const validDatetime = this.datetime && this.$moment(this.datetime).isValid()
-      return validDatetime ? this.$moment(this.datetime) : null
-    }
-  },
-  watch: {
-    datetime(newVal) {
-      this.$emit('input', newVal)
+      const validDatetime = this.value && this.$moment(this.value).isValid()
+      return validDatetime ? this.$moment(this.value) : null
     }
   }
 }

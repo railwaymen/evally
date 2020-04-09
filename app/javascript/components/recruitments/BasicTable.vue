@@ -37,6 +37,7 @@
           :items="recruitDocuments.models"
           :search="search"
           :loading="loading"
+          :footer-props="{ 'items-per-page-options': [25, 50, 100, -1] }"
         >
           <template #item.action="{ item }">
             <v-tooltip bottom>

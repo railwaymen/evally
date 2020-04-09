@@ -32,6 +32,7 @@
               v-if="field.type === 'datetime'"
               v-model="recruitDocument[field.value]"
               :label="field.label"
+              :rules="[vRequired]"
             />
 
             <v-textarea

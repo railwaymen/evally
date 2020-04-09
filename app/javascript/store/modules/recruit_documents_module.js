@@ -26,6 +26,7 @@ const initialState = () => ({
   groups: [],
   statuses: [],
   positions: [],
+  sources: [],
   loading: true
 })
 
@@ -47,6 +48,7 @@ const RecruitDocumentsModule = {
     groups: state => state.groups,
     statuses: state => state.statuses,
     positions: state => state.positions,
+    sources: state => state.sources,
     loading: state => state.loading
   },
 
@@ -117,6 +119,7 @@ const RecruitDocumentsModule = {
         attachments,
         positions,
         statuses,
+        sources,
         groups
       } = data
 
@@ -125,6 +128,7 @@ const RecruitDocumentsModule = {
       state.positions = positions
       state.groups = groups
       state.statuses = statuses
+      state.sources = sources
     },
     setRecruitDocuments(state, data) {
       const {
