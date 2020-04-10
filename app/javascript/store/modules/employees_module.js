@@ -38,7 +38,7 @@ const EmployeesModule = {
 
   mutations: {
     addToList(state, data) {
-      state.employees.add(data)
+      state.employees.unshift(data)
     },
     refreshItem(state, data) {
       state.employee.assign(data)
@@ -65,7 +65,7 @@ const EmployeesModule = {
     },
     removeFromList(state, id) {
       state.employee = new Employee()
-      state.employees.remove(id)
+      state.employees.dropById(id)
     },
     resetEvaluation(state) {
       state.evaluation = new Evaluation()

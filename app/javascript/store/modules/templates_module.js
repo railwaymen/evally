@@ -29,7 +29,7 @@ const TemplatesModule = {
 
   mutations: {
     addToList(state, data) {
-      state.templates.add(data)
+      state.templates.unshift(data)
     },
     setEditable(state, value = true) {
       state.template.set('editable', value)
@@ -55,7 +55,7 @@ const TemplatesModule = {
     removeFromList(state, id) {
       state.template = new Template()
       state.sections = new SectionsList()
-      state.templates.remove(id)
+      state.templates.dropById(id)
     },
     resetItem(state) {
       state.template = new Template()

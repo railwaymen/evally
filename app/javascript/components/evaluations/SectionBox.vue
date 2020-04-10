@@ -99,7 +99,7 @@ export default {
     section: {
       deep: true,
       handler(fresh, _old) {
-        this.$store.commit('EvaluationEmployablesModule/replaceSection', fresh)
+        this.$store.commit('EvaluationEmployablesModule/refreshSection', fresh)
       }
     }
   }

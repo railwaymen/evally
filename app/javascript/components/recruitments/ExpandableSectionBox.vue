@@ -116,7 +116,7 @@ export default {
     section: {
       deep: true,
       handler(fresh, _old) {
-        this.$store.commit('RecruitDocumentsModule/replaceSection', fresh)
+        this.$store.commit('RecruitDocumentsModule/refreshSection', fresh)
       }
     }
   }

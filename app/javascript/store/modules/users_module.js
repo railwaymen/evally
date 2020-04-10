@@ -24,7 +24,7 @@ const UsersModule = {
 
   mutations: {
     addToList(state, data) {
-      state.users.add(data)
+      state.users.unshift(data)
     },
     refreshListItem(state, data) {
       state.users.refresh(data)
