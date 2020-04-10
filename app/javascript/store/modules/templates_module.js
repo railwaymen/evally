@@ -107,7 +107,7 @@ const TemplatesModule = {
 
       const params = {
         template: {
-          ...template.attributes,
+          ...template,
           sections: sections.models
         }
       }
@@ -140,7 +140,7 @@ const TemplatesModule = {
 
       const params = {
         template: {
-          ...template.attributes,
+          ...template,
           sections: sections.models
         }
       }

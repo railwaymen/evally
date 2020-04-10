@@ -177,13 +177,9 @@ const AuthenticationModule = {
       )
     },
     updateSetting({ commit }, setting) {
-      const params = {
-        setting: setting.attributes
-      }
-
       return (
         coreApiClient
-          .put(Setting.routes.settingsPath, params)
+          .put(Setting.routes.settingsPath, { setting })
           .then(response => {
             const { data } = response
 
@@ -208,12 +204,8 @@ const AuthenticationModule = {
         )
     },
     updateUser({ commit }, user) {
-      const params = {
-        profile: user.attributes
-      }
-
       coreApiClient
-        .put(User.routes.profilePath, params)
+        .put(User.routes.profilePath, { profile: user })
         .then(response => {
           commit('setUser', response.data)
 
@@ -232,11 +224,9 @@ const AuthenticationModule = {
         })
     },
     updatePassword({ commit }, passwords) {
-      const params = { profile: passwords }
-
       return (
         coreApiClient
-          .put(User.routes.profilePasswordPath, params)
+          .put(User.routes.profilePasswordPath, { profile: passwords })
           .then(() => {
             commit('resetState')
 

@@ -173,13 +173,9 @@ const EmployeesModule = {
         })
     },
     create({ commit }, employee) {
-      const params = {
-        employee: employee.attributes
-      }
-
       return (
         coreApiClient
-          .post(Employee.routes.employeesPath, params)
+          .post(Employee.routes.employeesPath, { employee })
           .then(response => {
             commit('addToList', response.data)
 
@@ -201,13 +197,9 @@ const EmployeesModule = {
       )
     },
     update({ commit }, employee) {
-      const params = {
-        employee: employee.attributes
-      }
-
       return (
         coreApiClient
-          .put(Employee.routes.employeePath(employee.id), params)
+          .put(Employee.routes.employeePath(employee.id), { employee })
           .then(response => {
             commit('refreshListItem', response.data)
 

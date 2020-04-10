@@ -4,33 +4,27 @@ import set from 'lodash/set'
 
 class Model {
   constructor(attributes = {}) {
-    defaultsDeep(this, attributes, { ...this.defaults })
-    this.errors = {}
-  }
-
-  get attributes() {
-    const { id, errors, ...attrs } = this // eslint-disable-line  no-unused-vars
-    return attrs
-  }
-
-  get isNewRecord() {
-    return this.id === null || this.id === undefined
-  }
-
-  get isPersisted() {
-    return !this.isNewRecord
+    defaultsDeep(this, attributes, this.defaults)
   }
 
   assign(properties) {
     return Object.assign(this, properties)
   }
 
-  get(property) {
-    get(this, property)
+  get(attribute) {
+    return get(this, attribute)
   }
 
-  set(property, value) {
-    set(this, property, value)
+  set(attribute, value) {
+    set(this, attribute, value)
+  }
+
+  get isNew() {
+    return [null, undefined, ''].includes(this.id)
+  }
+
+  get isPersisted() {
+    return !this.isNew
   }
 }
 

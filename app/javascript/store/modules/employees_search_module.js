@@ -60,7 +60,7 @@ const EmployeesModule = {
       commit('setLoading', true)
 
       coreApiClient
-        .get(Employee.routes.employeesSearchPath, { params: query.attributes })
+        .get(Employee.routes.employeesSearchPath, { params: query })
         .then(response => {
           commit('setQuery', query)
           commit('setEmployees', response.data)
