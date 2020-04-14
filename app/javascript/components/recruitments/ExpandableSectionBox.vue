@@ -23,7 +23,8 @@
 
           <div class="skill__action">
             <v-rating
-              v-model="skill.value"
+              :value="skill.value"
+              @input="changeValue($event, skill, index)"
               :readonly="!editable"
               background-color="grey"
               length="3"
@@ -55,7 +56,8 @@
 
             <v-chip-group
               v-else
-              v-model="skill.value"
+              :value="skill.value"
+              @change="changeValue($event, skill, index)"
               color="primary"
               mandatory
             >
@@ -83,7 +85,8 @@
           <v-textarea
             v-else
             :label="skill.name"
-            v-model="skill.value"
+            :value="skill.value"
+            @input="changeValue($event, skill, index)"
             :name="`input-${section.id}-${index}`"
             rows="2"
             auto-grow
@@ -112,12 +115,12 @@ export default {
       default: true
     }
   },
-  watch: {
-    section: {
-      deep: true,
-      handler(fresh, _old) {
-        this.$store.commit('RecruitDocumentsModule/refreshSection', fresh)
-      }
+  methods: {
+    changeValue(value, skill, idx) {
+      const updatedSkill = { ...skill, value }
+
+      this.section.skills.splice(idx, 1, updatedSkill)
+      this.$store.commit('RecruitDocumentsModule/refreshSection', this.section)
     }
   }
 }
