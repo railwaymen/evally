@@ -25,7 +25,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-        user: 'AuthenticationModule/user',
         employees: 'EmployeesModule/employees',
         loading: 'EmployeesModule/loading',
     })

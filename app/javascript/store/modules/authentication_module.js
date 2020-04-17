@@ -24,38 +24,40 @@ const AuthenticationModule = {
   },
 
   mutations: {
-    setLoading(state, status) {
+    SET_LOADING(state, status) {
       state.loading = status
     },
-    setSetting(state, setting) {
+    SET_SETTING(state, setting) {
       state.setting = new Setting(setting)
+
+      localStorage.setItem('ev411y_l4ng', setting.lang || 'en')
     },
-    setSession(state, { user, setting }) {
+    SET_SESSION(state, { user, setting }) {
       state.user = new User(user)
       state.setting = new Setting(setting)
+
+      localStorage.setItem('ev411y_l4ng', setting.lang || 'en')
     },
-    setToken(_state, jwt) {
+    SAVE_TOKEN(_state, jwt) {
       localStorage.setItem('ev411y_t0k3n', jwt)
     },
-    setUser(state, user) {
+    SET_USER(state, user) {
       state.user = new User(user)
     },
-    resetState(state) {
+    RESET_STORE(state) {
       localStorage.removeItem('ev411y_t0k3n')
       Object.assign(state, initialState())
-    },
-    clearStore() {
+
       const modules = [
         'Employees',
         'EmployeesOverview',
         'EmployeesSearch',
         'EvaluationEmployables',
-        'Authentication',
         'Templates',
         'RecruitDocuments'
       ]
 
-      modules.forEach(module => this.commit(`${module}Module/resetState`))
+      modules.forEach(module => this.commit(`${module}Module/RESET_STATE`))
     }
   },
 
@@ -126,19 +128,16 @@ const AuthenticationModule = {
           })
       )
     },
-    show({ commit }) {
-      commit('setLoading', true)
+    fetchSession({ commit }) {
+      commit('SET_LOADING', true)
 
       return (
         coreApiClient
           .get(User.routes.profilePath)
           .then(response => {
-            const { data } = response
+            commit('SET_SESSION', response.data)
 
-            localStorage.setItem('ev411y_l4ng', data.setting.lang || 'en')
-            commit('setSession', data)
-
-            return Promise.resolve(data)
+            return Promise.resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -147,15 +146,15 @@ const AuthenticationModule = {
               { root: true }
             )
           })
-          .finally(() => commit('setLoading', false))
+          .finally(() => commit('SET_LOADING', false))
       )
     },
-    create({ commit }, credentials) {
+    login({ commit }, credentials) {
       return (
         coreApiClient
           .post(User.routes.sessionPath, { session: credentials })
           .then(response => {
-            commit('setToken', response.data.jwt)
+            commit('SAVE_TOKEN', response.data.jwt)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.session.create.ok') },
@@ -165,7 +164,7 @@ const AuthenticationModule = {
             return Promise.resolve()
           })
           .catch(() => {
-            commit('resetState')
+            commit('RESET_STORE')
             commit(
               'NotificationsModule/push',
               { error: i18n.t('messages.session.create.error') },
@@ -181,18 +180,14 @@ const AuthenticationModule = {
         coreApiClient
           .put(Setting.routes.settingsPath, { setting })
           .then(response => {
-            const { data } = response
-
-            localStorage.setItem('ev411y_l4ng', data.lang || 'en')
-            commit('setSetting', data)
-
+            commit('SET_SETTING', response.data)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.session.updateSetting.ok') },
               { root: true }
             )
 
-            return Promise.resolve(data)
+            return Promise.resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -207,7 +202,7 @@ const AuthenticationModule = {
       coreApiClient
         .put(User.routes.profilePath, { profile: user })
         .then(response => {
-          commit('setUser', response.data)
+          commit('SET_USER', response.data)
 
           commit(
             'NotificationsModule/push',
@@ -228,8 +223,7 @@ const AuthenticationModule = {
         coreApiClient
           .put(User.routes.profilePasswordPath, { profile: passwords })
           .then(() => {
-            commit('resetState')
-
+            commit('RESET_STORE')
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.session.updatePassword.ok') },
@@ -247,10 +241,8 @@ const AuthenticationModule = {
           })
       )
     },
-    destroy({ commit }) {
-      commit('clearStore')
-      commit('resetState')
-
+    logout({ commit }) {
+      commit('RESET_STORE')
       commit(
         'NotificationsModule/push',
         { success: i18n.t('messages.session.destroy.ok') },

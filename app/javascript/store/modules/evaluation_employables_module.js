@@ -60,7 +60,7 @@ const EvaluationEmployablesModule = {
       state.evaluation = new Evaluation()
       state.sections = new SectionsList()
     },
-    resetState(state) {
+    RESET_STATE(state) {
       Object.assign(state, initialState())
     }
   },

@@ -43,8 +43,7 @@ const initClient = (baseUrl = null) => {
     (error) => {
       switch (error.response.status) {
         case 401:
-          store.commit('AuthenticationModule/clearStore')
-          localStorage.removeItem(evallyTokenKey)
+          store.dispatch('AuthenticationModule/logout')
 
           router.push({ name: 'login_path' })
           break

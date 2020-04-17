@@ -116,7 +116,7 @@ export default {
       this.query.assign({ name: item.name, group: item.group, value: 0 })
     },
     reset() {
-      this.$store.commit('EmployeesSearchModule/resetState')
+      this.$store.commit('EmployeesSearchModule/RESET_STATE')
       this.$refs.form.reset()
     },
     search() {

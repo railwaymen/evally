@@ -199,7 +199,7 @@ export default {
     this.fetchData()
   },
   beforeDestroy() {
-    this.$store.commit('EvaluationEmployablesModule/resetState')
+    this.$store.commit('EvaluationEmployablesModule/RESET_STATE')
   }
 }
 </script>

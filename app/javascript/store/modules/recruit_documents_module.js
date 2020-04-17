@@ -146,7 +146,7 @@ const RecruitDocumentsModule = {
     setLoading(state, status) {
       state.loading = status
     },
-    resetState(state) {
+    RESET_STATE(state) {
       Object.assign(state, initialState())
     },
     updateComment(state, comment) {

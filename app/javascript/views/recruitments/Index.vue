@@ -139,7 +139,7 @@ export default {
     }
   },
   beforeDestroy() {
-    this.$store.commit('RecruitDocumentsModule/resetState')
+    this.$store.commit('RecruitDocumentsModule/RESET_STATE')
   }
 }
 </script>

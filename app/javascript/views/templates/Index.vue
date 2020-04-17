@@ -152,7 +152,7 @@ export default {
     this.fetchData()
   },
   beforeDestroy() {
-    this.$store.commit('TemplatesModule/resetState')
+    this.$store.commit('TemplatesModule/RESET_STATE')
   }
 }
 </script>

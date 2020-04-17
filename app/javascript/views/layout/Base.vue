@@ -189,7 +189,7 @@ export default {
   },
   methods: {
     logout () {
-      this.$store.dispatch('AuthenticationModule/destroy')
+      this.$store.dispatch('AuthenticationModule/logout')
         .then(() => this.$router.push({ name: 'login_path' }))
     },
     greeting() {
@@ -198,7 +198,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('AuthenticationModule/show')
+    this.$store.dispatch('AuthenticationModule/fetchSession')
       .then(data => this.updateLocale(data.setting.lang))
   }
 }

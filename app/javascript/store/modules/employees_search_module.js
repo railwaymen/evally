@@ -35,7 +35,7 @@ const EmployeesModule = {
     setQuery(state, query) {
       state.query = query
     },
-    resetState(state) {
+    RESET_STATE(state) {
       state.employees = new EmployeesList()
       state.query = new EmployeesSearchQuery()
     }

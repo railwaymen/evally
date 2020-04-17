@@ -61,7 +61,7 @@ const TemplatesModule = {
       state.template = new Template()
       state.sections = new SectionsList()
     },
-    resetState(state) {
+    RESET_STATE(state) {
       Object.assign(state, initialState())
     }
   },
