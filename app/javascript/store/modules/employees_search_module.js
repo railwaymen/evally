@@ -10,7 +10,7 @@ const initialState = () => ({
   loading: false
 })
 
-const EmployeesModule = {
+const EmployeesSearchModule = {
   namespaced: true,
 
   state: initialState(),
@@ -23,30 +23,29 @@ const EmployeesModule = {
   },
 
   mutations: {
-    setEmployees(state, employees) {
+    SET_EMPLOYEES(state, employees) {
       state.employees = new EmployeesList(employees)
     },
-    setLoading(state, status) {
+    SET_LOADING(state, status) {
       state.loading = status
     },
-    setSkills(state, skills) {
+    SET_SKILLS(state, skills) {
       state.skills = skills
     },
-    setQuery(state, query) {
+    SET_QUERY(state, query) {
       state.query = query
     },
     RESET_STATE(state) {
-      state.employees = new EmployeesList()
-      state.query = new EmployeesSearchQuery()
+      Object.assign(state, { ...initialState(), skills: state.skills })
     }
   },
 
   actions: {
-    skills({ commit }) {
+    fetchSkills({ commit }) {
       coreApiClient
         .get(Employee.routes.employeesSkillsPath)
         .then(response => {
-          commit('setSkills', response.data)
+          commit('SET_SKILLS', response.data)
         })
         .catch(() => {
           commit(
@@ -56,14 +55,14 @@ const EmployeesModule = {
           )
         })
     },
-    search({ commit }, query) {
-      commit('setLoading', true)
+    searchEmployees({ commit }, query) {
+      commit('SET_LOADING', true)
 
       coreApiClient
         .get(Employee.routes.employeesSearchPath, { params: query })
         .then(response => {
-          commit('setQuery', query)
-          commit('setEmployees', response.data)
+          commit('SET_QUERY', query)
+          commit('SET_EMPLOYEES', response.data)
         })
         .catch(() => {
           commit(
@@ -72,9 +71,9 @@ const EmployeesModule = {
             { root: true }
           )
         })
-        .finally(() => commit('setLoading', false))
+        .finally(() => commit('SET_LOADING', false))
     }
   }
 }
 
-export default EmployeesModule
+export default EmployeesSearchModule

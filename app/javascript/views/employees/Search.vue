@@ -121,7 +121,7 @@ export default {
     },
     search() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch('EmployeesSearchModule/search', this.query)
+        this.$store.dispatch('EmployeesSearchModule/searchEmployees', this.query)
       }
     }
   },
@@ -134,7 +134,7 @@ export default {
     })
   },
   created() {
-    this.$store.dispatch('EmployeesSearchModule/skills')
+    this.$store.dispatch('EmployeesSearchModule/fetchSkills')
   }
 }
 </script>
