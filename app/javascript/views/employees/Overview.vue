@@ -192,7 +192,7 @@ export default {
     })
   },
   created() {
-    this.$store.dispatch('EmployeesOverviewModule/overview')
+    this.$store.dispatch('EmployeesOverviewModule/fetchData')
   }
 }
 </script>

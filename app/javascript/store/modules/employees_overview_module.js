@@ -34,7 +34,7 @@ const EmployeesOverviewModule = {
   },
 
   mutations: {
-    setData(state, data) {
+    SET_DATA(state, data) {
       const {
         groups,
         positions_chart_data,
@@ -53,7 +53,7 @@ const EmployeesOverviewModule = {
       state.evaluationsPastYearChartData = evaluations_past_year_chart_data
       state.evaluationsAnalytics = new EvaluationsAnalytics(evaluations_analytics)
     },
-    setLoading(state, status) {
+    SET_LOADING(state, status) {
       state.loading = status
     },
     RESET_STATE(state) {
@@ -62,13 +62,13 @@ const EmployeesOverviewModule = {
   },
 
   actions: {
-    overview({ commit }) {
-      commit('setLoading', true)
+    fetchData({ commit }) {
+      commit('SET_LOADING', true)
 
       coreApiClient
         .get(Employee.routes.employeesOverviewPath)
         .then(response => {
-          commit('setData', response.data)
+          commit('SET_DATA', response.data)
         })
         .catch((error) => {
           commit(
@@ -77,7 +77,7 @@ const EmployeesOverviewModule = {
             { root: true }
           )
         })
-        .finally(() => commit('setLoading', false))
+        .finally(() => commit('SET_LOADING', false))
     }
   }
 }
