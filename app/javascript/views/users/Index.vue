@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import { User } from '@models/user'
@@ -65,10 +65,7 @@ export default {
           user: this.users.findById(id)
         }
       })
-    },
-    ...mapActions({
-      fetchData: 'UsersModule/index'
-    })
+    }
   },
   computed: {
     ...mapGetters({
@@ -77,7 +74,7 @@ export default {
     })
   },
   created() {
-    this.fetchData()
+    this.$store.dispatch('UsersModule/fetchUsers')
   }
 }
 </script>

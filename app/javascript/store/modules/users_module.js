@@ -23,20 +23,17 @@ const UsersModule = {
   },
 
   mutations: {
-    addToList(state, data) {
-      state.users.unshift(data)
+    ADD_USER(state, user) {
+      state.users.unshift(user)
     },
-    refreshListItem(state, data) {
-      state.users.refresh(data)
+    REFRESH_USER(state, user) {
+      state.users.refresh(user)
     },
-    setItem(state, user) {
-      state.user = new User(user)
-    },
-    setList(state, users) {
+    SET_USERS(state, users) {
       state.users = new UsersList(users)
       state.loading = false
     },
-    setLoading(state, status) {
+    SET_LOADING(state, status) {
       state.loading = status
     },
     RESET_STATE(state) {
@@ -45,13 +42,13 @@ const UsersModule = {
   },
 
   actions: {
-    index({ commit }) {
-      commit('setLoading', true)
+    fetchUsers({ commit }) {
+      commit('SET_LOADING', true)
 
       coreApiClient
         .get(User.routes.usersPath)
         .then(response => {
-          commit('setList', response.data)
+          commit('SET_USERS', response.data)
         })
         .catch(error => {
           commit(
@@ -60,14 +57,14 @@ const UsersModule = {
             { root: true }
           )
         })
-        .finally(() => commit('setLoading', false))
+        .finally(() => commit('SET_LOADING', false))
     },
-    create({ commit }, user) {
+    createUser({ commit }, user) {
       return (
         coreApiClient
           .post(User.routes.invitationsPath, { invitation: user })
           .then(response => {
-            commit('addToList', response.data)
+            commit('ADD_USER', response.data)
 
             commit(
               'NotificationsModule/push',
@@ -86,12 +83,12 @@ const UsersModule = {
           })
       )
     },
-    update({ commit }, user) {
+    updateUser({ commit }, user) {
       return (
         coreApiClient
           .put(User.routes.userPath(user.id), { user })
           .then(response => {
-            commit('refreshListItem', response.data)
+            commit('REFRESH_USER', response.data)
 
             commit(
               'NotificationsModule/push',

@@ -115,8 +115,8 @@ export default {
         .then(this.closeDialog)
     },
     ...mapActions({
-      create: 'UsersModule/create',
-      update: 'UsersModule/update'
+      create: 'UsersModule/createUser',
+      update: 'UsersModule/updateUser'
     })
   },
   computed: {
