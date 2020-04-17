@@ -114,10 +114,10 @@ export default {
     })
   },
   created() {
-    this.$store.dispatch('EmployeesModule/browse', this.$route.params.employeeId)
+    this.$store.dispatch('EmployeesModule/browseEmployee', this.$route.params.employeeId)
   },
   beforeDestroy() {
-    this.$store.commit('EmployeesModule/resetItem')
+    this.$store.commit('EmployeesModule/CLEAR_EMPLOYEE')
   }
 }
 </script>

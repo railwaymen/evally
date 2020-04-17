@@ -148,9 +148,7 @@ import { Employee } from '@models/employee'
 
 import BasicTable from '@components/employees/BasicTable'
 import DeleteConfirm from '@components/employees/DeleteConfirm'
-
 import ArchiveForm from '@components/employees/ArchiveForm'
-
 import EmployeeForm from '@components/employees/EmployeeForm'
 
 import { pluckUniq } from '@utils/helpers'
@@ -200,7 +198,7 @@ export default {
         })
     },
     ...mapActions({
-      fetchData: 'EmployeesModule/index'
+      fetchData: 'EmployeesModule/fetchEmployees'
     })
   },
   computed: {

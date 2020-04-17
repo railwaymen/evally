@@ -41,7 +41,7 @@ export default {
       this.$emit('closeDialog')
     },
     destroy() {
-      this.$store.dispatch('EmployeesModule/destroy')
+      this.$store.dispatch('EmployeesModule/removeEmployee')
         .then(this.redirectToIndex)
         .finally(this.closeDialog)
     },

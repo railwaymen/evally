@@ -37,58 +37,56 @@ const EmployeesModule = {
   },
 
   mutations: {
-    addToList(state, data) {
-      state.employees.unshift(data)
+    ADD_EMPLOYEE(state, employee) {
+      state.employees.unshift(employee)
     },
-    refreshItem(state, data) {
-      state.employee.assign(data)
-    },
-    refreshListItem(state, data) {
-      state.employees.refresh(data)
-    },
-    setEvaluation(state, { evaluation, sections }) {
-      state.evaluation = new Evaluation(evaluation)
-      state.sections = new SectionsList(sections)
-    },
-    setItem(state, { employee, evaluations, position_changes }) {
-      state.employee = new Employee(employee)
-      state.evaluations = new EvaluationsList(evaluations)
-      state.positionChanges = new PositionChangesList(position_changes)
-    },
-    setList(state, { employees, evaluators }) {
-      state.employees = new EmployeesList(employees)
-      state.evaluators = new UsersList(evaluators)
-      state.loading = false
-    },
-    setLoading(state, status) {
-      state.loading = status
-    },
-    removeFromList(state, id) {
-      state.employee = new Employee()
-      state.employees.dropById(id)
-    },
-    resetEvaluation(state) {
-      state.evaluation = new Evaluation()
-      state.sections = new SectionsList()
-    },
-    resetItem(state) {
+    CLEAR_EMPLOYEE(state) {
       state.employee = new Employee()
       state.evaluations = new EvaluationsList()
       state.positionChanges = new PositionChangesList()
     },
+    CLEAR_EVALUATION(state) {
+      state.evaluation = new Evaluation()
+      state.sections = new SectionsList()
+    },
+    REFRESH_EMPLOYEE(state, employee) {
+      state.employee.assign(employee)
+      state.employees.refresh(employee)
+    },
+    REMOVE_EMPLOYEE(state, id) {
+      state.employee = new Employee()
+      state.employees.dropById(id)
+    },
     RESET_STATE(state) {
       Object.assign(state, initialState())
+    },
+    SET_LOADING(state, status) {
+      state.loading = status
+    },
+    SET_EMPLOYEE(state, { employee, evaluations, position_changes }) {
+      state.employee = new Employee(employee)
+      state.evaluations = new EvaluationsList(evaluations)
+      state.positionChanges = new PositionChangesList(position_changes)
+    },
+    SET_EMPLOYEES(state, { employees, evaluators }) {
+      state.employees = new EmployeesList(employees)
+      state.evaluators = new UsersList(evaluators)
+      state.loading = false
+    },
+    SET_EVALUATION(state, { evaluation, sections }) {
+      state.evaluation = new Evaluation(evaluation)
+      state.sections = new SectionsList(sections)
     }
   },
 
   actions: {
-    index({ commit }) {
-      commit('setLoading', true)
+    fetchEmployees({ commit }) {
+      commit('SET_LOADING', true)
 
       coreApiClient
         .get(Employee.routes.employeesPath)
         .then(response => {
-          commit('setList', response.data)
+          commit('SET_EMPLOYEES', response.data)
         })
         .catch(error => {
           commit(
@@ -97,15 +95,15 @@ const EmployeesModule = {
             { root: true }
           )
         })
-        .finally(() => commit('setLoading', false))
+        .finally(() => commit('SET_LOADING', false))
     },
-    archived({ commit }) {
-      commit('setLoading', true)
+    fetchArchivedEmployees({ commit }) {
+      commit('SET_LOADING', true)
 
       coreApiClient
         .get(Employee.routes.employeesArchivedPath)
         .then(response => {
-          commit('setList', response.data)
+          commit('SET_EMPLOYEES', response.data)
         })
         .catch(error => {
           commit(
@@ -114,13 +112,13 @@ const EmployeesModule = {
             { root: true }
           )
         })
-        .finally(() => commit('setLoading', false))
+        .finally(() => commit('SET_LOADING', false))
     },
-    show({ commit }, id) {
+    fetchEmployee({ commit }, id) {
       coreApiClient
         .get(Employee.routes.employeePath(id))
         .then(response => {
-          commit('setItem', response.data)
+          commit('SET_EMPLOYEE', response.data)
         })
         .catch(error => {
           commit(
@@ -134,7 +132,7 @@ const EmployeesModule = {
       coreApiClient
         .get(Evaluation.routes.completedEvaluationEmployablePath(employeeId, id))
         .then(response => {
-          commit('setEvaluation', response.data)
+          commit('SET_EVALUATION', response.data)
         })
         .catch(error => {
           commit(
@@ -144,11 +142,11 @@ const EmployeesModule = {
           )
         })
     },
-    browse({ commit }, id) {
+    browseEmployee({ commit }, id) {
       coreApiClient
         .get(Employee.routes.browseEmployeePath(id))
         .then(response => {
-          commit('setItem', response.data)
+          commit('SET_EMPLOYEE', response.data)
         })
         .catch(error => {
           commit(
@@ -162,7 +160,7 @@ const EmployeesModule = {
       coreApiClient
         .get(Evaluation.routes.browseEvaluationPath(employeeId, id))
         .then(response => {
-          commit('setEvaluation', response.data)
+          commit('SET_EVALUATION', response.data)
         })
         .catch(error => {
           commit(
@@ -172,12 +170,12 @@ const EmployeesModule = {
           )
         })
     },
-    create({ commit }, employee) {
+    createEmployee({ commit }, employee) {
       return (
         coreApiClient
           .post(Employee.routes.employeesPath, { employee })
           .then(response => {
-            commit('addToList', response.data)
+            commit('ADD_EMPLOYEE', response.data)
 
             commit(
               'NotificationsModule/push',
@@ -196,12 +194,12 @@ const EmployeesModule = {
           })
       )
     },
-    update({ commit }, employee) {
+    updateEmployee({ commit }, employee) {
       return (
         coreApiClient
           .put(Employee.routes.employeePath(employee.id), { employee })
           .then(response => {
-            commit('refreshListItem', response.data)
+            commit('REFRESH_EMPLOYEE', response.data)
 
             commit(
               'NotificationsModule/push',
@@ -220,14 +218,14 @@ const EmployeesModule = {
           })
       )
     },
-    destroy({ state, commit }) {
+    removeEmployee({ state, commit }) {
       const { employee } = state;
 
       return (
         coreApiClient
           .delete(Employee.routes.employeePath(employee.id))
           .then(() => {
-            commit('removeFromList', employee.id)
+            commit('REMOVE_EMPLOYEE', employee.id)
 
             commit(
               'NotificationsModule/push',
@@ -246,14 +244,14 @@ const EmployeesModule = {
           })
       )
     },
-    archive({ commit, state }, archivedDate){
+    archiveEmployee({ commit, state }, archivedDate){
       const params = { employee: { archived_on: archivedDate } }
 
       return (
         coreApiClient
           .put(Employee.routes.employeeArchivePath(state.employee.id), params)
           .then(response => {
-            commit('refreshItem', response.data)
+            commit('REFRESH_EMPLOYEE', response.data)
 
             commit(
               'NotificationsModule/push',

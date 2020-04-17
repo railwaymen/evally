@@ -236,8 +236,8 @@ export default {
         .then(this.closeDialog)
     },
     ...mapActions({
-      create: 'EmployeesModule/create',
-      update: 'EmployeesModule/update'
+      create: 'EmployeesModule/createEmployee',
+      update: 'EmployeesModule/updateEmployee'
     })
   },
   computed: {

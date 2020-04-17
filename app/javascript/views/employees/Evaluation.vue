@@ -69,7 +69,7 @@ export default {
     }
   },
   beforeDestroy() {
-    this.$store.commit('EmployeesModule/resetEvaluation')
+    this.$store.commit('EmployeesModule/CLEAR_EVALUATION')
   }
 }
 </script>
