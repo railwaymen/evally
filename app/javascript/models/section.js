@@ -9,7 +9,8 @@ class Section extends Model {
       position: null,
       skills: [],
       sensitive: false,
-      _destroy: 0
+      _destroy: 0,
+      temp_id: Math.random().toString(36).slice(-5),
     }
   }
 

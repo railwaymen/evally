@@ -6,7 +6,7 @@ import i18n from '@locales/i18n'
 import { Template, TemplatesList } from '@models/template'
 import { SectionsList } from '@models/section'
 
-const initialState = () => ({
+const initState = () => ({
   templates: new TemplatesList(),
   destinations: [],
   template: new Template(),
@@ -17,22 +17,46 @@ const initialState = () => ({
 const TemplatesModule = {
   namespaced: true,
 
-  state: initialState(),
+  state: initState(),
 
   getters: {
-    templates: state => state.templates,
     destinations: state => state.destinations,
+    templates: state => state.templates,
     template: state => state.template,
     sections: state => state.sections,
     loading: state => state.loading
   },
 
   mutations: {
-    ADD_TEMPLATE(state, template) {
+    ADD_TEMPLATE(state, { template, sections }) {
       state.templates.unshift(template)
+      state.template.assign({ ...template, editable: false })
+      state.sections = new SectionsList(sections)
     },
-    SET_EDITABLE(state, value = true) {
-      state.template.set('editable', value)
+    CLEAR_TEMPLATE(state) {
+      state.template = new Template()
+      state.sections = new SectionsList()
+    },
+    REFRESH_TEMPLATE(state, template) {
+      state.templates.refresh(template)
+      state.template.assign(template)
+    },
+    REMOVE_TEMPLATE(state, id) {
+      state.template = new Template()
+      state.sections = new SectionsList()
+      state.templates.dropById(id)
+    },
+    RESET_STATE(state) {
+      Object.assign(state, initState())
+    },
+    SET_EDITABLE(state) {
+      state.template.editable = true
+    },
+    SET_LOADING(state, status) {
+      state.loading = status
+    },
+    SET_SECTIONS(state, sections) {
+      state.sections = new SectionsList(sections)
     },
     SET_TEMPLATE(state, { template, sections }) {
       state.template = new Template(template)
@@ -42,27 +66,6 @@ const TemplatesModule = {
       state.templates = new TemplatesList(templates)
       state.destinations = destinations
       state.loading = false
-    },
-    SET_LOADING(state, status) {
-      state.loading = status
-    },
-    SET_SECTIONS(state, sectionsList) {
-      state.sections = sectionsList
-    },
-    REFRESH_TEMPLATE(state, template) {
-      state.templates.refresh(template)
-    },
-    REMOVE_TEMPLATE(state, id) {
-      state.template = new Template()
-      state.sections = new SectionsList()
-      state.templates.dropById(id)
-    },
-    CLEAR_TEMPLATE(state) {
-      state.template = new Template()
-      state.sections = new SectionsList()
-    },
-    RESET_STATE(state) {
-      Object.assign(state, initialState())
     }
   },
 
@@ -87,20 +90,22 @@ const TemplatesModule = {
     fetchTemplate({ commit }, id) {
       if (id === 'new') {
         commit('SET_TEMPLATE', { template: { editable: true }, sections: [] })
-      } else {
-        coreApiClient
-          .get(Template.routes.templatePath(id))
-          .then(response => {
-            commit('SET_TEMPLATE', response.data)
-          })
-          .catch(error => {
-            commit(
-              'NotificationsModule/push',
-              { error: i18n.t('messages.templates.show.error', { msg: fetchError(error) }) },
-              { root: true }
-            )
-          })
+
+        return
       }
+
+      coreApiClient
+        .get(Template.routes.templatePath(id))
+        .then(response => {
+          commit('SET_TEMPLATE', response.data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/push',
+            { error: i18n.t('messages.templates.show.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+        })
     },
     createTemplate({ state, commit }) {
       const { template, sections } = state;
@@ -116,7 +121,7 @@ const TemplatesModule = {
         coreApiClient
           .post(Template.routes.templatesPath, params)
           .then(response => {
-            commit('ADD_TEMPLATE', response.data.template)
+            commit('ADD_TEMPLATE', response.data)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.templates.create.ok') },
@@ -134,7 +139,7 @@ const TemplatesModule = {
           })
       )
     },
-    updateTempalte({ state, commit }) {
+    updateTemplate({ state, commit }) {
       const { template, sections } = state
 
       const params = {

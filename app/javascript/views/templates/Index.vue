@@ -94,7 +94,7 @@
               </v-layout>
             </div>
 
-            <router-view v-else />
+            <router-view v-else :key="$route.fullPath" />
           </v-flex>
         </v-layout>
       </v-container>
@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import { TemplatePolicy } from '@policies/template_policy'
@@ -118,24 +118,18 @@ export default {
     edit() {
       this.$store.commit('TemplatesModule/SET_EDITABLE')
     },
-    redirectToTemplate(data) {
-      this.$router.push({ name: 'template_path', params: { id: data.template.id } })
-    },
     save() {
-      this.template.isPersisted
-        ? this.update()
-        : this.create().then(this.redirectToTemplate)
+      this.$store.dispatch(
+        this.template.isPersisted
+          ? 'TemplatesModule/updateTemplate'
+          : 'TemplatesModule/createTemplate'
+      ).then(data => this.$router.push({ name: 'template_path', params: { id: data.template.id } }))
     },
     openDeleteConfirm() {
       DialogsBus.$emit('openConfirmDialog', {
         innerComponent: DeleteConfirm
       })
-    },
-    ...mapActions({
-      fetchData: 'TemplatesModule/fetchTemplates',
-      create: 'TemplatesModule/createTemplate',
-      update: 'TemplatesModule/updateTemplate',
-    })
+    }
   },
   computed: {
     templatePolicy() {
@@ -148,11 +142,15 @@ export default {
       loading: 'TemplatesModule/loading',
     })
   },
-  created() {
-    this.fetchData()
+  beforeRouteEnter (_to, _from, next) {
+    next(vm => {
+      vm.$store.dispatch('TemplatesModule/fetchTemplates')
+    })
   },
-  beforeDestroy() {
+  beforeRouteLeave (_to, _from, next) {
     this.$store.commit('TemplatesModule/RESET_STATE')
+
+    next()
   }
 }
 </script>

@@ -92,7 +92,7 @@ export default {
       this.section = new Section({
         width: 'full',
         group: 'rating',
-        position: this.value.length,
+        position: this.value.length + 1,
         sensitive: false
       })
     }

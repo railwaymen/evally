@@ -5,7 +5,7 @@
         <v-flex xs12 lg6>
           <div class="template__name">
             <v-text-field
-              v-model="template.name"
+              v-model="templateName"
               :label="$t('views.templates.show.name')"
               :disabled="!template.editable"
               :rules="[vRequired]"
@@ -17,7 +17,7 @@
           <div class="template__destination">
             <v-select
               :items="destinations"
-              v-model="template.destination"
+              v-model="templateDestination"
               :label="$t('views.templates.show.destination')"
               :disabled="!template.editable"
               :rules="[vRequired]"
@@ -53,7 +53,7 @@
 
         <v-flex xs12>
           <sections-composer
-            v-model="sections.models"
+            v-model="sectionsModels"
             :editable="template.editable"
             :recruitable="template.isForRecruits"
           />
@@ -65,7 +65,7 @@
       <v-flex xs12 lg6>
         <section-form
           v-if="template.editable"
-          v-model="sections.models"
+          v-model="sectionsModels"
           :recruitable="template.isForRecruits"
         />
       </v-flex>
@@ -86,20 +86,38 @@ export default {
     ...mapGetters({
       destinations: 'TemplatesModule/destinations',
       template: 'TemplatesModule/template',
-      sections: 'TemplatesModule/sections',
-    })
+      sections: 'TemplatesModule/sections'
+    }),
+    sectionsModels: {
+      get() {
+        return this.sections.models
+      },
+      set(sections) {
+        this.$store.commit('TemplatesModule/SET_SECTIONS', sections)
+      }
+    },
+    templateName: {
+      get() {
+        return this.template.name
+      },
+      set(name) {
+        this.$store.commit('TemplatesModule/REFRESH_TEMPLATE', { ...this.template, name })
+      }
+    },
+    templateDestination: {
+      get() {
+        return this.template.destination
+      },
+      set(destination) {
+        this.$store.commit('TemplatesModule/REFRESH_TEMPLATE', { ...this.template, destination })
+      }
+    }
   },
   watch: {
     $route: {
       immediate: true,
       handler(to, from) {
         this.$store.dispatch('TemplatesModule/fetchTemplate', to.params.id)
-      }
-    },
-    sections: {
-      deep: true,
-      handler(newSections, _prevSections) {
-        this.$store.commit('TemplatesModule/SET_SECTIONS', newSections)
       }
     }
   }
