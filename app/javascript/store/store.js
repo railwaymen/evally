@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import DashboardModule from '@store/modules/dashboard_module'
 import EvaluationEmployablesModule from '@store/modules/evaluation_employables_module'
 import EmployeesModule from '@store/modules/employees_module'
 import EmployeesOverviewModule from '@store/modules/employees_overview_module'
@@ -15,6 +16,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
+    DashboardModule,
     EvaluationEmployablesModule,
     EmployeesModule,
     EmployeesOverviewModule,
