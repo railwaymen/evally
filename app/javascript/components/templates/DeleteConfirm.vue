@@ -40,7 +40,7 @@ export default {
       this.$emit('closeDialog')
     },
     destroy() {
-      this.$store.dispatch('TemplatesModule/destroy')
+      this.$store.dispatch('TemplatesModule/removeTemplate')
         .then(this.redirectToIndex)
         .finally(this.closeDialog)
     },

@@ -93,13 +93,13 @@ export default {
     $route: {
       immediate: true,
       handler(to, from) {
-        this.$store.dispatch('TemplatesModule/show', to.params.id)
+        this.$store.dispatch('TemplatesModule/fetchTemplate', to.params.id)
       }
     },
     sections: {
       deep: true,
       handler(newSections, _prevSections) {
-        this.$store.commit('TemplatesModule/setSections', newSections)
+        this.$store.commit('TemplatesModule/SET_SECTIONS', newSections)
       }
     }
   }

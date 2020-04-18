@@ -28,36 +28,36 @@ const TemplatesModule = {
   },
 
   mutations: {
-    addToList(state, data) {
-      state.templates.unshift(data)
+    ADD_TEMPLATE(state, template) {
+      state.templates.unshift(template)
     },
-    setEditable(state, value = true) {
+    SET_EDITABLE(state, value = true) {
       state.template.set('editable', value)
     },
-    setItem(state, { template, sections }) {
+    SET_TEMPLATE(state, { template, sections }) {
       state.template = new Template(template)
       state.sections = new SectionsList(sections)
     },
-    setList(state, { templates, destinations }) {
+    SET_TEMPLATES(state, { templates, destinations }) {
       state.templates = new TemplatesList(templates)
       state.destinations = destinations
       state.loading = false
     },
-    setLoading(state, status) {
+    SET_LOADING(state, status) {
       state.loading = status
     },
-    setSections(state, sectionsList) {
+    SET_SECTIONS(state, sectionsList) {
       state.sections = sectionsList
     },
-    refreshListItem(state, template) {
+    REFRESH_TEMPLATE(state, template) {
       state.templates.refresh(template)
     },
-    removeFromList(state, id) {
+    REMOVE_TEMPLATE(state, id) {
       state.template = new Template()
       state.sections = new SectionsList()
       state.templates.dropById(id)
     },
-    resetItem(state) {
+    CLEAR_TEMPLATE(state) {
       state.template = new Template()
       state.sections = new SectionsList()
     },
@@ -67,13 +67,13 @@ const TemplatesModule = {
   },
 
   actions: {
-    index({ commit }) {
-      commit('setLoading', true)
+    fetchTemplates({ commit }) {
+      commit('SET_LOADING', true)
 
       coreApiClient
         .get(Template.routes.templatesPath)
         .then(response => {
-          commit('setList', response.data)
+          commit('SET_TEMPLATES', response.data)
         })
         .catch(error => {
           commit(
@@ -82,16 +82,16 @@ const TemplatesModule = {
             { root: true }
           )
         })
-        .finally(() => commit('setLoading', false))
+        .finally(() => commit('SET_LOADING', false))
     },
-    show({ commit }, id) {
+    fetchTemplate({ commit }, id) {
       if (id === 'new') {
-        commit('setItem', { template: { editable: true }, sections: [] })
+        commit('SET_TEMPLATE', { template: { editable: true }, sections: [] })
       } else {
         coreApiClient
           .get(Template.routes.templatePath(id))
           .then(response => {
-            commit('setItem', response.data)
+            commit('SET_TEMPLATE', response.data)
           })
           .catch(error => {
             commit(
@@ -102,7 +102,7 @@ const TemplatesModule = {
           })
       }
     },
-    create({ state, commit }) {
+    createTemplate({ state, commit }) {
       const { template, sections } = state;
 
       const params = {
@@ -116,8 +116,7 @@ const TemplatesModule = {
         coreApiClient
           .post(Template.routes.templatesPath, params)
           .then(response => {
-            commit('addToList', response.data.template)
-
+            commit('ADD_TEMPLATE', response.data.template)
             commit(
               'NotificationsModule/push',
               { success: i18n.t('messages.templates.create.ok') },
@@ -135,7 +134,7 @@ const TemplatesModule = {
           })
       )
     },
-    update({ state, commit }) {
+    updateTempalte({ state, commit }) {
       const { template, sections } = state
 
       const params = {
@@ -151,8 +150,8 @@ const TemplatesModule = {
           .then(response => {
             const { data } = response
 
-            commit('refreshListItem', data.template)
-            commit('setItem', data)
+            commit('REFRESH_TEMPLATE', data.template)
+            commit('SET_TEMPLATE', data)
 
             commit(
               'NotificationsModule/push',
@@ -171,14 +170,14 @@ const TemplatesModule = {
           })
       )
     },
-    destroy({ state, commit }) {
+    removeTemplate({ state, commit }) {
       const { template } = state
 
       return (
         coreApiClient
           .delete(Template.routes.templatePath(template.id))
           .then(() => {
-            commit('removeFromList', template.id)
+            commit('REMOVE_TEMPLATE', template.id)
 
             commit(
               'NotificationsModule/push',

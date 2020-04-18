@@ -116,7 +116,7 @@ export default {
   components: { TemplatesSearchList },
   methods: {
     edit() {
-      this.$store.commit('TemplatesModule/setEditable')
+      this.$store.commit('TemplatesModule/SET_EDITABLE')
     },
     redirectToTemplate(data) {
       this.$router.push({ name: 'template_path', params: { id: data.template.id } })
@@ -132,9 +132,9 @@ export default {
       })
     },
     ...mapActions({
-      fetchData: 'TemplatesModule/index',
-      create: 'TemplatesModule/create',
-      update: 'TemplatesModule/update',
+      fetchData: 'TemplatesModule/fetchTemplates',
+      create: 'TemplatesModule/createTemplate',
+      update: 'TemplatesModule/updateTemplate',
     })
   },
   computed: {
