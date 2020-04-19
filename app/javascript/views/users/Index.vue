@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import { User } from '@models/user'
@@ -68,10 +68,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      users: 'UsersModule/users',
-      loading: 'UsersModule/loading'
-    })
+    ...mapState('UsersModule', [
+      'users',
+      'loading'
+    ])
   },
   created() {
     this.$store.dispatch('UsersModule/fetchUsers')

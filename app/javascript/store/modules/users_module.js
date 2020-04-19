@@ -16,12 +16,6 @@ const UsersModule = {
 
   state: initState(),
 
-  getters: {
-    users: state => state.users,
-    user: state => state.user,
-    loading: state => state.loading
-  },
-
   mutations: {
     ADD_USER(state, user) {
       state.users.unshift(user)

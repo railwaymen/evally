@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import PasswordForm from '@components/settings/PasswordForm'
 import UserForm from '@components/settings/UserForm'
@@ -40,10 +40,10 @@ export default {
   name: 'SettingsProfile',
   components: { PasswordForm, UserForm },
   computed: {
-    ...mapGetters({
-      user: 'AuthenticationModule/user',
-      loading: 'AuthenticationModule/loading'
-    })
+    ...mapState('AuthenticationModule', [
+      'user',
+      'loading'
+    ])
   }
 }
 </script>

@@ -19,14 +19,6 @@ const TemplatesModule = {
 
   state: initState(),
 
-  getters: {
-    destinations: state => state.destinations,
-    templates: state => state.templates,
-    template: state => state.template,
-    sections: state => state.sections,
-    loading: state => state.loading
-  },
-
   mutations: {
     ADD_TEMPLATE(state, { template, sections }) {
       state.templates.unshift(template)

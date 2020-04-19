@@ -16,13 +16,6 @@ const DashboardModule = {
 
   state: initState(),
 
-  getters: {
-    employees: state => state.employees,
-    drafts: state => state.drafts,
-    templates: state => state.templates,
-    loading: state => state.loading
-  },
-
   mutations: {
     SET_DATA(state, { employees, drafts, templates }) {
       state.employees = new EmployeesList(employees)

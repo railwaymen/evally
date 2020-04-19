@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import ArchivedTable from '@components/employees/ArchivedTable'
 
@@ -20,10 +20,10 @@ export default {
   name: 'EmployeesArchived',
   components: { ArchivedTable },
   computed: {
-    ...mapGetters({
-      employees: 'EmployeesModule/employees',
-      loading: 'EmployeesModule/loading',
-    })
+    ...mapState('EmployeesModule', [
+      'employees',
+      'loading'
+    ])
   },
   created() {
     this.$store.dispatch('EmployeesModule/fetchArchivedEmployees')

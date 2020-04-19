@@ -111,12 +111,12 @@ export default {
     save() {
       if (!this.$refs.form.validate()) return
 
-      (this.localUser.isPersisted ? this.update : this.create)(this.localUser)
+      (this.localUser.isPersisted ? this.updateUser : this.createUser)(this.localUser)
         .then(this.closeDialog)
     },
     ...mapActions({
-      create: 'UsersModule/createUser',
-      update: 'UsersModule/updateUser'
+      createUser: 'UsersModule/createUser',
+      updateUser: 'UsersModule/updateUser'
     })
   },
   computed: {

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import DraftsList from '@components/dashboard/DraftsList'
 import UpcomingList from '@components/dashboard/UpcomingList'
@@ -39,13 +39,15 @@ export default {
   name: 'DashboardShow',
   components: { DraftsList, UpcomingList },
   computed: {
-    ...mapGetters({
-      user: 'AuthenticationModule/user',
-      drafts: 'DashboardModule/drafts',
-      employees: 'DashboardModule/employees',
-      templates: 'DashboardModule/templates',
-      loading: 'DashboardModule/loading'
-    })
+    ...mapState('DashboardModule', [
+      'drafts',
+      'employees',
+      'templates',
+      'loading'
+    ]),
+    ...mapState('AuthenticationModule', [
+      'user'
+    ])
   },
   created() {
     this.$store.dispatch('DashboardModule/fetchDashboardData')

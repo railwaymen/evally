@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import GeneralForm from '@components/settings/GeneralForm'
 
@@ -19,10 +19,10 @@ export default {
   name: 'SettingsGeneral',
   components: { GeneralForm },
   computed: {
-    ...mapGetters({
-      setting: 'AuthenticationModule/setting',
-      loading: 'AuthenticationModule/loading'
-    })
+    ...mapState('AuthenticationModule', [
+      'setting',
+      'loading'
+    ])
   }
 }
 </script>

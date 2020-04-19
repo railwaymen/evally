@@ -25,17 +25,6 @@ const EmployeesModule = {
 
   state: initState(),
 
-  getters: {
-    employees: state => state.employees,
-    employee: state => state.employee,
-    evaluations: state => state.evaluations,
-    evaluation: state => state.evaluation,
-    sections: state => state.sections,
-    positionChanges: state => state.positionChanges,
-    evaluators: state => state.evaluators,
-    loading: state => state.loading
-  },
-
   mutations: {
     ADD_EMPLOYEE(state, employee) {
       state.employees.unshift(employee)

@@ -15,13 +15,6 @@ const EmployeesSearchModule = {
 
   state: initialState(),
 
-  getters: {
-    employees: state => state.employees,
-    query: state => state.query,
-    skills: state => state.skills,
-    loading: state => state.loading
-  },
-
   mutations: {
     SET_EMPLOYEES(state, employees) {
       state.employees = new EmployeesList(employees)

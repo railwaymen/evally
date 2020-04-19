@@ -8,7 +8,7 @@
       <div class="panel__nav">
         <v-btn
           color="primary"
-          @click="$store.dispatch('EmployeesModule/fetchEmployees')"
+          @click="fetchEmployees"
           :to="{ name: 'employees_path' }"
           exact
           text
@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import { Employee } from '@models/employee'
@@ -157,6 +157,9 @@ export default {
   name: 'EmployeesIndex',
   components: { BasicTable },
   methods: {
+    ...mapActions('EmployeesModule', [
+      'fetchEmployees'
+    ]),
     openCreateForm() {
       DialogsBus.$emit('openFormsDialog', {
         innerComponent: EmployeeForm,
@@ -199,22 +202,24 @@ export default {
     }
   },
   computed: {
+    ...mapState('EmployeesModule', [
+      'employees',
+      'employee',
+      'evaluators',
+      'loading'
+    ]),
+    ...mapState('AuthenticationModule', [
+      'user'
+    ]),
     positions() {
       return pluckUniq(this.employees.models, 'position')
     },
     groups() {
       return pluckUniq(this.employees.models, 'group')
-    },
-    ...mapGetters({
-      user: 'AuthenticationModule/user',
-      employees: 'EmployeesModule/employees',
-      employee: 'EmployeesModule/employee',
-      evaluators: 'EmployeesModule/evaluators',
-      loading: 'EmployeesModule/loading',
-    })
+    }
   },
   created() {
-    this.$store.dispatch('EmployeesModule/fetchEmployees')
+    this.fetchEmployees()
   },
   destroyed() {
     this.$store.commit('EmployeesModule/RESET_STATE')

@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import SectionForm from '@components/templates/SectionForm'
 import SectionsComposer from '@components/templates/SectionsComposer'
@@ -83,11 +83,11 @@ export default {
   name: 'Template',
   components: { SectionForm, SectionsComposer },
   computed: {
-    ...mapGetters({
-      destinations: 'TemplatesModule/destinations',
-      template: 'TemplatesModule/template',
-      sections: 'TemplatesModule/sections'
-    }),
+    ...mapState('TemplatesModule', [
+      'destinations',
+      'template',
+      'sections'
+    ]),
     sectionsModels: {
       get() {
         return this.sections.models

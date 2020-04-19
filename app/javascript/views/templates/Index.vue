@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import { TemplatePolicy } from '@policies/template_policy'
@@ -115,15 +115,17 @@ export default {
   name: 'Templates',
   components: { TemplatesSearchList },
   methods: {
+    ...mapActions('TemplatesModule', [
+      'fetchTemplates',
+      'createTemplate',
+      'updateTemplate'
+    ]),
     edit() {
       this.$store.commit('TemplatesModule/SET_EDITABLE')
     },
     save() {
-      this.$store.dispatch(
-        this.template.isPersisted
-          ? 'TemplatesModule/updateTemplate'
-          : 'TemplatesModule/createTemplate'
-      ).then(data => this.$router.push({ name: 'template_path', params: { id: data.template.id } }))
+      (this.template.isPersisted ? this.updateTemplate : this.createTemplate)()
+        .then(data => this.$router.push({ name: 'template_path', params: { id: data.template.id } }))
     },
     openDeleteConfirm() {
       DialogsBus.$emit('openConfirmDialog', {
@@ -132,18 +134,20 @@ export default {
     }
   },
   computed: {
+    ...mapState('TemplatesModule', [
+      'templates',
+      'template',
+      'loading'
+    ]),
+    ...mapState('AuthenticationModule', [
+      'user'
+    ]),
     templatePolicy() {
       return new TemplatePolicy(this.user, this.template)
     },
-    ...mapGetters({
-      user: 'AuthenticationModule/user',
-      templates: 'TemplatesModule/templates',
-      template: 'TemplatesModule/template',
-      loading: 'TemplatesModule/loading',
-    })
   },
   created() {
-    this.$store.dispatch('TemplatesModule/fetchTemplates')
+    this.fetchTemplates()
   },
   destroyed() {
     this.$store.commit('TemplatesModule/RESET_STATE')

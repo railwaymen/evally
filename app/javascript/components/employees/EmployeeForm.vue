@@ -223,6 +223,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      createEmployee: 'EmployeesModule/createEmployee',
+      updateEmployee: 'EmployeesModule/updateEmployee'
+    }),
     closeDialog() {
       this.$emit('closeDialog')
     },
@@ -232,13 +236,9 @@ export default {
     save() {
       if (!this.$refs.form.validate()) return
 
-      (this.localEmployee.isPersisted ? this.update : this.create)(this.localEmployee)
+      (this.localEmployee.isPersisted ? this.updateEmployee : this.createEmployee)(this.localEmployee)
         .then(this.closeDialog)
-    },
-    ...mapActions({
-      create: 'EmployeesModule/createEmployee',
-      update: 'EmployeesModule/updateEmployee'
-    })
+    }
   },
   computed: {
     action() {

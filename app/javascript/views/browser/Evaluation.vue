@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import { Evaluation } from '@models/evaluation'
 
@@ -52,10 +52,10 @@ export default {
   name: 'EmployeesEvaluation',
   components: { StaticSectionBox },
   computed: {
-    ...mapGetters({
-      evaluation: 'EmployeesModule/evaluation',
-      sections: 'EmployeesModule/sections'
-    })
+    ...mapState('EmployeesModule', [
+      'evaluation',
+      'sections'
+    ])
   },
   watch: {
     $route: {
@@ -71,7 +71,7 @@ export default {
       }
     }
   },
-  beforeDestroy() {
+  destroyed() {
     this.$store.commit('EmployeesModule/CLEAR_EVALUATION')
   }
 }

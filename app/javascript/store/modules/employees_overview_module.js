@@ -22,17 +22,6 @@ const EmployeesOverviewModule = {
 
   state: initialState(),
 
-  getters: {
-    groups: state => state.groups,
-    positionsChartData: state => state.positionsChartData,
-    employeesPastYearChartData: state => state.employeesPastYearChartData,
-    employeesAnalytics: state => state.employeesAnalytics,
-    employeesByUsersChartData: state => state.employeesByUsersChartData,
-    evaluationsPastYearChartData: state => state.evaluationsPastYearChartData,
-    evaluationsAnalytics: state => state.evaluationsAnalytics,
-    loading: state => state.loading
-  },
-
   mutations: {
     SET_DATA(state, data) {
       const {
