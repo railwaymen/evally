@@ -149,7 +149,7 @@ export default {
       this.templateId = null
     },
     create() {
-      this.$store.dispatch('EvaluationEmployablesModule/create', this.$data)
+      this.$store.dispatch('EvaluationEmployablesModule/createEvaluation', this.$data)
         .then(data => {
           this.closeDialog()
 
@@ -158,8 +158,6 @@ export default {
     }
   },
   created() {
-    // this.$store.dispatch('EvaluationEmployablesModule/form')
-
     if (this.defaultEmployee.isPersisted) {
       this.employees.add(this.defaultEmployee)
     }

@@ -8,7 +8,7 @@ import { EmployeesList } from '@models/employee'
 import { TemplatesList } from '@models/template'
 import { SectionsList } from '@models/section'
 
-const initialState = () => ({
+const initState = () => ({
   evaluations: new EvaluationsList(),
   evaluation: new Evaluation(),
   sections: new SectionsList(),
@@ -20,58 +20,50 @@ const initialState = () => ({
 const EvaluationEmployablesModule = {
   namespaced: true,
 
-  state: initialState(),
+  state: initState(),
 
-  getters: {
-    evaluations: state => state.evaluations,
-    evaluation: state => state.evaluation,
-    sections: state => state.sections,
-    employees: state => state.employees,
-    templates: state => state.templates,
-    loading: state => state.loading
-  },
   mutations: {
-    addToList(state, data) {
+    ADD_EVALUATION(state, data) {
       state.evaluations.unshift(data)
     },
-    setForm(state, { employees, templates }) {
+    CLEAR_EVALUATION(state) {
+      state.evaluation = new Evaluation()
+      state.sections = new SectionsList()
+    },
+    POPULATE_FORM(state, { employees, templates }) {
       state.employees = new EmployeesList(employees)
       state.templates = new TemplatesList(templates)
     },
-    setItem(state, { evaluation, sections }) {
-      state.evaluation = new Evaluation(evaluation)
-      state.sections = new SectionsList(sections)
+    REFRESH_SECTION(state, section) {
+      state.sections.refresh(section)
     },
-    setList(state, evaluations) {
-      state.evaluations = new EvaluationsList(evaluations)
-    },
-    setLoading(state, status) {
-      state.loading = status
-    },
-    removeFromList(state, id) {
+    REMOVE_EVALUATION(state, id) {
       state.evaluation = new Evaluation()
       state.sections = new SectionsList()
       state.evaluations.dropById(id)
     },
-    refreshSection(state, section) {
-      state.sections.refresh(section)
-    },
-    resetItem(state) {
-      state.evaluation = new Evaluation()
-      state.sections = new SectionsList()
-    },
     RESET_STATE(state) {
-      Object.assign(state, initialState())
+      Object.assign(state, initState())
+    },
+    SET_EVALUATION(state, { evaluation, sections }) {
+      state.evaluation = new Evaluation(evaluation)
+      state.sections = new SectionsList(sections)
+    },
+    SET_EVALUATIONS(state, evaluations) {
+      state.evaluations = new EvaluationsList(evaluations)
+    },
+    SET_LOADING(state, status) {
+      state.loading = status
     }
   },
   actions: {
-    index({ commit }) {
-      commit('setLoading', true)
+    fetchEvaluations({ commit }) {
+      commit('SET_LOADING', true)
 
       coreApiClient
         .get(Evaluation.routes.evaluationEmployablesPath)
         .then(response => {
-          commit('setList', response.data)
+          commit('SET_EVALUATIONS', response.data)
         })
         .catch(error => {
           commit(
@@ -80,13 +72,13 @@ const EvaluationEmployablesModule = {
             { root: true }
           )
         })
-        .finally(() => commit('setLoading', false))
+        .finally(() => commit('SET_LOADING', false))
     },
-    show({ commit }, id) {
+    fetchEvaluation({ commit }, id) {
       coreApiClient
         .get(Evaluation.routes.draftEvaluationEmployablePath(id))
         .then(response => {
-          commit('setItem', response.data)
+          commit('SET_EVALUATION', response.data)
         })
         .catch(error => {
           commit(
@@ -96,12 +88,12 @@ const EvaluationEmployablesModule = {
           )
         })
     },
-    form({ commit }) {
+    newEvaluation({ commit }) {
       return (
         coreApiClient
           .get(Evaluation.routes.formEvaluationEmployablePath)
           .then(response => {
-            commit('setForm', response.data)
+            commit('POPULATE_FORM', response.data)
 
             return Promise.resolve()
           })
@@ -114,7 +106,7 @@ const EvaluationEmployablesModule = {
           })
       )
     },
-    create({ commit }, { employeeId, templateId, useLatest }) {
+    createEvaluation({ commit }, { employeeId, templateId, useLatest }) {
       const params = {
         evaluation: {
           employee_id: employeeId,
@@ -127,7 +119,7 @@ const EvaluationEmployablesModule = {
         coreApiClient
           .post(Evaluation.routes.evaluationEmployablesPath, params)
           .then(response => {
-            commit('addToList', response.data.evaluation)
+            commit('ADD_EVALUATION', response.data.evaluation)
 
             commit(
               'NotificationsModule/push',
@@ -146,7 +138,7 @@ const EvaluationEmployablesModule = {
           })
       )
     },
-    update({ state, commit }) {
+    updateEvaluation({ state, commit }) {
       const { evaluation, sections } = state;
 
       const params = {
@@ -159,7 +151,7 @@ const EvaluationEmployablesModule = {
         coreApiClient
           .put(Evaluation.routes.evaluationEmployablePath(evaluation.id), params)
           .then(response => {
-            commit('setItem', response.data)
+            commit('SET_EVALUATION', response.data)
 
             commit(
               'NotificationsModule/push',
@@ -179,7 +171,7 @@ const EvaluationEmployablesModule = {
       )
 
     },
-    complete({ state, commit }, { nextEvaluationDate }) {
+    completeEvaluation({ state, commit }, nextEvaluationDate) {
       const { evaluation, sections } = state;
 
       const params = {
@@ -194,7 +186,7 @@ const EvaluationEmployablesModule = {
         coreApiClient
           .put(Evaluation.routes.evaluationEmployablePath(evaluation.id), params)
           .then(() => {
-            commit('removeFromList', evaluation.id)
+            commit('REMOVE_EVALUATION', evaluation.id)
 
             commit(
               'NotificationsModule/push',
@@ -213,13 +205,13 @@ const EvaluationEmployablesModule = {
           })
       )
     },
-    destroy({ state, commit }) {
+    removeEvaluation({ state, commit }) {
       const { evaluation } = state;
 
       coreApiClient
         .delete(Evaluation.routes.evaluationEmployablePath(evaluation.id))
         .then(() => {
-          commit('removeFromList', evaluation.id)
+          commit('REMOVE_EVALUATION', evaluation.id)
 
           commit(
             'NotificationsModule/push',
