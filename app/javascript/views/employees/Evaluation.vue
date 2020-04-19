@@ -68,7 +68,7 @@ export default {
       }
     }
   },
-  beforeDestroy() {
+  destroyed() {
     this.$store.commit('EmployeesModule/CLEAR_EVALUATION')
   }
 }

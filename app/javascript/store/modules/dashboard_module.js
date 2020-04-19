@@ -50,9 +50,6 @@ const DashboardModule = {
           commit('NotificationsModule/push', { error: 'Error :(' }, { root: true })
         })
         .finally(() => commit('SET_LOADING', false))
-    },
-    resetDashboardState({ commit }) {
-      commit('RESET_STATE')
     }
   }
 }

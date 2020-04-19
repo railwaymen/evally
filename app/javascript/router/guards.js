@@ -1,5 +1,9 @@
 import store from '@store/store'
 
+export const alreadyAuthenticatedGuard = (_to, _from, next) => {
+  localStorage.getItem('ev411y_t0k3n') ? next({ name: 'dashboard_path' }) : next()
+}
+
 export const authenticationGuard = (_to, _from, next) => {
   if (localStorage.getItem('ev411y_t0k3n')) next()
   else {

@@ -198,7 +198,7 @@ export default {
   created() {
     this.fetchData()
   },
-  beforeDestroy() {
+  destroyed() {
     this.$store.commit('EvaluationEmployablesModule/RESET_STATE')
   }
 }

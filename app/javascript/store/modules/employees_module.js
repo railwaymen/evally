@@ -9,7 +9,7 @@ import { SectionsList } from '@models/section'
 import { PositionChangesList } from '@models/position_change'
 import { UsersList } from '@models/user'
 
-const initialState = () => ({
+const initState = () => ({
   employees: new EmployeesList(),
   employee: new Employee(),
   evaluations: new EvaluationsList(),
@@ -23,7 +23,7 @@ const initialState = () => ({
 const EmployeesModule = {
   namespaced: true,
 
-  state: initialState(),
+  state: initState(),
 
   getters: {
     employees: state => state.employees,
@@ -58,7 +58,7 @@ const EmployeesModule = {
       state.employees.dropById(id)
     },
     RESET_STATE(state) {
-      Object.assign(state, initialState())
+      Object.assign(state, initState())
     },
     SET_LOADING(state, status) {
       state.loading = status

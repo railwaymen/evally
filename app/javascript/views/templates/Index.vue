@@ -142,15 +142,11 @@ export default {
       loading: 'TemplatesModule/loading',
     })
   },
-  beforeRouteEnter (_to, _from, next) {
-    next(vm => {
-      vm.$store.dispatch('TemplatesModule/fetchTemplates')
-    })
+  created() {
+    this.$store.dispatch('TemplatesModule/fetchTemplates')
   },
-  beforeRouteLeave (_to, _from, next) {
+  destroyed() {
     this.$store.commit('TemplatesModule/RESET_STATE')
-
-    next()
   }
 }
 </script>

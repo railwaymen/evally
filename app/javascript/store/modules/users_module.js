@@ -5,7 +5,7 @@ import i18n from '@locales/i18n'
 
 import { User, UsersList } from '@models/user'
 
-const initialState = () => ({
+const initState = () => ({
   users: new UsersList(),
   user: new User(),
   loading: true
@@ -14,7 +14,7 @@ const initialState = () => ({
 const UsersModule = {
   namespaced: true,
 
-  state: initialState(),
+  state: initState(),
 
   getters: {
     users: state => state.users,
@@ -29,15 +29,15 @@ const UsersModule = {
     REFRESH_USER(state, user) {
       state.users.refresh(user)
     },
-    SET_USERS(state, users) {
-      state.users = new UsersList(users)
-      state.loading = false
+    RESET_STATE(state) {
+      Object.assign(state, initState())
     },
     SET_LOADING(state, status) {
       state.loading = status
     },
-    RESET_STATE(state) {
-      Object.assign(state, initialState())
+    SET_USERS(state, users) {
+      state.users = new UsersList(users)
+      state.loading = false
     }
   },
 

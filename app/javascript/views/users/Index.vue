@@ -27,7 +27,7 @@
       <v-container grid-list-lg fluid>
         <basic-table
           :users="users"
-          :loading="false"
+          :loading="loading"
           @edit="openUpdateForm"
         />
       </v-container>
@@ -75,6 +75,9 @@ export default {
   },
   created() {
     this.$store.dispatch('UsersModule/fetchUsers')
+  },
+  destroyed() {
+    this.$store.commit('UsersModule/RESET_STATE')
   }
 }
 </script>

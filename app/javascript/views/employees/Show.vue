@@ -42,7 +42,7 @@ export default {
   created() {
     this.$store.dispatch('EmployeesModule/fetchEmployee', this.$route.params.employeeId)
   },
-  beforeDestroy() {
+  destroyed() {
     this.$store.commit('EmployeesModule/CLEAR_EMPLOYEE')
   }
 }

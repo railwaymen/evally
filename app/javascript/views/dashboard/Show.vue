@@ -47,15 +47,11 @@ export default {
       loading: 'DashboardModule/loading'
     })
   },
-  beforeRouteEnter (_to, _from, next) {
-    next(vm => {
-      vm.$store.dispatch('DashboardModule/fetchDashboardData')
-    })
+  created() {
+    this.$store.dispatch('DashboardModule/fetchDashboardData')
   },
-  beforeRouteLeave (_to, _from, next) {
-    this.$store.dispatch('DashboardModule/resetDashboardState')
-
-    next()
+  destroyed() {
+    this.$store.commit('DashboardModule/RESET_STATE')
   }
 }
 </script>
