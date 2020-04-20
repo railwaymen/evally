@@ -17,12 +17,6 @@ const AuthenticationModule = {
 
   state: initialState(),
 
-  getters: {
-    user: state => state.user,
-    setting: state => state.setting,
-    loading: state => state.loading
-  },
-
   mutations: {
     SET_LOADING(state, status) {
       state.loading = status

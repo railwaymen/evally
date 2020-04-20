@@ -167,7 +167,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import FormsDialog from '@components/shared/FormsDialog'
 import ConfirmDialog from '@components/shared/ConfirmDialog'
@@ -178,11 +178,10 @@ export default {
   name: 'Base',
   components: { ConfirmDialog, FormsDialog },
   computed: {
-    ...mapGetters({
-      user: 'AuthenticationModule/user',
-      setting: 'AuthenticationModule/setting',
-    }),
-
+    ...mapState('AuthenticationModule', [
+      'user',
+      'setting'
+    ]),
     canHideSlider() {
       return this.$route.path.startsWith('/app/settings')
     }

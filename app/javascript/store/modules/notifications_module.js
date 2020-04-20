@@ -12,19 +12,19 @@ const NotificationsModule = {
   },
 
   mutations: {
-    push(state, message) {
+    PUSH_NOTIFICATION(state, message) {
       const type = Object.keys(message).shift()
 
       state.messages.push({ text: message[type], type: type })
     },
-    shift(state) {
+    SHIFT_NOTIFICATION(state) {
       state.message = state.messages.shift()
     }
   },
 
   actions: {
     flash: context => {
-      context.commit('shift')
+      context.commit('SHIFT_NOTIFICATION')
       return Promise.resolve()
     }
   }

@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     flash (message) {
-      this.$store.commit('NotificationsModule/push', message)
+      this.$store.commit('NotificationsModule/PUSH_NOTIFICATION', message)
     },
 
     updateLocale(locale) {

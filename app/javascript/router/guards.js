@@ -17,7 +17,7 @@ export const authenticationGuard = (_to, _from, next) => {
 }
 
 export const authorizationGuard = (_to, from, next) => {
-  const user = store.getters['AuthenticationModule/user']
+  const user = store.state.AuthenticationModule.user
 
   user.isAdmin ? next() : next({ name: from.name })
 }
