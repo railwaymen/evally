@@ -56,8 +56,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
   name: 'Login',
   data() {
@@ -70,19 +68,11 @@ export default {
   },
   methods: {
     submit() {
-      if (this.$refs.form.validate()) {
-        this.createSession(this.credentials)
-          .then(() => this.$router.push({ name: 'dashboard_path' }))
-          .catch(() => this.flash({ error: 'Invalid credentials, please try again.' }))
-      }
-    },
-    ...mapActions({
-      createSession: 'AuthenticationModule/create'
-    })
-  },
-  created () {
-    if (localStorage.getItem('ev411y_t0k3n')) {
-      this.$router.push({ name: 'dashboard_path' })
+      if (!this.$refs.form.validate()) return
+
+      this.$store.dispatch('AuthenticationModule/login', this.credentials)
+        .then(() => this.$router.push({ name: 'dashboard_path' }))
+        .catch(() => this.flash({ error: 'Invalid credentials, please try again.' }))
     }
   }
 }

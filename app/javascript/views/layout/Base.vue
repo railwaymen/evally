@@ -167,7 +167,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import FormsDialog from '@components/shared/FormsDialog'
 import ConfirmDialog from '@components/shared/ConfirmDialog'
@@ -178,18 +178,17 @@ export default {
   name: 'Base',
   components: { ConfirmDialog, FormsDialog },
   computed: {
-    ...mapGetters({
-      user: 'AuthenticationModule/user',
-      setting: 'AuthenticationModule/setting',
-    }),
-
+    ...mapState('AuthenticationModule', [
+      'user',
+      'setting'
+    ]),
     canHideSlider() {
       return this.$route.path.startsWith('/app/settings')
     }
   },
   methods: {
     logout () {
-      this.$store.dispatch('AuthenticationModule/destroy')
+      this.$store.dispatch('AuthenticationModule/logout')
         .then(() => this.$router.push({ name: 'login_path' }))
     },
     greeting() {
@@ -198,7 +197,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('AuthenticationModule/show')
+    this.$store.dispatch('AuthenticationModule/fetchSession')
       .then(data => this.updateLocale(data.setting.lang))
   }
 }

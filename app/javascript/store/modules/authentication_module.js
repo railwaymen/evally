@@ -17,242 +17,228 @@ const AuthenticationModule = {
 
   state: initialState(),
 
-  getters: {
-    user: state => state.user,
-    setting: state => state.setting,
-    loading: state => state.loading
-  },
-
   mutations: {
-    setLoading(state, status) {
+    SET_LOADING(state, status) {
       state.loading = status
     },
-    setSetting(state, setting) {
+    SET_SETTING(state, setting) {
       state.setting = new Setting(setting)
+
+      localStorage.setItem('ev411y_l4ng', setting.lang || 'en')
     },
-    setSession(state, { user, setting }) {
+    SET_SESSION(state, { user, setting }) {
       state.user = new User(user)
       state.setting = new Setting(setting)
+
+      localStorage.setItem('ev411y_l4ng', setting.lang || 'en')
     },
-    setToken(_state, jwt) {
+    SAVE_TOKEN(_state, jwt) {
       localStorage.setItem('ev411y_t0k3n', jwt)
     },
-    setUser(state, user) {
+    SET_USER(state, user) {
       state.user = new User(user)
     },
-    resetState(state) {
+    RESET_STORE(state) {
       localStorage.removeItem('ev411y_t0k3n')
       Object.assign(state, initialState())
-    },
-    clearStore() {
+
       const modules = [
         'Employees',
         'EmployeesOverview',
         'EmployeesSearch',
         'EvaluationEmployables',
-        'Authentication',
         'Templates',
         'RecruitDocuments'
       ]
 
-      modules.forEach(module => this.commit(`${module}Module/resetState`))
+      modules.forEach(module => this.commit(`${module}Module/RESET_STATE`))
     }
   },
 
   actions: {
     acceptInvitation({ commit }, data) {
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .put(User.routes.invitationPath(data.invitationToken), { invitation: data.invitation })
           .then(() => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.session.acceptInvitation.ok') },
               { root: true }
             )
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.session.acceptInvitation.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
-      )
+      })
     },
     forgotPassword({ commit }, email) {
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .post(User.routes.passwordsPath, { password: { email } })
           .then(() => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.session.forgotPassword.ok') },
               { root: true }
             )
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.session.forgotPassword.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
-      )
+      })
     },
     resetPassword({ commit }, data) {
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .put(User.routes.passwordPath(data.resetPasswordToken), { password: data.reset })
           .then(() => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.session.resetPassword.ok') },
               { root: true }
             )
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.session.resetPassword.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
-      )
+      })
     },
-    show({ commit }) {
-      commit('setLoading', true)
+    fetchSession({ commit }) {
+      commit('SET_LOADING', true)
 
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .get(User.routes.profilePath)
           .then(response => {
-            const { data } = response
+            commit('SET_SESSION', response.data)
 
-            localStorage.setItem('ev411y_l4ng', data.setting.lang || 'en')
-            commit('setSession', data)
-
-            return Promise.resolve(data)
+            resolve(response.data)
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.session.show.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
-          .finally(() => commit('setLoading', false))
-      )
+          .finally(() => commit('SET_LOADING', false))
+      })
     },
-    create({ commit }, credentials) {
-      return (
+    login({ commit }, credentials) {
+      return new Promise((resolve, reject) => {
         coreApiClient
           .post(User.routes.sessionPath, { session: credentials })
           .then(response => {
-            commit('setToken', response.data.jwt)
+            commit('SAVE_TOKEN', response.data.jwt)
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.session.create.ok') },
               { root: true }
             )
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(() => {
-            commit('resetState')
+            commit('RESET_STORE')
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.session.create.error') },
               { root: true }
             )
 
-            return Promise.reject()
+            reject()
           })
-      )
+      })
     },
     updateSetting({ commit }, setting) {
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .put(Setting.routes.settingsPath, { setting })
           .then(response => {
-            const { data } = response
-
-            localStorage.setItem('ev411y_l4ng', data.lang || 'en')
-            commit('setSetting', data)
-
+            commit('SET_SETTING', response.data)
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.session.updateSetting.ok') },
               { root: true }
             )
 
-            return Promise.resolve(data)
+            resolve(response.data)
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.session.updateSetting.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
-        )
+      })
     },
     updateUser({ commit }, user) {
       coreApiClient
         .put(User.routes.profilePath, { profile: user })
         .then(response => {
-          commit('setUser', response.data)
+          commit('SET_USER', response.data)
 
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { success: i18n.t('messages.session.updateUser.ok') },
             { root: true }
           )
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.session.updateUser.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
     },
     updatePassword({ commit }, passwords) {
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .put(User.routes.profilePasswordPath, { profile: passwords })
           .then(() => {
-            commit('resetState')
-
+            commit('RESET_STORE')
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.session.updatePassword.ok') },
               { root: true }
             )
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.session.updatePassword.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
-      )
+      })
     },
-    destroy({ commit }) {
-      commit('clearStore')
-      commit('resetState')
-
+    logout({ commit }) {
+      commit('RESET_STORE')
       commit(
-        'NotificationsModule/push',
+        'NotificationsModule/PUSH_NOTIFICATION',
         { success: i18n.t('messages.session.destroy.ok') },
         { root: true }
       )

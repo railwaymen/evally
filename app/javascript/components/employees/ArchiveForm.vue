@@ -63,8 +63,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
   name: 'ArchiveForm',
   data(){
@@ -78,14 +76,8 @@ export default {
       this.$emit('closeDialog')
     },
     archiveEmployee() {
-      this.archive(this.archiveDate)
-      this.closeDialog()
-    },
-    ...mapActions({
-      archive: 'EmployeesModule/archive',
-    }),
-    redirectToIndex() {
-      this.$router.push({ name: 'employees_path' })
+      this.$store.dispatch('EmployeesModule/archiveEmployee', this.archiveDate)
+        .then(this.closeDialog)
     }
   }
 }

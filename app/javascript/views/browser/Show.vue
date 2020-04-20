@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import EmployeeSidebar from '@components/browser/EmployeeSidebar'
 
@@ -104,20 +104,20 @@ export default {
     }
   },
   computed: {
+    ...mapState('EmployeesModule', [
+      'employee',
+      'evaluations',
+      'positionChanges'
+    ]),
     accessible() {
       return this.employee.isPersisted && this.valid
-    },
-    ...mapGetters({
-      employee: 'EmployeesModule/employee',
-      evaluations: 'EmployeesModule/evaluations',
-      positionChanges: 'EmployeesModule/positionChanges'
-    })
+    }
   },
   created() {
-    this.$store.dispatch('EmployeesModule/browse', this.$route.params.employeeId)
+    this.$store.dispatch('EmployeesModule/browseEmployee', this.$route.params.employeeId)
   },
-  beforeDestroy() {
-    this.$store.commit('EmployeesModule/resetItem')
+  destroyed() {
+    this.$store.commit('EmployeesModule/CLEAR_EMPLOYEE')
   }
 }
 </script>

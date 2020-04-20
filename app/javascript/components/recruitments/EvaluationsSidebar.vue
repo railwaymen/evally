@@ -2,7 +2,7 @@
   <div class="sidebar sidebar--boxed">
     <div class="sidebar__section">
       <v-select
-        @change="showEvaluation"
+        @change="fetchEvaluation"
         :value="evaluation.id"
         :items="evaluations.models"
         :label="$t('components.recruitments.evaluationsSidebar.selectLabel')"
@@ -63,7 +63,7 @@
           <v-tooltip bottom key="reset">
             <template #activator="{ on }">
               <v-btn
-                @click="showEvaluation(evaluation.id)"
+                @click="fetchEvaluation(evaluation.id)"
                 v-on="on"
                 color="black"
                 icon
@@ -168,6 +168,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions('RecruitDocumentsModule', [
+      'fetchEvaluation',
+      'updateEvaluation'
+    ]),
     openCreateEvaluationForm() {
       DialogsBus.$emit('openFormsDialog', {
         innerComponent: CreateEvaluationForm,
@@ -186,10 +190,6 @@ export default {
         innerComponent: CompleteEvaluationConfirm
       })
     },
-    ...mapActions({
-      showEvaluation: 'RecruitDocumentsModule/showEvaluation',
-      updateEvaluation: 'RecruitDocumentsModule/updateEvaluation'
-    })
   },
   watch: {
     sections(val) {

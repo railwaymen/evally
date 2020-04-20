@@ -6,7 +6,7 @@ import i18n from '@locales/i18n'
 import { Template, TemplatesList } from '@models/template'
 import { SectionsList } from '@models/section'
 
-const initialState = () => ({
+const initState = () => ({
   templates: new TemplatesList(),
   destinations: [],
   template: new Template(),
@@ -17,92 +17,89 @@ const initialState = () => ({
 const TemplatesModule = {
   namespaced: true,
 
-  state: initialState(),
-
-  getters: {
-    templates: state => state.templates,
-    destinations: state => state.destinations,
-    template: state => state.template,
-    sections: state => state.sections,
-    loading: state => state.loading
-  },
+  state: initState(),
 
   mutations: {
-    addToList(state, data) {
-      state.templates.unshift(data)
-    },
-    setEditable(state, value = true) {
-      state.template.set('editable', value)
-    },
-    setItem(state, { template, sections }) {
-      state.template = new Template(template)
+    ADD_TEMPLATE(state, { template, sections }) {
+      state.templates.unshift(template)
+      state.template.assign({ ...template, editable: false })
       state.sections = new SectionsList(sections)
     },
-    setList(state, { templates, destinations }) {
-      state.templates = new TemplatesList(templates)
-      state.destinations = destinations
-      state.loading = false
+    CLEAR_TEMPLATE(state) {
+      state.template = new Template()
+      state.sections = new SectionsList()
     },
-    setLoading(state, status) {
-      state.loading = status
-    },
-    setSections(state, sectionsList) {
-      state.sections = sectionsList
-    },
-    refreshListItem(state, template) {
+    REFRESH_TEMPLATE(state, template) {
       state.templates.refresh(template)
+      state.template.assign(template)
     },
-    removeFromList(state, id) {
+    REMOVE_TEMPLATE(state, id) {
       state.template = new Template()
       state.sections = new SectionsList()
       state.templates.dropById(id)
     },
-    resetItem(state) {
-      state.template = new Template()
-      state.sections = new SectionsList()
+    RESET_STATE(state) {
+      Object.assign(state, initState())
     },
-    resetState(state) {
-      Object.assign(state, initialState())
+    SET_EDITABLE(state) {
+      state.template.editable = true
+    },
+    SET_LOADING(state, status) {
+      state.loading = status
+    },
+    SET_SECTIONS(state, sections) {
+      state.sections = new SectionsList(sections)
+    },
+    SET_TEMPLATE(state, { template, sections }) {
+      state.template = new Template(template)
+      state.sections = new SectionsList(sections)
+    },
+    SET_TEMPLATES(state, { templates, destinations }) {
+      state.templates = new TemplatesList(templates)
+      state.destinations = destinations
+      state.loading = false
     }
   },
 
   actions: {
-    index({ commit }) {
-      commit('setLoading', true)
+    fetchTemplates({ commit }) {
+      commit('SET_LOADING', true)
 
       coreApiClient
         .get(Template.routes.templatesPath)
         .then(response => {
-          commit('setList', response.data)
+          commit('SET_TEMPLATES', response.data)
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.templates.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
-        .finally(() => commit('setLoading', false))
+        .finally(() => commit('SET_LOADING', false))
     },
-    show({ commit }, id) {
+    fetchTemplate({ commit }, id) {
       if (id === 'new') {
-        commit('setItem', { template: { editable: true }, sections: [] })
-      } else {
-        coreApiClient
-          .get(Template.routes.templatePath(id))
-          .then(response => {
-            commit('setItem', response.data)
-          })
-          .catch(error => {
-            commit(
-              'NotificationsModule/push',
-              { error: i18n.t('messages.templates.show.error', { msg: fetchError(error) }) },
-              { root: true }
-            )
-          })
+        commit('SET_TEMPLATE', { template: { editable: true }, sections: [] })
+
+        return
       }
+
+      coreApiClient
+        .get(Template.routes.templatePath(id))
+        .then(response => {
+          commit('SET_TEMPLATE', response.data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/PUSH_NOTIFICATION',
+            { error: i18n.t('messages.templates.show.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+        })
     },
-    create({ state, commit }) {
+    createTemplate({ state, commit }) {
       const { template, sections } = state;
 
       const params = {
@@ -112,30 +109,29 @@ const TemplatesModule = {
         }
       }
 
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .post(Template.routes.templatesPath, params)
           .then(response => {
-            commit('addToList', response.data.template)
-
+            commit('ADD_TEMPLATE', response.data)
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.templates.create.ok') },
               { root: true }
             )
 
-            return Promise.resolve(response.data)
+            resolve(response.data)
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.templates.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
-      )
+      })
     },
-    update({ state, commit }) {
+    updateTemplate({ state, commit }) {
       const { template, sections } = state
 
       const params = {
@@ -145,57 +141,57 @@ const TemplatesModule = {
         }
       }
 
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .put(Template.routes.templatePath(template.id), params)
           .then(response => {
             const { data } = response
 
-            commit('refreshListItem', data.template)
-            commit('setItem', data)
+            commit('REFRESH_TEMPLATE', data.template)
+            commit('SET_TEMPLATE', data)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.templates.update.ok') },
               { root: true }
             )
 
-            return Promise.resolve(data)
+            resolve(data)
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.templates.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
-      )
+      })
     },
-    destroy({ state, commit }) {
+    removeTemplate({ state, commit }) {
       const { template } = state
 
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .delete(Template.routes.templatePath(template.id))
           .then(() => {
-            commit('removeFromList', template.id)
+            commit('REMOVE_TEMPLATE', template.id)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.templates.delete.ok') },
               { root: true }
             )
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.templates.delete.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
-      )
+      })
     }
   }
 }

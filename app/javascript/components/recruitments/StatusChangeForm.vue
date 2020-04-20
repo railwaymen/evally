@@ -92,6 +92,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions('RecruitDocumentsModule', [
+      'updateRecruitDocument'
+    ]),
     closeDialog() {
       this.recruitDocument.status = this.prevStatus
       this.$emit('closeDialog')
@@ -99,12 +102,9 @@ export default {
     save() {
       this.$refs.form.validate()
 
-      this.update({ recruitDocument: this.recruitDocument })
+      this.updateRecruitDocument({ recruitDocument: this.recruitDocument })
         .then(() => this.$emit('closeDialog'))
-    },
-    ...mapActions({
-      update: 'RecruitDocumentsModule/update'
-    })
+    }
   },
 }
 </script>

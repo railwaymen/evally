@@ -63,8 +63,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   name: 'CompleteForm',
   props: {
@@ -86,15 +84,11 @@ export default {
     },
     complete() {
       this.$store.dispatch(
-        'EvaluationEmployablesModule/complete',
-        { nextEvaluationDate: this.localDate.format('YYYY-MM-DD') }
+        'EvaluationEmployablesModule/completeEvaluation', this.localDate.format('YYYY-MM-DD')
       ).then(() => this.closeDialog())
     }
   },
   computed: {
-    ...mapGetters({
-      setting: 'AuthenticationModule/setting'
-    }),
     monthFormatDate: {
       get() {
         return this.localDate.format('YYYY-MM')

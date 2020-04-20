@@ -5,7 +5,7 @@ import i18n from '@locales/i18n'
 
 import { User, UsersList } from '@models/user'
 
-const initialState = () => ({
+const initState = () => ({
   users: new UsersList(),
   user: new User(),
   loading: true
@@ -14,101 +14,92 @@ const initialState = () => ({
 const UsersModule = {
   namespaced: true,
 
-  state: initialState(),
-
-  getters: {
-    users: state => state.users,
-    user: state => state.user,
-    loading: state => state.loading
-  },
+  state: initState(),
 
   mutations: {
-    addToList(state, data) {
-      state.users.unshift(data)
+    ADD_USER(state, user) {
+      state.users.unshift(user)
     },
-    refreshListItem(state, data) {
-      state.users.refresh(data)
+    REFRESH_USER(state, user) {
+      state.users.refresh(user)
     },
-    setItem(state, user) {
-      state.user = new User(user)
+    RESET_STATE(state) {
+      Object.assign(state, initState())
     },
-    setList(state, users) {
-      state.users = new UsersList(users)
-      state.loading = false
-    },
-    setLoading(state, status) {
+    SET_LOADING(state, status) {
       state.loading = status
     },
-    resetState(state) {
-      Object.assign(state, initialState())
+    SET_USERS(state, users) {
+      state.users = new UsersList(users)
+      state.loading = false
     }
   },
 
   actions: {
-    index({ commit }) {
-      commit('setLoading', true)
+    fetchUsers({ commit }) {
+      commit('SET_LOADING', true)
 
       coreApiClient
         .get(User.routes.usersPath)
         .then(response => {
-          commit('setList', response.data)
+          commit('SET_USERS', response.data)
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.users.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
-        .finally(() => commit('setLoading', false))
+        .finally(() => commit('SET_LOADING', false))
     },
-    create({ commit }, user) {
-      return (
+    createUser({ commit }, user) {
+      return new Promise(resolve => {
         coreApiClient
           .post(User.routes.invitationsPath, { invitation: user })
           .then(response => {
-            commit('addToList', response.data)
+            commit('ADD_USER', response.data)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.users.create.ok') },
               { root: true }
             )
 
-            return Promise.resolve(response.data)
+            resolve(response.data)
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.users.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
-      )
+      })
     },
-    update({ commit }, user) {
-      return (
+    updateUser({ commit }, user) {
+      return new Promise(resolve => {
         coreApiClient
           .put(User.routes.userPath(user.id), { user })
           .then(response => {
-            commit('refreshListItem', response.data)
+            commit('REFRESH_USER', response.data)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.users.update.ok') },
               { root: true }
             )
 
-            return Promise.resolve(response.data)
+            resolve(response.data)
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.users.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
-      )
+      })
     }
   }
 }

@@ -50,7 +50,7 @@ export default {
       this.$emit('closeDialog')
     },
     destroy() {
-      this.$store.dispatch('RecruitDocumentsModule/destroyComment', this.comment.id)
+      this.$store.dispatch('RecruitDocumentsModule/removeComment', this.comment.id)
         .then(this.closeDialog)
     }
   }

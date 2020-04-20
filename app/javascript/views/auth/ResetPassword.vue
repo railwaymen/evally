@@ -79,11 +79,6 @@ export default {
     vConfirmed(val) {
       return val === this.reset.password || this.$t('shared.validations.confirmed')
     }
-  },
-  created () {
-    if (localStorage.getItem('ev411y_t0k3n')) {
-      this.$router.push({ name: 'dashboard_path' })
-    }
   }
 }
 </script>

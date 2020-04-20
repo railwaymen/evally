@@ -162,7 +162,7 @@ export default {
           status: filters.status || ''
         }
 
-        this.$store.dispatch('RecruitDocumentsModule/filterIndex', payload)
+        this.$store.dispatch('RecruitDocumentsModule/filterRecruitDocuments', payload)
       }
     }
   }

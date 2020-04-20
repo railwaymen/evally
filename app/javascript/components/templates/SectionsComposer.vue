@@ -28,7 +28,7 @@
                 <v-tooltip left>
                   <template #activator="{ on }">
                     <v-icon
-                      @click="switchSensitive(section.id, index)"
+                      @click="switchSensitive(section.temp_id, index)"
                       :color="section.sensitive ? 'red' : 'green'"
                       :disabled="!recruitable"
                       v-on="on"
@@ -61,7 +61,7 @@
           <v-tooltip bottom>
             <template #activator="{ on }">
               <v-btn
-                @click="resize(section.id, index)"
+                @click="resize(section.temp_id, index)"
                 :disabled="recruitable"
                 v-on="on"
                 icon
@@ -82,7 +82,7 @@
           <v-tooltip bottom>
             <template #activator="{ on }">
               <v-btn
-                @click="remove(section.id, index)"
+                @click="remove(section.temp_id, index)"
                 v-on="on"
                 icon
               >
@@ -130,25 +130,25 @@ export default {
     }
   },
   methods: {
-    resize(sectionId, index) {
+    resize(tempId, index) {
       this.$emit('input', this.value.map(section => {
-        if (section.id !== sectionId) return section
+        if (section.temp_id !== tempId) return section
 
         section.set('width', section.isHalf ? 'full' : 'half')
         return section
       }))
     },
-    remove(sectionId, index) {
+    remove(tempId, index) {
       this.$emit('input', this.value.map(section => {
-        if (section.id !== sectionId) return section
+        if (section.temp_id !== tempId) return section
 
         section.set('_destroy', 1)
         return section
       }))
     },
-    switchSensitive(sectionId, index) {
+    switchSensitive(tempId, index) {
       this.$emit('input', this.value.map(section => {
-        if (section.id !== sectionId) return section
+        if (section.temp_id !== tempId) return section
 
         section.set('sensitive', section.sensitive ? false : true)
         return section

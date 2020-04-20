@@ -77,7 +77,8 @@ module V2
     def create_params
       params.require(:template).permit(
         :name, :destination, sections: [
-          :name, :width, :group, :position, :sensitive, skills: %i[name value needToImprove]
+          :name, :width, :group, :position, :sensitive, :_destroy,
+          skills: %i[name value needToImprove]
         ]
       )
     end

@@ -40,7 +40,7 @@
           <v-tooltip bottom>
             <template #activator="{ on }">
               <v-btn
-                @click="update"
+                @click="updateEvaluation"
                 v-on="on"
                 color="black"
                 icon
@@ -55,7 +55,7 @@
           <v-tooltip bottom>
             <template #activator="{ on }">
               <v-btn
-                @click="reset"
+                @click="fetchEvaluation(evaluation.id)"
                 v-on="on"
                 color="black"
                 icon
@@ -132,7 +132,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import CompleteForm from '@components/evaluations/CompleteForm'
@@ -149,22 +149,23 @@ export default {
     }
   },
   methods: {
-    toggleSidebar() {
-      this.isSidebarVisible = !this.isSidebarVisible
-    },
-    reset() {
-      this.$store.dispatch('EvaluationEmployablesModule/show', this.evaluation.id)
-    },
+    ...mapActions('EvaluationEmployablesModule', [
+      'fetchEvaluations',
+      'fetchEvaluation',
+      'newEvaluation',
+      'updateEvaluation'
+    ]),
     openCreateForm() {
-      this.form().then(
-        () => DialogsBus.$emit('openFormsDialog', {
-          innerComponent: CreateForm,
-          props: {
-            employees: this.employees,
-            templates: this.templates
-          }
-        })
-      )
+      this.newEvaluation()
+        .then(
+          () => DialogsBus.$emit('openFormsDialog', {
+            innerComponent: CreateForm,
+            props: {
+              employees: this.employees,
+              templates: this.templates
+            }
+          })
+        )
     },
     openCompleteForm() {
       DialogsBus.$emit('openFormsDialog', {
@@ -179,27 +180,27 @@ export default {
         innerComponent: DeleteConfirm
       })
     },
-    ...mapActions({
-      fetchData: 'EvaluationEmployablesModule/index',
-      update: 'EvaluationEmployablesModule/update',
-      form: 'EvaluationEmployablesModule/form',
-    })
+    toggleSidebar() {
+      this.isSidebarVisible = !this.isSidebarVisible
+    }
   },
   computed: {
-    ...mapGetters({
-      evaluations: 'EvaluationEmployablesModule/evaluations',
-      evaluation: 'EvaluationEmployablesModule/evaluation',
-      employees: 'EvaluationEmployablesModule/employees',
-      templates: 'EvaluationEmployablesModule/templates',
-      loading: 'EvaluationEmployablesModule/loading',
-      setting: 'AuthenticationModule/setting'
-    })
+    ...mapState('EvaluationEmployablesModule', [
+      'evaluations',
+      'evaluation',
+      'employees',
+      'templates',
+      'loading'
+    ]),
+    ...mapState('AuthenticationModule', [
+      'setting'
+    ])
   },
   created() {
-    this.fetchData()
+    this.fetchEvaluations()
   },
-  beforeDestroy() {
-    this.$store.commit('EvaluationEmployablesModule/resetState')
+  destroyed() {
+    this.$store.commit('EvaluationEmployablesModule/RESET_STATE')
   }
 }
 </script>

@@ -41,12 +41,9 @@ export default {
       this.$emit('closeDialog')
     },
     destroy() {
-      this.$store.dispatch('EmployeesModule/destroy')
-        .then(this.redirectToIndex)
+      this.$store.dispatch('EmployeesModule/removeEmployee')
+        .then(() => this.$router.push({ name: 'employees_path' }))
         .finally(this.closeDialog)
-    },
-    redirectToIndex() {
-      this.$router.push({ name: 'employees_path' })
     }
   }
 }

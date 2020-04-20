@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import { RecruitDocumentPolicy } from '@policies/recruit_document_policy'
 
@@ -45,36 +45,28 @@ export default {
   name: 'RecruitmentsShow',
   components: { CommentsSidebar, EvaluationsSidebar, RecruitmentsSidebar },
   computed: {
+    ...mapState('RecruitDocumentsModule', [
+      'recruitDocument',
+      'attachments',
+      'statuses',
+      'groups',
+      'positions',
+      'evaluators',
+      'templates',
+      'evaluations',
+      'evaluation',
+      'sections',
+      'loading'
+    ]),
+    ...mapState('AuthenticationModule', [
+      'user'
+    ]),
     policy() {
       return new RecruitDocumentPolicy(this.user, this.recruitDocument)
-    },
-    ...mapGetters({
-      recruitDocument: 'RecruitDocumentsModule/recruitDocument',
-      attachments: 'RecruitDocumentsModule/attachments',
-      statuses: 'RecruitDocumentsModule/statuses',
-      groups: 'RecruitDocumentsModule/groups',
-      positions: 'RecruitDocumentsModule/positions',
-      templates: 'RecruitDocumentsModule/templates',
-      evaluators: 'RecruitDocumentsModule/evaluators',
-      evaluations: 'RecruitDocumentsModule/evaluations',
-      evaluation: 'RecruitDocumentsModule/evaluation',
-      sections: 'RecruitDocumentsModule/sections',
-      loading: 'RecruitDocumentsModule/loading',
-      user: 'AuthenticationModule/user'
-    })
-  },
-  watch: {
-    $route: {
-      immediate: true,
-      handler(to) {
-        if (to.name === 'recruitment_path') {
-          this.$store.dispatch('RecruitDocumentsModule/show', {
-            publicRecruitId: to.params.publicRecruitId,
-            id: to.params.id
-          })
-        }
-      }
     }
+  },
+  created() {
+    this.$store.dispatch('RecruitDocumentsModule/fetchRecruitDocument', this.$route.params)
   }
 }
 </script>

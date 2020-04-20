@@ -51,7 +51,7 @@ export default {
       this.$emit('closeDialog')
     },
     destroy() {
-      this.$store.dispatch('RecruitDocumentsModule/destroyAttachment', this.attachment.id)
+      this.$store.dispatch('RecruitDocumentsModule/removeAttachment', this.attachment.id)
         .then(this.closeDialog)
     }
   }

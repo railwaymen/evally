@@ -60,12 +60,7 @@ export default {
       if (!this.$refs.form.validate()) return
 
       this.$store.dispatch('AuthenticationModule/forgotPassword', this.email)
-        .then(() => this.$refs.form.reset())
-    }
-  },
-  created () {
-    if (localStorage.getItem('ev411y_t0k3n')) {
-      this.$router.push({ name: 'dashboard_path' })
+        .then(this.$refs.form.reset)
     }
   }
 }

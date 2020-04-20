@@ -35,68 +35,51 @@ const RecruitDocumentsModule = {
 
   state: initialState(),
 
-  getters: {
-    recruitDocuments: state => state.recruitDocuments,
-    recruitDocument: state => state.recruitDocument,
-    attachments: state => state.attachments,
-    evaluators: state => state.evaluators,
-    evaluations: state => state.evaluations,
-    evaluation: state => state.evaluation,
-    sections: state => state.sections,
-    templates: state => state.templates,
-    comments: state => state.comments,
-    groups: state => state.groups,
-    statuses: state => state.statuses,
-    positions: state => state.positions,
-    sources: state => state.sources,
-    loading: state => state.loading
-  },
-
   mutations: {
-    addComment(state, comment) {
+    ADD_COMMENT(state, comment) {
       state.comments.unshift(comment)
     },
-    addEvaluation(state, { evaluation, sections }) {
+    ADD_EVALUATION(state, { evaluation, sections }) {
       state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
       state.evaluations.unshift(evaluation)
     },
-    addRecruitDocument(state, recruitDocument) {
+    ADD_RECRUIT_DOCUMENT(state, recruitDocument) {
       state.recruitDocument = new RecruitDocument(recruitDocument)
       state.recruitDocuments.unshift(recruitDocument)
     },
-    clearRecruitDocument(state) {
+    CLEAR_RECRUIT_DOCUMENT(state) {
       state.recruitDocument = new RecruitDocument()
       state.attachments = new AttachmentsList()
     },
-    refreshSection(state, section) {
+    REFRESH_SECTION(state, section) {
       state.sections.refresh(section)
     },
-    removeEvaluation(state, id) {
+    REMOVE_EVALUATION(state, id) {
       state.evaluation = new Evaluation()
       state.sections = new SectionsList()
       state.evaluations.dropById(id)
     },
-    removeAttachment(state, id) {
+    REMOVE_ATTACHMENT(state, id) {
       state.attachments.dropById(id)
     },
-    removeRecruitDocument(state, id) {
+    REMOVE_RECRUIT_DOCUMENT(state, id) {
       state.recruitDocument = new RecruitDocument()
       state.attachments = new AttachmentsList()
       state.recruitDocuments.dropById(id)
     },
-    setEvaluation(state, { evaluation, sections }) {
+    SET_EVALUATION(state, { evaluation, sections }) {
       state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
       state.evaluations.refresh(evaluation)
     },
-    setEvaluators(state, evaluators) {
+    SET_EVALUATORS(state, evaluators) {
       state.evaluators = new UsersList(evaluators)
     },
-    setAttachments(state, attachments) {
+    SET_ATTACHMENTS(state, attachments) {
       state.attachments = new AttachmentsList(attachments)
     },
-    setRecruit(state, data) {
+    SET_RECRUIT(state, data) {
       const {
         evaluators,
         evaluations,
@@ -113,7 +96,7 @@ const RecruitDocumentsModule = {
       state.templates = new TemplatesList(templates)
       state.comments = new CommentsList(comments)
     },
-    setRecruitDocument(state, data) {
+    SET_RECRUIT_DOCUMENT(state, data) {
       const {
         recruit_document,
         attachments,
@@ -130,7 +113,7 @@ const RecruitDocumentsModule = {
       state.statuses = statuses
       state.sources = sources
     },
-    setRecruitDocuments(state, data) {
+    SET_RECRUIT_DOCUMENTS(state, data) {
       const {
         recruit_documents,
         groups,
@@ -143,58 +126,58 @@ const RecruitDocumentsModule = {
       state.statuses = statuses
       state.groups = groups
     },
-    setLoading(state, status) {
+    SET_LOADING(state, status) {
       state.loading = status
     },
-    resetState(state) {
+    RESET_STATE(state) {
       Object.assign(state, initialState())
     },
-    updateComment(state, comment) {
+    REFRESH_COMMENT(state, comment) {
       state.comments.refresh(comment)
     },
-    updateRecruitDocument(state, recruitDocument) {
+    REFRESH_RECRUIT_DOCUMENT(state, recruitDocument) {
       state.recruitDocument = new RecruitDocument(recruitDocument)
       state.recruitDocuments.refresh(recruitDocument)
     }
   },
 
   actions: {
-    index({ commit }) {
-      commit('setLoading', true)
+    fetchRecruitDocuments({ commit }) {
+      commit('SET_LOADING', true)
 
       recruitableApiClient
         .get(RecruitDocument.routes.recruitDocumentsPath)
         .then(response => {
-          commit('setRecruitDocuments', response.data)
+          commit('SET_RECRUIT_DOCUMENTS', response.data)
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.recruitments.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
-        .finally(() => commit('setLoading', false))
+        .finally(() => commit('SET_LOADING', false))
     },
-    filterIndex({ commit }, filters) {
-      commit('setLoading', true)
+    filterRecruitDocuments({ commit }, filters) {
+      commit('SET_LOADING', true)
 
       recruitableApiClient
         .get(RecruitDocument.routes.recruitDocumentsFilterPath(filters))
         .then(response => {
-          commit('setRecruitDocuments', response.data)
+          commit('SET_RECRUIT_DOCUMENTS', response.data)
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.recruitments.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
-        .finally(() => commit('setLoading', false))
+        .finally(() => commit('SET_LOADING', false))
     },
-    show({ commit }, { publicRecruitId, id }) {
-      commit('setLoading', true)
+    fetchRecruitDocument({ commit }, { publicRecruitId, id }) {
+      commit('SET_LOADING', true)
 
       axios
         .all([
@@ -202,38 +185,38 @@ const RecruitDocumentsModule = {
           coreApiClient.get(RecruitDocument.routes.recruitPath(publicRecruitId))
         ])
         .then(axios.spread((recruitableApiResponse, coreApiResponse) => {
-          commit('setRecruitDocument', recruitableApiResponse.data)
-          commit('setRecruit', coreApiResponse.data)
+          commit('SET_RECRUIT_DOCUMENT', recruitableApiResponse.data)
+          commit('SET_RECRUIT', coreApiResponse.data)
         }))
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.recruitments.show.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
-        .finally(() => commit('setLoading', false))
+        .finally(() => commit('SET_LOADING', false))
     },
-    newForm({ commit }) {
+    newRecruitDocument({ commit }) {
       axios
         .all([
           recruitableApiClient.get(RecruitDocument.routes.formRecruitDocumentPath),
           coreApiClient.get(User.routes.activeUsersPath)
         ])
         .then(axios.spread((recruitableApiResponse, coreApiResponse) => {
-          commit('setRecruitDocument', recruitableApiResponse.data)
-          commit('setEvaluators', coreApiResponse.data)
+          commit('SET_RECRUIT_DOCUMENT', recruitableApiResponse.data)
+          commit('SET_EVALUATORS', coreApiResponse.data)
         }))
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.recruitments.show.error', { msg: fetchError(error) }) },
             { root: true }
           )
 
         })
     },
-    create({ commit }, { recruitDocument, attachments = [] }) {
+    createRecruitDocument({ commit }, { recruitDocument, attachments = [] }) {
       const formData = objectToFormData(recruitDocument, 'recruit_document')
       attachments.map(attachment => formData.append('recruit_document[files][]', attachment))
 
@@ -241,10 +224,10 @@ const RecruitDocumentsModule = {
         recruitableApiClient
           .post(RecruitDocument.routes.recruitDocumentsPath, formData)
           .then(response => {
-            commit('addRecruitDocument', response.data)
+            commit('ADD_RECRUIT_DOCUMENT', response.data)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.recruitments.create.ok') },
               { root: true }
             )
@@ -253,7 +236,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.recruitments.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -265,18 +248,18 @@ const RecruitDocumentsModule = {
       recruitableApiClient
         .get(RecruitDocument.routes.recruitDocumentPath(id))
         .then(response => {
-          commit('setRecruitDocument', response.data)
+          commit('SET_RECRUIT_DOCUMENT', response.data)
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.recruitments.show.error', { msg: fetchError(error) }) },
             { root: true }
           )
 
         })
     },
-    update({ commit }, { recruitDocument, attachments = [] }) {
+    updateRecruitDocument({ commit }, { recruitDocument, attachments = [] }) {
       const formData = objectToFormData(recruitDocument, 'recruit_document')
       attachments.map(attachment => formData.append('recruit_document[files][]', attachment))
 
@@ -284,10 +267,10 @@ const RecruitDocumentsModule = {
         recruitableApiClient
           .put(RecruitDocument.routes.recruitDocumentPath(recruitDocument.id), formData)
           .then(response => {
-            commit('updateRecruitDocument', response.data)
+            commit('REFRESH_RECRUIT_DOCUMENT', response.data)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.recruitments.update.ok') },
               { root: true }
             )
@@ -296,7 +279,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.recruitments.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -304,17 +287,17 @@ const RecruitDocumentsModule = {
           })
       )
     },
-    destroy({ state, commit }) {
+    removeRecruitDocument({ state, commit }) {
       const { recruitDocument } = state;
 
       return (
         recruitableApiClient
           .delete(RecruitDocument.routes.recruitDocumentPath(recruitDocument.id))
           .then(() => {
-            commit('removeRecruitDocument', recruitDocument.id)
+            commit('REMOVE_RECRUIT_DOCUMENT', recruitDocument.id)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.recruitments.destroy.ok') },
               { root: true }
             )
@@ -323,7 +306,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.recruitments.destroy.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -340,10 +323,10 @@ const RecruitDocumentsModule = {
         recruitableApiClient
           .post(RecruitDocument.routes.attachmentsPath(state.recruitDocument.id), formData, { headers })
           .then(response => {
-            commit('setAttachments', response.data)
+            commit('SET_ATTACHMENTS', response.data)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.recruitments.uploadAttachments.ok') },
               { root: true }
             )
@@ -352,22 +335,22 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.recruitments.uploadAttachments.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
       )
     },
-    destroyAttachment({ state, commit }, id) {
+    removeAttachment({ state, commit }, id) {
       return (
         recruitableApiClient
           .delete(RecruitDocument.routes.attachmentPath(state.recruitDocument.id, id))
           .then(() => {
-            commit('removeAttachment', id)
+            commit('REMOVE_ATTACHMENT', id)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.recruitments.destroyAttachment.ok') },
               { root: true }
             )
@@ -376,7 +359,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.recruitments.destroyAttachment.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -394,9 +377,9 @@ const RecruitDocumentsModule = {
         coreApiClient
           .post(Comment.routes.commentsPath(state.recruitDocument.public_recruit_id), params)
           .then(response => {
-            commit('addComment', response.data)
+            commit('ADD_COMMENT', response.data)
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.comments.create.ok') },
               { root: true }
             )
@@ -405,7 +388,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.comments.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -423,9 +406,9 @@ const RecruitDocumentsModule = {
         coreApiClient
           .put(Comment.routes.commentPath(state.recruitDocument.public_recruit_id, comment.id), params)
           .then(response => {
-            commit('updateComment', response.data)
+            commit('REFRESH_COMMENT', response.data)
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.comments.update.ok') },
               { root: true }
             )
@@ -434,21 +417,21 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.comments.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
       )
     },
-    destroyComment({ state, commit }, id) {
+    removeComment({ state, commit }, id) {
       return (
         coreApiClient
           .delete(Comment.routes.commentPath(state.recruitDocument.public_recruit_id, id))
           .then(response => {
-            commit('updateComment', response.data)
+            commit('REFRESH_COMMENT', response.data)
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.comments.delete.ok') },
               { root: true }
             )
@@ -457,31 +440,31 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.comments.delete.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
       )
     },
-    showEvaluation({ state, commit }, evaluationId) {
+    fetchEvaluation({ state, commit }, evaluationId) {
       const { id, recruit_id } = state.evaluations.findById(evaluationId)
 
-      if (Number(state.evaluation.id) !== Number(evaluationId)) commit('setLoading', true)
+      if (Number(state.evaluation.id) !== Number(evaluationId)) commit('SET_LOADING', true)
 
       coreApiClient
         .get(Evaluation.routes.showEvaluationRecruitablePath(recruit_id, id))
         .then(response => {
-          commit('setEvaluation', response.data)
+          commit('SET_EVALUATION', response.data)
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.evaluations.show.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
-        .finally(() => commit('setLoading', false))
+        .finally(() => commit('SET_LOADING', false))
     },
     createEvaluation({ state, commit }, { templateId }) {
       const params = {
@@ -492,15 +475,15 @@ const RecruitDocumentsModule = {
         }
       }
 
-      commit('setLoading', true)
+      commit('SET_LOADING', true)
 
       return (
         coreApiClient
           .post(Evaluation.routes.evaluationRecruitablesPath, params)
           .then(response => {
-            commit('addEvaluation', response.data)
+            commit('ADD_EVALUATION', response.data)
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.evaluations.create.ok') },
               { root: true }
             )
@@ -509,12 +492,12 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.evaluations.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
-          .finally(() => commit('setLoading', false))
+          .finally(() => commit('SET_LOADING', false))
       )
     },
     updateEvaluation({ state, commit }) {
@@ -528,10 +511,10 @@ const RecruitDocumentsModule = {
         coreApiClient
           .put(Evaluation.routes.evaluationRecruitablePath(state.evaluation.id), params)
           .then(response => {
-            commit('setEvaluation', response.data)
+            commit('SET_EVALUATION', response.data)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.evaluations.update.ok') },
               { root: true }
             )
@@ -540,7 +523,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.evaluations.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -561,10 +544,10 @@ const RecruitDocumentsModule = {
         coreApiClient
           .put(Evaluation.routes.evaluationRecruitablePath(evaluation.id), params)
           .then((response) => {
-            commit('setEvaluation', response.data)
+            commit('SET_EVALUATION', response.data)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.evaluations.complete.ok') },
               { root: true }
             )
@@ -573,30 +556,30 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.evaluations.complete.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
       )
     },
-    destroyEvaluation({ state, commit }) {
+    removeEvaluation({ state, commit }) {
       const { evaluation } = state;
 
       coreApiClient
         .delete(Evaluation.routes.evaluationRecruitablePath(evaluation.id))
         .then(() => {
-          commit('removeEvaluation', evaluation.id)
+          commit('REMOVE_EVALUATION', evaluation.id)
 
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { success: i18n.t('messages.evaluations.delete.ok') },
             { root: true }
           )
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.evaluations.delete.error', { msg: fetchError(error) }) },
             { root: true }
           )

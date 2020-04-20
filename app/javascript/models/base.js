@@ -45,6 +45,10 @@ export class List {
     this.models.unshift(new (this.model)(item))
   }
 
+  push(item) {
+    this.models.push(new (this.model)(item))
+  }
+
   refresh(attributes) {
     this.models = this.models.map(mod => (
       Number(mod.id) === Number(attributes.id) ? mod.assign(attributes) : mod

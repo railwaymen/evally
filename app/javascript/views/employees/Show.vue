@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import EmployeeSidebar from '@components/employees/EmployeeSidebar'
 
@@ -33,17 +33,17 @@ export default {
   name: 'Employee',
   components: { EmployeeSidebar },
   computed: {
-    ...mapGetters({
-      employee: 'EmployeesModule/employee',
-      evaluations: 'EmployeesModule/evaluations',
-      positionChanges: 'EmployeesModule/positionChanges'
-    })
+    ...mapState('EmployeesModule', [
+      'employee',
+      'evaluations',
+      'positionChanges'
+    ])
   },
   created() {
-    this.$store.dispatch('EmployeesModule/show', this.$route.params.employeeId)
+    this.$store.dispatch('EmployeesModule/fetchEmployee', this.$route.params.employeeId)
   },
-  beforeDestroy() {
-    this.$store.commit('EmployeesModule/resetItem')
+  destroyed() {
+    this.$store.commit('EmployeesModule/CLEAR_EMPLOYEE')
   }
 }
 </script>

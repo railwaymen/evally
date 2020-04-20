@@ -94,7 +94,7 @@
               </v-layout>
             </div>
 
-            <router-view v-else />
+            <router-view v-else :key="$route.fullPath" />
           </v-flex>
         </v-layout>
       </v-container>
@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import { TemplatePolicy } from '@policies/template_policy'
@@ -115,44 +115,42 @@ export default {
   name: 'Templates',
   components: { TemplatesSearchList },
   methods: {
+    ...mapActions('TemplatesModule', [
+      'fetchTemplates',
+      'createTemplate',
+      'updateTemplate'
+    ]),
     edit() {
-      this.$store.commit('TemplatesModule/setEditable')
-    },
-    redirectToTemplate(data) {
-      this.$router.push({ name: 'template_path', params: { id: data.template.id } })
+      this.$store.commit('TemplatesModule/SET_EDITABLE')
     },
     save() {
-      this.template.isPersisted
-        ? this.update()
-        : this.create().then(this.redirectToTemplate)
+      (this.template.isPersisted ? this.updateTemplate : this.createTemplate)()
+        .then(data => this.$router.push({ name: 'template_path', params: { id: data.template.id } }))
     },
     openDeleteConfirm() {
       DialogsBus.$emit('openConfirmDialog', {
         innerComponent: DeleteConfirm
       })
-    },
-    ...mapActions({
-      fetchData: 'TemplatesModule/index',
-      create: 'TemplatesModule/create',
-      update: 'TemplatesModule/update',
-    })
+    }
   },
   computed: {
+    ...mapState('TemplatesModule', [
+      'templates',
+      'template',
+      'loading'
+    ]),
+    ...mapState('AuthenticationModule', [
+      'user'
+    ]),
     templatePolicy() {
       return new TemplatePolicy(this.user, this.template)
     },
-    ...mapGetters({
-      user: 'AuthenticationModule/user',
-      templates: 'TemplatesModule/templates',
-      template: 'TemplatesModule/template',
-      loading: 'TemplatesModule/loading',
-    })
   },
   created() {
-    this.fetchData()
+    this.fetchTemplates()
   },
-  beforeDestroy() {
-    this.$store.commit('TemplatesModule/resetState')
+  destroyed() {
+    this.$store.commit('TemplatesModule/RESET_STATE')
   }
 }
 </script>

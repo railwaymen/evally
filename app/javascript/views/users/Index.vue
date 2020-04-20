@@ -27,7 +27,7 @@
       <v-container grid-list-lg fluid>
         <basic-table
           :users="users"
-          :loading="false"
+          :loading="loading"
           @edit="openUpdateForm"
         />
       </v-container>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import { User } from '@models/user'
@@ -65,19 +65,26 @@ export default {
           user: this.users.findById(id)
         }
       })
-    },
-    ...mapActions({
-      fetchData: 'UsersModule/index'
-    })
+    }
   },
   computed: {
-    ...mapGetters({
-      users: 'UsersModule/users',
-      loading: 'UsersModule/loading'
-    })
+    ...mapState('UsersModule', [
+      'users',
+      'loading'
+    ])
   },
-  created() {
-    this.fetchData()
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to) {
+        if (to.name === 'users_path') {
+          this.$store.dispatch('UsersModule/fetchUsers')
+        }
+      }
+    }
+  },
+  destroyed() {
+    this.$store.commit('UsersModule/RESET_STATE')
   }
 }
 </script>

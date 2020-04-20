@@ -161,7 +161,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import NumbersTile from '@components/shared/NumbersTile'
 
@@ -180,19 +180,19 @@ export default {
     EvaluationsPastYearChartWidget
   },
   computed: {
-    ...mapGetters({
-      groups: 'EmployeesOverviewModule/groups',
-      positionsChartData: 'EmployeesOverviewModule/positionsChartData',
-      employeesPastYearChartData: 'EmployeesOverviewModule/employeesPastYearChartData',
-      employeesAnalytics: 'EmployeesOverviewModule/employeesAnalytics',
-      employeesByUsersChartData: 'EmployeesOverviewModule/employeesByUsersChartData',
-      evaluationsPastYearChartData: 'EmployeesOverviewModule/evaluationsPastYearChartData',
-      evaluationsAnalytics: 'EmployeesOverviewModule/evaluationsAnalytics',
-      loading: 'EmployeesOverviewModule/loading'
-    })
+    ...mapState('EmployeesOverviewModule', [
+      'groups',
+      'positionsChartData',
+      'employeesPastYearChartData',
+      'employeesAnalytics',
+      'employeesByUsersChartData',
+      'evaluationsPastYearChartData',
+      'evaluationsAnalytics',
+      'loading'
+    ])
   },
   created() {
-    this.$store.dispatch('EmployeesOverviewModule/overview')
+    this.$store.dispatch('EmployeesOverviewModule/fetchData')
   }
 }
 </script>

@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import { UsersList } from '@models/user'
 
@@ -123,9 +123,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters({
-      user: 'AuthenticationModule/user'
-    })
+    ...mapState('AuthenticationModule', [
+      'user'
+    ])
   }
 }
 </script>

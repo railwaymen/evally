@@ -243,10 +243,14 @@ export default {
     }
   },
   methods: {
+    ...mapActions('RecruitDocumentsModule', [
+      'updateRecruitDocument',
+      'uploadAttachments'
+    ]),
     assignEvaluator(value) {
       this.localRecruitDocument.evaluator_id = value
 
-      this.update({ recruitDocument: this.localRecruitDocument })
+      this.updateRecruitDocument({ recruitDocument: this.localRecruitDocument })
     },
     openDeleteAttachmentConfirm(attachment) {
       DialogsBus.$emit('openFormsDialog', {
@@ -259,18 +263,18 @@ export default {
         return this.flash({ error: this.$i18n.t('messages.recruitments.show.groupError') })
       }
 
-      this.update({ recruitDocument: this.localRecruitDocument })
+      this.updateRecruitDocument({ recruitDocument: this.localRecruitDocument })
     },
     updatePosition(selectedPosition) {
       if (!selectedPosition) {
         return this.flash({ error: this.$i18n.t('messages.recruitments.show.positionError') })
       }
 
-      this.update({ recruitDocument: this.localRecruitDocument })
+      this.updateRecruitDocument({ recruitDocument: this.localRecruitDocument })
     },
     updateStatus(selectedStatus) {
       if (selectedStatus.required_fields.length === 0) {
-        return this.update({ recruitDocument: this.localRecruitDocument })
+        return this.updateRecruitDocument({ recruitDocument: this.localRecruitDocument })
       }
 
       DialogsBus.$emit('openFormsDialog', {
@@ -287,11 +291,7 @@ export default {
         this.uploadAttachments(this.localAttachments)
           .then(() => this.localAttachments = [])
       }
-    },
-    ...mapActions({
-      update: 'RecruitDocumentsModule/update',
-      uploadAttachments: 'RecruitDocumentsModule/uploadAttachments'
-    })
+    }
   },
   computed: {
     icons() {

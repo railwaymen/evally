@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import { authenticationGuard, authorizationGuard } from '@router/guards'
+import {
+  alreadyAuthenticatedGuard,
+  authenticationGuard,
+  authorizationGuard
+} from '@router/guards'
 
 Vue.use(Router)
 
@@ -145,21 +149,25 @@ export default new Router({
       path: '/',
       name: 'login_path',
       component: () => import(/* webpackChunkName: 'login' */ '@views/auth/Login'),
+      beforeEnter: alreadyAuthenticatedGuard
     },
     {
       path: '/passwords/forgot',
       name: 'forgot_password_path',
       component: () => import(/* webpackChunkName: 'forgot_password' */ '@views/auth/ForgotPassword'),
+      beforeEnter: alreadyAuthenticatedGuard
     },
     {
       path: '/passwords/reset',
       name: 'reset_password_path',
       component: () => import(/* webpackChunkName: 'reset_password' */ '@views/auth/ResetPassword'),
+      beforeEnter: alreadyAuthenticatedGuard
     },
     {
       path: '/invitations/accept',
       name: 'accept_invitation_path',
       component: () => import(/* webpackChunkName: 'accept_invitation' */ '@views/auth/SetupPassword'),
+      beforeEnter: alreadyAuthenticatedGuard
     },
     {
       path: '/errors/404',

@@ -22,19 +22,8 @@ const EmployeesOverviewModule = {
 
   state: initialState(),
 
-  getters: {
-    groups: state => state.groups,
-    positionsChartData: state => state.positionsChartData,
-    employeesPastYearChartData: state => state.employeesPastYearChartData,
-    employeesAnalytics: state => state.employeesAnalytics,
-    employeesByUsersChartData: state => state.employeesByUsersChartData,
-    evaluationsPastYearChartData: state => state.evaluationsPastYearChartData,
-    evaluationsAnalytics: state => state.evaluationsAnalytics,
-    loading: state => state.loading
-  },
-
   mutations: {
-    setData(state, data) {
+    SET_DATA(state, data) {
       const {
         groups,
         positions_chart_data,
@@ -53,31 +42,31 @@ const EmployeesOverviewModule = {
       state.evaluationsPastYearChartData = evaluations_past_year_chart_data
       state.evaluationsAnalytics = new EvaluationsAnalytics(evaluations_analytics)
     },
-    setLoading(state, status) {
+    SET_LOADING(state, status) {
       state.loading = status
     },
-    resetState(state) {
+    RESET_STATE(state) {
       Object.assign(state, initialState())
     }
   },
 
   actions: {
-    overview({ commit }) {
-      commit('setLoading', true)
+    fetchData({ commit }) {
+      commit('SET_LOADING', true)
 
       coreApiClient
         .get(Employee.routes.employeesOverviewPath)
         .then(response => {
-          commit('setData', response.data)
+          commit('SET_DATA', response.data)
         })
         .catch((error) => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.employees.overview.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
-        .finally(() => commit('setLoading', false))
+        .finally(() => commit('SET_LOADING', false))
     }
   }
 }

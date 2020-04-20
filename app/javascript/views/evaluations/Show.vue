@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import SectionBox from '@components/evaluations/SectionBox'
 
@@ -48,21 +48,21 @@ export default {
   name: 'DraftEvaluationShow',
   components: { SectionBox },
   computed: {
-    ...mapGetters({
-      evaluation: 'EvaluationEmployablesModule/evaluation',
-      sections: 'EvaluationEmployablesModule/sections',
-    })
+    ...mapState('EvaluationEmployablesModule', [
+      'evaluation',
+      'sections'
+    ])
   },
   watch: {
     $route: {
       immediate: true,
-      handler(to, from) {
-        this.$store.dispatch('EvaluationEmployablesModule/show', to.params.id)
+      handler(to) {
+        this.$store.dispatch('EvaluationEmployablesModule/fetchEvaluation', to.params.id)
       }
     }
   },
-  beforeDestroy() {
-    this.$store.commit('EvaluationEmployablesModule/resetItem')
+  destroyed() {
+    this.$store.commit('EvaluationEmployablesModule/CLEAR_EVALUATION')
   }
 }
 </script>

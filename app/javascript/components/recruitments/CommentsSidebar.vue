@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { VueEditor } from 'vue2-editor';
 
 import { Comment, CommentsList } from '@models/comment'
@@ -96,11 +96,15 @@ export default {
     }
   },
   methods: {
+    ...mapActions('RecruitDocumentsModule', [
+      'createComment',
+      'updateComment'
+    ]),
     save() {
       if (!this.localComment.body) return
 
-      (this.localComment.isPersisted ? this.update : this.create)(this.localComment)
-        .then(() => this.cancel())
+      (this.localComment.isPersisted ? this.updateComment : this.createComment)(this.localComment)
+        .then(this.cancel)
     },
     cancel() {
       this.localComment = new Comment()
@@ -109,17 +113,15 @@ export default {
     setComment(comment) {
       this.localComment = new Comment({ ...comment })
       this.panel = 0
-    },
-    ...mapActions({
-      create: 'RecruitDocumentsModule/createComment',
-      update: 'RecruitDocumentsModule/updateComment'
-    })
+    }
   },
   computed: {
-    ...mapGetters({
-      comments: 'RecruitDocumentsModule/comments',
-      user: 'AuthenticationModule/user'
-    })
+    ...mapState('RecruitDocumentsModule', [
+      'comments'
+    ]),
+    ...mapState('AuthenticationModule', [
+      'user'
+    ])
   }
 }
 </script>

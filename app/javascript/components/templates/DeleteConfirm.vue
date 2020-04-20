@@ -40,12 +40,9 @@ export default {
       this.$emit('closeDialog')
     },
     destroy() {
-      this.$store.dispatch('TemplatesModule/destroy')
-        .then(this.redirectToIndex)
+      this.$store.dispatch('TemplatesModule/removeTemplate')
+        .then(() => this.$router.push({ name: 'templates_path' }))
         .finally(this.closeDialog)
-    },
-    redirectToIndex() {
-      this.$router.push({ name: 'templates_path' })
     }
   }
 }

@@ -8,7 +8,6 @@
       <div class="panel__nav">
         <v-btn
           color="primary"
-          @click="fetchData"
           :to="{ name: 'employees_path' }"
           exact
           text
@@ -141,16 +140,14 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import { Employee } from '@models/employee'
 
 import BasicTable from '@components/employees/BasicTable'
 import DeleteConfirm from '@components/employees/DeleteConfirm'
-
 import ArchiveForm from '@components/employees/ArchiveForm'
-
 import EmployeeForm from '@components/employees/EmployeeForm'
 
 import { pluckUniq } from '@utils/helpers'
@@ -198,28 +195,37 @@ export default {
         .then(() => {
           this.flash({ success: this.$root.$t('messages.employees.show.copyLink') })
         })
-    },
-    ...mapActions({
-      fetchData: 'EmployeesModule/index'
-    })
+    }
   },
   computed: {
+    ...mapState('EmployeesModule', [
+      'employees',
+      'employee',
+      'evaluators',
+      'loading'
+    ]),
+    ...mapState('AuthenticationModule', [
+      'user'
+    ]),
     positions() {
       return pluckUniq(this.employees.models, 'position')
     },
     groups() {
       return pluckUniq(this.employees.models, 'group')
-    },
-    ...mapGetters({
-      user: 'AuthenticationModule/user',
-      employees: 'EmployeesModule/employees',
-      employee: 'EmployeesModule/employee',
-      evaluators: 'EmployeesModule/evaluators',
-      loading: 'EmployeesModule/loading',
-    })
+    }
   },
-  created() {
-    this.fetchData()
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to) {
+        if (to.name === 'employees_path') {
+          this.$store.dispatch('EmployeesModule/fetchEmployees')
+        }
+      }
+    }
+  },
+  destroyed() {
+    this.$store.commit('EmployeesModule/RESET_STATE')
   }
 }
 </script>

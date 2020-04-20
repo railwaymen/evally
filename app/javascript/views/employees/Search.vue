@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 import SearchTable from '@components/employees/SearchTable'
 
@@ -110,31 +110,33 @@ export default {
   name: 'EmployeesSearch',
   components: { SearchTable },
   methods: {
+    ...mapActions('EmployeesSearchModule', [
+      'searchEmployees',
+      'fetchSkills'
+    ]),
     setGroup(item) {
       if (item.group === 'bool') this.query.assign({ operator: 'eq', value: true })
 
       this.query.assign({ name: item.name, group: item.group, value: 0 })
     },
     reset() {
-      this.$store.commit('EmployeesSearchModule/resetState')
+      this.$store.commit('EmployeesSearchModule/RESET_STATE')
       this.$refs.form.reset()
     },
     search() {
-      if (this.$refs.form.validate()) {
-        this.$store.dispatch('EmployeesSearchModule/search', this.query)
-      }
+      if (this.$refs.form.validate()) this.searchEmployees(this.query)
     }
   },
   computed: {
-    ...mapGetters({
-      skills: 'EmployeesSearchModule/skills',
-      query: 'EmployeesSearchModule/query',
-      employees: 'EmployeesSearchModule/employees',
-      loading: 'EmployeesSearchModule/loading'
-    })
+    ...mapState('EmployeesSearchModule', [
+      'skills',
+      'query',
+      'employees',
+      'loading'
+    ])
   },
   created() {
-    this.$store.dispatch('EmployeesSearchModule/skills')
+    this.fetchSkills()
   }
 }
 </script>

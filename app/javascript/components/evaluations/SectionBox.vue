@@ -100,13 +100,13 @@ export default {
       const updatedSkill = { ...skill, needToImprove: !skill.needToImprove }
 
       this.section.skills.splice(idx, 1, updatedSkill)
-      this.$store.commit('EvaluationEmployablesModule/refreshSection', this.section)
+      this.$store.commit('EvaluationEmployablesModule/REFRESH_SECTION', this.section)
     },
     changeValue(value, skill, idx) {
       const updatedSkill = { ...skill, value }
 
       this.section.skills.splice(idx, 1, updatedSkill)
-      this.$store.commit('EvaluationEmployablesModule/refreshSection', this.section)
+      this.$store.commit('EvaluationEmployablesModule/REFRESH_SECTION', this.section)
     }
   }
 }

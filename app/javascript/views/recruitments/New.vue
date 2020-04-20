@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 import { Attachment } from '@models/attachment'
 import { RecruitDocument } from '@models/recruit_document'
@@ -36,22 +36,20 @@ export default {
     }
   },
   computed: {
-     ...mapGetters({
-      attachments: 'RecruitDocumentsModule/attachments',
-      evaluators: 'RecruitDocumentsModule/evaluators',
-      groups: 'RecruitDocumentsModule/groups',
-      statuses: 'RecruitDocumentsModule/statuses',
-      positions: 'RecruitDocumentsModule/positions',
-      sources: 'RecruitDocumentsModule/sources'
-    })
+    ...mapState('RecruitDocumentsModule', [
+      'attachments',
+      'evaluators',
+      'groups',
+      'statuses',
+      'positions',
+      'sources'
+    ])
   },
   watch: {
     $route: {
       immediate: true,
       handler(to) {
-        if (to.name === 'new_recruitment_path') {
-          this.$store.dispatch('RecruitDocumentsModule/newForm')
-        }
+        this.$store.dispatch('RecruitDocumentsModule/newRecruitDocument', to.params)
       }
     }
   }
