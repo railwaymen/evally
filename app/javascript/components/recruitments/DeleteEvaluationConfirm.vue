@@ -40,7 +40,7 @@ export default {
       this.$emit('closeDialog')
     },
     destroy() {
-      this.$store.dispatch('RecruitDocumentsModule/destroyEvaluation')
+      this.$store.dispatch('RecruitDocumentsModule/removeEvaluation')
         .finally(this.closeDialog)
     }
   }

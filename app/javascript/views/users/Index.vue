@@ -73,8 +73,15 @@ export default {
       'loading'
     ])
   },
-  created() {
-    this.$store.dispatch('UsersModule/fetchUsers')
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to) {
+        if (to.name === 'users_path') {
+          this.$store.dispatch('UsersModule/fetchUsers')
+        }
+      }
+    }
   },
   destroyed() {
     this.$store.commit('UsersModule/RESET_STATE')

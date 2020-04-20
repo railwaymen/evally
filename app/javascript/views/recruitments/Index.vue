@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import { RecruitDocumentPolicy } from '@policies/recruit_document_policy'
@@ -116,29 +116,31 @@ export default {
     }
   },
   computed: {
+    ...mapState('RecruitDocumentsModule', [
+      'recruitDocuments',
+      'recruitDocument',
+      'groups',
+      'statuses',
+      'loading'
+    ]),
+    ...mapState('AuthenticationModule', [
+      'user'
+    ]),
     policy() {
       return new RecruitDocumentPolicy(this.user, this.recruitDocument)
-    },
-    ...mapGetters({
-      recruitDocuments: 'RecruitDocumentsModule/recruitDocuments',
-      recruitDocument: 'RecruitDocumentsModule/recruitDocument',
-      groups: 'RecruitDocumentsModule/groups',
-      statuses: 'RecruitDocumentsModule/statuses',
-      loading: 'RecruitDocumentsModule/loading',
-      user: 'AuthenticationModule/user'
-    })
+    }
   },
   watch: {
     $route: {
       immediate: true,
       handler(to) {
         if (to.name === 'recruitments_path') {
-          this.$store.dispatch('RecruitDocumentsModule/index')
+          this.$store.dispatch('RecruitDocumentsModule/fetchRecruitDocuments')
         }
       }
     }
   },
-  beforeDestroy() {
+  destroyed() {
     this.$store.commit('RecruitDocumentsModule/RESET_STATE')
   }
 }

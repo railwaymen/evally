@@ -116,7 +116,7 @@ export default {
   watch: {
     $route: {
       immediate: true,
-      handler(to, from) {
+      handler(to) {
         this.$store.dispatch('TemplatesModule/fetchTemplate', to.params.id)
       }
     }

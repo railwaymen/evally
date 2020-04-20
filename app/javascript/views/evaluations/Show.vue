@@ -56,8 +56,8 @@ export default {
   watch: {
     $route: {
       immediate: true,
-      handler({ params }) {
-        this.$store.dispatch('EvaluationEmployablesModule/fetchEvaluation', params.id)
+      handler(to) {
+        this.$store.dispatch('EvaluationEmployablesModule/fetchEvaluation', to.params.id)
       }
     }
   },

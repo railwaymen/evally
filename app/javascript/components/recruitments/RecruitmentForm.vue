@@ -346,6 +346,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions('RecruitDocumentsModule', [
+      'createRecruitDocument',
+      'updateRecruitDocument'
+    ]),
     selectFile(file) {
       if (file instanceof Attachment) {
         this.selectedFile = file
@@ -382,7 +386,7 @@ export default {
     save() {
       if (!this.$refs.form.validate()) return
 
-      (this.localRecruitDocument.isPersisted ? this.update : this.create)({
+      (this.localRecruitDocument.isPersisted ? this.updateRecruitDocument : this.createRecruitDocument)({
         recruitDocument: this.localRecruitDocument,
         attachments: this.localFiles
       })
@@ -392,11 +396,7 @@ export default {
             params: { publicRecruitId: data.public_recruit_id, id: data.id }
           })
         })
-    },
-    ...mapActions({
-      create: 'RecruitDocumentsModule/create',
-      update: 'RecruitDocumentsModule/update'
-    })
+    }
   },
   computed: {
     formAction() {

@@ -120,7 +120,7 @@ export default {
       const updatedSkill = { ...skill, value }
 
       this.section.skills.splice(idx, 1, updatedSkill)
-      this.$store.commit('RecruitDocumentsModule/refreshSection', this.section)
+      this.$store.commit('RecruitDocumentsModule/REFRESH_SECTION', this.section)
     }
   }
 }

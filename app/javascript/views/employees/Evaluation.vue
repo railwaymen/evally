@@ -60,11 +60,8 @@ export default {
   watch: {
     $route: {
       immediate: true,
-      handler(to, from) {
-        this.$store.dispatch('EmployeesModule/showEvaluation', {
-          employeeId: to.params.employeeId,
-          id: to.params.id
-        })
+      handler(to) {
+        this.$store.dispatch('EmployeesModule/showEvaluation', to.params)
       }
     }
   },

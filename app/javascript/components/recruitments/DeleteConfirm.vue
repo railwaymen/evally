@@ -41,12 +41,9 @@ export default {
       this.$emit('closeDialog')
     },
     destroy() {
-      this.$store.dispatch('RecruitDocumentsModule/destroy')
-        .then(this.redirectToIndex)
+      this.$store.dispatch('RecruitDocumentsModule/removeRecruitDocument')
+        .then(() => this.$router.push({ name: 'recruitments_path' }))
         .finally(this.closeDialog)
-    },
-    redirectToIndex() {
-      this.$router.push({ name: 'recruitments_path' })
     }
   }
 }

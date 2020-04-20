@@ -8,7 +8,6 @@
       <div class="panel__nav">
         <v-btn
           color="primary"
-          @click="fetchEmployees"
           :to="{ name: 'employees_path' }"
           exact
           text
@@ -141,7 +140,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import { Employee } from '@models/employee'
@@ -157,9 +156,6 @@ export default {
   name: 'EmployeesIndex',
   components: { BasicTable },
   methods: {
-    ...mapActions('EmployeesModule', [
-      'fetchEmployees'
-    ]),
     openCreateForm() {
       DialogsBus.$emit('openFormsDialog', {
         innerComponent: EmployeeForm,
@@ -218,8 +214,15 @@ export default {
       return pluckUniq(this.employees.models, 'group')
     }
   },
-  created() {
-    this.fetchEmployees()
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to) {
+        if (to.name === 'employees_path') {
+          this.$store.dispatch('EmployeesModule/fetchEmployees')
+        }
+      }
+    }
   },
   destroyed() {
     this.$store.commit('EmployeesModule/RESET_STATE')
