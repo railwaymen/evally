@@ -32,7 +32,7 @@ const EvaluationEmployablesModule = {
   },
   mutations: {
     addToList(state, data) {
-      state.evaluations.add(data)
+      state.evaluations.unshift(data)
     },
     setForm(state, { employees, templates }) {
       state.employees = new EmployeesList(employees)
@@ -51,10 +51,10 @@ const EvaluationEmployablesModule = {
     removeFromList(state, id) {
       state.evaluation = new Evaluation()
       state.sections = new SectionsList()
-      state.evaluations.remove(id)
+      state.evaluations.dropById(id)
     },
-    replaceSection(state, section) {
-      state.sections.replace(section)
+    refreshSection(state, section) {
+      state.sections.refresh(section)
     },
     resetItem(state) {
       state.evaluation = new Evaluation()

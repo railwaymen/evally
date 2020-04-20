@@ -54,36 +54,36 @@ const RecruitDocumentsModule = {
 
   mutations: {
     addComment(state, comment) {
-      state.comments.add(comment)
+      state.comments.unshift(comment)
     },
     addEvaluation(state, { evaluation, sections }) {
       state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
-      state.evaluations.add(evaluation)
+      state.evaluations.unshift(evaluation)
     },
     addRecruitDocument(state, recruitDocument) {
       state.recruitDocument = new RecruitDocument(recruitDocument)
-      state.recruitDocuments.add(recruitDocument)
+      state.recruitDocuments.unshift(recruitDocument)
     },
     clearRecruitDocument(state) {
       state.recruitDocument = new RecruitDocument()
       state.attachments = new AttachmentsList()
     },
-    replaceSection(state, section) {
-      state.sections.replace(section)
+    refreshSection(state, section) {
+      state.sections.refresh(section)
     },
     removeEvaluation(state, id) {
       state.evaluation = new Evaluation()
       state.sections = new SectionsList()
-      state.evaluations.remove(id)
+      state.evaluations.dropById(id)
     },
     removeAttachment(state, id) {
-      state.attachments.remove(id)
+      state.attachments.dropById(id)
     },
     removeRecruitDocument(state, id) {
       state.recruitDocument = new RecruitDocument()
       state.attachments = new AttachmentsList()
-      state.recruitDocuments.remove(id)
+      state.recruitDocuments.dropById(id)
     },
     setEvaluation(state, { evaluation, sections }) {
       state.evaluation = new Evaluation(evaluation)

@@ -16,7 +16,8 @@
 
           <div class="skill__action">
             <v-rating
-              v-model="skill.value"
+              :value="skill.value"
+              @input="changeValue($event, skill, index)"
               :readonly="!editable"
               background-color="grey"
               length="3"
@@ -37,7 +38,12 @@
           <div class="skill__name">{{ skill.name }}</div>
 
           <div class="skill__action">
-            <v-chip-group v-model="skill.value" color="primary" mandatory>
+            <v-chip-group
+              :value="skill.value"
+              @change="changeValue($event, skill, index)"
+              color="primary"
+              mandatory
+            >
               <v-chip :value="false" filter-icon="mdi-close" label filter>
                 {{ $t('components.evaluations.section.no') }}
               </v-chip>
@@ -55,7 +61,8 @@
           <v-textarea
             v-if="editable"
             :label="skill.name"
-            v-model="skill.value"
+            :value="skill.value"
+            @input="changeValue($event, skill, index)"
             :name="`input-${section.id}-${index}`"
             rows="1"
             auto-grow
@@ -93,14 +100,13 @@ export default {
       const updatedSkill = { ...skill, needToImprove: !skill.needToImprove }
 
       this.section.skills.splice(idx, 1, updatedSkill)
-    }
-  },
-  watch: {
-    section: {
-      deep: true,
-      handler(fresh, _old) {
-        this.$store.commit('EvaluationEmployablesModule/replaceSection', fresh)
-      }
+      this.$store.commit('EvaluationEmployablesModule/refreshSection', this.section)
+    },
+    changeValue(value, skill, idx) {
+      const updatedSkill = { ...skill, value }
+
+      this.section.skills.splice(idx, 1, updatedSkill)
+      this.$store.commit('EvaluationEmployablesModule/refreshSection', this.section)
     }
   }
 }

@@ -24,7 +24,7 @@ const UsersModule = {
 
   mutations: {
     addToList(state, data) {
-      state.users.add(data)
+      state.users.unshift(data)
     },
     refreshListItem(state, data) {
       state.users.refresh(data)
@@ -63,13 +63,9 @@ const UsersModule = {
         .finally(() => commit('setLoading', false))
     },
     create({ commit }, user) {
-      const params = {
-        invitation: user.attributes
-      }
-
       return (
         coreApiClient
-          .post(User.routes.invitationsPath, params)
+          .post(User.routes.invitationsPath, { invitation: user })
           .then(response => {
             commit('addToList', response.data)
 
@@ -91,13 +87,9 @@ const UsersModule = {
       )
     },
     update({ commit }, user) {
-      const params = {
-        user: user.attributes
-      }
-
       return (
         coreApiClient
-          .put(User.routes.userPath(user.id), params)
+          .put(User.routes.userPath(user.id), { user })
           .then(response => {
             commit('refreshListItem', response.data)
 
