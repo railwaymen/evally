@@ -89,13 +89,13 @@ const EvaluationEmployablesModule = {
         })
     },
     newEvaluation({ commit }) {
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .get(Evaluation.routes.formEvaluationEmployablePath)
           .then(response => {
             commit('POPULATE_FORM', response.data)
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(error => {
             commit(
@@ -104,7 +104,7 @@ const EvaluationEmployablesModule = {
               { root: true }
             )
           })
-      )
+      })
     },
     createEvaluation({ commit }, { employeeId, templateId, useLatest }) {
       const params = {
@@ -115,7 +115,7 @@ const EvaluationEmployablesModule = {
         }
       }
 
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .post(Evaluation.routes.evaluationEmployablesPath, params)
           .then(response => {
@@ -127,7 +127,7 @@ const EvaluationEmployablesModule = {
               { root: true }
             )
 
-            return Promise.resolve(response.data)
+            resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -136,7 +136,7 @@ const EvaluationEmployablesModule = {
               { root: true }
             )
           })
-      )
+        })
     },
     updateEvaluation({ state, commit }) {
       const { evaluation, sections } = state;
@@ -147,7 +147,7 @@ const EvaluationEmployablesModule = {
         }
       }
 
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .put(Evaluation.routes.evaluationEmployablePath(evaluation.id), params)
           .then(response => {
@@ -159,7 +159,7 @@ const EvaluationEmployablesModule = {
               { root: true }
             )
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(error => {
             commit(
@@ -168,7 +168,7 @@ const EvaluationEmployablesModule = {
               { root: true }
             )
           })
-      )
+      })
 
     },
     completeEvaluation({ state, commit }, nextEvaluationDate) {
@@ -182,7 +182,7 @@ const EvaluationEmployablesModule = {
         }
       }
 
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .put(Evaluation.routes.evaluationEmployablePath(evaluation.id), params)
           .then(() => {
@@ -194,7 +194,7 @@ const EvaluationEmployablesModule = {
               { root: true }
             )
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(error => {
             commit(
@@ -203,7 +203,7 @@ const EvaluationEmployablesModule = {
               { root: true }
             )
           })
-      )
+      })
     },
     removeEvaluation({ state, commit }) {
       const { evaluation } = state;

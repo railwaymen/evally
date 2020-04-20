@@ -109,7 +109,7 @@ const TemplatesModule = {
         }
       }
 
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .post(Template.routes.templatesPath, params)
           .then(response => {
@@ -120,7 +120,7 @@ const TemplatesModule = {
               { root: true }
             )
 
-            return Promise.resolve(response.data)
+            resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -129,7 +129,7 @@ const TemplatesModule = {
               { root: true }
             )
           })
-      )
+      })
     },
     updateTemplate({ state, commit }) {
       const { template, sections } = state
@@ -141,7 +141,7 @@ const TemplatesModule = {
         }
       }
 
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .put(Template.routes.templatePath(template.id), params)
           .then(response => {
@@ -156,7 +156,7 @@ const TemplatesModule = {
               { root: true }
             )
 
-            return Promise.resolve(data)
+            resolve(data)
           })
           .catch(error => {
             commit(
@@ -165,12 +165,12 @@ const TemplatesModule = {
               { root: true }
             )
           })
-      )
+      })
     },
     removeTemplate({ state, commit }) {
       const { template } = state
 
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .delete(Template.routes.templatePath(template.id))
           .then(() => {
@@ -182,7 +182,7 @@ const TemplatesModule = {
               { root: true }
             )
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(error => {
             commit(
@@ -191,7 +191,7 @@ const TemplatesModule = {
               { root: true }
             )
           })
-      )
+      })
     }
   }
 }

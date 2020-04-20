@@ -54,7 +54,7 @@ const UsersModule = {
         .finally(() => commit('SET_LOADING', false))
     },
     createUser({ commit }, user) {
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .post(User.routes.invitationsPath, { invitation: user })
           .then(response => {
@@ -66,7 +66,7 @@ const UsersModule = {
               { root: true }
             )
 
-            return Promise.resolve(response.data)
+            resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -75,10 +75,10 @@ const UsersModule = {
               { root: true }
             )
           })
-      )
+      })
     },
     updateUser({ commit }, user) {
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .put(User.routes.userPath(user.id), { user })
           .then(response => {
@@ -90,7 +90,7 @@ const UsersModule = {
               { root: true }
             )
 
-            return Promise.resolve(response.data)
+            resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -99,7 +99,7 @@ const UsersModule = {
               { root: true }
             )
           })
-      )
+      })
     }
   }
 }

@@ -53,7 +53,7 @@ export default {
   components: { StaticSectionBox },
   computed: {
     ...mapState('EmployeesModule', [
-      'evaluations',
+      'evaluation',
       'sections'
     ])
   },

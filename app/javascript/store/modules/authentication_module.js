@@ -63,7 +63,7 @@ const AuthenticationModule = {
 
   actions: {
     acceptInvitation({ commit }, data) {
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .put(User.routes.invitationPath(data.invitationToken), { invitation: data.invitation })
           .then(() => {
@@ -73,7 +73,7 @@ const AuthenticationModule = {
               { root: true }
             )
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(error => {
             commit(
@@ -82,10 +82,10 @@ const AuthenticationModule = {
               { root: true }
             )
           })
-      )
+      })
     },
     forgotPassword({ commit }, email) {
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .post(User.routes.passwordsPath, { password: { email } })
           .then(() => {
@@ -95,7 +95,7 @@ const AuthenticationModule = {
               { root: true }
             )
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(error => {
             commit(
@@ -104,10 +104,10 @@ const AuthenticationModule = {
               { root: true }
             )
           })
-      )
+      })
     },
     resetPassword({ commit }, data) {
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .put(User.routes.passwordPath(data.resetPasswordToken), { password: data.reset })
           .then(() => {
@@ -117,7 +117,7 @@ const AuthenticationModule = {
               { root: true }
             )
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(error => {
             commit(
@@ -126,18 +126,18 @@ const AuthenticationModule = {
               { root: true }
             )
           })
-      )
+      })
     },
     fetchSession({ commit }) {
       commit('SET_LOADING', true)
 
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .get(User.routes.profilePath)
           .then(response => {
             commit('SET_SESSION', response.data)
 
-            return Promise.resolve(response.data)
+            resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -147,10 +147,10 @@ const AuthenticationModule = {
             )
           })
           .finally(() => commit('SET_LOADING', false))
-      )
+      })
     },
     login({ commit }, credentials) {
-      return (
+      return new Promise((resolve, reject) => {
         coreApiClient
           .post(User.routes.sessionPath, { session: credentials })
           .then(response => {
@@ -161,7 +161,7 @@ const AuthenticationModule = {
               { root: true }
             )
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(() => {
             commit('RESET_STORE')
@@ -171,12 +171,12 @@ const AuthenticationModule = {
               { root: true }
             )
 
-            return Promise.reject()
+            reject()
           })
-      )
+      })
     },
     updateSetting({ commit }, setting) {
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .put(Setting.routes.settingsPath, { setting })
           .then(response => {
@@ -187,7 +187,7 @@ const AuthenticationModule = {
               { root: true }
             )
 
-            return Promise.resolve(response.data)
+            resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -196,7 +196,7 @@ const AuthenticationModule = {
               { root: true }
             )
           })
-        )
+      })
     },
     updateUser({ commit }, user) {
       coreApiClient
@@ -219,7 +219,7 @@ const AuthenticationModule = {
         })
     },
     updatePassword({ commit }, passwords) {
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .put(User.routes.profilePasswordPath, { profile: passwords })
           .then(() => {
@@ -230,7 +230,7 @@ const AuthenticationModule = {
               { root: true }
             )
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(error => {
             commit(
@@ -239,7 +239,7 @@ const AuthenticationModule = {
               { root: true }
             )
           })
-      )
+      })
     },
     logout({ commit }) {
       commit('RESET_STORE')

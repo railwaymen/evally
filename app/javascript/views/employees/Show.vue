@@ -34,7 +34,7 @@ export default {
   components: { EmployeeSidebar },
   computed: {
     ...mapState('EmployeesModule', [
-      'employees',
+      'employee',
       'evaluations',
       'positionChanges'
     ])

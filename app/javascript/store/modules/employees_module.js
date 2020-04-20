@@ -160,7 +160,7 @@ const EmployeesModule = {
         })
     },
     createEmployee({ commit }, employee) {
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .post(Employee.routes.employeesPath, { employee })
           .then(response => {
@@ -172,7 +172,7 @@ const EmployeesModule = {
               { root: true }
             )
 
-            return Promise.resolve(response.data)
+            resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -181,10 +181,10 @@ const EmployeesModule = {
               { root: true }
             )
           })
-      )
+      })
     },
     updateEmployee({ commit }, employee) {
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .put(Employee.routes.employeePath(employee.id), { employee })
           .then(response => {
@@ -196,7 +196,7 @@ const EmployeesModule = {
               { root: true }
             )
 
-            return Promise.resolve(response.data)
+            resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -205,12 +205,12 @@ const EmployeesModule = {
               { root: true }
             )
           })
-      )
+      })
     },
     removeEmployee({ state, commit }) {
       const { employee } = state;
 
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .delete(Employee.routes.employeePath(employee.id))
           .then(() => {
@@ -222,7 +222,7 @@ const EmployeesModule = {
               { root: true }
             )
 
-            return Promise.resolve()
+            resolve()
           })
           .catch(error => {
             commit(
@@ -231,12 +231,12 @@ const EmployeesModule = {
               { root: true }
             )
           })
-      )
+      })
     },
     archiveEmployee({ commit, state }, archivedDate){
       const params = { employee: { archived_on: archivedDate } }
 
-      return (
+      return new Promise(resolve => {
         coreApiClient
           .put(Employee.routes.employeeArchivePath(state.employee.id), params)
           .then(response => {
@@ -248,7 +248,7 @@ const EmployeesModule = {
               { root: true }
             )
 
-            return Promise.resolve(response.data)
+            resolve(response.data)
           })
           .catch(error => {
             commit(
@@ -257,7 +257,7 @@ const EmployeesModule = {
               { root: true }
             )
           })
-      )
+      })
     }
   }
 }

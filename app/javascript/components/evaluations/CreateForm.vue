@@ -159,7 +159,7 @@ export default {
   },
   created() {
     if (this.defaultEmployee.isPersisted) {
-      this.employees.add(this.defaultEmployee)
+      this.employees.push(this.defaultEmployee)
     }
   }
 }
