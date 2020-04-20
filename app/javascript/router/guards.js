@@ -8,7 +8,7 @@ export const authenticationGuard = (_to, _from, next) => {
   if (localStorage.getItem('ev411y_t0k3n')) next()
   else {
     store.commit(
-      'NotificationsModule/push',
+      'NotificationsModule/PUSH_NOTIFICATION',
       { error: 'You are not authenticated. Please log in.' }
     )
 

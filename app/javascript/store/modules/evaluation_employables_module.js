@@ -67,7 +67,7 @@ const EvaluationEmployablesModule = {
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.evaluations.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -82,7 +82,7 @@ const EvaluationEmployablesModule = {
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.evaluations.show.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -99,7 +99,7 @@ const EvaluationEmployablesModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.evaluations.show.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -122,7 +122,7 @@ const EvaluationEmployablesModule = {
             commit('ADD_EVALUATION', response.data.evaluation)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.evaluations.create.ok') },
               { root: true }
             )
@@ -131,7 +131,7 @@ const EvaluationEmployablesModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.evaluations.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -154,7 +154,7 @@ const EvaluationEmployablesModule = {
             commit('SET_EVALUATION', response.data)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.evaluations.update.ok') },
               { root: true }
             )
@@ -163,7 +163,7 @@ const EvaluationEmployablesModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.evaluations.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -189,7 +189,7 @@ const EvaluationEmployablesModule = {
             commit('REMOVE_EVALUATION', evaluation.id)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.evaluations.complete.ok') },
               { root: true }
             )
@@ -198,7 +198,7 @@ const EvaluationEmployablesModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.evaluations.complete.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -214,14 +214,14 @@ const EvaluationEmployablesModule = {
           commit('REMOVE_EVALUATION', evaluation.id)
 
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { success: i18n.t('messages.evaluations.delete.ok') },
             { root: true }
           )
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.evaluations.delete.error', { msg: fetchError(error) }) },
             { root: true }
           )

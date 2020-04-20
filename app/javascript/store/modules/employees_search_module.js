@@ -42,7 +42,7 @@ const EmployeesSearchModule = {
         })
         .catch(() => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: 'Error :(' },
             { root: true }
           )
@@ -59,7 +59,7 @@ const EmployeesSearchModule = {
         })
         .catch(() => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: 'Error :(' },
             { root: true }
           )

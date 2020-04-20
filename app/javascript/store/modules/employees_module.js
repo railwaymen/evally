@@ -79,7 +79,7 @@ const EmployeesModule = {
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.employees.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -96,7 +96,7 @@ const EmployeesModule = {
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.employees.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -111,7 +111,7 @@ const EmployeesModule = {
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.employees.show.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -125,7 +125,7 @@ const EmployeesModule = {
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.employees.showEvaluation.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -139,7 +139,7 @@ const EmployeesModule = {
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.employees.show.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -153,7 +153,7 @@ const EmployeesModule = {
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.employees.showEvaluation.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -167,7 +167,7 @@ const EmployeesModule = {
             commit('ADD_EMPLOYEE', response.data)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.employees.create.ok') },
               { root: true }
             )
@@ -176,7 +176,7 @@ const EmployeesModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.employees.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -191,7 +191,7 @@ const EmployeesModule = {
             commit('REFRESH_EMPLOYEE', response.data)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.employees.update.ok') },
               { root: true }
             )
@@ -200,7 +200,7 @@ const EmployeesModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.employees.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -217,7 +217,7 @@ const EmployeesModule = {
             commit('REMOVE_EMPLOYEE', employee.id)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.employees.delete.ok') },
               { root: true }
             )
@@ -226,7 +226,7 @@ const EmployeesModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.employees.delete.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -243,7 +243,7 @@ const EmployeesModule = {
             commit('REFRESH_EMPLOYEE', response.data)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.employees.archive.ok') },
               { root: true }
             )
@@ -252,7 +252,7 @@ const EmployeesModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.employees.archive.error', { msg: fetchError(error) }) },
               { root: true }
             )

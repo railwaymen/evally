@@ -46,7 +46,7 @@ const UsersModule = {
         })
         .catch(error => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.users.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -61,7 +61,7 @@ const UsersModule = {
             commit('ADD_USER', response.data)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.users.create.ok') },
               { root: true }
             )
@@ -70,7 +70,7 @@ const UsersModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.users.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -85,7 +85,7 @@ const UsersModule = {
             commit('REFRESH_USER', response.data)
 
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { success: i18n.t('messages.users.update.ok') },
               { root: true }
             )
@@ -94,7 +94,7 @@ const UsersModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/push',
+              'NotificationsModule/PUSH_NOTIFICATION',
               { error: i18n.t('messages.users.update.error', { msg: fetchError(error) }) },
               { root: true }
             )

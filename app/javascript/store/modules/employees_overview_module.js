@@ -61,7 +61,7 @@ const EmployeesOverviewModule = {
         })
         .catch((error) => {
           commit(
-            'NotificationsModule/push',
+            'NotificationsModule/PUSH_NOTIFICATION',
             { error: i18n.t('messages.employees.overview.error', { msg: fetchError(error) }) },
             { root: true }
           )
