@@ -66,7 +66,7 @@
           <span>{{ $t('shared.tooltips.addNew') }}</span>
         </v-tooltip>
 
-        <template v-if="$route.name === 'employee_path'">
+        <template v-if="$route.name !== 'employees_path'">
           <v-tooltip bottom key="copyLink">
             <template #activator="{ on }">
               <v-btn

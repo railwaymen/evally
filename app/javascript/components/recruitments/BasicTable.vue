@@ -40,7 +40,10 @@
           :footer-props="{ 'items-per-page-options': [25, 50, 100, -1] }"
         >
           <template #item.action="{ item }">
-            <v-tooltip bottom>
+            <v-tooltip
+              v-if="recruitDocumentPolicy.canEdit"
+              bottom
+            >
               <template #activator="{ on }">
                 <v-icon
                   @click="$router.push(item.editPath)"
@@ -83,6 +86,8 @@
 </template>
 
 <script>
+import RecruitDocumentPolicy from '@policies/recruit_document_policy'
+
 import { RecruitDocumentsList } from '@models/recruit_document'
 
 import StatusSelect from '@components/recruitments/StatusSelect'
@@ -100,6 +105,11 @@ export default {
       type: RecruitDocumentsList,
       required: true,
       default: () => new RecruitDocumentsList()
+    },
+    recruitDocumentPolicy: {
+      type: RecruitDocumentPolicy,
+      required: true,
+      default: () => new RecruitDocumentPolicy()
     },
     groups: {
       type: Array,

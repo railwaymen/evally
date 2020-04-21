@@ -77,7 +77,7 @@
               v-model="localRecruitDocument.group"
               @change="updateGroup"
               :rules="[vRequired]"
-              :disabled="!policy.canEdit"
+              :disabled="!recruitDocumentPolicy.canEdit"
               filled
               dense
             />
@@ -93,7 +93,7 @@
               v-model="localRecruitDocument.position"
               @change="updatePosition"
               :rules="[vRequired]"
-              :disabled="!policy.canEdit"
+              :disabled="!recruitDocumentPolicy.canEdit"
               filled
               dense
             />
@@ -108,8 +108,8 @@
               :items="evaluators.models"
               :value="localRecruitDocument.evaluator_id"
               @input="assignEvaluator"
-              :disabled="!policy.canEdit"
-              :clearable="policy.canEdit"
+              :disabled="!recruitDocumentPolicy.canEdit"
+              :clearable="recruitDocumentPolicy.canEdit"
               item-value="id"
               item-text="fullname"
               filled
@@ -148,7 +148,7 @@
               <v-list-item-subtitle>{{ attachment.size }}</v-list-item-subtitle>
             </v-list-item-content>
 
-            <v-list-item-action v-if="policy.canEdit">
+            <v-list-item-action v-if="recruitDocumentPolicy.canEdit">
               <v-btn
                 @click.stop="openDeleteAttachmentConfirm(attachment)"
                 color="red lighten-3"
@@ -159,7 +159,7 @@
             </v-list-item-action>
           </v-list-item>
 
-          <v-list-item v-if="policy.canEdit">
+          <v-list-item v-if="recruitDocumentPolicy.canEdit">
             <v-list-item-content>
               <v-file-input
                 @change="upload"
@@ -180,10 +180,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
-
-import { RecruitDocumentPolicy } from '@policies/recruit_document_policy'
 
 import { AttachmentsList } from '@models/attachment'
 import { RecruitDocument } from '@models/recruit_document'
@@ -229,11 +227,6 @@ export default {
       type: UsersList,
       required: true,
       default: () => new UsersList()
-    },
-    policy: {
-      type: RecruitDocumentPolicy,
-      required: true,
-      default: () => new RecruitDocumentPolicy()
     }
   },
   data() {
@@ -294,6 +287,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('RecruitDocumentsModule', [
+      'recruitDocumentPolicy'
+    ]),
     icons() {
       return linksToIcons(this.localRecruitDocument.social_links)
     }

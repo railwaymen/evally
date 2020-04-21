@@ -8,7 +8,6 @@
         :groups="groups"
         :attachments="attachments"
         :evaluators="evaluators"
-        :policy="policy"
       />
     </v-flex>
 
@@ -35,8 +34,6 @@
 <script>
 import { mapState } from 'vuex'
 
-import { RecruitDocumentPolicy } from '@policies/recruit_document_policy'
-
 import CommentsSidebar from '@components/recruitments/CommentsSidebar'
 import EvaluationsSidebar from '@components/recruitments/EvaluationsSidebar'
 import RecruitmentsSidebar from '@components/recruitments/RecruitmentsSidebar'
@@ -60,10 +57,7 @@ export default {
     ]),
     ...mapState('AuthenticationModule', [
       'user'
-    ]),
-    policy() {
-      return new RecruitDocumentPolicy(this.user, this.recruitDocument)
-    }
+    ])
   },
   created() {
     this.$store.dispatch('RecruitDocumentsModule/fetchRecruitDocument', this.$route.params)

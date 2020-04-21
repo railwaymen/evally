@@ -5,6 +5,8 @@ import { objectToFormData, fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
 
+import RecruitDocumentPolicy from '@policies/recruit_document_policy'
+
 import { AttachmentsList } from '@models/attachment'
 import { Comment, CommentsList } from '@models/comment'
 import { Evaluation, EvaluationsList } from '@models/evaluation'
@@ -34,6 +36,12 @@ const RecruitDocumentsModule = {
   namespaced: true,
 
   state: initialState(),
+
+  getters: {
+    recruitDocumentPolicy: (state, _getters, rootState) => (
+      new RecruitDocumentPolicy(rootState.AuthenticationModule.user, state.recruitDocument)
+    )
+  },
 
   mutations: {
     ADD_COMMENT(state, comment) {
