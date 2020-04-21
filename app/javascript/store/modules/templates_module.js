@@ -3,6 +3,8 @@ import { fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
 
+import TemplatePolicy from '@policies/template_policy'
+
 import { Template, TemplatesList } from '@models/template'
 import { SectionsList } from '@models/section'
 
@@ -18,6 +20,12 @@ const TemplatesModule = {
   namespaced: true,
 
   state: initState(),
+
+  getters: {
+    templatePolicy: (state, _getters, rootState) => (
+      new TemplatePolicy(rootState.AuthenticationModule.user, state.template)
+    )
+  },
 
   mutations: {
     ADD_TEMPLATE(state, { template, sections }) {

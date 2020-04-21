@@ -1,26 +1,32 @@
 import { BasePolicy } from './base_policy'
 
-export class TemplatePolicy extends BasePolicy{
+export default class TemplatePolicy extends BasePolicy{
   get canEdit() {
-    return !this.object.editable && this.userPermitted
+    return this.userPermitted && !this.object.editable
   }
 
   get canSave() {
-    return this.object.editable && this.userPermitted
+    return (this.userPermitted || this.object.isNew) && this.object.editable
   }
 
-  get canDestroy() {
-    return this.object.isPersisted && this.userPermitted
+  get canRemove() {
+    return this.userPermitted && this.object.isPersisted
+  }
+
+  get userIsCreator() {
+    return Number(this.user.id) === Number(this.object.creator_id)
   }
 
   get userPermitted() {
+    if (!this.user) return false
+
     switch (this.user.role) {
       case 'admin':
         return true
       case 'recruiter':
-        return this.object.isForRecruits
+        return this.object.isForRecruits || this.userIsCreator
       case 'evaluator':
-        return Number(this.user.id) === Number(this.object.creator_id)
+        return this.userIsCreator
       default:
         return false
     }
