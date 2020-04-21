@@ -10,9 +10,10 @@ module V2
       end
 
       def employees
-        V2::Dashboard::UpcomingQuery.call(employees_scope)
-                                    .order(next_evaluation_on: :desc)
-                                    .limit(setting.default_upcoming_items || 5)
+        V2::Dashboard::UpcomingQuery
+          .call(employees_scope)
+          .order(next_evaluation_on: :desc)
+          .limit(setting.default_upcoming_items || 5)
       end
 
       def drafts
@@ -30,15 +31,16 @@ module V2
       private
 
       def activities_scope
-        Pundit.policy_scope!(@user, [:v2, Activity])
+        V2::ActivityPolicy::Scope.new(@user, Activity).resolve
       end
 
       def employees_scope
-        Pundit.policy_scope!(@user, [:v2, Employee])
+        V2::EmployeePolicy::Scope.new(@user, Employee).resolve
       end
 
       def drafts_scope
-        Pundit.policy_scope!(@user, [:v2, Evaluation]).draft.employable.includes(:evaluable)
+        V2::EvaluationPolicy::EmployableScope
+          .new(@user, Evaluation).resolve.draft.includes(:evaluable)
       end
     end
   end
