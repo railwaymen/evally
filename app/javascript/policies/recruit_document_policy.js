@@ -1,11 +1,15 @@
 import { BasePolicy } from './base_policy'
 
-export class RecruitDocumentPolicy extends BasePolicy{
+export default class RecruitDocumentPolicy extends BasePolicy{
   get canCreate() {
-    return ['admin', 'recruiter'].includes(this.user.role)
+    return this.user ? (this.user.isAdmin || this.user.isRecruiter) : false
   }
 
   get canEdit() {
-    return this.canCreate && this.object.isPersisted
+    return this.canCreate
+  }
+
+  get canRemove() {
+    return this.canCreate
   }
 }

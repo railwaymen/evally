@@ -1,6 +1,6 @@
 @mixin scrollbar-styling() {
   &::-webkit-scrollbar  {
-    width: 1rem;
+    width: rem2dec(1rem);
     background-color: $font-gray-light;
   }
 

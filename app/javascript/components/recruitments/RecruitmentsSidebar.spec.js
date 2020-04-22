@@ -3,14 +3,14 @@ import i18n from '@locales/i18n'
 
 import RecruitmentsSidebar from './RecruitmentsSidebar'
 
-import { RecruitDocumentPolicy } from '@policies/recruit_document_policy'
+import RecruitDocumentPolicy from '@policies/recruit_document_policy'
 
 import { AttachmentsList } from '@models/attachment'
 import { RecruitDocument } from '@models/recruit_document'
 import { User, UsersList } from '@models/user'
 
 describe('RecruitmentsSidebar', () => {
-  const admin = new User({role: 'admin'})
+  const admin = new User({ role: 'admin' })
 
   const recruitDocument = new RecruitDocument({
     id: 1,
@@ -25,7 +25,7 @@ describe('RecruitmentsSidebar', () => {
     groups: ['Ruby', 'Android'],
     positions: ['Junior', 'Senior'],
     evaluators: new UsersList(),
-    policy: new RecruitDocumentPolicy(admin, recruitDocument)
+    loading: false
   }
 
   const wrapper = shallowMount(
@@ -39,6 +39,11 @@ describe('RecruitmentsSidebar', () => {
       ],
       mocks: {
         $t: key => i18n.t(key)
+      },
+      computed: {
+        recruitDocumentPolicy() {
+          return new RecruitDocumentPolicy(admin, recruitDocument)
+        }
       }
     })
 

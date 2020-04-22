@@ -18,7 +18,7 @@
 
       <div class="panel__actions">
         <v-tooltip
-          v-if="policy.canCreate"
+          v-if="recruitDocumentPolicy.canCreate"
           key="addNew"
           bottom
         >
@@ -38,7 +38,7 @@
 
         <template v-if="$route.name === 'recruitment_path'">
           <v-tooltip
-            v-if="policy.canEdit"
+            v-if="recruitDocumentPolicy.canEdit"
             key="edit"
             bottom
           >
@@ -57,7 +57,7 @@
           </v-tooltip>
 
           <v-tooltip
-            v-if="policy.canEdit"
+            v-if="recruitDocumentPolicy.canRemove"
             key="delete"
             bottom
           >
@@ -83,9 +83,10 @@
           <basic-table
             v-if="$route.name === 'recruitments_path'"
             :recruitDocuments="recruitDocuments"
+            :recruitDocumentPolicy="recruitDocumentPolicy"
             :groups="groups"
             :statuses="statuses"
-            :loading="loading"
+            :loading="fetchLoading"
           />
 
           <router-view v-else />
@@ -95,10 +96,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
-
-import { RecruitDocumentPolicy } from '@policies/recruit_document_policy'
 
 import { RecruitDocument } from '@models/recruit_document'
 
@@ -120,15 +119,12 @@ export default {
       'recruitDocuments',
       'recruitDocument',
       'groups',
-      'statuses',
-      'loading'
+      'statuses'
     ]),
-    ...mapState('AuthenticationModule', [
-      'user'
-    ]),
-    policy() {
-      return new RecruitDocumentPolicy(this.user, this.recruitDocument)
-    }
+    ...mapGetters('RecruitDocumentsModule', [
+      'recruitDocumentPolicy',
+      'fetchLoading'
+    ])
   },
   watch: {
     $route: {

@@ -98,6 +98,10 @@
       padding: rem2dec(1rem);
       border-radius: 3px;
     }
+
+    p {
+      margin-bottom: rem2dec(.3rem);
+    }
   }
 
   &__actions {
@@ -108,4 +112,12 @@
       margin: rem2dec(.5rem)
     }
   }
+}
+
+.comments-list {
+  max-height: 100vh;
+  overflow-y: scroll;
+  padding-right: 5px;
+
+  @include scrollbar-styling();
 }

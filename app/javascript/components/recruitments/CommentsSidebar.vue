@@ -42,8 +42,13 @@
       </v-expansion-panels>
     </div>
 
-    <div class="sidebar__section">
+    <div v-if="loading" class="sidebar__loader">
+      <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
+    </div>
+
+    <div v-else class="sidebar__section">
       <div class="py-3 comments-list">
+
         <comment-bubble
           v-for="comment in comments.models"
           :key="comment.id"
@@ -57,16 +62,34 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import { VueEditor } from 'vue2-editor';
 
 import { Comment, CommentsList } from '@models/comment'
+import { User } from '@models/user'
 
 import CommentBubble from '@components/recruitments/CommentBubble'
 
 export default {
   name: 'CommentsSidebar',
   components: { CommentBubble, VueEditor },
+  props: {
+    comments: {
+      type: CommentsList,
+      required: true,
+      default: () => new CommentsList()
+    },
+    user: {
+      type: User,
+      required: true,
+      default: () => new User()
+    },
+    loading: {
+      type: Boolean,
+      required: true,
+      default: true
+    }
+  },
   data() {
     return {
       panel: null,
@@ -114,14 +137,6 @@ export default {
       this.localComment = new Comment({ ...comment })
       this.panel = 0
     }
-  },
-  computed: {
-    ...mapState('RecruitDocumentsModule', [
-      'comments'
-    ]),
-    ...mapState('AuthenticationModule', [
-      'user'
-    ])
   }
 }
 </script>

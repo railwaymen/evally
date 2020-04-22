@@ -60,7 +60,7 @@
                 @click="openDeleteConfirm"
                 color="red"
                 v-on="on"
-                :disabled="!templatePolicy.canDestroy"
+                :disabled="!templatePolicy.canRemove"
                 icon
               >
                 <v-icon>mdi-delete-outline</v-icon>
@@ -103,10 +103,8 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
-
-import { TemplatePolicy } from '@policies/template_policy'
 
 import DeleteConfirm from '@components/templates/DeleteConfirm'
 import TemplatesSearchList from '@components/templates/TemplatesSearchList'
@@ -139,12 +137,9 @@ export default {
       'template',
       'loading'
     ]),
-    ...mapState('AuthenticationModule', [
-      'user'
-    ]),
-    templatePolicy() {
-      return new TemplatePolicy(this.user, this.template)
-    },
+    ...mapGetters('TemplatesModule', [
+      'templatePolicy'
+    ])
   },
   created() {
     this.fetchTemplates()

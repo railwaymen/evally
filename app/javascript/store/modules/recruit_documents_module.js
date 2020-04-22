@@ -5,6 +5,8 @@ import { objectToFormData, fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
 
+import RecruitDocumentPolicy from '@policies/recruit_document_policy'
+
 import { AttachmentsList } from '@models/attachment'
 import { Comment, CommentsList } from '@models/comment'
 import { Evaluation, EvaluationsList } from '@models/evaluation'
@@ -27,13 +29,21 @@ const initialState = () => ({
   statuses: [],
   positions: [],
   sources: [],
-  loading: true
+  loading: 'fetch'
 })
 
 const RecruitDocumentsModule = {
   namespaced: true,
 
   state: initialState(),
+
+  getters: {
+    fetchLoading: state => state.loading === 'fetch',
+    evaluationLoading: state => ['evaluation', 'fetch'].includes(state.loading),
+    recruitDocumentPolicy: (state, _getters, rootState) => (
+      new RecruitDocumentPolicy(rootState.AuthenticationModule.user, state.recruitDocument)
+    )
+  },
 
   mutations: {
     ADD_COMMENT(state, comment) {
@@ -143,7 +153,7 @@ const RecruitDocumentsModule = {
 
   actions: {
     fetchRecruitDocuments({ commit }) {
-      commit('SET_LOADING', true)
+      commit('SET_LOADING', 'fetch')
 
       recruitableApiClient
         .get(RecruitDocument.routes.recruitDocumentsPath)
@@ -157,10 +167,10 @@ const RecruitDocumentsModule = {
             { root: true }
           )
         })
-        .finally(() => commit('SET_LOADING', false))
+        .finally(() => commit('SET_LOADING', 'ok'))
     },
     filterRecruitDocuments({ commit }, filters) {
-      commit('SET_LOADING', true)
+      commit('SET_LOADING', 'fetch')
 
       recruitableApiClient
         .get(RecruitDocument.routes.recruitDocumentsFilterPath(filters))
@@ -174,10 +184,10 @@ const RecruitDocumentsModule = {
             { root: true }
           )
         })
-        .finally(() => commit('SET_LOADING', false))
+        .finally(() => commit('SET_LOADING', 'ok'))
     },
     fetchRecruitDocument({ commit }, { publicRecruitId, id }) {
-      commit('SET_LOADING', true)
+      commit('SET_LOADING', 'fetch')
 
       axios
         .all([
@@ -195,7 +205,7 @@ const RecruitDocumentsModule = {
             { root: true }
           )
         })
-        .finally(() => commit('SET_LOADING', false))
+        .finally(() => commit('SET_LOADING', 'ok'))
     },
     newRecruitDocument({ commit }) {
       axios
@@ -450,7 +460,7 @@ const RecruitDocumentsModule = {
     fetchEvaluation({ state, commit }, evaluationId) {
       const { id, recruit_id } = state.evaluations.findById(evaluationId)
 
-      if (Number(state.evaluation.id) !== Number(evaluationId)) commit('SET_LOADING', true)
+      if (Number(state.evaluation.id) !== Number(evaluationId)) commit('SET_LOADING', 'evaluation')
 
       coreApiClient
         .get(Evaluation.routes.showEvaluationRecruitablePath(recruit_id, id))
@@ -464,7 +474,7 @@ const RecruitDocumentsModule = {
             { root: true }
           )
         })
-        .finally(() => commit('SET_LOADING', false))
+        .finally(() => commit('SET_LOADING', 'ok'))
     },
     createEvaluation({ state, commit }, { templateId }) {
       const params = {
@@ -475,7 +485,7 @@ const RecruitDocumentsModule = {
         }
       }
 
-      commit('SET_LOADING', true)
+      commit('SET_LOADING', 'evaluation')
 
       return (
         coreApiClient
@@ -497,7 +507,7 @@ const RecruitDocumentsModule = {
               { root: true }
             )
           })
-          .finally(() => commit('SET_LOADING', false))
+          .finally(() => commit('SET_LOADING', 'ok'))
       )
     },
     updateEvaluation({ state, commit }) {

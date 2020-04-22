@@ -4,7 +4,8 @@ import Router from 'vue-router'
 import {
   alreadyAuthenticatedGuard,
   authenticationGuard,
-  authorizationGuard
+  adminAuthorizedGuard,
+  recruiterAuthorizedGuard
 } from '@router/guards'
 
 Vue.use(Router)
@@ -48,13 +49,13 @@ export default new Router({
               path: 'overview',
               name: 'employees_overview_path',
               component: () => import(/* webpackChunkName: 'employees_overview' */ '@views/employees/Overview'),
-              beforeEnter: authorizationGuard
+              beforeEnter: adminAuthorizedGuard
             },
             {
               path: 'archived',
               name: 'employees_archived_path',
               component: () => import(/* webpackChunkName: 'employees_archived' */ '@views/employees/Archived'),
-              beforeEnter: authorizationGuard
+              beforeEnter: adminAuthorizedGuard
             },
             {
               path: ':employeeId',
@@ -79,6 +80,7 @@ export default new Router({
               path: 'new',
               name: 'new_recruitment_path',
               component: () => import(/* webpackChunkName: 'new_recruitment' */ '@views/recruitments/New'),
+              beforeEnter: recruiterAuthorizedGuard
             },
             {
               path: ':publicRecruitId/documents/:id',
@@ -89,6 +91,7 @@ export default new Router({
               path: ':publicRecruitId/documents/:id/edit',
               name: 'edit_recruitment_path',
               component: () => import(/* webpackChunkName: 'edit_recruitment' */ '@views/recruitments/Edit'),
+              beforeEnter: recruiterAuthorizedGuard
             }
           ]
         },
@@ -108,7 +111,7 @@ export default new Router({
           path: 'users',
           name: 'users_path',
           component: () => import(/* webpackChunkName: 'users' */ '@views/users/Index'),
-          beforeEnter: authorizationGuard,
+          beforeEnter: adminAuthorizedGuard,
         },
         {
           path: 'settings',

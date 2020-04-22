@@ -8,7 +8,7 @@
         :groups="groups"
         :attachments="attachments"
         :evaluators="evaluators"
-        :policy="policy"
+        :loading="fetchLoading"
       />
     </v-flex>
 
@@ -20,12 +20,16 @@
             :evaluations="evaluations"
             :evaluation="evaluation"
             :sections="sections"
-            :loading="loading"
+            :loading="evaluationLoading"
           />
         </v-flex>
 
         <v-flex xs12 lg6>
-          <comments-sidebar />
+          <comments-sidebar
+            :comments="comments"
+            :user="user"
+            :loading="fetchLoading"
+          />
         </v-flex>
       </v-layout>
     </v-flex>
@@ -33,9 +37,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
-import { RecruitDocumentPolicy } from '@policies/recruit_document_policy'
+import { mapState, mapGetters } from 'vuex'
 
 import CommentsSidebar from '@components/recruitments/CommentsSidebar'
 import EvaluationsSidebar from '@components/recruitments/EvaluationsSidebar'
@@ -56,14 +58,15 @@ export default {
       'evaluations',
       'evaluation',
       'sections',
-      'loading'
+      'comments'
     ]),
     ...mapState('AuthenticationModule', [
       'user'
     ]),
-    policy() {
-      return new RecruitDocumentPolicy(this.user, this.recruitDocument)
-    }
+    ...mapGetters('RecruitDocumentsModule', [
+      'fetchLoading',
+      'evaluationLoading'
+    ])
   },
   created() {
     this.$store.dispatch('RecruitDocumentsModule/fetchRecruitDocument', this.$route.params)
