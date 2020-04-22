@@ -99,7 +99,7 @@ export default {
     loading: {
       type: Boolean,
       required: true,
-      default: false
+      default: true
     },
     recruitDocuments: {
       type: RecruitDocumentsList,

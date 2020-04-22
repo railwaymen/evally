@@ -91,7 +91,7 @@
 
           <v-list-item :to="{ name: 'general_settings_path' }">
             <v-list-item-action>
-              <v-icon>mdi-settings</v-icon>
+              <v-icon>mdi-cog-outline</v-icon>
             </v-list-item-action>
 
             <v-list-item-title>{{ $t('shared.navbar.settings') }}</v-list-item-title>

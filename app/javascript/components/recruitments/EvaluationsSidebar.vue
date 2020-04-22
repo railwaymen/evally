@@ -93,14 +93,13 @@
       </div>
     </div>
 
-    <v-form ref="form">
-      <div class="sidebar__section">
-        <div v-if="loading" class="section__loader">
-          <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
-        </div>
+    <div v-if="loading" class="sidebar__loader">
+      <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
+    </div>
 
+    <v-form v-else ref="form">
+      <div class="sidebar__section">
         <v-expansion-panels
-          v-else
           v-model="openSections"
           multiple
           accordion
@@ -159,7 +158,7 @@ export default {
     loading: {
       type: Boolean,
       required: true,
-      default: false
+      default: true
     }
   },
   data() {

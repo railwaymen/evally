@@ -8,6 +8,7 @@
         :groups="groups"
         :attachments="attachments"
         :evaluators="evaluators"
+        :loading="fetchLoading"
       />
     </v-flex>
 
@@ -19,12 +20,16 @@
             :evaluations="evaluations"
             :evaluation="evaluation"
             :sections="sections"
-            :loading="loading"
+            :loading="evaluationLoading"
           />
         </v-flex>
 
         <v-flex xs12 lg6>
-          <comments-sidebar />
+          <comments-sidebar
+            :comments="comments"
+            :user="user"
+            :loading="fetchLoading"
+          />
         </v-flex>
       </v-layout>
     </v-flex>
@@ -32,7 +37,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 import CommentsSidebar from '@components/recruitments/CommentsSidebar'
 import EvaluationsSidebar from '@components/recruitments/EvaluationsSidebar'
@@ -53,10 +58,14 @@ export default {
       'evaluations',
       'evaluation',
       'sections',
-      'loading'
+      'comments'
     ]),
     ...mapState('AuthenticationModule', [
       'user'
+    ]),
+    ...mapGetters('RecruitDocumentsModule', [
+      'fetchLoading',
+      'evaluationLoading'
     ])
   },
   created() {

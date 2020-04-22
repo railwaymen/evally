@@ -1,19 +1,32 @@
 <template>
   <div class="sidebar sidebar--boxed">
-    <div class="vcard">
+    <div v-if="loading" class="sidebar__loader">
+      <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
+    </div>
+
+    <div v-else class="vcard">
       <div class="vcard__header">
         <h3 class="vcard__fullname">{{ localRecruitDocument.fullname }}</h3>
 
         <div class="vcard__socials">
-          <v-btn
+          <v-tooltip
             v-for="(link, index) in localRecruitDocument.social_links"
             :key="index"
-            :href="link"
-            target="_blank"
-            icon
+            bottom
           >
-            <v-icon>{{ icons[index] }}</v-icon>
-          </v-btn>
+            <template #activator="{ on }">
+              <v-btn
+                v-on="on"
+                :href="link"
+                target="_blank"
+                icon
+              >
+                <v-icon>{{ icons[index] }}</v-icon>
+              </v-btn>
+            </template>
+
+            <span>{{ link }}</span>
+          </v-tooltip>
         </div>
       </div>
 
@@ -227,6 +240,11 @@ export default {
       type: UsersList,
       required: true,
       default: () => new UsersList()
+    },
+    loading: {
+      type: Boolean,
+      required: true,
+      default: true
     }
   },
   data() {

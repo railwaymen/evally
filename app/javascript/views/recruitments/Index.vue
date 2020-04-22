@@ -86,7 +86,7 @@
             :recruitDocumentPolicy="recruitDocumentPolicy"
             :groups="groups"
             :statuses="statuses"
-            :loading="loading"
+            :loading="fetchLoading"
           />
 
           <router-view v-else />
@@ -119,11 +119,11 @@ export default {
       'recruitDocuments',
       'recruitDocument',
       'groups',
-      'statuses',
-      'loading'
+      'statuses'
     ]),
     ...mapGetters('RecruitDocumentsModule', [
-      'recruitDocumentPolicy'
+      'recruitDocumentPolicy',
+      'fetchLoading'
     ])
   },
   watch: {
