@@ -3,15 +3,21 @@ import i18n from '@locales/i18n'
 
 import BasicTable from './BasicTable'
 
+import RecruitDocumentPolicy from '@policies/recruit_document_policy'
+
 import { RecruitDocumentsList } from '@models/recruit_document'
+import { User } from '@models/user'
 
 describe('BasicTable', () => {
+  const admin = new User({role: 'admin'})
+
   const props = {
     loading: false,
     recruitDocuments: new RecruitDocumentsList(),
     groups: ['ror', 'android'],
     statuses: ['fresh', 'accepted'],
-    editable: false
+    editable: false,
+    recruitDocumentPolicy: new RecruitDocumentPolicy(admin, null)
   }
 
   const wrapper = shallowMount(
