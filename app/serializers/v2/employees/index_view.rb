@@ -3,7 +3,11 @@
 module V2
   module Employees
     class IndexView < Blueprinter::Base
+      fields :groups
+
       association :employees, blueprint: V2::Employees::Serializer, default: []
+
+      association :evaluators, blueprint: V2::Users::Serializer, default: []
     end
   end
 end

@@ -13,6 +13,11 @@ class Employee < ApplicationRecord
   has_one :latest_evaluation, -> { completed.order(completed_at: :desc) },
           as: :evaluable, class_name: 'Evaluation', inverse_of: :evaluable
 
+  # # Scopes
+  #
+  scope :by_group, proc { |val| where(group: val) if val.present? }
+  scope :by_evaluator_id, proc { |val| where(evaluator_id: val) if val.present? }
+
   # # Enums
   #
   enum state: {

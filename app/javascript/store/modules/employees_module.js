@@ -64,9 +64,10 @@ const EmployeesModule = {
       state.evaluations = new EvaluationsList(evaluations)
       state.positionChanges = new PositionChangesList(position_changes)
     },
-    SET_EMPLOYEES(state, { employees, evaluators }) {
+    SET_EMPLOYEES(state, { employees, evaluators, groups }) {
       state.employees = new EmployeesList(employees)
       state.evaluators = new UsersList(evaluators)
+      state.groups = groups
     },
     SET_EVALUATION(state, { evaluation, sections }) {
       state.evaluation = new Evaluation(evaluation)
@@ -85,6 +86,23 @@ const EmployeesModule = {
 
       coreApiClient
         .get(Employee.routes.employeesPath)
+        .then(response => {
+          commit('SET_EMPLOYEES', response.data)
+        })
+        .catch(error => {
+          commit(
+            'NotificationsModule/PUSH_NOTIFICATION',
+            { error: i18n.t('messages.employees.index.error', { msg: fetchError(error) }) },
+            { root: true }
+          )
+        })
+        .finally(() => commit('SET_LOADING', 'ok'))
+    },
+    filterEmployees({ commit }, filters) {
+      commit('SET_LOADING', 'fetch')
+
+      coreApiClient
+        .get(Employee.routes.employeesFilterPath(filters))
         .then(response => {
           commit('SET_EMPLOYEES', response.data)
         })

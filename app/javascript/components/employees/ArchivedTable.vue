@@ -1,12 +1,12 @@
 <template>
   <div class="box">
     <v-layout row wrap>
-      <v-flex xs12 lg6>
+      <v-flex xs12 lg4>
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
           :label="$t('components.employees.table.search')"
-          filled
+          solo
         />
       </v-flex>
 
@@ -16,6 +16,7 @@
           :items="employees.models"
           :search="search"
           :loading="loading"
+          :footer-props="{ 'items-per-page-options': [25, 50, 100, -1] }"
         >
           <template #item.fullname="{ item }">
             <router-link :to="{ name: 'employee_path', params: { employeeId: item.id }}">

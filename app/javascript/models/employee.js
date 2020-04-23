@@ -1,4 +1,6 @@
 import { Model, List } from './base'
+import { getURLParams } from '@utils/helpers'
+
 import i18n from '@locales/i18n'
 
 import moment from 'moment'
@@ -128,6 +130,7 @@ class Employee extends Model {
   static get routes() {
     return {
       employeesPath: '/v2/employees',
+      employeesFilterPath: payload => `/v2/employees?${getURLParams(payload)}`,
       employeesFormPath: '/v2/employees/form',
       employeesArchivedPath: '/v2/employees/archived',
       employeesOverviewPath: '/v2/employees/overview',

@@ -6,13 +6,15 @@ module V2
     before_action :authorize!, only: %i[archived create update overview archive destroy]
 
     def index
-      presenter = V2::Employees::IndexPresenter.new(current_user)
+      presenter = V2::Employees::IndexPresenter.new(
+        employees_scope.by_group(params.dig(:group)).by_evaluator_id(params.dig(:evaluator_id))
+      )
 
       render json: V2::Employees::IndexView.render(presenter), status: :ok
     end
 
     def archived
-      presenter = V2::Employees::IndexPresenter.new(current_user, state: 'archived')
+      presenter = V2::Employees::IndexPresenter.new(employees_scope, state: :archived)
 
       render json: V2::Employees::IndexView.render(presenter), status: :ok
     end

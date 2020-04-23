@@ -1,12 +1,36 @@
 <template>
   <div class="box">
     <v-layout row wrap>
-      <v-flex xs12 lg6>
+      <v-flex xs12 lg4>
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
           :label="$t('components.employees.table.search')"
-          filled
+          solo
+        />
+      </v-flex>
+
+      <v-flex xs12 lg4>
+        <v-select
+          v-model="filters.group"
+          :items="groups"
+          :label="$t('components.employees.table.groupFilter')"
+          clearable
+          chips
+          solo
+        />
+      </v-flex>
+
+      <v-flex xs12 lg4>
+        <v-select
+          v-model="filters.evaluatorId"
+          :items="evaluators.models"
+          :label="$t('components.employees.table.evaluatorFilter')"
+          item-value="id"
+          item-text="fullname"
+          clearable
+          chips
+          solo
         />
       </v-flex>
 
@@ -16,6 +40,7 @@
           :items="employees.models"
           :search="search"
           :loading="loading"
+          :footer-props="{ 'items-per-page-options': [25, 50, 100, -1] }"
         >
           <template #item.action="{ item }">
             <v-tooltip v-if="editable" bottom>
@@ -68,6 +93,7 @@
 
 <script>
 import { EmployeesList } from '@models/employee'
+import { UsersList } from '@models/user'
 
 export default {
   name: 'BasicTable',
@@ -82,6 +108,16 @@ export default {
       required: true,
       default: () => new EmployeesList()
     },
+    evaluators: {
+      type: UsersList,
+      required: true,
+      default: () => new UsersList()
+    },
+    groups: {
+      type: Array,
+      required: true,
+      default: () => []
+    },
     editable: {
       type: Boolean,
       required: true,
@@ -91,6 +127,10 @@ export default {
   data() {
     return {
       search: '',
+      filters: {
+        group: '',
+        evaluatorId: null
+      },
       headers: [
         {
           sortable: false,
@@ -131,6 +171,19 @@ export default {
           align: 'center'
         }
       ]
+    }
+  },
+  watch: {
+    filters: {
+      deep: true,
+      handler(filters) {
+        const payload = {
+          group: filters.group || '',
+          evaluator_id: filters.evaluatorId || ''
+        }
+
+        this.$store.dispatch('EmployeesModule/filterEmployees', payload)
+      }
     }
   }
 }

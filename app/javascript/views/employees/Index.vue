@@ -161,6 +161,8 @@
         <basic-table
           v-if="$route.name === 'employees_path'"
           :employees="employees"
+          :evaluators="evaluators"
+          :groups="groups"
           :loading="fetchLoading"
           :editable="user.isAdmin"
           @edit="openUpdateForm"
@@ -237,7 +239,9 @@ export default {
   computed: {
     ...mapState('EmployeesModule', [
       'employees',
-      'employee'
+      'employee',
+      'evaluators',
+      'groups'
     ]),
     ...mapState('AuthenticationModule', [
       'user'

@@ -118,6 +118,8 @@ export default {
     employees: {
       table: {
         search: 'Search ...',
+        groupFilter: 'Group',
+        evaluatorFilter: 'Evaluator',
         cols: {
           name: 'Name',
           hiredOn: 'Hired Date',

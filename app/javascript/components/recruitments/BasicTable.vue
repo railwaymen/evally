@@ -21,8 +21,8 @@
         />
       </v-flex>
 
-       <v-flex xs12 lg4>
-         <status-select
+      <v-flex xs12 lg4>
+        <status-select
           v-model="filters.status"
           :items="statuses"
           :label="$t('components.recruitments.table.statusFilter')"
@@ -166,7 +166,7 @@ export default {
   watch: {
     filters: {
       deep: true,
-      handler: function(filters, _prevFilters) {
+      handler(filters) {
         const payload = {
           group: filters.group || '',
           status: filters.status || ''

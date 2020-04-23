@@ -3,19 +3,20 @@
 module V2
   module Employees
     class IndexPresenter
-      def initialize(user, state: 'hired')
-        @user = user
-        @state = state
+      def initialize(scope, state: :hired)
+        @scope = scope.where(state: state)
       end
 
       def employees
-        V2::Employees::BasicQuery.call(scope)
+        V2::Employees::BasicQuery.call(@scope)
       end
 
-      private
+      def groups
+        Employee.distinct(:group).order(:group).pluck(:group)
+      end
 
-      def scope
-        EmployeePolicy::Scope.new(@user, Employee).resolve.where(state: @state)
+      def evaluators
+        User.all
       end
     end
   end
