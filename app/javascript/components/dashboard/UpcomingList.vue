@@ -54,7 +54,6 @@
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import { EmployeesList } from '@models/employee'
-import { TemplatesList } from '@models/template'
 
 import CreateForm from '@components/evaluations/CreateForm'
 
@@ -65,11 +64,6 @@ export default {
       type: EmployeesList,
       required: true,
       default: () => new EmployeesList()
-    },
-    templates: {
-      type: TemplatesList,
-      required: true,
-      default: () => new TemplatesList()
     },
     loading: {
       type: Boolean,
@@ -82,7 +76,6 @@ export default {
       DialogsBus.$emit('openFormsDialog', {
         innerComponent: CreateForm,
         props: {
-          templates: this.templates,
           defaultEmployee: employee
         }
       })

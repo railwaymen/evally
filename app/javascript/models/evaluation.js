@@ -85,7 +85,7 @@ class Evaluation extends Model {
       evaluationEmployablePath: id => `/v2/evaluation_employables/${id}`,
       draftEvaluationEmployablePath: id => `/v2/evaluation_employables/${id}/draft`,
       completedEvaluationEmployablePath: (employeeId, id) => `/v2/employees/${employeeId}/evaluations/${id}`,
-      formEvaluationEmployablePath: '/v2/evaluation_employables/form',
+      evaluationEmployableFormPath: '/v2/evaluation_employables/form',
       evaluationRecruitablesPath: '/v2/evaluation_recruitables',
       evaluationRecruitablePath: id => `/v2/evaluation_recruitables/${id}`,
       showEvaluationRecruitablePath: (recruitId, id) => `/v2/recruits/${recruitId}/evaluations/${id}`,

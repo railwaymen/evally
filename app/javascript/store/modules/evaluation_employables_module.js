@@ -30,7 +30,7 @@ const EvaluationEmployablesModule = {
       state.evaluation = new Evaluation()
       state.sections = new SectionsList()
     },
-    POPULATE_FORM(state, { employees, templates }) {
+    SET_FORM_DATA(state, { employees, templates }) {
       state.employees = new EmployeesList(employees)
       state.templates = new TemplatesList(templates)
     },
@@ -88,23 +88,10 @@ const EvaluationEmployablesModule = {
           )
         })
     },
-    newEvaluation({ commit }) {
-      return new Promise(resolve => {
-        coreApiClient
-          .get(Evaluation.routes.formEvaluationEmployablePath)
-          .then(response => {
-            commit('POPULATE_FORM', response.data)
-
-            resolve()
-          })
-          .catch(error => {
-            commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
-              { error: i18n.t('messages.evaluations.show.error', { msg: fetchError(error) }) },
-              { root: true }
-            )
-          })
-      })
+    fetchFormData({ commit }) {
+      coreApiClient
+        .get(Evaluation.routes.evaluationEmployableFormPath)
+        .then(response => commit('SET_FORM_DATA', response.data))
     },
     createEvaluation({ commit }, { employeeId, templateId, useLatest }) {
       const params = {

@@ -30,6 +30,7 @@ export default {
       edit: 'Edytuj',
       create: 'Utwórz',
       addNew: 'Nowy',
+      addEvaluation: 'Nowa ocena',
       complete: 'Zakończ',
       save: 'Zapisz',
       reset: 'Resetuj',

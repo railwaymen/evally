@@ -24,10 +24,6 @@ module V2
         activities_scope.includes(:user).order(created_at: :desc).limit(5)
       end
 
-      def templates
-        Template.for_employees.includes(:creator).order(name: :asc)
-      end
-
       private
 
       def activities_scope

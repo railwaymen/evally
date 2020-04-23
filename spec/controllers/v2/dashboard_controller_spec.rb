@@ -15,23 +15,15 @@ RSpec.describe V2::DashboardController, type: :controller do
     end
 
     context 'when authorized' do
-      it 'responds with employees, drafts, activities and templates' do
-        sign_in user
-
-        get :show
-
-        expect(response.body).to have_json_path('drafts')
-        expect(response.body).to have_json_path('employees')
-        expect(response.body).to have_json_path('templates')
-        expect(response.body).to have_json_path('activities')
-      end
-
-      it 'responds 200 in response' do
+      it 'responds with employees, drafts and activities' do
         sign_in user
 
         get :show
 
         expect(response).to have_http_status 200
+        expect(json_response.keys).to contain_exactly(
+          'employees', 'drafts', 'activities'
+        )
       end
     end
   end

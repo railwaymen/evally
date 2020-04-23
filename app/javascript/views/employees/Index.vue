@@ -67,6 +67,21 @@
         </v-tooltip>
 
         <template v-if="$route.name !== 'employees_path'">
+          <v-tooltip bottom>
+            <template #activator="{ on }">
+              <v-btn
+                @click="openNewEvaluationForm"
+                v-on="on"
+                color="green"
+                icon
+              >
+                <v-icon>mdi-clipboard-plus-outline</v-icon>
+              </v-btn>
+            </template>
+
+            <span>{{ $t('shared.tooltips.addEvaluation') }}</span>
+          </v-tooltip>
+
           <v-tooltip bottom key="edit">
             <template #activator="{ on }">
               <v-btn
@@ -165,6 +180,7 @@ import BasicTable from '@components/employees/BasicTable'
 import DeleteConfirm from '@components/employees/DeleteConfirm'
 import ArchiveForm from '@components/employees/ArchiveForm'
 import EmployeeForm from '@components/employees/EmployeeForm'
+import CreateEvaluationForm from '@components/evaluations/CreateForm'
 
 export default {
   name: 'EmployeesIndex',
@@ -200,6 +216,15 @@ export default {
         innerComponent: ArchiveForm
       })
     },
+    openNewEvaluationForm() {
+      DialogsBus.$emit('openFormsDialog', {
+        innerComponent: CreateEvaluationForm,
+        props: {
+          defaultEmployee: this.employee,
+          templates: this.templates
+        }
+      })
+    },
     copyLink() {
       this.$copyText(this.employee.publicLink, this.$el)
         .then(() => {
@@ -214,6 +239,9 @@ export default {
     ]),
     ...mapState('AuthenticationModule', [
       'user'
+    ]),
+    ...mapState('EvaluationEmployablesModule', [
+      'templates'
     ]),
     ...mapGetters('EmployeesModule', [
       'fetchLoading',

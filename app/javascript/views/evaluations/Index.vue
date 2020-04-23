@@ -152,20 +152,12 @@ export default {
     ...mapActions('EvaluationEmployablesModule', [
       'fetchEvaluations',
       'fetchEvaluation',
-      'newEvaluation',
       'updateEvaluation'
     ]),
     openCreateForm() {
-      this.newEvaluation()
-        .then(
-          () => DialogsBus.$emit('openFormsDialog', {
-            innerComponent: CreateForm,
-            props: {
-              employees: this.employees,
-              templates: this.templates
-            }
-          })
-        )
+      DialogsBus.$emit('openFormsDialog', {
+        innerComponent: CreateForm
+      })
     },
     openCompleteForm() {
       DialogsBus.$emit('openFormsDialog', {
@@ -188,8 +180,6 @@ export default {
     ...mapState('EvaluationEmployablesModule', [
       'evaluations',
       'evaluation',
-      'employees',
-      'templates',
       'loading'
     ]),
     ...mapState('AuthenticationModule', [

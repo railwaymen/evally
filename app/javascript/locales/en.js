@@ -30,6 +30,7 @@ export default {
       edit: 'Edit',
       create: 'Create',
       addNew: 'Add New',
+      addEvaluation: 'Add Evaluation',
       complete: 'Complete',
       save: 'Save',
       reset: 'Reset',

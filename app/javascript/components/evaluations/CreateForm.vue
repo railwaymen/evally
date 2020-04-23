@@ -103,22 +103,13 @@
 </template>
 
 <script>
-import { Employee, EmployeesList } from '@models/employee'
-import { TemplatesList } from '@models/template'
+import { mapActions, mapState } from 'vuex'
+
+import { Employee } from '@models/employee'
 
 export default {
   name: 'CreateForm',
   props: {
-    employees: {
-      type: EmployeesList,
-      required: false,
-      default: () => new EmployeesList()
-    },
-    templates: {
-      type: TemplatesList,
-      required: true,
-      default: () => new TemplatesList()
-    },
     defaultEmployee: {
       type: Employee,
       required: false,
@@ -132,15 +123,11 @@ export default {
       useLatest: null
     }
   },
-  computed: {
-    newTemplate() {
-      return this.useLatest === false
-    },
-    formCompleted() {
-      return this.employeeId && (!!this.useLatest || !!this.templateId)
-    }
-  },
   methods: {
+    ...mapActions('EvaluationEmployablesModule', [
+      'createEvaluation',
+      'fetchFormData'
+    ]),
     closeDialog() {
       this.$emit('closeDialog')
     },
@@ -149,7 +136,7 @@ export default {
       this.templateId = null
     },
     create() {
-      this.$store.dispatch('EvaluationEmployablesModule/createEvaluation', this.$data)
+      this.createEvaluation(this.$data)
         .then(data => {
           this.closeDialog()
 
@@ -157,7 +144,21 @@ export default {
         })
     }
   },
+  computed: {
+    ...mapState('EvaluationEmployablesModule', [
+      'templates',
+      'employees'
+    ]),
+    newTemplate() {
+      return this.useLatest === false
+    },
+    formCompleted() {
+      return this.employeeId && (!!this.useLatest || !!this.templateId)
+    }
+  },
   created() {
+    this.fetchFormData()
+
     if (this.defaultEmployee.isPersisted) {
       this.employees.push(this.defaultEmployee)
     }
