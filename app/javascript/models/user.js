@@ -39,7 +39,7 @@ class User extends Model {
   get lastSignInAt() {
     if (!this.last_sign_in_at) return '---'
 
-    return moment(this.last_sign_in_at).format('MMM DD, YYYY HH:mm')
+    return moment(this.last_sign_in_at).format('DD MMM YYYY, HH:mm')
   }
 
   static get routes() {

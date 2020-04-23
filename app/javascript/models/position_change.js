@@ -13,7 +13,7 @@ class PositionChange extends Model {
   }
 
   get changedOn() {
-    return moment(this.changed_on).format('MMM DD, YYYY')
+    return moment(this.changed_on).format('DD MMM YYYY')
   }
 }
 

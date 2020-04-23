@@ -13,7 +13,7 @@ class Activity extends Model {
   }
 
   get createdAt() {
-    return moment(this.created_at).format('DD/MM/YYYY HH:mm')
+    return moment(this.created_at).format('DD MMM YYYY, HH:mm')
   }
 
   get shortCreatedAtFromNow() {

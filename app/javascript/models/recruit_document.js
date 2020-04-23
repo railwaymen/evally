@@ -51,13 +51,13 @@ class RecruitDocument extends Model {
   }
 
   get receivedAt() {
-    return moment(this.received_at).format('Do MMM YYYY [at] HH:mm')
+    return moment(this.received_at).format('DD MMM YYYY, HH:mm')
   }
 
   datetimeFormattedProperty(property) {
     if (!this[property]) return '---'
 
-    return moment(this[property]).format('Do MMM YYYY [at] HH:mm')
+    return moment(this[property]).format('DD MMM YYYY, HH:mm')
   }
 
   static get routes() {

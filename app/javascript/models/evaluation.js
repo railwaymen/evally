@@ -22,7 +22,7 @@ class Evaluation extends Model {
   get completedAt() {
     if (!this.completed_at || this.isDraft) return 'Ongoing'
 
-    return moment(this.completed_at).format('MMM DD, YYYY')
+    return moment(this.completed_at).format('DD MMM YYYY')
   }
 
   get editable() {
@@ -34,7 +34,7 @@ class Evaluation extends Model {
   }
 
   get hiredOn() {
-    return moment(this.hired_on).format('MMMM YYYY')
+    return moment(this.hired_on).format('DD MMM YYYY')
   }
 
   get isDraft() {

@@ -23,7 +23,7 @@ class Comment extends Model {
   get createdAt() {
     if (!this.created_at) return '---'
 
-    return moment(this.created_at).format('HH:mm DD MMM YYYY')
+    return moment(this.created_at).format('DD MMM YYYY, HH:mm')
   }
 
   get createdFromNow() {

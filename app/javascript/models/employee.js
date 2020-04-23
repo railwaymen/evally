@@ -34,7 +34,7 @@ class Employee extends Model {
   get archivedOn() {
     if (!this.archived_on) return '---'
 
-    return moment(this.archived_on).format('MMM DD, YYYY')
+    return moment(this.archived_on).format('DD MMM YYYY')
   }
 
   get employmentTime() {
@@ -69,7 +69,7 @@ class Employee extends Model {
   }
 
   get hiredOn() {
-    return moment(this.hired_on).format('MMMM YYYY')
+    return moment(this.hired_on).format('DD MMM YYYY')
   }
 
   // === hired at datepicker getter & setter
@@ -86,7 +86,7 @@ class Employee extends Model {
   get latestEvaluationDate() {
     if (!this.latest_evaluation_date) return '---'
 
-    return moment(this.latest_evaluation_date).format('MMM DD, YYYY')
+    return moment(this.latest_evaluation_date).format('DD MMM YYYY')
   }
 
   get nextEvaluationOn() {
