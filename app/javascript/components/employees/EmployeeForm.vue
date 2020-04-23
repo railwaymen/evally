@@ -43,6 +43,7 @@
               chips
               :label="$t('components.employees.employeeForm.position')"
               @change="localEmployee.set('position_set_on', null)"
+              :loading="loading"
             />
           </v-flex>
 
@@ -55,6 +56,7 @@
               prepend-inner-icon="mdi-account-multiple-outline"
               chips
               :label="$t('components.employees.employeeForm.group')"
+              :loading="loading"
             />
           </v-flex>
 
@@ -162,6 +164,7 @@
               item-value="id"
               item-text="fullname"
               prepend-inner-icon="mdi-account-plus-outline"
+              :loading="loading"
             />
           </v-flex>
         </v-layout>
@@ -201,6 +204,11 @@ export default {
       type: Employee,
       required: true,
       default: () => new Employee()
+    },
+    loading: {
+      type: Boolean,
+      required: true,
+      default: true
     }
   },
   data() {

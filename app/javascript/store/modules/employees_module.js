@@ -19,13 +19,18 @@ const initState = () => ({
   evaluators: new UsersList(),
   positions: [],
   groups: [],
-  loading: true
+  loading: 'fetch'
 })
 
 const EmployeesModule = {
   namespaced: true,
 
   state: initState(),
+
+  getters: {
+    fetchLoading: state => state.loading === 'fetch',
+    formLoading: state => state.loading === 'form'
+  },
 
   mutations: {
     ADD_EMPLOYEE(state, employee) {
@@ -76,7 +81,7 @@ const EmployeesModule = {
 
   actions: {
     fetchEmployees({ commit }) {
-      commit('SET_LOADING', true)
+      commit('SET_LOADING', 'fetch')
 
       coreApiClient
         .get(Employee.routes.employeesPath)
@@ -90,10 +95,10 @@ const EmployeesModule = {
             { root: true }
           )
         })
-        .finally(() => commit('SET_LOADING', false))
+        .finally(() => commit('SET_LOADING', 'ok'))
     },
     fetchArchivedEmployees({ commit }) {
-      commit('SET_LOADING', true)
+      commit('SET_LOADING', 'fetch')
 
       coreApiClient
         .get(Employee.routes.employeesArchivedPath)
@@ -107,14 +112,19 @@ const EmployeesModule = {
             { root: true }
           )
         })
-        .finally(() => commit('SET_LOADING', false))
+        .finally(() => commit('SET_LOADING', 'ok'))
     },
     fetchFormData({ commit }) {
+      commit('SET_LOADING', 'form')
+
       coreApiClient
         .get(Employee.routes.employeesFormPath)
         .then(response => commit('SET_FORM_DATA', response.data))
+        .finally(() => commit('SET_LOADING', 'ok'))
     },
     fetchEmployee({ commit }, id) {
+      commit('SET_LOADING', 'fetch')
+
       coreApiClient
         .get(Employee.routes.employeePath(id))
         .then(response => {
@@ -127,6 +137,7 @@ const EmployeesModule = {
             { root: true }
           )
         })
+        .finally(() => commit('SET_LOADING', 'ok'))
     },
     showEvaluation({ commit }, { employeeId, id }) {
       coreApiClient

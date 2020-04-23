@@ -5,6 +5,7 @@
         :employee="employee"
         :evaluations="evaluations"
         :positionChanges="positionChanges"
+        :loading="fetchLoading"
       />
     </v-flex>
 
@@ -25,7 +26,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import EmployeeSidebar from '@components/employees/EmployeeSidebar'
 
@@ -37,6 +38,9 @@ export default {
       'employee',
       'evaluations',
       'positionChanges'
+    ]),
+    ...mapGetters('EmployeesModule', [
+      'fetchLoading'
     ])
   },
   created() {

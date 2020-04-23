@@ -4,7 +4,7 @@
       <v-container grid-list-lg fluid>
         <archived-table
           :employees="employees"
-          :loading="loading"
+          :loading="fetchLoading"
         />
       </v-container>
     </div>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import ArchivedTable from '@components/employees/ArchivedTable'
 
@@ -21,8 +21,10 @@ export default {
   components: { ArchivedTable },
   computed: {
     ...mapState('EmployeesModule', [
-      'employees',
-      'loading'
+      'employees'
+    ]),
+    ...mapGetters('EmployeesModule', [
+      'fetchLoading'
     ])
   },
   created() {

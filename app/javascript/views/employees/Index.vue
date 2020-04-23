@@ -71,6 +71,7 @@
             <template #activator="{ on }">
               <v-btn
                 @click="openUpdateForm"
+                :disabled="employee.isArchived"
                 v-on="on"
                 color="black"
                 icon
@@ -143,7 +144,7 @@
         <basic-table
           v-if="$route.name === 'employees_path'"
           :employees="employees"
-          :loading="loading"
+          :loading="fetchLoading"
           :editable="user.isAdmin"
           @edit="openUpdateForm"
         />
@@ -155,7 +156,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import { Employee } from '@models/employee'
@@ -174,7 +175,8 @@ export default {
         innerComponent: EmployeeForm,
         maxWidth: 800,
         props: {
-          employee: new Employee()
+          employee: new Employee(),
+          loading: this.formLoading
         }
       })
     },
@@ -183,7 +185,8 @@ export default {
         innerComponent: EmployeeForm,
         maxWidth: 800,
         props: {
-          employee: this.employees.findById(id) || this.employee
+          employee: this.employees.findById(id) || this.employee,
+          loading: this.formLoading
         }
       })
     },
@@ -207,11 +210,14 @@ export default {
   computed: {
     ...mapState('EmployeesModule', [
       'employees',
-      'employee',
-      'loading'
+      'employee'
     ]),
     ...mapState('AuthenticationModule', [
       'user'
+    ]),
+    ...mapGetters('EmployeesModule', [
+      'fetchLoading',
+      'formLoading'
     ])
   },
   watch: {
