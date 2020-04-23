@@ -66,11 +66,12 @@
           <span>{{ $t('shared.tooltips.addNew') }}</span>
         </v-tooltip>
 
-        <template v-if="$route.name !== 'employees_path'">
+        <template v-if="matchedRoute('employee_path')">
           <v-tooltip bottom>
             <template #activator="{ on }">
               <v-btn
                 @click="openNewEvaluationForm"
+                :disabled="employee.isArchived"
                 v-on="on"
                 color="green"
                 icon
@@ -121,6 +122,7 @@
             <template #activator="{ on }">
               <v-btn
                 @click="openArchiveForm"
+                :disabled="employee.isArchived"
                 v-on="on"
                 color="orange"
                 icon

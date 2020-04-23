@@ -20,6 +20,10 @@ export default {
       this.$store.commit('NotificationsModule/PUSH_NOTIFICATION', message)
     },
 
+    matchedRoute(routeName) {
+      return this.$route.matched.some(route => route.name === routeName)
+    },
+
     updateLocale(locale) {
       this.$i18n.locale = locale
       this.$vuetify.lang.current = locale
