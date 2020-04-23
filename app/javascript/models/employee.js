@@ -128,6 +128,7 @@ class Employee extends Model {
   static get routes() {
     return {
       employeesPath: '/v2/employees',
+      employeesFormPath: '/v2/employees/form',
       employeesArchivedPath: '/v2/employees/archived',
       employeesOverviewPath: '/v2/employees/overview',
       employeesSearchPath: '/v2/employees/search',

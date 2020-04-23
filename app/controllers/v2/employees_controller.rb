@@ -23,6 +23,12 @@ module V2
       render json: V2::Employees::ShowView.render(presenter), status: :ok
     end
 
+    def form
+      presenter = V2::Employees::FormPresenter.new
+
+      render json: V2::Employees::FormView.render(presenter), status: :ok
+    end
+
     def create
       create_form.save
 

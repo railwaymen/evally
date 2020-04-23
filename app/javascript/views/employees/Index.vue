@@ -165,8 +165,6 @@ import DeleteConfirm from '@components/employees/DeleteConfirm'
 import ArchiveForm from '@components/employees/ArchiveForm'
 import EmployeeForm from '@components/employees/EmployeeForm'
 
-import { pluckUniq } from '@utils/helpers'
-
 export default {
   name: 'EmployeesIndex',
   components: { BasicTable },
@@ -176,9 +174,6 @@ export default {
         innerComponent: EmployeeForm,
         maxWidth: 800,
         props: {
-          evaluators: this.evaluators,
-          positions: this.positions,
-          groups: this.groups,
           employee: new Employee()
         }
       })
@@ -188,9 +183,6 @@ export default {
         innerComponent: EmployeeForm,
         maxWidth: 800,
         props: {
-          evaluators: this.evaluators,
-          positions: this.positions,
-          groups: this.groups,
           employee: this.employees.findById(id) || this.employee
         }
       })
@@ -216,18 +208,11 @@ export default {
     ...mapState('EmployeesModule', [
       'employees',
       'employee',
-      'evaluators',
       'loading'
     ]),
     ...mapState('AuthenticationModule', [
       'user'
-    ]),
-    positions() {
-      return pluckUniq(this.employees.models, 'position')
-    },
-    groups() {
-      return pluckUniq(this.employees.models, 'group')
-    }
+    ])
   },
   watch: {
     $route: {

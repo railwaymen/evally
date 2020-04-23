@@ -42,7 +42,7 @@
               prepend-inner-icon="mdi-briefcase-outline"
               chips
               :label="$t('components.employees.employeeForm.position')"
-              @change="resetPositionDate"
+              @change="localEmployee.set('position_set_on', null)"
             />
           </v-flex>
 
@@ -190,29 +190,13 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 import { Employee } from '@models/employee'
-import { UsersList } from '@models/user'
 
 export default {
   name: 'EmployeeForm',
   props: {
-    evaluators: {
-      type: UsersList,
-      required: true,
-      default: () => new UsersList()
-    },
-    positions: {
-      type: Array,
-      required: true,
-      default: () => []
-    },
-    groups: {
-      type: Array,
-      required: true,
-      default: () => []
-    },
     employee: {
       type: Employee,
       required: true,
@@ -228,15 +212,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions({
-      createEmployee: 'EmployeesModule/createEmployee',
-      updateEmployee: 'EmployeesModule/updateEmployee'
-    }),
+    ...mapActions('EmployeesModule', [
+      'createEmployee',
+      'updateEmployee',
+      'fetchFormData'
+    ]),
     closeDialog() {
       this.$emit('closeDialog')
-    },
-    resetPositionDate() {
-      this.localEmployee.set('position_set_on', null)
     },
     save() {
       if (!this.$refs.form.validate()) return
@@ -246,9 +228,17 @@ export default {
     }
   },
   computed: {
+    ...mapState('EmployeesModule', [
+      'positions',
+      'groups',
+      'evaluators'
+    ]),
     action() {
       return this.localEmployee.isPersisted ? 'update' : 'create'
     }
+  },
+  created() {
+    this.fetchFormData()
   }
 }
 </script>

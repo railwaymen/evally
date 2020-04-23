@@ -17,6 +17,8 @@ const initState = () => ({
   sections: new SectionsList(),
   positionChanges: new PositionChangesList(),
   evaluators: new UsersList(),
+  positions: [],
+  groups: [],
   loading: true
 })
 
@@ -60,11 +62,15 @@ const EmployeesModule = {
     SET_EMPLOYEES(state, { employees, evaluators }) {
       state.employees = new EmployeesList(employees)
       state.evaluators = new UsersList(evaluators)
-      state.loading = false
     },
     SET_EVALUATION(state, { evaluation, sections }) {
       state.evaluation = new Evaluation(evaluation)
       state.sections = new SectionsList(sections)
+    },
+    SET_FORM_DATA(state, { positions, groups, evaluators }) {
+      state.positions = positions
+      state.groups = groups
+      state.evaluators = new UsersList(evaluators)
     }
   },
 
@@ -102,6 +108,11 @@ const EmployeesModule = {
           )
         })
         .finally(() => commit('SET_LOADING', false))
+    },
+    fetchFormData({ commit }) {
+      coreApiClient
+        .get(Employee.routes.employeesFormPath)
+        .then(response => commit('SET_FORM_DATA', response.data))
     },
     fetchEmployee({ commit }, id) {
       coreApiClient

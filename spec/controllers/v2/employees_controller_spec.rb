@@ -22,7 +22,6 @@ RSpec.describe V2::EmployeesController, type: :controller do
         expect(response).to have_http_status 200
 
         expect(response.body).to have_json_path('employees')
-        expect(response.body).to have_json_path('evaluators')
       end
     end
   end
@@ -51,6 +50,27 @@ RSpec.describe V2::EmployeesController, type: :controller do
         get :show, params: { id: 1 }
 
         expect(response).to have_http_status 404
+      end
+    end
+  end
+
+  describe '#form' do
+    context 'when unauthorized' do
+      it 'responds with 401 error' do
+        get :form
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with form data' do
+        sign_in admin
+        get :form
+
+        expect(response).to have_http_status 200
+        expect(json_response.keys).to contain_exactly(
+          'positions', 'groups', 'evaluators'
+        )
       end
     end
   end

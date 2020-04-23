@@ -19,11 +19,17 @@ Rails.application.routes.draw do
       end
 
       resources :employees, only: %i[index show create update destroy] do
-        get :skills, on: :collection
-        get :search, on: :collection
-        get :overview, on: :collection
-        put :archive, on: :member
-        get :archived, on: :collection
+        collection do
+          get :form
+          get :skills
+          get :search
+          get :overview
+          get :archived
+        end
+
+        member do
+          put :archive
+        end
 
         get '/evaluations/:id', to: 'evaluation_employables#completed'
       end

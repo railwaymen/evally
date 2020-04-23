@@ -12,10 +12,6 @@ module V2
         V2::Employees::BasicQuery.call(scope)
       end
 
-      def evaluators
-        User.all if @state == 'hired'
-      end
-
       private
 
       def scope
