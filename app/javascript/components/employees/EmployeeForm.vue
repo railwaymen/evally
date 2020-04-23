@@ -87,7 +87,12 @@
             </v-menu>
           </v-flex>
 
-          <v-flex class="px-2" xs12 lg6>
+          <v-flex
+            v-if="localEmployee.isPersisted"
+            class="px-2"
+            xs12
+            lg6
+          >
             <v-menu
               ref="positionSetAtPicker"
               v-model="positionSetAtPicker"

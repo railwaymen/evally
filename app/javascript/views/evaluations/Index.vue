@@ -30,7 +30,7 @@
                 color="green"
                 icon
               >
-                <v-icon>mdi-bookmark-check-outline</v-icon>
+                <v-icon>mdi-clipboard-check-outline</v-icon>
               </v-btn>
             </template>
 

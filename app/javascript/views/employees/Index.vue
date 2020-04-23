@@ -67,6 +67,21 @@
         </v-tooltip>
 
         <template v-if="$route.name !== 'employees_path'">
+          <v-tooltip bottom key="edit">
+            <template #activator="{ on }">
+              <v-btn
+                @click="openUpdateForm"
+                v-on="on"
+                color="black"
+                icon
+              >
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </template>
+
+            <span>{{ $t('shared.tooltips.edit') }}</span>
+          </v-tooltip>
+
           <v-tooltip bottom key="copyLink">
             <template #activator="{ on }">
               <v-btn
@@ -176,7 +191,7 @@ export default {
           evaluators: this.evaluators,
           positions: this.positions,
           groups: this.groups,
-          employee: this.employees.findById(id)
+          employee: this.employees.findById(id) || this.employee
         }
       })
     },
