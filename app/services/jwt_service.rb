@@ -5,7 +5,7 @@ class JwtService
   DEFAULT_EXPIRATION_TIME = 12.hours
 
   def self.encode(user, exp = DEFAULT_EXPIRATION_TIME.from_now)
-    JWT.encode({ id: user.id, role: user.role, api_key: api_key, exp: exp.to_i }, secret)
+    JWT.encode({ id: user.id, email: user.email, api_key: api_key, exp: exp.to_i }, secret)
   end
 
   def self.decode(token)

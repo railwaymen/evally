@@ -20,6 +20,8 @@ module V2
 
           create_activity!
         end
+
+        user_sync.perform
       end
 
       private
@@ -36,6 +38,10 @@ module V2
           activable: @user,
           activable_name: @user.fullname
         )
+      end
+
+      def user_sync
+        @user_sync ||= V2::Sync::UserSyncService.new(@user, @admin)
       end
     end
   end

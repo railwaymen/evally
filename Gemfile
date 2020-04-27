@@ -18,6 +18,7 @@ gem 'pundit', '~> 2.1'
 gem 'devise', '~> 4.7'
 gem 'devise_invitable', '~> 2.0.0'
 gem 'jwt', '~> 2.2'
+gem 'faraday'
 
 group :development, :test do
   gem 'better_errors'
@@ -36,6 +37,7 @@ group :development, :test do
   gem 'rubocop', '~> 0.80.0', require: false
   gem 'rubocop-rails', require: false
   gem 'travis', '1.8.10'
+  gem 'webmock'
 end
 
 group :development do

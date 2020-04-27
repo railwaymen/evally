@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe V2::ProfileController, type: :controller do
   let(:user) { create(:user) }
 
+  before(:each) { stub_api_client_service }
+
   describe '#show' do
     context 'when unauthorized' do
       it 'responds with error' do

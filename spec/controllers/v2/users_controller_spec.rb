@@ -6,6 +6,8 @@ RSpec.describe V2::UsersController, type: :controller do
   let(:admin) { create(:user, role: 'admin') }
   let(:evaluator) { create(:user, role: 'evaluator') }
 
+  before(:each) { stub_api_client_service }
+
   describe '#index' do
     context 'when unauthorized' do
       it 'responds with 401 error' do

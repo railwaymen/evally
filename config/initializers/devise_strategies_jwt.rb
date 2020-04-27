@@ -8,7 +8,7 @@ module Devise
       end
 
       def authenticate!
-        success! mapping.to.active.find(resource_id)
+        success! mapping.to.active.find_by!(email: resource_email)
       rescue ::JWT::ExpiredSignature, ::JWT::VerificationError, ::JWT::DecodeError, KeyError
         fail!
       end
@@ -23,8 +23,8 @@ module Devise
         @token ||= request.headers.fetch('Token', '').split(' ').last
       end
 
-      def resource_id
-        JwtService.decode(token).fetch('id')
+      def resource_email
+        JwtService.decode(token).fetch('email')
       end
 
       def fail!
