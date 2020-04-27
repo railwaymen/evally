@@ -13,7 +13,8 @@ module V2
 
       def save
         validate_user!
-        @user.save
+
+        user_sync.perform if @user.save
       end
 
       private
@@ -22,6 +23,10 @@ module V2
         return if @user.valid?
 
         raise ErrorResponderService.new(:invalid_record, 422, @user.errors.full_messages)
+      end
+
+      def user_sync
+        @user_sync ||= V2::Sync::UserSyncService.new(@user, @user)
       end
     end
   end
