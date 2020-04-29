@@ -16,8 +16,8 @@ module V2
         validate_employee!
 
         ActiveRecord::Base.transaction do
-          log_position_change! if position_changed?
-          create_activity!
+          log_position_change!
+          notify_evaluator!
 
           @employee.save!
         end
@@ -32,6 +32,8 @@ module V2
       end
 
       def log_position_change!
+        return unless @employee.persisted? && @employee.position_changed?
+
         @employee.position_changes.create!(
           previous_position: @employee.position_was,
           current_position: @employee.position,
@@ -39,20 +41,17 @@ module V2
         )
       end
 
-      def position_changed?
-        @employee.persisted? && @employee.position_changed?
-      end
+      def notify_evaluator!
+        return if @employee.evaluator_id.blank?
 
-      def create_activity!
-        @user.activities.create!(
-          action: resolved_activity_action,
-          activable: @employee,
-          activable_name: @employee.fullname
+        action = @employee.evaluator_id_changed? ? 'assign' : 'update'
+
+        Notification.create!(
+          actor: @user,
+          recipient: @employee.evaluator,
+          action: action,
+          notifiable: @employee
         )
-      end
-
-      def resolved_activity_action
-        @employee.new_record? ? 'create' : 'update'
       end
     end
   end

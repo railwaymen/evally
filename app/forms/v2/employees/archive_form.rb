@@ -20,9 +20,9 @@ module V2
         validate_employee!
 
         ActiveRecord::Base.transaction do
-          @employee.update!(state: 'archived', archived_on: @archived_on, evaluator_id: nil)
+          notify_evaluator!
 
-          create_archive_activity!
+          @employee.update!(state: 'archived', archived_on: @archived_on, evaluator_id: nil)
         end
       end
 
@@ -35,22 +35,25 @@ module V2
       end
 
       def archived_on_presence
-        return true if @archived_on.present?
+        return if @archived_on.present?
 
         @employee.errors.add(:archived_on, :blank)
       end
 
       def existing_drafts
-        return true unless @employee.evaluations.draft.exists?
+        return unless @employee.evaluations.draft.exists?
 
         @employee.errors.add(:base, :has_draft_evaluations)
       end
 
-      def create_archive_activity!
-        @user.activities.create!(
+      def notify_evaluator!
+        return if @employee.evaluator_id.blank?
+
+        Notification.create!(
+          actor: @user,
+          recipient: @employee.evaluator,
           action: 'archive',
-          activable: @employee,
-          activable_name: @employee.fullname
+          notifiable: @employee
         )
       end
     end

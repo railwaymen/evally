@@ -1,4 +1,5 @@
 pl:
+  hello: 'Cześć %{employee.fullname}'
   activerecord:
     attributes:
       employee:

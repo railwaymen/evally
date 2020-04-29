@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_31_193841) do
+ActiveRecord::Schema.define(version: 2020_04_28_071425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,21 @@ ActiveRecord::Schema.define(version: 2020_03_31_193841) do
     t.string "position", null: false
     t.index ["evaluable_type", "evaluable_id"], name: "index_evaluations_on_evaluable_type_and_evaluable_id"
     t.index ["state"], name: "index_evaluations_on_state"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "recipient_id"
+    t.bigint "actor_id", null: false
+    t.datetime "read_at"
+    t.string "action", null: false
+    t.string "notifiable_type", null: false
+    t.bigint "notifiable_id", null: false
+    t.jsonb "details", default: {}, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["actor_id"], name: "index_notifications_on_actor_id"
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
+    t.index ["recipient_id"], name: "index_notifications_on_recipient_id"
   end
 
   create_table "position_changes", force: :cascade do |t|
@@ -169,6 +184,8 @@ ActiveRecord::Schema.define(version: 2020_03_31_193841) do
   add_foreign_key "comments", "recruits"
   add_foreign_key "comments", "users"
   add_foreign_key "employees", "users", column: "evaluator_id"
+  add_foreign_key "notifications", "users", column: "actor_id"
+  add_foreign_key "notifications", "users", column: "recipient_id"
   add_foreign_key "position_changes", "employees"
   add_foreign_key "recruits", "users", column: "evaluator_id"
   add_foreign_key "settings", "users"
