@@ -10,4 +10,18 @@ class Notification < ApplicationRecord
   # # Validations
   #
   validates :action, presence: true
+
+  # # Methods
+  #
+  def body
+    I18n.t(
+      "notifications.#{notifiable_type.downcase}.#{action}",
+      notifiable: notifiable.fullname || notifiable_type.downcase,
+      actor: actor.fullname
+    )
+  end
+
+  def path
+    I18n.t("notifications.#{notifiable_type.downcase}.path", id: notifiable_id)
+  end
 end

@@ -3,12 +3,15 @@ import { fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
 
+import { Notification, NotificationsList } from '@models/notification'
 import { User } from '@models/user'
 import { Setting } from '@models/setting'
 
 const initialState = () => ({
   user: new User(),
   setting: new Setting(),
+  notifications: new NotificationsList(),
+  unreadNotificationsCount: 0,
   loading: false
 })
 
@@ -18,17 +21,34 @@ const AuthenticationModule = {
   state: initialState(),
 
   mutations: {
+    REFRESH_NOTIFICATION(state, notification) {
+      state.notifications.refresh(notification)
+      state.unreadNotificationsCount -= Number(!notification.unread)
+    },
     SET_LOADING(state, status) {
       state.loading = status
+    },
+    SET_NOTIFICATIONS(state, { notifications, unread_notifications_count }) {
+      state.notifications = new NotificationsList(notifications)
+      state.unreadNotificationsCount = unread_notifications_count
     },
     SET_SETTING(state, setting) {
       state.setting = new Setting(setting)
 
       localStorage.setItem('ev411y_l4ng', setting.lang || 'en')
     },
-    SET_SESSION(state, { user, setting }) {
+    SET_SESSION(state, data) {
+      const {
+        user,
+        setting,
+        notifications,
+        unread_notifications_count
+      } = data
+
       state.user = new User(user)
       state.setting = new Setting(setting)
+      state.notifications = new NotificationsList(notifications)
+      state.unreadNotificationsCount = unread_notifications_count
 
       localStorage.setItem('ev411y_l4ng', setting.lang || 'en')
     },
@@ -142,6 +162,20 @@ const AuthenticationModule = {
           })
           .finally(() => commit('SET_LOADING', false))
       })
+    },
+    fetchNotifications({ commit }) {
+      coreApiClient
+        .get(Notification.routes.notificationsPath)
+        .then(response => {
+          commit('SET_NOTIFICATIONS', response.data)
+        })
+    },
+    readNotification({ commit }, id) {
+      coreApiClient
+        .put(Notification.routes.readNotificationPath(id))
+        .then(response => {
+          commit('REFRESH_NOTIFICATION', response.data)
+        })
     },
     login({ commit }, credentials) {
       return new Promise((resolve, reject) => {

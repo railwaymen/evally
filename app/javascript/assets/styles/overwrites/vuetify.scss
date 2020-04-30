@@ -18,8 +18,13 @@
   box-shadow: none;
 }
 
+
 .v-list-item--disabled {
   border-bottom: 1px dashed #ccc;
+}
+
+.v-list-item--active.no-active::before {
+  opacity: 0 !important;
 }
 
 

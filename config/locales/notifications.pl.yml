@@ -1,0 +1,6 @@
+pl:
+  notifications:
+    employee:
+      archive: "%{actor} przeniósł praconika %{notifiable} do archiwum"
+      assign: "%{actor} przypisał pracownika %{notifiable} do Ciebie"
+      update: "%{actor} zaktualizował pracownika %{notifiable}"

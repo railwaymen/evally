@@ -168,7 +168,7 @@
           @edit="openUpdateForm"
         />
 
-        <router-view v-else />
+        <router-view v-else :key="String($route.params.employeeId)" />
       </v-container>
     </div>
   </section>

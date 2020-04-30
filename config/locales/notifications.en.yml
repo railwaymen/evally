@@ -1,0 +1,7 @@
+en:
+  notifications:
+    employee:
+      path: "/app/employees/%{id}"
+      archive: "%{actor} moved %{notifiable} to archive"
+      assign: "%{actor} assigned %{notifiable} to you"
+      update: "%{actor} updated %{notifiable}'s information"

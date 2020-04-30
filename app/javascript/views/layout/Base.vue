@@ -18,6 +18,8 @@
         <v-icon>mdi-heart</v-icon>
       </v-btn>
 
+      <notifications-menu />
+
       <v-menu transition="slide-y-transition" offset-y>
         <template #activator="{ on }">
           <span class="profile" v-on="on" v-ripple>
@@ -169,6 +171,8 @@
 <script>
 import { mapState } from 'vuex'
 
+import NotificationsMenu from '@components/layout/NotificationsMenu'
+
 import FormsDialog from '@components/shared/FormsDialog'
 import ConfirmDialog from '@components/shared/ConfirmDialog'
 
@@ -176,7 +180,7 @@ import { recruitableApiClient } from '@utils/api_clients'
 
 export default {
   name: 'Base',
-  components: { ConfirmDialog, FormsDialog },
+  components: { NotificationsMenu, ConfirmDialog, FormsDialog },
   computed: {
     ...mapState('AuthenticationModule', [
       'user',
