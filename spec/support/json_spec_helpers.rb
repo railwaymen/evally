@@ -82,7 +82,7 @@ module JsonSpecHelpers
     {
       id: notification.id,
       body: notification.body,
-      path: notification.path,
+      notifiable_path: notification.notifiable_path,
       created_at: notification.created_at,
       unread: notification.read_at.blank?
     }

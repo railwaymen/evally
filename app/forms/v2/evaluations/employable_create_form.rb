@@ -5,6 +5,8 @@ module V2
     class EmployableCreateForm
       attr_reader :draft
 
+      delegate :notify_evaluator!, :notify_admins!, to: :notifier_service
+
       def initialize(params, user:)
         @params = params
         @user = user
@@ -14,9 +16,10 @@ module V2
         build_draft && validate_draft!
 
         ActiveRecord::Base.transaction do
-          @draft.save!
+          notify_evaluator!(:start_evaluation)
+          notify_admins!(:start_evaluation)
 
-          create_activity!
+          @draft.save!
         end
       end
 
@@ -38,8 +41,8 @@ module V2
       end
 
       def employee
-        @employee ||= EmployeePolicy::Scope.new(@user, Employee)
-                                           .resolve.find_by(id: @params[:employee_id])
+        @employee ||=
+          EmployeePolicy::Scope.new(@user, Employee).resolve.find_by(id: @params[:employee_id])
 
         unless @employee
           raise ErrorResponderService.new(:record_not_found, 404, ['Employee does not exist'])
@@ -86,12 +89,8 @@ module V2
         end
       end
 
-      def create_activity!
-        @user.activities.create!(
-          action: 'create',
-          activable: @draft,
-          activable_name: employee.fullname
-        )
+      def notifier_service
+        @notifier_service ||= V2::NotifierService.new(notifiable: @draft, actor: @user)
       end
     end
   end

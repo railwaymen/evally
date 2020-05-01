@@ -13,15 +13,29 @@ class Notification < ApplicationRecord
 
   # # Methods
   #
+
   def body
     I18n.t(
       "notifications.#{notifiable_type.downcase}.#{action}",
-      notifiable: notifiable.fullname || notifiable_type.downcase,
-      actor: actor.fullname
+      notifiable_name: resolve_notifiable_name,
+      actor_name: actor.fullname
     )
   end
 
-  def path
-    I18n.t("notifications.#{notifiable_type.downcase}.path", id: notifiable_id)
+  def notifiable_path
+    notifiable.notifiable_path if notifiable.present?
+  end
+
+  def unread
+    read_at.blank?
+  end
+
+  private
+
+  def resolve_notifiable_name
+    case notifiable_type
+    when 'Evaluation' then notifiable.evaluable.fullname
+    else notifiable.fullname
+    end
   end
 end

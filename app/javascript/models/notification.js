@@ -7,7 +7,7 @@ class Notification extends Model {
     return {
       id: null,
       body: '',
-      path: '',
+      notifiable_path: '',
       created_at: '',
       unread: false
     }

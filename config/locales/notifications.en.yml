@@ -1,7 +1,11 @@
 en:
   notifications:
     employee:
-      path: "/app/employees/%{id}"
-      archive: "%{actor} moved %{notifiable} to archive"
-      assign: "%{actor} assigned %{notifiable} to you"
-      update: "%{actor} updated %{notifiable}'s information"
+      archive: "%{actor_name} archived an employee: %{notifiable_name}"
+      assign_evaluator: "%{actor_name} assigned an evaluator to %{notifiable_name}"
+      assign_me: "%{actor_name} assigned you to %{notifiable_name}"
+      create: "%{actor_name} created an employee: %{notifiable_name}"
+      update: "%{actor_name} updated an employee: %{notifiable_name}"
+    evaluation:
+      start_evaluation: "%{actor_name} started an evaluation of %{notifiable_name}"
+      complete_evaluation: "%{actor_name} completed an evaluation of %{notifiable_name}"

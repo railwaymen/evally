@@ -38,7 +38,7 @@ RSpec.describe Evaluation, type: :model do
       end
     end
 
-    context '.employee' do
+    context '.recruit' do
       it 'returns nil' do
         employee = FactoryBot.create(:employee)
         evaluation = FactoryBot.create(:evaluation_draft_employee, evaluable: employee)
@@ -51,6 +51,29 @@ RSpec.describe Evaluation, type: :model do
         evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
 
         expect(evaluation.recruit).to eq recruit
+      end
+    end
+
+    context '.notifiable_path' do
+      it 'returns path for draft employee evaluation' do
+        evaluation = FactoryBot.create(:evaluation_draft_employee)
+
+        expect(evaluation.notifiable_path).to eq "/app/evaluations/#{evaluation.id}"
+      end
+
+      it 'returns path for completed employee evaluation' do
+        evaluation = FactoryBot.create(:evaluation_completed_employee)
+        employee = evaluation.employee
+
+        expect(evaluation.notifiable_path).to eq(
+          "/app/employees/#{employee.id}/evaluations/#{evaluation.id}"
+        )
+      end
+
+      it 'returns path to dashboard' do
+        evaluation = FactoryBot.create(:evaluation_draft_recruit)
+
+        expect(evaluation.notifiable_path).to eq '/app/dashboard'
       end
     end
   end

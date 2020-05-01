@@ -39,7 +39,7 @@ RSpec.describe V2::NotificationsController, type: :controller do
     end
 
     context 'when authorized' do
-      it 'responds with read notificaiton' do
+      it 'responds with read notification' do
         notification = FactoryBot.create(:notification, recipient: user, read_at: nil)
 
         sign_in user

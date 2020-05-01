@@ -66,15 +66,7 @@ module V2
     end
 
     def destroy
-      ActiveRecord::Base.transaction do
-        employee.destroy!
-
-        current_user.activities.create!(
-          action: 'destroy',
-          activable: employee,
-          activable_name: employee.fullname
-        )
-      end
+      employee.destroy!
 
       head :no_content
     end
@@ -97,7 +89,7 @@ module V2
     end
 
     def create_form
-      @create_form ||= V2::Employees::BasicForm.new(
+      @create_form ||= V2::Employees::CreateForm.new(
         Employee.new,
         params: employee_params,
         user: current_user
@@ -105,7 +97,7 @@ module V2
     end
 
     def update_form
-      @update_form ||= V2::Employees::BasicForm.new(
+      @update_form ||= V2::Employees::UpdateForm.new(
         employee,
         params: employee_params,
         user: current_user

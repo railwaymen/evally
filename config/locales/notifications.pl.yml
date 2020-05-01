@@ -1,6 +1,11 @@
-pl:
+en:
   notifications:
     employee:
-      archive: "%{actor} przeniósł praconika %{notifiable} do archiwum"
-      assign: "%{actor} przypisał pracownika %{notifiable} do Ciebie"
-      update: "%{actor} zaktualizował pracownika %{notifiable}"
+      archive: "%{actor_name} zarchiwizował(a) pracownika: %{notifiable_name}"
+      assign_evaluator: "%{actor_name} przypisał(a) ewaluatora do pracownika %{notifiable_name}"
+      assign_me: "%{actor_name} przypisał(a) Ciebie do pracownika %{notifiable_name}"
+      create: "%{actor_name} dodał(a) nowego pracownika: %{notifiable_name}"
+      update: "%{actor_name} zaktualizował(a) profil pracownika: %{notifiable_name}"
+    evaluation:
+      start_evaluation: "%{actor_name} utworzył(a) ocenę pracownika: %{notifiable_name}"
+      complete_evaluation: "%{actor_name} zakończył(a) ocenę pracownika: %{notifiable_name}"

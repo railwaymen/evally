@@ -5,11 +5,7 @@ module V2
     class Serializer < Blueprinter::Base
       identifier :id
 
-      fields :body, :path, :created_at
-
-      field :unread do |notification|
-        notification.read_at.blank?
-      end
+      fields :body, :notifiable_path, :unread, :created_at
     end
   end
 end

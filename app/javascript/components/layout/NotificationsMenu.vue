@@ -20,7 +20,10 @@
       </template>
 
       <v-list min-width="420" subheader>
-        <v-subheader>Notifications</v-subheader>
+        <v-subheader class="notification__subheader">
+          <span>Notifications</span>
+          <v-btn color="primary" text small>Read All</v-btn>
+        </v-subheader>
 
         <v-list-item v-if="notifications.isEmpty">
           <v-list-item-title>There is no notifications yet</v-list-item-title>
@@ -29,14 +32,20 @@
         <v-list-item
           v-for="notification in notifications.models"
           :key="notification.id"
-          :to="notification.path"
+          :to="notification.notifiable_path"
           active-class="no-active"
-          @click="readNotification(notification.id)"
+          @click="markAsRead(notification)"
         >
           <v-list-item-content :class="{ 'notification--unread': notification.unread }">
             <v-list-item-title>{{ notification.body }}</v-list-item-title>
             <v-list-item-subtitle>{{ notification.createdAtFromNow }}</v-list-item-subtitle>
           </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item v-if="notifications.models.length > 0 ">
+          <v-list-item-title>
+            <v-btn color="primary" text small block>See More</v-btn>
+          </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -57,7 +66,10 @@ export default {
     ...mapActions('AuthenticationModule', [
       'fetchNotifications',
       'readNotification'
-    ])
+    ]),
+    markAsRead(notification) {
+      if (notification.unread) this.readNotification(notification.id)
+    }
   },
   computed: {
     ...mapState('AuthenticationModule', [

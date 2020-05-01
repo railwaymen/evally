@@ -29,6 +29,8 @@ class Evaluation < ApplicationRecord
 
   # # Methods
   #
+  delegate :evaluator, to: :evaluable
+
   def employee_type?
     evaluable_type == 'Employee'
   end
@@ -51,5 +53,15 @@ class Evaluation < ApplicationRecord
 
   def recruit
     evaluable if recruit_type?
+  end
+
+  def notifiable_path
+    if draft? && employee_type?
+      "/app/evaluations/#{id}"
+    elsif completed? && employee_type?
+      "/app/employees/#{employee_id}/evaluations/#{id}"
+    else
+      '/app/dashboard'
+    end
   end
 end

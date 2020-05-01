@@ -4,7 +4,7 @@ module V2
   module Notifications
     class IndexPresenter
       def initialize(scope, size: nil)
-        @scope = scope
+        @scope = scope.order(created_at: :desc)
         @size = size.to_i
       end
 

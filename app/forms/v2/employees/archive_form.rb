@@ -7,6 +7,8 @@ module V2
 
       attr_reader :employee, :archived_on
 
+      delegate :notify_evaluator!, :notify_admins!, to: :notifier_service
+
       validate :archived_on_presence
       validate :existing_drafts
 
@@ -20,7 +22,8 @@ module V2
         validate_employee!
 
         ActiveRecord::Base.transaction do
-          notify_evaluator!
+          notify_evaluator!(:archive)
+          notify_admins!(:archive)
 
           @employee.update!(state: 'archived', archived_on: @archived_on, evaluator_id: nil)
         end
@@ -46,15 +49,8 @@ module V2
         @employee.errors.add(:base, :has_draft_evaluations)
       end
 
-      def notify_evaluator!
-        return if @employee.evaluator_id.blank?
-
-        Notification.create!(
-          actor: @user,
-          recipient: @employee.evaluator,
-          action: 'archive',
-          notifiable: @employee
-        )
+      def notifier_service
+        @notifier_service ||= V2::NotifierService.new(notifiable: @employee, actor: @user)
       end
     end
   end
