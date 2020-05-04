@@ -9,3 +9,8 @@ en:
     evaluation:
       start_evaluation: "%{actor_name} utworzył(a) ocenę pracownika: %{notifiable_name}"
       complete_evaluation: "%{actor_name} zakończył(a) ocenę pracownika: %{notifiable_name}"
+    recruit:
+      assign_me: "%{actor_name} przypisał(a) Ciebie do nowego rekruta"
+    comment:
+      add_comment: "%{actor_name} skomentował(a) jednego z Twoich rekrutów"
+      status_change: "%{actor_name} zmienił(a) status jednego z Twoich rekrutów"

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Notification < ApplicationRecord
+  store_accessor :details, :notifiable_path
+
   # # Associations
   #
   belongs_to :recipient, class_name: 'User', optional: true
@@ -35,6 +37,7 @@ class Notification < ApplicationRecord
   def resolve_notifiable_name
     case notifiable_type
     when 'Evaluation' then notifiable.evaluable.fullname
+    when 'Recruit', 'Comment' then nil
     else notifiable.fullname
     end
   end

@@ -5,8 +5,11 @@ module V2
     class BasicForm
       attr_reader :comment
 
-      def initialize(comment, params:)
+      delegate :notify_evaluator!, to: :notifier_service
+
+      def initialize(comment, params:, user:)
         @comment = comment
+        @user = user
 
         @comment.assign_attributes(params)
       end
@@ -14,7 +17,11 @@ module V2
       def save
         validate_comment!
 
-        @comment.save!
+        ActiveRecord::Base.transaction do
+          notify_evaluator!(:add_comment) if @comment.new_record?
+
+          @comment.save!
+        end
       end
 
       private
@@ -23,6 +30,10 @@ module V2
         return if @comment.valid?
 
         raise ErrorResponderService.new(:invalid_record, 422, @comment.errors.full_messages)
+      end
+
+      def notifier_service
+        @notifier_service ||= V2::NotifierService.new(notifiable: @comment, actor: @user)
       end
     end
   end

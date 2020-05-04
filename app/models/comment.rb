@@ -3,7 +3,7 @@
 class Comment < ApplicationRecord
   # # Associations
   #
-  belongs_to :recruit
+  belongs_to :recruit, inverse_of: :comments
   belongs_to :user, optional: true
 
   # # Validations
@@ -17,8 +17,13 @@ class Comment < ApplicationRecord
 
   # # Mathods
   #
+  delegate :evaluator, to: :recruit
 
   def created_recently?
     discarded_at.blank? && created_at > 15.minutes.ago
+  end
+
+  def notifiable_path
+    "/app/recruitments/#{recruit.public_recruit_id}/documents/#{recruit_document_id}"
   end
 end

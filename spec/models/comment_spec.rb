@@ -36,4 +36,16 @@ RSpec.describe Comment, type: :model do
       )
     end
   end
+
+  describe 'methods' do
+    context '.notifiable_path' do
+      it 'returns path to proper recruit document' do
+        comment = FactoryBot.create(:comment, recruit_document_id: 1)
+
+        expect(comment.notifiable_path).to eq(
+          "/app/recruitments/#{comment.recruit.public_recruit_id}/documents/1"
+        )
+      end
+    end
+  end
 end

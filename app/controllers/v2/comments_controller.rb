@@ -54,30 +54,33 @@ module V2
     def create_form
       @create_form ||= V2::Comments::BasicForm.new(
         recruit.comments.build(user_id: current_user.id),
-        params: comment_params
+        params: comment_params,
+        user: current_user
       )
     end
 
     def update_form
       @update_form ||= V2::Comments::BasicForm.new(
         comment,
-        params: comment_params
+        params: comment_params,
+        user: current_user
       )
     end
 
     def webhook_form
       @webhook_form ||= V2::Comments::WebhookForm.new(
         recruit: recruit,
-        params: webhook_params
+        params: webhook_params,
+        user: current_user
       )
     end
 
     def comment_params
-      params.require(:comment).permit(:body)
+      params.require(:comment).permit(:body, :recruit_document_id)
     end
 
     def webhook_params
-      params.require(:comment).permit(:body, :created_at, :change_id)
+      params.require(:comment).permit(:body, :created_at, :change_id, :recruit_document_id)
     end
   end
 end

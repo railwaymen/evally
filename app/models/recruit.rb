@@ -11,4 +11,8 @@ class Recruit < ApplicationRecord
   # # Validation
   #
   validates :public_recruit_id, presence: true, uniqueness: true
+
+  def notifiable_path
+    '/app/recruitments'
+  end
 end

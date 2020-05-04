@@ -163,16 +163,14 @@ RSpec.describe V2::EmployeesController, type: :controller do
           action: 'assign_me',
           actor_id: admin.id,
           read_at: nil,
-          notifiable_type: 'Employee',
-          notifiable_id: employee.id
+          notifiable: employee
         )
 
         expect(other_admin.notifications.last).to have_attributes(
           action: 'create',
           actor_id: admin.id,
           read_at: nil,
-          notifiable_type: 'Employee',
-          notifiable_id: employee.id
+          notifiable: employee
         )
       end
 
@@ -295,16 +293,14 @@ RSpec.describe V2::EmployeesController, type: :controller do
           action: 'assign_me',
           actor_id: admin.id,
           read_at: nil,
-          notifiable_type: 'Employee',
-          notifiable_id: employee.id
+          notifiable: employee
         )
 
         expect(other_admin.notifications.last).to have_attributes(
           action: 'assign_evaluator',
           actor_id: admin.id,
           read_at: nil,
-          notifiable_type: 'Employee',
-          notifiable_id: employee.id
+          notifiable: employee
         )
       end
 
@@ -612,8 +608,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
           action: 'archive',
           actor_id: admin.id,
           read_at: nil,
-          notifiable_type: 'Employee',
-          notifiable_id: employee.id
+          notifiable: employee
         )
       end
 

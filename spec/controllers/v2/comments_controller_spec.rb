@@ -27,7 +27,8 @@ RSpec.describe V2::CommentsController, type: :controller do
         params = {
           recruit_id: recruit.public_recruit_id,
           comment: {
-            body: 'Lorem ipsum dolor sit amet ...'
+            body: 'Lorem ipsum dolor sit amet ...',
+            recruit_document_id: 1
           }
         }
 
@@ -39,6 +40,32 @@ RSpec.describe V2::CommentsController, type: :controller do
 
         expect(response).to have_http_status 201
         expect(response.body).to be_json_eql comment_schema(recruit.comments.last)
+      end
+
+      it 'creates proper notifications' do
+        evaluator = FactoryBot.create(:user, role: :evaluator)
+        recruit = FactoryBot.create(:recruit, evaluator: evaluator)
+
+        params = {
+          recruit_id: recruit.public_recruit_id,
+          comment: {
+            body: 'Lorem ipsum dolor sit amet ...',
+            recruit_document_id: 1
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          post :create, params: params
+        end.to(change { Notification.count }.by(1))
+
+        expect(evaluator.notifications.last).to have_attributes(
+          action: 'add_comment',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: recruit.comments.last
+        )
       end
 
       it 'responds with 422 if comment body is blank' do
@@ -290,6 +317,7 @@ RSpec.describe V2::CommentsController, type: :controller do
           comment: {
             body: 'Lorem ipsum ...',
             created_at: Time.current,
+            recruit_document_id: 1,
             change_id: 1
           }
         }
@@ -330,6 +358,34 @@ RSpec.describe V2::CommentsController, type: :controller do
         end.to(change { comment.reload.body }.to('New body'))
 
         expect(response).to have_http_status 204
+      end
+
+      it 'creates proper notifications' do
+        evaluator = FactoryBot.create(:user, role: :evaluator)
+        recruit = FactoryBot.create(:recruit, evaluator: evaluator)
+
+        params = {
+          recruit_id: recruit.public_recruit_id,
+          comment: {
+            body: 'Lorem ipsum ...',
+            created_at: Time.current,
+            recruit_document_id: 1,
+            change_id: 1
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          post :create, params: params
+        end.to(change { Notification.count }.by(1))
+
+        expect(evaluator.notifications.last).to have_attributes(
+          action: 'add_comment',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: recruit.comments.last
+        )
       end
     end
   end

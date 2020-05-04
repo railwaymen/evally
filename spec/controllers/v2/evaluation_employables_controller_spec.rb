@@ -254,16 +254,14 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
           action: 'start_evaluation',
           actor_id: admin.id,
           read_at: nil,
-          notifiable_type: 'Evaluation',
-          notifiable_id: draft.id
+          notifiable: draft
         )
 
         expect(other_admin.notifications.last).to have_attributes(
           action: 'start_evaluation',
           actor_id: admin.id,
           read_at: nil,
-          notifiable_type: 'Evaluation',
-          notifiable_id: draft.id
+          notifiable: draft
         )
       end
 
@@ -488,16 +486,14 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
           action: 'complete_evaluation',
           actor_id: admin.id,
           read_at: nil,
-          notifiable_type: 'Evaluation',
-          notifiable_id: draft.id
+          notifiable: draft
         )
 
         expect(other_admin.notifications.last).to have_attributes(
           action: 'complete_evaluation',
           actor_id: admin.id,
           read_at: nil,
-          notifiable_type: 'Evaluation',
-          notifiable_id: draft.id
+          notifiable: draft
         )
       end
 

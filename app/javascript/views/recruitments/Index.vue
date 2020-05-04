@@ -89,7 +89,7 @@
             :loading="fetchLoading"
           />
 
-          <router-view v-else />
+          <router-view v-else :key="String($route.params.id)"/>
         </v-container>
       </div>
   </section>

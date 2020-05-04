@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_28_071425) do
+ActiveRecord::Schema.define(version: 2020_05_04_074351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2020_04_28_071425) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "change_id"
+    t.integer "recruit_document_id", null: false
     t.index ["recruit_id"], name: "index_comments_on_recruit_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -82,6 +83,7 @@ ActiveRecord::Schema.define(version: 2020_04_28_071425) do
     t.string "action", null: false
     t.string "notifiable_type", null: false
     t.bigint "notifiable_id", null: false
+    t.jsonb "details", default: {}, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["actor_id"], name: "index_notifications_on_actor_id"

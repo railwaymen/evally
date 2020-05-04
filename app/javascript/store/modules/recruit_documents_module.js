@@ -377,15 +377,18 @@ const RecruitDocumentsModule = {
       )
     },
     createComment({ state, commit }, comment) {
+      const { id, public_recruit_id } = state.recruitDocument
+
       const params = {
         comment: {
-          body: comment.body
+          body: comment.body,
+          recruit_document_id: id
         }
       }
 
       return (
         coreApiClient
-          .post(Comment.routes.commentsPath(state.recruitDocument.public_recruit_id), params)
+          .post(Comment.routes.commentsPath(public_recruit_id), params)
           .then(response => {
             commit('ADD_COMMENT', response.data)
             commit(
@@ -406,15 +409,18 @@ const RecruitDocumentsModule = {
       )
     },
     updateComment({ state, commit }, comment) {
+      const { id, public_recruit_id } = state.recruitDocument
+
       const params = {
         comment: {
-          body: comment.body
+          body: comment.body,
+          recruit_document_id: id
         }
       }
 
       return (
         coreApiClient
-          .put(Comment.routes.commentPath(state.recruitDocument.public_recruit_id, comment.id), params)
+          .put(Comment.routes.commentPath(public_recruit_id, comment.id), params)
           .then(response => {
             commit('REFRESH_COMMENT', response.data)
             commit(
