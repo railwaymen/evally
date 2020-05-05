@@ -5,7 +5,7 @@ module V2
     class BasicForm
       attr_reader :comment
 
-      delegate :notify_evaluator!, to: :notifier_service
+      delegate :notify_evaluator!, :notify_recruiters!, to: :notifier_service
 
       def initialize(comment, params:, user:)
         @comment = comment
@@ -18,7 +18,10 @@ module V2
         validate_comment!
 
         ActiveRecord::Base.transaction do
-          notify_evaluator!(:add_comment) if @comment.new_record?
+          if @comment.new_record?
+            notify_evaluator!(:add_comment)
+            notify_recruiters!(:add_comment)
+          end
 
           @comment.save!
         end

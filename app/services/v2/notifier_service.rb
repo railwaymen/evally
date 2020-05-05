@@ -19,6 +19,14 @@ module V2
       )
     end
 
+    def notify_recruiters!(action)
+      other_recruiters.each do |recruiter|
+        Notification.create!(
+          actor: actor, recipient: recruiter, action: action, notifiable: notifiable
+        )
+      end
+    end
+
     def notify_admins!(action)
       other_admins.each do |admin|
         Notification.create!(
@@ -30,7 +38,11 @@ module V2
     private
 
     def other_admins
-      @other_admins ||= User.other_active_admins(actor.id)
+      @other_admins ||= User.active_admin_other_than(actor.id)
+    end
+
+    def other_recruiters
+      @other_recruiters ||= User.active_recruiter_other_than(actor.id)
     end
   end
 end

@@ -83,7 +83,6 @@ ActiveRecord::Schema.define(version: 2020_05_04_074351) do
     t.string "action", null: false
     t.string "notifiable_type", null: false
     t.bigint "notifiable_id", null: false
-    t.jsonb "details", default: {}, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["actor_id"], name: "index_notifications_on_actor_id"

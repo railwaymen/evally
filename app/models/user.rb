@@ -17,7 +17,8 @@ class User < ApplicationRecord
 
   # # Scopes
   #
-  scope :other_active_admins, ->(id) { active.admin.where.not(id: id) }
+  scope :active_admin_other_than, ->(id) { active.admin.where.not(id: id) }
+  scope :active_recruiter_other_than, ->(id) { active.recruiter.where.not(id: id) }
 
   # # Validation
   #

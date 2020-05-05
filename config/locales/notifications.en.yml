@@ -11,6 +11,7 @@ en:
       complete_evaluation: "%{actor_name} completed an evaluation of %{notifiable_name}"
     recruit:
       assign_me: "%{actor_name} assigned a new recruit to you"
+      assign_evaluator: "%{actor_name} assigned an evaluator to recruit"
     comment:
-      add_comment: "%{actor_name} commented one of your recruits"
-      status_change: "%{actor_name} changed a status for one of your recruits"
+      add_comment: "%{actor_name} commented one of recruits"
+      status_change: "%{actor_name} changed a status for one of recruits"

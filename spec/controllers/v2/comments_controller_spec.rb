@@ -44,6 +44,8 @@ RSpec.describe V2::CommentsController, type: :controller do
 
       it 'creates proper notifications' do
         evaluator = FactoryBot.create(:user, role: :evaluator)
+        recruiter = FactoryBot.create(:user, role: :recruiter)
+
         recruit = FactoryBot.create(:recruit, evaluator: evaluator)
 
         params = {
@@ -58,13 +60,22 @@ RSpec.describe V2::CommentsController, type: :controller do
 
         expect do
           post :create, params: params
-        end.to(change { Notification.count }.by(1))
+        end.to(change { Notification.count }.by(2))
+
+        latest_comment = recruit.comments.last
 
         expect(evaluator.notifications.last).to have_attributes(
           action: 'add_comment',
           actor_id: admin.id,
           read_at: nil,
-          notifiable: recruit.comments.last
+          notifiable: latest_comment
+        )
+
+        expect(recruiter.notifications.last).to have_attributes(
+          action: 'add_comment',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: latest_comment
         )
       end
 
@@ -362,6 +373,8 @@ RSpec.describe V2::CommentsController, type: :controller do
 
       it 'creates proper notifications' do
         evaluator = FactoryBot.create(:user, role: :evaluator)
+        recruiter = FactoryBot.create(:user, role: :recruiter)
+
         recruit = FactoryBot.create(:recruit, evaluator: evaluator)
 
         params = {
@@ -378,13 +391,22 @@ RSpec.describe V2::CommentsController, type: :controller do
 
         expect do
           post :create, params: params
-        end.to(change { Notification.count }.by(1))
+        end.to(change { Notification.count }.by(2))
+
+        latest_comment = recruit.comments.last
 
         expect(evaluator.notifications.last).to have_attributes(
           action: 'add_comment',
           actor_id: admin.id,
           read_at: nil,
-          notifiable: recruit.comments.last
+          notifiable: latest_comment
+        )
+
+        expect(recruiter.notifications.last).to have_attributes(
+          action: 'add_comment',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: latest_comment
         )
       end
     end

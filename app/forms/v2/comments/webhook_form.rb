@@ -3,7 +3,7 @@
 module V2
   module Comments
     class WebhookForm
-      delegate :notify_evaluator!, to: :notifier_service
+      delegate :notify_evaluator!, :notify_recruiters!, to: :notifier_service
 
       def initialize(recruit:, params:, user:)
         @comment = recruit.comments.find_or_initialize_by(change_id: params[:change_id])
@@ -18,7 +18,11 @@ module V2
       def save
         return unless @comment.valid?
 
-        notify_evaluator!(:status_change) if @comment.new_record?
+        if @comment.new_record?
+          notify_evaluator!(:status_change)
+          notify_recruiters!(:status_change)
+        end
+
         @comment.save
       end
 

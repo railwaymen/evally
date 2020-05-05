@@ -3,7 +3,7 @@
 module V2
   module Recruits
     class WebhookForm
-      delegate :notify_evaluator!, to: :notifier_service
+      delegate :notify_evaluator!, :notify_recruiters!, to: :notifier_service
 
       def initialize(params:, user:)
         @recruit = Recruit.find_or_initialize_by(public_recruit_id: params[:public_recruit_id])
@@ -15,7 +15,11 @@ module V2
       def save
         return unless @recruit.valid?
 
-        notify_evaluator!(:assign_me) if @recruit.evaluator_id_changed?
+        if @recruit.evaluator_id_changed?
+          notify_evaluator!(:assign_me)
+          notify_recruiters!(:assign_evaluator)
+        end
+
         @recruit.save
       end
 

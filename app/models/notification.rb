@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Notification < ApplicationRecord
-  store_accessor :details, :notifiable_path
-
   # # Associations
   #
   belongs_to :recipient, class_name: 'User', optional: true

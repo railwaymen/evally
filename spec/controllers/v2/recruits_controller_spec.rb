@@ -78,6 +78,8 @@ RSpec.describe V2::RecruitsController, type: :controller do
 
       it 'creates proper notificaions' do
         evaluator = FactoryBot.create(:user, role: :evaluator)
+        recruiter = FactoryBot.create(:user, role: :recruiter)
+
         recruit_attribtues = FactoryBot.attributes_for(:recruit, evaluator_id: evaluator.id)
 
         params = {
@@ -91,13 +93,22 @@ RSpec.describe V2::RecruitsController, type: :controller do
 
         expect do
           post :webhook, params: params
-        end.to(change { Notification.count }.by(1))
+        end.to(change { Notification.count }.by(2))
+
+        latest_recruit = Recruit.last
 
         expect(evaluator.notifications.last).to have_attributes(
           action: 'assign_me',
           actor_id: admin.id,
           read_at: nil,
-          notifiable: Recruit.last
+          notifiable: latest_recruit
+        )
+
+        expect(recruiter.notifications.last).to have_attributes(
+          action: 'assign_evaluator',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: latest_recruit
         )
       end
 

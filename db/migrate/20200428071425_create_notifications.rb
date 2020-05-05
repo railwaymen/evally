@@ -6,7 +6,6 @@ class CreateNotifications < ActiveRecord::Migration[6.0]
       t.datetime :read_at
       t.string :action, null: false
       t.references :notifiable, polymorphic: true, null: false
-      t.jsonb :details, null: false, default: {}
 
       t.timestamps
     end
