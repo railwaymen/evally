@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_04_074351) do
+ActiveRecord::Schema.define(version: 2020_05_05_075139) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 2020_05_04_074351) do
     t.string "template_name"
     t.string "evaluable_type", null: false
     t.string "position", null: false
+    t.integer "recruit_document_id"
     t.index ["evaluable_type", "evaluable_id"], name: "index_evaluations_on_evaluable_type_and_evaluable_id"
     t.index ["state"], name: "index_evaluations_on_state"
   end

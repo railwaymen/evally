@@ -33,10 +33,12 @@ class Notification < ApplicationRecord
   private
 
   def resolve_notifiable_name
-    case notifiable_type
-    when 'Evaluation' then notifiable.evaluable.fullname
-    when 'Recruit', 'Comment' then nil
-    else notifiable.fullname
+    if %w[Employee].include?(notifiable_type)
+      notifiable.fullname
+    elsif %w[Evaluation].include?(notifiable_type) && notifiable.employee_type?
+      notifiable.employee.fullname
+    else
+      nil
     end
   end
 end

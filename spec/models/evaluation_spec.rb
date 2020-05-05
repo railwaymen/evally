@@ -71,9 +71,12 @@ RSpec.describe Evaluation, type: :model do
       end
 
       it 'returns path to dashboard' do
-        evaluation = FactoryBot.create(:evaluation_draft_recruit)
+        evaluat = FactoryBot.create(:evaluation_draft_recruit)
+        recruit = evaluat.evaluable
 
-        expect(evaluation.notifiable_path).to eq '/app/dashboard'
+        expect(evaluat.notifiable_path).to eq(
+          "/app/recruitments/#{recruit.public_recruit_id}/documents/#{evaluat.recruit_document_id}"
+        )
       end
     end
   end

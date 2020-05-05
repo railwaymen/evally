@@ -7,8 +7,10 @@ en:
       create: "%{actor_name} created an employee: %{notifiable_name}"
       update: "%{actor_name} updated an employee: %{notifiable_name}"
     evaluation:
-      start_evaluation: "%{actor_name} started an evaluation of %{notifiable_name}"
-      complete_evaluation: "%{actor_name} completed an evaluation of %{notifiable_name}"
+      start_employee_evaluation: "%{actor_name} started %{notifiable_name}'s evaluation"
+      complete_employee_evaluation: "%{actor_name} completed %{notifiable_name}'s evaluation"
+      start_recruit_evaluation: "%{actor_name} started recruit's evaluation"
+      complete_recruit_evaluation: "%{actor_name} completed recruit's evaluation"
     recruit:
       assign_me: "%{actor_name} assigned a new recruit to you"
       assign_evaluator: "%{actor_name} assigned an evaluator to recruit"

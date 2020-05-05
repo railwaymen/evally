@@ -72,6 +72,7 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
         params = {
           evaluation: {
             public_recruit_id: recruit.public_recruit_id,
+            recruit_document_id: 1,
             template_id: template.id
           }
         }
@@ -85,6 +86,46 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
         expect(response).to have_http_status 201
         expect(response.body).to be_json_eql(
           evaluation_recruitable_schema(recruit.evaluations.draft.last)
+        )
+      end
+
+      it 'creates proper notifications' do
+        recruiter = FactoryBot.create(:user, role: :recruiter)
+
+        recruit = FactoryBot.create(:recruit)
+        evaluator = recruit.evaluator
+
+        template = FactoryBot.create(:template, destination: 'recruits')
+        FactoryBot.create(:section, sectionable: template)
+
+        params = {
+          evaluation: {
+            public_recruit_id: recruit.public_recruit_id,
+            recruit_document_id: 1,
+            template_id: template.id
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          post :create, params: params
+        end.to(change { Notification.count }.by(2))
+
+        evaluation = recruit.evaluations.last
+
+        expect(evaluator.notifications.last).to have_attributes(
+          action: 'start_recruit_evaluation',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: evaluation
+        )
+
+        expect(recruiter.notifications.last).to have_attributes(
+          action: 'start_recruit_evaluation',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: evaluation
         )
       end
 
@@ -186,6 +227,49 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
 
         expect(response).to have_http_status 200
         expect(response.body).to be_json_eql evaluation_recruitable_schema(evaluation.reload)
+      end
+
+      it 'creates proper notifications' do
+        recruiter = FactoryBot.create(:user, role: :recruiter)
+
+        recruit = FactoryBot.create(:recruit)
+        evaluator = recruit.evaluator
+
+        evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
+        section = FactoryBot.create(:section, sectionable: evaluation)
+
+        params = {
+          id: evaluation.id,
+          evaluation: {
+            state: 'completed',
+            sections: [
+              {
+                id: section.id,
+                skills: section.skills
+              }
+            ]
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          put :update, params: params
+        end.to(change { Notification.count }.by(2))
+
+        expect(evaluator.notifications.last).to have_attributes(
+          action: 'complete_recruit_evaluation',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: evaluation
+        )
+
+        expect(recruiter.notifications.last).to have_attributes(
+          action: 'complete_recruit_evaluation',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: evaluation
+        )
       end
 
       it 'responds with error if invalid section' do

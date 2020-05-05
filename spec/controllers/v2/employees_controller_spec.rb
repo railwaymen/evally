@@ -587,7 +587,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
         )
       end
 
-      it 'created proper notification' do
+      it 'creates proper notification' do
         evaluator = FactoryBot.create(:user, role: :evaluator)
         employee = FactoryBot.create(:employee, state: :hired, evaluator: evaluator)
 

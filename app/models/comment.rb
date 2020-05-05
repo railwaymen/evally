@@ -8,7 +8,7 @@ class Comment < ApplicationRecord
 
   # # Validations
   #
-  validates :body, :created_by, presence: true
+  validates :body, :created_by, :recruit_document_id, presence: true
   validates :user_id, presence: true, if: :created_by_human?
 
   # # Enums

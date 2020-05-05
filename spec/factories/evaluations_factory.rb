@@ -6,11 +6,13 @@ FactoryBot.define do
     position                 { 'Just Employee' }
 
     trait :employee do
-      evaluable { |a| a.association(:employee) }
+      evaluable             { |a| a.association(:employee) }
+      recruit_document_id   { nil }
     end
 
     trait :recruit do
-      evaluable { |a| a.association(:recruit) }
+      evaluable             { |a| a.association(:recruit) }
+      recruit_document_id   { 1 }
     end
 
     trait :draft do

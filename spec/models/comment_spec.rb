@@ -10,6 +10,8 @@ RSpec.describe Comment, type: :model do
 
     it { is_expected.to validate_presence_of(:body) }
 
+    it { is_expected.to validate_presence_of(:recruit_document_id) }
+
     context 'when created by human' do
       subject { Comment.new(created_by: 'human') }
 

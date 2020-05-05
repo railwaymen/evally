@@ -25,6 +25,7 @@ class Evaluation < ApplicationRecord
   }, if: :draft?
 
   validates :position, presence: true
+  validates :recruit_document_id, presence: true, if: :recruit_type?
   validates :state, inclusion: { in: Evaluation.states.keys, message: :invalid_inclusion }
 
   # # Methods
@@ -56,12 +57,12 @@ class Evaluation < ApplicationRecord
   end
 
   def notifiable_path
-    if draft? && employee_type?
+    if employee_type? && draft?
       "/app/evaluations/#{id}"
-    elsif completed? && employee_type?
+    elsif employee_type? && completed?
       "/app/employees/#{employee_id}/evaluations/#{id}"
-    else
-      '/app/dashboard'
+    elsif recruit_type?
+      "/app/recruitments/#{recruit.public_recruit_id}/documents/#{recruit_document_id}"
     end
   end
 end

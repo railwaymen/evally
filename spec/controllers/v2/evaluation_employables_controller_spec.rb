@@ -251,14 +251,14 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
         draft = employee.evaluations.last
 
         expect(evaluator.notifications.last).to have_attributes(
-          action: 'start_evaluation',
+          action: 'start_employee_evaluation',
           actor_id: admin.id,
           read_at: nil,
           notifiable: draft
         )
 
         expect(other_admin.notifications.last).to have_attributes(
-          action: 'start_evaluation',
+          action: 'start_employee_evaluation',
           actor_id: admin.id,
           read_at: nil,
           notifiable: draft
@@ -483,14 +483,14 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
         end.to(change { Notification.count }.by(2))
 
         expect(draft.evaluator.notifications.last).to have_attributes(
-          action: 'complete_evaluation',
+          action: 'complete_employee_evaluation',
           actor_id: admin.id,
           read_at: nil,
           notifiable: draft
         )
 
         expect(other_admin.notifications.last).to have_attributes(
-          action: 'complete_evaluation',
+          action: 'complete_employee_evaluation',
           actor_id: admin.id,
           read_at: nil,
           notifiable: draft

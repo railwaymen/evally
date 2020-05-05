@@ -27,8 +27,8 @@ module V2
           if @draft.completed?
             save_next_evaluation_date!
 
-            notify_evaluator!(:complete_evaluation)
-            notify_admins!(:complete_evaluation)
+            notify_evaluator!(:complete_employee_evaluation)
+            notify_admins!(:complete_employee_evaluation)
           end
 
           @draft.save!

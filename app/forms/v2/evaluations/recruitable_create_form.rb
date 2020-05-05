@@ -5,6 +5,8 @@ module V2
     class RecruitableCreateForm
       attr_reader :draft
 
+      delegate :notify_evaluator!, :notify_recruiters!, to: :notifier_service
+
       def initialize(params, user:)
         @params = params
         @user = user
@@ -13,7 +15,12 @@ module V2
       def save
         build_draft && validate_draft!
 
-        @draft.save!
+        ActiveRecord::Base.transaction do
+          notify_evaluator!(:start_recruit_evaluation)
+          notify_recruiters!(:start_recruit_evaluation)
+
+          @draft.save!
+        end
       end
 
       private
@@ -21,7 +28,8 @@ module V2
       def build_draft
         @draft = recruit.evaluations.build(
           state: :draft,
-          position: @params.fetch('position', 'Unknown'),
+          recruit_document_id: @params.dig('recruit_document_id'),
+          position: @params.dig('position') || 'Unknown',
           template_name: template.name,
           sections_attributes: sections
         )
@@ -53,6 +61,10 @@ module V2
         template.sections.collect do |section|
           section.attributes.slice('name', 'group', 'width', 'position', 'sensitive', 'skills')
         end
+      end
+
+      def notifier_service
+        @notifier_service ||= V2::NotifierService.new(notifiable: @draft, actor: @user)
       end
     end
   end

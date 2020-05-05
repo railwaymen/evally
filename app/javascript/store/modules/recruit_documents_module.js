@@ -483,10 +483,13 @@ const RecruitDocumentsModule = {
         .finally(() => commit('SET_LOADING', 'ok'))
     },
     createEvaluation({ state, commit }, { templateId }) {
+      const { id, position, public_recruit_id } = state.recruitDocument
+
       const params = {
         evaluation: {
-          public_recruit_id: state.recruitDocument.public_recruit_id,
-          position: state.recruitDocument.position,
+          public_recruit_id: public_recruit_id,
+          recruit_document_id: id,
+          position: position,
           template_id: templateId
         }
       }

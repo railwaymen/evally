@@ -16,8 +16,8 @@ module V2
         build_draft && validate_draft!
 
         ActiveRecord::Base.transaction do
-          notify_evaluator!(:start_evaluation)
-          notify_admins!(:start_evaluation)
+          notify_evaluator!(:start_employee_evaluation)
+          notify_admins!(:start_employee_evaluation)
 
           @draft.save!
         end

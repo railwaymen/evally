@@ -5,6 +5,8 @@ module V2
     class RecruitableUpdateForm
       attr_reader :draft
 
+      delegate :notify_evaluator!, :notify_recruiters!, to: :notifier_service
+
       def initialize(draft, params:, user:)
         @draft = draft
         @params = params
@@ -20,7 +22,14 @@ module V2
       def save
         validate_draft!
 
-        @draft.save!
+        ActiveRecord::Base.transaction do
+          if @draft.completed?
+            notify_evaluator!(:complete_recruit_evaluation)
+            notify_recruiters!(:complete_recruit_evaluation)
+          end
+
+          @draft.save!
+        end
       end
 
       private
@@ -37,6 +46,10 @@ module V2
 
       def resolve_state
         @params[:state] == 'completed' ? :completed : :draft
+      end
+
+      def notifier_service
+        @notifier_service ||= V2::NotifierService.new(notifiable: @draft, actor: @user)
       end
     end
   end
