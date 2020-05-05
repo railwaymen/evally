@@ -177,6 +177,17 @@ const AuthenticationModule = {
           commit('REFRESH_NOTIFICATION', response.data)
         })
     },
+    readAllNotifications({ commit }, latest_fetch_at) {
+      return new Promise(resolve => {
+        coreApiClient
+          .put(Notification.routes.readAllNotificationsPath, { latest_fetch_at })
+          .then(response => {
+            commit('SET_NOTIFICATIONS', response.data)
+
+            resolve(response.date)
+          })
+      })
+    },
     login({ commit }, credentials) {
       return new Promise((resolve, reject) => {
         coreApiClient

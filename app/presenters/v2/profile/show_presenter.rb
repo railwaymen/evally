@@ -20,7 +20,7 @@ module V2
 
       def notifications_presenter
         @notifications_presenter ||=
-          V2::Notifications::IndexPresenter.new(notifications_scope, size: 7)
+          V2::Notifications::IndexPresenter.new(notifications_scope)
       end
     end
   end

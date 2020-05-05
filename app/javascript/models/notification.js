@@ -20,7 +20,8 @@ class Notification extends Model {
   static get routes() {
     return {
       notificationsPath: '/v2/notifications',
-      readNotificationPath: id => `/v2/notifications/${id}/read`
+      readNotificationPath: id => `/v2/notifications/${id}/read`,
+      readAllNotificationsPath: '/v2/notifications/read_all'
     }
   }
 }

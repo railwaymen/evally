@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Notification < ApplicationRecord
+  DEFAULT_FETCH_SIZE = 7
+
   # # Associations
   #
   belongs_to :recipient, class_name: 'User', optional: true
@@ -37,8 +39,6 @@ class Notification < ApplicationRecord
       notifiable.fullname
     elsif %w[Evaluation].include?(notifiable_type) && notifiable.employee_type?
       notifiable.employee.fullname
-    else
-      nil
     end
   end
 end

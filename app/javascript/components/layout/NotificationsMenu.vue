@@ -22,7 +22,16 @@
       <v-list min-width="420" subheader>
         <v-subheader class="notification__subheader">
           <span>Notifications</span>
-          <v-btn color="primary" text small>Read All</v-btn>
+
+          <v-btn
+            v-if="unreadNotificationsCount > 0"
+            @click="readAll"
+            color="primary"
+            text
+            small
+          >
+            Read All
+          </v-btn>
         </v-subheader>
 
         <v-list-item v-if="notifications.isEmpty">
@@ -59,16 +68,22 @@ export default {
   name: 'NotificationsMenu',
   data() {
     return {
-      refreshInterval: null
+      refreshInterval: null,
+      refreshDatetime: null
     }
   },
   methods: {
     ...mapActions('AuthenticationModule', [
       'fetchNotifications',
-      'readNotification'
+      'readNotification',
+      'readAllNotifications'
     ]),
     markAsRead(notification) {
       if (notification.unread) this.readNotification(notification.id)
+    },
+    readAll() {
+      this.readAllNotifications(this.refreshDatetime)
+        .then(() => this.refreshDatetime = new Date())
     }
   },
   computed: {
@@ -79,6 +94,7 @@ export default {
   },
   created() {
     this.refreshInterval = setInterval(this.fetchNotifications, 300000) // 5 minutes
+    this.refreshDatetime = new Date()
   },
   destroyed() {
     clearInterval(this.refreshInterval)

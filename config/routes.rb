@@ -56,6 +56,10 @@ Rails.application.routes.draw do
         member do
           put :read
         end
+
+        collection do
+          put :read_all
+        end
       end
 
       resource :profile, controller: 'profile', only: %i[show update] do

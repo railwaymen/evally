@@ -60,4 +60,46 @@ RSpec.describe V2::NotificationsController, type: :controller do
       end
     end
   end
+
+  describe '#read_all' do
+    context 'when unauthorized' do
+      it 'responds with error' do
+        put :read_all, params: { latest_fetch_at: Time.current }
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'marks all notifications before latest fetch as read' do
+        latest_fetch_at = Time.current - 3.minutes
+
+        # Notification before latest fetch
+        notification = FactoryBot.create(
+          :notification,
+          recipient: user,
+          read_at: nil,
+          created_at: latest_fetch_at - 1.minute
+        )
+
+        # Notification after latest fetch
+        new_notification = FactoryBot.create(
+          :notification,
+          recipient: user,
+          read_at: nil,
+          created_at: latest_fetch_at + 1.minute
+        )
+
+        sign_in user
+
+        expect do
+          put :read_all, params: { latest_fetch_at: latest_fetch_at }
+        end.to(change { notification.reload.read_at }.from(nil))
+
+        expect(new_notification.reload.read_at).to be_nil
+
+        expect(response.body).to have_json_size(1).at_path('notifications')
+        expect(json_response['unread_notifications_count']).to eq 0
+      end
+    end
+  end
 end

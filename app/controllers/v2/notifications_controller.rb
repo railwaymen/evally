@@ -5,7 +5,7 @@ module V2
     before_action :authenticate_user!
 
     def index
-      presenter = V2::Notifications::IndexPresenter.new(notifications_scope, size: 7)
+      presenter = V2::Notifications::IndexPresenter.new(notifications_scope)
 
       render json: V2::Notifications::IndexView.render(presenter), status: :ok
     end
@@ -16,10 +16,22 @@ module V2
       render json: V2::Notifications::Serializer.render(notification), status: :ok
     end
 
+    def read_all
+      notifications_to_read.update_all(read_at: Time.current)
+      presenter = V2::Notifications::IndexPresenter.new(notifications_to_read)
+
+      render json: V2::Notifications::IndexView.render(presenter), status: :ok
+    end
+
     private
 
     def notifications_scope
-      Notification.includes(:notifiable, :actor).where(recipient: current_user)
+      Notification.includes(:actor, :notifiable).where(recipient: current_user)
+    end
+
+    def notifications_to_read
+      @notifications_to_read ||=
+        notifications_scope.where('created_at < ?', params[:latest_fetch_at])
     end
 
     def notification

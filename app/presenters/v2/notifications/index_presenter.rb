@@ -3,7 +3,7 @@
 module V2
   module Notifications
     class IndexPresenter
-      def initialize(scope, size: nil)
+      def initialize(scope, size: Notification::DEFAULT_FETCH_SIZE)
         @scope = scope.order(created_at: :desc)
         @size = size.to_i
       end
