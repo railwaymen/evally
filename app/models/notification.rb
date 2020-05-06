@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Notification < ApplicationRecord
-  DEFAULT_FETCH_SIZE = 7
-
   # # Associations
   #
   belongs_to :recipient, class_name: 'User', optional: true

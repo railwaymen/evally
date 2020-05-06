@@ -1,5 +1,4 @@
 en:
-  hello: 'Hello %{employee.fullname}'
   activerecord:
     errors:
       format: '%{attribute} %{message}'
