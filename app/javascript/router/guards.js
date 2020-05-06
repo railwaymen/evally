@@ -2,7 +2,7 @@ import store from '@store/store'
 
 const notifyUnauthorizedAction = () => {
   store.commit(
-    'NotificationsModule/PUSH_NOTIFICATION',
+    'MessagesModule/PUSH_MESSAGE',
     { error: 'You are unauthorized to perform this action.' }
   )
 }

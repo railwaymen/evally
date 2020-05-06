@@ -80,7 +80,7 @@ const TemplatesModule = {
         })
         .catch(error => {
           commit(
-            'NotificationsModule/PUSH_NOTIFICATION',
+            'MessagesModule/PUSH_MESSAGE',
             { error: i18n.t('messages.templates.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -101,7 +101,7 @@ const TemplatesModule = {
         })
         .catch(error => {
           commit(
-            'NotificationsModule/PUSH_NOTIFICATION',
+            'MessagesModule/PUSH_MESSAGE',
             { error: i18n.t('messages.templates.show.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -123,7 +123,7 @@ const TemplatesModule = {
           .then(response => {
             commit('ADD_TEMPLATE', response.data)
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.templates.create.ok') },
               { root: true }
             )
@@ -132,7 +132,7 @@ const TemplatesModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.templates.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -159,7 +159,7 @@ const TemplatesModule = {
             commit('SET_TEMPLATE', data)
 
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.templates.update.ok') },
               { root: true }
             )
@@ -168,7 +168,7 @@ const TemplatesModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.templates.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -185,7 +185,7 @@ const TemplatesModule = {
             commit('REMOVE_TEMPLATE', template.id)
 
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.templates.delete.ok') },
               { root: true }
             )
@@ -194,7 +194,7 @@ const TemplatesModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.templates.delete.error', { msg: fetchError(error) }) },
               { root: true }
             )

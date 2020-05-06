@@ -3,52 +3,32 @@ import { fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
 
-import { Notification, NotificationsList } from '@models/notification'
 import { User } from '@models/user'
 import { Setting } from '@models/setting'
 
-const initialState = () => ({
+const initState = () => ({
   user: new User(),
   setting: new Setting(),
-  notifications: new NotificationsList(),
-  unreadNotificationsCount: 0,
   loading: false
 })
 
 const AuthenticationModule = {
   namespaced: true,
 
-  state: initialState(),
+  state: initState(),
 
   mutations: {
-    REFRESH_NOTIFICATION(state, notification) {
-      state.notifications.refresh(notification)
-      state.unreadNotificationsCount -= Number(!notification.unread)
-    },
     SET_LOADING(state, status) {
       state.loading = status
-    },
-    SET_NOTIFICATIONS(state, { notifications, unread_notifications_count }) {
-      state.notifications = new NotificationsList(notifications)
-      state.unreadNotificationsCount = unread_notifications_count
     },
     SET_SETTING(state, setting) {
       state.setting = new Setting(setting)
 
       localStorage.setItem('ev411y_l4ng', setting.lang || 'en')
     },
-    SET_SESSION(state, data) {
-      const {
-        user,
-        setting,
-        notifications,
-        unread_notifications_count
-      } = data
-
+    SET_SESSION(state, { user, setting }) {
       state.user = new User(user)
       state.setting = new Setting(setting)
-      state.notifications = new NotificationsList(notifications)
-      state.unreadNotificationsCount = unread_notifications_count
 
       localStorage.setItem('ev411y_l4ng', setting.lang || 'en')
     },
@@ -60,7 +40,7 @@ const AuthenticationModule = {
     },
     RESET_STORE(state) {
       localStorage.removeItem('ev411y_t0k3n')
-      Object.assign(state, initialState())
+      Object.assign(state, initState())
 
       const modules = [
         'Employees',
@@ -82,7 +62,7 @@ const AuthenticationModule = {
           .put(User.routes.invitationPath(data.invitationToken), { invitation: data.invitation })
           .then(() => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.session.acceptInvitation.ok') },
               { root: true }
             )
@@ -91,7 +71,7 @@ const AuthenticationModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.session.acceptInvitation.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -104,7 +84,7 @@ const AuthenticationModule = {
           .post(User.routes.passwordsPath, { password: { email } })
           .then(() => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.session.forgotPassword.ok') },
               { root: true }
             )
@@ -113,7 +93,7 @@ const AuthenticationModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.session.forgotPassword.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -126,7 +106,7 @@ const AuthenticationModule = {
           .put(User.routes.passwordPath(data.resetPasswordToken), { password: data.reset })
           .then(() => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.session.resetPassword.ok') },
               { root: true }
             )
@@ -135,7 +115,7 @@ const AuthenticationModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.session.resetPassword.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -150,42 +130,18 @@ const AuthenticationModule = {
           .get(User.routes.profilePath)
           .then(response => {
             commit('SET_SESSION', response.data)
+            commit('NotificationsModule/SET_RECENT_NOTIFICATIONS', response.data, { root: true })
 
             resolve(response.data)
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.session.show.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
           .finally(() => commit('SET_LOADING', false))
-      })
-    },
-    fetchNotifications({ commit }) {
-      coreApiClient
-        .get(Notification.routes.notificationsPath)
-        .then(response => {
-          commit('SET_NOTIFICATIONS', response.data)
-        })
-    },
-    readNotification({ commit }, id) {
-      coreApiClient
-        .put(Notification.routes.readNotificationPath(id))
-        .then(response => {
-          commit('REFRESH_NOTIFICATION', response.data)
-        })
-    },
-    readAllNotifications({ commit }, latest_fetch_at) {
-      return new Promise(resolve => {
-        coreApiClient
-          .put(Notification.routes.readAllNotificationsPath, { latest_fetch_at })
-          .then(response => {
-            commit('SET_NOTIFICATIONS', response.data)
-
-            resolve(response.date)
-          })
       })
     },
     login({ commit }, credentials) {
@@ -195,7 +151,7 @@ const AuthenticationModule = {
           .then(response => {
             commit('SAVE_TOKEN', response.data.jwt)
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.session.create.ok') },
               { root: true }
             )
@@ -205,7 +161,7 @@ const AuthenticationModule = {
           .catch(() => {
             commit('RESET_STORE')
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.session.create.error') },
               { root: true }
             )
@@ -221,7 +177,7 @@ const AuthenticationModule = {
           .then(response => {
             commit('SET_SETTING', response.data)
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.session.updateSetting.ok') },
               { root: true }
             )
@@ -230,7 +186,7 @@ const AuthenticationModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.session.updateSetting.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -244,14 +200,14 @@ const AuthenticationModule = {
           commit('SET_USER', response.data)
 
           commit(
-            'NotificationsModule/PUSH_NOTIFICATION',
+            'MessagesModule/PUSH_MESSAGE',
             { success: i18n.t('messages.session.updateUser.ok') },
             { root: true }
           )
         })
         .catch(error => {
           commit(
-            'NotificationsModule/PUSH_NOTIFICATION',
+            'MessagesModule/PUSH_MESSAGE',
             { error: i18n.t('messages.session.updateUser.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -264,7 +220,7 @@ const AuthenticationModule = {
           .then(() => {
             commit('RESET_STORE')
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.session.updatePassword.ok') },
               { root: true }
             )
@@ -273,7 +229,7 @@ const AuthenticationModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.session.updatePassword.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -283,7 +239,7 @@ const AuthenticationModule = {
     logout({ commit }) {
       commit('RESET_STORE')
       commit(
-        'NotificationsModule/PUSH_NOTIFICATION',
+        'MessagesModule/PUSH_MESSAGE',
         { success: i18n.t('messages.session.destroy.ok') },
         { root: true }
       )

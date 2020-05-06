@@ -204,6 +204,14 @@ export default {
         employees: 'Pracownicy'
       }
     },
+    layout: {
+      notificationsMenu: {
+        title: 'Powiadomienia',
+        noNotifications: 'Brak powiadomień',
+        readAll: 'Czyaj wszystkie',
+        seeMore: 'Więcej'
+      }
+    },
     settings: {
       sidebarNav: {
         general: 'Ogólne',
@@ -631,6 +639,11 @@ export default {
       },
       search: {
         label: 'Umięjętność',
+      }
+    },
+    notifications: {
+      index: {
+        title: 'Powiadomienia'
       }
     },
     settings: {

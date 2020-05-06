@@ -92,7 +92,6 @@ module JsonSpecHelpers
     setting = user.setting
 
     notifications = Notification.where(recipient: user)
-    unread_notifications_count = notifications.where(read_at: nil).count
 
     {
       user: {
@@ -111,7 +110,7 @@ module JsonSpecHelpers
         lang: setting.lang
       },
       notifications: notifications.map(&method(:notification_schema)),
-      unread_notifications_count: unread_notifications_count
+      unread_count: notifications.where(read_at: nil).count
     }.to_json
   end
 

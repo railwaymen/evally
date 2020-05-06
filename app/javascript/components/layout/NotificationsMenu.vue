@@ -1,14 +1,19 @@
 <template>
   <v-badge
-    :content="unreadNotificationsCount"
-    :value="unreadNotificationsCount > 0"
+    :content="unreadCount"
+    :value="unreadCount > 0"
     color="warning"
     offset-x="20"
     offset-y="20"
     bottom
     overlap
   >
-    <v-menu transition="slide-y-transition" offset-y left>
+    <v-menu
+      :disabled="$route.name === 'notifications_path'"
+      transition="slide-y-transition"
+      offset-y
+      left
+    >
       <template #activator="{ on }">
         <v-btn
           v-on="on"
@@ -21,28 +26,28 @@
 
       <v-list min-width="420" subheader>
         <v-subheader class="notification__subheader">
-          <span>Notifications</span>
+          <span>{{ $t('components.layout.notificationsMenu.title') }}</span>
 
           <v-btn
-            v-if="unreadNotificationsCount > 0"
             @click="readAll"
+            :disabled="unreadCount === 0"
             color="primary"
             text
             small
           >
-            Read All
+            {{ $t('components.layout.notificationsMenu.readAll') }}
           </v-btn>
         </v-subheader>
 
-        <v-list-item v-if="notifications.isEmpty">
-          <v-list-item-title>There is no notifications yet</v-list-item-title>
+        <v-list-item v-if="recentNotifications.isEmpty">
+          <v-list-item-title>
+            {{ $t('components.layout.notificationsMenu.noNotifications') }}
+          </v-list-item-title>
         </v-list-item>
 
         <v-list-item
-          v-for="notification in notifications.models"
+          v-for="notification in recentNotifications.models"
           :key="notification.id"
-          :to="notification.notifiable_path"
-          active-class="no-active"
           @click="markAsRead(notification)"
         >
           <v-list-item-content :class="{ 'notification--unread': notification.unread }">
@@ -51,9 +56,17 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item v-if="notifications.models.length > 0 ">
+        <v-list-item v-if="!recentNotifications.isEmpty">
           <v-list-item-title>
-            <v-btn color="primary" text small block>See More</v-btn>
+            <v-btn
+              @click="$router.push({ name: 'notifications_path' })"
+              color="primary"
+              text
+              small
+              block
+            >
+              {{ $t('components.layout.notificationsMenu.seeMore') }}
+            </v-btn>
           </v-list-item-title>
         </v-list-item>
       </v-list>
@@ -73,28 +86,33 @@ export default {
     }
   },
   methods: {
-    ...mapActions('AuthenticationModule', [
-      'fetchNotifications',
+    ...mapActions('NotificationsModule', [
+      'fetchRecentNotifications',
       'readNotification',
       'readAllNotifications'
     ]),
     markAsRead(notification) {
       if (notification.unread) this.readNotification(notification.id)
+
+      this.$router.push(notification.notifiable_path)
     },
     readAll() {
-      this.readAllNotifications(this.refreshDatetime)
-        .then(() => this.refreshDatetime = new Date())
+      this.readAllNotifications({ latest_fetch_at: this.refreshDatetime, page: 1, per_page: 7 })
     }
   },
   computed: {
-    ...mapState('AuthenticationModule', [
-      'notifications',
-      'unreadNotificationsCount'
+    ...mapState('NotificationsModule', [
+      'recentNotifications',
+      'unreadCount'
     ])
   },
   created() {
-    this.refreshInterval = setInterval(this.fetchNotifications, 300000) // 5 minutes
     this.refreshDatetime = new Date()
+
+    this.refreshInterval = setInterval(() => {
+      this.fetchRecentNotifications()
+      this.refreshDatetime = new Date()
+    }, 300000) // 5 minutes
   },
   destroyed() {
     clearInterval(this.refreshInterval)

@@ -6,7 +6,7 @@ module V2
       attr_reader :user
 
       delegate :setting, to: :user
-      delegate :notifications, :unread_notifications_count, to: :notifications_presenter
+      delegate :notifications, :unread_count, to: :notifications_presenter
 
       def initialize(user)
         @user = user
@@ -20,7 +20,7 @@ module V2
 
       def notifications_presenter
         @notifications_presenter ||=
-          V2::Notifications::IndexPresenter.new(notifications_scope)
+          V2::Notifications::IndexPresenter.new(notifications_scope, params: { per_page: 7 })
       end
     end
   end

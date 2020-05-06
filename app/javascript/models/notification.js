@@ -1,4 +1,5 @@
 import { Model, List } from './base'
+import { getURLParams } from '@utils/helpers'
 
 import moment from 'moment'
 
@@ -19,7 +20,7 @@ class Notification extends Model {
 
   static get routes() {
     return {
-      notificationsPath: '/v2/notifications',
+      notificationsPath: payload => `/v2/notifications?${getURLParams(payload)}`,
       readNotificationPath: id => `/v2/notifications/${id}/read`,
       readAllNotificationsPath: '/v2/notifications/read_all'
     }

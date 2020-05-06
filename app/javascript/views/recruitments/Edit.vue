@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap class="d-flex align-stretch">
     <v-flex xs12 lg6>
-      <div v-if="loading" class="widget__loader">
+      <div v-if="fetchLoading" class="widget__loader">
 				<v-progress-circular :size="30" :width="3" color="primary" indeterminate />
 			</div>
 
@@ -20,7 +20,7 @@
     </v-flex>
 
     <v-flex xs12 lg6>
-      <div v-if="loading" class="widget__loader">
+      <div v-if="fetchLoading" class="widget__loader">
 				<v-progress-circular :size="30" :width="3" color="primary" indeterminate />
 			</div>
 
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import { Attachment } from '@models/attachment'
 import { RecruitDocument } from '@models/recruit_document'
@@ -54,8 +54,10 @@ export default {
       'groups',
       'statuses',
       'positions',
-      'sources',
-      'loading'
+      'sources'
+    ]),
+    ...mapGetters('RecruitDocumentsModule', [
+      'fetchLoading'
     ])
   },
   watch: {

@@ -204,6 +204,14 @@ export default {
         employees: 'Employees'
       }
     },
+    layout: {
+      notificationsMenu: {
+        title: 'Notifications',
+        noNotifications: 'There is no notifications yet',
+        readAll: 'Read All',
+        seeMore: 'See More'
+      }
+    },
     settings: {
       sidebarNav: {
         general: 'General',
@@ -634,6 +642,11 @@ export default {
       },
       search: {
         label: 'Skill',
+      }
+    },
+    notifications: {
+      index: {
+        title: 'Notifications'
       }
     },
     settings: {

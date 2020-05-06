@@ -14,18 +14,14 @@ RSpec.describe V2::NotificationsController, type: :controller do
     end
 
     context 'when authorized' do
-      it 'responds with notifications and unread count' do
-        FactoryBot.create(:notification, recipient: user, read_at: nil)
-        FactoryBot.create(:notification, recipient: user)
-        FactoryBot.create(:notification)
+      it 'responds with notifications' do
+        FactoryBot.create_list(:notification, 3, recipient: user)
 
         sign_in user
         get :index
 
         expect(response).to have_http_status 200
-
-        expect(response.body).to have_json_size(2).at_path('notifications')
-        expect(json_response['unread_notifications_count']).to eq 1
+        expect(response.body).to have_json_size(3).at_path('notifications')
       end
     end
   end
@@ -98,7 +94,7 @@ RSpec.describe V2::NotificationsController, type: :controller do
         expect(new_notification.reload.read_at).to be_nil
 
         expect(response.body).to have_json_size(1).at_path('notifications')
-        expect(json_response['unread_notifications_count']).to eq 0
+        expect(json_response['unread_count']).to eq 0
       end
     end
   end

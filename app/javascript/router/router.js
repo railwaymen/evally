@@ -72,6 +72,11 @@ export default new Router({
           ]
         },
         {
+          path: 'notifications',
+          name: 'notifications_path',
+          component: () => import(/* webpackChunkName: 'notifications' */ '@views/notifications/Index'),
+        },
+        {
           path: 'recruitments',
           name: 'recruitments_path',
           component: () => import(/* webpackChunkName: 'recruitments' */ '@views/recruitments/Index'),

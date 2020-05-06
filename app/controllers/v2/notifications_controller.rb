@@ -5,7 +5,7 @@ module V2
     before_action :authenticate_user!
 
     def index
-      presenter = V2::Notifications::IndexPresenter.new(notifications_scope)
+      presenter = V2::Notifications::IndexPresenter.new(notifications_scope, params: params)
 
       render json: V2::Notifications::IndexView.render(presenter), status: :ok
     end
@@ -18,7 +18,7 @@ module V2
 
     def read_all
       notifications_to_read.update_all(read_at: Time.current)
-      presenter = V2::Notifications::IndexPresenter.new(notifications_to_read)
+      presenter = V2::Notifications::IndexPresenter.new(notifications_to_read, params: params)
 
       render json: V2::Notifications::IndexView.render(presenter), status: :ok
     end
@@ -26,7 +26,9 @@ module V2
     private
 
     def notifications_scope
-      Notification.includes(:actor, :notifiable).where(recipient: current_user)
+      Notification
+        .includes(:actor, notifiable: %i[evaluable recruit employee])
+        .where(recipient: current_user)
     end
 
     def notifications_to_read
