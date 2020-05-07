@@ -25,8 +25,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      hasMessage: 'NotificationsModule/hasMessage',
-      message: 'NotificationsModule/message'
+      hasMessage: 'MessagesModule/hasMessage',
+      message: 'MessagesModule/message'
     })
   },
   mounted () {
@@ -34,7 +34,7 @@ export default {
       if (this.hasMessage) {
         this.visible = false
 
-        this.$store.dispatch('NotificationsModule/flash')
+        this.$store.dispatch('MessagesModule/flash')
           .then(() => { this.visible = true })
       }
     })

@@ -135,7 +135,10 @@ RSpec.describe V2::EmployeesController, type: :controller do
         expect(response.body).to be_json_eql employee_schema(Employee.last)
       end
 
-      it 'creates proper activity' do
+      it 'creates proper notifications' do
+        evaluator = FactoryBot.create(:user, role: :evaluator)
+        other_admin = FactoryBot.create(:user, role: :admin)
+
         params = {
           employee: {
             first_name: 'John',
@@ -143,7 +146,8 @@ RSpec.describe V2::EmployeesController, type: :controller do
             position: 'Junior Specialist',
             group: 'Marketing',
             hired_on: 1.month.ago,
-            position_set_on: 1.month.ago
+            position_set_on: 1.month.ago,
+            evaluator_id: evaluator.id
           }
         }
 
@@ -151,11 +155,22 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
         expect do
           post :create, params: params
-        end.to(change { Activity.count }.by(1))
+        end.to(change { Notification.count }.by(2))
 
-        expect(Activity.last).to have_attributes(
+        employee = Employee.last
+
+        expect(evaluator.notifications.last).to have_attributes(
+          action: 'assign_me',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: employee
+        )
+
+        expect(other_admin.notifications.last).to have_attributes(
           action: 'create',
-          activable_name: 'John Doe'
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: employee
         )
       end
 
@@ -172,7 +187,9 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
         sign_in admin
 
-        post :create, params: params
+        expect do
+          post :create, params: params
+        end.not_to(change { Notification.count })
 
         expect(response).to have_http_status 422
         expect(json_response['details'].first).to eq 'First name can\'t be blank'
@@ -252,13 +269,17 @@ RSpec.describe V2::EmployeesController, type: :controller do
         )
       end
 
-      it 'creates proper activity' do
-        employee = FactoryBot.create(:employee, first_name: 'Rob', last_name: 'Doe')
+      it 'creates proper notifications' do
+        evaluator = FactoryBot.create(:user, role: :evaluator)
+        other_admin = FactoryBot.create(:user, role: :admin)
+
+        employee = FactoryBot.create(:employee, first_name: 'Rob', evaluator: nil)
 
         params = {
           id: employee.id,
           employee: {
-            first_name: 'Jack'
+            first_name: 'Jack',
+            evaluator_id: evaluator.id
           }
         }
 
@@ -266,11 +287,20 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
         expect do
           put :update, params: params
-        end.to(change { Activity.count }.by(1))
+        end.to(change { Notification.count }.by(2))
 
-        expect(Activity.last).to have_attributes(
-          action: 'update',
-          activable_name: 'Jack Doe'
+        expect(evaluator.notifications.last).to have_attributes(
+          action: 'assign_me',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: employee
+        )
+
+        expect(other_admin.notifications.last).to have_attributes(
+          action: 'assign_evaluator',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: employee
         )
       end
 
@@ -286,7 +316,9 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
         sign_in admin
 
-        put :update, params: params
+        expect do
+          put :update, params: params
+        end.not_to(change { Notification.count })
 
         expect(response).to have_http_status 422
         expect(json_response['details'].first).to eq 'First name can\'t be blank'
@@ -555,6 +587,31 @@ RSpec.describe V2::EmployeesController, type: :controller do
         )
       end
 
+      it 'creates proper notification' do
+        evaluator = FactoryBot.create(:user, role: :evaluator)
+        employee = FactoryBot.create(:employee, state: :hired, evaluator: evaluator)
+
+        params = {
+          id: employee.id,
+          employee: {
+            archived_on: Date.current
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          put :archive, params: params
+        end.to(change { Notification.count }.by(1))
+
+        expect(evaluator.notifications.last).to have_attributes(
+          action: 'archive',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: employee
+        )
+      end
+
       it 'responds with 422 if archive date is blank' do
         employee = FactoryBot.create(:employee, state: :hired)
 
@@ -622,21 +679,6 @@ RSpec.describe V2::EmployeesController, type: :controller do
         end.to(change { Employee.count }.by(-1))
 
         expect(response).to have_http_status 204
-      end
-
-      it 'creates destroy activity' do
-        employee = FactoryBot.create(:employee)
-
-        sign_in admin
-
-        expect do
-          delete :destroy, params: { id: employee.id }
-        end.to(change { Activity.count }.by(1))
-
-        expect(Activity.last).to have_attributes(
-          action: 'destroy',
-          activable_name: employee.fullname
-        )
       end
 
       it 'responds with not found' do

@@ -8,10 +8,17 @@ class User < ApplicationRecord
   has_one :setting, dependent: :destroy
 
   has_many :activities, dependent: :destroy
+  has_many :notifications, foreign_key: :recipient_id, inverse_of: :recipient, dependent: :destroy
+
   has_many :comments, dependent: :nullify
   has_many :employees, foreign_key: :evaluator_id, inverse_of: :evaluator, dependent: :nullify
   has_many :recruits, foreign_key: :evaluator_id, inverse_of: :evaluator, dependent: :nullify
   has_many :templates, foreign_key: :creator_id, inverse_of: :creator, dependent: :nullify
+
+  # # Scopes
+  #
+  scope :active_admin_other_than, ->(id) { active.admin.where.not(id: id) }
+  scope :active_recruiter_other_than, ->(id) { active.recruiter.where.not(id: id) }
 
   # # Validation
   #

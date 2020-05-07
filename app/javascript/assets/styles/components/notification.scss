@@ -1,0 +1,10 @@
+.notification {
+  &__subheader {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &--unread {
+    font-weight: bold;
+  }
+}

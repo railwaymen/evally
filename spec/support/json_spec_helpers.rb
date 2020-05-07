@@ -78,8 +78,20 @@ module JsonSpecHelpers
     }.to_json
   end
 
+  def notification_schema(notification)
+    {
+      id: notification.id,
+      body: notification.body,
+      notifiable_path: notification.notifiable_path,
+      created_at: notification.created_at,
+      unread: notification.read_at.blank?
+    }
+  end
+
   def profile_schema(user)
     setting = user.setting
+
+    notifications = Notification.where(recipient: user)
 
     {
       user: {
@@ -96,25 +108,9 @@ module JsonSpecHelpers
         default_upcoming_items: setting.default_upcoming_items,
         default_next_evaluation_time: setting.default_next_evaluation_time,
         lang: setting.lang
-      }
-    }.to_json
-  end
-
-  def recruit_document_schema(recruit_document)
-    {
-      id: recruit_document.id,
-      status: recruit_document.status,
-      first_name: recruit_document.first_name,
-      last_name: recruit_document.last_name,
-      email: recruit_document.email,
-      gender: recruit_document.gender,
-      phone: recruit_document.phone,
-      group: recruit_document.group,
-      position: recruit_document.position,
-      received_at: recruit_document.received_at.to_s,
-      source: recruit_document.source,
-      accept_current_process: recruit_document.accept_current_process,
-      accept_future_processes: recruit_document.accept_future_processes
+      },
+      notifications: notifications.map(&method(:notification_schema)),
+      unread_count: notifications.where(read_at: nil).count
     }.to_json
   end
 

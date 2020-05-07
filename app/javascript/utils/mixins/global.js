@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     flash (message) {
-      this.$store.commit('NotificationsModule/PUSH_NOTIFICATION', message)
+      this.$store.commit('MessagesModule/PUSH_MESSAGE', message)
     },
 
     matchedRoute(routeName) {

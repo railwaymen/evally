@@ -1,0 +1,19 @@
+pl:
+  notifications:
+    employee:
+      archive: "%{actor_name} zarchiwizował(a) pracownika: %{notifiable_name}"
+      assign_evaluator: "%{actor_name} przypisał(a) ewaluatora do pracownika %{notifiable_name}"
+      assign_me: "%{actor_name} przypisał(a) Ciebie do pracownika %{notifiable_name}"
+      create: "%{actor_name} dodał(a) nowego pracownika: %{notifiable_name}"
+      update: "%{actor_name} zaktualizował(a) profil pracownika: %{notifiable_name}"
+    evaluation:
+      start_employee_evaluation: "%{actor_name} utworzył(a) ocenę pracownika: %{notifiable_name}"
+      complete_employee_evaluation: "%{actor_name} zakończył(a) ocenę pracownika: %{notifiable_name}"
+      start_recruit_evaluation: "%{actor_name} utworzył(a) ocenę rekruta"
+      complete_recruit_evaluation: "%{actor_name} zakończył(a) ocenę rekruta"
+    recruit:
+      assign_me: "%{actor_name} przypisał(a) Ciebie do rekruta"
+      assign_evaluator: "%{actor_name} przypisał(a) evaluator do rekruta"
+    comment:
+      add_comment: "%{actor_name} skomentował(a) jednego z Twoich rekrutów"
+      status_change: "%{actor_name} zmienił(a) status jednego z Twoich rekrutów"

@@ -158,13 +158,15 @@
 
           <v-flex class="px-2" xs12 lg6>
             <v-select
-              v-model="localEmployee.evaluator_id"
+              :value="localEmployee.evaluator_id"
+              @change="localEmployee.set('evaluator_id', $event || null)"
               :items="evaluators.models"
               :label="$t('components.employees.employeeForm.evaluator')"
               item-value="id"
               item-text="fullname"
               prepend-inner-icon="mdi-account-plus-outline"
               :loading="loading"
+              clearable
             />
           </v-flex>
         </v-layout>

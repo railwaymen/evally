@@ -36,4 +36,8 @@ class Employee < ApplicationRecord
   def fullname
     [first_name, last_name].join(' ').strip
   end
+
+  def notifiable_path
+    "/app/employees/#{id}"
+  end
 end

@@ -2,8 +2,10 @@
 
 module V2
   module Employees
-    class BasicForm
+    class UpdateForm
       attr_reader :employee
+
+      delegate :notify_evaluator!, :notify_admins!, to: :notifier_service
 
       def initialize(employee, params:, user:)
         @employee = employee
@@ -16,8 +18,12 @@ module V2
         validate_employee!
 
         ActiveRecord::Base.transaction do
-          log_position_change! if position_changed?
-          create_activity!
+          log_position_change!
+
+          if @employee.changed?
+            notify_evaluator!(@employee.evaluator_id_changed? ? :assign_me : :update)
+            notify_admins!(@employee.evaluator_id_changed? ? :assign_evaluator : :update)
+          end
 
           @employee.save!
         end
@@ -32,6 +38,8 @@ module V2
       end
 
       def log_position_change!
+        return unless @employee.position_changed?
+
         @employee.position_changes.create!(
           previous_position: @employee.position_was,
           current_position: @employee.position,
@@ -39,20 +47,8 @@ module V2
         )
       end
 
-      def position_changed?
-        @employee.persisted? && @employee.position_changed?
-      end
-
-      def create_activity!
-        @user.activities.create!(
-          action: resolved_activity_action,
-          activable: @employee,
-          activable_name: @employee.fullname
-        )
-      end
-
-      def resolved_activity_action
-        @employee.new_record? ? 'create' : 'update'
+      def notifier_service
+        @notifier_service ||= V2::NotifierService.new(notifiable: @employee, actor: @user)
       end
     end
   end

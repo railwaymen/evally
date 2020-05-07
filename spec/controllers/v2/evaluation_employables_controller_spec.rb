@@ -228,6 +228,43 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
         )
       end
 
+      it 'created proper notifications' do
+        evaluator = FactoryBot.create(:user, role: :evaluator)
+        other_admin = FactoryBot.create(:user, role: :admin)
+
+        employee = FactoryBot.create(:employee, evaluator: evaluator)
+        FactoryBot.create(:evaluation_completed_employee, evaluable: employee)
+
+        params = {
+          evaluation: {
+            employee_id: employee.id,
+            use_latest: 1
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          post :create, params: params
+        end.to(change { Notification.count }.by(2))
+
+        draft = employee.evaluations.last
+
+        expect(evaluator.notifications.last).to have_attributes(
+          action: 'start_employee_evaluation',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: draft
+        )
+
+        expect(other_admin.notifications.last).to have_attributes(
+          action: 'start_employee_evaluation',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: draft
+        )
+      end
+
       it 'responds with error if no employee' do
         template = FactoryBot.create(:template)
         FactoryBot.create(:section, sectionable: template)
@@ -411,6 +448,53 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
 
         expect(response).to have_http_status 200
         expect(response.body).to be_json_eql evaluation_employable_schema(draft.reload)
+      end
+
+      it 'created proper notifications' do
+        other_admin = FactoryBot.create(:user, role: :admin)
+
+        draft = FactoryBot.create(:evaluation_draft_employee)
+        section = FactoryBot.create(:section, sectionable: draft)
+
+        params = {
+          id: draft.id,
+          evaluation: {
+            state: 'completed',
+            next_evaluation_on: 6.months.from_now.strftime('%Y-%M'),
+            sections: [
+              {
+                id: section.id,
+                skills: [
+                  {
+                    name: 'Description',
+                    value: 'New value',
+                    needToImprove: false
+                  }
+                ]
+              }
+            ]
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          put :update, params: params
+        end.to(change { Notification.count }.by(2))
+
+        expect(draft.evaluator.notifications.last).to have_attributes(
+          action: 'complete_employee_evaluation',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: draft
+        )
+
+        expect(other_admin.notifications.last).to have_attributes(
+          action: 'complete_employee_evaluation',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: draft
+        )
       end
 
       it 'responds with error if invalid section' do

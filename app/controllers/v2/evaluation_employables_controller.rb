@@ -43,15 +43,7 @@ module V2
     end
 
     def destroy
-      ActiveRecord::Base.transaction do
-        draft_evaluation.destroy!
-
-        current_user.activities.create!(
-          action: 'destroy',
-          activable: draft_evaluation,
-          activable_name: draft_evaluation.employee.fullname
-        )
-      end
+      draft_evaluation.destroy!
 
       head :no_content
     end

@@ -5,6 +5,9 @@ module V2
     class EmployableUpdateForm
       attr_reader :draft
 
+      delegate :employee, to: :draft
+      delegate :notify_evaluator!, :notify_admins!, to: :notifier_service
+
       def initialize(draft, params:, user:)
         @draft = draft
         @params = params
@@ -21,8 +24,12 @@ module V2
         validate_draft!
 
         ActiveRecord::Base.transaction do
-          create_activity! if @draft.changed?
-          save_next_evaluation_date! if @draft.completed?
+          if @draft.completed?
+            save_next_evaluation_date!
+
+            notify_evaluator!(:complete_employee_evaluation)
+            notify_admins!(:complete_employee_evaluation)
+          end
 
           @draft.save!
         end
@@ -36,22 +43,6 @@ module V2
         raise ErrorResponderService.new(:invalid_record, 422, @draft.errors.full_messages)
       end
 
-      def create_activity!
-        @user.activities.create!(
-          action: resolve_action,
-          activable: @draft,
-          activable_name: employee.fullname
-        )
-      end
-
-      def employee
-        @employee ||= @draft.employee
-      end
-
-      def resolve_action
-        @draft.completed? ? :complete : :update
-      end
-
       def resolve_completed_at
         @params[:state] == 'completed' ? Time.now.utc : nil
       end
@@ -62,6 +53,10 @@ module V2
 
       def save_next_evaluation_date!
         employee.update!(next_evaluation_on: @params[:next_evaluation_on])
+      end
+
+      def notifier_service
+        @notifier_service ||= V2::NotifierService.new(notifiable: @draft, actor: @user)
       end
     end
   end

@@ -76,6 +76,42 @@ RSpec.describe V2::RecruitsController, type: :controller do
         expect(response).to have_http_status 204
       end
 
+      it 'creates proper notificaions' do
+        evaluator = FactoryBot.create(:user, role: :evaluator)
+        recruiter = FactoryBot.create(:user, role: :recruiter)
+
+        recruit_attribtues = FactoryBot.attributes_for(:recruit, evaluator_id: evaluator.id)
+
+        params = {
+          recruit: {
+            public_recruit_id: recruit_attribtues[:public_recruit_id],
+            evaluator_id: recruit_attribtues[:evaluator_id]
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          post :webhook, params: params
+        end.to(change { Notification.count }.by(2))
+
+        latest_recruit = Recruit.last
+
+        expect(evaluator.notifications.last).to have_attributes(
+          action: 'assign_me',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: latest_recruit
+        )
+
+        expect(recruiter.notifications.last).to have_attributes(
+          action: 'assign_evaluator',
+          actor_id: admin.id,
+          read_at: nil,
+          notifiable: latest_recruit
+        )
+      end
+
       it 'responds with error if public recruit id blank' do
         params = {
           recruit: {

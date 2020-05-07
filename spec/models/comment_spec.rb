@@ -10,6 +10,8 @@ RSpec.describe Comment, type: :model do
 
     it { is_expected.to validate_presence_of(:body) }
 
+    it { is_expected.to validate_presence_of(:recruit_document_id) }
+
     context 'when created by human' do
       subject { Comment.new(created_by: 'human') }
 
@@ -34,6 +36,18 @@ RSpec.describe Comment, type: :model do
           .backed_by_column_of_type(:string)
           .with_prefix(true)
       )
+    end
+  end
+
+  describe 'methods' do
+    context '.notifiable_path' do
+      it 'returns path to proper recruit document' do
+        comment = FactoryBot.create(:comment, recruit_document_id: 1)
+
+        expect(comment.notifiable_path).to eq(
+          "/app/recruitments/#{comment.recruit.public_recruit_id}/documents/1"
+        )
+      end
     end
   end
 end

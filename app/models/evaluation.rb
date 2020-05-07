@@ -25,10 +25,13 @@ class Evaluation < ApplicationRecord
   }, if: :draft?
 
   validates :position, presence: true
+  validates :recruit_document_id, presence: true, if: :recruit_type?
   validates :state, inclusion: { in: Evaluation.states.keys, message: :invalid_inclusion }
 
   # # Methods
   #
+  delegate :evaluator, to: :evaluable
+
   def employee_type?
     evaluable_type == 'Employee'
   end
@@ -51,5 +54,15 @@ class Evaluation < ApplicationRecord
 
   def recruit
     evaluable if recruit_type?
+  end
+
+  def notifiable_path
+    if employee_type? && draft?
+      "/app/evaluations/#{id}"
+    elsif employee_type? && completed?
+      "/app/employees/#{employee_id}/evaluations/#{id}"
+    elsif recruit_type?
+      "/app/recruitments/#{recruit.public_recruit_id}/documents/#{recruit_document_id}"
+    end
   end
 end

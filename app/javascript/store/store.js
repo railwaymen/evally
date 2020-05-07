@@ -6,6 +6,7 @@ import EvaluationEmployablesModule from '@store/modules/evaluation_employables_m
 import EmployeesModule from '@store/modules/employees_module'
 import EmployeesOverviewModule from '@store/modules/employees_overview_module'
 import EmployeesSearchModule from '@store/modules/employees_search_module'
+import MessagesModule from '@store/modules/messages_module'
 import NotificationsModule from '@store/modules/notifications_module'
 import AuthenticationModule from '@store/modules/authentication_module'
 import TemplatesModule from '@store/modules/templates_module'
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     EmployeesModule,
     EmployeesOverviewModule,
     EmployeesSearchModule,
+    MessagesModule,
     NotificationsModule,
     AuthenticationModule,
     TemplatesModule,

@@ -28,7 +28,7 @@ module V2
     end
 
     def webhook_form
-      @webhook_form ||= V2::Recruits::WebhookForm.new(params: webhook_params)
+      @webhook_form ||= V2::Recruits::WebhookForm.new(params: webhook_params, user: current_user)
     end
 
     def webhook_params

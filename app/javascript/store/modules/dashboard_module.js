@@ -40,7 +40,7 @@ const DashboardModule = {
           commit('SET_DATA', response.data)
         })
         .catch(() => {
-          commit('NotificationsModule/PUSH_NOTIFICATION', { error: 'Error :(' }, { root: true })
+          commit('MessagesModule/PUSH_MESSAGE', { error: 'Error :(' }, { root: true })
         })
         .finally(() => commit('SET_LOADING', false))
     }

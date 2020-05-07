@@ -3,12 +3,12 @@
 class Comment < ApplicationRecord
   # # Associations
   #
-  belongs_to :recruit
+  belongs_to :recruit, inverse_of: :comments
   belongs_to :user, optional: true
 
   # # Validations
   #
-  validates :body, :created_by, presence: true
+  validates :body, :created_by, :recruit_document_id, presence: true
   validates :user_id, presence: true, if: :created_by_human?
 
   # # Enums
@@ -17,8 +17,13 @@ class Comment < ApplicationRecord
 
   # # Mathods
   #
+  delegate :evaluator, to: :recruit
 
   def created_recently?
     discarded_at.blank? && created_at > 15.minutes.ago
+  end
+
+  def notifiable_path
+    "/app/recruitments/#{recruit.public_recruit_id}/documents/#{recruit_document_id}"
   end
 end

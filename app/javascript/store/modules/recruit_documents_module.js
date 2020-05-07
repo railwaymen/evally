@@ -162,7 +162,7 @@ const RecruitDocumentsModule = {
         })
         .catch(error => {
           commit(
-            'NotificationsModule/PUSH_NOTIFICATION',
+            'MessagesModule/PUSH_MESSAGE',
             { error: i18n.t('messages.recruitments.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -179,7 +179,7 @@ const RecruitDocumentsModule = {
         })
         .catch(error => {
           commit(
-            'NotificationsModule/PUSH_NOTIFICATION',
+            'MessagesModule/PUSH_MESSAGE',
             { error: i18n.t('messages.recruitments.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -200,7 +200,7 @@ const RecruitDocumentsModule = {
         }))
         .catch(error => {
           commit(
-            'NotificationsModule/PUSH_NOTIFICATION',
+            'MessagesModule/PUSH_MESSAGE',
             { error: i18n.t('messages.recruitments.show.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -219,7 +219,7 @@ const RecruitDocumentsModule = {
         }))
         .catch(error => {
           commit(
-            'NotificationsModule/PUSH_NOTIFICATION',
+            'MessagesModule/PUSH_MESSAGE',
             { error: i18n.t('messages.recruitments.show.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -237,7 +237,7 @@ const RecruitDocumentsModule = {
             commit('ADD_RECRUIT_DOCUMENT', response.data)
 
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.recruitments.create.ok') },
               { root: true }
             )
@@ -246,7 +246,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.recruitments.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -262,7 +262,7 @@ const RecruitDocumentsModule = {
         })
         .catch(error => {
           commit(
-            'NotificationsModule/PUSH_NOTIFICATION',
+            'MessagesModule/PUSH_MESSAGE',
             { error: i18n.t('messages.recruitments.show.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -280,7 +280,7 @@ const RecruitDocumentsModule = {
             commit('REFRESH_RECRUIT_DOCUMENT', response.data)
 
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.recruitments.update.ok') },
               { root: true }
             )
@@ -289,7 +289,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.recruitments.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -307,7 +307,7 @@ const RecruitDocumentsModule = {
             commit('REMOVE_RECRUIT_DOCUMENT', recruitDocument.id)
 
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.recruitments.destroy.ok') },
               { root: true }
             )
@@ -316,7 +316,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.recruitments.destroy.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -336,7 +336,7 @@ const RecruitDocumentsModule = {
             commit('SET_ATTACHMENTS', response.data)
 
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.recruitments.uploadAttachments.ok') },
               { root: true }
             )
@@ -345,7 +345,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.recruitments.uploadAttachments.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -360,7 +360,7 @@ const RecruitDocumentsModule = {
             commit('REMOVE_ATTACHMENT', id)
 
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.recruitments.destroyAttachment.ok') },
               { root: true }
             )
@@ -369,7 +369,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.recruitments.destroyAttachment.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -377,19 +377,22 @@ const RecruitDocumentsModule = {
       )
     },
     createComment({ state, commit }, comment) {
+      const { id, public_recruit_id } = state.recruitDocument
+
       const params = {
         comment: {
-          body: comment.body
+          body: comment.body,
+          recruit_document_id: id
         }
       }
 
       return (
         coreApiClient
-          .post(Comment.routes.commentsPath(state.recruitDocument.public_recruit_id), params)
+          .post(Comment.routes.commentsPath(public_recruit_id), params)
           .then(response => {
             commit('ADD_COMMENT', response.data)
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.comments.create.ok') },
               { root: true }
             )
@@ -398,7 +401,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.comments.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -406,19 +409,22 @@ const RecruitDocumentsModule = {
       )
     },
     updateComment({ state, commit }, comment) {
+      const { id, public_recruit_id } = state.recruitDocument
+
       const params = {
         comment: {
-          body: comment.body
+          body: comment.body,
+          recruit_document_id: id
         }
       }
 
       return (
         coreApiClient
-          .put(Comment.routes.commentPath(state.recruitDocument.public_recruit_id, comment.id), params)
+          .put(Comment.routes.commentPath(public_recruit_id, comment.id), params)
           .then(response => {
             commit('REFRESH_COMMENT', response.data)
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.comments.update.ok') },
               { root: true }
             )
@@ -427,7 +433,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.comments.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -441,7 +447,7 @@ const RecruitDocumentsModule = {
           .then(response => {
             commit('REFRESH_COMMENT', response.data)
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.comments.delete.ok') },
               { root: true }
             )
@@ -450,7 +456,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.comments.delete.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -469,7 +475,7 @@ const RecruitDocumentsModule = {
         })
         .catch(error => {
           commit(
-            'NotificationsModule/PUSH_NOTIFICATION',
+            'MessagesModule/PUSH_MESSAGE',
             { error: i18n.t('messages.evaluations.show.error', { msg: fetchError(error) }) },
             { root: true }
           )
@@ -477,10 +483,13 @@ const RecruitDocumentsModule = {
         .finally(() => commit('SET_LOADING', 'ok'))
     },
     createEvaluation({ state, commit }, { templateId }) {
+      const { id, position, public_recruit_id } = state.recruitDocument
+
       const params = {
         evaluation: {
-          public_recruit_id: state.recruitDocument.public_recruit_id,
-          position: state.recruitDocument.position,
+          public_recruit_id: public_recruit_id,
+          recruit_document_id: id,
+          position: position,
           template_id: templateId
         }
       }
@@ -493,7 +502,7 @@ const RecruitDocumentsModule = {
           .then(response => {
             commit('ADD_EVALUATION', response.data)
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.evaluations.create.ok') },
               { root: true }
             )
@@ -502,7 +511,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.evaluations.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -524,7 +533,7 @@ const RecruitDocumentsModule = {
             commit('SET_EVALUATION', response.data)
 
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.evaluations.update.ok') },
               { root: true }
             )
@@ -533,7 +542,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.evaluations.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -557,7 +566,7 @@ const RecruitDocumentsModule = {
             commit('SET_EVALUATION', response.data)
 
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { success: i18n.t('messages.evaluations.complete.ok') },
               { root: true }
             )
@@ -566,7 +575,7 @@ const RecruitDocumentsModule = {
           })
           .catch(error => {
             commit(
-              'NotificationsModule/PUSH_NOTIFICATION',
+              'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.evaluations.complete.error', { msg: fetchError(error) }) },
               { root: true }
             )
@@ -582,14 +591,14 @@ const RecruitDocumentsModule = {
           commit('REMOVE_EVALUATION', evaluation.id)
 
           commit(
-            'NotificationsModule/PUSH_NOTIFICATION',
+            'MessagesModule/PUSH_MESSAGE',
             { success: i18n.t('messages.evaluations.delete.ok') },
             { root: true }
           )
         })
         .catch(error => {
           commit(
-            'NotificationsModule/PUSH_NOTIFICATION',
+            'MessagesModule/PUSH_MESSAGE',
             { error: i18n.t('messages.evaluations.delete.error', { msg: fetchError(error) }) },
             { root: true }
           )
