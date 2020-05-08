@@ -19,6 +19,8 @@ gem 'devise', '~> 4.7'
 gem 'devise_invitable', '~> 2.0.0'
 gem 'jwt', '~> 2.2'
 gem 'faraday'
+gem 'redis-namespace', '~> 1.7'
+gem 'sidekiq', '~> 6.0.7'
 
 group :development, :test do
   gem 'better_errors'

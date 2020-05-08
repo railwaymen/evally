@@ -15,13 +15,9 @@ module V2
       def save
         validate_user!
 
-        ActiveRecord::Base.transaction do
-          @user.save!
+        @user.save!
 
-          create_activity!
-        end
-
-        user_sync.perform
+        V2::Sync::UsersJob.perform_later(@user.id, @admin.id)
       end
 
       private
@@ -30,18 +26,6 @@ module V2
         return if @user.valid?
 
         raise ErrorResponderService.new(:invalid_record, 422, @user.errors.full_messages)
-      end
-
-      def create_activity!
-        @admin.activities.create!(
-          action: 'update',
-          activable: @user,
-          activable_name: @user.fullname
-        )
-      end
-
-      def user_sync
-        @user_sync ||= V2::Sync::UserSyncService.new(@user, @admin)
       end
     end
   end

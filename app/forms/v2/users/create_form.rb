@@ -15,13 +15,9 @@ module V2
       def save(skip_invitation: false)
         validate_user!
 
-        ActiveRecord::Base.transaction do
-          skip_invitation ? @user.save! : @user.invite!
+        skip_invitation ? @user.save! : @user.invite!
 
-          create_activity!
-        end
-
-        user_sync.perform
+        V2::Sync::UsersJob.perform_later(@user.id, @admin.id)
       end
 
       private
@@ -34,18 +30,6 @@ module V2
 
       def extra_params
         { password: SecureRandom.hex }
-      end
-
-      def create_activity!
-        @admin.activities.create!(
-          action: 'create',
-          activable: @user,
-          activable_name: @user.fullname
-        )
-      end
-
-      def user_sync
-        @user_sync ||= V2::Sync::UserSyncService.new(@user, @admin)
       end
     end
   end
