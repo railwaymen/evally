@@ -62,6 +62,24 @@ RSpec.describe V2::InvitationsController, type: :controller do
         expect(response.body).to be_json_eql user_schema(User.last)
       end
 
+      it 'perform background job for synchronization' do
+        params = {
+          invitation: {
+            email: 'invited@example.com',
+            first_name: 'Jerry',
+            last_name: 'Sparks',
+            role: 'evaluator'
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          stub_api_client_service
+          post :create, params: params
+        end.to(have_enqueued_job(V2::Sync::UsersJob))
+      end
+
       it 'sends invitation email' do
         params = {
           invitation: {
@@ -79,28 +97,6 @@ RSpec.describe V2::InvitationsController, type: :controller do
         end.to(change { ActionMailer::Base.deliveries.count }.by(1))
 
         expect(ActionMailer::Base.deliveries.last[:to].value).to eq 'invited@example.com'
-      end
-
-      it 'create proper activity' do
-        params = {
-          invitation: {
-            email: 'invited@example.com',
-            first_name: 'Jerry',
-            last_name: 'Sparks',
-            role: 'evaluator'
-          }
-        }
-
-        sign_in admin
-
-        expect do
-          post :create, params: params
-        end.to(change { Activity.count }.by(1))
-
-        expect(Activity.last).to have_attributes(
-          action: 'create',
-          activable_name: 'Jerry Sparks'
-        )
       end
 
       it 'responds with validation error' do

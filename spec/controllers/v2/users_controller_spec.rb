@@ -6,8 +6,6 @@ RSpec.describe V2::UsersController, type: :controller do
   let(:admin) { create(:user, role: 'admin') }
   let(:evaluator) { create(:user, role: 'evaluator') }
 
-  before(:each) { stub_api_client_service }
-
   describe '#index' do
     context 'when unauthorized' do
       it 'responds with 401 error' do
@@ -103,14 +101,16 @@ RSpec.describe V2::UsersController, type: :controller do
         }
 
         sign_in admin
+
+        stub_api_client_service
         put :update, params: params
 
         expect(response).to have_http_status 200
         expect(response.body).to be_json_eql user_schema(user.reload)
       end
 
-      it 'creates proper activity' do
-        user = FactoryBot.create(:user, first_name: 'Rob', last_name: 'Doe')
+      it 'perform background job for synchronization' do
+        user = FactoryBot.create(:user, first_name: 'Rob')
 
         params = {
           id: user.id,
@@ -122,13 +122,9 @@ RSpec.describe V2::UsersController, type: :controller do
         sign_in admin
 
         expect do
+          stub_api_client_service
           put :update, params: params
-        end.to(change { Activity.count }.by(1))
-
-        expect(Activity.last).to have_attributes(
-          action: 'update',
-          activable_name: 'Jack Doe'
-        )
+        end.to(have_enqueued_job(V2::Sync::UsersJob).with(user.id, admin.id))
       end
 
       it 'responds with validation error' do

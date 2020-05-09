@@ -56,5 +56,13 @@ module Evally
     # Action mailer settings
     config.action_mailer.asset_host = config.env.fetch(:core).fetch(:mailer_host)
     config.action_mailer.default_url_options = { host: config.env.fetch(:core).fetch(:mailer_host) }
+
+    # Active Job settings
+    config.active_job.queue_adapter = :sidekiq
+
+    logger = ActiveSupport::Logger.new(Rails.root.join('log', "active_job_#{Rails.env}.log"))
+    logger.formatter = Logger::Formatter.new
+
+    config.active_job.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 end
