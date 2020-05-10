@@ -247,6 +247,11 @@ export default {
         password: 'Current Password',
       }
     },
+    shared: {
+      searchBySkillForm: {
+        label: 'Skill'
+      }
+    },
     templates: {
       sidebar: {
         search: 'Search ...',
@@ -639,9 +644,6 @@ export default {
           evaluationsThisYear: 'Evaluations In {year}',
           completed: 'Completed'
         }
-      },
-      search: {
-        label: 'Skill',
       }
     },
     notifications: {
@@ -685,7 +687,8 @@ export default {
       index: {
         title: 'Recruitments',
         nav: {
-          list: 'List'
+          list: 'List',
+          search: 'Search'
         }
       },
       show: {

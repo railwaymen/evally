@@ -212,6 +212,11 @@ export default {
         seeMore: 'Więcej'
       }
     },
+    shared: {
+      searchBySkillForm: {
+        label: 'Umiejętność'
+      }
+    },
     settings: {
       sidebarNav: {
         general: 'Ogólne',
@@ -636,9 +641,6 @@ export default {
           evaluationsThisYear: 'Oceny w {year} roku',
           completed: 'Ukończone'
         }
-      },
-      search: {
-        label: 'Umięjętność',
       }
     },
     notifications: {
@@ -682,7 +684,8 @@ export default {
       index: {
         title: 'Rekrutacje',
         nav: {
-          list: 'Lista'
+          list: 'Lista',
+          search: 'Wyszukaj'
         }
       },
       show: {

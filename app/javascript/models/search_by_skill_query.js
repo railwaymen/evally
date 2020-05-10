@@ -1,6 +1,6 @@
 import { Model } from './base'
 
-class EmployeesSearchQuery extends Model {
+class SearchBySkillQuery extends Model {
   get defaults() {
     return {
       group: 'rating',
@@ -10,13 +10,13 @@ class EmployeesSearchQuery extends Model {
     }
   }
 
-  get isBool() {
+  get boolGroup() {
     return this.group === 'bool'
   }
 
-  get isRating() {
+  get ratingGroup() {
     return this.group === 'rating'
   }
 }
 
-export { EmployeesSearchQuery }
+export { SearchBySkillQuery }

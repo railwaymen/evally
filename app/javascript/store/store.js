@@ -12,6 +12,7 @@ import AuthenticationModule from '@store/modules/authentication_module'
 import TemplatesModule from '@store/modules/templates_module'
 import UsersModule from '@store/modules/users_module'
 import RecruitDocumentsModule from '@store/modules/recruit_documents_module'
+import RecruitsSearchModule from '@store/modules/recruits_search_module'
 
 Vue.use(Vuex)
 
@@ -27,6 +28,7 @@ export default new Vuex.Store({
     AuthenticationModule,
     TemplatesModule,
     UsersModule,
-    RecruitDocumentsModule
+    RecruitDocumentsModule,
+    RecruitsSearchModule
   }
 })

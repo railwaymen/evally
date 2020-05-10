@@ -1,11 +1,11 @@
 import { coreApiClient } from '@utils/api_clients'
 
 import { Employee, EmployeesList } from '@models/employee'
-import { EmployeesSearchQuery } from '@models/employees_search_query'
+import { SearchBySkillQuery } from '@models/search_by_skill_query'
 
 const initialState = () => ({
   employees: new EmployeesList(),
-  query: new EmployeesSearchQuery(),
+  query: new SearchBySkillQuery(),
   skills: [],
   loading: false
 })
