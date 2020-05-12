@@ -9,6 +9,7 @@
     "chart.js": "^2.9.3",
     "fibers": "^4.0.2",
     "moment": "^2.23.0",
+    "rails-erb-loader": "^5.5.2",
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",
     "vue": "^2.6.11",

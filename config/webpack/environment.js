@@ -8,6 +8,14 @@ environment.loaders.prepend('vue', vue)
 const aliases = require('./paths')
 environment.config.merge(aliases)
 
+environment.loaders.prepend('erb', {
+  test: /\.erb$/,
+  enforce: 'pre',
+  use: [{
+    loader: 'rails-erb-loader',
+  }]
+})
+
 environment.loaders.append('sass', {
   test: /\.s[ac]ss$/i,
   use: [

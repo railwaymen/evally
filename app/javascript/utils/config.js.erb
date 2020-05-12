@@ -1,0 +1,8 @@
+export default {
+  core: {
+    host: '<%= Rails.application.config.env.fetch(:core).fetch(:host) %>'
+  },
+  recruitable: {
+    host: '<%= Rails.application.config.env.fetch(:recruitable).fetch(:host) %>'
+  }
+}

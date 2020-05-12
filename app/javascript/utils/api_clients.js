@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import config from '@utils/config.js.erb'
+
 import store from '@store/store'
 import router from '@router/router'
 
@@ -110,8 +112,8 @@ class ApiClient {
   }
 }
 
-export const coreApiClient = new ApiClient('http://localhost:3000')
-export const recruitableApiClient = new ApiClient('http://localhost:3030')
+export const coreApiClient = new ApiClient(config.core.host)
+export const recruitableApiClient = new ApiClient(config.recruitable.host)
 
 /**
  * Base HTTP Client
