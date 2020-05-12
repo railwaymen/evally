@@ -19,15 +19,29 @@ end
 if Rails.env.development?
   require 'faker'
 
-  current_user = User.last
+  positions = [
+    ['Ruby on Rails Developer', 'Ruby'],
+    ['JavaScript Developer', 'JavaScript'],
+    ['Python Developer', 'Python'],
+    ['Android Developer', 'Android'],
+    ['iOS Developer', 'iOS'],
+    ['QA Specialist', 'QA'],
+    ['Graphic Designer', 'Design'],
+    ['Fronted Developer', 'Fronted'],
+    ['Project Manager', 'Managers']
+  ]
+
+  levels = ['Junior ', '', 'Senior ', 'Ninja ']
 
   30.times do
+    position = positions.sample
+
     Employee.create!(
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
-      position: Faker::Job.title,
-      hired_on: Faker::Date.between(1.year.ago, Time.now),
-      evaluator_id: current_user.id
+      position: "#{levels.sample}#{position.first}",
+      group: position.last,
+      hired_on: Faker::Date.between(1.year.ago, Time.now)
     )
   end
 end
