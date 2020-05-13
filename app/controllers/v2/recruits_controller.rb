@@ -10,6 +10,10 @@ module V2
       render json: V2::Recruits::ShowView.render(presenter), status: :ok
     end
 
+    def skills
+      render json: V2::Sections::SkillsQuery.new(target: :recruits).call, status: :ok
+    end
+
     def webhook
       head webhook_form.save ? :no_content : :unprocessable_entity
     end

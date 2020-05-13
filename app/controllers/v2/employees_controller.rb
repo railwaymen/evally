@@ -44,7 +44,7 @@ module V2
     end
 
     def skills
-      render json: V2::Sections::SkillsQuery.call, status: :ok
+      render json: V2::Sections::SkillsQuery.new(target: :employees).call, status: :ok
     end
 
     def search

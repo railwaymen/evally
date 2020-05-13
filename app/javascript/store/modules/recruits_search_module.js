@@ -1,3 +1,6 @@
+import { coreApiClient } from '@utils/api_clients'
+
+import { Recruit } from '@models/recruit'
 import { SearchBySkillQuery } from '@models/search_by_skill_query'
 
 const initialState = () => ({
@@ -28,7 +31,18 @@ const RecruitsSearchModule = {
 
   actions: {
     fetchSkills({ commit }) {
-      console.log('Fetch Skills!')
+      coreApiClient
+        .get(Recruit.routes.recruitsSkillsPath)
+        .then(response => {
+          commit('SET_SKILLS', response.data)
+        })
+        .catch(() => {
+          commit(
+            'MessagesModule/PUSH_MESSAGE',
+            { error: 'Error :(' },
+            { root: true }
+          )
+        })
     },
     searchRecruits({ commit }, query) {
       commit('SET_QUERY', query)
