@@ -5,7 +5,7 @@ import { SearchBySkillQuery } from '@models/search_by_skill_query'
 
 const initialState = () => ({
   query: new SearchBySkillQuery(),
-  skills: [{ name: 'Abc', group: 'rating' }, { name: 'Git', group: 'bool' }],
+  skills: [],
   loading: false
 })
 
@@ -45,9 +45,23 @@ const RecruitsSearchModule = {
         })
     },
     searchRecruits({ commit }, query) {
-      commit('SET_QUERY', query)
+      commit('SET_LOADING', true)
 
-      console.log('Search Recruits: ', query)
+      coreApiClient
+        .get(Recruit.routes.recruitsSearchPath, { params: query })
+        .then(response => {
+          commit('SET_QUERY', query)
+          // commit('SET_EMPLOYEES', response.data)
+          console.log(response.data)
+        })
+        .catch(() => {
+          commit(
+            'MessagesModule/PUSH_MESSAGE',
+            { error: 'Error :(' },
+            { root: true }
+          )
+        })
+        .finally(() => commit('SET_LOADING', false))
     }
   }
 }

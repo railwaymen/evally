@@ -14,6 +14,12 @@ module V2
       render json: V2::Sections::SkillsQuery.new(target: :recruits).call, status: :ok
     end
 
+    def search
+      recruits = V2::Recruits::SearchQuery.call(recruits_scope, params: params)
+
+      render json: V2::Recruits::Serializer.render(recruits, view: :search), status: :ok
+    end
+
     def webhook
       head webhook_form.save ? :no_content : :unprocessable_entity
     end
