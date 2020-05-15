@@ -8,7 +8,10 @@
     />
 
     <div class="search-results">
-
+      <search-table
+        :recruits="recruits"
+        :loading="loading"
+      />
     </div>
   </div>
 </template>
@@ -18,11 +21,12 @@ import { mapActions, mapState } from 'vuex'
 
 import { SearchBySkillQuery } from '@models/search_by_skill_query'
 
+import SearchTable from '@components/recruitments/SearchTable'
 import SearchBySkillForm from '@components/shared/SearchBySkillForm'
 
 export default {
   name: 'RecruitmentsSearch',
-  components: { SearchBySkillForm },
+  components: { SearchTable, SearchBySkillForm },
   methods: {
     ...mapActions('RecruitsSearchModule', [
       'fetchSkills',
@@ -35,6 +39,7 @@ export default {
   computed: {
     ...mapState('RecruitsSearchModule', [
       'skills',
+      'recruits',
       'query',
       'loading'
     ])

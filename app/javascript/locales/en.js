@@ -331,6 +331,25 @@ export default {
           receivedAt: 'Received Date'
         },
       },
+      searchTable: {
+        labels: {
+          yes: 'Yes',
+          no: 'No'
+        },
+        cols: {
+          name: 'Name',
+          skill: 'Skill',
+          group: 'Group',
+          position: 'Position',
+          source: 'Source',
+          receivedDate: 'Received Date',
+          status: 'Status',
+          evaluationDate: 'Evaluation Date',
+          evaluatorName: 'Evaluator Name',
+          acceptCurrentProcessing: 'CP',
+          acceptFutureProcessing: 'FP'
+        }
+      },
       recruitmentForm: {
         createTitle: 'New Recruit Document',
         updateTitle: 'Edit Recruit Document',

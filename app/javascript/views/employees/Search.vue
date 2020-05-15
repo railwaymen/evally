@@ -31,7 +31,7 @@ export default {
       'fetchSkills'
     ]),
     resetQuery() {
-      this.$store.commit('EmployeesSearchModule/RESET_STATE')
+      this.$store.commit('EmployeesSearchModule/SET_QUERY', query)
     }
   },
   computed: {

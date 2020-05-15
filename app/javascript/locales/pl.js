@@ -330,6 +330,25 @@ export default {
           receivedAt: 'Data otrzymania'
         }
       },
+      searchTable: {
+        labels: {
+          yes: 'Tak',
+          no: 'Nie'
+        },
+        cols: {
+          name: 'Nazwa',
+          skill: 'Umiejętność',
+          group: 'Grupa',
+          position: 'Stanowisko',
+          source: 'Źródło',
+          receivedDate: 'Data otrzymania',
+          status: 'Status',
+          evaluationDate: 'Data oceny',
+          evaluatorName: 'Ewaluator',
+          acceptCurrentProcessing: 'OP',
+          acceptFutureProcessing: 'PP'
+        }
+      },
       recruitmentForm: {
         createTitle: 'Nowe zgłoszenie rekrutacyjne',
         contact: 'Kontakt',
