@@ -9,14 +9,16 @@ import router from '@router/router'
  * Create a new Axios client instance
  * @see https://github.com/mzabriskie/axios#creating-an-instance
  */
-const initClient = (baseUrl = null) => {
+const initClient = (config) => {
   const evallyTokenKey = 'ev411y_t0k3n'
   const evallyLangKey = 'ev411y_l4ng'
 
-  const getBaseUrl = () => [baseUrl, (localStorage.getItem(evallyLangKey) || 'en')].join('/')
+  const getBaseUrl = () => [config.host, (localStorage.getItem(evallyLangKey) || 'en')].join('/')
   const getToken = () => localStorage.getItem(evallyTokenKey)
 
   const client = axios.create()
+
+  console.log('BasicAuth token: ', btoa(config.basicAuth))
 
   // Add a request interceptor
   client.interceptors.request.use(
@@ -26,6 +28,7 @@ const initClient = (baseUrl = null) => {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
+          'Authorization': `Basic ${btoa(config.basicAuth)}`,
           'Token': getToken()
         }
       }
@@ -65,8 +68,8 @@ const initClient = (baseUrl = null) => {
 }
 
 class ApiClient {
-  constructor(baseUrl = null) {
-    this.client = initClient(baseUrl)
+  constructor(config) {
+    this.client = initClient(config)
   }
 
   get(url, conf = {}) {
@@ -112,8 +115,8 @@ class ApiClient {
   }
 }
 
-export const coreApiClient = new ApiClient(config.core.host)
-export const recruitableApiClient = new ApiClient(config.recruitable.host)
+export const coreApiClient = new ApiClient(config.core)
+export const recruitableApiClient = new ApiClient(config.recruitable)
 
 /**
  * Base HTTP Client

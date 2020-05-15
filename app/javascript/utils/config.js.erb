@@ -1,8 +1,10 @@
 export default {
   core: {
-    host: '<%= Rails.application.config.env.fetch(:core).fetch(:host) %>'
+    host: '<%= Rails.application.config.env.fetch(:core).fetch(:host) %>',
+    basicAuth: '<%= Rails.application.config.env.fetch(:core).fetch(:basic_auth, '') %>'
   },
   recruitable: {
-    host: '<%= Rails.application.config.env.fetch(:recruitable).fetch(:host) %>'
+    host: '<%= Rails.application.config.env.fetch(:recruitable).fetch(:host) %>',
+    basicAuth: '<%= Rails.application.config.env.fetch(:recruitable).fetch(:basic_auth, '') %>'
   }
 }
