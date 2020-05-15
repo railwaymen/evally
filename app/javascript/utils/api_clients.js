@@ -18,8 +18,6 @@ const initClient = (config) => {
 
   const client = axios.create()
 
-  console.log('BasicAuth token: ', btoa(config.basicAuth))
-
   // Add a request interceptor
   client.interceptors.request.use(
     (requestConfig) => {
@@ -117,51 +115,3 @@ class ApiClient {
 
 export const coreApiClient = new ApiClient(config.core)
 export const recruitableApiClient = new ApiClient(config.recruitable)
-
-/**
- * Base HTTP Client
- */
-export default {
-  // Provide request methods with the default base_url
-  get(url, conf = {}) {
-    return initClient().get(url, conf)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error))
-  },
-
-  delete(url, conf = {}) {
-    return initClient().delete(url, conf)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error))
-  },
-
-  head(url, conf = {}) {
-    return initClient().head(url, conf)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error))
-  },
-
-  options(url, conf = {}) {
-    return initClient().options(url, conf)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error))
-  },
-
-  post(url, data = {}, conf = {}) {
-    return initClient().post(url, data, conf)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error))
-  },
-
-  put(url, data = {}, conf = {}) {
-    return initClient().put(url, data, conf)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error))
-  },
-
-  patch(url, data = {}, conf = {}) {
-    return initClient().patch(url, data, conf)
-      .then(response => Promise.resolve(response))
-      .catch(error => Promise.reject(error))
-  },
-}
