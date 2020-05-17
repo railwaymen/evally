@@ -62,7 +62,7 @@ RSpec.describe V2::Recruits::SearchQuery do
         value: 2
       }
 
-      result = described_class.call(params: params)
+      result = described_class.new(Recruit.all, params: params).call
       expect(result.map(&:id)).to contain_exactly recruit.id
     end
 
@@ -74,7 +74,7 @@ RSpec.describe V2::Recruits::SearchQuery do
         value: 2
       }
 
-      result = described_class.call(params: params)
+      result = described_class.new(Recruit.all, params: params).call
       expect(result.map(&:id)).to contain_exactly other_recruit.id
     end
 
@@ -86,7 +86,7 @@ RSpec.describe V2::Recruits::SearchQuery do
         value: 2
       }
 
-      result = described_class.call(params: params)
+      result = described_class.new(Recruit.all, params: params).call
       expect(result.map(&:id)).to contain_exactly recruit.id
     end
 
@@ -98,7 +98,7 @@ RSpec.describe V2::Recruits::SearchQuery do
         value: true
       }
 
-      result = described_class.call(params: params)
+      result = described_class.new(Recruit.all, params: params).call
       expect(result.map(&:id)).to contain_exactly recruit.id
     end
 
@@ -110,7 +110,7 @@ RSpec.describe V2::Recruits::SearchQuery do
         value: false
       }
 
-      result = described_class.call(params: params)
+      result = described_class.new(Recruit.all, params: params).call
       expect(result.map(&:id)).to contain_exactly other_recruit.id
     end
   end
@@ -158,7 +158,7 @@ RSpec.describe V2::Recruits::SearchQuery do
         value: 2
       }
 
-      result = described_class.call(params: params)
+      result = described_class.new(Recruit.all, params: params).call
       expect(result.map(&:id)).to contain_exactly recruit.id
     end
 
@@ -170,7 +170,7 @@ RSpec.describe V2::Recruits::SearchQuery do
         value: 1
       }
 
-      result = described_class.call(params: params)
+      result = described_class.new(Recruit.all, params: params).call
       expect(result.map(&:id)).to contain_exactly recruit.id
     end
 
@@ -182,7 +182,7 @@ RSpec.describe V2::Recruits::SearchQuery do
         value: 1
       }
 
-      result = described_class.call(params: params)
+      result = described_class.new(Recruit.all, params: params).call
       expect(result.first.skill['value']).to eq 2
     end
   end
@@ -229,7 +229,7 @@ RSpec.describe V2::Recruits::SearchQuery do
       value: 2
     }
 
-    result = described_class.call(params: params)
+    result = described_class.new(Recruit.all, params: params).call
     expect(result.map(&:id)).to contain_exactly(first_recruit.id, second_recruit.id)
   end
 end

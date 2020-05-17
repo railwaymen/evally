@@ -15,7 +15,7 @@ module V2
     end
 
     def search
-      recruits = V2::Recruits::SearchQuery.call(recruits_scope, params: params)
+      recruits = V2::Recruits::SearchQuery.new(recruits_scope, params: params).call
 
       render json: V2::Recruits::Serializer.render(recruits, view: :search), status: :ok
     end

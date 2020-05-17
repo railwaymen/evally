@@ -62,7 +62,7 @@ RSpec.describe V2::Employees::SearchQuery do
         value: 3
       }
 
-      result = described_class.call(params: params)
+      result = described_class.new(Employee.all, params: params).call
       expect(result.map(&:id)).to contain_exactly employee.id
     end
 
@@ -74,7 +74,7 @@ RSpec.describe V2::Employees::SearchQuery do
         value: 2
       }
 
-      result = described_class.call(params: params)
+      result = described_class.new(Employee.all, params: params).call
       expect(result.map(&:id)).to contain_exactly other_employee.id
     end
 
@@ -86,7 +86,7 @@ RSpec.describe V2::Employees::SearchQuery do
         value: 2
       }
 
-      result = described_class.call(params: params)
+      result = described_class.new(Employee.all, params: params).call
       expect(result.map(&:id)).to contain_exactly employee.id
     end
 
@@ -98,7 +98,7 @@ RSpec.describe V2::Employees::SearchQuery do
         value: true
       }
 
-      result = described_class.call(params: params)
+      result = described_class.new(Employee.all, params: params).call
       expect(result.map(&:id)).to contain_exactly employee.id
     end
 
@@ -110,7 +110,7 @@ RSpec.describe V2::Employees::SearchQuery do
         value: false
       }
 
-      result = described_class.call(params: params)
+      result = described_class.new(Employee.all, params: params).call
       expect(result.map(&:id)).to contain_exactly other_employee.id
     end
   end
@@ -152,7 +152,7 @@ RSpec.describe V2::Employees::SearchQuery do
       value: 3
     }
 
-    result = described_class.call(params: params)
+    result = described_class.new(Employee.all, params: params).call
     expect(result.map(&:id)).to contain_exactly employee.id
   end
 
@@ -194,7 +194,7 @@ RSpec.describe V2::Employees::SearchQuery do
       value: 2
     }
 
-    result = described_class.call(params: params)
+    result = described_class.new(Employee.all, params: params).call
     expect(result.map(&:id)).to contain_exactly employee.id
   end
 end

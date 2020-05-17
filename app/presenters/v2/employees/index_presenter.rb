@@ -8,7 +8,7 @@ module V2
       end
 
       def employees
-        V2::Employees::BasicQuery.call(@scope)
+        V2::Employees::BasicQuery.new(@scope).call
       end
 
       def groups

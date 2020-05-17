@@ -4,13 +4,11 @@ module V2
   module Sections
     class SkillsQuery
       def initialize(target: :all)
-        @target = target
+        @target = target.to_sym
       end
 
       def call
-        return [] unless verified_target?
-
-        ActiveRecord::Base.connection.exec_query(raw_sql)
+        verified_target? ? ActiveRecord::Base.connection.exec_query(raw_sql) : []
       end
 
       private

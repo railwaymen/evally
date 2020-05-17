@@ -3,18 +3,22 @@
 module V2
   module Recruits
     class SearchQuery
-      def self.call(scope = Recruit.all, params:)
+      def initialize(scope, params:)
+        @scope = scope.unscope(:order).includes(:evaluator)
         @params = params
+      end
 
-        scope
-          .includes(:evaluator)
-          .select("DISTINCT ON(recruits.id) #{fields}")
+      def call
+        @scope
           .joins(tables)
+          .select("DISTINCT ON(recruits.id) #{fields}")
           .where("#{group_condition} AND #{skill_name_condition} AND #{skill_value_condition}")
           .order('recruits.id DESC, evaluations_join.evaluation_date DESC')
       end
 
-      def self.fields
+      private
+
+      def fields
         [
           'recruits.*',
           'evaluations_join.*',
@@ -23,7 +27,7 @@ module V2
         ].join(', ')
       end
 
-      def self.tables # rubocop:disable Metrics/MethodLength
+      def tables # rubocop:disable Metrics/MethodLength
         "
           INNER JOIN LATERAL (
             SELECT
@@ -56,34 +60,31 @@ module V2
         "
       end
 
-      def self.group_condition
+      def group_condition
         ActiveRecord::Base.sanitize_sql(
           ['sections_join.section_group = ?', @params[:group]]
         )
       end
 
-      def self.skill_name_condition
+      def skill_name_condition
         ActiveRecord::Base.sanitize_sql(
           ["(skills_join.skill->>'name')::varchar = ?", @params[:name]]
         )
       end
 
-      def self.skill_value_condition
+      def skill_value_condition
         sql = "(skills_join.skill->>'value')::#{resolve_type} #{resolve_operator} ?"
 
         ActiveRecord::Base.sanitize_sql([sql, @params[:value]])
       end
 
-      def self.resolve_operator
+      def resolve_operator
         { eq: '=', gteq: '>=', lteq: '<=' }.fetch(@params[:operator]&.to_sym, '=')
       end
 
-      def self.resolve_type
+      def resolve_type
         { bool: 'boolean', rating: 'integer' }.fetch(@params[:group]&.to_sym, 'integer')
       end
-
-      private_class_method :fields, :tables, :group_condition, :skill_name_condition,
-                           :skill_value_condition, :resolve_operator, :resolve_type
     end
   end
 end
