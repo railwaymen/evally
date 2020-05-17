@@ -31,6 +31,128 @@ RSpec.describe V2::RecruitsController, type: :controller do
     end
   end
 
+  describe '#skills' do
+    context 'when unauthorized' do
+      it 'responds with error' do
+        get :skills
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with skills list' do
+        evaluation = FactoryBot.create(:evaluation_completed_recruit)
+
+        FactoryBot.create(
+          :section,
+          group: 'rating',
+          sectionable: evaluation,
+          skills: [
+            { name: 'Vim', value: 1, needToImprove: false }
+          ]
+        )
+
+        FactoryBot.create(
+          :section,
+          group: 'bool',
+          sectionable: evaluation,
+          skills: [
+            { name: 'Be a team leader', value: true, needToImprove: false }
+          ]
+        )
+
+        sign_in admin
+        get :skills
+
+        expect(response).to have_http_status 200
+        expect(json_response).to include(
+          { 'group' => 'bool', 'name' => 'Be a team leader' },
+          'group' => 'rating', 'name' => 'Vim'
+        )
+      end
+    end
+  end
+
+  describe '#search' do
+    context 'when unauthorized' do
+      it 'responds with error' do
+        get :search
+        expect(response).to have_http_status 401
+      end
+    end
+
+    context 'when authorized' do
+      it 'responds with searched recruit' do
+        recruit1, recruit2 = FactoryBot.create_list(:recruit, 2)
+
+        evaluation1 = FactoryBot.create(
+          :evaluation_completed_recruit,
+          evaluable: recruit1
+        )
+
+        FactoryBot.create(
+          :section,
+          group: 'rating',
+          sectionable: evaluation1,
+          skills: [
+            { name: 'Vim', value: 1, needToImprove: false }
+          ]
+        )
+
+        FactoryBot.create(
+          :section,
+          group: 'bool',
+          sectionable: evaluation1,
+          skills: [
+            { name: 'Be a team leader', value: true, needToImprove: false }
+          ]
+        )
+
+        evaluation2 = FactoryBot.create(
+          :evaluation_completed_recruit,
+          evaluable: recruit2
+        )
+
+        FactoryBot.create(
+          :section,
+          group: 'rating',
+          sectionable: evaluation2,
+          skills: [
+            { name: 'Vim', value: 2, needToImprove: false }
+          ]
+        )
+
+        params = {
+          group: 'rating',
+          name: 'Vim',
+          operator: 'eq',
+          value: 1
+        }
+
+        sign_in admin
+        get :search, params: params
+
+        expect(response).to have_http_status 200
+        expect(json_response.map { |r| r['id'] }).to include recruit1.id
+      end
+
+      it 'responds with empty array' do
+        params = {
+          group: 'rating',
+          name: 'Vim',
+          operator: 'eq',
+          value: 1
+        }
+
+        sign_in admin
+        get :search, params: params
+
+        expect(response).to have_http_status 200
+        expect(json_response).to eq []
+      end
+    end
+  end
+
   describe '#webhook' do
     context 'when unauthorized' do
       it 'responds with 401 error' do

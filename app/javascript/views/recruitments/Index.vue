@@ -14,6 +14,15 @@
         >
           {{ $t('views.recruitments.index.nav.list') }}
         </v-btn>
+
+        <v-btn
+          :to="{ name: 'recruitments_search_path'}"
+          color="primary"
+          exact
+          text
+        >
+          {{ $t('views.recruitments.index.nav.search') }}
+        </v-btn>
       </div>
 
       <div class="panel__actions">

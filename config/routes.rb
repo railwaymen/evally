@@ -38,6 +38,8 @@ Rails.application.routes.draw do
 
       resources :recruits, only: %i[show] do
         collection do
+          get :skills
+          get :search
           post :webhook
         end
 

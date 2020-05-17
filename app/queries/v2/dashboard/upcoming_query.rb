@@ -3,11 +3,20 @@
 module V2
   module Dashboard
     class UpcomingQuery
-      def self.call(scope = Employee.all)
-        scope.joins(tables).where('drafts.ongoing IS NULL').where.not(state: :archived)
+      def initialize(scope)
+        @scope = scope
       end
 
-      def self.tables # rubocop:disable Metrics/MethodLength
+      def call
+        @scope
+          .joins(tables)
+          .where("drafts.ongoing IS NULL AND state != 'archived'")
+          .order(next_evaluation_on: :desc)
+      end
+
+      private
+
+      def tables # rubocop:disable Metrics/MethodLength
         "
           LEFT JOIN LATERAL (
             SELECT
@@ -21,8 +30,6 @@ module V2
           ) drafts ON true
         "
       end
-
-      private_class_method :tables
     end
   end
 end

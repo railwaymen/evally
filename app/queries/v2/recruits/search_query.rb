@@ -1,27 +1,27 @@
 # frozen_string_literal: true
 
 module V2
-  module Employees
+  module Recruits
     class SearchQuery
       def initialize(scope, params:)
-        @scope = scope.includes(:evaluator)
+        @scope = scope.unscope(:order).includes(:evaluator)
         @params = params
       end
 
       def call
         @scope
           .joins(tables)
-          .select(fields)
+          .select("DISTINCT ON(recruits.id) #{fields}")
           .where("#{group_condition} AND #{skill_name_condition} AND #{skill_value_condition}")
-          .distinct
+          .order('recruits.id DESC, evaluations_join.evaluation_date DESC')
       end
 
       private
 
       def fields
         [
-          'employees.*',
-          'latest_evaluation_join.*',
+          'recruits.*',
+          'evaluations_join.*',
           'sections_join.section_group AS skill_group',
           'skills_join.skill'
         ].join(', ')
@@ -31,17 +31,15 @@ module V2
         "
           INNER JOIN LATERAL (
             SELECT
-              id AS latest_evaluation_id,
-              completed_at AS latest_evaluation_date
+              id AS evaluation_id,
+              completed_at AS evaluation_date
             FROM
               evaluations
             WHERE
-              evaluable_id = employees.id AND
-                evaluable_type = 'Employee' AND
+              evaluable_id = recruits.id AND
+                evaluable_type = 'Recruit' AND
                 state = 'completed'
-            ORDER BY completed_at DESC
-            LIMIT 1
-          ) latest_evaluation_join ON true
+          ) evaluations_join ON true
 
           INNER JOIN LATERAL(
             SELECT
@@ -50,7 +48,7 @@ module V2
             FROM sections
             WHERE
               sectionable_type = 'Evaluation' AND
-                sectionable_id = latest_evaluation_join.latest_evaluation_id
+                sectionable_id = evaluations_join.evaluation_id
           ) sections_join ON true
 
           LEFT JOIN LATERAL (

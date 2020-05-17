@@ -247,6 +247,11 @@ export default {
         password: 'Current Password',
       }
     },
+    shared: {
+      searchBySkillForm: {
+        label: 'Skill'
+      }
+    },
     templates: {
       sidebar: {
         search: 'Search ...',
@@ -325,6 +330,25 @@ export default {
           position: 'Position',
           receivedAt: 'Received Date'
         },
+      },
+      searchTable: {
+        labels: {
+          yes: 'Yes',
+          no: 'No'
+        },
+        cols: {
+          name: 'Name',
+          skill: 'Skill',
+          group: 'Group',
+          position: 'Position',
+          source: 'Source',
+          receivedDate: 'Received Date',
+          status: 'Status',
+          evaluationDate: 'Evaluation Date',
+          evaluatorName: 'Evaluator Name',
+          acceptCurrentProcessing: 'CP',
+          acceptFutureProcessing: 'FP'
+        }
       },
       recruitmentForm: {
         createTitle: 'New Recruit Document',
@@ -639,9 +663,6 @@ export default {
           evaluationsThisYear: 'Evaluations In {year}',
           completed: 'Completed'
         }
-      },
-      search: {
-        label: 'Skill',
       }
     },
     notifications: {
@@ -685,7 +706,8 @@ export default {
       index: {
         title: 'Recruitments',
         nav: {
-          list: 'List'
+          list: 'List',
+          search: 'Search'
         }
       },
       show: {
