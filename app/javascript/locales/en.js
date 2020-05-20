@@ -707,7 +707,8 @@ export default {
         title: 'Recruitments',
         nav: {
           list: 'List',
-          search: 'Search'
+          search: 'Search',
+          overview: 'Overview'
         }
       },
       show: {

@@ -11,7 +11,7 @@ module V2
         @scope
           .joins(tables)
           .where("drafts.ongoing IS NULL AND state != 'archived'")
-          .order(next_evaluation_on: :desc)
+          .order(next_evaluation_on: :asc)
       end
 
       private

@@ -23,11 +23,21 @@
         >
           {{ $t('views.recruitments.index.nav.search') }}
         </v-btn>
+
+        <v-btn
+          v-if="recruitDocumentPolicy.canSeeOverview"
+          :to="{ name: 'recruitments_overview_path' }"
+          color="primary"
+          exact
+          text
+        >
+          {{ $t('views.recruitments.index.nav.overview') }}
+        </v-btn>
       </div>
 
       <div class="panel__actions">
         <v-tooltip
-          v-if="recruitDocumentPolicy.canCreate"
+          v-if="$route.name === 'recruitments_path' && recruitDocumentPolicy.canCreate"
           key="addNew"
           bottom
         >

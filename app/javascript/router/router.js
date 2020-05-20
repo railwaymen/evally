@@ -87,6 +87,12 @@ export default new Router({
               component: () => import(/* webpackChunkName: 'recruitments_search' */ '@views/recruitments/Search'),
             },
             {
+              path: 'overview',
+              name: 'recruitments_overview_path',
+              component: () => import(/* webpackChunkName: 'recruitments_overview' */ '@views/recruitments/Overview'),
+              beforeEnter: recruiterAuthorizedGuard
+            },
+            {
               path: 'new',
               name: 'new_recruitment_path',
               component: () => import(/* webpackChunkName: 'new_recruitment' */ '@views/recruitments/New'),

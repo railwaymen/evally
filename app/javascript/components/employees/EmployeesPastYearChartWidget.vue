@@ -61,14 +61,14 @@ export default {
           {
             label: this.$t('components.employees.employeesPastYearChart.hiredEmployees'),
             data: this.hiredValues,
-            backgroundColor: colors[10],
+            backgroundColor: 'green',
             categoryPercentage: 1.0,
             barPercentage: 0.9,
           },
           {
             label: this.$t('components.employees.employeesPastYearChart.archivedEmployees'),
             data: this.archivedValues,
-            backgroundColor: colors[0],
+            backgroundColor: 'grey',
             categoryPercentage: 1.0,
             barPercentage: 0.9,
           }

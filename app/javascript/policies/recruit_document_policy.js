@@ -12,4 +12,8 @@ export default class RecruitDocumentPolicy extends BasePolicy{
   get canRemove() {
     return this.canCreate
   }
+
+  get canSeeOverview() {
+    return this.canCreate
+  }
 }
