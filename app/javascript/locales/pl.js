@@ -704,7 +704,8 @@ export default {
         title: 'Rekrutacje',
         nav: {
           list: 'Lista',
-          search: 'Wyszukaj'
+          search: 'Wyszukaj',
+          overview: 'Przegląd'
         }
       },
       show: {

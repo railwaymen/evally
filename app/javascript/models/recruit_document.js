@@ -65,6 +65,7 @@ class RecruitDocument extends Model {
       recruitDocumentsPath: '/v2/recruit_documents',
       recruitDocumentsFilterPath: payload => `/v2/recruit_documents?${getURLParams(payload)}`,
       recruitDocumentsSearchPath: '/v2/recruit_documents/search',
+      recruitDocumentsOverviewPath: '/v2/recruit_documents/overview',
       recruitDocumentPath: id => `/v2/recruit_documents/${id}`,
       formRecruitDocumentPath: '/v2/recruit_documents/form',
       recruitPath: publicRecruitId => `/v2/recruits/${publicRecruitId}`,
