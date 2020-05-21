@@ -327,7 +327,10 @@ export default {
           group: 'Grupa',
           status: 'Status',
           position: 'Pozycja',
-          receivedAt: 'Data otrzymania'
+          source: 'Źródło',
+          receivedAt: 'Data otrzymania',
+          acceptCurrentProcessing: 'OP',
+          acceptFutureProcessing: 'PP'
         }
       },
       searchTable: {
@@ -710,6 +713,13 @@ export default {
       },
       show: {
         title: 'Rekrutacja'
+      },
+      overview: {
+        monthSelectLabel: 'Wybierz miesiąc',
+        monthlyReport: 'Raport miesięczny',
+        yearlyReport: 'Raport roczny - {year}',
+        groupsChartTitle: 'Rekruci wg grupy',
+        sourcesChartTitle: 'Recruci wg źródła'
       }
     }
   }

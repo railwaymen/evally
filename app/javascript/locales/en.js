@@ -328,7 +328,10 @@ export default {
           group: 'Group',
           status: 'Status',
           position: 'Position',
-          receivedAt: 'Received Date'
+          source: 'Source',
+          receivedAt: 'Received Date',
+          acceptCurrentProcessing: 'CP',
+          acceptFutureProcessing: 'FP'
         },
       },
       searchTable: {
@@ -713,6 +716,13 @@ export default {
       },
       show: {
         title: 'Recruitment'
+      },
+      overview: {
+        monthSelectLabel: 'Select a Month',
+        monthlyReport: 'Monthly Report',
+        yearlyReport: 'Yearly Report - {year}',
+        groupsChartTitle: 'Recruits By Groups',
+        sourcesChartTitle: 'Recruits By Sources'
       }
     }
   }

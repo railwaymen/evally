@@ -1,6 +1,6 @@
 <template>
   <div :class="['widget', `widget--border-${color}`]">
-    <h3 class="widget__header">Recruits By Groups</h3>
+    <h3 class="widget__header">{{ $t('views.recruitments.overview.groupsChartTitle') }}</h3>
 
     <div class="widget__body">
       <div v-if="loading" class="widget__loader">

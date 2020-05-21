@@ -79,6 +79,14 @@
           <template #item.received_at="{ item }">
             {{ item.receivedAt }}
           </template>
+
+          <template #item.accept_current_processing="{ item }">
+            <v-icon>{{ item.accept_current_processing ? 'mdi-check' : 'mdi-minus' }}</v-icon>
+          </template>
+
+          <template #item.accept_future_processing="{ item }">
+            <v-icon>{{ item.accept_future_processing ? 'mdi-check' : 'mdi-minus' }}</v-icon>
+          </template>
         </v-data-table>
       </v-flex>
     </v-layout>
@@ -157,8 +165,20 @@ export default {
           filterable: false
         },
         {
+          text: this.$t('components.recruitments.table.cols.source'),
+          value: 'source'
+        },
+        {
           text: this.$t('components.recruitments.table.cols.receivedAt'),
           value: 'received_at'
+        },
+        {
+          text: this.$t('components.recruitments.table.cols.acceptCurrentProcessing'),
+          value: 'accept_current_processing',
+        },
+        {
+          text: this.$t('components.recruitments.table.cols.acceptFutureProcessing'),
+          value: 'accept_future_processing',
         }
       ]
     }

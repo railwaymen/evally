@@ -2,11 +2,14 @@
   <div class="panel">
     <v-layout>
       <v-flex xs12 md6 lg3>
-        <h2 class="size-27 font-weight-light mb-5">Monthly Report</h2>
+        <h2 class="size-27 font-weight-light mb-5">
+          {{ $t('views.recruitments.overview.monthlyReport') }}
+        </h2>
+
         <v-select
           v-model="currentDate"
           :items="months"
-          label="Select a Month"
+          :label="$t('views.recruitments.overview.monthSelectLabel')"
           item-text="text"
           item-value="value"
           filled
@@ -35,7 +38,7 @@
 
     <v-layout>
       <v-flex xs12 md6 lg3>
-        <h2 class="size-27 font-weight-light mb-5">Yearly Report - {{ currentYear }}</h2>
+        <h2 class="size-27 font-weight-light mb-5">{{ $t('views.recruitments.overview.yearlyReport', { year: currentYear }) }}</h2>
       </v-flex>
     </v-layout>
 
