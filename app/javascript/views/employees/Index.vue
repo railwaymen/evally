@@ -83,7 +83,11 @@
             <span>{{ $t('shared.tooltips.addEvaluation') }}</span>
           </v-tooltip>
 
-          <v-tooltip bottom key="edit">
+          <v-tooltip
+            v-if="user.isAdmin"
+            key="edit"
+            bottom
+          >
             <template #activator="{ on }">
               <v-btn
                 @click="openUpdateForm"
