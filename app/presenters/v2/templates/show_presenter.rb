@@ -17,7 +17,7 @@ module V2
           section
         end
 
-        Pundit.policy_scope!(@user, [:v2, sections_scope]).map(&set_section_width)
+        V2::SectionPolicy::Scope.new(@user, sections_scope).resolve.map(&set_section_width)
       end
 
       private

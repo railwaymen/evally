@@ -2,7 +2,16 @@
   <v-flex xs12 :lg6="section.isHalf" :lg12="section.isFull">
     <div class="section">
       <h5 class="section__header">
-        <span>{{ section.name }}</span>
+        <span>
+          <v-icon
+            :color="section.sensitive ? 'red' : 'green'"
+            class="mr-1"
+          >
+            {{ section.sensitive ? `mdi-lock-outline` : `mdi-lock-open-variant-outline`  }}
+          </v-icon>
+
+          {{ section.name }}
+        </span>
       </h5>
 
       <div v-if="section.isRating" class="section__items">

@@ -11,7 +11,7 @@ module V2
       end
 
       def sections
-        Pundit.policy_scope!(@user, [:v2, sections_scope])
+        V2::SectionPolicy::Scope.new(@user, sections_scope).resolve
       end
 
       private

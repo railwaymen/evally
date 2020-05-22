@@ -30,7 +30,6 @@
                     <v-icon
                       @click="switchSensitive(section.temp_id, index)"
                       :color="section.sensitive ? 'red' : 'green'"
-                      :disabled="!recruitable"
                       v-on="on"
                     >
                       {{ section.sensitive ? `mdi-lock-outline` : `mdi-lock-open-variant-outline`  }}
