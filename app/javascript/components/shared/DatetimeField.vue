@@ -2,7 +2,8 @@
   <div class="datetime-field">
     <div class="datetime-field__date">
       <v-menu
-        :close-on-content-click="true"
+        v-model="menu"
+        :close-on-content-click="false"
         :nudge-right="40"
         transition="scale-transition"
         offset-y
@@ -67,9 +68,15 @@ export default {
       default: () => []
     }
   },
+  data() {
+    return {
+      menu: false
+    }
+  },
   methods: {
     updateDate(value) {
       this.$emit('input', this.$moment(`${value} ${this.computedTime || '00:00:00'}`).format())
+      this.menu = false
     },
     updateTime(e) {
       let time = e.target.value

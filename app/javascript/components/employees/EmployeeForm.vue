@@ -64,7 +64,7 @@
             <v-menu
               ref="hiredAtPicker"
               v-model="hiredAtPicker"
-              :close-on-content-click="true"
+              :close-on-content-click="false"
               :nudge-right="40"
               transition="scale-transition"
               offset-y
@@ -82,6 +82,7 @@
               </template>
               <v-date-picker
                 v-model="localEmployee.hiredDate"
+                @input="hiredAtPicker = false"
                 :locale="$i18n.locale"
                 no-title
                 scrollable
@@ -98,7 +99,7 @@
             <v-menu
               ref="positionSetAtPicker"
               v-model="positionSetAtPicker"
-              :close-on-content-click="true"
+              :close-on-content-click="false"
               :nudge-right="40"
               transition="scale-transition"
               offset-y
@@ -116,6 +117,7 @@
               </template>
               <v-date-picker
                 v-model="localEmployee.positionSetDate"
+                @input="positionSetAtPicker = false"
                 :locale="$i18n.locale"
                 no-title
                 scrollable
@@ -131,7 +133,7 @@
             <v-menu
               ref="nextEvaluationAtPicker"
               v-model="nextEvaluationAtPicker"
-              :close-on-content-click="true"
+              :close-on-content-click="false"
               :nudge-right="40"
               transition="scale-transition"
               offset-y
@@ -148,6 +150,7 @@
               </template>
               <v-date-picker
                 v-model="localEmployee.nextEvaluationDate"
+                @input="nextEvaluationAtPicker = false"
                 :locale="$i18n.locale"
                 type="month"
                 no-title
