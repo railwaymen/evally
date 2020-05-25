@@ -71,8 +71,20 @@ describe('BasicTable', () => {
       filterable: false
     },
     {
+      text: i18n.t('components.recruitments.table.cols.source'),
+      value: 'source'
+    },
+    {
       text: i18n.t('components.recruitments.table.cols.receivedAt'),
       value: 'received_at'
+    },
+    {
+      text: i18n.t('components.recruitments.table.cols.acceptCurrentProcessing'),
+      value: 'accept_current_processing',
+    },
+    {
+      text: i18n.t('components.recruitments.table.cols.acceptFutureProcessing'),
+      value: 'accept_future_processing',
     }])
   })
 
