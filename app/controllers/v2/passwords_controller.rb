@@ -22,7 +22,7 @@ module V2
 
     def user
       @user ||= User.find_by(email: password_forgot_params.fetch(:email, '').strip)
-      raise ErrorResponderService.new(:record_not_found, 404) unless @user
+      raise ErrorResponderService.new(:no_content, 204) unless @user
 
       @user
     end

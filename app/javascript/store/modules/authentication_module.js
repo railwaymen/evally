@@ -87,18 +87,11 @@ const AuthenticationModule = {
           .then(() => {
             commit(
               'MessagesModule/PUSH_MESSAGE',
-              { success: i18n.t('messages.session.forgotPassword.ok') },
+              { info: i18n.t('messages.session.forgotPassword.ok') },
               { root: true }
             )
 
             resolve()
-          })
-          .catch(error => {
-            commit(
-              'MessagesModule/PUSH_MESSAGE',
-              { error: i18n.t('messages.session.forgotPassword.error', { msg: fetchError(error) }) },
-              { root: true }
-            )
           })
       })
     },

@@ -5,10 +5,10 @@ require 'rails_helper'
 RSpec.describe V2::PasswordsController, type: :controller do
   describe '#create' do
     context 'when user is missing' do
-      it 'responds with 404 error' do
+      it 'responds with no content' do
         post :create, params: { password: { email: 'user@example.com' } }
 
-        expect(response).to have_http_status 404
+        expect(response).to have_http_status 204
       end
     end
 
@@ -48,14 +48,14 @@ RSpec.describe V2::PasswordsController, type: :controller do
     context 'when invalid token' do
       it 'responds with 404 error' do
         params = {
-          reset_password_token: 'invalid',
+          id: 'invalid',
           password: {
             password: '',
             password_confirmation: ''
           }
         }
 
-        post :create, params: params
+        put :update, params: params
 
         expect(response).to have_http_status 404
       end

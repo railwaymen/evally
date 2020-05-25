@@ -161,7 +161,7 @@ export default {
           align: 'center'
         },
         {
-          text: this.$t('components.employees.table.cols.evaluatorName'),
+          text: this.$t('components.employees.table.cols.currentEvaluator'),
           value: 'evaluator_fullname',
           align: 'center'
         },

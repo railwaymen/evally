@@ -6,6 +6,9 @@ en:
     invalid_record:
       title: 'Validation failed'
       message: 'Some record attributes are invalid.'
+    no_content:
+      title: 'No content'
+      message: ''
     record_not_found:
       title: 'Record not found'
       message: 'This record does not exist.'

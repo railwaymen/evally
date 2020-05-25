@@ -100,7 +100,7 @@ export default {
           align: 'center'
         },
         {
-          text: this.$t('components.employees.searchTable.cols.evaluatorName'),
+          text: this.$t('components.employees.searchTable.cols.currentEvaluator'),
           value: 'evaluator_fullname',
           align: 'center'
         },

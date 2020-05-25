@@ -126,7 +126,7 @@ export default {
           group: 'Group',
           position: 'Position',
           positionSetOn: 'Promotion Date',
-          evaluatorName: 'Evaluator Name',
+          currentEvaluator: 'Current Evaluator',
           latestEvaluationAt: 'Latest Evaluation Date',
           archivedOn: 'Archived Date',
         }
@@ -149,7 +149,7 @@ export default {
           group: 'Group',
           position: 'Position',
           positionSetOn: 'Promotion Date',
-          evaluatorName: 'Evaluator Name',
+          currentEvaluator: 'Current Evaluator',
           latestEvaluationAt: 'Latest Evaluation Date',
         },
         labels: {
@@ -492,8 +492,7 @@ export default {
         error: 'Password cannot be setup: {msg}'
       },
       forgotPassword: {
-        ok: 'Password reset instructions has been sent to you',
-        error: 'Password cannot be reset: {msg}'
+        ok: 'If an account exists, we will send you an instruction to reset the password'
       },
       resetPassword: {
         ok: 'Your password has been saved, now you can sign in',

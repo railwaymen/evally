@@ -6,6 +6,9 @@ pl:
     invalid_record:
       title: 'Błąd validacji'
       message: 'Rekord zawiera niepoprawne atrybuty.'
+    no_content:
+      title: 'Brak treści'
+      message: ''
     record_not_found:
       title: 'Nie znaleziono'
       message: 'Ten rekord nie istnieje.'

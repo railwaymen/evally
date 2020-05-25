@@ -126,7 +126,7 @@ export default {
           group: 'Grupa',
           position: 'Stanowisko',
           positionSetOn: 'Data zmiany stanowiska',
-          evaluatorName: 'Ewaluator',
+          currentEvaluator: 'Obecny ewaluator',
           latestEvaluationAt: 'Data ostatniej oceny',
           archivedOn: 'Data archiwizacji',
         }
@@ -149,7 +149,7 @@ export default {
           group: 'Grupa',
           position: 'Stanowisko',
           positionSetOn: 'Data zmiany stanowiska',
-          evaluatorName: 'Ewaluator',
+          currentEvaluator: 'Obecny ewaluator',
           latestEvaluationAt: 'Data ostatniej oceny',
         },
         labels: {
@@ -490,8 +490,7 @@ export default {
         error: 'Błąd przy zapisywaniu hasła: {msg}'
       },
       forgotPassword: {
-        ok: 'Instrukcja resetowania hasła została wysłana na Twojego maila',
-        error: 'Błąd przy resetowaniu hasła: {msg}'
+        ok: 'Jesli konto istnieje, wyślemy Ci instrukcję do zresetowania hasła'
       },
       resetPassword: {
         ok: 'Twoje hasło zostało zapisane i możesz się teraz zalogować',
