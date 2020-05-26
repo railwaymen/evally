@@ -6,9 +6,9 @@ set :rvm_ruby_version, 'ruby-2.7.0'
 set :branch, :develop
 
 namespace :deploy do
-  after :publishing, :restart do
-    on roles :web do
-      execute 'systemctl --user restart sidekiq'
-    end
-  end
+  after :publishing, :restart do
+    on roles :web do
+      execute 'systemctl --user restart sidekiq'
+    end
+  end
 end
