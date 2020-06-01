@@ -11,6 +11,7 @@
             <v-text-field
               v-model="localUser.email"
               :rules="[vRequired]"
+              :disabled="localUser.isPersisted"
               prepend-inner-icon="mdi-at"
               type="email"
               :label="$t('components.users.userForm.email')"

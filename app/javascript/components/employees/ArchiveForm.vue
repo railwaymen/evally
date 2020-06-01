@@ -22,7 +22,7 @@
         >
           <template v-slot:activator="{ on }">
             <v-text-field
-              :value="archiveDate"
+              :value="employee.archivedOn"
               :label="$t('components.employees.archiveForm.archivedOn')"
               prepend-inner-icon="mdi-calendar"
               readonly
@@ -31,8 +31,9 @@
           </template>
 
           <v-date-picker
-            v-model="archiveDate"
+            v-model="employee.archivedDate"
             @input="menu = false"
+            :min="employee.hiredDate"
             :locale="$i18n.locale"
             no-title
             scrollable
@@ -64,12 +65,20 @@
 </template>
 
 <script>
+import { Employee } from '@models/employee'
+
 export default {
   name: 'ArchiveForm',
+  props: {
+    employee: {
+      type: Employee,
+      required: true,
+      default: () => new Employee()
+    }
+  },
   data(){
     return {
-      menu: false,
-      archiveDate: this.$moment().format('YYYY-MM-DD')
+      menu: false
     }
   },
   methods: {
@@ -77,7 +86,7 @@ export default {
       this.$emit('closeDialog')
     },
     archiveEmployee() {
-      this.$store.dispatch('EmployeesModule/archiveEmployee', this.archiveDate)
+      this.$store.dispatch('EmployeesModule/archiveEmployee', this.employee.archived_on)
         .then(this.closeDialog)
     }
   }

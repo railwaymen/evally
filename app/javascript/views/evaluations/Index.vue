@@ -163,7 +163,8 @@ export default {
       DialogsBus.$emit('openFormsDialog', {
         innerComponent: CompleteForm,
         props: {
-          date: this.$moment().add(this.setting.default_next_evaluation_time, 'M').startOf('month')
+          defaultDate: this.defaultNextEvaluationTime,
+          hiredDate: this.evaluation.hired_on
         }
       })
     },
@@ -184,7 +185,12 @@ export default {
     ]),
     ...mapState('AuthenticationModule', [
       'setting'
-    ])
+    ]),
+    defaultNextEvaluationTime() {
+      const mDate = this.$moment().add(this.setting.default_next_evaluation_time, 'M').startOf('month')
+
+      return mDate.isAfter(this.evaluation.hired_on) ? mDate : ''
+    }
   },
   created() {
     this.fetchEvaluations()

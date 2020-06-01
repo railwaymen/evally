@@ -23,7 +23,7 @@
           <template v-slot:activator="{ on }">
             <v-text-field
               class="mt-4"
-              :value="localDate.format('MMMM YYYY')"
+              :value="printableMonthDate"
               :label="$t('components.evaluations.completeForm.nextEvaluation')"
               prepend-inner-icon="mdi-calendar"
               readonly
@@ -31,8 +31,9 @@
             />
           </template>
           <v-date-picker
-            v-model="monthFormatDate"
+            v-model="monthDate"
             @input="menu = false"
+            :min="hiredDate"
             :locale="$i18n.locale"
             type="month"
             no-title
@@ -67,16 +68,21 @@
 export default {
   name: 'CompleteForm',
   props: {
-    date: {
-      format: Object,
+    defaultDate: {
+      format: String,
       required: true,
-      default: () => this.$moment()
+      default: ''
+    },
+    hiredDate: {
+      format: String,
+      required: true,
+      default: ''
     }
   },
   data() {
     return {
       menu: false,
-      localDate: this.date,
+      localDate: this.defaultDate,
     }
   },
   methods: {
@@ -90,13 +96,18 @@ export default {
     }
   },
   computed: {
-    monthFormatDate: {
+    monthDate: {
       get() {
-        return this.localDate.format('YYYY-MM')
+        return this.localDate ? this.$moment(this.localDate).format('YYYY-MM') : ''
       },
       set(date) {
         this.localDate = this.$moment(date, 'YYYY-MM')
       }
+    },
+    printableMonthDate() {
+      const mDate = this.$moment(this.monthDate, 'YYYY-MM')
+
+      return mDate.isValid() ? mDate.format('MMMM YYYY') : ''
     }
   }
 }

@@ -4,7 +4,7 @@
       <span class="headline">{{ $t(`components.employees.employeeForm.${action}Title`) }}</span>
     </v-card-title>
 
-    <v-form ref="form" @submit.prevent="save">
+    <v-form ref="form" @submit.prevent="save" lazy-validation>
       <v-card-text>
         <v-layout row wrap>
           <v-flex class="pa-2" xs12>
@@ -72,7 +72,7 @@
             >
               <template v-slot:activator="{ on }">
                 <v-text-field
-                  :value="localEmployee.hiredDate"
+                  :value="localEmployee.hiredOn"
                   :label="$t('components.employees.employeeForm.hiredOn')"
                   :rules="[vRequired]"
                   prepend-inner-icon="mdi-calendar"
@@ -107,7 +107,7 @@
             >
               <template v-slot:activator="{ on }">
                 <v-text-field
-                  :value="localEmployee.positionSetDate"
+                  :value="localEmployee.positionSetOn"
                   :label="$t('components.employees.employeeForm.positionSetOn')"
                   :rules="[vRequired]"
                   prepend-inner-icon="mdi-calendar"
@@ -118,6 +118,7 @@
               <v-date-picker
                 v-model="localEmployee.positionSetDate"
                 @input="positionSetAtPicker = false"
+                :min="localEmployee.hiredDate"
                 :locale="$i18n.locale"
                 no-title
                 scrollable
@@ -141,7 +142,7 @@
             >
               <template v-slot:activator="{ on }">
                 <v-text-field
-                  :value="localEmployee.nextEvaluationDate"
+                  :value="nextEvaluationDate"
                   :label="$t('components.employees.employeeForm.nextEvaluationOn')"
                   prepend-inner-icon="mdi-calendar"
                   readonly
@@ -151,6 +152,7 @@
               <v-date-picker
                 v-model="localEmployee.nextEvaluationDate"
                 @input="nextEvaluationAtPicker = false"
+                :min="localEmployee.hiredDate"
                 :locale="$i18n.locale"
                 type="month"
                 no-title
@@ -248,6 +250,11 @@ export default {
     ]),
     action() {
       return this.localEmployee.isPersisted ? 'update' : 'create'
+    },
+    nextEvaluationDate() {
+      const mDate = this.$moment(this.localEmployee.nextEvaluationDate, 'YYYY-MM')
+
+      return mDate.isValid() ? mDate.format('MMMM YYYY') : ''
     }
   },
   created() {

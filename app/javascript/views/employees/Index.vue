@@ -221,7 +221,10 @@ export default {
     },
     openArchiveForm() {
       DialogsBus.$emit('openFormsDialog', {
-        innerComponent: ArchiveForm
+        innerComponent: ArchiveForm,
+        props: {
+          employee: this.employee
+        }
       })
     },
     openNewEvaluationForm() {

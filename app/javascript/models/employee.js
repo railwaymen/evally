@@ -34,9 +34,19 @@ class Employee extends Model {
   }
 
   get archivedOn() {
-    if (!this.archived_on) return '---'
+    if (!this.archived_on) return ''
 
     return moment(this.archived_on).format('DD MMM YYYY')
+  }
+
+  // === archived on datepicker getter & setter
+  get archivedDate() {
+    return this.archived_on ? moment(this.archived_on).format('YYYY-MM-DD') : ''
+  }
+
+  set archivedDate(date) {
+    const mDate = moment(date, 'YYYY-MM-DD')
+    this.archived_on = mDate.isValid() ? mDate.format() : ''
   }
 
   get employmentTime() {
@@ -82,6 +92,9 @@ class Employee extends Model {
   set hiredDate(date) {
     const mDate = moment(date, 'YYYY-MM-DD')
     this.hired_on = mDate.isValid() ? mDate.format() : ''
+
+    if (moment(this.hired_on).isAfter(this.next_evaluation_on)) this.next_evaluation_on = ''
+    if (moment(this.hired_on).isAfter(this.position_set_on)) this.position_set_on = mDate.format()
   }
   // ===
 
@@ -109,7 +122,7 @@ class Employee extends Model {
   // ===
 
   get positionSetOn () {
-    return moment(this.position_set_on).format('MMMM YYYY')
+    return moment(this.position_set_on).format('DD MMM YYYY')
   }
 
   // === position set at datepicker getter & setter
