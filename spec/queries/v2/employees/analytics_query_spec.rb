@@ -36,6 +36,12 @@ RSpec.describe V2::Employees::AnalyticsQuery do
       archived_on: base_date - 400.days
     )
 
+    FactoryBot.create(
+      :employee,
+      state: 'hired',
+      hired_on: base_date + 1_000.days
+    )
+
     expect(described_class.call).to include(
       'hired_employees_number' => 2,
       'archived_employees_number' => 2,

@@ -37,7 +37,9 @@ module V2
               ) AS average_employment_in_months
             FROM
               employees
+            WHERE hired_on <= CURRENT_DATE
           ) t0 ON true
+          WHERE hired_on <= CURRENT_DATE
           GROUP BY t0.average_employment_in_months;
         "
       end
