@@ -25,4 +25,9 @@
     overflow-y: auto;
     @include scrollbar-styling();
   }
+
+  .v-expansion-panel-header,
+  .v-expansion-panel-content__wrap {
+    padding: 0;
+  }
 }

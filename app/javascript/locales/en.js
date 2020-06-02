@@ -183,7 +183,7 @@ export default {
         },
         positionChanges: {
           title: 'Position Changes',
-          previous: 'Previous: {name}',
+          previous: 'Prev: {name}',
           noContent: 'No position changes yet',
         }
       },

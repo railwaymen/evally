@@ -179,12 +179,12 @@ export default {
         archivedOn: 'Data archiwizacji',
         completedEvaluations: {
           title: 'Zakończone ocenę',
-          noContent: 'Brak ocen'
+          noContent: 'Brak ocen pracownika'
         },
         positionChanges: {
           title: 'Zmiany stanowiska',
-          previous: 'Poprzednio: {name}',
-          noContent: 'Brak zmian',
+          previous: 'Wcześniej: {name}',
+          noContent: 'Brak zmian stanowiska',
         }
       },
       positionsChart: {
