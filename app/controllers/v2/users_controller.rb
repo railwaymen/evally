@@ -41,7 +41,7 @@ module V2
     end
 
     def update_params
-      params.require(:user).permit(:email, :first_name, :last_name, :role, :status)
+      params.require(:user).permit(:first_name, :last_name, :role, :status)
     end
   end
 end
