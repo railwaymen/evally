@@ -9,7 +9,7 @@ module V2
         resp = api_client.post(
           '/v2/users/webhook',
           user: context.attributes.slice(
-            'id', 'email', 'first_name', 'last_name', 'role', 'status'
+            'email', 'first_name', 'last_name', 'role', 'status'
           )
         )
 
