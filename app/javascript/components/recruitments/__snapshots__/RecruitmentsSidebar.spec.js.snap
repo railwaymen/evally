@@ -48,7 +48,7 @@ exports[`RecruitmentsSidebar matches do snapshot 1`] = `
       </div>
       <div class="vcard__info">
         <div class="vcard__label">Received Date</div>
-        <div class="vcard__value">10 Feb 2020, 00:00 CET</div>
+        <div class="vcard__value">10 Feb 2020, 00:00 UTC</div>
       </div>
       <h4 class="vcard__subheader">Attachments ({n})</h4>
       <div class="vcard__list">

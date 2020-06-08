@@ -79,6 +79,6 @@
     }
   },
   "scripts": {
-    "test": "jest"
+    "test": "TZ=UTC jest"
   }
 }
