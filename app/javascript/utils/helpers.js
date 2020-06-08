@@ -71,6 +71,8 @@ export const objectToFormData = (obj, namespace, form = new FormData()) => {
 
 export const arrayRange = (start = 0, end, step = 1) => range(start, end, step)
 
+export const currentTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+
 export const colors = [
   '#EF5350',
   '#EC407A',

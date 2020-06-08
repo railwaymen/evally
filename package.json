@@ -10,6 +10,7 @@
     "chartjs-plugin-datalabels": "^0.7.0",
     "fibers": "^4.0.2",
     "moment": "^2.23.0",
+    "moment-timezone": "^0.5.31",
     "rails-erb-loader": "^5.5.2",
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",

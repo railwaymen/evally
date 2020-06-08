@@ -1,7 +1,7 @@
 import { Model, List } from './base'
-import { getURLParams } from '@utils/helpers'
+import { getURLParams, currentTimezone } from '@utils/helpers'
 
-import moment from 'moment'
+import moment from 'moment-timezone'
 
 class RecruitDocument extends Model {
   get defaults() {
@@ -51,13 +51,13 @@ class RecruitDocument extends Model {
   }
 
   get receivedAt() {
-    return moment(this.received_at).format('DD MMM YYYY, HH:mm')
+    return moment(this.received_at).tz(currentTimezone).format('DD MMM YYYY, HH:mm z')
   }
 
   datetimeFormattedProperty(property) {
     if (!this[property]) return '---'
 
-    return moment(this[property]).format('DD MMM YYYY, HH:mm')
+    return moment(this[property]).tz(currentTimezone).format('DD MMM YYYY, HH:mm z')
   }
 
   static get routes() {
