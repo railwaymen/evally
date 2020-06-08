@@ -92,9 +92,10 @@ export default {
       'readAllNotifications'
     ]),
     markAsRead(notification) {
-      if (notification.unread) this.readNotification(notification.id)
+      const { id, unread, notifiable_path } = notification
 
-      this.$router.push(notification.notifiable_path)
+      if (unread) this.readNotification(id)
+      if (notifiable_path) this.$router.push(notifiable_path)
     },
     readAll() {
       this.readAllNotifications({ latest_fetch_at: this.refreshDatetime, page: 1, per_page: 7 })

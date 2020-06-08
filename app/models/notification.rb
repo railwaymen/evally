@@ -23,7 +23,7 @@ class Notification < ApplicationRecord
   end
 
   def notifiable_path
-    notifiable.notifiable_path if notifiable.present?
+    notifiable&.notifiable_path
   end
 
   def unread
@@ -33,6 +33,8 @@ class Notification < ApplicationRecord
   private
 
   def resolve_notifiable_name
+    return '~~ blank ~~' if notifiable.blank?
+
     if %w[Employee].include?(notifiable_type)
       notifiable.fullname
     elsif %w[Evaluation].include?(notifiable_type) && notifiable.employee_type?

@@ -12,7 +12,7 @@ module V2
     end
 
     def notify_evaluator!(action)
-      return if !evaluator&.evaluator? || evaluator == actor
+      return if evaluator&.admin? || evaluator == actor
 
       Notification.create!(
         actor: actor, recipient: evaluator, action: action, notifiable: notifiable
