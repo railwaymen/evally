@@ -9,7 +9,14 @@ export default {
         source: 'Source',
         status: 'Status',
         group: 'Group',
-        evaluator: 'Evaluator'
+        evaluator: 'Evaluator',
+        salary: 'Salary',
+        contractType: 'Contract Type',
+        availability: 'Availability',
+        availableSince: 'Available Since',
+        location: 'Location',
+        workType: 'Work Type',
+        message: 'Message'
       }
     },
     buttons: {
@@ -43,7 +50,9 @@ export default {
       close: 'Close',
       archive: 'Archive',
       openInfo: 'Open Information',
-      sensitiveInfo: 'Sensitive Information'
+      sensitiveInfo: 'Sensitive Information',
+      acceptCurrentProcessing: 'Accept Current Processing',
+      acceptFutureProcessing: 'Accept Future Processing'
     },
     navbar: {
       dashboard: 'Dashboard',
@@ -358,6 +367,7 @@ export default {
         updateTitle: 'Edit Recruit Document',
         contact: 'Contact',
         general: 'General',
+        applicationDetails: 'Application Details',
         agreements: 'Agreements',
         addFiles: 'Add Files ...',
         male: 'male',
@@ -393,6 +403,8 @@ export default {
         body: 'Are you sure you want to delete this comment?'
       },
       sidebar: {
+        cp: 'CP',
+        fp: 'FP',
         contactInformation: 'Contact Information',
         applicationDetails: 'Application Details',
         attachments: 'Attachments ({n})',
@@ -404,6 +416,13 @@ export default {
         group: 'Group',
         position: 'Position',
         evaluator: 'Evaluator',
+        salary: 'Salary',
+        contractType: 'Contract Type',
+        availability: 'Availability',
+        availableSince: 'Available Since',
+        location: 'Location',
+        workType: 'Work Type',
+        message: 'Message',
         source: 'Source',
         receivedDate: 'Received Date',
         addFile: 'Add File'

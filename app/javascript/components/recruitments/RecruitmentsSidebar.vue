@@ -6,7 +6,37 @@
 
     <div v-else class="vcard">
       <div class="vcard__header">
-        <h3 class="vcard__fullname">{{ localRecruitDocument.fullname }}</h3>
+        <h3 class="vcard__fullname">
+          {{ localRecruitDocument.fullname }}
+
+          <span class="ml-2">
+            <v-tooltip
+              v-if="localRecruitDocument.accept_current_processing"
+              bottom
+            >
+              <template #activator="{ on }">
+                <v-chip v-on="on" color="primary" x-small>
+                  {{ $t('components.recruitments.sidebar.cp') }}
+                </v-chip>
+              </template>
+
+              <span>{{ $t('shared.tooltips.acceptCurrentProcessing') }}</span>
+            </v-tooltip>
+
+            <v-tooltip
+              v-if="localRecruitDocument.accept_future_processing"
+              bottom
+            >
+              <template #activator="{ on }">
+                <v-chip v-on="on" color="secondary" x-small>
+                  {{ $t('components.recruitments.sidebar.fp') }}
+                </v-chip>
+              </template>
+
+              <span>{{ $t('shared.tooltips.acceptFutureProcessing') }}</span>
+            </v-tooltip>
+          </span>
+        </h3>
 
         <div class="vcard__socials">
           <v-tooltip
@@ -131,6 +161,38 @@
           </div>
         </div>
 
+        <template v-if="recruitDocumentPolicy.canEdit">
+          <div class="vcard__info">
+            <div class="vcard__label">{{ $t('components.recruitments.sidebar.salary') }}</div>
+            <div class="vcard__value">{{ localRecruitDocument.salary || '---' }}</div>
+          </div>
+
+          <div class="vcard__info">
+            <div class="vcard__label">{{ $t('components.recruitments.sidebar.contractType') }}</div>
+            <div class="vcard__value">{{ localRecruitDocument.contract_type || '---' }}</div>
+          </div>
+        </template>
+
+        <div class="vcard__info">
+          <div class="vcard__label">{{ $t('components.recruitments.sidebar.availability') }}</div>
+          <div class="vcard__value">{{ localRecruitDocument.availability || '---' }}</div>
+        </div>
+
+        <div class="vcard__info">
+          <div class="vcard__label">{{ $t('components.recruitments.sidebar.availableSince') }}</div>
+          <div class="vcard__value">{{ localRecruitDocument.availableSince || '---' }}</div>
+        </div>
+
+        <div class="vcard__info">
+          <div class="vcard__label">{{ $t('components.recruitments.sidebar.location') }}</div>
+          <div class="vcard__value">{{ localRecruitDocument.location || '---' }}</div>
+        </div>
+
+        <div class="vcard__info">
+          <div class="vcard__label">{{ $t('components.recruitments.sidebar.workType') }}</div>
+          <div class="vcard__value">{{ localRecruitDocument.work_type || '---' }}</div>
+        </div>
+
         <div class="vcard__info">
           <div class="vcard__label">{{ $t('components.recruitments.sidebar.source') }}</div>
           <div class="vcard__value">{{ localRecruitDocument.source }}</div>
@@ -140,6 +202,14 @@
           <div class="vcard__label">{{ $t('components.recruitments.sidebar.receivedDate') }}</div>
           <div class="vcard__value">{{ localRecruitDocument.receivedAt }}</div>
         </div>
+
+        <template v-if="localRecruitDocument.message">
+          <h4 class="vcard__subheader">{{ $t('components.recruitments.sidebar.message') }}</h4>
+
+          <div class="vcard__info">
+            <div class="vcard__text">{{ localRecruitDocument.message }}</div>
+          </div>
+        </template>
 
         <h4 class="vcard__subheader">{{ $t('components.recruitments.sidebar.attachments', { n: attachments.models.length }) }}</h4>
 

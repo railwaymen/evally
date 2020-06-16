@@ -105,6 +105,10 @@
             />
           </v-flex>
 
+          <v-flex class="pa-2" xs12>
+            <h3 class="subtitle-1">{{ $t('components.recruitments.recruitmentForm.applicationDetails') }}</h3>
+          </v-flex>
+
           <v-flex class="px-2" xs12 lg6>
             <v-combobox
               v-model="localRecruitDocument.group"
@@ -125,6 +129,86 @@
               prepend-inner-icon="mdi-briefcase-outline"
               chips
               :label="$t('components.recruitments.recruitmentForm.position')"
+            />
+          </v-flex>
+
+          <v-flex class="px-2" xs12 lg6>
+            <v-text-field
+              v-model="localRecruitDocument.salary"
+              :label="$t('shared.general.fields.salary')"
+              prepend-inner-icon="mdi-cash"
+            />
+          </v-flex>
+
+          <v-flex class="px-2" xs12 lg6>
+            <v-text-field
+              v-model="localRecruitDocument.contract_type"
+              :label="$t('shared.general.fields.contractType')"
+              prepend-inner-icon="mdi-briefcase-edit-outline"
+            />
+          </v-flex>
+
+          <v-flex class="px-2" xs12 lg6>
+            <v-text-field
+              v-model="localRecruitDocument.availability"
+              :label="$t('shared.general.fields.availability')"
+              prepend-inner-icon="mdi-account-clock-outline"
+            />
+          </v-flex>
+
+          <v-flex class="px-2" xs12 lg6>
+            <v-menu
+              ref="availableSincePicker"
+              v-model="availableSincePicker"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+            >
+              <template #activator="{ on }">
+                <v-text-field
+                  :value="localRecruitDocument.availableSince"
+                  @change="localRecruitDocument.set('available_since', null)"
+                  :label="$t('shared.general.fields.availableSince')"
+                  prepend-inner-icon="mdi-calendar"
+                  clearable
+                  readonly
+                  v-on="on"
+                />
+              </template>
+              <v-date-picker
+                v-model="localRecruitDocument.availableSinceDate"
+                @input="availableSincePicker = false"
+                :locale="$i18n.locale"
+                no-title
+                scrollable
+              />
+            </v-menu>
+          </v-flex>
+
+          <v-flex class="px-2" xs12 lg6>
+            <v-text-field
+              v-model="localRecruitDocument.location"
+              :label="$t('shared.general.fields.location')"
+              prepend-inner-icon="mdi-map-marker-outline"
+            />
+          </v-flex>
+
+          <v-flex class="px-2" xs12 lg6>
+            <v-text-field
+              v-model="localRecruitDocument.work_type"
+              :label="$t('shared.general.fields.workType')"
+              prepend-inner-icon="mdi-remote-desktop"
+            />
+          </v-flex>
+
+          <v-flex class="px-2" xs12>
+            <v-textarea
+              v-model="localRecruitDocument.message"
+              :label="$t('shared.general.fields.message')"
+              prepend-inner-icon="mdi-file-document-outline"
+              rows="3"
             />
           </v-flex>
 
@@ -342,7 +426,8 @@ export default {
     return {
       localRecruitDocument: new RecruitDocument({ ...this.recruitDocument }),
       selectedFile: new Attachment(),
-      localFiles: []
+      localFiles: [],
+      availableSincePicker: false
     }
   },
   methods: {
