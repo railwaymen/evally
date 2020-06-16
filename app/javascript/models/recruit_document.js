@@ -19,14 +19,20 @@ class RecruitDocument extends Model {
       accept_current_processing: false,
       accept_future_processing: false,
       public_recruit_id: '',
+      incomplete_details: '',
       task_sent_at: '',
       call_scheduled_at: '',
       interview_scheduled_at: '',
-      decision_made_at: '',
-      recruit_accepted_at: '',
       rejection_reason: '',
       evaluator_id: null,
       social_links: [],
+      salary: '',
+      availability: '',
+      available_since: '',
+      location: '',
+      contract_type: '',
+      work_type: '',
+      message: '',
       status: {
         value: '',
         label: '',
@@ -45,6 +51,23 @@ class RecruitDocument extends Model {
       }
     }
   }
+
+  get availableSince() {
+    if (!this.available_since) return ''
+
+    return moment(this.available_since).format('DD MMM YYYY')
+  }
+
+  // === available datepicker getter & setter
+  get availableSinceDate() {
+    return this.available_since ? moment(this.available_since).format('YYYY-MM-DD') : ''
+  }
+
+  set availableSinceDate(date) {
+    const mDate = moment(date, 'YYYY-MM-DD')
+    this.available_since = mDate.isValid() ? mDate.format() : ''
+  }
+  // ===
 
   get fullname() {
     return [this.first_name, this.last_name].join(' ')

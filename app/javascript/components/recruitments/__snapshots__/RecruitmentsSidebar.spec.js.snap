@@ -4,7 +4,10 @@ exports[`RecruitmentsSidebar matches do snapshot 1`] = `
 <div class="sidebar sidebar--boxed">
   <div class="vcard">
     <div class="vcard__header">
-      <h3 class="vcard__fullname"> </h3>
+      <h3 class="vcard__fullname">
+
+
+        <span class="ml-2"><!----> <!----></span></h3>
       <div class="vcard__socials"></div>
     </div>
     <div class="vcard__content">
@@ -43,6 +46,30 @@ exports[`RecruitmentsSidebar matches do snapshot 1`] = `
         </div>
       </div>
       <div class="vcard__info">
+        <div class="vcard__label">Salary</div>
+        <div class="vcard__value">---</div>
+      </div>
+      <div class="vcard__info">
+        <div class="vcard__label">Contract Type</div>
+        <div class="vcard__value">---</div>
+      </div>
+      <div class="vcard__info">
+        <div class="vcard__label">Availability</div>
+        <div class="vcard__value">---</div>
+      </div>
+      <div class="vcard__info">
+        <div class="vcard__label">Available Since</div>
+        <div class="vcard__value">---</div>
+      </div>
+      <div class="vcard__info">
+        <div class="vcard__label">Location</div>
+        <div class="vcard__value">---</div>
+      </div>
+      <div class="vcard__info">
+        <div class="vcard__label">Work Type</div>
+        <div class="vcard__value">---</div>
+      </div>
+      <div class="vcard__info">
         <div class="vcard__label">Source</div>
         <div class="vcard__value"></div>
       </div>
@@ -50,6 +77,7 @@ exports[`RecruitmentsSidebar matches do snapshot 1`] = `
         <div class="vcard__label">Received Date</div>
         <div class="vcard__value">10 Feb 2020, 00:00 UTC</div>
       </div>
+      <!---->
       <h4 class="vcard__subheader">Attachments ({n})</h4>
       <div class="vcard__list">
         <v-list-item-stub>

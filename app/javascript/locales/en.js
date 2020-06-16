@@ -9,7 +9,14 @@ export default {
         source: 'Source',
         status: 'Status',
         group: 'Group',
-        evaluator: 'Evaluator'
+        evaluator: 'Evaluator',
+        salary: 'Salary',
+        contractType: 'Contract Type',
+        availability: 'Availability',
+        availableSince: 'Available Since',
+        location: 'Location',
+        workType: 'Work Type',
+        message: 'Message'
       }
     },
     buttons: {
@@ -358,6 +365,7 @@ export default {
         updateTitle: 'Edit Recruit Document',
         contact: 'Contact',
         general: 'General',
+        applicationDetails: 'Application Details',
         agreements: 'Agreements',
         addFiles: 'Add Files ...',
         male: 'male',
@@ -404,6 +412,13 @@ export default {
         group: 'Group',
         position: 'Position',
         evaluator: 'Evaluator',
+        salary: 'Salary',
+        contractType: 'Contract Type',
+        availability: 'Availability',
+        availableSince: 'Available Since',
+        location: 'Location',
+        workType: 'Work Type',
+        message: 'Message',
         source: 'Source',
         receivedDate: 'Received Date',
         addFile: 'Add File'

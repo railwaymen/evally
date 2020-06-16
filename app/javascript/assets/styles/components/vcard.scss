@@ -51,4 +51,10 @@
   &__input {
     width: 60%;
   }
+
+  &__text {
+    width: 100%;
+    font-style: italic;
+    white-space: pre-wrap;
+  }
 }

@@ -9,7 +9,14 @@ export default {
         source: 'Żródło',
         status: 'Status',
         group: 'Grupa',
-        evaluator: 'Oceniający'
+        evaluator: 'Oceniający',
+        salary: 'Wynagrodzenie',
+        contractType: 'Typ umowy',
+        availability: 'Dostępność',
+        availableSince: 'Wolny od',
+        location: 'Lokacja',
+        workType: 'Typ pracy',
+        message: 'Wiadomość',
       }
     },
     buttons: {
@@ -356,6 +363,7 @@ export default {
         createTitle: 'Nowe zgłoszenie rekrutacyjne',
         contact: 'Kontakt',
         general: 'Ogólne',
+        applicationDetails: 'Szczegóły zgłoszenia',
         agreements: 'Zgody',
         addFiles: 'Dodaj pliki ...',
         male: 'mężczyzna',
@@ -402,6 +410,13 @@ export default {
         group: 'Grupa',
         position: 'Stanowisko',
         evaluator: 'Oceniający',
+        salary: 'Wynagrodzenie',
+        contractType: 'Typ umowy',
+        availability: 'Dostępność',
+        availableSince: 'Wolny od',
+        location: 'Lokacja',
+        workType: 'Typ pracy',
+        message: 'Wiadomość',
         source: 'Źródło',
         receivedDate: 'Data otrzymania',
         addFile: 'Doda plik'
