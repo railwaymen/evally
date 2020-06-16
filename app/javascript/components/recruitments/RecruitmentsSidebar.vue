@@ -15,10 +15,12 @@
               bottom
             >
               <template #activator="{ on }">
-                <v-chip v-on="on" color="primary" x-small>CP</v-chip>
+                <v-chip v-on="on" color="primary" x-small>
+                  {{ $t('components.recruitments.sidebar.cp') }}
+                </v-chip>
               </template>
 
-              <span>Accepted Current Processing</span>
+              <span>{{ $t('shared.tooltips.acceptCurrentProcessing') }}</span>
             </v-tooltip>
 
             <v-tooltip
@@ -26,10 +28,12 @@
               bottom
             >
               <template #activator="{ on }">
-                <v-chip v-on="on" color="secondary" x-small>FP</v-chip>
+                <v-chip v-on="on" color="secondary" x-small>
+                  {{ $t('components.recruitments.sidebar.fp') }}
+                </v-chip>
               </template>
 
-              <span>Accepted Future Processing</span>
+              <span>{{ $t('shared.tooltips.acceptFutureProcessing') }}</span>
             </v-tooltip>
           </span>
         </h3>

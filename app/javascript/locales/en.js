@@ -50,7 +50,9 @@ export default {
       close: 'Close',
       archive: 'Archive',
       openInfo: 'Open Information',
-      sensitiveInfo: 'Sensitive Information'
+      sensitiveInfo: 'Sensitive Information',
+      acceptCurrentProcessing: 'Accept Current Processing',
+      acceptFutureProcessing: 'Accept Future Processing'
     },
     navbar: {
       dashboard: 'Dashboard',
@@ -401,6 +403,8 @@ export default {
         body: 'Are you sure you want to delete this comment?'
       },
       sidebar: {
+        cp: 'CP',
+        fp: 'FP',
         contactInformation: 'Contact Information',
         applicationDetails: 'Application Details',
         attachments: 'Attachments ({n})',

@@ -50,7 +50,9 @@ export default {
       close: 'Zamknij',
       archive: 'Archiwizuj',
       openInfo: 'Otwarte dane',
-      sensitiveInfo: 'Wrażliwe dane'
+      sensitiveInfo: 'Wrażliwe dane',
+      acceptCurrentProcessing: 'Zgoda na obecną rekrutację',
+      acceptFutureProcessing: 'Zgoda na przyszłą rekrutację'
     },
     navbar: {
       dashboard: 'Kokpit',
@@ -336,8 +338,8 @@ export default {
           position: 'Pozycja',
           source: 'Źródło',
           receivedAt: 'Data otrzymania',
-          acceptCurrentProcessing: 'OP',
-          acceptFutureProcessing: 'PP'
+          acceptCurrentProcessing: 'OR',
+          acceptFutureProcessing: 'PR'
         }
       },
       searchTable: {
@@ -355,8 +357,8 @@ export default {
           status: 'Status',
           evaluationDate: 'Data oceny',
           evaluatorName: 'Ewaluator',
-          acceptCurrentProcessing: 'OP',
-          acceptFutureProcessing: 'PP'
+          acceptCurrentProcessing: 'OR',
+          acceptFutureProcessing: 'PR'
         }
       },
       recruitmentForm: {
@@ -399,6 +401,8 @@ export default {
         body: 'Czy na pewno chcesz usunąć ten komentarz?'
       },
       sidebar: {
+        cp: 'OP',
+        fp: 'PP',
         contactInformation: 'Dane kontaktowe',
         applicationDetails: 'Szczegóły zgłoszenia',
         attachments: 'Dołączone pliki ({n})',
