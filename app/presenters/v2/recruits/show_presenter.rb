@@ -15,7 +15,7 @@ module V2
       end
 
       def evaluations
-        @evaluations ||= @recruit.evaluations.order(completed_at: :desc)
+        @evaluations ||= @recruit.evaluations.order(completed_at: :desc, created_at: :desc)
       end
 
       def evaluation

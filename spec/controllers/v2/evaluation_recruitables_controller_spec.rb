@@ -149,7 +149,7 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
         expect(json_response['details'].first).to eq 'Template does not exist'
       end
 
-      it 'responds with error if similar draft already exists' do
+      it 'responds with error if draft invalid' do
         recruit = FactoryBot.create(:recruit)
 
         FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
@@ -164,11 +164,12 @@ RSpec.describe V2::EvaluationRecruitablesController, type: :controller do
           }
         }
 
+        allow_any_instance_of(Evaluation).to receive(:valid?).and_return(false)
+
         sign_in admin
         post :create, params: params
 
         expect(response).to have_http_status 422
-        expect(json_response['details'].first).to eq 'Evaluable record has already draft evaluation'
       end
     end
   end

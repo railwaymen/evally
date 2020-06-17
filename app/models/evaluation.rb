@@ -20,9 +20,9 @@ class Evaluation < ApplicationRecord
   # # Validations
   #
   validates :evaluable_id, uniqueness: {
-    scope: %i[state evaluable_type],
+    scope: %i[state],
     message: :draft_evaluation_exists
-  }, if: :draft?
+  }, if: -> { draft? && employee_type? }
 
   validates :position, presence: true
   validates :recruit_document_id, presence: true, if: :recruit_type?
