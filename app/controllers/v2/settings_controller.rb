@@ -18,7 +18,8 @@ module V2
 
     def setting_params
       params.require(:setting).permit(
-        :default_draft_items, :default_upcoming_items, :default_next_evaluation_time, :lang
+        :default_draft_items, :default_upcoming_items, :default_next_evaluation_time, :lang,
+        :enable_upcoming_notifications
       )
     end
   end

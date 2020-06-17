@@ -107,6 +107,7 @@ module JsonSpecHelpers
         default_draft_items: setting.default_draft_items,
         default_upcoming_items: setting.default_upcoming_items,
         default_next_evaluation_time: setting.default_next_evaluation_time,
+        enable_upcoming_notifications: setting.enable_upcoming_notifications,
         lang: setting.lang
       },
       notifications: notifications.map(&method(:notification_schema)),
@@ -131,6 +132,7 @@ module JsonSpecHelpers
       default_draft_items: setting.default_draft_items,
       default_upcoming_items: setting.default_upcoming_items,
       default_next_evaluation_time: setting.default_next_evaluation_time,
+      enable_upcoming_notifications: setting.enable_upcoming_notifications,
       lang: setting.lang
     }.to_json
   end

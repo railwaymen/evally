@@ -224,6 +224,7 @@ export default {
     settings: {
       sidebarNav: {
         general: 'General',
+        notifications: 'Notifications',
         profile: 'Profile',
         support: 'Support',
       },
@@ -242,6 +243,9 @@ export default {
           subtitle: 'Evaluations',
           nextEvaluationOffset: 'Months to next evaluation'
         }
+      },
+      notificationsForm: {
+        enableUpcomingNotifications: 'Notify me about upcoming evaluations (every 1st of month)'
       },
       userForm: {
         subtitle: 'Basic Profile Information',
@@ -696,10 +700,13 @@ export default {
         title: 'Settings',
       },
       general: {
-        title: 'General Settings',
+        title: 'General',
+      },
+      notifications: {
+        title: 'Notifications'
       },
       profile: {
-        title: 'Profile Settings',
+        title: 'Profile',
         logOutWarning: 'You will be logged out after successful password change.',
       },
       support: {

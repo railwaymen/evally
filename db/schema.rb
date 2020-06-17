@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_05_075139) do
+ActiveRecord::Schema.define(version: 2020_06_17_204829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2020_05_05_075139) do
     t.string "group", default: "Unassigned", null: false
     t.date "position_set_on"
     t.date "archived_on"
+    t.boolean "scheduled", default: false, null: false
     t.index ["evaluator_id"], name: "index_employees_on_evaluator_id"
     t.index ["group"], name: "index_employees_on_group"
     t.index ["last_name"], name: "index_employees_on_last_name"
@@ -127,13 +128,14 @@ ActiveRecord::Schema.define(version: 2020_05_05_075139) do
 
   create_table "settings", force: :cascade do |t|
     t.bigint "user_id"
-    t.integer "default_draft_items", default: 5
-    t.integer "default_upcoming_items", default: 5
-    t.integer "default_next_evaluation_time", default: 6
+    t.integer "default_draft_items", default: 5, null: false
+    t.integer "default_upcoming_items", default: 5, null: false
+    t.integer "default_next_evaluation_time", default: 6, null: false
     t.boolean "public_view_enabled", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "lang", default: "en"
+    t.string "lang", default: "en", null: false
+    t.boolean "enable_upcoming_notifications", default: true, null: false
     t.index ["user_id"], name: "index_settings_on_user_id"
   end
 
