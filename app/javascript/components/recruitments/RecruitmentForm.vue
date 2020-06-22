@@ -141,10 +141,12 @@
           </v-flex>
 
           <v-flex class="px-2" xs12 lg6>
-            <v-text-field
+            <v-combobox
               v-model="localRecruitDocument.contract_type"
+              :items="['Employment Contact', 'B2B', 'Civil Law Contract']"
               :label="$t('shared.general.fields.contractType')"
               prepend-inner-icon="mdi-briefcase-edit-outline"
+              clearable
             />
           </v-flex>
 
@@ -196,8 +198,9 @@
           </v-flex>
 
           <v-flex class="px-2" xs12 lg6>
-            <v-text-field
+            <v-combobox
               v-model="localRecruitDocument.work_type"
+              :items="['Stationary', 'Remotely', 'Mixed']"
               :label="$t('shared.general.fields.workType')"
               prepend-inner-icon="mdi-remote-desktop"
             />
