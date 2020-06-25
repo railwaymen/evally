@@ -139,6 +139,11 @@ export default new Router({
               component: () => import(/* webpackChunkName: 'settings_general' */ '@views/settings/General'),
             },
             {
+              path: 'notifications',
+              name: 'notifications_settings_path',
+              component: () => import(/* webpackChunkName: 'settings_notifications' */ '@views/settings/Notifications'),
+            },
+            {
               path: 'profile',
               name: 'profile_settings_path',
               component: () => import(/* webpackChunkName: 'settings_profile' */ '@views/settings/Profile'),

@@ -6,7 +6,8 @@ class Setting extends Model {
       default_draft_items: 0,
       default_next_evaluation_time: 0,
       default_upcoming_items: 0,
-      lang: 'en'
+      lang: 'en',
+      enable_upcoming_notifications: true
     }
   }
 

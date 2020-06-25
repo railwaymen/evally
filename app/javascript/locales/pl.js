@@ -229,6 +229,7 @@ export default {
     settings: {
       sidebarNav: {
         general: 'Ogólne',
+        notifications: 'Powiadomienia',
         profile: 'Profil',
         support: 'Wsparcie',
       },
@@ -247,6 +248,9 @@ export default {
           subtitle: 'Oceny',
           nextEvaluationOffset: 'Miesiące do następnej oceny'
         }
+      },
+      notificationsForm: {
+        enableUpcomingNotifications: 'Powiadom mnie o nadchodzacych ewaluacjach (każdego 1-ego dnia miesiąca)'
       },
       userForm: {
         subtitle: 'Podstawowe informacje',
@@ -694,10 +698,13 @@ export default {
         title: 'Ustawienia',
       },
       general: {
-        title: 'Ustawienia gólne',
+        title: 'Ogólne',
+      },
+      notifications: {
+        title: 'Powiadomienia'
       },
       profile: {
-        title: 'Ustawienia profilu',
+        title: 'Profil',
         logOutWarning: 'Poprawna zmiana hasła spowoduje wylogowanie użytkownika',
       },
       support: {

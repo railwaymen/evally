@@ -45,4 +45,18 @@ RSpec.describe User, type: :model do
         .backed_by_column_of_type(:string)
     )
   end
+
+  describe 'mail_to' do
+    it 'expects to be proper mail with label' do
+      admin = FactoryBot.create(
+        :user,
+        role: :admin,
+        first_name: 'Jack',
+        last_name: 'Sparrow',
+        email: 'jsparrow@example.com'
+      )
+
+      expect(admin.mail_to).to eq 'Jack Sparrow <jsparrow@example.com>'
+    end
+  end
 end

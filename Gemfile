@@ -21,6 +21,7 @@ gem 'jwt', '~> 2.2'
 gem 'faraday'
 gem 'redis-namespace', '~> 1.7'
 gem 'sidekiq', '~> 6.0.7'
+gem 'whenever', require: false
 
 group :development, :test do
   gem 'better_errors'

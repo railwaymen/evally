@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="wrapper">
+    <div class="section logo">
+      <%= image_tag 'logo_black.png' %>
+    </div>
+
+    <div class="section intro">
+      <h2>High Five <%= @user.first_name %>,</h2>
+
+      <% if @presenter.regular_employees.blank? && @presenter.fresh_employees.blank? %>
+        <p>Good job &#128077; there are no upcoming evaluations in current month!</p>
+      <% else %>
+        <p>Hope you are well. Let's plan new evaluations this month:</p>
+      <% end %>
+    </div>
+
+    <% if @presenter.regular_employees.present? %>
+      <div class="section">
+        <h4>Next evaluation for employees</h4>
+
+        <table width="100%">
+          <tbody>
+            <% @presenter.regular_employees.each_with_index.map do |employee, index| %>
+              <tr>
+                <td align="center" width="50px">
+                  <%= index + 1 %>.
+                </td>
+                <td align="left">
+                  <strong><%= link_to employee.fullname, vue_employee_url(employee), target: '_blank' %></strong> as <em><%= employee.position %></em>
+                  <p class="subtitle"><%= employee.next_evaluation_on.present? ? employee.next_evaluation_on.strftime('%B %Y') : 'First time' %></p>
+                </td>
+                <td align="right" width="160">
+                  <%= link_to "http://www.google.com/calendar/event?action=TEMPLATE&text=#{employee.fullname}'s Review&details=", target: '_blank', class: 'small-button' do %>
+                    &#10010;
+                    Add To Calendar
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+
+    <% if @presenter.fresh_employees.present? %>
+      <div class="section">
+        <h4>First evaluation for employees</h4>
+
+        <table width="100%">
+          <tbody>
+            <% @presenter.fresh_employees.each_with_index.map do |employee, index| %>
+              <tr>
+                <td align="center" width="50px">
+                  <%= index + 1 %>.
+                </td>
+                <td align="left">
+                  <strong><%= link_to employee.fullname, vue_employee_url(employee), target: '_blank' %></strong> as <em><%= employee.position %></em>
+                  <p class="subtitle"><%= employee.next_evaluation_on.present? ? employee.next_evaluation_on.strftime('%B %Y') : 'First time' %></p>
+                </td>
+                <td align="right" width="160">
+                  <%= link_to "http://www.google.com/calendar/event?action=TEMPLATE&text=#{employee.fullname}'s Review&details=", target: '_blank', class: 'small-button' do %>
+                    &#10010;
+                    Add To Calendar
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+
+    <div class="section section--muted">
+      <p>
+        This message is generated automatically. Please do not respond to this. <br/>
+        If you don't want to receive it, please go to the <%= link_to 'notifications settings', vue_notifications_settings_url, target: '_blank' %> of your profile and disable this type of notification.
+      </p>
+    </div>
+
+    <div class="section bye">
+      <p>
+        Best Regards,<br />
+        <em>Evally Team &hearts;</em>
+      </p>
+    </div>
+  </div>
+</div>
