@@ -40,7 +40,11 @@ class User < ApplicationRecord
   #
 
   def fullname
-    [first_name, last_name].join(' ').strip
+    "#{first_name} #{last_name}".strip
+  end
+
+  def mail_to
+    "#{fullname} <#{email}>"
   end
 
   def invitation_status

@@ -39,7 +39,7 @@
 
       .wrapper {
         background-color: white;
-        max-width: 640px;
+        max-width: 720px;
         margin: 16px auto;
         padding: 16px 0;
         text-align: center;
@@ -48,6 +48,11 @@
       .section {
         padding: 0 16px;
         margin: 16px 0;
+      }
+
+      .section--muted p {
+        font-size: 12px;
+        color: gray;
       }
 
       .section.logo img {
@@ -68,6 +73,59 @@
         text-align: center;
         border-radius: 3px;
         padding: 14px 35px;
+      }
+
+      .section .small-button {
+        font-wieght: bold;
+        font-size: 12px;
+        color: white;
+        line-height: 12px;
+        letter_spacing: 0.03em;
+        text-transform: uppercase;
+        background-color: #2196F3;
+        display: inline-block;
+        text-decoration: none;
+        text-align: center;
+        border-radius: 3px;
+        padding: 7px 14px;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      table tr:nth-child(odd) {
+        background-color: rgba(0, 0, 0, .02);
+      }
+
+      table tr:not(:last-child) {
+        border-bottom: thin solid rgba(0, 0, 0, .12);
+      }
+
+      table tr:hover {
+        background-color: #eee;
+      }
+
+      table td {
+        padding: 12px 6px;
+        line-height: 1.2;
+      }
+
+      table a {
+        color: #000;
+        text-decoration: none;
+      }
+
+      table a:hover {
+        text-decoration: underline;
+      }
+
+      table .subtitle {
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+        line-height: 1.2;
+        color: gray
       }
     </style>
   </head>
