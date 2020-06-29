@@ -42,7 +42,7 @@ exports[`RecruitmentsSidebar matches do snapshot 1`] = `
       <div class="vcard__info vcard__info--editable">
         <div class="vcard__label">Evaluator</div>
         <div class="vcard__input">
-          <v-select-stub items="" clearable="true" item-value="id" item-text="fullname" filled="" dense=""></v-select-stub>
+          <v-select-stub items="" clearable="true" item-value="email_token" item-text="fullname" filled="" dense=""></v-select-stub>
         </div>
       </div>
       <div class="vcard__info">

@@ -7,6 +7,7 @@ class User extends Model {
     return {
       id: null,
       email: '',
+      email_token: '',
       first_name: '',
       last_name: '',
       role: '',

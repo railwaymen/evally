@@ -5,7 +5,8 @@ module V2
     class Serializer < Blueprinter::Base
       identifier :id
 
-      fields :email, :first_name, :last_name, :role, :status, :last_sign_in_at, :invitation_status
+      fields :email, :first_name, :last_name, :role, :status, :last_sign_in_at, :invitation_status,
+             :email_token
     end
   end
 end

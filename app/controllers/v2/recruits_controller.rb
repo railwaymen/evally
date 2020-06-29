@@ -42,7 +42,7 @@ module V2
     end
 
     def webhook_params
-      params.require(:recruit).permit(:public_recruit_id, :evaluator_id)
+      params.require(:recruit).permit(:public_recruit_id, :evaluator_token)
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_17_204829) do
+ActiveRecord::Schema.define(version: 2020_06_29_110256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,10 +104,9 @@ ActiveRecord::Schema.define(version: 2020_06_17_204829) do
 
   create_table "recruits", force: :cascade do |t|
     t.string "public_recruit_id", null: false
-    t.bigint "evaluator_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["evaluator_id"], name: "index_recruits_on_evaluator_id"
+    t.string "evaluator_token"
     t.index ["public_recruit_id"], name: "index_recruits_on_public_recruit_id", unique: true
   end
 
@@ -173,7 +172,9 @@ ActiveRecord::Schema.define(version: 2020_06_17_204829) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.string "email_token", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email_token"], name: "index_users_on_email_token"
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
@@ -190,7 +191,6 @@ ActiveRecord::Schema.define(version: 2020_06_17_204829) do
   add_foreign_key "notifications", "users", column: "actor_id"
   add_foreign_key "notifications", "users", column: "recipient_id"
   add_foreign_key "position_changes", "employees"
-  add_foreign_key "recruits", "users", column: "evaluator_id"
   add_foreign_key "settings", "users"
   add_foreign_key "templates", "users", column: "creator_id"
 end
