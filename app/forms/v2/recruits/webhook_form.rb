@@ -15,7 +15,7 @@ module V2
       def save
         return unless @recruit.valid?
 
-        if @recruit.evaluator_id_changed?
+        if @recruit.evaluator_token_changed?
           notify_evaluator!(:assign_me)
           notify_recruiters!(:assign_evaluator)
         end

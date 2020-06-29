@@ -23,9 +23,9 @@
           <v-flex class="px-2" xs12 lg6>
             <v-select
               :items="evaluators.models"
-              v-model="localRecruitDocument.evaluator_id"
+              v-model="localRecruitDocument.evaluator_token"
               :label="$t('shared.general.fields.evaluator')"
-              item-value="id"
+              item-value="email_token"
               item-text="fullname"
               clearable
               small

@@ -202,13 +202,8 @@ RSpec.describe V2::RecruitsController, type: :controller do
         evaluator = FactoryBot.create(:user, role: :evaluator)
         recruiter = FactoryBot.create(:user, role: :recruiter)
 
-        recruit_attribtues = FactoryBot.attributes_for(:recruit, evaluator_id: evaluator.id)
-
         params = {
-          recruit: {
-            public_recruit_id: recruit_attribtues[:public_recruit_id],
-            evaluator_id: recruit_attribtues[:evaluator_id]
-          }
+          recruit: FactoryBot.attributes_for(:recruit, evaluator_token: evaluator.email_token)
         }
 
         sign_in admin

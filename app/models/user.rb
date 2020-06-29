@@ -12,7 +12,8 @@ class User < ApplicationRecord
 
   has_many :comments, dependent: :nullify
   has_many :employees, foreign_key: :evaluator_id, inverse_of: :evaluator, dependent: :nullify
-  has_many :recruits, foreign_key: :evaluator_id, inverse_of: :evaluator, dependent: :nullify
+  has_many :recruits, foreign_key: :evaluator_token, primary_key: :email_token,
+                      inverse_of: :evaluator, dependent: :nullify
   has_many :templates, foreign_key: :creator_id, inverse_of: :creator, dependent: :nullify
 
   # # Scopes
@@ -29,6 +30,7 @@ class User < ApplicationRecord
 
   # # Callbacks
   #
+  before_validation :set_email_token
   after_create :create_setting
 
   # # Enums
@@ -38,6 +40,10 @@ class User < ApplicationRecord
 
   # # Methods
   #
+
+  def set_email_token
+    self.email_token = Digest::SHA256.hexdigest(email.to_s)
+  end
 
   def fullname
     "#{first_name} #{last_name}".strip

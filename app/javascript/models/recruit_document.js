@@ -24,7 +24,7 @@ class RecruitDocument extends Model {
       call_scheduled_at: '',
       interview_scheduled_at: '',
       rejection_reason: '',
-      evaluator_id: null,
+      evaluator_token: null,
       social_links: [],
       salary: '',
       availability: '',

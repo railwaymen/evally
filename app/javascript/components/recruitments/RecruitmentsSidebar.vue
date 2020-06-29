@@ -149,11 +149,11 @@
           <div class="vcard__input">
             <v-select
               :items="evaluators.models"
-              :value="localRecruitDocument.evaluator_id"
+              :value="localRecruitDocument.evaluator_token"
               @input="assignEvaluator"
               :disabled="!recruitDocumentPolicy.canEdit"
               :clearable="recruitDocumentPolicy.canEdit"
-              item-value="id"
+              item-value="email_token"
               item-text="fullname"
               filled
               dense
@@ -329,7 +329,7 @@ export default {
       'uploadAttachments'
     ]),
     assignEvaluator(value) {
-      this.localRecruitDocument.evaluator_id = value
+      this.localRecruitDocument.evaluator_token = value
 
       this.updateRecruitDocument({ recruitDocument: this.localRecruitDocument })
     },
