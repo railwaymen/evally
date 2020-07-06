@@ -1,0 +1,216 @@
+!!!
+%html
+  %head
+    %meta{ content: 'text/html; charset=utf-8', 'http-equiv' => 'Content-Type' }/
+    :css
+      html {
+        font-size: 100%;
+      }
+
+      body {
+        background-color: #fafafa;
+        font-family: Helvetica, sans-serif;
+        font-size: 10px;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+      }
+
+      h1, h2, h3 {
+        margin: 20px 0 10px;
+      }
+
+      p {
+        margin-top: 0;
+        margin-bottom: 3px;
+      }
+
+      .display-1 {
+        font-size: 34px;
+        line-height: 40px;
+        letter-spacing: 0;
+        font-weight: 300;
+        text-transform: inherit;
+      }
+
+      .headline {
+        font-size: 24px;
+        line-height: 32px;
+        letter-spacing: 0;
+        font-weight: 300;
+        text-transform: inherit;
+      }
+
+      .title {
+        font-size: 20px;
+        line-height: 28px;
+        letter-spacing: 0.05px;
+        font-weight: 400;
+        text-transform: inherit;
+      }
+
+      .subhead-2 {
+        font-size: 15px;
+        line-height: 28px;
+        letter-spacing: 0.1px;
+        font-weight: 400;
+        text-transform: inherit;
+      }
+
+      .subhead-1 {
+        font-size: 15px;
+        line-height: 24px;
+        letter-spacing: 0.1px;
+        font-weight: 300;
+        text-transform: inherit;
+      }
+
+      .body-2 {
+        font-size: 13px;
+        line-height: 24px;
+        letter-spacing: 0.1px;
+        font-weight: 400;
+        text-transform: inherit;
+      }
+
+      .body-1 {
+        font-size: 13px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        font-weight: 300;
+        text-transform: inherit;
+      }
+
+      .caption {
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: 0.2px;
+        font-weight: 300;
+        color: gray;
+        text-transform: inherit;
+      }
+
+      .label {
+        font-size: 12px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        font-weight: 300;
+        text-transform: inherit;
+      }
+
+      .menu {
+        font-size: 13px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        font-weight: 400;
+        text-transform: inherit;
+      }
+
+      .button {
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.1px;
+        font-weight: 400;
+        text-transform: uppercase;
+      }
+
+      .link {
+        color: #4169E1;
+        text-decoration: none;
+      }
+
+      .link:hover {
+        text-decoration: underline;
+      }
+
+      .chip {
+        display: inline-block;
+        background: lightgray;
+        color: white;
+        padding: 0 9px;
+        border-radius: 4px;
+        font-size: 10px;
+      }
+
+      .container {
+        background-color: white;
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 16px 0;
+        text-align: center;
+      }
+
+      .row {
+        padding: 0 16px;
+        margin: 16px 0;
+      }
+
+      .logo {
+        width: 200px;
+        margin: 0 auto;
+      }
+
+      .logo img {
+        width: 100%;
+        height: auto;
+      }
+
+      .btn {
+        background-color: #4169E1;
+        border: none;
+        border-radius: 2px;
+        color: white;
+        display: inline-block;
+        font-size: 14px;
+        height: 36px;
+        line-height: 36px;
+        padding: 0 16px;
+        text-decoration: none;
+        text-transform: uppercase;
+        vertical-align: middle;
+      }
+
+      .btn-small {
+        height: 32px;
+        line-height: 32px;
+        font-size: 13px;
+      }
+
+      .btn:hover {
+        background-color: #3F51B5;
+        text-decoration: none;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      table tr:nth-child(odd) {
+        background-color: rgba(0, 0, 0, .02);
+      }
+
+      table tr:not(:last-child) {
+        border-bottom: thin solid rgba(0, 0, 0, .12);
+      }
+
+      table tr:hover {
+        background-color: #eee;
+      }
+
+      table td {
+        padding: 12px 6px;
+        line-height: 1.2;
+      }
+
+      table a {
+        color: #000;
+        text-decoration: none;
+      }
+
+      table a:hover {
+        text-decoration: underline;
+      }
+
+  %body
+    = yield

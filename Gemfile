@@ -13,6 +13,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
 gem 'rack-cors', '~> 1.0', '>= 1.0.2'
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'haml', '~> 5.1'
 gem 'blueprinter', '~> 0.22.0'
 gem 'pundit', '~> 2.1'
 gem 'devise', '~> 4.7'

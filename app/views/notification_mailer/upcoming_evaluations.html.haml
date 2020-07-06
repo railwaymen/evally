@@ -1,0 +1,64 @@
+.container
+  .row
+    .logo
+      = image_tag 'logo_black.png'
+
+  .row
+    .header
+      %h1.headline Hello #{@user.first_name}!
+
+  .row
+    - if @presenter.regular_employees.blank? && @presenter.fresh_employees.blank?
+      %p.subhead-1 Good job &#128077; there are no upcoming evaluations in current month!
+    - else
+      %p.subhead-1 Hope you are well. Let's plan new evaluations this month:
+
+  - if @presenter.regular_employees.present?
+    .row
+      %h2.title Next evaluation for employees
+
+      %table
+        %tbody
+          - @presenter.regular_employees.each_with_index.map do |employee, index|
+            %tr.body-1
+              %td{ align: 'center', width: '50px' }
+                #{index + 1}.
+              %td{ align: 'left' }
+                %strong= link_to employee.fullname, vue_employee_url(employee), target: '_blank'
+                as
+                %em= employee.position
+                %p.caption= employee.next_evaluation_on.present? ? employee.next_evaluation_on.strftime('%B %Y') : 'First time'
+              %td{ align: 'right', width: '200' }
+                = link_to "http://www.google.com/calendar/event?action=TEMPLATE&text=#{employee.fullname}'s Review&details=", target: '_blank', class: 'btn btn-small' do
+                  &#10010; Add To Calendar
+
+  - if @presenter.fresh_employees.present?
+    .row
+      %h4.title First evaluation for employees
+
+      %table
+        %tbody
+          - @presenter.fresh_employees.each_with_index.map do |employee, index|
+            %tr.body-1
+              %td{ align: 'center', width: '50px' }
+                #{index + 1}.
+              %td{ align:  'left'}
+                %strong= link_to employee.fullname, vue_employee_url(employee), target: '_blank'
+                as
+                %em= employee.position
+                %p.caption= employee.next_evaluation_on.present? ? employee.next_evaluation_on.strftime('%B %Y') : 'First time'
+              %td{ align: 'right', width: '200' }
+                = link_to "http://www.google.com/calendar/event?action=TEMPLATE&text=#{employee.fullname}'s Review&details=", target: '_blank', class: 'btn btn-small' do
+                  &#10010; Add To Calendar
+
+  .row
+    %p.caption
+      This message is generated automatically. Please do not respond to this.
+      %br
+      If you don't want to receive it, please go to the #{link_to 'notifications settings', vue_notifications_settings_url, target: '_blank'} of your profile and disable this type of notification.
+
+  .row
+    %p.subhead-1
+      Best Regards
+      %br
+      %em Evally Team &hearts;
