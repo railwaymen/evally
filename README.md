@@ -1,5 +1,5 @@
-# Evally ![version](https://img.shields.io/badge/version-0.5-blue) [![Build Status](https://travis-ci.com/railwaymen/evally.svg?branch=master)](https://travis-ci.com/railwaymen/evally) ![coverage](https://img.shields.io/badge/coverage-100%25-success)
-A simple web application for managing periodic skills evaluations of employees.
+# Evally ![version](https://img.shields.io/badge/version-0.6-blue) [![Build Status](https://travis-ci.com/railwaymen/evally.svg?branch=master)](https://travis-ci.com/railwaymen/evally) ![coverage](https://img.shields.io/badge/coverage-100%25-success)
+A simple web application to manage periodic skills evaluations of employees and recruitment evaluations of candidates.
 
 [![forthebadge](http://forthebadge.com/images/badges/made-with-ruby.svg)](http://forthebadge.com) [![forthebadge](http://forthebadge.com/images/badges/made-with-vue.svg)](http://forthebadge.com)
 
@@ -16,20 +16,33 @@ A simple web application for managing periodic skills evaluations of employees.
 
 Manage your employees by tracking their skills development based on own customized questionnaires. Evally, built with Ruby on Rails and Vue.js as Single Page Application, can be your basic tool for targeting career paths of your employees and observing the human potential of your company.
 
+Setup this app together with **[Evally Recruitable](https://github.com/railwaymen/evally_recruitable)** to extend possibilities and store recruitment applications in one place, in a clear way.
+
 ## Features
 
+#### Core module
 A few of the things that you can do with Evally:
 - prepare own customized questionnaires
 - use a three stars rating, 'yes or no' option or text to evaluate employee
 - manage hired and archived employees
 - save evaluation drafts for further modifications
-- track upcoming evaluations
+- track and get notifications about upcoming evaluations
 - archive users activities
 - share evaluations by unique and safe link
 - search employees by skills
 - present the analytics about employees, employment changes and evaluations on charts
 - use one of two available languages: Polish, English
 - as an admin delegate employee's evaluations to user with evaluator role
+
+#### Recruitable module (optional)
+More things you can do with **[Evally Recruitable](https://github.com/railwaymen/evally_recruitable)** extension:
+- list all recruitment applications with simple filters and search field
+- present necessary information in a straight way
+- upload and store attachments
+- mark recruitment applications with statuses
+- assign evaluators to candidate
+- evaluate documents based on customized templates
+- add comments to candidate's profile
 
 ## Requirements
 
@@ -79,7 +92,15 @@ bundle exec rake db:create
 bundle exec rake db:setup
 ```
 
-##### 5. Start the Rails server
+##### 5. Run Sidekiq
+Run Sidekiq for background jobs processing. It is important to provide data synchronization between core module and extensions.
+
+```bash
+# run sidekiq
+bundle exec sidekiq
+```
+
+##### 6. Start the Rails server
 
 You can start the development rails server in the way given below:
 
@@ -98,7 +119,7 @@ If you want to use live code reloading, or you have enough JavaScript that on-de
 ```
 
 
-## Run the app using docker-compose
+## Run the app using docker-compose*
 
 ##### 1. Create docker network
 
@@ -139,6 +160,7 @@ docker exec -it evally_core_app rails db:create db:schema:load db:seed
 docker exec -it evally_recruitable_app rails db:create db:schema:load db:seed
 ```
 
+\* work in progress
 
 ## Feedback
 
