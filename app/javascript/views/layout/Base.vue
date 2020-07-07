@@ -1,5 +1,9 @@
 <template>
-  <section class="app">
+  <section v-if="loading" class="app__loader">
+    <v-progress-circular :size="60" :width="4" color="primary" indeterminate />
+  </section>
+
+  <section v-else class="app">
     <v-app-bar
       class="elevation-1 toolbar"
       color="white"
@@ -184,7 +188,8 @@ export default {
   computed: {
     ...mapState('AuthenticationModule', [
       'user',
-      'setting'
+      'setting',
+      'loading'
     ]),
     canHideSlider() {
       return this.$route.path.startsWith('/app/settings')

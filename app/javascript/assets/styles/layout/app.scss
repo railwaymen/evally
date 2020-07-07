@@ -1,3 +1,10 @@
 .app  {
   padding-top: rem2dec(10rem);
+
+  &__loader {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
