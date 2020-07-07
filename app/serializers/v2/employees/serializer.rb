@@ -20,6 +20,10 @@ module V2
         employee.respond_to?(:latest_evaluation_date) ? employee.latest_evaluation_date : nil
       end
 
+      field :evaluation_exists do |employee|
+        employee.respond_to?(:evaluation_exists) ? employee.evaluation_exists : nil
+      end
+
       view :search do
         field :skill do |employee|
           {

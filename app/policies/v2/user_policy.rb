@@ -7,7 +7,7 @@ module V2
     end
 
     def active?
-      %w[admin recruiter].include? user.role
+      %w[admin recruiter].include?(user&.role)
     end
 
     def create?

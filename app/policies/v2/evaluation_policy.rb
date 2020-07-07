@@ -12,7 +12,7 @@ module V2
 
     class RecruitableScope < Scope
       def resolve
-        return scope.recruitable if user.admin? || user.recruiter?
+        return scope.recruitable if %w[admin recruiter].include?(user&.role)
 
         Evaluation.recruitable.where(evaluable_id: user.recruits.ids)
       end

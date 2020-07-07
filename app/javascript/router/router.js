@@ -49,13 +49,13 @@ export default new Router({
               path: 'overview',
               name: 'employees_overview_path',
               component: () => import(/* webpackChunkName: 'employees_overview' */ '@views/employees/Overview'),
-              beforeEnter: adminAuthorizedGuard
+              beforeEnter: recruiterAuthorizedGuard
             },
             {
               path: 'archived',
               name: 'employees_archived_path',
               component: () => import(/* webpackChunkName: 'employees_archived' */ '@views/employees/Archived'),
-              beforeEnter: adminAuthorizedGuard
+              beforeEnter: recruiterAuthorizedGuard
             },
             {
               path: ':employeeId',

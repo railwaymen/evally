@@ -25,6 +25,10 @@ module V2
         end
       end
 
+      def extended_employee
+        V2::Employees::ExtendedQuery.new(Employee.all).find_by(id: @employee.id)
+      end
+
       private
 
       def validate_employee!

@@ -5,6 +5,7 @@
         :employee="employee"
         :evaluations="evaluations"
         :positionChanges="positionChanges"
+        :employeePolicy="employeePolicy"
         :loading="fetchLoading"
       />
     </v-flex>
@@ -40,7 +41,8 @@ export default {
       'positionChanges'
     ]),
     ...mapGetters('EmployeesModule', [
-      'fetchLoading'
+      'fetchLoading',
+      'employeePolicy'
     ])
   },
   created() {

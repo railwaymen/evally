@@ -146,7 +146,7 @@ export default {
       },
       archiveForm: {
         title: 'Archiwizuj pracownika',
-        body: 'Czy na pewno chcesz archiwizować tego pracownika?',
+        body: 'Czy na pewno chcesz archiwizować pracownika',
         dateRequest: 'Proszę podać datę archiwizacji pracownika: ',
         archivedOn: 'Date archiwizacji'
       },

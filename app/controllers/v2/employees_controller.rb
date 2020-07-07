@@ -34,7 +34,7 @@ module V2
     def create
       create_form.save
 
-      render json: V2::Employees::Serializer.render(create_form.employee), status: :created
+      render json: V2::Employees::Serializer.render(create_form.extended_employee), status: :created
     end
 
     def update
@@ -82,7 +82,7 @@ module V2
     end
 
     def employee
-      @employee ||= V2::Employees::BasicQuery.new(employees_scope).call.find_by(id: params[:id])
+      @employee ||= V2::Employees::ExtendedQuery.new(employees_scope).find_by(id: params[:id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @employee
 
       @employee
@@ -107,15 +107,15 @@ module V2
     def archive_form
       @archive_form ||= V2::Employees::ArchiveForm.new(
         employee,
-        params: employee_params,
+        params: employee_params.slice(:archived_on),
         user: current_user
       )
     end
 
     def employee_params
       params.require(:employee).permit(
-        :first_name, :last_name, :position, :group, :hired_on, :position_set_on, :evaluator_id,
-        :next_evaluation_on, :archived_on
+        :first_name, :last_name, :position, :group, :hired_on, :position_set_on, :archived_on,
+        :next_evaluation_on, :evaluator_id
       )
     end
   end

@@ -43,12 +43,28 @@
           :footer-props="{ 'items-per-page-options': [25, 50, 100, -1] }"
         >
           <template #item.action="{ item }">
-            <v-tooltip v-if="editable" bottom>
+            <v-tooltip v-if="employeePolicy.canArchive" bottom>
+              <template #activator="{ on }">
+                <v-icon
+                  @click="$emit('archive', item.id)"
+                  v-on="on"
+                  color="orange"
+                  class="mx-1"
+                  small
+                >
+                  mdi-account-cancel
+                </v-icon>
+              </template>
+
+              <span>{{ $t('shared.tooltips.archive') }}</span>
+            </v-tooltip>
+
+            <v-tooltip v-if="employeePolicy.canEdit" bottom>
               <template #activator="{ on }">
                 <v-icon
                   @click="$emit('edit', item.id)"
                   v-on="on"
-                  class="mx-2"
+                  class="mx-1"
                   small
                 >
                   mdi-pencil
@@ -92,6 +108,8 @@
 </template>
 
 <script>
+import EmployeePolicy from '@policies/employee_policy'
+
 import { EmployeesList } from '@models/employee'
 import { UsersList } from '@models/user'
 
@@ -108,6 +126,11 @@ export default {
       required: true,
       default: () => new EmployeesList()
     },
+    employeePolicy: {
+      type: EmployeePolicy,
+      required: true,
+      default: () => new EmployeePolicy()
+    },
     evaluators: {
       type: UsersList,
       required: true,
@@ -117,11 +140,6 @@ export default {
       type: Array,
       required: true,
       default: () => []
-    },
-    editable: {
-      type: Boolean,
-      required: true,
-      default: false
     }
   },
   data() {
