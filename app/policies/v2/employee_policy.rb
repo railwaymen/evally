@@ -4,30 +4,30 @@ module V2
   class EmployeePolicy < ApplicationPolicy
     class Scope < Scope
       def resolve
-        return scope.all if user.admin?
+        return scope.all if %w[admin recruiter].include?(user&.role)
 
         user.employees
       end
     end
 
-    def archived?
-      user.admin?
+    def create?
+      %w[admin recruiter].include?(user&.role)
     end
 
-    def create?
-      user.admin?
+    def archived?
+      create?
     end
 
     def update?
-      user.admin?
+      create?
     end
 
     def overview?
-      user.admin?
+      create?
     end
 
     def archive?
-      user.admin?
+      create?
     end
 
     def destroy?

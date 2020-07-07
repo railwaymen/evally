@@ -3,6 +3,8 @@ import { fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
 
+import EmployeePolicy from '@policies/employee_policy'
+
 import { Employee, EmployeesList } from '@models/employee'
 import { Evaluation, EvaluationsList } from '@models/evaluation'
 import { SectionsList } from '@models/section'
@@ -29,7 +31,10 @@ const EmployeesModule = {
 
   getters: {
     fetchLoading: state => state.loading === 'fetch',
-    formLoading: state => state.loading === 'form'
+    formLoading: state => state.loading === 'form',
+    employeePolicy: (state, _getters, rootState) => (
+      new EmployeePolicy(rootState.AuthenticationModule.user, state.employee)
+    )
   },
 
   mutations: {

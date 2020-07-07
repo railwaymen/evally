@@ -25,6 +25,10 @@ module V2
         end
       end
 
+      def detailed_employee
+        V2::Employees::DetailsQuery.new(Employee.all).call.find_by(id: @employee.id)
+      end
+
       private
 
       def validate_employee!

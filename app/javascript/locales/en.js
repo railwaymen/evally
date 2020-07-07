@@ -146,7 +146,7 @@ export default {
       },
       archiveForm: {
         title: 'Archive Employee',
-        body: 'Are you sure you want to archive this employee?',
+        body: 'Are you sure you want to archive',
         dateRequest: 'Please provide an archivization date: ',
         archivedOn: 'Archivization Date'
       },

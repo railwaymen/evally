@@ -6,8 +6,11 @@
 
     <v-form @submit.prevent="archiveEmployee">
       <v-card-text>
+        <p class="subtitle-1 text-center mb-0">
+          {{ $t('components.employees.archiveForm.body') }} <strong>{{ employee.fullname }}</strong>?
+        </p>
+
         <p class="subtitle-1 text-center">
-          {{ $t('components.employees.archiveForm.body') }}<br />
           {{ $t('components.employees.archiveForm.dateRequest') }}
         </p>
 

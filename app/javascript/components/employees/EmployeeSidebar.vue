@@ -46,7 +46,7 @@
               <v-list-item
                 v-for="evaluation in evaluations.models"
                 :key="evaluation.id"
-                :to="evaluation.completedPath"
+                :to="employeePolicy.canSeeEvaluation && evaluation.completedPath"
                 color="secondary"
               >
                 <v-list-item-content>
@@ -107,6 +107,8 @@
 </template>
 
 <script>
+import EmployeePolicy from '@policies/employee_policy'
+
 import { Employee } from '@models/employee'
 import { EvaluationsList } from '@models/evaluation'
 import { PositionChangesList } from '@models/position_change'
@@ -128,6 +130,11 @@ export default {
       type: PositionChangesList,
       required: true,
       default: () => new PositionChangesList()
+    },
+    employeePolicy: {
+      type: EmployeePolicy,
+      required: true,
+      default: () => new EmployeePolicy()
     },
     loading: {
       type: Boolean,

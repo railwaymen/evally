@@ -26,7 +26,7 @@
         </v-btn>
 
         <v-btn
-          v-if="user.isAdmin"
+          v-if="employeePolicy.canSeeOverview"
           :to="{ name: 'employees_overview_path' }"
           color="primary"
           exact
@@ -36,7 +36,7 @@
         </v-btn>
 
         <v-btn
-          v-if="user.isAdmin"
+          v-if="employeePolicy.canArchive"
           :to="{ name: 'employees_archived_path' }"
           color="primary"
           exact
@@ -48,7 +48,7 @@
 
       <div class="panel__actions">
         <v-tooltip
-          v-if="$route.name === 'employees_path' && user.isAdmin"
+          v-if="$route.name === 'employees_path' && employeePolicy.canCreate"
           key="addNew"
           bottom
         >
@@ -67,7 +67,11 @@
         </v-tooltip>
 
         <template v-if="matchedRoute('employee_path')">
-          <v-tooltip bottom>
+          <v-tooltip
+            v-if="employeePolicy.canAddEvaluation"
+            key="addEvaluation"
+            bottom
+          >
             <template #activator="{ on }">
               <v-btn
                 @click="openNewEvaluationForm"
@@ -84,7 +88,7 @@
           </v-tooltip>
 
           <v-tooltip
-            v-if="user.isAdmin"
+            v-if="employeePolicy.canEdit"
             key="edit"
             bottom
           >
@@ -103,7 +107,11 @@
             <span>{{ $t('shared.tooltips.edit') }}</span>
           </v-tooltip>
 
-          <v-tooltip bottom key="copyLink">
+          <v-tooltip
+            v-if="employeePolicy.canSeeCopyLink"
+            key="copyLink"
+            bottom
+          >
             <template #activator="{ on }">
               <v-btn
                 @click="copyLink"
@@ -119,7 +127,7 @@
           </v-tooltip>
 
           <v-tooltip
-            v-if="user.isAdmin"
+            v-if="employeePolicy.canArchive"
             key="archive"
             bottom
           >
@@ -139,7 +147,7 @@
           </v-tooltip>
 
           <v-tooltip
-            v-if="user.isAdmin"
+            v-if="employeePolicy.canRemove"
             key="delete"
             bottom
           >
@@ -165,10 +173,11 @@
         <basic-table
           v-if="$route.name === 'employees_path'"
           :employees="employees"
+          :employeePolicy="employeePolicy"
           :evaluators="evaluators"
           :groups="groups"
           :loading="fetchLoading"
-          :editable="user.isAdmin"
+          @archive="openArchiveForm"
           @edit="openUpdateForm"
         />
 
@@ -219,11 +228,11 @@ export default {
         innerComponent: DeleteConfirm
       })
     },
-    openArchiveForm() {
+    openArchiveForm(id) {
       DialogsBus.$emit('openFormsDialog', {
         innerComponent: ArchiveForm,
         props: {
-          employee: this.employee
+          employee: this.employees.findById(id) || this.employee,
         }
       })
     },
@@ -258,7 +267,8 @@ export default {
     ]),
     ...mapGetters('EmployeesModule', [
       'fetchLoading',
-      'formLoading'
+      'formLoading',
+      'employeePolicy'
     ])
   },
   watch: {

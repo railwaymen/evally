@@ -3,8 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe V2::EmployeesController, type: :controller do
-  let(:admin) { create(:user, role: 'admin') }
-  let(:evaluator) { create(:user, role: 'evaluator') }
+  let(:admin) { FactoryBot.create(:user, role: 'admin') }
+  let(:recruiter) { FactoryBot.create(:user, role: 'recruiter') }
+  let(:evaluator) { FactoryBot.create(:user, role: 'evaluator') }
 
   describe '#index' do
     context 'when unauthorized' do
@@ -42,7 +43,9 @@ RSpec.describe V2::EmployeesController, type: :controller do
         get :show, params: { id: employee.id }
 
         expect(response).to have_http_status 200
-        expect(json_response['employee'].to_json).to be_json_eql employee_schema(employee)
+        expect(json_response['employee'].to_json).to be_json_eql employee_schema(
+          V2::Employees::DetailsQuery.new(Employee.all).call.find(employee.id)
+        )
       end
 
       it 'responds with not found error if invalid employee' do
@@ -132,7 +135,10 @@ RSpec.describe V2::EmployeesController, type: :controller do
         end.to(change { Employee.count }.by(1))
 
         expect(response).to have_http_status 201
-        expect(response.body).to be_json_eql employee_schema(Employee.last)
+
+        expect(response.body).to be_json_eql employee_schema(
+          V2::Employees::DetailsQuery.new(Employee.all).call.last
+        )
       end
 
       it 'creates proper notifications' do
@@ -242,7 +248,9 @@ RSpec.describe V2::EmployeesController, type: :controller do
         put :update, params: params
 
         expect(response).to have_http_status 200
-        expect(response.body).to be_json_eql employee_schema(employee.reload)
+        expect(response.body).to be_json_eql employee_schema(
+          V2::Employees::DetailsQuery.new(Employee.all).call.find(employee.id)
+        )
       end
 
       it 'creates position change log' do
@@ -267,6 +275,23 @@ RSpec.describe V2::EmployeesController, type: :controller do
           current_position: 'Senior Specialist',
           changed_on: params.dig(:employee, :position_set_on)
         )
+      end
+
+      it 'denied to change evaluator assignment' do
+        employee = FactoryBot.create(:employee)
+
+        params = {
+          id: employee.id,
+          employee: {
+            evaluator_id: evaluator.id
+          }
+        }
+
+        sign_in recruiter
+
+        expect do
+          put :update, params: params
+        end.not_to(change { employee.reload.evaluator_id })
       end
 
       it 'creates proper notifications' do
@@ -577,10 +602,11 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
         expect(response).to have_http_status 200
 
-        employee.reload
+        expect(response.body).to be_json_eql employee_schema(
+          V2::Employees::DetailsQuery.new(Employee.all).call.find(employee.id)
+        )
 
-        expect(response.body).to be_json_eql employee_schema(employee)
-        expect(employee).to have_attributes(
+        expect(employee.reload).to have_attributes(
           state: 'archived',
           archived_on: archive_date,
           evaluator_id: nil
