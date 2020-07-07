@@ -44,7 +44,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
         expect(response).to have_http_status 200
         expect(json_response['employee'].to_json).to be_json_eql employee_schema(
-          V2::Employees::DetailsQuery.new(Employee.all).call.find(employee.id)
+          V2::Employees::ExtendedQuery.new(Employee.all).find(employee.id)
         )
       end
 
@@ -137,7 +137,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
         expect(response).to have_http_status 201
 
         expect(response.body).to be_json_eql employee_schema(
-          V2::Employees::DetailsQuery.new(Employee.all).call.last
+          V2::Employees::ExtendedQuery.new(Employee.all).last
         )
       end
 
@@ -240,16 +240,20 @@ RSpec.describe V2::EmployeesController, type: :controller do
         params = {
           id: employee.id,
           employee: {
-            first_name: 'Jack'
+            first_name: 'Jack',
+            evaluator_id: evaluator.id
           }
         }
 
         sign_in admin
-        put :update, params: params
+
+        expect do
+          put :update, params: params
+        end.to(change { employee.reload.evaluator_id }.to(evaluator.id))
 
         expect(response).to have_http_status 200
         expect(response.body).to be_json_eql employee_schema(
-          V2::Employees::DetailsQuery.new(Employee.all).call.find(employee.id)
+          V2::Employees::ExtendedQuery.new(Employee.all).find(employee.id)
         )
       end
 
@@ -277,8 +281,9 @@ RSpec.describe V2::EmployeesController, type: :controller do
         )
       end
 
-      it 'denied to change evaluator assignment' do
+      it 'denied to change evaluator assignment if employee under evaluation' do
         employee = FactoryBot.create(:employee)
+        FactoryBot.create(:evaluation_draft_employee, evaluable: employee)
 
         params = {
           id: employee.id,
@@ -603,7 +608,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
         expect(response).to have_http_status 200
 
         expect(response.body).to be_json_eql employee_schema(
-          V2::Employees::DetailsQuery.new(Employee.all).call.find(employee.id)
+          V2::Employees::ExtendedQuery.new(Employee.all).find(employee.id)
         )
 
         expect(employee.reload).to have_attributes(

@@ -11,7 +11,7 @@ module V2
         @employee = employee
         @user = user
 
-        @employee.assign_attributes(params)
+        @employee.assign_attributes(params.except(*unpermitted_params))
       end
 
       def save
@@ -30,6 +30,12 @@ module V2
       end
 
       private
+
+      def unpermitted_params
+        return [] if @user.admin?
+
+        @employee.evaluations.exists? ? %i[evaluator_id] : []
+      end
 
       def validate_employee!
         return if @employee.valid?

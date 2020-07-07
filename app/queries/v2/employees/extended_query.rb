@@ -2,16 +2,11 @@
 
 module V2
   module Employees
-    class DetailsQuery
-      def initialize(scope)
-        @scope = scope.includes(:evaluator)
-      end
+    class ExtendedQuery
+      delegate_missing_to :@scope
 
-      def call
-        @scope
-          .select(fields)
-          .joins(tables)
-          .order(last_name: :asc)
+      def initialize(scope)
+        @scope = scope.includes(:evaluator).select(fields).joins(tables)
       end
 
       private

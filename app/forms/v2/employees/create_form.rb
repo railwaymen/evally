@@ -25,8 +25,8 @@ module V2
         end
       end
 
-      def detailed_employee
-        V2::Employees::DetailsQuery.new(Employee.all).call.find_by(id: @employee.id)
+      def extended_employee
+        V2::Employees::ExtendedQuery.new(Employee.all).find_by(id: @employee.id)
       end
 
       private
