@@ -664,7 +664,8 @@ export default {
         },
       },
       show: {
-        instruction: 'Select evaluation from list to see details'
+        instruction: 'Select evaluation from list to see details',
+        smile: 'Keep smiling as you have nothing to do here :)'
       },
       evaluation: {
         hiredOn: 'Hired Date',

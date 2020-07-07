@@ -662,7 +662,8 @@ export default {
         },
       },
       show: {
-        instruction: 'Wybierz ocenę z listy obok aby wyświetlić szczegóły'
+        instruction: 'Wybierz ocenę z listy obok aby wyświetlić szczegóły',
+        smile: 'Uśmiechnij się, bo tylko to możesz tutaj zrobić :)'
       },
       evaluation: {
         hiredOn: 'Data zatrudnienia',

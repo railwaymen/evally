@@ -15,7 +15,7 @@
         <v-layout row>
           <v-flex xs12>
             <h4 class="box__header">
-              {{ $t('views.employees.show.instruction') }}
+              {{ employeePolicy.canSeeEvaluation ? $t('views.employees.show.instruction') : $t('views.employees.show.smile') }}
             </h4>
           </v-flex>
         </v-layout>

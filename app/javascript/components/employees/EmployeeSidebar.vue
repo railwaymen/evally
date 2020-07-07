@@ -46,7 +46,7 @@
               <v-list-item
                 v-for="evaluation in evaluations.models"
                 :key="evaluation.id"
-                :to="employeePolicy.canSeeEvaluation && evaluation.completedPath"
+                :to="employeePolicy.canSeeEvaluation ? evaluation.completedPath : ''"
                 color="secondary"
               >
                 <v-list-item-content>
