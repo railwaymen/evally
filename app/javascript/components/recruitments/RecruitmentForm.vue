@@ -9,7 +9,8 @@
         <v-layout row wrap>
           <v-flex class="px-2" xs12 lg6>
             <status-select
-              v-model="localRecruitDocument.status"
+              :value="localRecruitDocument.status"
+              @input="changeStatus"
               :items="statuses"
               :rules="[vRequired]"
               append-icon="mdi-chevron-down"
@@ -460,6 +461,20 @@ export default {
         this.selectedFile = selectedFile
         this.$emit('selectFile', selectedFile)
       }
+    },
+    changeStatus(status) {
+      const {
+        incomplete_details,
+        task_sent_at,
+        call_scheduled_at,
+        interview_scheduled_at,
+        rejection_reason
+      } = this.recruitDocument
+
+      this.localRecruitDocument.assign({
+        status, incomplete_details, task_sent_at, call_scheduled_at, interview_scheduled_at,
+        rejection_reason
+      })
     },
     openDeleteAttachmentConfirm(attachment) {
       DialogsBus.$emit('openFormsDialog', {

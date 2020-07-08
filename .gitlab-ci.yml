@@ -8,6 +8,7 @@ production:
     - master
   script:
     - bundle exec cap production deploy
+  when: manual
 
 staging:
   stage: deploy
