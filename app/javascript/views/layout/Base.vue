@@ -61,7 +61,7 @@
               <v-list-item-title>{{ $t('shared.navbar.evaluations') }}</v-list-item-title>
             </v-list-item>
 
-            <v-list-item :to="{ name: 'templates_path' }">
+            <v-list-item :to="{ name: 'evaluation_templates_path' }">
               <v-list-item-action>
                 <v-icon>mdi-file-multiple-outline</v-icon>
               </v-list-item-action>
@@ -134,7 +134,7 @@
             {{ $t('shared.navbar.evaluations') }}
           </v-tab>
 
-          <v-tab :to="{ name: 'templates_path' }">
+          <v-tab :to="{ name: 'evaluation_templates_path' }">
             <v-icon>mdi-file-multiple-outline</v-icon>
             <span class="separator" />
 

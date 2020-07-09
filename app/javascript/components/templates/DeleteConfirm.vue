@@ -41,7 +41,7 @@ export default {
     },
     destroy() {
       this.$store.dispatch('TemplatesModule/removeTemplate')
-        .then(() => this.$router.push({ name: 'templates_path' }))
+        .then(() => this.$router.push({ name: 'evaluation_templates_path' }))
         .finally(this.closeDialog)
     }
   }
