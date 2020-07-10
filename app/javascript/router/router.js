@@ -120,6 +120,13 @@ export default new Router({
           path: 'email_templates',
           name: 'email_templates_path',
           component: () => import(/* webpackChunkName: 'email_templates' */ '@views/email_templates/Index'),
+          children: [
+            {
+              path: ':id',
+              name: 'email_template_path',
+              component: () => import(/* webpackChunkName: 'email_template' */ '@views/email_templates/Show'),
+            }
+          ]
         },
         {
           path: 'evaluation_templates',
