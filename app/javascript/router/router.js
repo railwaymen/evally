@@ -129,14 +129,14 @@ export default new Router({
           ]
         },
         {
-          path: 'evaluation_templates',
-          name: 'evaluation_templates_path',
-          component: () => import(/* webpackChunkName: 'evaluation_templates' */ '@views/evaluation_templates/Index'),
+          path: 'templates',
+          name: 'templates_path',
+          component: () => import(/* webpackChunkName: 'templates' */ '@views/templates/Index'),
           children: [
             {
               path: ':id',
-              name: 'evaluation_template_path',
-              component: () => import(/* webpackChunkName: 'evaluation_template' */ '@views/evaluation_templates/Show'),
+              name: 'template_path',
+              component: () => import(/* webpackChunkName: 'template' */ '@views/templates/Show'),
             }
           ]
         },

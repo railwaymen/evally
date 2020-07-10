@@ -8,7 +8,7 @@
       <div class="panel__nav">
         <v-btn
           color="primary"
-          :to="{ name: 'evaluation_templates_path' }"
+          :to="{ name: 'templates_path' }"
           text
         >
           Evaluation
@@ -27,7 +27,7 @@
         <v-tooltip bottom>
           <template #activator="{ on }">
             <v-btn
-              :to="{ name: 'evaluation_template_path', params: { id: 'new' } }"
+              :to="{ name: 'template_path', params: { id: 'new' } }"
               v-on="on"
               color="green"
               icon
@@ -39,7 +39,7 @@
           <span>{{ $t('shared.tooltips.addNew') }}</span>
         </v-tooltip>
 
-        <template v-if="$route.name === 'evaluation_template_path'">
+        <template v-if="$route.name === 'template_path'">
           <v-tooltip bottom>
             <template #activator="{ on }">
               <v-btn
@@ -102,7 +102,7 @@
           </v-flex>
 
           <v-flex xs12 lg9>
-            <div v-if="$route.name === 'evaluation_templates_path'" class="box">
+            <div v-if="$route.name === 'templates_path'" class="box">
               <v-layout row>
                 <v-flex xs12>
                   <h4 class="box__header">
@@ -141,7 +141,7 @@ export default {
     },
     save() {
       (this.template.isPersisted ? this.updateTemplate : this.createTemplate)()
-        .then(data => this.$router.push({ name: 'evaluation_template_path', params: { id: data.template.id } }))
+        .then(data => this.$router.push({ name: 'template_path', params: { id: data.template.id } }))
     },
     openDeleteConfirm() {
       DialogsBus.$emit('openConfirmDialog', {

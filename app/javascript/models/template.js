@@ -39,7 +39,7 @@ class Template extends Model {
   }
 
   get path() {
-    return { name: 'evaluation_template_path', params: { id: this.id } }
+    return { name: 'template_path', params: { id: this.id } }
   }
 
   static get routes() {
