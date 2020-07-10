@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_29_110256) do
+ActiveRecord::Schema.define(version: 2020_07_10_104517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,16 @@ ActiveRecord::Schema.define(version: 2020_06_29_110256) do
     t.integer "recruit_document_id", null: false
     t.index ["recruit_id"], name: "index_comments_on_recruit_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "email_templates", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "subject", null: false
+    t.text "body", null: false
+    t.bigint "creator_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["creator_id"], name: "index_email_templates_on_creator_id"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -187,6 +197,7 @@ ActiveRecord::Schema.define(version: 2020_06_29_110256) do
   add_foreign_key "activities", "users"
   add_foreign_key "comments", "recruits"
   add_foreign_key "comments", "users"
+  add_foreign_key "email_templates", "users", column: "creator_id"
   add_foreign_key "employees", "users", column: "evaluator_id"
   add_foreign_key "notifications", "users", column: "actor_id"
   add_foreign_key "notifications", "users", column: "recipient_id"
