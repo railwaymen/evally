@@ -8,7 +8,7 @@
       <div class="panel__nav">
         <v-btn
           color="primary"
-          :to="{ name: 'evaluation_templates_path' }"
+          :to="{ name: 'templates_path' }"
           text
         >
           Evaluation
