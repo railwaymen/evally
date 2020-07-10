@@ -24,14 +24,91 @@
       </div>
 
       <div class="panel__actions">
+        <v-tooltip bottom>
+          <template #activator="{ on }">
+            <v-btn
+              :to="{ name: 'email_template_path', params: { id: 'new' } }"
+              v-on="on"
+              color="green"
+              icon
+            >
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </template>
 
+          <span>{{ $t('shared.tooltips.addNew') }}</span>
+        </v-tooltip>
+
+        <template v-if="$route.name === 'email_template_path'">
+          <v-tooltip bottom>
+            <template #activator="{ on }">
+              <v-btn
+                v-on="on"
+                color="black"
+                icon
+              >
+                <v-icon>mdi-content-save-outline</v-icon>
+              </v-btn>
+            </template>
+
+            <span>{{ $t('shared.tooltips.save') }}</span>
+          </v-tooltip>
+
+          <v-tooltip bottom>
+            <template #activator="{ on }">
+              <v-btn
+                @click="edit"
+                v-on="on"
+                color="black"
+                icon
+              >
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </template>
+
+            <span>{{ $t('shared.tooltips.edit') }}</span>
+          </v-tooltip>
+
+          <v-tooltip bottom>
+            <template #activator="{ on }">
+              <v-btn
+                color="red"
+                v-on="on"
+                icon
+              >
+                <v-icon>mdi-delete-outline</v-icon>
+              </v-btn>
+            </template>
+
+            <span>{{ $t('shared.tooltips.delete') }}</span>
+          </v-tooltip>
+        </template>
       </div>
     </div>
 
     <div class="panel__content">
       <v-container grid-list-lg fluid>
         <v-layout wrap row>
+          <v-flex xs10 offset-xs1 lg3 offset-lg0>
+            <searchable-list
+              :email-templates="emailTemplates"
+              :loading="loading"
+            />
+          </v-flex>
 
+          <v-flex xs12 lg9>
+            <div v-if="$route.name === 'email_templates_path'" class="box">
+              <v-layout row>
+                <v-flex xs12>
+                  <h4 class="box__header">
+                    Select email template from the list or create a new one
+                  </h4>
+                </v-flex>
+              </v-layout>
+            </div>
+
+            <router-view v-else :key="$route.fullPath" />
+          </v-flex>
         </v-layout>
       </v-container>
     </div>
@@ -39,7 +116,34 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+
+import SearchableList from '@components/email_templates/SearchableList'
+
 export default {
-  name: 'EmailTemplates'
+  name: 'EmailTemplatesIndex',
+  components: {
+    SearchableList
+  },
+  methods: {
+    ...mapActions('EmailTemplatesModule', [
+      'fetchTemplates'
+    ]),
+    edit() {
+      this.$store.commit('EmailTemplatesModule/SET_EDITABLE')
+    },
+  },
+  computed: {
+    ...mapState('EmailTemplatesModule', [
+      'emailTemplates',
+      'loading'
+    ])
+  },
+  created() {
+    this.fetchTemplates()
+  },
+  destroyed() {
+    this.$store.commit('EmailTemplatesModule/RESET_STATE')
+  }
 }
 </script>
