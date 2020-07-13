@@ -20,6 +20,17 @@ module JsonSpecHelpers
     }.to_json
   end
 
+  def email_template_schema(email_template)
+    {
+      id: email_template.id,
+      name: email_template.name,
+      subject: email_template.subject,
+      body: email_template.body,
+      creator_id: email_template.creator_id,
+      creator_fullname: email_template.creator&.fullname
+    }.to_json
+  end
+
   def evaluation_employable_schema(draft)
     employee = draft.employee
 
