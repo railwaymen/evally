@@ -101,6 +101,10 @@
           <template #item.latest_evaluation_date="{ item }">
             {{ item.latestEvaluationDate }}
           </template>
+
+          <template #item.next_evaluation_on="{ item }">
+            {{ item.nextEvaluationOn }}
+          </template>
         </v-data-table>
       </v-flex>
     </v-layout>
@@ -160,33 +164,31 @@ export default {
         },
         {
           text: this.$t('components.employees.table.cols.hiredOn'),
-          value: 'hired_on',
-          align: 'center'
+          value: 'hired_on'
         },
         {
           text: this.$t('components.employees.table.cols.group'),
-          value: 'group',
-          align: 'center'
+          value: 'group'
         },
         {
           text: this.$t('components.employees.table.cols.position'),
-          value: 'position',
-          align: 'center'
+          value: 'position'
         },
         {
           text: this.$t('components.employees.table.cols.positionSetOn'),
-          value: 'position_set_on',
-          align: 'center'
+          value: 'position_set_on'
         },
         {
           text: this.$t('components.employees.table.cols.currentEvaluator'),
-          value: 'evaluator_fullname',
-          align: 'center'
+          value: 'evaluator_fullname'
         },
         {
           text: this.$t('components.employees.table.cols.latestEvaluationAt'),
-          value: 'latest_evaluation_date',
-          align: 'center'
+          value: 'latest_evaluation_date'
+        },
+        {
+          text: this.$t('components.employees.table.cols.nextEvaluationOn'),
+          value: 'next_evaluation_on'
         }
       ]
     }

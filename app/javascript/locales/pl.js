@@ -138,6 +138,7 @@ export default {
           currentEvaluator: 'Obecny ewaluator',
           latestEvaluationAt: 'Data ostatniej oceny',
           archivedOn: 'Data archiwizacji',
+          nextEvaluationOn: 'Data kolejnej oceny'
         }
       },
       deleteConfirm: {

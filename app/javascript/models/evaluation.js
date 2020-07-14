@@ -44,7 +44,7 @@ class Evaluation extends Model {
   get nextEvaluationOn() {
     if (!this.next_evaluation_on) return 'First time'
 
-    return moment(this.next_evaluation_on).format('MMM YYYY')
+    return moment(this.next_evaluation_on).format('MMMM YYYY')
   }
 
   get recruitableSelectOption() {
