@@ -279,6 +279,18 @@ export default {
         password: 'Obecne hasło',
       }
     },
+    emailTemplates: {
+      sidebar: {
+        search: 'Szukaj ...',
+        subheader: 'Dostępne szablony email',
+        createdBy: 'stworzony przez {name}',
+        noContent: 'Brak szablonów email'
+      },
+      deleteConfirm: {
+        title: 'Usuń szablon email',
+        body: 'Czy na pewno chcesz usunąć ten szablon email?'
+      },
+    },
     templates: {
       sidebar: {
         search: 'Szukaj ...',
@@ -584,6 +596,26 @@ export default {
         error: 'Błąd przy usuwaniu szablonu: {msg}'
       }
     },
+    emailTemplates: {
+      index: {
+        error: 'Błąd przy wczytywaniu szablonów email: {msg}'
+      },
+      show: {
+        error: 'Błąd przy wczytywaniu szablonu email: {msg}'
+      },
+      create: {
+        ok: 'Szablon email został utworzony',
+        error: 'Błąd przy tworzeniu szablonu email: {msg}'
+      },
+      update: {
+        ok: 'Szablon email został zaktualizowany',
+        error: 'Błąd przy aktualizacji szablonu email: {msg}'
+      },
+      delete: {
+        ok: 'Szablon email został usunięty',
+        error: 'Błąd przy usuwaniu szablonu email: {msg}'
+      }
+    },
     users: {
       index: {
         error: 'Błąd przy wczytywaniu użytkowników: {msg}'
@@ -743,6 +775,10 @@ export default {
       index: {
         title: 'Szablony',
         instruction: 'Wybierz szablon z listy obok lub stwórz nowy',
+        nav: {
+          evaluation: 'Ocena',
+          email: 'Wiadomość email'
+        }
       },
       show: {
         name: 'Nazwa szablonu',

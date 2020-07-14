@@ -66,7 +66,7 @@ RSpec.describe V2::EmailTemplatesController, type: :controller do
       it 'responds with error to guest' do
         params = {
           email_template: {
-            name: ''
+            name: 'New Template'
           }
         }
 
@@ -77,7 +77,7 @@ RSpec.describe V2::EmailTemplatesController, type: :controller do
       it 'responds with error to evaluator' do
         params = {
           email_template: {
-            name: ''
+            name: 'New Template'
           }
         }
 

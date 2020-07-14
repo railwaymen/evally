@@ -279,6 +279,18 @@ export default {
         label: 'Skill'
       }
     },
+    emailTemplates: {
+      sidebar: {
+        search: 'Search ...',
+        subheader: 'Available Email Templates',
+        createdBy: 'created by {name}',
+        noContent: 'There are no email templates to show'
+      },
+      deleteConfirm: {
+        title: 'Delete Email Template',
+        body: 'Are you sure you want to delete this email template?'
+      },
+    },
     templates: {
       sidebar: {
         search: 'Search ...',
@@ -566,6 +578,26 @@ export default {
         ok: 'You have been logged out'
       }
     },
+    emailTemplates: {
+      index: {
+        error: 'Email templates cannot be loaded: {msg}'
+      },
+      show: {
+        error: 'Email template cannot be loaded: {msg}'
+      },
+      create: {
+        ok: 'Email template has been created',
+        error: 'Email template cannot be created: {msg}'
+      },
+      update: {
+        ok: 'Email template has been updated',
+        error: 'Email template cannot be updated: {msg}'
+      },
+      delete: {
+        ok: 'Email template has been deleted',
+        error: 'Email template cannot be deleted: {msg}'
+      }
+    },
     templates: {
       index: {
         error: 'Templates cannot be loaded: {msg}'
@@ -745,6 +777,10 @@ export default {
       index: {
         title: 'Templates',
         instruction: 'Select template from list or create a new one',
+        nav: {
+          evaluation: 'Evaluation',
+          email: 'Email'
+        }
       },
       show: {
         name: 'Template Name',

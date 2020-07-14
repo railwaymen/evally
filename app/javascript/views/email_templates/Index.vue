@@ -11,7 +11,7 @@
           :to="{ name: 'templates_path' }"
           text
         >
-          Evaluation
+          {{ $t('views.templates.index.nav.evaluation') }}
         </v-btn>
 
         <v-btn
@@ -19,7 +19,7 @@
           :to="{ name: 'email_templates_path' }"
           text
         >
-          Email
+          {{ $t('views.templates.index.nav.email') }}
         </v-btn>
       </div>
 
@@ -43,6 +43,7 @@
           <v-tooltip bottom>
             <template #activator="{ on }">
               <v-btn
+                @click="save"
                 v-on="on"
                 color="black"
                 icon
@@ -72,6 +73,7 @@
           <v-tooltip bottom>
             <template #activator="{ on }">
               <v-btn
+                @click="openDeleteConfirm"
                 color="red"
                 v-on="on"
                 icon
@@ -117,7 +119,9 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import { DialogsBus } from '@utils/dialogs_bus'
 
+import DeleteConfirm from '@components/email_templates/DeleteConfirm'
 import SearchableList from '@components/email_templates/SearchableList'
 
 export default {
@@ -127,15 +131,30 @@ export default {
   },
   methods: {
     ...mapActions('EmailTemplatesModule', [
-      'fetchTemplates'
+      'fetchTemplates',
+      'createTemplate',
+      'updateTemplate'
     ]),
     edit() {
       this.$store.commit('EmailTemplatesModule/SET_EDITABLE')
     },
+    save() {
+      (this.emailTemplate.isPersisted ? this.updateTemplate : this.createTemplate)()
+        .then(data => this.$router.push({
+          name: 'email_template_path',
+          params: { id: data.id }
+        }))
+    },
+    openDeleteConfirm() {
+      DialogsBus.$emit('openConfirmDialog', {
+        innerComponent: DeleteConfirm
+      })
+    }
   },
   computed: {
     ...mapState('EmailTemplatesModule', [
       'emailTemplates',
+      'emailTemplate',
       'loading'
     ])
   },

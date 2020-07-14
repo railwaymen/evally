@@ -4,14 +4,14 @@
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
-        label="Search"
+        :label="$t('components.emailTemplates.sidebar.search')"
         filled
       />
     </div>
 
     <div class="sidebar__list">
       <v-list two-line subheader>
-        <v-subheader>Available Email Tempaltes</v-subheader>
+        <v-subheader>{{ $t('components.emailTemplates.sidebar.subheader') }}</v-subheader>
 
         <div v-if="loading" class="sidebar__loader">
           <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
@@ -30,7 +30,7 @@
             <v-list-item-content>
               <v-list-item-title>{{ emailTemplate.name }}</v-list-item-title>
               <v-list-item-subtitle>
-                Created by {{ emailTemplate.creator_fullname}}
+                {{ $t('components.emailTemplates.sidebar.createdBy', { name: emailTemplate.creator_fullname }) }}
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -41,7 +41,7 @@
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>
-                There are no email templates
+                {{ $t('components.templates.sidebar.noContent') }}
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>

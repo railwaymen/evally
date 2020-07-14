@@ -5,7 +5,7 @@
         <v-flex xs12>
           <div class="email__name">
             <v-text-field
-              v-model="emailTemplate.name"
+              v-model="templateName"
               label="Template Name"
               :disabled="!emailTemplate.editable"
               :rules="[vRequired]"
@@ -24,7 +24,7 @@
 
           <div class="email__subject">
             <v-text-field
-              v-model="emailTemplate.subject"
+              v-model="templateSubject"
               label="Subject"
               :disabled="!emailTemplate.editable"
               :rules="[vRequired]"
@@ -36,9 +36,7 @@
               Message Editor
             </label>
 
-            <vue-editor
-              v-model="emailTemplate.body"
-            />
+            <vue-editor v-model="templateBody" />
           </div>
 
           <div v-if="emailTemplate.body.length > 0" class="email__preview">
@@ -65,36 +63,49 @@ export default {
   components: {
     VueEditor
   },
-  data() {
-    return {
-      toolbar: [
-        [
-          { 'header': [false, 1, 2, 3, 4, 5, 6] }
-        ],
-        [
-          'bold',
-          'italic',
-          'underline',
-          'strike'
-        ],
-        [
-          'blockquote',
-          'code-block'
-        ],
-        [
-          { 'list': 'ordered'},
-          { 'list': 'bullet' }
-        ],
-        [
-          { 'color': [] },
-        ]
-      ]
-    }
-  },
   computed: {
     ...mapState('EmailTemplatesModule', [
       'emailTemplate'
     ]),
+    templateName: {
+      get() {
+        return this.emailTemplate.name
+      },
+      set(name) {
+        this.$store.commit(
+          'EmailTemplatesModule/REFRESH_TEMPLATE', {
+            ...this.emailTemplate,
+            name
+          }
+        )
+      }
+    },
+    templateSubject: {
+      get() {
+        return this.emailTemplate.subject
+      },
+      set(subject) {
+        this.$store.commit(
+          'EmailTemplatesModule/REFRESH_TEMPLATE', {
+            ...this.emailTemplate,
+            subject
+          }
+        )
+      }
+    },
+    templateBody: {
+      get() {
+        return this.emailTemplate.body
+      },
+      set(body) {
+        this.$store.commit(
+          'EmailTemplatesModule/REFRESH_TEMPLATE', {
+            ...this.emailTemplate,
+            body
+          }
+        )
+      }
+    }
   },
   watch: {
     $route: {

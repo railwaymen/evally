@@ -11,7 +11,7 @@
           :to="{ name: 'templates_path' }"
           text
         >
-          Evaluation
+          {{ $t('views.templates.index.nav.evaluation') }}
         </v-btn>
 
         <v-btn
@@ -19,7 +19,7 @@
           :to="{ name: 'email_templates_path' }"
           text
         >
-          Email
+          {{ $t('views.templates.index.nav.email') }}
         </v-btn>
       </div>
 
