@@ -75,7 +75,7 @@
             </v-tooltip>
           </template>
 
-          <template #item.fullname="{ item }">
+          <template #item.last_name="{ item }">
             <router-link :to="{ name: 'employee_path', params: { employeeId: item.id }}">
               {{ item.fullname }}
             </router-link>
@@ -160,7 +160,7 @@ export default {
         },
         {
           text: this.$t('components.employees.table.cols.name'),
-          value: 'fullname'
+          value: 'last_name'
         },
         {
           text: this.$t('components.employees.table.cols.hiredOn'),
