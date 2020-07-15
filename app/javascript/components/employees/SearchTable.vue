@@ -45,8 +45,8 @@
       {{ item.evaluator_fullname || '---' }}
     </template>
 
-    <template #item.latest_evaluation_date="{ item }">
-      {{ item.latestEvaluationDate }}
+    <template #item.last_evaluation_on="{ item }">
+      {{ item.lastEvaluationOn }}
     </template>
   </v-data-table>
 </template>
@@ -106,7 +106,7 @@ export default {
         },
         {
           text: this.$t('components.employees.searchTable.cols.latestEvaluationAt'),
-          value: 'latest_evaluation_date',
+          value: 'last_evaluation_on',
           align: 'center'
         }
       ]

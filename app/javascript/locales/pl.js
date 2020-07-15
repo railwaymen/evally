@@ -136,9 +136,9 @@ export default {
           position: 'Stanowisko',
           positionSetOn: 'Data zmiany stanowiska',
           currentEvaluator: 'Obecny ewaluator',
-          latestEvaluationAt: 'Data ostatniej oceny',
+          lastEvaluationOn: 'Data ostatniej oceny',
           archivedOn: 'Data archiwizacji',
-          nextEvaluationOn: 'Data kolejnej oceny'
+          nextEvaluationOn: 'Data następnej oceny'
         }
       },
       deleteConfirm: {
@@ -160,7 +160,7 @@ export default {
           position: 'Stanowisko',
           positionSetOn: 'Data zmiany stanowiska',
           currentEvaluator: 'Obecny ewaluator',
-          latestEvaluationAt: 'Data ostatniej oceny',
+          lastEvaluationOn: 'Data ostatniej oceny',
         },
         labels: {
           yes: 'Tak',
@@ -179,13 +179,14 @@ export default {
         group: 'Grupa',
         hiredOn: 'Data zatrudnienia',
         positionSetOn: 'Data zmiany stanowiska',
-        nextEvaluationOn: 'Data ostatniej oceny',
+        lastEvaluationOn: 'Data ostatniej oceny',
+        nextEvaluationOn: 'Data następnej oceny',
         evaluator: 'Ewaluator'
       },
       sidebar: {
         group: 'Groupa',
         hiredOn: 'Data zatrudnienia',
-        nextEvaluationOn: 'Data ostatniej oceny',
+        nextEvaluationOn: 'Data następnej oceny',
         archivedOn: 'Data archiwizacji',
         completedEvaluations: {
           title: 'Zakończone ocenę',
@@ -613,6 +614,7 @@ export default {
     employee: {
       justStarted: 'pczątkujący',
       firstTime: 'Pierwszy raz',
+      unscheduled: 'Nie zaplanowano',
       works: 'pracuje od',
       month: '{n} miesiąca | {n} miesięcy',
       year: '{n} roku | {n} lat',

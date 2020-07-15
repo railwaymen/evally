@@ -8,17 +8,11 @@ module V2
       end
 
       def employees
-        employees_scope.order(first_name: :asc)
+        @user.employees.order(first_name: :asc)
       end
 
       def templates
         Template.for_employees.includes(:creator).order(name: :asc)
-      end
-
-      private
-
-      def employees_scope
-        Pundit.policy_scope!(@user, [:v2, Employee]).where.not(state: :archived)
       end
     end
   end

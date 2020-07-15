@@ -98,12 +98,12 @@
             {{ item.evaluator_fullname || '---' }}
           </template>
 
-          <template #item.latest_evaluation_date="{ item }">
-            {{ item.latestEvaluationDate }}
+          <template #item.last_evaluation_on="{ item }">
+            {{ item.lastEvaluationOn || '---' }}
           </template>
 
           <template #item.next_evaluation_on="{ item }">
-            {{ item.nextEvaluationOn }}
+            {{ item.nextEvaluationText }}
           </template>
         </v-data-table>
       </v-flex>
@@ -183,8 +183,8 @@ export default {
           value: 'evaluator_fullname'
         },
         {
-          text: this.$t('components.employees.table.cols.latestEvaluationAt'),
-          value: 'latest_evaluation_date'
+          text: this.$t('components.employees.table.cols.lastEvaluationOn'),
+          value: 'last_evaluation_on'
         },
         {
           text: this.$t('components.employees.table.cols.nextEvaluationOn'),

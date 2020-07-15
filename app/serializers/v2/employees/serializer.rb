@@ -6,7 +6,7 @@ module V2
       identifier :id
 
       fields :first_name, :last_name, :position, :group, :state, :hired_on, :next_evaluation_on,
-             :public_token, :evaluator_id, :archived_on
+             :public_token, :evaluator_id, :archived_on, :last_evaluation_on
 
       field :position_set_on do |employee|
         employee.position_set_on || employee.hired_on
@@ -16,12 +16,12 @@ module V2
         employee.evaluator&.fullname
       end
 
-      field :latest_evaluation_date do |employee|
-        employee.respond_to?(:latest_evaluation_date) ? employee.latest_evaluation_date : nil
-      end
-
       field :evaluation_exists do |employee|
         employee.respond_to?(:evaluation_exists) ? employee.evaluation_exists : nil
+      end
+
+      field :evaluated do |employee|
+        employee.respond_to?(:evaluated) ? employee.evaluated : nil
       end
 
       view :search do

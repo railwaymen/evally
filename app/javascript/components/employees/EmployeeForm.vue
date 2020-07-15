@@ -62,8 +62,8 @@
 
           <v-flex class="px-2" xs12 lg6>
             <v-menu
-              ref="hiredAtPicker"
-              v-model="hiredAtPicker"
+              ref="hiredOnPicker"
+              v-model="hiredOnPicker"
               :close-on-content-click="false"
               :nudge-right="40"
               transition="scale-transition"
@@ -82,7 +82,7 @@
               </template>
               <v-date-picker
                 v-model="localEmployee.hiredDate"
-                @input="hiredAtPicker = false"
+                @input="hiredOnPicker = false"
                 :locale="$i18n.locale"
                 no-title
                 scrollable
@@ -97,8 +97,8 @@
             lg6
           >
             <v-menu
-              ref="positionSetAtPicker"
-              v-model="positionSetAtPicker"
+              ref="positionSetOnPicker"
+              v-model="positionSetOnPicker"
               :close-on-content-click="false"
               :nudge-right="40"
               transition="scale-transition"
@@ -117,7 +117,7 @@
               </template>
               <v-date-picker
                 v-model="localEmployee.positionSetDate"
-                @input="positionSetAtPicker = false"
+                @input="positionSetOnPicker = false"
                 :min="localEmployee.hiredDate"
                 :locale="$i18n.locale"
                 no-title
@@ -132,8 +132,8 @@
 
           <v-flex class="px-2" xs12 lg6>
             <v-menu
-              ref="nextEvaluationAtPicker"
-              v-model="nextEvaluationAtPicker"
+              ref="lastEvaluationOnPicker"
+              v-model="lastEvaluationOnPicker"
               :close-on-content-click="false"
               :nudge-right="40"
               transition="scale-transition"
@@ -142,16 +142,49 @@
             >
               <template v-slot:activator="{ on }">
                 <v-text-field
-                  :value="nextEvaluationDate"
+                  :value="localEmployee.lastEvaluationOn"
+                  @click:clear="localEmployee.last_evaluation_on = null"
+                  :label="$t('components.employees.employeeForm.lastEvaluationOn')"
+                  prepend-inner-icon="mdi-calendar-arrow-left"
+                  clearable
+                  readonly
+                  v-on="on"
+                />
+              </template>
+              <v-date-picker
+                v-model="localEmployee.lastEvaluationDate"
+                @input="lastEvaluationOnPicker = false"
+                :locale="$i18n.locale"
+                no-title
+                scrollable
+              />
+            </v-menu>
+          </v-flex>
+
+          <v-flex class="px-2" xs12 lg6>
+            <v-menu
+              ref="nextEvaluationOnPicker"
+              v-model="nextEvaluationOnPicker"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  :value="localEmployee.nextEvaluationOn"
+                  @click:clear="localEmployee.next_evaluation_on = null"
                   :label="$t('components.employees.employeeForm.nextEvaluationOn')"
-                  prepend-inner-icon="mdi-calendar"
+                  prepend-inner-icon="mdi-calendar-arrow-right"
+                  clearable
                   readonly
                   v-on="on"
                 />
               </template>
               <v-date-picker
                 v-model="localEmployee.nextEvaluationDate"
-                @input="nextEvaluationAtPicker = false"
+                @input="nextEvaluationOnPicker = false"
                 :min="localEmployee.hiredDate"
                 :locale="$i18n.locale"
                 type="month"
@@ -222,9 +255,10 @@ export default {
   data() {
     return {
       localEmployee: new Employee({ ...this.employee }),
-      hiredAtPicker: false,
-      positionSetAtPicker: false,
-      nextEvaluationAtPicker: false
+      hiredOnPicker: false,
+      positionSetOnPicker: false,
+      lastEvaluationOnPicker: false,
+      nextEvaluationOnPicker: false
     }
   },
   methods: {
