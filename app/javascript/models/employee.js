@@ -82,7 +82,7 @@ class Employee extends Model {
   }
 
   get hiredOn() {
-    return moment(this.hired_on).format('DD MMM YYYY')
+    return this.hired_on ? moment(this.hired_on).format('DD MMM YYYY') : ''
   }
 
   // === hired at datepicker getter & setter
@@ -123,7 +123,7 @@ class Employee extends Model {
   // ===
 
   get positionSetOn () {
-    return moment(this.position_set_on).format('DD MMM YYYY')
+    return this.position_set_on ? moment(this.position_set_on).format('DD MMM YYYY') : ''
   }
 
   // === position set at datepicker getter & setter
