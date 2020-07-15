@@ -337,11 +337,13 @@ export default {
         search: 'Search ...',
         groupFilter: 'Group',
         statusFilter: 'Status',
+        evaluatorFilter: 'Evaluator',
         cols: {
           email: 'Email',
           group: 'Group',
           status: 'Status',
           position: 'Position',
+          currentEvaluator: 'Current Evaluator',
           source: 'Source',
           receivedAt: 'Received Date',
           acceptCurrentProcessing: 'CP',

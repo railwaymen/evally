@@ -336,11 +336,13 @@ export default {
         search: 'Szukaj ...',
         groupFilter: 'Grupa',
         statusFilter: 'Status',
+        evaluatorFilter: 'Ewaluator',
         cols: {
           email: 'Email',
           group: 'Grupa',
           status: 'Status',
           position: 'Pozycja',
+          currentEvaluator: 'Obecny ewaluator',
           source: 'Źródło',
           receivedAt: 'Data otrzymania',
           acceptCurrentProcessing: 'OR',
