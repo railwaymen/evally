@@ -6,7 +6,7 @@ import BasicTable from './BasicTable'
 import RecruitDocumentPolicy from '@policies/recruit_document_policy'
 
 import { RecruitDocumentsList } from '@models/recruit_document'
-import { User } from '@models/user'
+import { User, UsersList } from '@models/user'
 
 describe('BasicTable', () => {
   const admin = new User({role: 'admin'})
@@ -17,7 +17,8 @@ describe('BasicTable', () => {
     groups: ['ror', 'android'],
     statuses: ['fresh', 'accepted'],
     editable: false,
-    recruitDocumentPolicy: new RecruitDocumentPolicy(admin, null)
+    recruitDocumentPolicy: new RecruitDocumentPolicy(admin, null),
+    evaluators: new UsersList()
   }
 
   const wrapper = shallowMount(
@@ -69,6 +70,10 @@ describe('BasicTable', () => {
       text: i18n.t('components.recruitments.table.cols.status'),
       value: 'status',
       filterable: false
+    },
+    {
+      text: i18n.t('components.recruitments.table.cols.currentEvaluator'),
+      value: 'evaluator_fullname'
     },
     {
       text: i18n.t('components.recruitments.table.cols.source'),

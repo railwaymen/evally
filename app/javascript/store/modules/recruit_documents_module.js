@@ -128,10 +128,12 @@ const RecruitDocumentsModule = {
         recruit_documents,
         groups,
         statuses,
-        positions
+        positions,
+        evaluators
       } = data
 
       state.recruitDocuments = new RecruitDocumentsList(recruit_documents)
+      state.evaluators = new UsersList(evaluators)
       state.positions = positions
       state.statuses = statuses
       state.groups = groups

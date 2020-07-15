@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <v-layout row wrap>
-      <v-flex xs12 lg4>
+      <v-flex xs12 lg3>
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
@@ -10,7 +10,7 @@
         />
       </v-flex>
 
-      <v-flex xs12 lg4>
+      <v-flex xs12 lg3>
         <v-select
           v-model="filters.group"
           :items="groups"
@@ -21,12 +21,25 @@
         />
       </v-flex>
 
-      <v-flex xs12 lg4>
+      <v-flex xs12 lg3>
         <status-select
           v-model="filters.status"
           :items="statuses"
           :label="$t('components.recruitments.table.statusFilter')"
           clearable
+          solo
+        />
+      </v-flex>
+
+      <v-flex xs12 lg3>
+        <v-select
+          v-model="filters.evaluatorToken"
+          :items="evaluators.models"
+          :label="$t('components.recruitments.table.evaluatorFilter')"
+          item-value="email_token"
+          item-text="fullname"
+          clearable
+          chips
           solo
         />
       </v-flex>
@@ -97,6 +110,7 @@
 import RecruitDocumentPolicy from '@policies/recruit_document_policy'
 
 import { RecruitDocumentsList } from '@models/recruit_document'
+import { UsersList } from '@models/user'
 
 import StatusSelect from '@components/recruitments/StatusSelect'
 
@@ -113,6 +127,11 @@ export default {
       type: RecruitDocumentsList,
       required: true,
       default: () => new RecruitDocumentsList()
+    },
+    evaluators: {
+      type: UsersList,
+      required: true,
+      default: () => new UsersList()
     },
     recruitDocumentPolicy: {
       type: RecruitDocumentPolicy,
@@ -135,7 +154,8 @@ export default {
       search: '',
       filters: {
         group: '',
-        status: ''
+        status: '',
+        evaluatorToken: null
       },
       headers: [
         {
@@ -165,6 +185,10 @@ export default {
           filterable: false
         },
         {
+          text: this.$t('components.recruitments.table.cols.currentEvaluator'),
+          value: 'evaluator_fullname',
+        },
+        {
           text: this.$t('components.recruitments.table.cols.source'),
           value: 'source'
         },
@@ -189,7 +213,8 @@ export default {
       handler(filters) {
         const payload = {
           group: filters.group || '',
-          status: filters.status || ''
+          status: filters.status || '',
+          evaluator_token: filters.evaluatorToken || ''
         }
 
         this.$store.dispatch('RecruitDocumentsModule/filterRecruitDocuments', payload)

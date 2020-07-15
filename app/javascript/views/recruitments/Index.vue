@@ -105,6 +105,7 @@
             :recruitDocumentPolicy="recruitDocumentPolicy"
             :groups="groups"
             :statuses="statuses"
+            :evaluators="evaluators"
             :loading="fetchLoading"
           />
 
@@ -138,7 +139,8 @@ export default {
       'recruitDocuments',
       'recruitDocument',
       'groups',
-      'statuses'
+      'statuses',
+      'evaluators'
     ]),
     ...mapGetters('RecruitDocumentsModule', [
       'recruitDocumentPolicy',
