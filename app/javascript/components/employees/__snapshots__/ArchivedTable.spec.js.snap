@@ -7,7 +7,7 @@ exports[`ArchivedTable matches do snapshot 1`] = `
       <v-text-field-stub append-icon="mdi-magnify" label="Search ..." solo="" value=""></v-text-field-stub>
     </v-flex-stub>
     <v-flex-stub xs12="">
-      <v-data-table-stub headers="[object Object],[object Object],[object Object],[object Object],[object Object]" items="" search="" footer-props="[object Object]"></v-data-table-stub>
+      <v-data-table-stub headers="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]" items="" search="" footer-props="[object Object]"></v-data-table-stub>
     </v-flex-stub>
   </v-layout-stub>
 </div>
