@@ -29,7 +29,7 @@ module V2
       end
 
       def employees_scope
-        V2::EmployeePolicy::Scope.new(@user, Employee).resolve
+        @user.admin? ? Employee.hired : @user.employees
       end
 
       def drafts_scope

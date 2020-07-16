@@ -18,7 +18,7 @@
           :loading="loading"
           :footer-props="{ 'items-per-page-options': [25, 50, 100, -1] }"
         >
-          <template #item.fullname="{ item }">
+          <template #item.last_name="{ item }">
             <router-link :to="{ name: 'employee_path', params: { employeeId: item.id }}">
               {{ item.fullname }}
             </router-link>
@@ -30,6 +30,14 @@
 
           <template #item.archived_on="{ item }">
             {{ item.archivedOn }}
+          </template>
+
+          <template #item.last_evaluation_on="{ item }">
+            {{ item.lastEvaluationOn || '---' }}
+          </template>
+
+          <template #item.signature="{ item }">
+            {{ item.signature || '---' }}
           </template>
         </v-data-table>
       </v-flex>
@@ -60,27 +68,31 @@ export default {
       headers: [
         {
           text: this.$t('components.employees.table.cols.name'),
-          value: 'fullname'
+          value: 'last_name'
         },
         {
           text: this.$t('components.employees.table.cols.hiredOn'),
-          value: 'hired_on',
-          align: 'center'
-        },
-        {
-          text: this.$t('components.employees.table.cols.group'),
-          value: 'group',
-          align: 'center'
-        },
-        {
-          text: this.$t('components.employees.table.cols.position'),
-          value: 'position',
-          align: 'center'
+          value: 'hired_on'
         },
         {
           text: this.$t('components.employees.table.cols.archivedOn'),
-          value: 'archived_on',
-          align: 'center'
+          value: 'archived_on'
+        },
+        {
+          text: this.$t('components.employees.table.cols.group'),
+          value: 'group'
+        },
+        {
+          text: this.$t('components.employees.table.cols.position'),
+          value: 'position'
+        },
+        {
+          text: this.$t('components.employees.table.cols.lastEvaluationOn'),
+          value: 'last_evaluation_on'
+        },
+        {
+          text: this.$t('components.employees.table.cols.signature'),
+          value: 'signature'
         }
       ]
     }

@@ -75,7 +75,7 @@
             </v-tooltip>
           </template>
 
-          <template #item.fullname="{ item }">
+          <template #item.last_name="{ item }">
             <router-link :to="{ name: 'employee_path', params: { employeeId: item.id }}">
               {{ item.fullname }}
             </router-link>
@@ -98,12 +98,16 @@
             {{ item.evaluator_fullname || '---' }}
           </template>
 
-          <template #item.latest_evaluation_date="{ item }">
-            {{ item.latestEvaluationDate }}
+          <template #item.last_evaluation_on="{ item }">
+            {{ item.lastEvaluationOn || '---' }}
           </template>
 
           <template #item.next_evaluation_on="{ item }">
-            {{ item.nextEvaluationOn }}
+            {{ item.nextEvaluationText }}
+          </template>
+
+          <template #item.signature="{ item }">
+            {{ item.signature || '---' }}
           </template>
         </v-data-table>
       </v-flex>
@@ -160,7 +164,7 @@ export default {
         },
         {
           text: this.$t('components.employees.table.cols.name'),
-          value: 'fullname'
+          value: 'last_name'
         },
         {
           text: this.$t('components.employees.table.cols.hiredOn'),
@@ -183,12 +187,16 @@ export default {
           value: 'evaluator_fullname'
         },
         {
-          text: this.$t('components.employees.table.cols.latestEvaluationAt'),
-          value: 'latest_evaluation_date'
+          text: this.$t('components.employees.table.cols.lastEvaluationOn'),
+          value: 'last_evaluation_on'
         },
         {
           text: this.$t('components.employees.table.cols.nextEvaluationOn'),
           value: 'next_evaluation_on'
+        },
+        {
+          text: this.$t('components.employees.table.cols.signature'),
+          value: 'signature'
         }
       ]
     }

@@ -6,12 +6,12 @@ module V2
       delegate_missing_to :@scope
 
       def initialize(scope)
-        @scope = scope.includes(:evaluator).select(fields).joins(tables)
+        @scope = scope.includes(:evaluator).select(fields)
       end
 
       private
 
-      def fields
+      def fields # rubocop:disable Metrics/MethodLength
         "
           employees.*,
           EXISTS (
@@ -19,21 +19,13 @@ module V2
             FROM evaluations
             WHERE evaluable_id = employees.id AND evaluable_type = 'Employee'
           ) AS evaluation_exists,
-          last_completed_evaluation.completed_at AS latest_evaluation_date
-        "
-      end
-
-      def tables # rubocop:disable Metrics/MethodLength
-        "
-          LEFT JOIN LATERAL (
-            SELECT completed_at
+          EXISTS (
+            SELECT 1
             FROM evaluations
             WHERE evaluable_id = employees.id AND
               evaluable_type = 'Employee' AND
               state = 'completed'
-            ORDER BY completed_at DESC
-            LIMIT 1
-          ) last_completed_evaluation ON true
+          ) AS evaluated
         "
       end
     end

@@ -25,7 +25,7 @@ module V2
 
         ActiveRecord::Base.transaction do
           if @draft.completed?
-            save_next_evaluation_date!
+            save_evaluation_dates!
 
             notify_evaluator!(:complete_employee_evaluation)
             notify_admins!(:complete_employee_evaluation)
@@ -51,8 +51,11 @@ module V2
         @params[:state] == 'completed' ? :completed : :draft
       end
 
-      def save_next_evaluation_date!
-        employee.update!(next_evaluation_on: @params[:next_evaluation_on])
+      def save_evaluation_dates!
+        employee.update!(
+          last_evaluation_on: @draft.completed_at,
+          next_evaluation_on: @params[:next_evaluation_on]
+        )
       end
 
       def notifier_service

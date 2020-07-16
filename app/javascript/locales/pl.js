@@ -136,9 +136,10 @@ export default {
           position: 'Stanowisko',
           positionSetOn: 'Data zmiany stanowiska',
           currentEvaluator: 'Obecny ewaluator',
-          latestEvaluationAt: 'Data ostatniej oceny',
+          lastEvaluationOn: 'Data ostatniej oceny',
           archivedOn: 'Data archiwizacji',
-          nextEvaluationOn: 'Data kolejnej oceny'
+          nextEvaluationOn: 'Data następnej oceny',
+          signature: 'Sygnatura'
         }
       },
       deleteConfirm: {
@@ -160,7 +161,7 @@ export default {
           position: 'Stanowisko',
           positionSetOn: 'Data zmiany stanowiska',
           currentEvaluator: 'Obecny ewaluator',
-          latestEvaluationAt: 'Data ostatniej oceny',
+          lastEvaluationOn: 'Data ostatniej oceny',
         },
         labels: {
           yes: 'Tak',
@@ -179,16 +180,22 @@ export default {
         group: 'Grupa',
         hiredOn: 'Data zatrudnienia',
         positionSetOn: 'Data zmiany stanowiska',
-        nextEvaluationOn: 'Data ostatniej oceny',
-        evaluator: 'Ewaluator'
+        lastEvaluationOn: 'Data ostatniej oceny',
+        nextEvaluationOn: 'Data następnej oceny',
+        evaluator: 'Ewaluator',
+        sygnature: 'Sygnatura'
       },
       sidebar: {
+        employment: 'Zatrudnienie',
+        evaluation: 'Ocena',
         group: 'Groupa',
         hiredOn: 'Data zatrudnienia',
-        nextEvaluationOn: 'Data ostatniej oceny',
+        signature: 'Sygnatura',
+        lastEvaluationOn: 'Data ostatniej oceny',
+        nextEvaluationOn: 'Data następnej oceny',
         archivedOn: 'Data archiwizacji',
         completedEvaluations: {
-          title: 'Zakończone ocenę',
+          title: 'Zakończone oceny',
           noContent: 'Brak ocen pracownika'
         },
         positionChanges: {
@@ -613,6 +620,7 @@ export default {
     employee: {
       justStarted: 'pczątkujący',
       firstTime: 'Pierwszy raz',
+      unscheduled: 'Nie zaplanowano',
       works: 'pracuje od',
       month: '{n} miesiąca | {n} miesięcy',
       year: '{n} roku | {n} lat',

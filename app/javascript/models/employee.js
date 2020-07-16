@@ -16,13 +16,15 @@ class Employee extends Model {
       hired_on: null,
       position_set_on: null,
       next_evaluation_on: null,
-      latest_evaluation_date: null,
+      last_evaluation_on: null,
       evaluation_exists: null,
+      evaluated: false,
       public_token: '',
       evaluator_id: null,
       evaluator_fullname: '',
       skill: {},
       archived_on: '',
+      signature: ''
     };
   }
 
@@ -82,7 +84,7 @@ class Employee extends Model {
   }
 
   get hiredOn() {
-    return moment(this.hired_on).format('DD MMM YYYY')
+    return this.hired_on ? moment(this.hired_on).format('DD MMM YYYY') : ''
   }
 
   // === hired at datepicker getter & setter
@@ -99,16 +101,28 @@ class Employee extends Model {
   }
   // ===
 
-  get latestEvaluationDate() {
-    if (!this.latest_evaluation_date) return '---'
+  get lastEvaluationOn () {
+    return this.last_evaluation_on ? moment(this.last_evaluation_on).format('DD MMM YYYY') : ''
+  }
 
-    return moment(this.latest_evaluation_date).format('DD MMM YYYY')
+  // === last evaluation on datepicker getter & setter
+  get lastEvaluationDate() {
+    return this.last_evaluation_on ? moment(this.last_evaluation_on).format('YYYY-MM-DD') : ''
+  }
+
+  set lastEvaluationDate(date) {
+    const mDate = moment(date, 'YYYY-MM-DD')
+    this.last_evaluation_on = mDate.isValid() ? mDate.format() : ''
   }
 
   get nextEvaluationOn() {
-    if (!this.next_evaluation_on) return i18n.t('models.employee.firstTime')
+    return this.next_evaluation_on ? moment(this.next_evaluation_on).format('MMMM YYYY') : ''
+  }
 
-    return moment(this.next_evaluation_on).format('MMMM YYYY')
+  get nextEvaluationText() {
+    if (!this.lastEvaluationOn && !this.nextEvaluationOn) return i18n.t('models.employee.firstTime')
+
+    return this.nextEvaluationOn || '---'
   }
 
   // === next evaluation at datepicker getter & setter
@@ -123,7 +137,7 @@ class Employee extends Model {
   // ===
 
   get positionSetOn () {
-    return moment(this.position_set_on).format('DD MMM YYYY')
+    return this.position_set_on ? moment(this.position_set_on).format('DD MMM YYYY') : ''
   }
 
   // === position set at datepicker getter & setter

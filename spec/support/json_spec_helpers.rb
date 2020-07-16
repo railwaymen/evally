@@ -57,8 +57,8 @@ module JsonSpecHelpers
   end
 
   def employee_schema(employee)
-    latest_evaluation_date = lambda do
-      employee.respond_to?(:latest_evaluation_date) ? employee.latest_evaluation_date : nil
+    evaluated = lambda do
+      employee.respond_to?(:evaluated) ? employee.evaluated : nil
     end
 
     evaluation_exists = lambda do
@@ -74,12 +74,14 @@ module JsonSpecHelpers
       hired_on: employee.hired_on,
       position_set_on: employee.position_set_on || employee.hired_on,
       next_evaluation_on: employee.next_evaluation_on,
+      last_evaluation_on: employee.last_evaluation_on,
       public_token: employee.public_token,
-      latest_evaluation_date: latest_evaluation_date.call,
       evaluation_exists: evaluation_exists.call,
+      evaluated: evaluated.call,
       evaluator_id: employee.evaluator_id,
       evaluator_fullname: employee.evaluator&.fullname,
-      archived_on: employee.archived_on
+      archived_on: employee.archived_on,
+      signature: employee.signature
     }.to_json
   end
 

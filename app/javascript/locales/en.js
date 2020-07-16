@@ -136,9 +136,10 @@ export default {
           position: 'Position',
           positionSetOn: 'Promotion Date',
           currentEvaluator: 'Current Evaluator',
-          latestEvaluationAt: 'Latest Evaluation Date',
+          lastEvaluationOn: 'Last Evaluation Date',
           archivedOn: 'Archived Date',
           nextEvaluationOn: 'Next Evaluation Date',
+          signature: 'Signature'
         }
       },
       deleteConfirm: {
@@ -160,7 +161,7 @@ export default {
           position: 'Position',
           positionSetOn: 'Promotion Date',
           currentEvaluator: 'Current Evaluator',
-          latestEvaluationAt: 'Latest Evaluation Date',
+          lastEvaluationOn: 'Last Evaluation Date',
         },
         labels: {
           yes: 'Yes',
@@ -179,12 +180,18 @@ export default {
         group: 'Group',
         hiredOn: 'Hired Date',
         positionSetOn: 'Promotion Date',
+        lastEvaluationOn: 'Last Evaluation Date',
         nextEvaluationOn: 'Next Evaluation Date',
-        evaluator: 'Evaluator'
+        evaluator: 'Evaluator',
+        signature: 'Signature'
       },
       sidebar: {
+        employment: 'Employment',
+        evaluation: 'Evaluation',
         group: 'Group',
         hiredOn: 'Hired Date',
+        signature: 'Signature',
+        lastEvaluationOn: 'Last Evaluation Date',
         nextEvaluationOn: 'Next Evaluation Date',
         archivedOn: 'Archived Date',
         completedEvaluations: {
@@ -615,6 +622,7 @@ export default {
     employee: {
       justStarted: 'just started',
       firstTime: 'First time',
+      unscheduled: 'Unscheduled',
       works: 'works',
       month: '{n} month | {n} months',
       year: '{n} year | {n} years',
