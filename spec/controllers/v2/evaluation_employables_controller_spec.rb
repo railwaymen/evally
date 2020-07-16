@@ -420,11 +420,13 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
         draft = FactoryBot.create(:evaluation_draft_employee)
         section = FactoryBot.create(:section, sectionable: draft)
 
+        next_evaluation_date = 6.months.from_now.to_date
+
         params = {
           id: draft.id,
           evaluation: {
             state: 'completed',
-            next_evaluation_on: 6.months.from_now.strftime('%Y-%M'),
+            next_evaluation_on: next_evaluation_date.strftime('%Y-%m-01'),
             sections: [
               {
                 id: section.id,
@@ -444,10 +446,17 @@ RSpec.describe V2::EvaluationEmployablesController, type: :controller do
 
         expect do
           put :update, params: params
+
+          draft.reload
         end.to(change { Evaluation.employable.completed.count }.by(1))
 
         expect(response).to have_http_status 200
-        expect(response.body).to be_json_eql evaluation_employable_schema(draft.reload)
+        expect(response.body).to be_json_eql evaluation_employable_schema(draft)
+
+        expect(draft.employee).to have_attributes(
+          next_evaluation_on: next_evaluation_date.at_beginning_of_month,
+          last_evaluation_on: draft.completed_at.to_date
+        )
       end
 
       it 'created proper notifications' do
