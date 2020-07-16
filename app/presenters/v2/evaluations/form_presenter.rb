@@ -8,7 +8,7 @@ module V2
       end
 
       def employees
-        @user.employees.order(first_name: :asc)
+        (@user.admin? ? Employee.hired : @user.employees).order(first_name: :asc)
       end
 
       def templates

@@ -1,14 +1,8 @@
 <template>
-  <section>
-    <div class="panel__content">
-      <v-container grid-list-lg fluid>
-        <archived-table
-          :employees="employees"
-          :loading="fetchLoading"
-        />
-      </v-container>
-    </div>
-  </section>
+  <archived-table
+    :employees="employees"
+    :loading="fetchLoading"
+  />
 </template>
 
 <script>

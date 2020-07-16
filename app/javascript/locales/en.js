@@ -139,6 +139,7 @@ export default {
           lastEvaluationOn: 'Last Evaluation Date',
           archivedOn: 'Archived Date',
           nextEvaluationOn: 'Next Evaluation Date',
+          signature: 'Signature'
         }
       },
       deleteConfirm: {

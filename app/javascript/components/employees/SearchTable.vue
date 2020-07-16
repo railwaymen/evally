@@ -81,33 +81,27 @@ export default {
         },
         {
           text: this.$t('components.employees.searchTable.cols.hiredOn'),
-          value: 'hired_on',
-          align: 'center'
+          value: 'hired_on'
         },
         {
           text: this.$t('components.employees.searchTable.cols.group'),
-          value: 'group',
-          align: 'center'
+          value: 'group'
         },
         {
           text: this.$t('components.employees.searchTable.cols.position'),
-          value: 'position',
-          align: 'center'
+          value: 'position'
         },
         {
           text: this.$t('components.employees.searchTable.cols.positionSetOn'),
-          value: 'position_set_on',
-          align: 'center'
+          value: 'position_set_on'
         },
         {
           text: this.$t('components.employees.searchTable.cols.currentEvaluator'),
-          value: 'evaluator_fullname',
-          align: 'center'
+          value: 'evaluator_fullname'
         },
         {
-          text: this.$t('components.employees.searchTable.cols.latestEvaluationAt'),
-          value: 'last_evaluation_on',
-          align: 'center'
+          text: this.$t('components.employees.searchTable.cols.lastEvaluationOn'),
+          value: 'last_evaluation_on'
         }
       ]
     }

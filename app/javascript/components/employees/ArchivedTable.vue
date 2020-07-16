@@ -35,6 +35,10 @@
           <template #item.last_evaluation_on="{ item }">
             {{ item.lastEvaluationOn || '---' }}
           </template>
+
+          <template #item.signature="{ item }">
+            {{ item.signature || '---' }}
+          </template>
         </v-data-table>
       </v-flex>
     </v-layout>
@@ -86,6 +90,10 @@ export default {
           text: this.$t('components.employees.table.cols.lastEvaluationOn'),
           value: 'last_evaluation_on'
         },
+        {
+          text: this.$t('components.employees.table.cols.signature'),
+          value: 'signature'
+        }
       ]
     }
   }

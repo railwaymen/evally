@@ -105,6 +105,10 @@
           <template #item.next_evaluation_on="{ item }">
             {{ item.nextEvaluationText }}
           </template>
+
+          <template #item.signature="{ item }">
+            {{ item.signature || '---' }}
+          </template>
         </v-data-table>
       </v-flex>
     </v-layout>
@@ -189,6 +193,10 @@ export default {
         {
           text: this.$t('components.employees.table.cols.nextEvaluationOn'),
           value: 'next_evaluation_on'
+        },
+        {
+          text: this.$t('components.employees.table.cols.signature'),
+          value: 'signature'
         }
       ]
     }
