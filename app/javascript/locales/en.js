@@ -181,11 +181,16 @@ export default {
         positionSetOn: 'Promotion Date',
         lastEvaluationOn: 'Last Evaluation Date',
         nextEvaluationOn: 'Next Evaluation Date',
-        evaluator: 'Evaluator'
+        evaluator: 'Evaluator',
+        signature: 'Signature'
       },
       sidebar: {
+        employment: 'Employment',
+        evaluation: 'Evaluation',
         group: 'Group',
         hiredOn: 'Hired Date',
+        signature: 'Signature',
+        lastEvaluationOn: 'Last Evaluation Date',
         nextEvaluationOn: 'Next Evaluation Date',
         archivedOn: 'Archived Date',
         completedEvaluations: {

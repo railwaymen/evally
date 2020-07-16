@@ -24,6 +24,7 @@ class Employee extends Model {
       evaluator_fullname: '',
       skill: {},
       archived_on: '',
+      signature: ''
     };
   }
 

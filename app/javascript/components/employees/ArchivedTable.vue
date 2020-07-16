@@ -31,6 +31,10 @@
           <template #item.archived_on="{ item }">
             {{ item.archivedOn }}
           </template>
+
+          <template #item.last_evaluation_on="{ item }">
+            {{ item.lastEvaluationOn || '---' }}
+          </template>
         </v-data-table>
       </v-flex>
     </v-layout>
@@ -67,6 +71,10 @@ export default {
           value: 'hired_on'
         },
         {
+          text: this.$t('components.employees.table.cols.archivedOn'),
+          value: 'archived_on'
+        },
+        {
           text: this.$t('components.employees.table.cols.group'),
           value: 'group'
         },
@@ -75,9 +83,9 @@ export default {
           value: 'position'
         },
         {
-          text: this.$t('components.employees.table.cols.archivedOn'),
-          value: 'archived_on'
-        }
+          text: this.$t('components.employees.table.cols.lastEvaluationOn'),
+          value: 'last_evaluation_on'
+        },
       ]
     }
   }

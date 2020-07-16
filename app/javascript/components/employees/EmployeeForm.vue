@@ -126,6 +126,14 @@
             </v-menu>
           </v-flex>
 
+          <v-flex class="px-2" xs12 lg6>
+            <v-text-field
+              v-model="localEmployee.signature"
+              :label="$t('components.employees.employeeForm.signature')"
+              prepend-inner-icon="mdi-identifier"
+            />
+          </v-flex>
+
           <v-flex class="pa-2" xs12>
             <h3 class="subtitle-1">{{ $t('components.employees.employeeForm.evaluation') }}</h3>
           </v-flex>

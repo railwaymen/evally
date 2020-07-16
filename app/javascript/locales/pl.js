@@ -181,15 +181,20 @@ export default {
         positionSetOn: 'Data zmiany stanowiska',
         lastEvaluationOn: 'Data ostatniej oceny',
         nextEvaluationOn: 'Data następnej oceny',
-        evaluator: 'Ewaluator'
+        evaluator: 'Ewaluator',
+        sygnature: 'Sygnatura'
       },
       sidebar: {
+        employment: 'Zatrudnienie',
+        evaluation: 'Ocena',
         group: 'Groupa',
         hiredOn: 'Data zatrudnienia',
+        signature: 'Sygnatura',
+        lastEvaluationOn: 'Data ostatniej oceny',
         nextEvaluationOn: 'Data następnej oceny',
         archivedOn: 'Data archiwizacji',
         completedEvaluations: {
-          title: 'Zakończone ocenę',
+          title: 'Zakończone oceny',
           noContent: 'Brak ocen pracownika'
         },
         positionChanges: {

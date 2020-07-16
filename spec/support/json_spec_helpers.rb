@@ -80,7 +80,8 @@ module JsonSpecHelpers
       evaluated: evaluated.call,
       evaluator_id: employee.evaluator_id,
       evaluator_fullname: employee.evaluator&.fullname,
-      archived_on: employee.archived_on
+      archived_on: employee.archived_on,
+      signature: employee.signature
     }.to_json
   end
 
