@@ -5,6 +5,8 @@
       <h4 class="vcard__position">{{ employee.position }}</h4>
 
       <div class="vcard__content">
+        <h4 class="vcard__subheader">{{ $t('components.employees.sidebar.employment') }}</h4>
+
         <div class="vcard__info">
           <div class="vcard__label">{{ $t('components.employees.sidebar.group') }}</div>
           <div class="vcard__value">{{ employee.group }}</div>
@@ -14,15 +16,22 @@
           <div class="vcard__label">{{ $t('components.employees.sidebar.hiredOn') }}</div>
           <div class="vcard__value">{{ employee.hiredOn }}</div>
         </div>
+
+        <h4 class="vcard__subheader">{{ $t('components.employees.sidebar.evaluation') }}</h4>
+
+        <div class="vcard__info">
+          <div class="vcard__label">{{ $t('components.employees.sidebar.lastEvaluationOn') }}</div>
+          <div class="vcard__value">{{ employee.lastEvaluationOn || '---' }}</div>
+        </div>
       </div>
     </div>
 
     <v-expansion-panels v-model="panel" multiple accordion>
       <v-expansion-panel>
         <v-expansion-panel-header>
-          <h5 class="body-2">
+          <h4 class="vcard__subheader">
             {{ $t('components.employees.sidebar.completedEvaluations.title') }}
-          </h5>
+          </h4>
         </v-expansion-panel-header>
 
         <v-expansion-panel-content>
@@ -52,9 +61,9 @@
 
       <v-expansion-panel>
         <v-expansion-panel-header>
-          <h5 class="body-2">
+          <h4 class="vcard__subheader">
             {{ $t('components.employees.sidebar.positionChanges.title') }}
-          </h5>
+          </h4>
         </v-expansion-panel-header>
 
         <v-expansion-panel-content>
