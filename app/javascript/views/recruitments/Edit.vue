@@ -15,7 +15,7 @@
         :sources="sources"
         :evaluators="evaluators"
         :attachments="attachments"
-        @selectFile="file => currentAttachment = file"
+        @selectFile="file => localAttachment = file"
       />
     </v-flex>
 
@@ -43,7 +43,7 @@ export default {
   components: { FilePreviewer, RecruitmentForm },
   data() {
     return {
-      currentAttachment: new Attachment()
+      localAttachment: null
     }
   },
   computed: {
@@ -58,7 +58,10 @@ export default {
     ]),
     ...mapGetters('RecruitDocumentsModule', [
       'fetchLoading'
-    ])
+    ]),
+    currentAttachment() {
+      return this.localAttachment || this.attachments.defaultPreviewFile || new Attachment()
+    }
   },
   watch: {
     $route: {
