@@ -512,7 +512,7 @@ export default {
       handler(newFiles) {
         const file = newFiles.find(f => f.type === 'application/pdf') || newFiles[0]
 
-        this.selectFile(file ? file : new Attachment())
+        this.selectFile(file || new Attachment())
       }
     }
   }
