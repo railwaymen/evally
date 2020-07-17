@@ -32,6 +32,7 @@ export default {
       yes: 'Yes',
       no: 'No',
       archive: 'Archive',
+      restore: 'Restore'
     },
     tooltips: {
       edit: 'Edit',
@@ -49,6 +50,7 @@ export default {
       copyLink: 'Copy Link',
       close: 'Close',
       archive: 'Archive',
+      restore: 'Restore',
       openInfo: 'Open Information',
       sensitiveInfo: 'Sensitive Information',
       acceptCurrentProcessing: 'Accept Current Processing',
@@ -148,9 +150,13 @@ export default {
       },
       archiveForm: {
         title: 'Archive Employee',
-        body: 'Are you sure you want to archive',
+        body: 'Are you sure you want to archive <strong>%{name}</strong>?',
         dateRequest: 'Please provide an archivization date: ',
         archivedOn: 'Archivization Date'
+      },
+      restoreConfirm: {
+        title: 'Restore Employee',
+        body: 'Are you sure you want to restore <strong>%{name}</strong>?'
       },
       searchTable: {
         cols: {
@@ -518,6 +524,10 @@ export default {
         ok: 'Employee has been archived',
         error: 'Employee cannot be archived: {msg}'
       },
+      restore: {
+        ok: 'Employee has been restored',
+        error: 'Employee cannot be restored: {msg}'
+      }
     },
     session: {
       acceptInvitation: {

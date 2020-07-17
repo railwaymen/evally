@@ -107,7 +107,7 @@ module V2
     def archive_form
       @archive_form ||= V2::Employees::ArchiveForm.new(
         employee,
-        params: employee_params.slice(:archived_on),
+        params: employee_params,
         user: current_user
       )
     end
@@ -115,7 +115,7 @@ module V2
     def employee_params
       params.require(:employee).permit(
         :first_name, :last_name, :position, :group, :hired_on, :position_set_on, :archived_on,
-        :last_evaluation_on, :next_evaluation_on, :evaluator_id, :signature
+        :last_evaluation_on, :next_evaluation_on, :evaluator_id, :signature, :state
       )
     end
   end

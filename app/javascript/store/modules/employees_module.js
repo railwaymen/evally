@@ -41,6 +41,10 @@ const EmployeesModule = {
     ADD_EMPLOYEE(state, employee) {
       state.employees.unshift(employee)
     },
+    ARCHIVE_EMPLOYEE(state, employee) {
+      state.employee = new Employee(employee)
+      state.employees.dropById(employee.id)
+    },
     CLEAR_EMPLOYEE(state) {
       state.employee = new Employee()
       state.evaluations = new EvaluationsList()
@@ -278,14 +282,19 @@ const EmployeesModule = {
           })
       })
     },
-    archiveEmployee({ commit, state }, archivedDate){
-      const params = { employee: { archived_on: archivedDate } }
+    archiveEmployee({ commit }, employee) {
+      const params = {
+        employee: {
+          state: 'archived',
+          archived_on: employee.archived_on
+        }
+      }
 
       return new Promise(resolve => {
         coreApiClient
-          .put(Employee.routes.employeeArchivePath(state.employee.id), params)
+          .put(Employee.routes.employeeArchivePath(employee.id), params)
           .then(response => {
-            commit('REFRESH_EMPLOYEE', response.data)
+            commit('ARCHIVE_EMPLOYEE', response.data)
 
             commit(
               'MessagesModule/PUSH_MESSAGE',
@@ -299,6 +308,38 @@ const EmployeesModule = {
             commit(
               'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.employees.archive.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      })
+    },
+    restoreEmployee({ commit, state }) {
+      const params = {
+        employee: {
+          state: 'hired',
+          archived_on: null
+        }
+      }
+
+      return new Promise(resolve => {
+        coreApiClient
+          .put(Employee.routes.employeePath(state.employee.id), params)
+          .then(response => {
+            commit('ARCHIVE_EMPLOYEE', response.data)
+            console.log(response.data)
+
+            commit(
+              'MessagesModule/PUSH_MESSAGE',
+              { success: i18n.t('messages.employees.restore.ok') },
+              { root: true }
+            )
+
+            resolve(response.data)
+          })
+          .catch(error => {
+            commit(
+              'MessagesModule/PUSH_MESSAGE',
+              { error: i18n.t('messages.employees.restore.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
