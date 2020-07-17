@@ -52,7 +52,7 @@ export default {
       this.$emit('closeDialog')
     },
     restore() {
-      this.$store.dispatch('EmployeesModule/restoreEmployee')
+      this.$store.dispatch('EmployeesModule/restoreEmployee', this.employee)
         .then(this.closeDialog)
     }
   }

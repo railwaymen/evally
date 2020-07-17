@@ -41,7 +41,7 @@ const EmployeesModule = {
     ADD_EMPLOYEE(state, employee) {
       state.employees.unshift(employee)
     },
-    ARCHIVE_EMPLOYEE(state, employee) {
+    CHANGE_EMPLOYEE_STATUS(state, employee) {
       state.employee = new Employee(employee)
       state.employees.dropById(employee.id)
     },
@@ -294,7 +294,7 @@ const EmployeesModule = {
         coreApiClient
           .put(Employee.routes.employeeArchivePath(employee.id), params)
           .then(response => {
-            commit('ARCHIVE_EMPLOYEE', response.data)
+            commit('CHANGE_EMPLOYEE_STATUS', response.data)
 
             commit(
               'MessagesModule/PUSH_MESSAGE',
@@ -313,7 +313,7 @@ const EmployeesModule = {
           })
       })
     },
-    restoreEmployee({ commit, state }) {
+    restoreEmployee({ commit }, employee) {
       const params = {
         employee: {
           state: 'hired',
@@ -323,10 +323,9 @@ const EmployeesModule = {
 
       return new Promise(resolve => {
         coreApiClient
-          .put(Employee.routes.employeePath(state.employee.id), params)
+          .put(Employee.routes.employeePath(employee.id), params)
           .then(response => {
-            commit('ARCHIVE_EMPLOYEE', response.data)
-            console.log(response.data)
+            commit('CHANGE_EMPLOYEE_STATUS', response.data)
 
             commit(
               'MessagesModule/PUSH_MESSAGE',
