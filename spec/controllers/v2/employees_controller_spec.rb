@@ -595,6 +595,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
         params = {
           id: employee.id,
           employee: {
+            state: 'archived',
             archived_on: archive_date
           }
         }
@@ -625,6 +626,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
         params = {
           id: employee.id,
           employee: {
+            state: 'archived',
             archived_on: Date.current
           }
         }
@@ -649,6 +651,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
         params = {
           id: employee.id,
           employee: {
+            state: 'archived',
             archived_on: ''
           }
         }
@@ -669,6 +672,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
         params = {
           id: employee.id,
           employee: {
+            state: 'archived',
             archived_on: Date.current
           }
         }

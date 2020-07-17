@@ -6,9 +6,10 @@
 
     <v-form @submit.prevent="archiveEmployee">
       <v-card-text>
-        <p class="subtitle-1 text-center mb-0">
-          {{ $t('components.employees.archiveForm.body') }} <strong>{{ employee.fullname }}</strong>?
-        </p>
+        <p
+          class="subtitle-1 text-center mb-0"
+          v-html="$t('components.employees.archiveForm.body', { name: localEmployee.fullname })"
+        />
 
         <p class="subtitle-1 text-center">
           {{ $t('components.employees.archiveForm.dateRequest') }}
@@ -25,18 +26,19 @@
         >
           <template v-slot:activator="{ on }">
             <v-text-field
-              :value="employee.archivedOn"
+              :value="localEmployee.archivedOn"
               :label="$t('components.employees.archiveForm.archivedOn')"
               prepend-inner-icon="mdi-calendar"
+              :rules="[vRequired]"
               readonly
               v-on="on"
             />
           </template>
 
           <v-date-picker
-            v-model="employee.archivedDate"
+            v-model="localEmployee.archivedDate"
             @input="menu = false"
-            :min="employee.hiredDate"
+            :min="localEmployee.hiredDate"
             :locale="$i18n.locale"
             no-title
             scrollable
@@ -81,6 +83,7 @@ export default {
   },
   data(){
     return {
+      localEmployee: new Employee({ ...this.employee }),
       menu: false
     }
   },
@@ -89,7 +92,7 @@ export default {
       this.$emit('closeDialog')
     },
     archiveEmployee() {
-      this.$store.dispatch('EmployeesModule/archiveEmployee', this.employee.archived_on)
+      this.$store.dispatch('EmployeesModule/archiveEmployee', this.localEmployee)
         .then(this.closeDialog)
     }
   }

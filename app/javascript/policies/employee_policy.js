@@ -13,6 +13,10 @@ export default class EmployeePolicy extends BasePolicy{
     return this.canCreate
   }
 
+  get canRestore() {
+    return this.canCreate
+  }
+
   get canEdit() {
     return this.canCreate
   }

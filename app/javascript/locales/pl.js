@@ -31,7 +31,8 @@ export default {
       changePassword: 'Zmień hasło',
       yes: 'Tak',
       no: 'Nie',
-      archive: 'Archiwizuj'
+      archive: 'Archiwizuj',
+      restore: 'Przywróć'
     },
     tooltips: {
       edit: 'Edytuj',
@@ -49,6 +50,7 @@ export default {
       copyLink: 'Skopiuj link',
       close: 'Zamknij',
       archive: 'Archiwizuj',
+      restore: 'Przywróć',
       openInfo: 'Otwarte dane',
       sensitiveInfo: 'Wrażliwe dane',
       acceptCurrentProcessing: 'Zgoda na obecną rekrutację',
@@ -146,9 +148,13 @@ export default {
         title: 'Usuń pracownika',
         body: 'Czy na pewno chcesz usunąć tego pracownika?'
       },
+      restoreConfirm: {
+        title: 'Przywróć pracownika',
+        body: 'Czy na pewno chcesz przywrócić <strong>%{name}</strong>?'
+      },
       archiveForm: {
         title: 'Archiwizuj pracownika',
-        body: 'Czy na pewno chcesz archiwizować pracownika',
+        body: 'Czy na pewno chcesz archiwizować <strong>%{name}</strong>?',
         dateRequest: 'Proszę podać datę archiwizacji pracownika: ',
         archivedOn: 'Date archiwizacji'
       },
@@ -516,6 +522,10 @@ export default {
         ok: 'Pracownik został zarchiwizoway',
         error: 'Błąd przy archiwizacji pracownika: {msg}'
       },
+      restore: {
+        ok: 'Pracownik został przywrócony',
+        error: 'Błąd przy przywracaniu pracownika: {msg}'
+      }
     },
     session: {
       acceptInvitation: {

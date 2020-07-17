@@ -127,14 +127,13 @@
           </v-tooltip>
 
           <v-tooltip
-            v-if="employeePolicy.canArchive"
+            v-if="employee.isHired"
             key="archive"
             bottom
           >
             <template #activator="{ on }">
               <v-btn
                 @click="openArchiveForm"
-                :disabled="employee.isArchived"
                 v-on="on"
                 color="orange"
                 icon
@@ -144,6 +143,25 @@
             </template>
 
             <span>{{ $t('shared.tooltips.archive') }}</span>
+          </v-tooltip>
+
+          <v-tooltip
+            v-if="employee.isArchived"
+            key="restore"
+            bottom
+          >
+            <template #activator="{ on }">
+              <v-btn
+                @click="openRestoreConfirm"
+                v-on="on"
+                color="orange"
+                icon
+              >
+                <v-icon>mdi-restore</v-icon>
+              </v-btn>
+            </template>
+
+            <span>{{ $t('shared.tooltips.restore') }}</span>
           </v-tooltip>
 
           <v-tooltip
@@ -196,6 +214,7 @@ import { Employee } from '@models/employee'
 import BasicTable from '@components/employees/BasicTable'
 import DeleteConfirm from '@components/employees/DeleteConfirm'
 import ArchiveForm from '@components/employees/ArchiveForm'
+import RestoreConfirm from '@components/employees/RestoreConfirm'
 import EmployeeForm from '@components/employees/EmployeeForm'
 import CreateEvaluationForm from '@components/evaluations/CreateForm'
 
@@ -233,6 +252,14 @@ export default {
         innerComponent: ArchiveForm,
         props: {
           employee: this.employees.findById(id) || this.employee,
+        }
+      })
+    },
+    openRestoreConfirm() {
+      DialogsBus.$emit('openConfirmDialog', {
+        innerComponent: RestoreConfirm,
+        props: {
+          employee: this.employee
         }
       })
     },

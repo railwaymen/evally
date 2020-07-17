@@ -161,6 +161,8 @@ export default {
         {
           sortable: false,
           value: 'action',
+          width: 90,
+          align: 'right'
         },
         {
           text: this.$t('components.employees.table.cols.name'),
