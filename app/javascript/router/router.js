@@ -82,6 +82,11 @@ export default new Router({
           component: () => import(/* webpackChunkName: 'recruitments' */ '@views/recruitments/Index'),
           children: [
             {
+              path: 'inbox',
+              name: 'recruitments_inbox_path',
+              component: () => import(/* webpackChunkName: 'recruitments_inbox' */ '@views/recruitments/Inbox'),
+            },
+            {
               path: 'search',
               name: 'recruitments_search_path',
               component: () => import(/* webpackChunkName: 'recruitments_search' */ '@views/recruitments/Search'),

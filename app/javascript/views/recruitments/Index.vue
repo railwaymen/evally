@@ -33,6 +33,16 @@
         >
           {{ $t('views.recruitments.index.nav.overview') }}
         </v-btn>
+
+        <v-btn
+          v-if="recruitDocumentPolicy.canSeeInbox"
+          :to="{ name: 'recruitments_inbox_path' }"
+          color="primary"
+          exact
+          text
+        >
+          {{ $t('views.recruitments.index.nav.inbox') }}
+        </v-btn>
       </div>
 
       <div class="panel__actions">

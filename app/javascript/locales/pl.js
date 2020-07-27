@@ -357,6 +357,7 @@ export default {
           position: 'Pozycja',
           currentEvaluator: 'Obecny ewaluator',
           source: 'Źródło',
+          subject: 'Temat',
           receivedAt: 'Data otrzymania',
           acceptCurrentProcessing: 'OR',
           acceptFutureProcessing: 'PR'
@@ -623,6 +624,9 @@ export default {
       destroyFile: {
         ok: 'Plik został usunięty',
         error: 'Błąd przy usuwaniu pliku: {msg}'
+      },
+      inbox: {
+        error: 'Błąd przy ładowaniu odebranych wiadomości: {msg}'
       }
     }
   },
@@ -756,7 +760,8 @@ export default {
         nav: {
           list: 'Lista',
           search: 'Wyszukaj',
-          overview: 'Przegląd'
+          overview: 'Przegląd',
+          inbox: 'Odebrane'
         }
       },
       show: {

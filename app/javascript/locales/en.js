@@ -359,6 +359,7 @@ export default {
           currentEvaluator: 'Current Evaluator',
           source: 'Source',
           receivedAt: 'Received Date',
+          subject: 'Subject',
           acceptCurrentProcessing: 'CP',
           acceptFutureProcessing: 'FP'
         },
@@ -625,6 +626,9 @@ export default {
       destroyAttachment: {
         ok: 'Attachment has been deleted',
         error: 'Attachment cannot be deleted: {msg}'
+      },
+      inbox: {
+        error: 'Inbox cannot be loaded: {msg}'
       }
     }
   },
@@ -758,7 +762,8 @@ export default {
         nav: {
           list: 'List',
           search: 'Search',
-          overview: 'Overview'
+          overview: 'Overview',
+          inbox: 'Inbox'
         }
       },
       show: {
