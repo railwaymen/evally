@@ -28,7 +28,7 @@ const RecruitmentsInboxModule = {
   },
 
   actions: {
-    fetchData({ commit }, date) {
+    fetchData({ commit }) {
       commit('SET_LOADING', true)
 
       recruitableApiClient
