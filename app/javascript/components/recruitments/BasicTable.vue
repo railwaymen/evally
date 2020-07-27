@@ -89,6 +89,10 @@
             </v-chip>
           </template>
 
+          <template #item.evaluator_fullname="{ item }">
+            {{ item.evaluator_fullname || '---' }}
+          </template>
+
           <template #item.received_at="{ item }">
             {{ item.receivedAt }}
           </template>
