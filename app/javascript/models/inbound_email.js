@@ -11,7 +11,8 @@ class InboundEmail extends Model {
       source: '',
       subject: '',
       created_at: '',
-      status: ''
+      status: '',
+      parsed: false
     }
   }
 

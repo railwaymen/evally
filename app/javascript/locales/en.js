@@ -360,6 +360,7 @@ export default {
           source: 'Source',
           receivedAt: 'Received Date',
           subject: 'Subject',
+          parsed: 'Parsed',
           acceptCurrentProcessing: 'CP',
           acceptFutureProcessing: 'FP'
         },
@@ -765,6 +766,9 @@ export default {
           overview: 'Overview',
           inbox: 'Inbox'
         }
+      },
+      inbox: {
+        title: 'Inbox'
       },
       show: {
         title: 'Recruitment'
