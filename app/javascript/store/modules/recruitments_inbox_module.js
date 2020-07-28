@@ -7,6 +7,7 @@ import { InboundEmail, InboundEmailsList } from '@models/inbound_email'
 
 const initialState = () => ({
   inboundEmails: new InboundEmailsList(),
+  totalCount: 0,
   loading: false
 })
 
@@ -17,7 +18,10 @@ const RecruitmentsInboxModule = {
 
   mutations: {
     SET_DATA(state, data) {
-      state.inboundEmails = new InboundEmailsList(data)
+      const { inbound_emails, total_count } = data
+
+      state.inboundEmails = new InboundEmailsList(inbound_emails)
+      state.totalCount = total_count
     },
     SET_LOADING(state, status) {
       state.loading = status
@@ -28,11 +32,11 @@ const RecruitmentsInboxModule = {
   },
 
   actions: {
-    fetchData({ commit }) {
+    fetchData({ commit }, data) {
       commit('SET_LOADING', true)
 
       recruitableApiClient
-        .get(InboundEmail.routes.inboundEmailsPath)
+        .get(InboundEmail.routes.inboundEmailsPath, { params: data })
         .then(response => {
           commit('SET_DATA', response.data)
         })

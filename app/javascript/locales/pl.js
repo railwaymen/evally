@@ -358,6 +358,7 @@ export default {
           currentEvaluator: 'Obecny ewaluator',
           source: 'Źródło',
           subject: 'Temat',
+          parsed: 'Sparsowany',
           receivedAt: 'Data otrzymania',
           acceptCurrentProcessing: 'OR',
           acceptFutureProcessing: 'PR'
@@ -763,6 +764,9 @@ export default {
           overview: 'Przegląd',
           inbox: 'Odebrane'
         }
+      },
+      inbox: {
+        title: 'Odebrane'
       },
       show: {
         title: 'Rekrutacja'
