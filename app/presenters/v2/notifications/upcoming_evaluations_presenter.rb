@@ -18,7 +18,7 @@ module V2
       end
 
       def scheduled_employees
-        @regular_employees ||= employees_scope.where(
+        @scheduled_employees ||= employees_scope.where(
           "
             next_evaluation_on IS NOT NULL
               AND (
@@ -31,7 +31,7 @@ module V2
 
       def unscheduled_employees
         @unscheduled_employees ||= employees_scope.where(
-          "last_evaluation_on IS NOT NULL AND next_evaluation_on IS NULL"
+          'last_evaluation_on IS NOT NULL AND next_evaluation_on IS NULL'
         )
       end
 

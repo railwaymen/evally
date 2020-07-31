@@ -31,7 +31,7 @@ RSpec.describe V2::Notifications::UpcomingEvaluationsPresenter do
     end
   end
 
-  describe 'regular employees' do
+  describe 'scheduled employees' do
     it 'expects to fetch proper employees' do
       admin = FactoryBot.create(:user, role: :admin)
 
@@ -53,8 +53,33 @@ RSpec.describe V2::Notifications::UpcomingEvaluationsPresenter do
 
         presenter = described_class.new(admin)
 
-        expect(presenter.regular_employees.ids).to contain_exactly(
+        expect(presenter.scheduled_employees.ids).to contain_exactly(
           employee1.id, employee2.id
+        )
+      end
+    end
+  end
+
+  describe 'unscheduled employees' do
+    it 'expects to fetch proper employees' do
+      admin = FactoryBot.create(:user, role: :admin)
+
+      travel_to Date.new(2020, 6, 1) do
+        employee1 = FactoryBot.create(
+          :employee,
+          last_evaluation_on: 2.months.ago,
+          next_evaluation_on: nil
+        )
+
+        FactoryBot.create(
+          :employee,
+          next_evaluation_on: Date.new(2020, 6, 1)
+        )
+
+        presenter = described_class.new(admin)
+
+        expect(presenter.unscheduled_employees.ids).to contain_exactly(
+          employee1.id
         )
       end
     end
