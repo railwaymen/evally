@@ -165,6 +165,10 @@ export default {
           align: 'right'
         },
         {
+          value: 'fullname',
+          align: ' d-none'
+        },
+        {
           text: this.$t('components.employees.table.cols.name'),
           value: 'last_name'
         },
