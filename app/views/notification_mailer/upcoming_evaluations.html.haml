@@ -8,18 +8,18 @@
       %h1.headline Hello #{@user.first_name}!
 
   .row
-    - if @presenter.regular_employees.blank? && @presenter.fresh_employees.blank?
+    - if @presenter.scheduled_employees.blank? && @presenter.unscheduled_employees.blank? && @presenter.fresh_employees.blank?
       %p.subhead-1 Good job &#128077; there are no upcoming evaluations in current month!
     - else
       %p.subhead-1 Hope you are well. Let's plan new evaluations this month:
 
-  - if @presenter.regular_employees.present?
+  - if @presenter.scheduled_employees.present?
     .row
-      %h2.title Next evaluation for employees
+      %h2.title Schedule evaluations
 
       %table
         %tbody
-          - @presenter.regular_employees.each_with_index.map do |employee, index|
+          - @presenter.scheduled_employees.each_with_index.map do |employee, index|
             %tr.body-1
               %td{ align: 'center', width: '50px' }
                 #{index + 1}.
@@ -27,14 +27,33 @@
                 %strong= link_to employee.fullname, vue_employee_url(employee), target: '_blank'
                 as
                 %em= employee.position
-                %p.caption= employee.next_evaluation_on.present? ? employee.next_evaluation_on.strftime('%B %Y') : 'First time'
+                %p.caption= employee.next_evaluation_on.strftime('%B %Y')
               %td{ align: 'right', width: '200' }
                 = link_to "http://www.google.com/calendar/event?action=TEMPLATE&text=#{employee.fullname}'s Review&details=", target: '_blank', class: 'btn btn-small' do
                   &#10010; Add To Calendar
 
+  - if @presenter.unscheduled_employees.present?
+    .row
+      %h2.title Unscheduled evaluations
+
+      %table
+        %tbody
+          - @presenter.unscheduled_employees.each_with_index.map do |employee, index|
+            %tr.body-1
+              %td{ align: 'center', width: '50px' }
+                #{index + 1}.
+              %td{ align: 'left' }
+                %strong= link_to employee.fullname, vue_employee_url(employee), target: '_blank'
+                as
+                %em= employee.position
+                %p.caption Unscheduled
+              %td{ align: 'right', width: '200' }
+                = link_to vue_employee_url(employee), target: '_blank', class: 'btn btn-small' do
+                  &#10002; Schedule
+
   - if @presenter.fresh_employees.present?
     .row
-      %h4.title First evaluation for employees
+      %h2.title Not evaluated yet
 
       %table
         %tbody
@@ -48,8 +67,8 @@
                 %em= employee.position
                 %p.caption= employee.next_evaluation_on.present? ? employee.next_evaluation_on.strftime('%B %Y') : 'First time'
               %td{ align: 'right', width: '200' }
-                = link_to "http://www.google.com/calendar/event?action=TEMPLATE&text=#{employee.fullname}'s Review&details=", target: '_blank', class: 'btn btn-small' do
-                  &#10010; Add To Calendar
+                = link_to vue_employee_url(employee), target: '_blank', class: 'btn btn-small' do
+                  &#10002; Schedule
 
   .row
     %p.caption

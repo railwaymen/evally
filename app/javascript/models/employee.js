@@ -122,7 +122,7 @@ class Employee extends Model {
   get nextEvaluationText() {
     if (!this.lastEvaluationOn && !this.nextEvaluationOn) return i18n.t('models.employee.firstTime')
 
-    return this.nextEvaluationOn || '---'
+    return this.nextEvaluationOn || i18n.t('models.employee.unscheduled')
   }
 
   // === next evaluation at datepicker getter & setter
