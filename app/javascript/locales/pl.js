@@ -401,7 +401,7 @@ export default {
       },
       deleteConfirm: {
         title: 'Usuń zgłoszenie rekrutacyjne',
-        body: 'Czy na pewno chcesz usunąć to zgłoszenie?'
+        body: 'Czy na pewno chcesz usunąć zgłoszenie od <strong>%{name}</strong>?'
       },
       recruitmentFilePreview: {
         label: 'Wybierz załączony plik'

@@ -5,7 +5,10 @@
     </v-card-title>
 
     <v-card-text>
-      <p class="subtitle-1">{{ $t('components.recruitments.deleteConfirm.body') }}</p>
+      <p
+        v-html="$t('components.recruitments.deleteConfirm.body', { name: this.recruitDocument.fullname })"
+        class="subtitle-1"
+      />
     </v-card-text>
 
     <v-card-actions>
@@ -34,14 +37,23 @@
 </template>
 
 <script>
+import { RecruitDocument } from '@models/recruit_document'
+
 export default {
   name: 'DeleteConfirm',
+  props: {
+    recruitDocument: {
+      type: RecruitDocument,
+      required: true,
+      default: new RecruitDocument()
+    }
+  },
   methods: {
     closeDialog() {
       this.$emit('closeDialog')
     },
     destroy() {
-      this.$store.dispatch('RecruitDocumentsModule/removeRecruitDocument')
+      this.$store.dispatch('RecruitDocumentsModule/removeRecruitDocument', this.recruitDocument)
         .then(() => this.$router.push({ name: 'recruitments_path' }))
         .finally(this.closeDialog)
     }

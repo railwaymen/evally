@@ -54,6 +54,25 @@
         >
           <template #item.action="{ item }">
             <v-tooltip
+              v-if="recruitDocumentPolicy.canRemove"
+              bottom
+            >
+              <template #activator="{ on }">
+                <v-icon
+                  @click="$emit('delete', item.id)"
+                  v-on="on"
+                  class="mx-2"
+                  color="red"
+                  small
+                >
+                  mdi-delete-outline
+                </v-icon>
+              </template>
+
+              <span>{{ $t('shared.tooltips.delete') }}</span>
+            </v-tooltip>
+
+            <v-tooltip
               v-if="recruitDocumentPolicy.canEdit"
               bottom
             >

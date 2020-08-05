@@ -299,9 +299,7 @@ const RecruitDocumentsModule = {
           })
       )
     },
-    removeRecruitDocument({ state, commit }) {
-      const { recruitDocument } = state;
-
+    removeRecruitDocument({ state, commit }, recruitDocument) {
       return (
         recruitableApiClient
           .delete(RecruitDocument.routes.recruitDocumentPath(recruitDocument.id))

@@ -403,7 +403,7 @@ export default {
       },
       deleteConfirm: {
         title: 'Delete Recruit Document',
-        body: 'Are you sure you want to delete this recruit document?'
+        body: 'Are you sure you want to delete the recruit <strong>%{name}</strong>?'
       },
       recruitmentFilePreview: {
         label: 'Select Attached File'

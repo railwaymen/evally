@@ -7,7 +7,7 @@
 
       <div class="panel__nav">
         <v-btn
-          :to="{ name: 'recruitments_path'}"
+          :to="{ name: 'recruitments_path' }"
           color="primary"
           exact
           text
@@ -16,7 +16,7 @@
         </v-btn>
 
         <v-btn
-          :to="{ name: 'recruitments_search_path'}"
+          :to="{ name: 'recruitments_search_path' }"
           color="primary"
           exact
           text
@@ -117,6 +117,7 @@
             :statuses="statuses"
             :evaluators="evaluators"
             :loading="fetchLoading"
+            @delete="openDeleteConfirm"
           />
 
           <router-view v-else :key="String($route.params.id)"/>
@@ -138,9 +139,12 @@ export default {
   name: 'RecruitmentsIndex',
   components: { BasicTable },
   methods: {
-    openDeleteConfirm() {
+    openDeleteConfirm(id) {
       DialogsBus.$emit('openConfirmDialog', {
-        innerComponent: DeleteConfirm
+        innerComponent: DeleteConfirm,
+        props: {
+          recruitDocument: this.recruitDocuments.findById(id) || this.recruitDocument
+        }
       })
     }
   },
