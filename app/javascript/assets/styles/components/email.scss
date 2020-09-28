@@ -16,5 +16,38 @@
 
   &__preview {
     margin-top: rem2dec(1rem);
+    font-size: rem2dec(1.6rem);
+
+    h1 {
+      font-size: 34px;
+      line-height: 40px;
+      letter-spacing: 0;
+      font-weight: 300;
+      text-transform: inherit;
+    }
+
+    h2 {
+      font-size: 24px;
+      line-height: 32px;
+      letter-spacing: 0;
+      font-weight: 300;
+      text-transform: inherit;
+    }
+
+    h3 {
+      font-size: 20px;
+      line-height: 28px;
+      letter-spacing: 0.05px;
+      font-weight: 400;
+      text-transform: inherit;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 28px;
+      letter-spacing: 0.1px;
+      font-weight: 400;
+      text-transform: inherit;
+    }
   }
 }

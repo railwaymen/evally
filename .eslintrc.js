@@ -22,6 +22,7 @@ module.exports = {
         "jest"
     ],
     "rules": {
+        "vue/valid-v-slot": "off",
         "jest/no-disabled-tests": "warn",
         "jest/no-focused-tests": "error",
         "jest/no-identical-title": "error",

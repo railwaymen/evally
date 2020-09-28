@@ -36,7 +36,7 @@
               Message Editor
             </label>
 
-            <vue-editor v-model="templateBody" />
+            <body-editor v-model="templateBody" />
           </div>
 
           <div v-if="emailTemplate.body.length > 0" class="email__preview">
@@ -53,15 +53,12 @@
 <script>
 import { mapState } from 'vuex'
 
-import { VueEditor } from 'vue2-editor';
-
-// Quill Awesome
-// https://github.com/Fandom-OSS/quill-blot-formatter - resize and realign images
+import BodyEditor from '@components/email_templates/BodyEditor'
 
 export default {
   name: 'EmailTemplateShow',
   components: {
-    VueEditor
+    BodyEditor
   },
   computed: {
     ...mapState('EmailTemplatesModule', [

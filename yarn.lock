@@ -8686,6 +8686,11 @@ quill-delta@^3.6.2:
     extend "^3.0.2"
     fast-diff "1.1.2"
 
+quill-placeholder-module@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/quill-placeholder-module/-/quill-placeholder-module-0.3.1.tgz#1a662013adbc2c05069bea23df99c7f25a9a5c1a"
+  integrity sha512-xJ49QsS7UYqZlDlcks7q9DvTYyWYnEOFMb4SBkauJKuywVmkFGk3uuEcv5lBPDN06vDrWRjZ01bj0rNFSHNp9A==
+
 quill@^1.3.6:
   version "1.3.7"
   resolved "https://registry.yarnpkg.com/quill/-/quill-1.3.7.tgz#da5b2f3a2c470e932340cdbf3668c9f21f9286e8"

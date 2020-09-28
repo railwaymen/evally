@@ -96,6 +96,31 @@ class RecruitDocument extends Model {
       attachmentPath: (recruitDocumentId, id) => `/v2/recruit_documents/${recruitDocumentId}/attachments/${id}`,
     }
   }
+
+  static get placeholders() {
+    return [
+      {
+        id: 'first_name',
+        label: 'First Name'
+      },
+      {
+        id: 'last_name',
+        label: 'Last Name'
+      },
+      {
+        id: 'email',
+        label: 'Email'
+      },
+      {
+        id: 'phone',
+        label: 'Phone'
+      },
+      {
+        id: 'position',
+        label: 'Position'
+      }
+    ]
+  }
 }
 
 class RecruitDocumentsList extends List {
