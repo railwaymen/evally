@@ -17,7 +17,7 @@ export default class PlaceholderModule {
 
   onPlaceholderSelect = (value) => {
     const placeholder = this.items.find((el) => el.id === value)
-    if (!placeholder) throw new Error(`Missing placeholder for ${identifier}`)
+    if (!placeholder) throw new Error(`Missing placeholder for ${value}`)
 
     const selection = this.quill.getSelection()
 
