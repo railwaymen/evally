@@ -47,7 +47,7 @@
         <span class="ql-formats">
           <select class="ql-placeholder">
             <option
-              v-for="placeholder in placeholders"
+              v-for="placeholder in editorOptions.modules.placeholder.items"
               :key="placeholder.id"
               :value="placeholder.id"
             >
@@ -62,13 +62,11 @@
 
 <script>
 import { VueEditor, Quill } from 'vue2-editor'
-import PlaceholderModule from 'quill-placeholder-module'
+import PlaceholderModule from '@utils/quill/placeholder_module'
 
 import { RecruitDocument } from '@models/recruit_document'
 
-Quill.register('modules/placeholder', PlaceholderModule(Quill, {
-  className: 'ql-placeholder-tag'
-}))
+Quill.register('modules/placeholder', PlaceholderModule)
 
 export default {
   name: 'BodyEditor',
@@ -86,8 +84,7 @@ export default {
         modules: {
           toolbar: '#toolbar',
           placeholder: {
-            delimiters: ['{', '}'],
-            placeholders: RecruitDocument.placeholders
+            items: RecruitDocument.placeholders
           }
         }
       }
@@ -101,9 +98,6 @@ export default {
       set(val) {
         this.$emit('input', val)
       }
-    },
-    placeholders() {
-      return this.editorOptions.modules.placeholder.placeholders
     }
   }
 }
