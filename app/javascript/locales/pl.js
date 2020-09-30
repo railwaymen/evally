@@ -36,7 +36,8 @@ export default {
       yes: 'Tak',
       no: 'Nie',
       archive: 'Archiwizuj',
-      restore: 'Przywróć'
+      restore: 'Przywróć',
+      send: 'Wyślij'
     },
     tooltips: {
       edit: 'Edytuj',
@@ -813,7 +814,7 @@ export default {
         title: 'Rekrutacja'
       },
       mailer: {
-        title: 'Nowa wiadomość email'
+        title: 'Odbiorca: {to}'
       },
       overview: {
         monthSelectLabel: 'Wybierz miesiąc',

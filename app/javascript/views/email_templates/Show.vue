@@ -36,7 +36,7 @@
               Message Editor
             </label>
 
-            <email-editor v-model="templateBody" />
+            <email-editor v-model="templateBody" mode="template" />
           </div>
 
           <div v-if="emailTemplate.body.length > 0" class="email__preview">

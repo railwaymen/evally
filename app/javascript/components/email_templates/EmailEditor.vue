@@ -44,7 +44,7 @@
           <button class="ql-clean" />
         </span>
 
-        <span class="ql-formats">
+        <span v-if="mode === 'template'" class="ql-formats">
           <select class="ql-placeholder">
             <option
               v-for="placeholder in editorOptions.modules.placeholder.items"
@@ -75,6 +75,11 @@ export default {
     value: {
       type: String,
       required: true,
+      default: ''
+    },
+    mode: {
+      type: String,
+      required: false,
       default: ''
     }
   },

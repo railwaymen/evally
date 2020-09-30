@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import AuthenticationModule from '@store/modules/authentication_module'
 import DashboardModule from '@store/modules/dashboard_module'
+import EmailsModule from '@store/modules/emails_module'
 import EmailTemplatesModule from '@store/modules/email_templates_module'
 import EvaluationEmployablesModule from '@store/modules/evaluation_employables_module'
 import EmployeesModule from '@store/modules/employees_module'
@@ -23,6 +24,7 @@ export default new Vuex.Store({
   modules: {
     AuthenticationModule,
     DashboardModule,
+    EmailsModule,
     EmailTemplatesModule,
     EvaluationEmployablesModule,
     EmployeesModule,

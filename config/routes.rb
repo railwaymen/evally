@@ -13,6 +13,12 @@ Rails.application.routes.draw do
 
       resource :dashboard, controller: 'dashboard', only: :show
 
+      resources :emails, only: [] do
+        collection do
+          get :form
+        end
+      end
+
       resources :email_templates
 
       resources :evaluation_employables, only: %i[index create update destroy] do

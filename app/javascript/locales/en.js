@@ -36,7 +36,8 @@ export default {
       yes: 'Yes',
       no: 'No',
       archive: 'Archive',
-      restore: 'Restore'
+      restore: 'Restore',
+      send: 'Send'
     },
     tooltips: {
       edit: 'Edit',
@@ -815,7 +816,7 @@ export default {
         title: 'Recruitment'
       },
       mailer: {
-        title: 'New Recruitment Mail'
+        title: 'To: {to}'
       },
       overview: {
         monthSelectLabel: 'Select a Month',
