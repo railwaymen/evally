@@ -36,7 +36,7 @@
               Message Editor
             </label>
 
-            <body-editor v-model="templateBody" />
+            <email-editor v-model="templateBody" />
           </div>
 
           <div v-if="emailTemplate.body.length > 0" class="email__preview">
@@ -53,12 +53,12 @@
 <script>
 import { mapState } from 'vuex'
 
-import BodyEditor from '@components/email_templates/BodyEditor'
+import EmailEditor from '@components/email_templates/EmailEditor'
 
 export default {
   name: 'EmailTemplateShow',
   components: {
-    BodyEditor
+    EmailEditor
   },
   computed: {
     ...mapState('EmailTemplatesModule', [

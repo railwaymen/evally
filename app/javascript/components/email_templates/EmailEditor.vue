@@ -69,7 +69,7 @@ import { RecruitDocument } from '@models/recruit_document'
 Quill.register('modules/placeholder', PlaceholderModule)
 
 export default {
-  name: 'BodyEditor',
+  name: 'EmailEditor',
   components: { VueEditor },
   props: {
     value: {

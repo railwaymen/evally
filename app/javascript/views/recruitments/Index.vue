@@ -67,6 +67,24 @@
 
         <template v-if="$route.name === 'recruitment_path'">
           <v-tooltip
+            key="mail"
+            bottom
+          >
+            <template #activator="{ on }">
+              <v-btn
+                :to="recruitDocument.mailerPath"
+                v-on="on"
+                color="black"
+                icon
+              >
+                <v-icon>mdi-email-send-outline</v-icon>
+              </v-btn>
+            </template>
+
+            <span>{{ $t('shared.tooltips.sendEmail') }}</span>
+          </v-tooltip>
+
+          <v-tooltip
             v-if="recruitDocumentPolicy.canEdit"
             key="edit"
             bottom

@@ -16,7 +16,11 @@ export default {
         availableSince: 'Available Since',
         location: 'Location',
         workType: 'Work Type',
-        message: 'Message'
+        message: 'Message',
+        emailTemplate: 'Email Template',
+        from: 'From',
+        to: 'To',
+        subject: 'Subject'
       }
     },
     buttons: {
@@ -54,7 +58,8 @@ export default {
       openInfo: 'Open Information',
       sensitiveInfo: 'Sensitive Information',
       acceptCurrentProcessing: 'Accept Current Processing',
-      acceptFutureProcessing: 'Accept Future Processing'
+      acceptFutureProcessing: 'Accept Future Processing',
+      sendEmail: 'Send Email'
     },
     navbar: {
       dashboard: 'Dashboard',
@@ -808,6 +813,9 @@ export default {
       },
       show: {
         title: 'Recruitment'
+      },
+      mailer: {
+        title: 'New Recruitment Mail'
       },
       overview: {
         monthSelectLabel: 'Select a Month',

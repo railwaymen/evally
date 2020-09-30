@@ -17,6 +17,10 @@ export default {
         location: 'Lokacja',
         workType: 'Typ pracy',
         message: 'Wiadomość',
+        emailTemplate: 'Szablon wiadomości',
+        from: 'Nadawca',
+        to: 'Odbiorca',
+        subject: 'Temat'
       }
     },
     buttons: {
@@ -54,7 +58,8 @@ export default {
       openInfo: 'Otwarte dane',
       sensitiveInfo: 'Wrażliwe dane',
       acceptCurrentProcessing: 'Zgoda na obecną rekrutację',
-      acceptFutureProcessing: 'Zgoda na przyszłą rekrutację'
+      acceptFutureProcessing: 'Zgoda na przyszłą rekrutację',
+      sendEmail: 'Wyślij wiadomość email'
     },
     navbar: {
       dashboard: 'Kokpit',
@@ -181,7 +186,7 @@ export default {
         employment: 'Zatrudnienie',
         evaluation: 'Ocena',
         firstName: 'Imię',
-        lastName: 'Naswisko',
+        lastName: 'Nazwisko',
         position: 'Stanowisko',
         group: 'Grupa',
         hiredOn: 'Data zatrudnienia',
@@ -806,6 +811,9 @@ export default {
       },
       show: {
         title: 'Rekrutacja'
+      },
+      mailer: {
+        title: 'Nowa wiadomość email'
       },
       overview: {
         monthSelectLabel: 'Wybierz miesiąc',

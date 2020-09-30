@@ -113,6 +113,11 @@ export default new Router({
               name: 'edit_recruitment_path',
               component: () => import(/* webpackChunkName: 'edit_recruitment' */ '@views/recruitments/Edit'),
               beforeEnter: recruiterAuthorizedGuard
+            },
+            {
+              path: ':publicRecruitId/documents/:id/mailer',
+              name: 'recruitment_mailer_path',
+              component: () => import(/* webpackChunkName: 'recruitment_mailer' */ '@views/recruitments/Mailer')
             }
           ]
         },

@@ -52,6 +52,16 @@ class RecruitDocument extends Model {
     }
   }
 
+  get mailerPath() {
+    return {
+      name: 'recruitment_mailer_path',
+      params: {
+        publicRecruitId: this.public_recruit_id,
+        id: this.id
+      }
+    }
+  }
+
   get availableSince() {
     if (!this.available_since) return ''
 
