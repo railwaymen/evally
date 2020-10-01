@@ -91,7 +91,8 @@
 
       <v-card class="pa-3 height-100">
         <v-card-text>
-          <div class="email-preview" v-html="localEmail.body" />
+          <div class="email__preview" v-html="localEmail.body" />
+          <div class="email__signature mt-3" v-html="localEmail.signature" />
         </v-card-text>
       </v-card>
     </v-flex>
@@ -150,7 +151,8 @@ export default {
         from: this.user.email,
         to: this.recruitDocument.email,
         subject: template.subject,
-        body: doc.body.innerHTML
+        body: doc.body.innerHTML,
+        signature: this.user.signature
       })
     }
   },

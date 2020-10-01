@@ -37,7 +37,9 @@ export default {
       no: 'No',
       archive: 'Archive',
       restore: 'Restore',
-      send: 'Send'
+      send: 'Send',
+      edit: 'Edit',
+      preview: 'Preview'
     },
     tooltips: {
       edit: 'Edit',
@@ -268,10 +270,11 @@ export default {
         enableUpcomingNotifications: 'Notify me about upcoming evaluations (every 1st of month)'
       },
       userForm: {
-        subtitle: 'Basic Profile Information',
+        basicInfo: 'Basic Profile Information',
         email: 'Email',
         firstName: 'First Name',
         lastName: 'Last Name',
+        signature: 'Signature'
       },
       passwordForm: {
         subtitle: 'Change Password',

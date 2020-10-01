@@ -43,14 +43,21 @@ const AuthenticationModule = {
       Object.assign(state, initState())
 
       const modules = [
+        'Dashboard',
+        'EmailTemplates',
+        'Emails',
         'Employees',
         'EmployeesOverview',
         'EmployeesSearch',
         'EvaluationEmployables',
-        'Templates',
+        'Messages',
         'Notifications',
         'RecruitDocuments',
-        'RecruitsSearch'
+        'RecruitmentsInbox',
+        'RecruitmentsOverview',
+        'RecruitsSearch',
+        'Templates',
+        'Users'
       ]
 
       modules.forEach(module => this.commit(`${module}Module/RESET_STATE`))

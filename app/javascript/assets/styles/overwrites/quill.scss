@@ -11,6 +11,30 @@
   content: attr(data-label);
 }
 
+// Quill Editor
+.ql-editor,
+.email__preview {
+  blockquote,
+  code,
+  pre,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  ul,
+  ol,
+  p {
+    margin-bottom: rem2dec(1.6rem) !important;
+  }
+
+  ul, ol {
+    margin-left: 1.5em;
+    padding-left: 0;
+  }
+}
+
 // Quill Placeholder Tag
 
 .ql-container .ql-placeholder-tag {

@@ -37,7 +37,9 @@ export default {
       no: 'Nie',
       archive: 'Archiwizuj',
       restore: 'Przywróć',
-      send: 'Wyślij'
+      send: 'Wyślij',
+      edit: 'Edycja',
+      preview: 'Podgląd'
     },
     tooltips: {
       edit: 'Edytuj',
@@ -273,10 +275,11 @@ export default {
         enableUpcomingNotifications: 'Powiadom mnie o nadchodzacych ewaluacjach (każdego 1-ego dnia miesiąca)'
       },
       userForm: {
-        subtitle: 'Podstawowe informacje',
+        basigInfo: 'Podstawowe informacje',
         email: 'Email',
         firstName: 'Imię',
         lastName: 'Nazwisko',
+        signature: 'Podpis/Stopka'
       },
       passwordForm: {
         subtitle: 'Zmień hasło',

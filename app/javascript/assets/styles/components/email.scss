@@ -49,5 +49,39 @@
       font-weight: 400;
       text-transform: inherit;
     }
+
+    pre {
+      background: #23241f;
+      color: #f8f8f2;
+      overflow: visible;
+      border-radius: 3px;
+      padding: 5px 10px;
+      white-space: pre-wrap;
+    }
+
+    blockquote {
+      border-left: 4px solid #ccc;
+      padding-left: 16px;
+    }
+
+    ul, ol {
+      margin-left: 1.5em;
+    }
+
+    .ql-align-center {
+      text-align: center;
+    }
+
+    .ql-align-right {
+      text-align: right;
+    }
+
+    .ql-align-justify {
+      text-align: justify;
+    }
+  }
+
+  &__signature {
+    font-size: rem2dec(1.6rem);
   }
 }

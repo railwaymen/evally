@@ -33,7 +33,7 @@ module V2
     end
 
     def user_params
-      params.require(:profile).permit(:first_name, :last_name)
+      params.require(:profile).permit(:first_name, :last_name, :signature)
     end
 
     def password_params

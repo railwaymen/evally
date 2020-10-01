@@ -8,5 +8,6 @@ FactoryBot.define do
     last_name            { 'Sparrow' }
     role                 { 'admin' }
     status               { 'active' }
+    signature            { nil }
   end
 end

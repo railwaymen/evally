@@ -3,7 +3,7 @@
     <h1 class="box__header">{{ $t('views.settings.profile.title') }}</h1>
 
     <v-layout wrap row>
-      <v-flex xs12 lg7>
+      <v-flex xs12>
         <div v-if="loading" class="box__loader">
           <v-progress-circular :size="30" :width="3" color="primary" indeterminate />
         </div>
