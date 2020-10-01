@@ -8,6 +8,7 @@ export default class PlaceholderBlot extends Embed {
 
     node.setAttribute('data-id', value.id)
     node.setAttribute('data-label', value.label)
+    node.setAttribute('data-autocompleted', false)
 
     node.appendChild(
       document.createTextNode(`{${value.label}}`)

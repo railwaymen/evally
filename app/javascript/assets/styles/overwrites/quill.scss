@@ -1,3 +1,4 @@
+// Quill Toolbar - Placeholder Button
 .ql-picker.ql-placeholder {
   width: 118px;
 }
@@ -8,4 +9,10 @@
 
 .ql-picker.ql-placeholder > span.ql-picker-options > span.ql-picker-item::before {
   content: attr(data-label);
+}
+
+// Quill Placeholder Tag
+
+.ql-container .ql-placeholder-tag {
+  background: rgba($secondary, .2);
 }

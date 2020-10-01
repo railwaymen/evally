@@ -28,6 +28,7 @@
               <v-flex class="px-2" xs12>
                 <v-text-field
                   v-model="localEmail.from"
+                  :rules="[vRequired]"
                   :label="$t('shared.general.fields.from')"
                   prepend-inner-icon="mdi-logout-variant"
                   small
@@ -37,6 +38,7 @@
               <v-flex class="px-2" xs12>
                 <v-text-field
                   v-model="localEmail.to"
+                  :rules="[vRequired]"
                   :label="$t('shared.general.fields.to')"
                   prepend-inner-icon="mdi-login-variant"
                   small
@@ -46,6 +48,7 @@
               <v-flex class="px-2" xs12>
                 <v-text-field
                   v-model="localEmail.subject"
+                  :rules="[vRequired]"
                   :label="$t('shared.general.fields.subject')"
                   prepend-inner-icon="mdi-chevron-right"
                   small
@@ -53,7 +56,7 @@
               </v-flex>
 
               <v-flex class="px-2 mt-5" xs12>
-                <email-editor v-model="localEmail.body" />
+                <email-editor v-model="localEmail.body" @validate="validBody = $event" />
               </v-flex>
             </v-layout>
           </v-card-text>
@@ -88,7 +91,7 @@
 
       <v-card class="pa-3 height-100">
         <v-card-text>
-          <div class="email-preview" v-html="localEmail.body" />
+          <div class="email-preview" v-html="localEmail.body"/>
         </v-card-text>
       </v-card>
     </v-flex>
@@ -109,7 +112,8 @@ export default {
   },
   data() {
     return {
-      localEmail: new Email()
+      localEmail: new Email(),
+      validBody: true
     }
   },
   methods: {
@@ -118,15 +122,28 @@ export default {
       this.localEmail = new Email()
     },
     sendEmail() {
-      console.log(this.localEmail)
+      if (!this.validBody) {
+        this.flash({ error: 'Your email has still some uncompleted placeholders' })
+
+        return
+      }
+
+      if (this.$refs.form.validate()) {
+        console.log(this.localEmail)
+      }
     },
     selectTemplate(id) {
       const template = this.emailTemplates.findById(id)
 
       const doc = new DOMParser().parseFromString(template.body, 'text/html')
 
-      Array.from(doc.querySelectorAll('.ql-placeholder-tag')).map(el => {
-        el.innerText = this.recruitDocument[el.dataset.id] || el.innerText
+      Array.from(doc.querySelectorAll('.ql-placeholder-tag')).map(node => {
+        const value = this.recruitDocument[node.dataset.id]
+
+        if (value) {
+          node.innerText = value
+          node.setAttribute('data-autocompleted', true)
+        }
       })
 
       this.localEmail = new Email({
