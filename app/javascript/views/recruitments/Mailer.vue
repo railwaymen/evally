@@ -91,7 +91,7 @@
 
       <v-card class="pa-3 height-100">
         <v-card-text>
-          <div class="email-preview" v-html="localEmail.body"/>
+          <div class="email-preview" v-html="localEmail.body" />
         </v-card-text>
       </v-card>
     </v-flex>
