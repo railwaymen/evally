@@ -1,0 +1,108 @@
+!!!
+%html
+  %head
+    %meta{ content: 'text/html; charset=utf-8', 'http-equiv' => 'Content-Type' }/
+    :css
+      html {
+        font-size: 100%;
+      }
+
+      body {
+        background-color: white;
+        font-family: Helvetica, sans-serif;
+        font-size: 16px;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 34px;
+        line-height: 40px;
+        letter-spacing: 0;
+        font-weight: 300;
+        text-transform: inherit;
+      }
+
+      h2 {
+        font-size: 24px;
+        line-height: 32px;
+        letter-spacing: 0;
+        font-weight: 300;
+        text-transform: inherit;
+      }
+
+      h3 {
+        font-size: 20px;
+        line-height: 28px;
+        letter-spacing: 0.05px;
+        font-weight: 400;
+        text-transform: inherit;
+      }
+
+      p {
+        font-size: 15px;
+        line-height: 28px;
+        letter-spacing: 0.1px;
+        font-weight: 400;
+        text-transform: inherit;
+      }
+
+      pre {
+        background: #23241f;
+        color: #f8f8f2;
+        overflow: visible;
+        border-radius: 3px;
+        padding: 5px 10px;
+        white-space: pre-wrap;
+      }
+
+      blockquote {
+        border-left: 4px solid #ccc;
+        padding-left: 16px;
+      }
+
+      ul, ol {
+        margin-left: 1.5em;
+      }
+
+      .ql-align-center {
+        text-align: center;
+      }
+
+      .ql-align-right {
+        text-align: right;
+      }
+
+      .ql-align-justify {
+        text-align: justify;
+      }
+
+      blockquote,
+      code,
+      pre,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      ul,
+      ol,
+      p {
+        margin-bottom: 16px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0;
+        padding: 16px 0;
+      }
+
+      .row {
+        padding: 0 16px;
+        margin: 16px 0;
+      }
+
+  %body
+    = yield

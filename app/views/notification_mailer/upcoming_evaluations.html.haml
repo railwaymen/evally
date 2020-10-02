@@ -15,7 +15,7 @@
 
   - if @presenter.scheduled_employees.present?
     .row
-      %h2.title Schedule evaluations
+      %h2.title Scheduled evaluations
 
       %table
         %tbody
@@ -49,7 +49,7 @@
                 %p.caption Unscheduled
               %td{ align: 'right', width: '200' }
                 = link_to vue_employee_url(employee), target: '_blank', class: 'btn btn-small' do
-                  &#10002; Schedule
+                  Schedule
 
   - if @presenter.fresh_employees.present?
     .row
@@ -68,7 +68,7 @@
                 %p.caption= employee.next_evaluation_on.present? ? employee.next_evaluation_on.strftime('%B %Y') : 'First time'
               %td{ align: 'right', width: '200' }
                 = link_to vue_employee_url(employee), target: '_blank', class: 'btn btn-small' do
-                  &#10002; Schedule
+                  Schedule
 
   .row
     %p.caption

@@ -1,3 +1,6 @@
 .container
   .row
-    Lorem ipsum
+    = @email_template.body&.html_safe
+
+  .row
+    = @user.signature&.html_safe

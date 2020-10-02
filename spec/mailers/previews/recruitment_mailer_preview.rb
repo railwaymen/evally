@@ -4,6 +4,8 @@
 
 class RecruitmentMailerPreview < ActionMailer::Preview
   def custom_email
-    RecruitmentMailer.custom_email
+    user = User.where.not(signature: nil).first || User.first
+
+    RecruitmentMailer.with(user: user).custom_email
   end
 end
