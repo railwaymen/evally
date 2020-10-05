@@ -7,13 +7,15 @@ class Email extends Model {
       to: '',
       subject: '',
       body: '',
-      signature: ''
+      public_recruit_id: null,
+      recruit_document_id: null
     }
   }
 
   static get routes() {
     return {
-      mailerPath: '/v2/emails/form'
+      emailsPath: '/v2/emails',
+      emailsFormPath: '/v2/emails/form'
     }
   }
 }

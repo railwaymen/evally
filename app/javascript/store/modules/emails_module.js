@@ -14,13 +14,18 @@ const initState = () => ({
   emailTemplates: new EmailTemplatesList(),
   recruitDocument: new RecruitDocument(),
   user: new User(),
-  loading: true
+  loading: 'fetch'
 })
 
 const EmailsModule = {
   namespaced: true,
 
   state: initState(),
+
+  getters: {
+    fetchLoading: state => state.loading === 'fetch',
+    sendLoading: state => state.loading === 'send'
+  },
 
   mutations: {
     SET_FORM_DATA(state, { email_templates, user }) {
@@ -37,12 +42,12 @@ const EmailsModule = {
 
   actions: {
     fetchData({ commit }, id) {
-      commit('SET_LOADING', true)
+      commit('SET_LOADING', 'fetch')
 
       axios
         .all([
           recruitableApiClient.get(RecruitDocument.routes.mailerPath(id)),
-          coreApiClient.get(Email.routes.mailerPath)
+          coreApiClient.get(Email.routes.emailsFormPath)
         ])
         .then(axios.spread((recruitableApiResponse, coreApiResponse) => {
           commit('SET_RECRUIT_DOCUMENT', recruitableApiResponse.data)
@@ -55,22 +60,35 @@ const EmailsModule = {
             { root: true }
           )
         })
-        .finally(() => commit('SET_LOADING', false))
-
-      // coreApiClient
-      //   .get(Email.routes.formDataPath)
-      //   .then(response => {
-      //     commit('SET_DATA', response.data)
-      //   })
-      //   .catch(error => {
-      //     commit(
-      //       'MessagesModule/PUSH_MESSAGE',
-      //       { error: i18n.t('messages.email.form.error', { msg: fetchError(error) }) },
-      //       { root: true }
-      //     )
-      //   })
-      //   .finally(() => commit('SET_LOADING', false))
+        .finally(() => commit('SET_LOADING', 'ok'))
     },
+    send({ commit }, email) {
+      commit('SET_LOADING', 'send')
+
+      return new Promise(resolve => {
+        coreApiClient
+          .post(Email.routes.emailsPath, { email })
+          .then(response => {
+            console.log(response)
+
+            commit(
+              'MessagesModule/PUSH_MESSAGE',
+              { success: i18n.t('messages.employees.create.ok') },
+              { root: true }
+            )
+
+            resolve(response.data)
+          })
+          .catch(error => {
+            commit(
+              'MessagesModule/PUSH_MESSAGE',
+              { error: i18n.t('messages.email.send.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+          .finally(() => commit('SET_LOADING', 'ok'))
+      })
+    }
   }
 }
 

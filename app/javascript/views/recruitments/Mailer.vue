@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap class="d-flex align-stretch">
     <v-flex xs12 lg6>
-      <div v-if="loading" class="widget__loader">
+      <div v-if="fetchLoading" class="widget__loader">
 				<v-progress-circular :size="30" :width="3" color="primary" indeterminate />
 			</div>
 
@@ -75,6 +75,7 @@
             <v-btn
               type="submit"
               color="green darken-1"
+              :disabled="sendLoading"
               text
             >
               {{ $t('shared.buttons.send') }}
@@ -85,14 +86,14 @@
     </v-flex>
 
     <v-flex xs12 lg6>
-      <div v-if="loading" class="widget__loader">
+      <div v-if="fetchLoading" class="widget__loader">
 				<v-progress-circular :size="30" :width="3" color="primary" indeterminate />
 			</div>
 
       <v-card class="pa-3 height-100">
         <v-card-text>
           <div class="email__preview" v-html="localEmail.body" />
-          <div class="email__signature mt-3" v-html="localEmail.signature" />
+          <div class="email__signature mt-3" v-html="user.signature" />
         </v-card-text>
       </v-card>
     </v-flex>
@@ -100,7 +101,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 import EmailEditor from '@components/email_templates/EmailEditor'
 
@@ -130,7 +131,8 @@ export default {
       }
 
       if (this.$refs.form.validate()) {
-        console.log(this.localEmail)
+        this.$store.dispatch('EmailsModule/send', this.localEmail)
+          .then(this.reset)
       }
     },
     selectTemplate(id) {
@@ -152,18 +154,20 @@ export default {
         to: this.recruitDocument.email,
         subject: template.subject,
         body: doc.body.innerHTML,
-        signature: this.user.signature,
         public_recruit_id: this.recruitDocument.public_recruit_id,
         recruit_document_id: this.recruitDocument.id
       })
     }
   },
   computed: {
+    ...mapGetters('EmailsModule', [
+      'fetchLoading',
+      'sendLoading'
+    ]),
     ...mapState('EmailsModule', [
       'emailTemplates',
       'recruitDocument',
-      'user',
-      'loading'
+      'user'
     ])
   },
   created() {
