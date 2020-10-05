@@ -16,69 +16,7 @@
 
   &__preview {
     margin-top: rem2dec(1rem);
-    font-size: rem2dec(1.6rem);
-
-    h1 {
-      font-size: 34px;
-      line-height: 40px;
-      letter-spacing: 0;
-      font-weight: 300;
-      text-transform: inherit;
-    }
-
-    h2 {
-      font-size: 24px;
-      line-height: 32px;
-      letter-spacing: 0;
-      font-weight: 300;
-      text-transform: inherit;
-    }
-
-    h3 {
-      font-size: 20px;
-      line-height: 28px;
-      letter-spacing: 0.05px;
-      font-weight: 400;
-      text-transform: inherit;
-    }
-
-    p {
-      font-size: 15px;
-      line-height: 28px;
-      letter-spacing: 0.1px;
-      font-weight: 400;
-      text-transform: inherit;
-    }
-
-    pre {
-      background: #23241f;
-      color: #f8f8f2;
-      overflow: visible;
-      border-radius: 3px;
-      padding: 5px 10px;
-      white-space: pre-wrap;
-    }
-
-    blockquote {
-      border-left: 4px solid #ccc;
-      padding-left: 16px;
-    }
-
-    ul, ol {
-      margin-left: 1.5em;
-    }
-
-    .ql-align-center {
-      text-align: center;
-    }
-
-    .ql-align-right {
-      text-align: right;
-    }
-
-    .ql-align-justify {
-      text-align: justify;
-    }
+    color: $black;
   }
 
   &__signature {
