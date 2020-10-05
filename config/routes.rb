@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
       resource :dashboard, controller: 'dashboard', only: :show
 
-      resources :emails, only: [] do
+      resources :emails, only: :create do
         collection do
           get :form
         end

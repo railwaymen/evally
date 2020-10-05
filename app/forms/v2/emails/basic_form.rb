@@ -1,0 +1,46 @@
+# frozen_string_literal: true
+
+module V2
+  module Emails
+    class BasicForm
+      include ActiveModel::Validations
+
+      delegate :from, :to, :subject, :body, :recruit_document_id, to: :@email
+
+      validates :from, :to, :subject, :body, :recruit_document_id, presence: true
+      validates :from, :to, format: URI::MailTo::EMAIL_REGEXP
+
+      def initialize(recruit, user:, params: {})
+        @recruit = recruit
+
+        @email = OpenStruct.new(params)
+        @user = user
+      end
+
+      def save
+        validate_email!
+
+        RecruitmentMailer
+          .with(user: @user, email: @email)
+          .custom_email
+          .deliver_now
+
+        comment.save
+      end
+
+      private
+
+      def validate_email!
+        return if valid?
+
+        raise ErrorResponderService.new(:invalid_record, 422, errors.full_messages)
+      end
+
+      def comment
+        @comment ||= @recruit.comments.build(
+          body: @email.body, user: @user, recruit_document_id: @email.recruit_document_id
+        )
+      end
+    end
+  end
+end

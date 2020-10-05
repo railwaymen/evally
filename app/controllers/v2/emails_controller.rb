@@ -9,5 +9,30 @@ module V2
 
       render json: V2::Emails::FormView.render(presenter), status: :ok
     end
+
+    def create
+      email_form.save
+
+      head :no_content
+    end
+
+    private
+
+    def recruit
+      @recruit ||= Recruit.find_by(public_recruit_id: email_params[:public_recruit_id])
+      raise ErrorResponderService.new(:record_not_found, 404) unless @recruit
+
+      @recruit
+    end
+
+    def email_form
+      @email_form ||= V2::Emails::BasicForm.new(recruit, user: current_user, params: email_params)
+    end
+
+    def email_params
+      params.require(:email).permit(
+        :from, :to, :subject, :body, :public_recruit_id, :recruit_document_id
+      )
+    end
   end
 end

@@ -5,7 +5,15 @@
 class RecruitmentMailerPreview < ActionMailer::Preview
   def custom_email
     user = User.where.not(signature: nil).first || User.first
+    email_template = EmailTemplate.first
 
-    RecruitmentMailer.with(user: user).custom_email
+    email = OpenStruct.new(
+      from: user.email,
+      to: 'jdoe@example.com',
+      subject: 'Recruitment In Progress',
+      body: email_template.body
+    )
+
+    RecruitmentMailer.with(user: user, email: email).custom_email
   end
 end

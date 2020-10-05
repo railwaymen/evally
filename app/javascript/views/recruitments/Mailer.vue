@@ -152,7 +152,9 @@ export default {
         to: this.recruitDocument.email,
         subject: template.subject,
         body: doc.body.innerHTML,
-        signature: this.user.signature
+        signature: this.user.signature,
+        public_recruit_id: this.recruitDocument.public_recruit_id,
+        recruit_document_id: this.recruitDocument.id
       })
     }
   },
