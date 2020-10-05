@@ -38,7 +38,10 @@ module V2
 
       def comment
         @comment ||= @recruit.comments.build(
-          body: @email.body, user: @user, recruit_document_id: @email.recruit_document_id
+          body: @email.body,
+          user: @user,
+          recruit_document_id: @email.recruit_document_id,
+          created_by: 'mailer'
         )
       end
     end

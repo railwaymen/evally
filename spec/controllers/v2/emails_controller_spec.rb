@@ -93,7 +93,7 @@ RSpec.describe V2::EmailsController, type: :controller do
           body: params.dig(:email, :body),
           user_id: admin.id,
           recruit_id: recruit.id,
-          created_by: 'human'
+          created_by: 'mailer'
         )
       end
 

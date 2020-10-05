@@ -14,7 +14,7 @@ module JsonSpecHelpers
       id: comment.id,
       body: comment.discarded_at.blank? ? comment.body : '~~ Comment has been deleted ~~',
       created_at: comment.created_at.to_s,
-      created_by: user.fullname,
+      title: comment.title,
       user_id: user.id,
       editable: user.present? && comment.created_recently?
     }.to_json

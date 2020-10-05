@@ -8,7 +8,7 @@ class Comment extends Model {
       id: null,
       body: '',
       user_id: null,
-      created_by: '',
+      title: '',
       created_at: null,
       editable: true
     }

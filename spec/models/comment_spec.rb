@@ -31,7 +31,8 @@ RSpec.describe Comment, type: :model do
         define_enum_for(:created_by)
           .with_values(
             human: 'human',
-            bot: 'bot'
+            bot: 'bot',
+            mailer: 'mailer'
           )
           .backed_by_column_of_type(:string)
           .with_prefix(true)

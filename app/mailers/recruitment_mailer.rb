@@ -10,7 +10,7 @@ class RecruitmentMailer < ApplicationMailer
       from: sender_email,
       to: email.to,
       reply_to: sender_email,
-      subject: email.subject,
+      subject: email.subject
     )
   end
 

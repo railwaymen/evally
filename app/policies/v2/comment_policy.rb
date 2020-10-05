@@ -3,7 +3,7 @@
 module V2
   class CommentPolicy < ApplicationPolicy
     def update?
-      comment_owner? && record.created_recently?
+      comment_owner? && record.created_recently? && record.created_by_human?
     end
 
     def destroy?
