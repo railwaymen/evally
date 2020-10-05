@@ -1,6 +1,5 @@
 import { Quill } from 'vue2-editor'
 import PlaceholderBlot from './placeholder_blot'
-import { PlaceholdersCounter } from './placeholders_counter'
 
 Quill.register(PlaceholderBlot)
 
