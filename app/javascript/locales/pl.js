@@ -62,7 +62,8 @@ export default {
       sensitiveInfo: 'Wrażliwe dane',
       acceptCurrentProcessing: 'Zgoda na obecną rekrutację',
       acceptFutureProcessing: 'Zgoda na przyszłą rekrutację',
-      sendEmail: 'Wyślij wiadomość email'
+      sendEmail: 'Wyślij wiadomość email',
+      backToProfile: 'Powrót do profilu'
     },
     navbar: {
       dashboard: 'Kokpit',

@@ -62,7 +62,8 @@ export default {
       sensitiveInfo: 'Sensitive Information',
       acceptCurrentProcessing: 'Accept Current Processing',
       acceptFutureProcessing: 'Accept Future Processing',
-      sendEmail: 'Send Email'
+      sendEmail: 'Send Email',
+      backToProfile: 'Back To Profile'
     },
     navbar: {
       dashboard: 'Dashboard',

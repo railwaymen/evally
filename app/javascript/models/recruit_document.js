@@ -42,6 +42,16 @@ class RecruitDocument extends Model {
     };
   }
 
+  get showPath() {
+    return {
+      name: 'recruitment_path',
+      params: {
+        publicRecruitId: this.public_recruit_id,
+        id: this.id
+      }
+    }
+  }
+
   get editPath() {
     return {
       name: 'edit_recruitment_path',

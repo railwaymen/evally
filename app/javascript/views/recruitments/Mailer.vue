@@ -5,7 +5,7 @@
 				<v-progress-circular :size="30" :width="3" color="primary" indeterminate />
 			</div>
 
-      <v-card class="pa-3 height-100">
+      <v-card class="pa-3 height-100 elevation-0">
         <v-card-title>
           <span class="headline">{{ $t('views.recruitments.mailer.title', { to: recruitDocument.fullname }) }}</span>
         </v-card-title>
@@ -90,7 +90,7 @@
 				<v-progress-circular :size="30" :width="3" color="primary" indeterminate />
 			</div>
 
-      <v-card class="pa-3 height-100">
+      <v-card class="pa-3 height-100 elevation-0">
         <v-card-text>
           <div class="email__preview" v-html="localEmail.body" />
           <div class="email__signature mt-3" v-html="user.signature" />
