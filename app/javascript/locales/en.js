@@ -16,7 +16,11 @@ export default {
         availableSince: 'Available Since',
         location: 'Location',
         workType: 'Work Type',
-        message: 'Message'
+        message: 'Message',
+        emailTemplate: 'Email Template',
+        from: 'From',
+        to: 'To',
+        subject: 'Subject'
       }
     },
     buttons: {
@@ -32,7 +36,10 @@ export default {
       yes: 'Yes',
       no: 'No',
       archive: 'Archive',
-      restore: 'Restore'
+      restore: 'Restore',
+      send: 'Send',
+      edit: 'Edit',
+      preview: 'Preview'
     },
     tooltips: {
       edit: 'Edit',
@@ -54,7 +61,9 @@ export default {
       openInfo: 'Open Information',
       sensitiveInfo: 'Sensitive Information',
       acceptCurrentProcessing: 'Accept Current Processing',
-      acceptFutureProcessing: 'Accept Future Processing'
+      acceptFutureProcessing: 'Accept Future Processing',
+      sendEmail: 'Send Email',
+      backToProfile: 'Back To Profile'
     },
     navbar: {
       dashboard: 'Dashboard',
@@ -262,10 +271,11 @@ export default {
         enableUpcomingNotifications: 'Notify me about upcoming evaluations (every 1st of month)'
       },
       userForm: {
-        subtitle: 'Basic Profile Information',
+        basicInfo: 'Basic Profile Information',
         email: 'Email',
         firstName: 'First Name',
         lastName: 'Last Name',
+        signature: 'Signature'
       },
       passwordForm: {
         subtitle: 'Change Password',
@@ -278,6 +288,18 @@ export default {
       searchBySkillForm: {
         label: 'Skill'
       }
+    },
+    emailTemplates: {
+      sidebar: {
+        search: 'Search ...',
+        subheader: 'Available Email Templates',
+        createdBy: 'created by {name}',
+        noContent: 'There are no email templates to show'
+      },
+      deleteConfirm: {
+        title: 'Delete Email Template',
+        body: 'Are you sure you want to delete this email template?'
+      },
     },
     templates: {
       sidebar: {
@@ -566,6 +588,26 @@ export default {
         ok: 'You have been logged out'
       }
     },
+    emailTemplates: {
+      index: {
+        error: 'Email templates cannot be loaded: {msg}'
+      },
+      show: {
+        error: 'Email template cannot be loaded: {msg}'
+      },
+      create: {
+        ok: 'Email template has been created',
+        error: 'Email template cannot be created: {msg}'
+      },
+      update: {
+        ok: 'Email template has been updated',
+        error: 'Email template cannot be updated: {msg}'
+      },
+      delete: {
+        ok: 'Email template has been deleted',
+        error: 'Email template cannot be deleted: {msg}'
+      }
+    },
     templates: {
       index: {
         error: 'Templates cannot be loaded: {msg}'
@@ -745,6 +787,10 @@ export default {
       index: {
         title: 'Templates',
         instruction: 'Select template from list or create a new one',
+        nav: {
+          evaluation: 'Evaluation',
+          email: 'Email'
+        }
       },
       show: {
         name: 'Template Name',
@@ -772,6 +818,9 @@ export default {
       },
       show: {
         title: 'Recruitment'
+      },
+      mailer: {
+        title: 'To: {to}'
       },
       overview: {
         monthSelectLabel: 'Select a Month',

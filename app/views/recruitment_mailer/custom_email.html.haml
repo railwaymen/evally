@@ -1,0 +1,6 @@
+.container
+  .row
+    = @email.body&.html_safe
+
+  .row
+    = @user.signature&.html_safe

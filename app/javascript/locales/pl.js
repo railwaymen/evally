@@ -17,6 +17,10 @@ export default {
         location: 'Lokacja',
         workType: 'Typ pracy',
         message: 'Wiadomość',
+        emailTemplate: 'Szablon wiadomości',
+        from: 'Nadawca',
+        to: 'Odbiorca',
+        subject: 'Temat'
       }
     },
     buttons: {
@@ -32,7 +36,10 @@ export default {
       yes: 'Tak',
       no: 'Nie',
       archive: 'Archiwizuj',
-      restore: 'Przywróć'
+      restore: 'Przywróć',
+      send: 'Wyślij',
+      edit: 'Edycja',
+      preview: 'Podgląd'
     },
     tooltips: {
       edit: 'Edytuj',
@@ -54,7 +61,9 @@ export default {
       openInfo: 'Otwarte dane',
       sensitiveInfo: 'Wrażliwe dane',
       acceptCurrentProcessing: 'Zgoda na obecną rekrutację',
-      acceptFutureProcessing: 'Zgoda na przyszłą rekrutację'
+      acceptFutureProcessing: 'Zgoda na przyszłą rekrutację',
+      sendEmail: 'Wyślij wiadomość email',
+      backToProfile: 'Powrót do profilu'
     },
     navbar: {
       dashboard: 'Kokpit',
@@ -181,7 +190,7 @@ export default {
         employment: 'Zatrudnienie',
         evaluation: 'Ocena',
         firstName: 'Imię',
-        lastName: 'Naswisko',
+        lastName: 'Nazwisko',
         position: 'Stanowisko',
         group: 'Grupa',
         hiredOn: 'Data zatrudnienia',
@@ -267,10 +276,11 @@ export default {
         enableUpcomingNotifications: 'Powiadom mnie o nadchodzacych ewaluacjach (każdego 1-ego dnia miesiąca)'
       },
       userForm: {
-        subtitle: 'Podstawowe informacje',
+        basigInfo: 'Podstawowe informacje',
         email: 'Email',
         firstName: 'Imię',
         lastName: 'Nazwisko',
+        signature: 'Podpis/Stopka'
       },
       passwordForm: {
         subtitle: 'Zmień hasło',
@@ -278,6 +288,18 @@ export default {
         passwordConfirmation: 'Potwierdź hasło',
         password: 'Obecne hasło',
       }
+    },
+    emailTemplates: {
+      sidebar: {
+        search: 'Szukaj ...',
+        subheader: 'Dostępne szablony email',
+        createdBy: 'stworzony przez {name}',
+        noContent: 'Brak szablonów email'
+      },
+      deleteConfirm: {
+        title: 'Usuń szablon email',
+        body: 'Czy na pewno chcesz usunąć ten szablon email?'
+      },
     },
     templates: {
       sidebar: {
@@ -584,6 +606,26 @@ export default {
         error: 'Błąd przy usuwaniu szablonu: {msg}'
       }
     },
+    emailTemplates: {
+      index: {
+        error: 'Błąd przy wczytywaniu szablonów email: {msg}'
+      },
+      show: {
+        error: 'Błąd przy wczytywaniu szablonu email: {msg}'
+      },
+      create: {
+        ok: 'Szablon email został utworzony',
+        error: 'Błąd przy tworzeniu szablonu email: {msg}'
+      },
+      update: {
+        ok: 'Szablon email został zaktualizowany',
+        error: 'Błąd przy aktualizacji szablonu email: {msg}'
+      },
+      delete: {
+        ok: 'Szablon email został usunięty',
+        error: 'Błąd przy usuwaniu szablonu email: {msg}'
+      }
+    },
     users: {
       index: {
         error: 'Błąd przy wczytywaniu użytkowników: {msg}'
@@ -743,6 +785,10 @@ export default {
       index: {
         title: 'Szablony',
         instruction: 'Wybierz szablon z listy obok lub stwórz nowy',
+        nav: {
+          evaluation: 'Ocena',
+          email: 'Wiadomość email'
+        }
       },
       show: {
         name: 'Nazwa szablonu',
@@ -770,6 +816,9 @@ export default {
       },
       show: {
         title: 'Rekrutacja'
+      },
+      mailer: {
+        title: 'Odbiorca: {to}'
       },
       overview: {
         monthSelectLabel: 'Wybierz miesiąc',

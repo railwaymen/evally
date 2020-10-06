@@ -42,9 +42,29 @@ class RecruitDocument extends Model {
     };
   }
 
+  get showPath() {
+    return {
+      name: 'recruitment_path',
+      params: {
+        publicRecruitId: this.public_recruit_id,
+        id: this.id
+      }
+    }
+  }
+
   get editPath() {
     return {
       name: 'edit_recruitment_path',
+      params: {
+        publicRecruitId: this.public_recruit_id,
+        id: this.id
+      }
+    }
+  }
+
+  get mailerPath() {
+    return {
+      name: 'recruitment_mailer_path',
       params: {
         publicRecruitId: this.public_recruit_id,
         id: this.id
@@ -92,9 +112,35 @@ class RecruitDocument extends Model {
       recruitDocumentPath: id => `/v2/recruit_documents/${id}`,
       formRecruitDocumentPath: '/v2/recruit_documents/form',
       recruitPath: publicRecruitId => `/v2/recruits/${publicRecruitId}`,
+      mailerPath: recruitDocumentId => `/v2/recruit_documents/${recruitDocumentId}/mailer`,
       attachmentsPath: recruitDocumentId => `/v2/recruit_documents/${recruitDocumentId}/attachments`,
       attachmentPath: (recruitDocumentId, id) => `/v2/recruit_documents/${recruitDocumentId}/attachments/${id}`,
     }
+  }
+
+  static get placeholders() {
+    return [
+      {
+        id: 'first_name',
+        label: 'First Name'
+      },
+      {
+        id: 'last_name',
+        label: 'Last Name'
+      },
+      {
+        id: 'email',
+        label: 'Email'
+      },
+      {
+        id: 'phone',
+        label: 'Phone'
+      },
+      {
+        id: 'position',
+        label: 'Position'
+      }
+    ]
   }
 }
 

@@ -14,6 +14,7 @@ class User extends Model {
       status: '',
       last_sign_in_at: null,
       invitation_status: '',
+      signature: ''
     }
   }
 

@@ -11,7 +11,7 @@ RSpec.describe V2::Sync::UserSyncService do
         .with(
           body: {
             user: user.attributes.slice(
-              'email', 'first_name', 'last_name', 'role', 'status'
+              'email', 'first_name', 'last_name', 'role', 'status', 'signature'
             )
           },
           headers: {

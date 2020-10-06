@@ -1,7 +1,7 @@
 <template>
   <div :class="['comment', `comment--${creator}`]">
     <div class="comment__header">
-      <div class="comment__author">{{ comment.created_by }}</div>
+      <div class="comment__author">{{ comment.title }}</div>
 
       <div v-if="actionsVisible && comment.editable" class="comment__actions">
         <v-tooltip bottom>

@@ -48,7 +48,7 @@ RSpec.describe V2::Notifications::UpcomingEvaluationsPresenter do
 
         FactoryBot.create(
           :employee,
-          next_evaluation_on: 2.months.from_now
+          next_evaluation_on: nil
         )
 
         presenter = described_class.new(admin)

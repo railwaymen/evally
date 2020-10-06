@@ -32,15 +32,7 @@ module V2
     end
 
     def destroy
-      ActiveRecord::Base.transaction do
-        template.destroy!
-
-        current_user.activities.create!(
-          action: 'destroy',
-          activable: template,
-          activable_name: template.name
-        )
-      end
+      template.destroy!
 
       head :no_content
     end

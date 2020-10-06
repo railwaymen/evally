@@ -13,11 +13,17 @@ class Comment < ApplicationRecord
 
   # # Enums
   #
-  enum created_by: { human: 'human', bot: 'bot' }, _prefix: true
+  enum created_by: { human: 'human', bot: 'bot', mailer: 'mailer' }, _prefix: true
 
   # # Mathods
   #
   delegate :evaluator, to: :recruit
+
+  def title
+    return "Mailed by #{user.fullname}" if created_by_mailer?
+
+    user&.fullname || 'Bot'
+  end
 
   def created_recently?
     discarded_at.blank? && created_at > 15.minutes.ago

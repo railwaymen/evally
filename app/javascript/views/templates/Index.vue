@@ -5,6 +5,24 @@
         <h2>{{ $t('views.templates.index.title') }}</h2>
       </div>
 
+      <div class="panel__nav">
+        <v-btn
+          color="primary"
+          :to="{ name: 'templates_path' }"
+          text
+        >
+          {{ $t('views.templates.index.nav.evaluation') }}
+        </v-btn>
+
+        <v-btn
+          color="primary"
+          :to="{ name: 'email_templates_path' }"
+          text
+        >
+          {{ $t('views.templates.index.nav.email') }}
+        </v-btn>
+      </div>
+
       <div class="panel__actions">
         <v-tooltip bottom>
           <template #activator="{ on }">

@@ -6,7 +6,7 @@ module V2
       identifier :id
 
       fields :email, :first_name, :last_name, :role, :status, :last_sign_in_at, :invitation_status,
-             :email_token
+             :email_token, :signature
     end
   end
 end

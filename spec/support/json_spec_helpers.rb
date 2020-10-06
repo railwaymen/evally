@@ -14,9 +14,20 @@ module JsonSpecHelpers
       id: comment.id,
       body: comment.discarded_at.blank? ? comment.body : '~~ Comment has been deleted ~~',
       created_at: comment.created_at.to_s,
-      created_by: user.fullname,
+      title: comment.title,
       user_id: user.id,
       editable: user.present? && comment.created_recently?
+    }.to_json
+  end
+
+  def email_template_schema(email_template)
+    {
+      id: email_template.id,
+      name: email_template.name,
+      subject: email_template.subject,
+      body: email_template.body,
+      creator_id: email_template.creator_id,
+      creator_fullname: email_template.creator&.fullname
     }.to_json
   end
 
@@ -109,7 +120,8 @@ module JsonSpecHelpers
         role: user.role,
         status: user.status,
         last_sign_in_at: user.last_sign_in_at,
-        invitation_status: user.invitation_status
+        invitation_status: user.invitation_status,
+        signature: user.signature
       },
       setting: {
         default_draft_items: setting.default_draft_items,
@@ -173,7 +185,8 @@ module JsonSpecHelpers
       role: user.role,
       status: user.status,
       last_sign_in_at: user.last_sign_in_at,
-      invitation_status: user.invitation_status
+      invitation_status: user.invitation_status,
+      signature: user.signature
     }.to_json
   end
 end

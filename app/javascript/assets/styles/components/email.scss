@@ -1,0 +1,25 @@
+.email {
+  &__to {
+    font-size: rem2dec(1.6rem);
+  }
+
+  &__field-label {
+    font-size: rem2dec(1.2rem);
+    color: rgba(0, 0, 0, .6);
+    display: block;
+    margin-bottom: rem2dec(.6rem);
+
+    &--disabled {
+      color: rgba(0, 0, 0, .36);
+    }
+  }
+
+  &__preview {
+    margin-top: rem2dec(1rem);
+    color: $black;
+  }
+
+  &__signature {
+    font-size: rem2dec(1.6rem);
+  }
+}

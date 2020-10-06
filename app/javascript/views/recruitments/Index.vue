@@ -65,7 +65,45 @@
           <span>{{ $t('shared.tooltips.addNew') }}</span>
         </v-tooltip>
 
+        <v-tooltip
+           v-if="$route.name === 'recruitment_mailer_path'"
+          key="backToProfile"
+          bottom
+        >
+          <template #activator="{ on }">
+            <v-btn
+              :to="{ name: 'recruitment_path', params: { ...$route.params } }"
+              v-on="on"
+              color="black"
+              exact
+              icon
+            >
+              <v-icon>mdi-account-arrow-left-outline</v-icon>
+            </v-btn>
+          </template>
+
+          <span>{{ $t('shared.tooltips.backToProfile') }}</span>
+        </v-tooltip>
+
         <template v-if="$route.name === 'recruitment_path'">
+          <v-tooltip
+            key="mail"
+            bottom
+          >
+            <template #activator="{ on }">
+              <v-btn
+                :to="recruitDocument.mailerPath"
+                v-on="on"
+                color="black"
+                icon
+              >
+                <v-icon>mdi-email-send-outline</v-icon>
+              </v-btn>
+            </template>
+
+            <span>{{ $t('shared.tooltips.sendEmail') }}</span>
+          </v-tooltip>
+
           <v-tooltip
             v-if="recruitDocumentPolicy.canEdit"
             key="edit"
