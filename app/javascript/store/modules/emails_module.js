@@ -5,6 +5,8 @@ import { fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
 
+import EmailPolicy from '@policies/email_policy'
+
 import { EmailTemplatesList } from '@models/email_template'
 import { RecruitDocument } from '@models/recruit_document'
 import { Email } from '@models/email'
@@ -24,10 +26,16 @@ const EmailsModule = {
 
   getters: {
     fetchLoading: state => state.loading === 'fetch',
-    sendLoading: state => state.loading === 'send'
+    sendLoading: state => state.loading === 'send',
+    emailPolicy: (_state, _getters, rootState) => (
+      new EmailPolicy(rootState.AuthenticationModule.user, null)
+    )
   },
 
   mutations: {
+    RESET_STATE(state) {
+      Object.assign(state, initState())
+    },
     SET_FORM_DATA(state, { email_templates, user }) {
       state.emailTemplates = new EmailTemplatesList(email_templates)
       state.user = new User(user)

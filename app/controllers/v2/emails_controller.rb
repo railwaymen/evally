@@ -3,6 +3,7 @@
 module V2
   class EmailsController < ApplicationController
     before_action :authenticate_user!
+    before_action :authorize!
 
     def form
       presenter = V2::Emails::FormPresenter.new(current_user)
@@ -17,6 +18,10 @@ module V2
     end
 
     private
+
+    def authorize!
+      authorize %i[v2 email]
+    end
 
     def recruit
       @recruit ||= Recruit.find_by(public_recruit_id: email_params[:public_recruit_id])

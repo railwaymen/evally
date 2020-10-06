@@ -50,7 +50,6 @@ const AuthenticationModule = {
         'EmployeesOverview',
         'EmployeesSearch',
         'EvaluationEmployables',
-        'Messages',
         'Notifications',
         'RecruitDocuments',
         'RecruitmentsInbox',

@@ -92,6 +92,7 @@
           >
             <template #activator="{ on }">
               <v-btn
+                v-if="emailPolicy.canSend"
                 :to="recruitDocument.mailerPath"
                 v-on="on"
                 color="black"
@@ -193,6 +194,9 @@ export default {
       'groups',
       'statuses',
       'evaluators'
+    ]),
+    ...mapGetters('EmailsModule', [
+      'emailPolicy'
     ]),
     ...mapGetters('RecruitDocumentsModule', [
       'recruitDocumentPolicy',

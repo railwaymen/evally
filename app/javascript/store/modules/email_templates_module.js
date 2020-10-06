@@ -3,6 +3,8 @@ import { fetchError } from '@utils/helpers'
 
 import i18n from '@locales/i18n'
 
+import EmailTemplatePolicy from '@policies/email_template_policy'
+
 import { EmailTemplate, EmailTemplatesList } from '@models/email_template'
 
 const initState = () => ({
@@ -17,7 +19,9 @@ const EmailTemplatesModule = {
   state: initState(),
 
   getters: {
-
+    emailTemplatePolicy: (state, _getters, rootState) => (
+      new EmailTemplatePolicy(rootState.AuthenticationModule.user, state.emailTemplate)
+    )
   },
 
   mutations: {

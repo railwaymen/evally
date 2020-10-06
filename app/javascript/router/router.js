@@ -117,7 +117,8 @@ export default new Router({
             {
               path: ':publicRecruitId/documents/:id/mailer',
               name: 'recruitment_mailer_path',
-              component: () => import(/* webpackChunkName: 'recruitment_mailer' */ '@views/recruitments/Mailer')
+              component: () => import(/* webpackChunkName: 'recruitment_mailer' */ '@views/recruitments/Mailer'),
+              beforeEnter: recruiterAuthorizedGuard
             }
           ]
         },
@@ -125,6 +126,7 @@ export default new Router({
           path: 'email_templates',
           name: 'email_templates_path',
           component: () => import(/* webpackChunkName: 'email_templates' */ '@views/email_templates/Index'),
+          beforeEnter: recruiterAuthorizedGuard,
           children: [
             {
               path: ':id',

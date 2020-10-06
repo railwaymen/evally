@@ -15,6 +15,7 @@
         </v-btn>
 
         <v-btn
+          v-if="emailTemplatePolicy.canIndex"
           color="primary"
           :to="{ name: 'email_templates_path' }"
           text
@@ -154,6 +155,9 @@ export default {
       'templates',
       'template',
       'loading'
+    ]),
+    ...mapGetters('EmailTemplatesModule', [
+      'emailTemplatePolicy'
     ]),
     ...mapGetters('TemplatesModule', [
       'templatePolicy'

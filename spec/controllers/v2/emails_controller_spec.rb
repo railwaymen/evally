@@ -4,12 +4,20 @@ require 'rails_helper'
 
 RSpec.describe V2::EmailsController, type: :controller do
   let(:admin) { create(:user, role: 'admin') }
+  let(:evaluator) { create(:user, role: 'evaluator') }
 
   describe '#form' do
     context 'when unauthorized' do
       it 'responds with error to guest' do
         get :form
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with forbidden error' do
+        sign_in evaluator
+        get :form
+
+        expect(response).to have_http_status 403
       end
     end
 
@@ -42,6 +50,24 @@ RSpec.describe V2::EmailsController, type: :controller do
 
         post :create, params: params
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with forbidden error' do
+        params = {
+          email: {
+            from: 'from@example.com',
+            to: 'to@example.com',
+            subject: 'Sample Subject',
+            body: 'Dear Mr. Bean, ...',
+            public_recruit_id: 1,
+            recruit_document_id: 1
+          }
+        }
+
+        sign_in evaluator
+        post :create, params: params
+
+        expect(response).to have_http_status 403
       end
     end
 
