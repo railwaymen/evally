@@ -13,7 +13,8 @@
 
 // Quill Editor
 .ql-editor,
-.email__preview {
+.email__preview,
+.comment__body {
   font-size: 16px;
 
   h1 {
@@ -79,7 +80,7 @@
   ul,
   ol,
   p {
-    margin-bottom: rem2dec(1.6rem) !important;
+    margin-bottom: rem2dec(1.4rem) !important;
   }
 
   .ql-align-center {
