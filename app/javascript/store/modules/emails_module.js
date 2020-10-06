@@ -56,7 +56,7 @@ const EmailsModule = {
         .catch(error => {
           commit(
             'MessagesModule/PUSH_MESSAGE',
-            { error: i18n.t('messages.email.form.error', { msg: fetchError(error) }) },
+            { error: i18n.t('messages.emails.form.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
@@ -68,21 +68,19 @@ const EmailsModule = {
       return new Promise(resolve => {
         coreApiClient
           .post(Email.routes.emailsPath, { email })
-          .then(response => {
-            console.log(response)
-
+          .then(() => {
             commit(
               'MessagesModule/PUSH_MESSAGE',
-              { success: i18n.t('messages.employees.create.ok') },
+              { success: i18n.t('messages.emails.send.ok', { recipient: email.to }) },
               { root: true }
             )
 
-            resolve(response.data)
+            resolve()
           })
           .catch(error => {
             commit(
               'MessagesModule/PUSH_MESSAGE',
-              { error: i18n.t('messages.email.send.error', { msg: fetchError(error) }) },
+              { error: i18n.t('messages.emails.send.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })

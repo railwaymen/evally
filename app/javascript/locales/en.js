@@ -588,6 +588,15 @@ export default {
         ok: 'You have been logged out'
       }
     },
+    emails: {
+      form: {
+        error: 'Email form data cannot be loaded: {msg}'
+      },
+      send: {
+        ok: 'Email has been send to {recipient}',
+        error: 'Email cannot be sent: {msg}'
+      }
+    },
     emailTemplates: {
       index: {
         error: 'Email templates cannot be loaded: {msg}'

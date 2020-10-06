@@ -606,6 +606,15 @@ export default {
         error: 'Błąd przy usuwaniu szablonu: {msg}'
       }
     },
+    emails: {
+      form: {
+        error: 'Błąd przy wczytywaniu danych do formularza: {msg}'
+      },
+      send: {
+        ok: 'Wiadomość mailowa został wysłana do {recipient}',
+        error: 'Błąd przy wysyłaniu wiadomości mailowej: {msg}'
+      }
+    },
     emailTemplates: {
       index: {
         error: 'Błąd przy wczytywaniu szablonów email: {msg}'
