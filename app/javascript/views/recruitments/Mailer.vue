@@ -59,6 +59,15 @@
               <v-flex class="px-2 mt-5" xs12>
                 <email-editor v-model="localEmail.body" @validate="validBody = $event" />
               </v-flex>
+
+              <v-flex v-if="!user.signature" class="px-2" xs12>
+                <v-alert type="warning" outlined>
+                  {{ $t('views.recruitments.mailer.signatureWarning') }}
+                  <router-link :to="{ name: 'profile_settings_path' }">
+                    {{ $t('views.recruitments.mailer.profileSettings') }}
+                  </router-link>
+                </v-alert>
+              </v-flex>
             </v-layout>
           </v-card-text>
 

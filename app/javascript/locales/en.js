@@ -829,7 +829,9 @@ export default {
         title: 'Recruitment'
       },
       mailer: {
-        title: 'To: {to}'
+        title: 'To: {to}',
+        signatureWarning: 'You have no signature yet. You can define it in your',
+        profileSettings: 'profile settings'
       },
       overview: {
         monthSelectLabel: 'Select a Month',

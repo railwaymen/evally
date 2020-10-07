@@ -827,7 +827,9 @@ export default {
         title: 'Rekrutacja'
       },
       mailer: {
-        title: 'Odbiorca: {to}'
+        title: 'Odbiorca: {to}',
+        signatureWarning: 'Nie masz jeszcze stopki? Dodaj ją w',
+        profileSettings: 'ustawieniach profilu'
       },
       overview: {
         monthSelectLabel: 'Wybierz miesiąc',
