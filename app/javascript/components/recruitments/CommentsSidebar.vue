@@ -13,10 +13,7 @@
 
           <v-expansion-panel-content>
             <v-form @submit.prevent="save">
-              <vue-editor
-                v-model="localComment.body"
-                :editor-toolbar="toolbar"
-              />
+              <comment-editor v-model="localComment.body" />
 
               <div class="pt-2 text-right">
                 <v-btn
@@ -63,16 +60,16 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { VueEditor } from 'vue2-editor';
 
 import { Comment, CommentsList } from '@models/comment'
 import { User } from '@models/user'
 
 import CommentBubble from '@components/recruitments/CommentBubble'
+import CommentEditor from '@components/recruitments/CommentEditor'
 
 export default {
   name: 'CommentsSidebar',
-  components: { CommentBubble, VueEditor },
+  components: { CommentBubble, CommentEditor },
   props: {
     comments: {
       type: CommentsList,
@@ -93,29 +90,7 @@ export default {
   data() {
     return {
       panel: null,
-      localComment: new Comment(),
-      toolbar: [
-        [
-          { 'header': [false, 1, 2, 3, 4, 5, 6] }
-        ],
-        [
-          'bold',
-          'italic',
-          'underline',
-          'strike'
-        ],
-        [
-          'blockquote',
-          'code-block'
-        ],
-        [
-          { 'list': 'ordered'},
-          { 'list': 'bullet' }
-        ],
-        [
-          { 'color': [] },
-        ]
-      ]
+      localComment: new Comment()
     }
   },
   methods: {
