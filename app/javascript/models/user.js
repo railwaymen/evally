@@ -38,6 +38,10 @@ class User extends Model {
     return this.role === 'recruiter'
   }
 
+  get labeledEmail() {
+    return `${this.fullname} <${this.email}>`
+  }
+
   get lastSignInAt() {
     if (!this.last_sign_in_at) return '---'
 

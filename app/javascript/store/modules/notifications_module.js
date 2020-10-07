@@ -59,7 +59,6 @@ const NotificationsModule = {
         })
     },
     readNotification({ commit }, id) {
-      console.log(id)
       coreApiClient
         .put(Notification.routes.readNotificationPath(id))
         .then(response => {

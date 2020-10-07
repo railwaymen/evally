@@ -5,6 +5,7 @@ en:
       messages:
         draft_evaluation_exists: 'record has already draft evaluation'
         invalid_state: "'%{value}' is not a valid value"
+        invalid_email: 'is not a valid email'
         name_and_value: 'must have name and value'
         skills_array: 'must be an Array of skills'
         has_draft_evaluations: 'Employee has draft evaluations'

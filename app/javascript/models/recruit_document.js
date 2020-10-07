@@ -93,6 +93,10 @@ class RecruitDocument extends Model {
     return [this.first_name, this.last_name].join(' ')
   }
 
+  get labeledEmail() {
+    return `${this.fullname} <${this.email}>`
+  }
+
   get receivedAt() {
     return moment(this.received_at).tz(currentTimezone).format('DD MMM YYYY, HH:mm z')
   }

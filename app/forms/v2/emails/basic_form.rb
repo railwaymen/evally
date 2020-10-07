@@ -4,11 +4,12 @@ module V2
   module Emails
     class BasicForm
       include ActiveModel::Validations
+      include EmailValidatable
 
       delegate :from, :to, :subject, :body, :recruit_document_id, to: :@email
 
       validates :from, :to, :subject, :body, :recruit_document_id, presence: true
-      validates :from, :to, format: URI::MailTo::EMAIL_REGEXP
+      validates :from, :to, email: true
 
       def initialize(recruit, user:, params: {})
         @recruit = recruit

@@ -26,7 +26,8 @@
               </v-flex>
 
               <v-flex class="px-2" xs12>
-                <v-text-field
+                <v-select
+                  :items="[user.labeledEmail, user.email]"
                   v-model="localEmail.from"
                   :rules="[vRequired]"
                   :label="$t('shared.general.fields.from')"
@@ -150,7 +151,7 @@ export default {
       })
 
       this.localEmail = new Email({
-        from: this.user.email,
+        from: this.user.labeledEmail,
         to: this.recruitDocument.email,
         subject: template.subject,
         body: doc.body.innerHTML,

@@ -38,7 +38,7 @@ pl:
         blank: 'nie może być pustą wartością'
         draft_evaluation_exists: 'posiada już szkic oceny'
         invalid: 'ma nieprawidłowy format'
-        invalid_email_format: 'posiada niepoprawny format'
+        invalid_email: 'jest niepoprawnym adresem email'
         invalid_inclusion: "'%{value}' jest niepoprawny(a)"
         name_and_value: 'muszą mieć nazwę i wartość'
         not_a_number: 'nie jest liczbą'
