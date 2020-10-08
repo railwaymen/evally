@@ -67,7 +67,7 @@ RSpec.describe V2::CommentsController, type: :controller do
         )
       end
 
-      it 'creates proper notifications' do
+      it 'notifies about new comment' do
         evaluator = FactoryBot.create(:user, role: :evaluator)
         recruiter = FactoryBot.create(:user, role: :recruiter)
 
@@ -87,20 +87,16 @@ RSpec.describe V2::CommentsController, type: :controller do
           post :create, params: params
         end.to(change { Notification.count }.by(2))
 
-        latest_comment = recruit.comments.last
-
         expect(evaluator.notifications.last).to have_attributes(
-          action: 'add_comment',
+          action: 'new_comment',
           actor_id: admin.id,
-          read_at: nil,
-          notifiable: latest_comment
+          read_at: nil
         )
 
         expect(recruiter.notifications.last).to have_attributes(
-          action: 'add_comment',
+          action: 'new_comment',
           actor_id: admin.id,
-          read_at: nil,
-          notifiable: latest_comment
+          read_at: nil
         )
       end
 
@@ -394,45 +390,6 @@ RSpec.describe V2::CommentsController, type: :controller do
         end.to(change { comment.reload.body }.to('New body'))
 
         expect(response).to have_http_status 204
-      end
-
-      it 'creates proper notifications' do
-        evaluator = FactoryBot.create(:user, role: :evaluator)
-        recruiter = FactoryBot.create(:user, role: :recruiter)
-
-        recruit = FactoryBot.create(:recruit, evaluator: evaluator)
-
-        params = {
-          recruit_id: recruit.public_recruit_id,
-          comment: {
-            body: 'Lorem ipsum ...',
-            created_at: Time.current,
-            recruit_document_id: 1,
-            change_id: 1
-          }
-        }
-
-        sign_in admin
-
-        expect do
-          post :create, params: params
-        end.to(change { Notification.count }.by(2))
-
-        latest_comment = recruit.comments.last
-
-        expect(evaluator.notifications.last).to have_attributes(
-          action: 'add_comment',
-          actor_id: admin.id,
-          read_at: nil,
-          notifiable: latest_comment
-        )
-
-        expect(recruiter.notifications.last).to have_attributes(
-          action: 'add_comment',
-          actor_id: admin.id,
-          read_at: nil,
-          notifiable: latest_comment
-        )
       end
     end
   end

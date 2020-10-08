@@ -15,6 +15,6 @@ pl:
       assign_me: "%{actor_name} przypisał(a) Ciebie do rekruta"
       assign_evaluator: "%{actor_name} przypisał(a) evaluator do rekruta"
     comment:
-      add_comment: "%{actor_name} skomentował(a) jednego z Twoich rekrutów"
       comment_mention: "%{actor_name} oznaczył Cię w komentarzu"
+      new_comment: "%{actor_name} skomentował(a) jednego z rekrutów"
       status_change: "%{actor_name} zmienił(a) status jednego z Twoich rekrutów"
