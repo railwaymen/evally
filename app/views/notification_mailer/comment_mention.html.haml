@@ -1,0 +1,29 @@
+.container
+  .row
+    .logo
+      = image_tag 'logo_black.png'
+
+  .row
+    .header
+      %h1.headline New Comment Mention
+
+  .row
+    %p.subhead-1
+      %strong= params[:actor].fullname
+      has mentioned you in a
+      = succeed ':' do
+        = link_to 'comment', "#{params[:comment].notifiable_path}#comment-#{params[:comment].id}", target: '_blank', class: 'link'
+
+  .row
+    .comment
+      .comment__body
+        = params[:comment].body.html_safe
+
+  .row
+    %p.caption This message is generated automatically. Please do not respond to this.
+
+  .row
+    %p.subhead-1
+      Best Regards
+      %br
+      %em Evally Team &hearts;

@@ -1,0 +1,48 @@
+.ql-mention {
+  &-list-container {
+    width: 270px;
+    background: #fff;
+    border-color: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12)
+  }
+
+  &-list {
+    list-style: none;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    @include scrollbar-styling();
+  }
+
+  &-list-item {
+    cursor: pointer;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 13px;
+    min-height: 40px;
+    padding: 0 16px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+.mention {
+  display: inline-block;
+  background: $primary;
+  color: white;
+  padding: 0 9px;
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 26px;
+  letter-spacing: normal;
+}

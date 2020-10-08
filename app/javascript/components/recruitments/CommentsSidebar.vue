@@ -13,9 +13,9 @@
 
           <v-expansion-panel-content>
             <v-form @submit.prevent="save">
-              <vue-editor
+              <comment-editor
                 v-model="localComment.body"
-                :editor-toolbar="toolbar"
+                :commentators="commentators"
               />
 
               <div class="pt-2 text-right">
@@ -63,16 +63,17 @@
 
 <script>
 import { mapActions } from 'vuex'
-import { VueEditor } from 'vue2-editor';
 
 import { Comment, CommentsList } from '@models/comment'
-import { User } from '@models/user'
+import { RecruitDocument } from '@models/recruit_document'
+import { User, UsersList } from '@models/user'
 
 import CommentBubble from '@components/recruitments/CommentBubble'
+import CommentEditor from '@components/recruitments/CommentEditor'
 
 export default {
   name: 'CommentsSidebar',
-  components: { CommentBubble, VueEditor },
+  components: { CommentBubble, CommentEditor },
   props: {
     comments: {
       type: CommentsList,
@@ -84,6 +85,16 @@ export default {
       required: true,
       default: () => new User()
     },
+    users: {
+      type: UsersList,
+      required: false,
+      default: () => new UsersList()
+    },
+    recruitDocument: {
+      type: RecruitDocument,
+      required: true,
+      default: () => new RecruitDocument()
+    },
     loading: {
       type: Boolean,
       required: true,
@@ -93,29 +104,7 @@ export default {
   data() {
     return {
       panel: null,
-      localComment: new Comment(),
-      toolbar: [
-        [
-          { 'header': [false, 1, 2, 3, 4, 5, 6] }
-        ],
-        [
-          'bold',
-          'italic',
-          'underline',
-          'strike'
-        ],
-        [
-          'blockquote',
-          'code-block'
-        ],
-        [
-          { 'list': 'ordered'},
-          { 'list': 'bullet' }
-        ],
-        [
-          { 'color': [] },
-        ]
-      ]
+      localComment: new Comment()
     }
   },
   methods: {
@@ -136,6 +125,13 @@ export default {
     setComment(comment) {
       this.localComment = new Comment({ ...comment })
       this.panel = 0
+    }
+  },
+  computed: {
+    commentators() {
+      return this.users.models.filter(user => (
+        user.isAdmin || user.isRecruiter || user.email_token === this.recruitDocument.evaluator_token
+      ))
     }
   }
 }
