@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module VueRoutesHelper
+  def vue_comment_url(resource)
+    URI.join(host, resource.notifiable_path, "#comment-#{resource.id}").to_s
+  end
+
   def vue_employee_url(resource)
     "#{host}/app/employees/#{resource&.id || resource}"
   end

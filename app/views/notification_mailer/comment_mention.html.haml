@@ -5,14 +5,14 @@
 
   .row
     .header
-      %h1.headline New Comment Mention
+      %h1.headline New Mention In Comment
 
   .row
     %p.subhead-1
       %strong= params[:actor].fullname
       has mentioned you in a
       = succeed ':' do
-        = link_to 'comment', "#{params[:comment].notifiable_path}#comment-#{params[:comment].id}", target: '_blank', class: 'link'
+        = link_to 'comment', vue_comment_url(params[:comment]), target: '_blank', class: 'link'
 
   .row
     .comment
