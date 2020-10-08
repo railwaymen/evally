@@ -28,6 +28,8 @@
           <comments-sidebar
             :comments="comments"
             :user="user"
+            :users="evaluators"
+            :recruitDocument="recruitDocument"
             :loading="fetchLoading"
           />
         </v-flex>

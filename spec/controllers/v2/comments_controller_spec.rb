@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe V2::CommentsController, type: :controller do
   let(:admin) { create(:user, role: 'admin') }
+  let(:recruiter) { create(:user, role: 'recruiter') }
 
   describe '#create' do
     context 'when access denied' do
@@ -40,6 +41,30 @@ RSpec.describe V2::CommentsController, type: :controller do
 
         expect(response).to have_http_status 201
         expect(response.body).to be_json_eql comment_schema(recruit.comments.last)
+      end
+
+      it 'notifies about mention by email and in-app notification' do
+        recruit = FactoryBot.create(:recruit)
+
+        params = {
+          recruit_id: recruit.public_recruit_id,
+          comment: {
+            body: "<p>Itam <span class=\"mention\" data-id=\"#{recruiter.id}\">@#{recruiter.fullname}</span>!</p>", # rubocop:disable Layout/LineLength
+            recruit_document_id: 1
+          }
+        }
+
+        sign_in admin
+
+        expect do
+          perform_enqueued_jobs { post :create, params: params }
+        end.to(change { ActionMailer::Base.deliveries.count }.by(1))
+
+        expect(recruiter.notifications.last).to have_attributes(
+          action: 'comment_mention',
+          actor_id: admin.id,
+          read_at: nil
+        )
       end
 
       it 'creates proper notifications' do

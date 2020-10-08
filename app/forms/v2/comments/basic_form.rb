@@ -24,6 +24,7 @@ module V2
           end
 
           @comment.save!
+          mention_notifier.call
         end
       end
 
@@ -33,6 +34,10 @@ module V2
         return if @comment.valid?
 
         raise ErrorResponderService.new(:invalid_record, 422, @comment.errors.full_messages)
+      end
+
+      def mention_notifier
+        @mention_notifier ||= V2::Comments::MentionNotifierService.new(@comment, actor: @user)
       end
 
       def notifier_service

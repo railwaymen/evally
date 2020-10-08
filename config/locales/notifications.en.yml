@@ -16,4 +16,5 @@ en:
       assign_evaluator: "%{actor_name} assigned an evaluator to recruit"
     comment:
       add_comment: "%{actor_name} commented one of recruits"
+      comment_mention: "%{actor_name} mentioned you in a comment"
       status_change: "%{actor_name} changed a status for one of recruits"

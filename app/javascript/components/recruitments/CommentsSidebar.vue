@@ -13,7 +13,10 @@
 
           <v-expansion-panel-content>
             <v-form @submit.prevent="save">
-              <comment-editor v-model="localComment.body" />
+              <comment-editor
+                v-model="localComment.body"
+                :commentators="commentators"
+              />
 
               <div class="pt-2 text-right">
                 <v-btn
@@ -62,7 +65,8 @@
 import { mapActions } from 'vuex'
 
 import { Comment, CommentsList } from '@models/comment'
-import { User } from '@models/user'
+import { RecruitDocument } from '@models/recruit_document'
+import { User, UsersList } from '@models/user'
 
 import CommentBubble from '@components/recruitments/CommentBubble'
 import CommentEditor from '@components/recruitments/CommentEditor'
@@ -80,6 +84,16 @@ export default {
       type: User,
       required: true,
       default: () => new User()
+    },
+    users: {
+      type: UsersList,
+      required: false,
+      default: () => new UsersList()
+    },
+    recruitDocument: {
+      type: RecruitDocument,
+      required: true,
+      default: () => new RecruitDocument()
     },
     loading: {
       type: Boolean,
@@ -111,6 +125,13 @@ export default {
     setComment(comment) {
       this.localComment = new Comment({ ...comment })
       this.panel = 0
+    }
+  },
+  computed: {
+    commentators() {
+      return this.users.models.filter(user => (
+        user.isAdmin || user.isRecruiter || user.email_token === this.recruitDocument.evaluator_token
+      ))
     }
   }
 }

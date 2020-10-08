@@ -5,7 +5,7 @@
 
   .row
     .header
-      %h1.headline Hello #{@user.first_name}!
+      %h1.headline Hello #{params[:user].first_name}!
 
   .row
     - if @presenter.scheduled_employees.blank? && @presenter.unscheduled_employees.blank? && @presenter.fresh_employees.blank?
