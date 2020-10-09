@@ -117,9 +117,8 @@ export default new Router({
             {
               path: ':publicRecruitId/documents/:id/mailer',
               name: 'recruitment_mailer_path',
-              redirect: { name: 'dashboard_path' }
-              // component: () => import(/* webpackChunkName: 'recruitment_mailer' */ '@views/recruitments/Mailer'),
-              // beforeEnter: recruiterAuthorizedGuard
+              component: () => import(/* webpackChunkName: 'recruitment_mailer' */ '@views/recruitments/Mailer'),
+              beforeEnter: recruiterAuthorizedGuard
             }
           ]
         },
