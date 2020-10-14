@@ -71,8 +71,11 @@ export default {
       if (!this.$refs.form.validate()) return
 
       this.$store.dispatch('AuthenticationModule/login', this.credentials)
-        .then(() => this.$router.push({ name: 'dashboard_path' }))
-        .catch(() => this.flash({ error: 'Invalid credentials, please try again.' }))
+        .then(() => {
+          this.$router.push(localStorage.getItem('ev411y_r3d1r3ct') || { name: 'dashboard_path' })
+          localStorage.removeItem('ev411y_r3d1r3ct')
+        })
+        .catch((error) => this.flash({ error: 'Invalid credentials, please try again.' }))
     }
   }
 }

@@ -17,26 +17,48 @@ export const authenticationGuard = (_to, _from, next) => {
   if (localStorage.getItem('ev411y_t0k3n')) next()
   else {
     notifyUnauthorizedAction()
+    localStorage.setItem('ev411y_r3d1r3ct', window.location.pathname)
+
     next({ name: 'login_path' })
   }
 }
 
 export const adminAuthorizedGuard = (_to, from, next) => {
-  const user = store.state.AuthenticationModule.user
+  const storedUser = store.state.AuthenticationModule.user
 
-  if (user.isAdmin) next()
+  if (storedUser.isAdmin) next()
   else {
-    notifyUnauthorizedAction()
-    next({ name: from.name || 'dashboard_path' })
+    store.watch(
+      state => state.AuthenticationModule.user,
+      watchedUser => {
+        if (watchedUser.isAdmin) next()
+        else {
+          notifyUnauthorizedAction()
+          next({ name: from.name || 'dashboard_path' })
+        }
+      }
+    )
+
+    next()
   }
 }
 
 export const recruiterAuthorizedGuard = (_to, from, next) => {
-  const user = store.state.AuthenticationModule.user
+  const storedUser = store.state.AuthenticationModule.user
 
-  if (user.isAdmin || user.isRecruiter) next()
+  if (storedUser.isAdmin || storedUser.isRecruiter) next()
   else {
-    notifyUnauthorizedAction()
-    next({ name: from.name || 'dashboard_path' })
+    store.watch(
+      state => state.AuthenticationModule.user,
+      watchedUser => {
+        if (watchedUser.isAdmin || watchedUser.isRecruiter) next()
+        else {
+          notifyUnauthorizedAction()
+          next({ name: from.name || 'dashboard_path' })
+        }
+      }
+    )
+
+    next()
   }
 }
