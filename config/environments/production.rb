@@ -93,4 +93,16 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Acition Mailer Settings
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: config.env[:amazon_ses][:address],
+    port: 465,
+    domain: config.env[:amazon_ses][:domain],
+    user_name: config.env[:amazon_ses][:username],
+    password: config.env[:amazon_ses][:password],
+    authentication: 'plain',
+    ssl: true
+  }
 end
