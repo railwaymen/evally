@@ -29,17 +29,26 @@ RSpec.describe V2::EmployeesController, type: :controller do
 
   describe '#show' do
     context 'when unauthorized' do
-      it 'responds with error' do
-        get :index
+      it 'responds with 401 error' do
+        get :show, params: { id: 1 }
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 403 error' do
+        employee = FactoryBot.create(:employee)
+
+        sign_in evaluator
+        get :show, params: { id: employee.id }
+
+        expect(response).to have_http_status 403
       end
     end
 
     context 'when authorized' do
       it 'responds with employee' do
-        employee = FactoryBot.create(:employee)
+        employee = FactoryBot.create(:employee, evaluator: evaluator)
 
-        sign_in admin
+        sign_in evaluator
         get :show, params: { id: employee.id }
 
         expect(response).to have_http_status 200
@@ -48,7 +57,7 @@ RSpec.describe V2::EmployeesController, type: :controller do
         )
       end
 
-      it 'responds with not found error if invalid employee' do
+      it 'responds with 404 error if invalid employee' do
         sign_in admin
         get :show, params: { id: 1 }
 

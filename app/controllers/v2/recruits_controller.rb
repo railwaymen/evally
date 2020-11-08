@@ -4,6 +4,8 @@ module V2
   class RecruitsController < ApplicationController
     before_action :authenticate_user!
 
+    before_action :authorize_member!, only: :show
+
     def show
       presenter = V2::Recruits::ShowPresenter.new(recruit, current_user)
 
@@ -26,12 +28,16 @@ module V2
 
     private
 
+    def authorize_member!
+      authorize [:v2, recruit]
+    end
+
     def recruits_scope
       V2::RecruitPolicy::Scope.new(current_user, Recruit).resolve
     end
 
     def recruit
-      @recruit ||= recruits_scope.find_by(public_recruit_id: params[:id])
+      @recruit ||= Recruit.find_by(public_recruit_id: params[:id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @recruit
 
       @recruit

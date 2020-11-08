@@ -4,12 +4,22 @@ require 'rails_helper'
 
 RSpec.describe V2::RecruitsController, type: :controller do
   let(:admin) { FactoryBot.create(:user, role: :admin) }
+  let(:evaluator) { FactoryBot.create(:user, role: :evaluator) }
 
   describe '#show' do
     context 'when unauthorized' do
       it 'responds with 401 error' do
         get :show, params: { id: 1 }
         expect(response).to have_http_status 401
+      end
+
+      it 'responds with 403 error' do
+        recruit = FactoryBot.create(:recruit)
+
+        sign_in evaluator
+        get :show, params: { id: recruit.public_recruit_id }
+
+        expect(response).to have_http_status 403
       end
     end
 

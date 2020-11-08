@@ -3,7 +3,9 @@
 module V2
   class EmployeesController < ApplicationController
     before_action :authenticate_user!
-    before_action :authorize!, only: %i[archived create update overview archive destroy]
+
+    before_action :authorize_member!, only: :show
+    before_action :authorize_collection!, only: %i[archived create update overview archive destroy]
 
     def index
       presenter = V2::Employees::IndexPresenter.new(
@@ -73,8 +75,12 @@ module V2
 
     private
 
-    def authorize!
+    def authorize_collection!
       authorize([:v2, Employee])
+    end
+
+    def authorize_member!
+      authorize([:v2, employee])
     end
 
     def employees_scope
@@ -82,7 +88,7 @@ module V2
     end
 
     def employee
-      @employee ||= V2::Employees::ExtendedQuery.new(employees_scope).find_by(id: params[:id])
+      @employee ||= V2::Employees::ExtendedQuery.new(Employee.all).find_by(id: params[:id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @employee
 
       @employee

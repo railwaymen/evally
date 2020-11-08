@@ -4,34 +4,48 @@ module V2
   class EmployeePolicy < ApplicationPolicy
     class Scope < Scope
       def resolve
-        return scope.all if %w[admin recruiter].include?(user&.role)
+        return scope.all if user.admin? || user.recruiter?
 
         user.employees
       end
     end
 
-    def create?
-      %w[admin recruiter].include?(user&.role)
+    def archived?
+      admin_or_recruiter?
     end
 
-    def archived?
-      create?
+    def show?
+      admin_or_recruiter? || assigned_evaluator?
+    end
+
+    def create?
+      admin_or_recruiter?
     end
 
     def update?
-      create?
+      admin_or_recruiter?
     end
 
     def overview?
-      create?
+      admin_or_recruiter?
     end
 
     def archive?
-      create?
+      admin_or_recruiter?
     end
 
     def destroy?
       user.admin?
+    end
+
+    private
+
+    def admin_or_recruiter?
+      user.admin? || user.recruiter?
+    end
+
+    def assigned_evaluator?
+      user.id == record.evaluator_id
     end
   end
 end
