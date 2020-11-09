@@ -3,7 +3,7 @@
 module V2
   class InvitationsController < ApplicationController
     before_action :authenticate_user!, only: :create
-    before_action :authorize!, only: :create
+    before_action :authorize_collection!, only: :create
 
     def create
       create_form.save
@@ -19,7 +19,7 @@ module V2
 
     private
 
-    def authorize!
+    def authorize_collection!
       authorize [:v2, User]
     end
 

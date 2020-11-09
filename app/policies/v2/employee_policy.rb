@@ -10,28 +10,42 @@ module V2
       end
     end
 
-    def create?
-      %w[admin recruiter].include?(user&.role)
+    def archived?
+      admin_or_recruiter?
     end
 
-    def archived?
-      create?
+    def show?
+      admin_or_recruiter? || assigned_evaluator?
+    end
+
+    def create?
+      admin_or_recruiter?
     end
 
     def update?
-      create?
+      admin_or_recruiter?
     end
 
     def overview?
-      create?
+      admin_or_recruiter?
     end
 
     def archive?
-      create?
+      admin_or_recruiter?
     end
 
     def destroy?
       user.admin?
+    end
+
+    private
+
+    def admin_or_recruiter?
+      %w[admin recruiter].include?(user&.role)
+    end
+
+    def assigned_evaluator?
+      user.id == record.evaluator_id
     end
   end
 end

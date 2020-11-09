@@ -9,5 +9,19 @@ module V2
         user.recruits
       end
     end
+
+    def show?
+      admin_or_recruiter? || assigned_evaluator?
+    end
+
+    private
+
+    def admin_or_recruiter?
+      %w[admin recruiter].include?(user&.role)
+    end
+
+    def assigned_evaluator?
+      user.email_token == record.evaluator_token
+    end
   end
 end

@@ -3,7 +3,7 @@
 module V2
   class UsersController < ApplicationController
     before_action :authenticate_user!
-    before_action :authorize!
+    before_action :authorize_collection!
 
     def index
       render json: V2::Users::Serializer.render(users_scope), status: :ok
@@ -21,7 +21,7 @@ module V2
 
     private
 
-    def authorize!
+    def authorize_collection!
       authorize [:v2, User]
     end
 

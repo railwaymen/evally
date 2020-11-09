@@ -3,7 +3,7 @@
 module V2
   class TemplatesController < ApplicationController
     before_action :authenticate_user!
-    before_action :authorize!, only: %i[update destroy]
+    before_action :authorize_member!, only: %i[update destroy]
 
     def index
       presenter = V2::Templates::IndexPresenter.new
@@ -39,7 +39,7 @@ module V2
 
     private
 
-    def authorize!
+    def authorize_member!
       authorize [:v2, template]
     end
 

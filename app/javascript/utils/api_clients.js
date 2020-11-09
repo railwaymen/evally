@@ -52,6 +52,8 @@ const initClient = (config) => {
           break
         case 403:
         case 404:
+          router.push({ name: 'dashboard_path' })
+          break
         case 422:
           break
         default:
