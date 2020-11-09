@@ -3,7 +3,7 @@
 module V2
   class CommentsController < ApplicationController
     before_action :authenticate_user!
-    before_action :authorize!, except: %i[create webhook]
+    before_action :authorize_member!, except: %i[create webhook]
 
     def create
       create_form.save
@@ -29,7 +29,7 @@ module V2
 
     private
 
-    def authorize!
+    def authorize_member!
       authorize [:v2, comment]
     end
 

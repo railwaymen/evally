@@ -3,7 +3,7 @@
 module V2
   class EmailTemplatesController < ApplicationController
     before_action :authenticate_user!
-    before_action :authorize!
+    before_action :authorize_collection!
 
     def index
       email_templates = EmailTemplate.includes(:creator).order(name: :asc)
@@ -41,7 +41,7 @@ module V2
 
     private
 
-    def authorize!
+    def authorize_collection!
       authorize [:v2, EmailTemplate]
     end
 

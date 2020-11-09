@@ -4,7 +4,7 @@ module V2
   class EmployeePolicy < ApplicationPolicy
     class Scope < Scope
       def resolve
-        return scope.all if user.admin? || user.recruiter?
+        return scope.all if %w[admin recruiter].include?(user&.role)
 
         user.employees
       end
@@ -41,7 +41,7 @@ module V2
     private
 
     def admin_or_recruiter?
-      user.admin? || user.recruiter?
+      %w[admin recruiter].include?(user&.role)
     end
 
     def assigned_evaluator?
