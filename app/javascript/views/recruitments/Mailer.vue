@@ -27,7 +27,7 @@
 
               <v-flex class="px-2" xs12>
                 <v-select
-                  :items="[user.labeledEmail, user.email]"
+                  :items="[user.labeledEmail, user.email, ...senderEmails]"
                   v-model="localEmail.from"
                   :rules="[vRequired]"
                   :label="$t('shared.general.fields.from')"
@@ -176,6 +176,7 @@ export default {
     ]),
     ...mapState('EmailsModule', [
       'emailTemplates',
+      'senderEmails',
       'recruitDocument',
       'user'
     ])

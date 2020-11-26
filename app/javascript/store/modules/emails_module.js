@@ -15,6 +15,7 @@ import { User } from '@models/user'
 const initState = () => ({
   emailTemplates: new EmailTemplatesList(),
   recruitDocument: new RecruitDocument(),
+  senderEmails: [],
   user: new User(),
   loading: 'fetch'
 })
@@ -36,9 +37,10 @@ const EmailsModule = {
     RESET_STATE(state) {
       Object.assign(state, initState())
     },
-    SET_FORM_DATA(state, { email_templates, user }) {
+    SET_FORM_DATA(state, { email_templates, user, sender_emails }) {
       state.emailTemplates = new EmailTemplatesList(email_templates)
       state.user = new User(user)
+      state.senderEmails = sender_emails
     },
     SET_LOADING(state, status) {
       state.loading = status

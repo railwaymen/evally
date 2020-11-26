@@ -12,6 +12,10 @@ module V2
       def email_templates
         EmailTemplate.includes(:creator).order(name: :asc)
       end
+
+      def sender_emails
+        Rails.application.config.env.dig(:core, :sender_emails).to_s.split(',').map(&:strip)
+      end
     end
   end
 end

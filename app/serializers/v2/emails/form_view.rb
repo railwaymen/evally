@@ -3,6 +3,8 @@
 module V2
   module Emails
     class FormView < Blueprinter::Base
+      fields :sender_emails
+
       association :user, blueprint: V2::Users::Serializer, default: {}
 
       association :email_templates, blueprint: V2::EmailTemplates::Serializer, default: []

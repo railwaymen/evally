@@ -28,7 +28,7 @@ RSpec.describe V2::EmailsController, type: :controller do
 
         expect(response).to have_http_status 200
         expect(json_response.keys).to contain_exactly(
-          'email_templates', 'user'
+          'email_templates', 'user', 'sender_emails'
         )
       end
     end
