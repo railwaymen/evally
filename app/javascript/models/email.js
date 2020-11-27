@@ -5,6 +5,8 @@ class Email extends Model {
     return {
       from: '',
       to: '',
+      cc: null,
+      bcc: null,
       subject: '',
       body: '',
       public_recruit_id: null,

@@ -20,6 +20,8 @@ export default {
         emailTemplate: 'Szablon wiadomości',
         from: 'Nadawca',
         to: 'Odbiorca',
+        cc: 'DW',
+        bcc: 'UDW',
         subject: 'Temat'
       }
     },
@@ -39,7 +41,9 @@ export default {
       restore: 'Przywróć',
       send: 'Wyślij',
       edit: 'Edycja',
-      preview: 'Podgląd'
+      preview: 'Podgląd',
+      cc: 'DW',
+      bcc: 'UDW'
     },
     tooltips: {
       edit: 'Edytuj',

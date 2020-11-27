@@ -6,10 +6,12 @@ module V2
       include ActiveModel::Validations
       include EmailValidatable
 
-      delegate :from, :to, :subject, :body, :recruit_document_id, to: :@email
+      delegate :from, :to, :cc, :bcc, :subject, :body, :recruit_document_id, to: :@email
 
       validates :from, :to, :subject, :body, :recruit_document_id, presence: true
+
       validates :from, :to, email: true
+      validates :cc, :bcc, email: true, allow_blank: true
 
       def initialize(recruit, user:, params: {})
         @recruit = recruit

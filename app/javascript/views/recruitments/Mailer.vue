@@ -43,6 +43,34 @@
                   :label="$t('shared.general.fields.to')"
                   prepend-inner-icon="mdi-login-variant"
                   small
+                >
+                  <template #append>
+                    <v-btn @click="toggleCopyField" text>
+                      {{ $t('shared.buttons.cc') }}
+                    </v-btn>
+
+                    <v-btn @click="toggleBlindCopyField" text>
+                      {{ $t('shared.buttons.bcc') }}
+                    </v-btn>
+                  </template>
+                </v-text-field>
+              </v-flex>
+
+              <v-flex v-if="copyField" class="px-2" xs12>
+                <v-text-field
+                  v-model="localEmail.cc"
+                  :label="$t('shared.general.fields.cc')"
+                  prepend-inner-icon="mdi-email-multiple-outline"
+                  small
+                />
+              </v-flex>
+
+              <v-flex v-if="blindCopyField" class="px-2" xs12>
+                <v-text-field
+                  v-model="localEmail.bcc"
+                  :label="$t('shared.general.fields.bcc')"
+                  prepend-inner-icon="mdi-email-multiple-outline"
+                  small
                 />
               </v-flex>
 
@@ -125,6 +153,8 @@ export default {
   data() {
     return {
       localEmail: new Email(),
+      blindCopyField: false,
+      copyField: false,
       validBody: true
     }
   },
@@ -167,6 +197,14 @@ export default {
         public_recruit_id: this.recruitDocument.public_recruit_id,
         recruit_document_id: this.recruitDocument.id
       })
+    },
+    toggleCopyField() {
+      if (this.copyField) this.localEmail.set('cc', null)
+      this.copyField = !this.copyField
+    },
+    toggleBlindCopyField() {
+      if (this.blindCopyField) this.localEmail.set('bcc', null)
+      this.blindCopyField = !this.blindCopyField
     }
   },
   computed: {

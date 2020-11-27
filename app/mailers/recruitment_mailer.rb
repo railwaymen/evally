@@ -9,6 +9,8 @@ class RecruitmentMailer < ApplicationMailer
     mail(
       from: sender_email,
       to: email.to,
+      cc: email.cc,
+      bcc: email.bcc,
       reply_to: sender_email,
       subject: email.subject
     )

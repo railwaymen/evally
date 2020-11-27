@@ -79,6 +79,8 @@ RSpec.describe V2::EmailsController, type: :controller do
           email: {
             from: 'from@example.com',
             to: 'to@example.com',
+            cc: 'cc@example.com',
+            bcc: 'bcc@example.com',
             subject: 'Sample Subject',
             body: 'Dear Mr. Bean, ...',
             public_recruit_id: recruit.public_recruit_id,

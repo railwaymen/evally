@@ -36,7 +36,7 @@ module V2
 
     def email_params
       params.require(:email).permit(
-        :from, :to, :subject, :body, :public_recruit_id, :recruit_document_id
+        :from, :to, :cc, :bcc, :subject, :body, :public_recruit_id, :recruit_document_id
       )
     end
   end

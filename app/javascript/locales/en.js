@@ -20,6 +20,8 @@ export default {
         emailTemplate: 'Email Template',
         from: 'From',
         to: 'To',
+        cc: 'CC',
+        bcc: 'BCC',
         subject: 'Subject'
       }
     },
@@ -39,7 +41,9 @@ export default {
       restore: 'Restore',
       send: 'Send',
       edit: 'Edit',
-      preview: 'Preview'
+      preview: 'Preview',
+      cc: 'CC',
+      bcc: 'BCC'
     },
     tooltips: {
       edit: 'Edit',
