@@ -3,6 +3,16 @@
 class Employee < ApplicationRecord
   has_secure_token :public_token
 
+  include PgSearch::Model
+
+  pg_search_scope(
+    :search_text,
+    against: %i[first_name last_name position group signature],
+    using: {
+      tsearch: { prefix: true }
+    }
+  )
+
   # Associations
   #
   belongs_to :evaluator, class_name: 'User', optional: true
