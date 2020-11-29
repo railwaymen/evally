@@ -194,6 +194,7 @@
           :employeePolicy="employeePolicy"
           :evaluators="evaluators"
           :groups="groups"
+          :totalCount="totalCount"
           :loading="fetchLoading"
           @archive="openArchiveForm"
           @edit="openUpdateForm"
@@ -284,7 +285,8 @@ export default {
       'employees',
       'employee',
       'evaluators',
-      'groups'
+      'groups',
+      'totalCount'
     ]),
     ...mapState('AuthenticationModule', [
       'user'
@@ -297,16 +299,6 @@ export default {
       'formLoading',
       'employeePolicy'
     ])
-  },
-  watch: {
-    $route: {
-      immediate: true,
-      handler(to) {
-        if (to.name === 'employees_path') {
-          this.$store.dispatch('EmployeesModule/fetchEmployees')
-        }
-      }
-    }
   },
   destroyed() {
     this.$store.commit('EmployeesModule/RESET_STATE')

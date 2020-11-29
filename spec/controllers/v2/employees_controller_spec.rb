@@ -21,8 +21,9 @@ RSpec.describe V2::EmployeesController, type: :controller do
         get :index
 
         expect(response).to have_http_status 200
-
-        expect(response.body).to have_json_path('employees')
+        expect(json_response.keys).to contain_exactly(
+          'employees', 'total_count', 'groups', 'evaluators'
+        )
       end
     end
   end

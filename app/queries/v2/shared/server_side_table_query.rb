@@ -12,7 +12,15 @@ module V2
         @column_names = scope.klass.column_names
       end
 
-      def call
+      def paginated_scope
+        final_scope.page(@query_params.page || 1).per(@query_params.per_page)
+      end
+
+      def total_count
+        final_scope.count(:id)
+      end
+
+      def final_scope
         return searchable_scope.search_text(@query_params.search) if @query_params.search.present?
 
         searchable_scope
@@ -21,11 +29,7 @@ module V2
       private
 
       def searchable_scope
-        paginated_scope.where(filters_condition).order(order_condition)
-      end
-
-      def paginated_scope
-        @scope.page(@query_params.page || 1).per(@query_params.per_page)
+        @searchable_scope ||= @scope.where(filters_condition).order(order_condition)
       end
 
       def filters_condition
@@ -39,7 +43,7 @@ module V2
       def order_condition
         return unless @column_names.include? @query_params.sort_by
 
-        "#{@query_params.sort_by} #{@query_params.sort_dir == 'asc' ? 'asc' : 'desc'}"
+        "\"#{@query_params.sort_by}\" #{@query_params.sort_dir == 'asc' ? 'asc' : 'desc'}"
       end
     end
   end

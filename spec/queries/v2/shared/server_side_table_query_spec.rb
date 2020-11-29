@@ -3,15 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe V2::Shared::ServerSideTableQuery do
-  describe '.call' do
-    it 'expects to return full scope if no params' do
-      record_one, record_two, record_three = FactoryBot.create_list(:employee, 3)
-
-      query = described_class.new(Employee.all, params: {})
-
-      expect(query.call).to contain_exactly record_one, record_two, record_three
-    end
-
+  describe '.paginated_scope' do
     it 'expects to return 1 page with 2 records' do
       record_one, record_two = FactoryBot.create_list(:employee, 2)
       FactoryBot.create(:employee)
@@ -23,7 +15,17 @@ RSpec.describe V2::Shared::ServerSideTableQuery do
 
       query = described_class.new(Employee.all, params: params)
 
-      expect(query.call).to contain_exactly record_one, record_two
+      expect(query.paginated_scope).to contain_exactly record_one, record_two
+    end
+  end
+
+  describe '.final_scope' do
+    it 'expects to return full scope if no params' do
+      record_one, record_two, record_three = FactoryBot.create_list(:employee, 3)
+
+      query = described_class.new(Employee.all, params: {})
+
+      expect(query.final_scope).to contain_exactly record_one, record_two, record_three
     end
 
     it 'expects to return records filtering by position' do
@@ -50,7 +52,7 @@ RSpec.describe V2::Shared::ServerSideTableQuery do
 
       query = described_class.new(Employee.all, params: params)
 
-      expect(query.call).to contain_exactly record_one, record_two
+      expect(query.final_scope).to contain_exactly record_one, record_two
     end
 
     it 'expects to return records filtering by multiple' do
@@ -81,7 +83,7 @@ RSpec.describe V2::Shared::ServerSideTableQuery do
 
       query = described_class.new(Employee.all, params: params)
 
-      expect(query.call).to contain_exactly record_one
+      expect(query.final_scope).to contain_exactly record_one
     end
 
     it 'expects to return records ignoring unknown filter' do
@@ -109,7 +111,7 @@ RSpec.describe V2::Shared::ServerSideTableQuery do
 
       query = described_class.new(Employee.all, params: params)
 
-      expect(query.call).to contain_exactly record_one, record_two
+      expect(query.final_scope).to contain_exactly record_one, record_two
     end
 
     it 'expects to return records sorting asc by position' do
@@ -118,35 +120,23 @@ RSpec.describe V2::Shared::ServerSideTableQuery do
         position: 'A'
       )
 
-      FactoryBot.create(
-        :employee,
-        position: 'C'
-      )
-
       record_two = FactoryBot.create(
         :employee,
         position: 'B'
       )
 
       params = {
-        page: 1,
-        per_page: 2,
         sort_by: 'position',
         sort_dir: 'asc'
       }
 
       query = described_class.new(Employee.all, params: params)
 
-      expect(query.call).to contain_exactly record_one, record_two
+      expect(query.final_scope.to_a).to eq [record_one, record_two]
     end
 
     it 'expects to return records sorting desc by position' do
       record_one = FactoryBot.create(
-        :employee,
-        position: 'C'
-      )
-
-      FactoryBot.create(
         :employee,
         position: 'A'
       )
@@ -157,15 +147,13 @@ RSpec.describe V2::Shared::ServerSideTableQuery do
       )
 
       params = {
-        page: 1,
-        per_page: 2,
         sort_by: 'position',
         sort_dir: 'desc'
       }
 
       query = described_class.new(Employee.all, params: params)
 
-      expect(query.call).to contain_exactly record_one, record_two
+      expect(query.final_scope.to_a).to eq [record_two, record_one]
     end
 
     it 'expects to return records using search' do
@@ -190,7 +178,7 @@ RSpec.describe V2::Shared::ServerSideTableQuery do
 
       query = described_class.new(Employee.all, params: params)
 
-      expect(query.call).to contain_exactly record_one, record_two
+      expect(query.final_scope).to contain_exactly record_one, record_two
     end
 
     it 'expect to return records without signature' do
@@ -217,7 +205,7 @@ RSpec.describe V2::Shared::ServerSideTableQuery do
 
       query = described_class.new(Employee.all, params: params, require_values: false)
 
-      expect(query.call).to contain_exactly record_one, record_two
+      expect(query.final_scope).to contain_exactly record_one, record_two
     end
 
     it 'expects to work with strong action controller parameters' do
@@ -260,7 +248,7 @@ RSpec.describe V2::Shared::ServerSideTableQuery do
 
       query = described_class.new(Employee.all, params: params.permit!)
 
-      expect(query.call).to contain_exactly record_one
+      expect(query.final_scope).to contain_exactly record_one
     end
   end
 end

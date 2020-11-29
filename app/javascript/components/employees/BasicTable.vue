@@ -3,7 +3,8 @@
     <v-layout row wrap>
       <v-flex xs12 lg4>
         <v-text-field
-          v-model="search"
+          :value="options.search"
+          @input="searchBy"
           append-icon="mdi-magnify"
           :label="$t('components.employees.table.search')"
           solo
@@ -12,7 +13,7 @@
 
       <v-flex xs12 lg4>
         <v-select
-          v-model="filters.group"
+          v-model="options.group"
           :items="groups"
           :label="$t('components.employees.table.groupFilter')"
           clearable
@@ -23,7 +24,7 @@
 
       <v-flex xs12 lg4>
         <v-select
-          v-model="filters.evaluatorId"
+          v-model="options.evaluatorId"
           :items="evaluators.models"
           :label="$t('components.employees.table.evaluatorFilter')"
           item-value="id"
@@ -38,9 +39,10 @@
         <v-data-table
           :headers="headers"
           :items="employees.models"
-          :search="search"
           :loading="loading"
           :footer-props="{ 'items-per-page-options': [25, 50, 100, -1] }"
+          :server-items-length="totalCount"
+          :options.sync="options"
         >
           <template #item.action="{ item }">
             <v-tooltip v-if="employeePolicy.canArchive" bottom>
@@ -121,6 +123,8 @@ import EmployeePolicy from '@policies/employee_policy'
 import { EmployeesList } from '@models/employee'
 import { UsersList } from '@models/user'
 
+import EmployeesTableComposer from '@utils/data_tables/employees_table_composer'
+
 export default {
   name: 'BasicTable',
   props: {
@@ -148,15 +152,17 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    totalCount: {
+      type: Number,
+      required: true,
+      default: 0
     }
   },
   data() {
     return {
-      search: '',
-      filters: {
-        group: '',
-        evaluatorId: null
-      },
+      options: {},
+      timeout: null,
       headers: [
         {
           sortable: false,
@@ -190,7 +196,8 @@ export default {
         },
         {
           text: this.$t('components.employees.table.cols.currentEvaluator'),
-          value: 'evaluator_fullname'
+          value: 'evaluator_fullname',
+          sortable: false
         },
         {
           text: this.$t('components.employees.table.cols.lastEvaluationOn'),
@@ -207,18 +214,31 @@ export default {
       ]
     }
   },
-  watch: {
-    filters: {
-      deep: true,
-      handler(filters) {
-        const payload = {
-          group: filters.group || '',
-          evaluator_id: filters.evaluatorId || ''
-        }
+  methods: {
+    searchBy(val) {
+      if (this.timeout) clearTimeout(this.timeout)
 
-        this.$store.dispatch('EmployeesModule/filterEmployees', payload)
+      this.timeout = setTimeout(() => this.options.search = val, 500)
+    }
+  },
+  watch: {
+    options: {
+      deep: true,
+      handler(options) {
+        this.$router.push({
+          path: this.$route.path,
+          query: EmployeesTableComposer.requestQuery(options)
+        })
+
+        this.$store.dispatch(
+          'EmployeesModule/filterEmployees',
+          EmployeesTableComposer.requestQuery(options)
+        )
       }
     }
+  },
+  created() {
+    this.options = EmployeesTableComposer.tableOptions(this.$route.query)
   }
 }
 </script>
