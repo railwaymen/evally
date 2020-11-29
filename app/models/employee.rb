@@ -39,7 +39,7 @@ class Employee < ApplicationRecord
 
   # # Validation
   #
-  validates :first_name, :last_name, :position, :hired_on, :group, presence: true
+  validates :first_name, :last_name, :position, :hired_on, :position_set_on, :group, presence: true
 
   # # Methods
   #
