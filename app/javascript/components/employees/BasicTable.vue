@@ -1,119 +1,120 @@
 <template>
   <div class="box">
-    <v-layout row wrap>
-      <v-flex xs12 lg4>
-        <v-text-field
-          :value="options.search"
-          @input="searchBy"
-          append-icon="mdi-magnify"
-          :label="$t('components.employees.table.search')"
-          solo
-        />
-      </v-flex>
+    <server-side-table
+      :composerClass="composerClass"
+      :headers="headers"
+      :items="employees.models"
+      :footer-props="{ 'items-per-page-options': [25, 50, 100, -1] }"
+      :server-items-length="totalCount"
+      :loading="loading"
+      @change:options="fetchEmployees"
+    >
+      <template #search="{ options, searchBy }">
+        <v-flex xs12 lg4>
+          <v-text-field
+            :value="options.search"
+            @input="searchBy"
+            append-icon="mdi-magnify"
+            :label="$t('components.employees.table.search')"
+            solo
+          />
+        </v-flex>
+      </template>
 
-      <v-flex xs12 lg4>
-        <v-select
-          v-model="options.group"
-          :items="groups"
-          :label="$t('components.employees.table.groupFilter')"
-          clearable
-          chips
-          solo
-        />
-      </v-flex>
+      <template #filters="{ options }">
+        <v-flex xs12 lg4>
+          <v-select
+            v-model="options.group"
+            :items="groups"
+            :label="$t('components.employees.table.groupFilter')"
+            clearable
+            chips
+            solo
+          />
+        </v-flex>
 
-      <v-flex xs12 lg4>
-        <v-select
-          v-model="options.evaluatorId"
-          :items="evaluators.models"
-          :label="$t('components.employees.table.evaluatorFilter')"
-          item-value="id"
-          item-text="fullname"
-          clearable
-          chips
-          solo
-        />
-      </v-flex>
+        <v-flex xs12 lg4>
+          <v-select
+            v-model="options.evaluatorId"
+            :items="evaluators.models"
+            :label="$t('components.employees.table.evaluatorFilter')"
+            item-value="id"
+            item-text="fullname"
+            clearable
+            chips
+            solo
+          />
+        </v-flex>
+      </template>
 
-      <v-flex xs12>
-        <v-data-table
-          :headers="headers"
-          :items="employees.models"
-          :loading="loading"
-          :footer-props="{ 'items-per-page-options': [25, 50, 100, -1] }"
-          :server-items-length="totalCount"
-          :options.sync="options"
-        >
-          <template #item.action="{ item }">
-            <v-tooltip v-if="employeePolicy.canArchive" bottom>
-              <template #activator="{ on }">
-                <v-icon
-                  @click="$emit('archive', item.id)"
-                  v-on="on"
-                  color="orange"
-                  class="mx-1"
-                  small
-                >
-                  mdi-account-cancel
-                </v-icon>
-              </template>
-
-              <span>{{ $t('shared.tooltips.archive') }}</span>
-            </v-tooltip>
-
-            <v-tooltip v-if="employeePolicy.canEdit" bottom>
-              <template #activator="{ on }">
-                <v-icon
-                  @click="$emit('edit', item.id)"
-                  v-on="on"
-                  class="mx-1"
-                  small
-                >
-                  mdi-pencil
-                </v-icon>
-              </template>
-
-              <span>{{ $t('shared.tooltips.edit') }}</span>
-            </v-tooltip>
+      <template #item.action="{ item }">
+        <v-tooltip v-if="employeePolicy.canArchive" bottom>
+          <template #activator="{ on }">
+            <v-icon
+              @click="$emit('archive', item.id)"
+              v-on="on"
+              color="orange"
+              class="mx-1"
+              small
+            >
+              mdi-account-cancel
+            </v-icon>
           </template>
 
-          <template #item.last_name="{ item }">
-            <router-link :to="{ name: 'employee_path', params: { employeeId: item.id }}">
-              {{ item.fullname }}
-            </router-link>
+          <span>{{ $t('shared.tooltips.archive') }}</span>
+        </v-tooltip>
+
+        <v-tooltip v-if="employeePolicy.canEdit" bottom>
+          <template #activator="{ on }">
+            <v-icon
+              @click="$emit('edit', item.id)"
+              v-on="on"
+              class="mx-1"
+              small
+            >
+              mdi-pencil
+            </v-icon>
           </template>
 
-          <template #item.hired_on="{ item }">
-            <v-tooltip left>
-              <template #activator="{ on }">
-                <span v-on="on">{{ item.hiredOn }}</span>
-              </template>
-              <span>{{ item.employmentTime }}</span>
-            </v-tooltip>
-          </template>
+          <span>{{ $t('shared.tooltips.edit') }}</span>
+        </v-tooltip>
+      </template>
 
-          <template #item.position_set_on="{ item }">
-            {{ item.positionSetOn }}
-          </template>
+      <template #item.last_name="{ item }">
+        <router-link :to="{ name: 'employee_path', params: { employeeId: item.id }}">
+          {{ item.fullname }}
+        </router-link>
+      </template>
 
-          <template #item.evaluator_fullname="{ item }">
-            {{ item.evaluator_fullname || '---' }}
+      <template #item.hired_on="{ item }">
+        <v-tooltip left>
+          <template #activator="{ on }">
+            <span v-on="on">{{ item.hiredOn }}</span>
           </template>
+          <span>{{ item.employmentTime }}</span>
+        </v-tooltip>
+      </template>
 
-          <template #item.last_evaluation_on="{ item }">
-            {{ item.lastEvaluationOn || '---' }}
-          </template>
+      <template #item.position_set_on="{ item }">
+        {{ item.positionSetOn }}
+      </template>
 
-          <template #item.next_evaluation_on="{ item }">
-            {{ item.nextEvaluationText }}
-          </template>
+      <template #item.evaluator_fullname="{ item }">
+        {{ item.evaluator_fullname || '---' }}
+      </template>
 
-          <template #item.signature="{ item }">
-            {{ item.signature || '---' }}
-          </template>
-        </v-data-table>
-      </v-flex>
-    </v-layout>
+      <template #item.last_evaluation_on="{ item }">
+        {{ item.lastEvaluationOn || '---' }}
+      </template>
+
+      <template #item.next_evaluation_on="{ item }">
+        {{ item.nextEvaluationText }}
+      </template>
+
+      <template #item.signature="{ item }">
+        {{ item.signature || '---' }}
+      </template>
+    </server-side-table>
   </div>
 </template>
 
@@ -123,10 +124,13 @@ import EmployeePolicy from '@policies/employee_policy'
 import { EmployeesList } from '@models/employee'
 import { UsersList } from '@models/user'
 
+import ServerSideTable from '@components/shared/ServerSideTable'
+
 import EmployeesTableComposer from '@utils/data_tables/employees_table_composer'
 
 export default {
   name: 'BasicTable',
+  components: { ServerSideTable },
   props: {
     loading: {
       type: Boolean,
@@ -161,8 +165,7 @@ export default {
   },
   data() {
     return {
-      options: {},
-      timeout: null,
+      composerClass: EmployeesTableComposer,
       headers: [
         {
           sortable: false,
@@ -215,30 +218,9 @@ export default {
     }
   },
   methods: {
-    searchBy(val) {
-      if (this.timeout) clearTimeout(this.timeout)
-
-      this.timeout = setTimeout(() => this.options.search = val, 500)
+    fetchEmployees(query) {
+      this.$store.dispatch('EmployeesModule/filterEmployees', query)
     }
-  },
-  watch: {
-    options: {
-      deep: true,
-      handler(options) {
-        this.$router.push({
-          path: this.$route.path,
-          query: EmployeesTableComposer.requestQuery(options)
-        })
-
-        this.$store.dispatch(
-          'EmployeesModule/filterEmployees',
-          EmployeesTableComposer.requestQuery(options)
-        )
-      }
-    }
-  },
-  created() {
-    this.options = EmployeesTableComposer.tableOptions(this.$route.query)
   }
 }
 </script>

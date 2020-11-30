@@ -13,12 +13,12 @@ export default class EmployeesTableComposer {
 
   static tableOptions(params) {
     return {
-      page: params.page ? Number(params.page) : 1,
-      itemsPerPage: params.per_page ? Number(params.per_page) : 25,
+      page: Number(params.page) || 1,
+      itemsPerPage: Number(params.per_page) || 25,
       sortBy: params.sort_by ? [params.sort_by] : ['last_name'],
       sortDesc: params.sort_by ? [params.sort_dir === 'desc'] : [false],
       group: params["filters[group]"] || '',
-      evaluatorId: params["filters[evaluator_id]"] || '',
+      evaluatorId: Number(params["filters[evaluator_id]"]) || '',
       search: params.search || ''
     }
   }
