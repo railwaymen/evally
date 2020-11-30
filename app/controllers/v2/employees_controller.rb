@@ -14,7 +14,7 @@ module V2
     end
 
     def archived
-      presenter = V2::Employees::IndexPresenter.new(employees_scope.archived)
+      presenter = V2::Employees::IndexPresenter.new(employees_scope.archived, params: table_params)
 
       render json: V2::Employees::IndexView.render(presenter), status: :ok
     end

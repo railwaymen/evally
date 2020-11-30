@@ -111,11 +111,11 @@ const EmployeesModule = {
         })
         .finally(() => commit('SET_LOADING', 'ok'))
     },
-    filterEmployees({ commit }, filters) {
+    filterEmployees({ commit }, query) {
       commit('SET_LOADING', 'fetch')
 
       coreApiClient
-        .get(Employee.routes.employeesFilterPath(filters))
+        .get(Employee.routes.employeesFilterPath(query))
         .then(response => {
           commit('SET_EMPLOYEES', response.data)
         })
@@ -128,11 +128,11 @@ const EmployeesModule = {
         })
         .finally(() => commit('SET_LOADING', 'ok'))
     },
-    fetchArchivedEmployees({ commit }) {
+    fetchArchivedEmployees({ commit }, query) {
       commit('SET_LOADING', 'fetch')
 
       coreApiClient
-        .get(Employee.routes.employeesArchivedPath)
+        .get(Employee.routes.employeesArchivedPath(query))
         .then(response => {
           commit('SET_EMPLOYEES', response.data)
         })
