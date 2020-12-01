@@ -1,9 +1,9 @@
 export default class BaseComposer {
-  static requestQuery(_options) {
+  static requestQuery() {
     return {}
   }
 
-  static tableOptions(_params) {
+  static tableOptions() {
     return {}
   }
 }
