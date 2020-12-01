@@ -94,28 +94,11 @@ const EmployeesModule = {
   },
 
   actions: {
-    fetchEmployees({ commit }) {
+    fetchEmployees({ commit }, query) {
       commit('SET_LOADING', 'fetch')
 
       coreApiClient
-        .get(Employee.routes.employeesPath)
-        .then(response => {
-          commit('SET_EMPLOYEES', response.data)
-        })
-        .catch(error => {
-          commit(
-            'MessagesModule/PUSH_MESSAGE',
-            { error: i18n.t('messages.employees.index.error', { msg: fetchError(error) }) },
-            { root: true }
-          )
-        })
-        .finally(() => commit('SET_LOADING', 'ok'))
-    },
-    filterEmployees({ commit }, query) {
-      commit('SET_LOADING', 'fetch')
-
-      coreApiClient
-        .get(Employee.routes.employeesFilterPath(query))
+        .get(Employee.routes.employeesPath(query))
         .then(response => {
           commit('SET_EMPLOYEES', response.data)
         })

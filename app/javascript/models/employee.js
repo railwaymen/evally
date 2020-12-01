@@ -157,8 +157,7 @@ class Employee extends Model {
 
   static get routes() {
     return {
-      employeesPath: '/v2/employees',
-      employeesFilterPath: query => `/v2/employees?${getURLParams(query)}`,
+      employeesPath: query => `/v2/employees?${getURLParams(query)}`,
       employeesFormPath: '/v2/employees/form',
       employeesArchivedPath: query => `/v2/employees/archived?${getURLParams(query)}`,
       employeesOverviewPath: '/v2/employees/overview',

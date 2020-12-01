@@ -3,6 +3,8 @@
 module V2
   module Employees
     class IndexPresenter
+      delegate :total_count, to: :employees_table_query
+
       def initialize(scope, params: {})
         @scope = scope
         @params = params
@@ -10,10 +12,6 @@ module V2
 
       def employees
         employees_table_query.paginated_scope
-      end
-
-      def total_count
-        employees_table_query.total_count
       end
 
       def groups

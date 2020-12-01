@@ -155,6 +155,7 @@
             :groups="groups"
             :statuses="statuses"
             :evaluators="evaluators"
+            :totalCount="totalCount"
             :loading="fetchLoading"
             @delete="openDeleteConfirm"
           />
@@ -193,7 +194,8 @@ export default {
       'recruitDocument',
       'groups',
       'statuses',
-      'evaluators'
+      'evaluators',
+      'totalCount'
     ]),
     ...mapGetters('EmailsModule', [
       'emailPolicy'
@@ -202,16 +204,6 @@ export default {
       'recruitDocumentPolicy',
       'fetchLoading'
     ])
-  },
-  watch: {
-    $route: {
-      immediate: true,
-      handler(to) {
-        if (to.name === 'recruitments_path') {
-          this.$store.dispatch('RecruitDocumentsModule/fetchRecruitDocuments')
-        }
-      }
-    }
   },
   destroyed() {
     this.$store.commit('RecruitDocumentsModule/RESET_STATE')

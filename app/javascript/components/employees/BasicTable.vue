@@ -219,7 +219,7 @@ export default {
   },
   methods: {
     fetchEmployees(query) {
-      this.$store.dispatch('EmployeesModule/filterEmployees', query)
+      this.$store.dispatch('EmployeesModule/fetchEmployees', query)
     }
   }
 }
