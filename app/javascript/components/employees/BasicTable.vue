@@ -4,7 +4,7 @@
       :composerClass="composerClass"
       :headers="headers"
       :items="employees.models"
-      :footer-props="{ 'items-per-page-options': [25, 50, 100, -1] }"
+      :footer-props="{ 'items-per-page-options': [25, 50, 100] }"
       :server-items-length="totalCount"
       :loading="loading"
       @change:options="fetchEmployees"

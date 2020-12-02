@@ -5,7 +5,7 @@
       :headers="headers"
       :items="employees.models"
       :loading="fetchLoading"
-      :footer-props="{ 'items-per-page-options': [25, 50, 100, -1] }"
+      :footer-props="{ 'items-per-page-options': [25, 50, 100] }"
       @change:options="fetchArchivedEmployees"
     >
       <template #search="{ options, searchBy }">

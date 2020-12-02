@@ -3,13 +3,13 @@
 module V2
   module Shared
     class ServerSideTableQuery
-      def initialize(scope, params: {}, require_values: true)
+      def initialize(scope, params: {}, require_values: true, custom_columns: [])
         @scope = scope
 
         @query_params = OpenStruct.new(params)
         @require_values = require_values
 
-        @column_names = scope.klass.column_names
+        @column_names = scope.klass.column_names | custom_columns
       end
 
       def paginated_scope

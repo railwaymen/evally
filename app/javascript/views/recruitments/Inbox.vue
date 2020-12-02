@@ -6,13 +6,14 @@
 
     <v-layout row wrap>
       <v-flex xs12>
-        <v-data-table
+        <server-side-table
+          :composerClass="composerClass"
           :headers="headers"
           :items="inboundEmails.models"
-          :server-items-length="totalCount"
           :footer-props="{ 'items-per-page-options': [25, 50, 100] }"
+          :server-items-length="totalCount"
           :loading="loading"
-          @update:options="setQuery"
+          @change:options="fetchInboundEmails"
         >
           <template #item.parsed="{ item }">
             <v-icon v-if="item.parsed" color="success">mdi-check</v-icon>
@@ -22,7 +23,7 @@
           <template #item.created_at="{ item }">
             {{ item.createdAt }}
           </template>
-        </v-data-table>
+        </server-side-table>
       </v-flex>
     </v-layout>
   </div>
@@ -31,13 +32,16 @@
 <script>
 import { mapState } from 'vuex'
 
+import ServerSideTable from '@components/shared/ServerSideTable'
+
+import InboxTableComposer from '@utils/data_tables/inbox_table_composer'
+
 export default {
   name: 'InboxView',
-  props: {
-
-  },
+  components: { ServerSideTable },
   data() {
     return {
+      composerClass: InboxTableComposer,
       headers: [
         {
           text: this.$t('components.recruitments.table.cols.source'),
@@ -65,18 +69,8 @@ export default {
     }
   },
   methods: {
-    setQuery(data) {
-      const { sortBy, sortDesc } = data
-
-      this.$router.replace({
-        name: 'recruitments_inbox_path',
-        query: {
-          page: data.page,
-          per_page: data.itemsPerPage,
-          sort_by: sortBy[0] || 'created_at',
-          sort_dir: sortDesc[0] || !sortBy[0] ? 'desc' : 'asc'
-        }
-      })
+    fetchInboundEmails(query) {
+      this.$store.dispatch('RecruitmentsInboxModule/fetchData', query)
     }
   },
   computed: {
@@ -85,16 +79,6 @@ export default {
       'totalCount',
       'loading'
     ])
-  },
-  watch: {
-    $route: {
-      immediate: true,
-      handler(to) {
-        if (to.name === 'recruitments_inbox_path') {
-          this.$store.dispatch('RecruitmentsInboxModule/fetchData', to.query)
-        }
-      }
-    }
-  },
+  }
 }
 </script>
