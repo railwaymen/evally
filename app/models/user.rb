@@ -5,6 +5,16 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable, :rememberable
   devise :database_authenticatable, :recoverable, :validatable, :trackable, :invitable
 
+  include PgSearch::Model
+
+  pg_search_scope(
+    :search_text,
+    against: %i[first_name last_name email role],
+    using: {
+      tsearch: { prefix: true }
+    }
+  )
+
   has_one :setting, dependent: :destroy
 
   has_many :activities, dependent: :destroy

@@ -1,4 +1,5 @@
 import { Model, List } from './base'
+import { getURLParams } from '@utils/helpers'
 
 import moment from 'moment'
 
@@ -53,7 +54,7 @@ class User extends Model {
       profilePath: '/v2/profile',
       profilePasswordPath: '/v2/profile/password',
       sessionPath: '/v2/session',
-      usersPath: '/v2/users',
+      usersPath: query => `/v2/users?${getURLParams(query)}`,
       activeUsersPath: '/v2/users/active',
       userPath: id => `/v2/users/${id}`,
       invitationsPath: '/v2/invitations',

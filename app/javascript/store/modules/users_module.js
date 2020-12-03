@@ -8,6 +8,7 @@ import { User, UsersList } from '@models/user'
 const initState = () => ({
   users: new UsersList(),
   user: new User(),
+  totalCount: 0,
   loading: true
 })
 
@@ -29,18 +30,19 @@ const UsersModule = {
     SET_LOADING(state, status) {
       state.loading = status
     },
-    SET_USERS(state, users) {
+    SET_USERS(state, { users, total_count }) {
       state.users = new UsersList(users)
+      state.totalCount = total_count
       state.loading = false
     }
   },
 
   actions: {
-    fetchUsers({ commit }) {
+    fetchUsers({ commit }, query) {
       commit('SET_LOADING', true)
 
       coreApiClient
-        .get(User.routes.usersPath)
+        .get(User.routes.usersPath(query))
         .then(response => {
           commit('SET_USERS', response.data)
         })
