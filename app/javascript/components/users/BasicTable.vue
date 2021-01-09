@@ -62,27 +62,6 @@
         {{ item.invitation_status ? $t(`models.user.invitationStatuses.${item.invitation_status}`) : '---' }}
       </template>
     </server-side-table>
-    <!-- <v-layout row wrap>
-      <v-flex xs12 lg6>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          :label="$t('components.users.table.search')"
-          filled
-        />
-      </v-flex>
-
-      <v-flex xs12>
-        <v-data-table
-          :headers="headers"
-          :items="users.models"
-          :search="search"
-          :loading="loading"
-        >
-
-        </v-data-table>
-      </v-flex>
-    </v-layout> -->
   </div>
 </template>
 
