@@ -8,15 +8,13 @@ module V2
     before_action :authorize_collection!, only: %i[archived create update overview archive destroy]
 
     def index
-      presenter = V2::Employees::IndexPresenter.new(
-        employees_scope.by_group(params.dig(:group)).by_evaluator_id(params.dig(:evaluator_id))
-      )
+      presenter = V2::Employees::IndexPresenter.new(employees_scope.hired, params: table_params)
 
       render json: V2::Employees::IndexView.render(presenter), status: :ok
     end
 
     def archived
-      presenter = V2::Employees::IndexPresenter.new(employees_scope, state: :archived)
+      presenter = V2::Employees::IndexPresenter.new(employees_scope.archived, params: table_params)
 
       render json: V2::Employees::IndexView.render(presenter), status: :ok
     end
@@ -123,6 +121,10 @@ module V2
         :first_name, :last_name, :position, :group, :hired_on, :position_set_on, :archived_on,
         :last_evaluation_on, :next_evaluation_on, :evaluator_id, :signature, :state
       )
+    end
+
+    def table_params
+      params.permit(:page, :per_page, :sort_by, :sort_dir, :search, filters: %i[group evaluator_id])
     end
   end
 end

@@ -27,6 +27,9 @@ RSpec.describe V2::UsersController, type: :controller do
         get :index
 
         expect(response).to have_http_status 200
+        expect(json_response.keys).to contain_exactly(
+          'users', 'total_count'
+        )
       end
     end
   end

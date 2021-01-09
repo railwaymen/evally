@@ -21,6 +21,7 @@ const initState = () => ({
   evaluators: new UsersList(),
   positions: [],
   groups: [],
+  totalCount: 0,
   loading: 'fetch'
 })
 
@@ -44,6 +45,7 @@ const EmployeesModule = {
     CHANGE_EMPLOYEE_STATUS(state, employee) {
       state.employee = new Employee(employee)
       state.employees.dropById(employee.id)
+      state.totalCount -= 1
     },
     CLEAR_EMPLOYEE(state) {
       state.employee = new Employee()
@@ -61,6 +63,7 @@ const EmployeesModule = {
     REMOVE_EMPLOYEE(state, id) {
       state.employee = new Employee()
       state.employees.dropById(id)
+      state.totalCount -= 1
     },
     RESET_STATE(state) {
       Object.assign(state, initState())
@@ -73,10 +76,11 @@ const EmployeesModule = {
       state.evaluations = new EvaluationsList(evaluations)
       state.positionChanges = new PositionChangesList(position_changes)
     },
-    SET_EMPLOYEES(state, { employees, evaluators, groups }) {
+    SET_EMPLOYEES(state, { employees, evaluators, groups, total_count }) {
       state.employees = new EmployeesList(employees)
       state.evaluators = new UsersList(evaluators)
       state.groups = groups
+      state.totalCount = total_count
     },
     SET_EVALUATION(state, { evaluation, sections }) {
       state.evaluation = new Evaluation(evaluation)
@@ -90,11 +94,11 @@ const EmployeesModule = {
   },
 
   actions: {
-    fetchEmployees({ commit }) {
+    fetchEmployees({ commit }, query) {
       commit('SET_LOADING', 'fetch')
 
       coreApiClient
-        .get(Employee.routes.employeesPath)
+        .get(Employee.routes.employeesPath(query))
         .then(response => {
           commit('SET_EMPLOYEES', response.data)
         })
@@ -107,28 +111,11 @@ const EmployeesModule = {
         })
         .finally(() => commit('SET_LOADING', 'ok'))
     },
-    filterEmployees({ commit }, filters) {
+    fetchArchivedEmployees({ commit }, query) {
       commit('SET_LOADING', 'fetch')
 
       coreApiClient
-        .get(Employee.routes.employeesFilterPath(filters))
-        .then(response => {
-          commit('SET_EMPLOYEES', response.data)
-        })
-        .catch(error => {
-          commit(
-            'MessagesModule/PUSH_MESSAGE',
-            { error: i18n.t('messages.employees.index.error', { msg: fetchError(error) }) },
-            { root: true }
-          )
-        })
-        .finally(() => commit('SET_LOADING', 'ok'))
-    },
-    fetchArchivedEmployees({ commit }) {
-      commit('SET_LOADING', 'fetch')
-
-      coreApiClient
-        .get(Employee.routes.employeesArchivedPath)
+        .get(Employee.routes.employeesArchivedPath(query))
         .then(response => {
           commit('SET_EMPLOYEES', response.data)
         })

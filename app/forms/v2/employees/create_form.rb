@@ -11,7 +11,7 @@ module V2
         @employee = employee
         @user = user
 
-        @employee.assign_attributes(params)
+        @employee.assign_attributes(params.merge(position_set_on: params[:hired_on]))
       end
 
       def save

@@ -109,8 +109,7 @@ class RecruitDocument extends Model {
 
   static get routes() {
     return {
-      recruitDocumentsPath: '/v2/recruit_documents',
-      recruitDocumentsFilterPath: payload => `/v2/recruit_documents?${getURLParams(payload)}`,
+      recruitDocumentsPath: query => `/v2/recruit_documents?${getURLParams(query)}`,
       recruitDocumentsSearchPath: '/v2/recruit_documents/search',
       recruitDocumentsOverviewPath: '/v2/recruit_documents/overview',
       recruitDocumentPath: id => `/v2/recruit_documents/${id}`,

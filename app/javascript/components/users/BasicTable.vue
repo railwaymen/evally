@@ -1,65 +1,67 @@
 <template>
   <div class="box">
-    <v-layout row wrap>
-      <v-flex xs12 lg6>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          :label="$t('components.users.table.search')"
-          filled
-        />
-      </v-flex>
+    <server-side-table
+      :composerClass="composerClass"
+      :headers="headers"
+      :items="users.models"
+      :footer-props="{ 'items-per-page-options': [25, 50, 100] }"
+      :server-items-length="totalCount"
+      :loading="loading"
+      @change:options="fetchUsers"
+    >
+      <template #search="{ options, searchBy }">
+        <v-flex xs12 lg4>
+          <v-text-field
+            :value="options.search"
+            @input="searchBy"
+            append-icon="mdi-magnify"
+            :label="$t('components.users.table.search')"
+            solo
+          />
+        </v-flex>
+      </template>
 
-      <v-flex xs12>
-        <v-data-table
-          :headers="headers"
-          :items="users.models"
-          :search="search"
-          :loading="loading"
-        >
-          <template #item.action="{ item }">
-            <v-tooltip bottom>
-              <template #activator="{ on }">
-                <v-icon
-                  @click="$emit('edit', item.id)"
-                  v-on="on"
-                  class="mx-2"
-                  small
-                >
-                  mdi-pencil
-                </v-icon>
-              </template>
-
-              <span>{{ $t('shared.tooltips.edit') }}</span>
-            </v-tooltip>
+      <template #item.action="{ item }">
+        <v-tooltip bottom>
+          <template #activator="{ on }">
+            <v-icon
+              @click="$emit('edit', item.id)"
+              v-on="on"
+              class="mx-2"
+              small
+            >
+              mdi-pencil
+            </v-icon>
           </template>
 
-          <template #item.fullname="{ item }">
-            {{ item.fullname }}
+          <span>{{ $t('shared.tooltips.edit') }}</span>
+        </v-tooltip>
+      </template>
 
-            <span v-if="item.id === user.id">
-              ({{ $t('components.users.table.you') }})
-            </span>
-          </template>
+      <template #item.last_name="{ item }">
+        {{ item.fullname }}
 
-          <template #item.role="{ item }">
-            {{ $t(`models.user.roles.${item.role}`) }}
-          </template>
+        <span v-if="item.id === user.id">
+          ({{ $t('components.users.table.you') }})
+        </span>
+      </template>
 
-          <template #item.last_sign_in_at="{ item }">
-            {{ item.lastSignInAt }}
-          </template>
+      <template #item.role="{ item }">
+        {{ $t(`models.user.roles.${item.role}`) }}
+      </template>
 
-          <template #item.status="{ item }">
-            {{ $t(`models.user.statuses.${item.status}`) }}
-          </template>
+      <template #item.last_sign_in_at="{ item }">
+        {{ item.lastSignInAt }}
+      </template>
 
-          <template #item.invitation_status="{ item }">
-            {{ item.invitation_status ? $t(`models.user.invitationStatuses.${item.invitation_status}`) : '---' }}
-          </template>
-        </v-data-table>
-      </v-flex>
-    </v-layout>
+      <template #item.status="{ item }">
+        {{ $t(`models.user.statuses.${item.status}`) }}
+      </template>
+
+      <template #item.invitation_status="{ item }">
+        {{ item.invitation_status ? $t(`models.user.invitationStatuses.${item.invitation_status}`) : '---' }}
+      </template>
+    </server-side-table>
   </div>
 </template>
 
@@ -68,8 +70,13 @@ import { mapState } from 'vuex'
 
 import { UsersList } from '@models/user'
 
+import ServerSideTable from '@components/shared/ServerSideTable'
+
+import UsersTableComposer from '@utils/data_tables/users_table_composer'
+
 export default {
   name: 'BasicTable',
+  components: { ServerSideTable },
   props: {
     loading: {
       type: Boolean,
@@ -80,11 +87,16 @@ export default {
       type: UsersList,
       required: true,
       default: () => new UsersList()
+    },
+    totalCount: {
+      type: Number,
+      required: true,
+      default: 0
     }
   },
   data() {
     return {
-      search: '',
+      composerClass: UsersTableComposer,
       headers: [
         {
           sortable: false,
@@ -92,7 +104,7 @@ export default {
         },
         {
           text: this.$t('components.users.table.cols.name'),
-          value: 'fullname'
+          value: 'last_name'
         },
         {
           text: this.$t('components.users.table.cols.email'),
@@ -120,6 +132,11 @@ export default {
           align: 'center'
         }
       ]
+    }
+  },
+  methods: {
+    fetchUsers(query) {
+      this.$store.dispatch('UsersModule/fetchUsers', query)
     }
   },
   computed: {

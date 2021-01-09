@@ -22,6 +22,8 @@ gem 'jwt', '~> 2.2'
 gem 'faraday'
 gem 'redis-namespace', '~> 1.7'
 gem 'sidekiq', '~> 6.0.7'
+gem 'kaminari', '~> 1.2'
+gem 'pg_search', '~> 2.3.5'
 gem 'whenever', require: false
 
 group :development, :test do

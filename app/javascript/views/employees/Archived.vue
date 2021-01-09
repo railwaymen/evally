@@ -1,65 +1,65 @@
 <template>
   <div class="box">
-    <v-layout row wrap>
-      <v-flex xs12 lg4>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          :label="$t('components.employees.table.search')"
-          solo
-        />
-      </v-flex>
+    <server-side-table
+      :composerClass="composerClass"
+      :headers="headers"
+      :items="employees.models"
+      :loading="fetchLoading"
+      :footer-props="{ 'items-per-page-options': [25, 50, 100] }"
+      @change:options="fetchArchivedEmployees"
+    >
+      <template #search="{ options, searchBy }">
+        <v-flex xs12 lg4>
+          <v-text-field
+            :value="options.search"
+            @input="searchBy"
+            append-icon="mdi-magnify"
+            :label="$t('components.employees.table.search')"
+            solo
+          />
+        </v-flex>
+      </template>
 
-      <v-flex xs12>
-        <v-data-table
-          :headers="headers"
-          :items="employees.models"
-          :search="search"
-          :loading="fetchLoading"
-          :footer-props="{ 'items-per-page-options': [25, 50, 100, -1] }"
-        >
-          <template #item.action="{ item }">
-            <v-tooltip v-if="employeePolicy.canRestore" bottom>
-              <template #activator="{ on }">
-                <v-icon
-                  @click="openRestoreConfirm(item.id)"
-                  v-on="on"
-                  color="orange"
-                  class="mx-1"
-                  small
-                >
-                  mdi-restore
-                </v-icon>
-              </template>
-
-              <span>{{ $t('shared.tooltips.restore') }}</span>
-            </v-tooltip>
+      <template #item.action="{ item }">
+        <v-tooltip v-if="employeePolicy.canRestore" bottom>
+          <template #activator="{ on }">
+            <v-icon
+              @click="openRestoreConfirm(item.id)"
+              v-on="on"
+              color="orange"
+              class="mx-1"
+              small
+            >
+              mdi-restore
+            </v-icon>
           </template>
 
-          <template #item.last_name="{ item }">
-            <router-link :to="{ name: 'employee_path', params: { employeeId: item.id }}">
-              {{ item.fullname }}
-            </router-link>
-          </template>
+          <span>{{ $t('shared.tooltips.restore') }}</span>
+        </v-tooltip>
+      </template>
 
-          <template #item.hired_on="{ item }">
-            {{ item.hiredOn }}
-          </template>
+      <template #item.last_name="{ item }">
+        <router-link :to="{ name: 'employee_path', params: { employeeId: item.id }}">
+          {{ item.fullname }}
+        </router-link>
+      </template>
 
-          <template #item.archived_on="{ item }">
-            {{ item.archivedOn }}
-          </template>
+      <template #item.hired_on="{ item }">
+        {{ item.hiredOn }}
+      </template>
 
-          <template #item.last_evaluation_on="{ item }">
-            {{ item.lastEvaluationOn || '---' }}
-          </template>
+      <template #item.archived_on="{ item }">
+        {{ item.archivedOn }}
+      </template>
 
-          <template #item.signature="{ item }">
-            {{ item.signature || '---' }}
-          </template>
-        </v-data-table>
-      </v-flex>
-    </v-layout>
+      <template #item.last_evaluation_on="{ item }">
+        {{ item.lastEvaluationOn || '---' }}
+      </template>
+
+      <template #item.signature="{ item }">
+        {{ item.signature || '---' }}
+      </template>
+    </server-side-table>
   </div>
 </template>
 
@@ -68,12 +68,16 @@ import { mapGetters, mapState } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import RestoreConfirm from '@components/employees/RestoreConfirm'
+import ServerSideTable from '@components/shared/ServerSideTable'
+
+import EmployeesTableComposer from '@utils/data_tables/employees_table_composer'
 
 export default {
   name: 'EmployeesArchived',
+  components: { ServerSideTable },
   data() {
     return {
-      search: '',
+      composerClass: EmployeesTableComposer,
       headers: [
         {
           sortable: false,
@@ -112,6 +116,9 @@ export default {
     }
   },
   methods: {
+    fetchArchivedEmployees(query) {
+      this.$store.dispatch('EmployeesModule/fetchArchivedEmployees', query)
+    },
     openRestoreConfirm(id) {
       DialogsBus.$emit('openConfirmDialog', {
         innerComponent: RestoreConfirm,
@@ -129,9 +136,6 @@ export default {
       'employeePolicy',
       'fetchLoading'
     ])
-  },
-  created() {
-    this.$store.dispatch('EmployeesModule/fetchArchivedEmployees')
   }
 }
 </script>

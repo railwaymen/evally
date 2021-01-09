@@ -29,6 +29,7 @@ const initialState = () => ({
   statuses: [],
   positions: [],
   sources: [],
+  totalCount: 0,
   loading: 'fetch'
 })
 
@@ -77,6 +78,7 @@ const RecruitDocumentsModule = {
       state.recruitDocument = new RecruitDocument()
       state.attachments = new AttachmentsList()
       state.recruitDocuments.dropById(id)
+      state.totalCount -=1
     },
     SET_EVALUATION(state, { evaluation, sections }) {
       state.evaluation = new Evaluation(evaluation)
@@ -129,7 +131,8 @@ const RecruitDocumentsModule = {
         groups,
         statuses,
         positions,
-        evaluators
+        evaluators,
+        total_count
       } = data
 
       state.recruitDocuments = new RecruitDocumentsList(recruit_documents)
@@ -137,6 +140,7 @@ const RecruitDocumentsModule = {
       state.positions = positions
       state.statuses = statuses
       state.groups = groups
+      state.totalCount = total_count
     },
     SET_LOADING(state, status) {
       state.loading = status
@@ -154,28 +158,11 @@ const RecruitDocumentsModule = {
   },
 
   actions: {
-    fetchRecruitDocuments({ commit }) {
+    fetchRecruitDocuments({ commit }, query) {
       commit('SET_LOADING', 'fetch')
 
       recruitableApiClient
-        .get(RecruitDocument.routes.recruitDocumentsPath)
-        .then(response => {
-          commit('SET_RECRUIT_DOCUMENTS', response.data)
-        })
-        .catch(error => {
-          commit(
-            'MessagesModule/PUSH_MESSAGE',
-            { error: i18n.t('messages.recruitments.index.error', { msg: fetchError(error) }) },
-            { root: true }
-          )
-        })
-        .finally(() => commit('SET_LOADING', 'ok'))
-    },
-    filterRecruitDocuments({ commit }, filters) {
-      commit('SET_LOADING', 'fetch')
-
-      recruitableApiClient
-        .get(RecruitDocument.routes.recruitDocumentsFilterPath(filters))
+        .get(RecruitDocument.routes.recruitDocumentsPath(query))
         .then(response => {
           commit('SET_RECRUIT_DOCUMENTS', response.data)
         })

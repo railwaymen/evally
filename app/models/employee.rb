@@ -3,6 +3,16 @@
 class Employee < ApplicationRecord
   has_secure_token :public_token
 
+  include PgSearch::Model
+
+  pg_search_scope(
+    :search_text,
+    against: %i[first_name last_name position group signature],
+    using: {
+      tsearch: { prefix: true }
+    }
+  )
+
   # Associations
   #
   belongs_to :evaluator, class_name: 'User', optional: true
@@ -12,11 +22,6 @@ class Employee < ApplicationRecord
 
   has_one :latest_evaluation, -> { completed.order(completed_at: :desc) },
           as: :evaluable, class_name: 'Evaluation', inverse_of: :evaluable
-
-  # # Scopes
-  #
-  scope :by_group, proc { |val| where(group: val) if val.present? }
-  scope :by_evaluator_id, proc { |val| where(evaluator_id: val) if val.present? }
 
   # # Enums
   #
@@ -29,7 +34,7 @@ class Employee < ApplicationRecord
 
   # # Validation
   #
-  validates :first_name, :last_name, :position, :hired_on, :group, presence: true
+  validates :first_name, :last_name, :position, :hired_on, :position_set_on, :group, presence: true
 
   # # Methods
   #

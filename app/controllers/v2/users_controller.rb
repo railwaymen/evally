@@ -6,11 +6,13 @@ module V2
     before_action :authorize_collection!
 
     def index
-      render json: V2::Users::Serializer.render(users_scope), status: :ok
+      presenter = V2::Users::IndexPresenter.new(User.all, params: table_params)
+
+      render json: V2::Users::IndexView.render(presenter), status: :ok
     end
 
     def active
-      render json: V2::Users::Serializer.render(users_scope.active), status: :ok
+      render json: V2::Users::Serializer.render(User.active.order(first_name: :asc)), status: :ok
     end
 
     def update
@@ -23,10 +25,6 @@ module V2
 
     def authorize_collection!
       authorize [:v2, User]
-    end
-
-    def users_scope
-      User.order(status: :asc, first_name: :asc)
     end
 
     def user
@@ -42,6 +40,10 @@ module V2
 
     def update_params
       params.require(:user).permit(:first_name, :last_name, :role, :status)
+    end
+
+    def table_params
+      params.permit(:page, :per_page, :sort_by, :sort_dir, :search)
     end
   end
 end

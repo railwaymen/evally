@@ -3,7 +3,7 @@
 module V2
   module Employees
     class IndexView < Blueprinter::Base
-      fields :groups
+      fields :groups, :total_count
 
       association :employees, blueprint: V2::Employees::Serializer, default: []
 
