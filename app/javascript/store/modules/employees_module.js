@@ -198,7 +198,7 @@ const EmployeesModule = {
     createEmployee({ commit }, employee) {
       return new Promise(resolve => {
         coreApiClient
-          .post(Employee.routes.employeesPath, { employee })
+          .post(Employee.routes.employeesPath(), { employee })
           .then(response => {
             commit('ADD_EMPLOYEE', response.data)
 

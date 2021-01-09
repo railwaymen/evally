@@ -221,7 +221,7 @@ const RecruitDocumentsModule = {
 
       return (
         recruitableApiClient
-          .post(RecruitDocument.routes.recruitDocumentsPath, formData)
+          .post(RecruitDocument.routes.recruitDocumentsPath(), formData)
           .then(response => {
             commit('ADD_RECRUIT_DOCUMENT', response.data)
 
