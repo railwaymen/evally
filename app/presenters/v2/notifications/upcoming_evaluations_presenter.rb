@@ -42,7 +42,7 @@ module V2
       private
 
       def employees_scope
-        V2::EmployeePolicy::Scope.new(@user, Employee).resolve
+        V2::EmployeePolicy::Scope.new(@user, Employee).resolve.not_archived
       end
     end
   end

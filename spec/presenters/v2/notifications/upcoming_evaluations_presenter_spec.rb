@@ -51,6 +51,12 @@ RSpec.describe V2::Notifications::UpcomingEvaluationsPresenter do
           next_evaluation_on: nil
         )
 
+        FactoryBot.create(
+          :employee,
+          next_evaluation_on: 2.months.ago,
+          state: 'archived'
+        )
+
         presenter = described_class.new(admin)
 
         expect(presenter.scheduled_employees.ids).to contain_exactly(
