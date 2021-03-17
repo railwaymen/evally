@@ -7,7 +7,8 @@ exports[`RecruitmentsSidebar matches do snapshot 1`] = `
       <h3 class="vcard__fullname">
 
 
-        <span class="ml-2"><!----> <!----></span></h3>
+        <span class="ml-2"><!----> <!----></span>
+      </h3>
       <div class="vcard__socials"></div>
     </div>
     <div class="vcard__content">
