@@ -4,7 +4,7 @@
       :composerClass="composerClass"
       :headers="headers"
       :items="users.models"
-      :footer-props="{ 'items-per-page-options': [25, 50, 100] }"
+      :footer-props="{ 'items-per-page-options': [50, 100, 200] }"
       :server-items-length="totalCount"
       :loading="loading"
       @change:options="fetchUsers"
