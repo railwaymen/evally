@@ -1,0 +1,16 @@
+.autosave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  > * {
+    margin: 0 1rem;
+  }
+
+  &__info {
+    font-size: rem2dec(1.6rem);
+    position: relative;
+    top: -2px;
+  }
+}

@@ -30,7 +30,7 @@ const TemplatesModule = {
   mutations: {
     ADD_TEMPLATE(state, { template, sections }) {
       state.templates.unshift(template)
-      state.template.assign({ ...template, editable: false })
+      state.template.assign(template)
       state.sections = new SectionsList(sections)
     },
     CLEAR_TEMPLATE(state) {
@@ -149,14 +149,14 @@ const TemplatesModule = {
         }
       }
 
-      return new Promise(resolve => {
+      return new Promise((resolve, reject) => {
         coreApiClient
           .put(Template.routes.templatePath(template.id), params)
           .then(response => {
-            const { data } = response
+            const { data: { template, sections } } = response
 
-            commit('REFRESH_TEMPLATE', data.template)
-            commit('SET_TEMPLATE', data)
+            commit('REFRESH_TEMPLATE', template)
+            commit('SET_TEMPLATE', { template: { ...template, editable: true }, sections })
 
             commit(
               'MessagesModule/PUSH_MESSAGE',
@@ -164,7 +164,7 @@ const TemplatesModule = {
               { root: true }
             )
 
-            resolve(data)
+            resolve({ template, sections })
           })
           .catch(error => {
             commit(
@@ -172,6 +172,8 @@ const TemplatesModule = {
               { error: i18n.t('messages.templates.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
+
+            reject()
           })
       })
     },

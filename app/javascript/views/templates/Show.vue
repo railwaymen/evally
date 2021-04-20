@@ -1,5 +1,23 @@
 <template>
   <div class="box template">
+    <div class="template__autosave autosave mb-2">
+      <div class="autosave__control">
+        <v-switch
+          v-model="autosaving"
+          :label="$t('views.templates.show.autosave.status', { status: autosaving ? 'ON' : 'OFF' })"
+          inset
+        />
+      </div>
+
+      <div v-if="autosave.success" class="autosave__info green--text">
+        {{ $t('views.templates.show.autosave.success', { datetime: autosave.performedAt }) }}
+      </div>
+
+      <div v-if="autosave.failed" class="autosave__info red--text">
+        {{ $t('views.templates.show.autosave.failure', { datetime: autosave.performedAt }) }}
+      </div>
+    </div>
+
     <v-form ref="templateForm">
       <v-layout row wrap>
         <v-flex xs12 lg6>
@@ -74,14 +92,34 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 import SectionForm from '@components/templates/SectionForm'
 import SectionsComposer from '@components/templates/SectionsComposer'
 
+import { Autosave } from '@models/autosave'
+
 export default {
   name: 'Template',
   components: { SectionForm, SectionsComposer },
+  data() {
+    return {
+      autosaving: true,
+      autosave: new Autosave()
+    }
+  },
+  methods: {
+    ...mapActions('TemplatesModule', [
+      'updateTemplate'
+    ]),
+    save() {
+      if (!this.template.editable) return
+
+      this.updateTemplate()
+        .then(() => this.autosave.touch())
+        .catch(() => this.autosave.fail())
+    }
+  },
   computed: {
     ...mapState('TemplatesModule', [
       'destinations',
@@ -114,12 +152,21 @@ export default {
     }
   },
   watch: {
+    autosaving: {
+      immediate: true,
+      handler(val) {
+        val ? this.autosave.enable(this.save) : this.autosave.disable()
+      }
+    },
     $route: {
       immediate: true,
       handler(to) {
         this.$store.dispatch('TemplatesModule/fetchTemplate', to.params.id)
       }
     }
+  },
+  beforeDestroy() {
+    this.autosave.disable()
   }
 }
 </script>
