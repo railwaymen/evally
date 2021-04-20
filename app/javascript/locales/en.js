@@ -813,6 +813,11 @@ export default {
           position: 'Position',
           hiredOn: 'Hired Date',
           completedAt: 'Completion Date',
+        },
+        autosave: {
+          status: 'Autosave (every 3 min): {status}',
+          success: 'Last autosave success: {datetime}',
+          failure: 'Last autosave failure: {datetime}'
         }
       }
     },

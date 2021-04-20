@@ -811,6 +811,11 @@ export default {
           position: 'Stanowisko',
           hiredOn: 'Data zatrudnienia',
           completedAt: 'Data zakończenia',
+        },
+        autosave: {
+          status: 'Autozapis (co 3 min): {status}',
+          success: 'Ostatni poprawny autozapis: {datetime}',
+          failure: 'Ostatni błędny zapis: {datetime}'
         }
       }
     },

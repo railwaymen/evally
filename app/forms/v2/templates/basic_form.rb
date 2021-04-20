@@ -17,11 +17,7 @@ module V2
 
       def save
         validate_template!
-
-        ActiveRecord::Base.transaction do
-          create_activity!
-          @template.save!
-        end
+        @template.save!
       end
 
       private
@@ -30,18 +26,6 @@ module V2
         return if @template.valid?
 
         raise ErrorResponderService.new(:invalid_record, 422, @template.errors.full_messages)
-      end
-
-      def create_activity!
-        @user.activities.create!(
-          action: resolved_activity_action,
-          activable: @template,
-          activable_name: @template.name
-        )
-      end
-
-      def resolved_activity_action
-        @template.new_record? ? 'create' : 'update'
       end
     end
   end
