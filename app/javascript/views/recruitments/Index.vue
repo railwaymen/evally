@@ -7,6 +7,15 @@
 
       <div class="panel__nav">
         <v-btn
+          :to="{ name: 'recruitments_projects_path' }"
+          color="primary"
+          exact
+          text
+        >
+          {{ $t('views.recruitments.index.nav.recruitments') }}
+        </v-btn>
+
+        <v-btn
           :to="{ name: 'recruitments_path' }"
           color="primary"
           exact
@@ -46,6 +55,25 @@
       </div>
 
       <div class="panel__actions">
+        <v-tooltip
+          v-if="$route.name === 'recruitments_projects_path'"
+          key="addNewProject"
+          bottom
+        >
+          <template #activator="{ on }">
+            <v-btn
+              @click="openRecruitmentForm"
+              v-on="on"
+              color="green"
+              icon
+            >
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </template>
+
+          <span>{{ $t('shared.tooltips.newRecruitment') }}</span>
+        </v-tooltip>
+
         <v-tooltip
           v-if="$route.name === 'recruitments_path' && recruitDocumentPolicy.canCreate"
           key="addNew"
@@ -146,23 +174,23 @@
       </div>
     </div>
 
-      <div class="panel__content">
-        <v-container grid-list-lg fluid>
-          <basic-table
-            v-if="$route.name === 'recruitments_path'"
-            :recruitDocuments="recruitDocuments"
-            :recruitDocumentPolicy="recruitDocumentPolicy"
-            :groups="groups"
-            :statuses="statuses"
-            :evaluators="evaluators"
-            :totalCount="totalCount"
-            :loading="fetchLoading"
-            @delete="openDeleteConfirm"
-          />
+    <div class="panel__content">
+      <v-container grid-list-lg fluid>
+        <basic-table
+          v-if="$route.name === 'recruitments_path'"
+          :recruitDocuments="recruitDocuments"
+          :recruitDocumentPolicy="recruitDocumentPolicy"
+          :groups="groups"
+          :statuses="statuses"
+          :evaluators="evaluators"
+          :totalCount="totalCount"
+          :loading="fetchLoading"
+          @delete="openDeleteConfirm"
+        />
 
-          <router-view v-else :key="String($route.params.id)"/>
-        </v-container>
-      </div>
+        <router-view v-else :key="String($route.params.id)"/>
+      </v-container>
+    </div>
   </section>
 </template>
 
@@ -170,15 +198,20 @@
 import { mapState, mapGetters } from 'vuex'
 import { DialogsBus } from '@utils/dialogs_bus'
 
-import { RecruitDocument } from '@models/recruit_document'
-
 import BasicTable from '@components/recruitments/BasicTable'
+import RecruitmentForm from '@components/recruitments/RecruitmentForm'
 import DeleteConfirm from '@components/recruitments/DeleteConfirm'
 
 export default {
   name: 'RecruitmentsIndex',
   components: { BasicTable },
   methods: {
+    openRecruitmentForm() {
+      DialogsBus.$emit('openConfirmDialog', {
+        innerComponent: RecruitmentForm,
+        maxWidth: 800
+      })
+    },
     openDeleteConfirm(id) {
       DialogsBus.$emit('openConfirmDialog', {
         innerComponent: DeleteConfirm,

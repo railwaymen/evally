@@ -22,7 +22,10 @@ export default {
         to: 'To',
         cc: 'CC',
         bcc: 'BCC',
-        subject: 'Subject'
+        subject: 'Subject',
+        name: 'Name',
+        description: 'Description',
+        participants: 'Participants'
       }
     },
     buttons: {
@@ -30,6 +33,7 @@ export default {
       create: 'Create',
       update: 'Update',
       delete: 'Delete',
+      start: 'Start',
       complete: 'Complete',
       search: 'Search',
       reset: 'Reset',
@@ -67,7 +71,8 @@ export default {
       acceptCurrentProcessing: 'Accept Current Processing',
       acceptFutureProcessing: 'Accept Future Processing',
       sendEmail: 'Send Email',
-      backToProfile: 'Back To Profile'
+      backToProfile: 'Back To Profile',
+      newRecruitment: 'New Recruitment'
     },
     navbar: {
       dashboard: 'Dashboard',
@@ -411,6 +416,16 @@ export default {
         }
       },
       recruitmentForm: {
+        createTitle: 'New Recruitment',
+        updateTitle: 'Edit Recruitment',
+      },
+      recruitmentStatusConfirm: {
+        startTitle: 'Start Recruitment',
+        completeTitle: 'Complete Recruitment',
+        startBody: 'Are you sure you want to start the recruitment <strong>%{name}</strong>?',
+        completeBody: 'Are you sure you want to complete the recruitment <strong>%{name}</strong>?',
+      },
+      recruitDocumentForm: {
         createTitle: 'New Recruit Document',
         updateTitle: 'Edit Recruit Document',
         contact: 'Contact',
@@ -430,6 +445,10 @@ export default {
       deleteConfirm: {
         title: 'Delete Recruit Document',
         body: 'Are you sure you want to delete the recruit <strong>%{name}</strong>?'
+      },
+      deleteRecruitmentConfirm: {
+        title: 'Delete Recruitment',
+        body: 'Are you sure you want to delete the recruitment <strong>%{name}</strong>?'
       },
       recruitmentFilePreview: {
         label: 'Select Attached File'
@@ -685,6 +704,19 @@ export default {
       },
       inbox: {
         error: 'Inbox cannot be loaded: {msg}'
+      },
+      projects: {
+        index: {
+          error: 'Recruitments cannot be loaded: {msg}'
+        },
+        create: {
+          ok: 'Recruitment has been created',
+          error: 'Recruitment cannot be created: {msg}'
+        },
+        destroy: {
+          ok: 'Recruitment has been deleted',
+          error: 'Recruitment cannot be deleted: {msg}'
+        }
       }
     }
   },
@@ -825,6 +857,7 @@ export default {
       index: {
         title: 'Recruitments',
         nav: {
+          recruitments: 'Recruitments',
           list: 'List',
           search: 'Search',
           overview: 'Overview',

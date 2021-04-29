@@ -13,6 +13,7 @@ import MessagesModule from '@store/modules/messages_module'
 import NotificationsModule from '@store/modules/notifications_module'
 import RecruitDocumentsModule from '@store/modules/recruit_documents_module'
 import RecruitmentsInboxModule from '@store/modules/recruitments_inbox_module'
+import RecruitmentsModule from '@store/modules/recruitments_module'
 import RecruitmentsOverviewModule from '@store/modules/recruitments_overview_module'
 import RecruitsSearchModule from '@store/modules/recruits_search_module'
 import TemplatesModule from '@store/modules/templates_module'
@@ -34,6 +35,7 @@ export default new Vuex.Store({
     NotificationsModule,
     RecruitDocumentsModule,
     RecruitmentsInboxModule,
+    RecruitmentsModule,
     RecruitmentsOverviewModule,
     RecruitsSearchModule,
     TemplatesModule,

@@ -8,7 +8,7 @@ export class Model {
   }
 
   assign(attributes) {
-    return Object.assign(this, defaultsDeep({}, attributes, this));
+    return Object.assign(this, attributes);
   }
 
   get(attribute) {

@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap class="d-flex align-stretch">
     <v-flex xs12 lg6>
-      <recruitment-form
+      <recruit-document-form
         :groups="groups"
         :positions="positions"
         :statuses="statuses"
@@ -25,11 +25,11 @@ import { Attachment } from '@models/attachment'
 import { RecruitDocument } from '@models/recruit_document'
 
 import FilePreviewer from '@components/shared/FilePreviewer'
-import RecruitmentForm from '@components/recruitments/RecruitmentForm'
+import RecruitDocumentForm from '@components/recruitments/RecruitDocumentForm'
 
 export default {
   name: 'RecruitmentNew',
-  components: { FilePreviewer, RecruitmentForm },
+  components: { FilePreviewer, RecruitDocumentForm },
   data() {
     return {
       currentAttachment: new Attachment()
