@@ -25,7 +25,9 @@ export default {
         subject: 'Temat',
         name: 'Nazwa',
         description: 'Opis',
-        participants: 'Uczestnicy'
+        participants: 'Uczestnicy',
+        recruitment: 'Rekrutacja',
+        stage: 'Etap'
       }
     },
     buttons: {
@@ -47,7 +49,8 @@ export default {
       edit: 'Edycja',
       preview: 'Podgląd',
       cc: 'DW',
-      bcc: 'UDW'
+      bcc: 'UDW',
+      assign: 'Assign'
     },
     tooltips: {
       edit: 'Edytuj',
@@ -72,7 +75,8 @@ export default {
       acceptFutureProcessing: 'Zgoda na przyszłą rekrutację',
       sendEmail: 'Wyślij wiadomość email',
       backToProfile: 'Powrót do profilu',
-      newRecruitment: 'Nowa rekrutacja'
+      newRecruitment: 'Nowa rekrutacja',
+      newAssignment: 'Przypisz'
     },
     navbar: {
       dashboard: 'Kokpit',
@@ -413,6 +417,9 @@ export default {
           acceptCurrentProcessing: 'OR',
           acceptFutureProcessing: 'PR'
         }
+      },
+      assignmentForm: {
+        title: 'Przypisanie rekrutacji'
       },
       recruitmentForm: {
         createTitle: 'Nowa rekrutacja',

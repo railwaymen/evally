@@ -25,7 +25,9 @@ export default {
         subject: 'Subject',
         name: 'Name',
         description: 'Description',
-        participants: 'Participants'
+        participants: 'Participants',
+        recruitment: 'Recruitment',
+        stage: 'Stage'
       }
     },
     buttons: {
@@ -47,7 +49,8 @@ export default {
       edit: 'Edit',
       preview: 'Preview',
       cc: 'CC',
-      bcc: 'BCC'
+      bcc: 'BCC',
+      assign: 'Assign'
     },
     tooltips: {
       edit: 'Edit',
@@ -72,7 +75,8 @@ export default {
       acceptFutureProcessing: 'Accept Future Processing',
       sendEmail: 'Send Email',
       backToProfile: 'Back To Profile',
-      newRecruitment: 'New Recruitment'
+      newRecruitment: 'New Recruitment',
+      newAssignment: 'New Assignment'
     },
     navbar: {
       dashboard: 'Dashboard',
@@ -414,6 +418,9 @@ export default {
           acceptCurrentProcessing: 'CP',
           acceptFutureProcessing: 'FP'
         }
+      },
+      assignmentForm: {
+        title: 'Recruitment Assignment'
       },
       recruitmentForm: {
         createTitle: 'New Recruitment',

@@ -33,8 +33,12 @@ export class List {
     this.models = items.map(item => new (this.model)(item));
   }
 
+  get length() {
+    return this.models.length
+  }
+
   get isEmpty() {
-    return this.models.length === 0
+    return this.length === 0
   }
 
   findById(id) {

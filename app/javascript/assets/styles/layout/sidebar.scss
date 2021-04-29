@@ -9,6 +9,17 @@
     padding: rem2dec(.5rem);
   }
 
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: rem2dec(.8rem 0);
+  }
+
+  &__title {
+    font-size: rem2dec(1.6rem);
+  }
+
   &__actions  {
     text-align: right;
     bottom: rem2dec(.5rem);

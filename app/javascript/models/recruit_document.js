@@ -116,6 +116,7 @@ class RecruitDocument extends Model {
       formRecruitDocumentPath: '/v2/recruit_documents/form',
       recruitPath: publicRecruitId => `/v2/recruits/${publicRecruitId}`,
       mailerPath: recruitDocumentId => `/v2/recruit_documents/${recruitDocumentId}/mailer`,
+      assignPath: recruitDocumentId => `/v2/recruit_documents/${recruitDocumentId}/assign`,
       attachmentsPath: recruitDocumentId => `/v2/recruit_documents/${recruitDocumentId}/attachments`,
       attachmentPath: (recruitDocumentId, id) => `/v2/recruit_documents/${recruitDocumentId}/attachments/${id}`,
     }

@@ -11,6 +11,7 @@ import { AttachmentsList } from '@models/attachment'
 import { Comment, CommentsList } from '@models/comment'
 import { Evaluation, EvaluationsList } from '@models/evaluation'
 import { RecruitDocument, RecruitDocumentsList } from '@models/recruit_document'
+import { RecruitmentsList } from '@models/recruitment'
 import { SectionsList } from '@models/section'
 import { TemplatesList } from '@models/template'
 import { User, UsersList } from '@models/user'
@@ -18,6 +19,8 @@ import { User, UsersList } from '@models/user'
 const initialState = () => ({
   recruitDocuments: new RecruitDocumentsList(),
   recruitDocument: new RecruitDocument(),
+  currentRecruitments: new RecruitmentsList(),
+  ongoingRecruitments: new RecruitmentsList(),
   attachments: new AttachmentsList(),
   evaluators: new UsersList(),
   evaluations: new EvaluationsList(),
@@ -111,6 +114,8 @@ const RecruitDocumentsModule = {
     SET_RECRUIT_DOCUMENT(state, data) {
       const {
         recruit_document,
+        current_recruitments,
+        ongoing_recruitments,
         attachments,
         positions,
         statuses,
@@ -119,6 +124,8 @@ const RecruitDocumentsModule = {
       } = data
 
       state.recruitDocument = new RecruitDocument(recruit_document)
+      state.ongoingRecruitments = new RecruitmentsList(ongoing_recruitments)
+      state.currentRecruitments = new RecruitmentsList(current_recruitments)
       state.attachments = new AttachmentsList(attachments)
       state.positions = positions
       state.groups = groups
@@ -141,6 +148,9 @@ const RecruitDocumentsModule = {
       state.statuses = statuses
       state.groups = groups
       state.totalCount = total_count
+    },
+    SET_RECRUITMENTS(state, recruitments) {
+      state.currentRecruitments = new RecruitmentsList(recruitments)
     },
     SET_LOADING(state, status) {
       state.loading = status
@@ -280,6 +290,31 @@ const RecruitDocumentsModule = {
             commit(
               'MessagesModule/PUSH_MESSAGE',
               { error: i18n.t('messages.recruitments.update.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+
+          })
+      )
+    },
+    assignRecruitment({ state, commit }, recruitment) {
+      return (
+        recruitableApiClient
+          .post(RecruitDocument.routes.assignPath(state.recruitDocument.id), { recruitment })
+          .then(response => {
+            commit('SET_RECRUITMENTS', response.data)
+
+            commit(
+              'MessagesModule/PUSH_MESSAGE',
+              { success: i18n.t('messages.recruitments.assign.ok') },
+              { root: true }
+            )
+
+            return Promise.resolve(response.data)
+          })
+          .catch(error => {
+            commit(
+              'MessagesModule/PUSH_MESSAGE',
+              { error: i18n.t('messages.recruitments.assign.error', { msg: fetchError(error) }) },
               { root: true }
             )
 
