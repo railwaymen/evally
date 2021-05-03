@@ -5,7 +5,10 @@
       :key="recruitment.id"
       xs12
     >
-      <recruitment-row :recruitment="recruitment" />
+      <recruitment-row
+        :recruitment="recruitment"
+        :candidates-group="candidatesTree[recruitment.id]"
+      />
     </v-flex>
   </v-layout>
 </template>
@@ -21,6 +24,7 @@ export default {
   computed: {
     ...mapState('RecruitmentsModule', [
       'recruitments',
+      'candidatesTree',
       'loading'
     ])
   },

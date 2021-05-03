@@ -457,6 +457,10 @@ export default {
         title: 'Delete Recruitment',
         body: 'Are you sure you want to delete the recruitment <strong>%{name}</strong>?'
       },
+      deleteRecruitmentCandidateConfirm: {
+        title: 'Remove Candidate',
+        body: 'Are you sure you want to remove <strong>%{name}</strong> from the recruitment <strong>%{recruitmentName}</strong>?'
+      },
       recruitmentFilePreview: {
         label: 'Select Attached File'
       },

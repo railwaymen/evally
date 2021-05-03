@@ -66,10 +66,56 @@
       font-size: rem2dec(1.8rem);
       font-weight: normal;
       line-height: 120%;
-      padding: rem2dec(1.6rem 2rem);
+      padding: rem2dec(1.76rem 2rem);
       text-align: center;
       border-bottom: 1px solid $grey;
       position: relative;
+    }
+
+    .sortable-ghost {
+      border: 1px dashed $grey;
+    }
+  }
+
+  &-candidate {
+    margin: rem2dec(1rem);
+    border: 1px solid $grey;
+    border-radius: rem2dec(.5rem);
+    display: flex;
+    flex-direction: column;
+
+    &__body {
+      padding: rem2dec(1rem);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    &__footer {
+      padding: rem2dec(.5rem 1rem);
+      border-top: 1px solid $grey;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    &__info {
+      flex: 1 1 auto;
+    }
+
+    &__name {
+      font-size: rem2dec(1.4rem);
+      display: flex;
+      align-items: center;
+
+      & > a {
+        text-decoration: none;
+      }
+    }
+
+    &__details {
+      font-size: rem2dec(1.2rem);
+      color: $font-gray-dark;
     }
   }
 }

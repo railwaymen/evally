@@ -3,24 +3,24 @@
     <div class="recruitment-row">
       <header class="recruitment-row__header">
         <h3 class="recruitment-row__title">
-          {{ recruitment.name }}
+          {{ localRecruitment.name }}
           <span
             class="recruitment-row__date"
-            v-if="recruitment.isStarted"
+            v-if="localRecruitment.isStarted"
           >
-            (started on {{ recruitment.startedOn }})
+            (started on {{ localRecruitment.startedOn }})
           </span>
 
           <span
             class="recruitment-row__date"
-            v-if="recruitment.isCompleted"
+            v-if="localRecruitment.isCompleted"
           >
-            (completed on {{ recruitment.completedOn }})
+            (completed on {{ localRecruitment.completedOn }})
           </span>
 
           <span class="recruitment-row__participants">
             <v-tooltip
-              v-for="user in participants"
+              v-for="user in localRecruitment.participants"
               :key="user.id"
               bottom
             >
@@ -37,7 +37,7 @@
 
         <div class="recruitment-row__actions">
           <v-tooltip
-            v-if="recruitment.isDraft"
+            v-if="localRecruitment.isDraft"
             bottom
           >
             <template #activator="{ on }">
@@ -55,7 +55,7 @@
           </v-tooltip>
 
           <v-tooltip
-            v-if="recruitment.isStarted"
+            v-if="localRecruitment.isStarted"
             bottom
           >
             <template #activator="{ on }">
@@ -73,7 +73,7 @@
           </v-tooltip>
 
           <v-tooltip
-            v-if="!recruitment.isCompleted"
+            v-if="!localRecruitment.isCompleted"
             bottom
           >
             <template #activator="{ on }">
@@ -91,7 +91,7 @@
           </v-tooltip>
 
           <v-tooltip
-            v-if="!recruitment.isCompleted"
+            v-if="!localRecruitment.isCompleted"
             bottom
           >
             <template #activator="{ on }">
@@ -111,12 +111,12 @@
       </header>
 
       <div class="recruitment-row__description">
-        {{ recruitment.description }}
+        {{ localRecruitment.description }}
       </div>
 
       <div class="recruitment-stages">
         <div
-          v-for="stage in recruitment.stages"
+          v-for="(candidates, stage) in localRecruitment.groupedCandidates"
           :key="stage"
           class="recruitment-stage"
         >
@@ -124,16 +124,19 @@
             {{ stage }}
 
             <span class="recruitment-stage__actions">
-              <v-tooltip bottom>
+              <v-tooltip
+                v-if="candidates.length === 0"
+                bottom
+              >
                 <template #activator="{ on }">
                   <v-icon
-                    @click="dropRecruitmentStage({ recruitment, stage })"
+                    @click="dropRecruitmentStage({ recruitment: localRecruitment, stage })"
                     v-on="on"
                     class="mx-1"
                     color="red"
                     dense
                   >
-                    mdi-close
+                    mdi-delete-outline
                   </v-icon>
                 </template>
 
@@ -141,6 +144,26 @@
               </v-tooltip>
             </span>
           </div>
+
+          <draggable
+            class="recruitment-stage__content"
+            :list="candidates"
+            :group="localRecruitment.id"
+            :data-stage="stage"
+            handle=".drag-section-btn"
+            draggable=".drag-section"
+            animation="300"
+            @end="moveCandidate"
+          >
+            <recruitment-candidate
+              class="drag-section"
+              v-for="candidate in candidates"
+              :data-candidate_id="candidate.id"
+              :recruitment="recruitment"
+              :candidate="candidate"
+              :key="candidate.id"
+            />
+          </draggable>
         </div>
 
         <div class="recruitment-stage">
@@ -162,9 +185,12 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import Draggable from 'vuedraggable'
+
 import { DialogsBus } from '@utils/dialogs_bus'
 
 import RecruitmentForm from '@components/recruitments/RecruitmentForm'
+import RecruitmentCandidate from '@components/recruitments/RecruitmentCandidate'
 import DeleteRecruitmentConfirm from '@components/recruitments/DeleteRecruitmentConfirm'
 import RecruitmentStatusConfirm from '@components/recruitments/RecruitmentStatusConfirm'
 
@@ -172,10 +198,16 @@ import { Recruitment } from '@models/recruitment'
 
 export default {
   name: 'RecruitmentRow',
+  components: { Draggable, RecruitmentCandidate },
   props: {
     recruitment: {
       type: Recruitment,
       required: true
+    },
+    candidatesGroup: {
+      type: Object,
+      required: false,
+      default: () => ({})
     }
   },
   data() {
@@ -186,7 +218,8 @@ export default {
   methods: {
     ...mapActions('RecruitmentsModule', [
       'addRecruitmentStage',
-      'dropRecruitmentStage'
+      'dropRecruitmentStage',
+      'moveRecruitmentCandidate'
     ]),
     openRecruitmentForm() {
       DialogsBus.$emit('openFormsDialog', {
@@ -219,14 +252,28 @@ export default {
 
       this.addRecruitmentStage({ recruitment: this.recruitment, stage: this.newStage })
         .then(() => this.newStage = '')
+    },
+    moveCandidate(event) {
+      const payload = {
+        stage: event.to.dataset.stage,
+        position: event.newIndex + 1
+      }
+
+      this.moveRecruitmentCandidate({ candidateId: event.item.dataset.candidate_id, payload })
     }
   },
   computed: {
     ...mapState('RecruitmentsModule', [
       'users'
     ]),
-    participants() {
-      return this.users.models.filter(user => this.recruitment.user_tokens.includes(user.email_token))
+    localRecruitment() {
+      const newRecruitment = new Recruitment(this.recruitment)
+
+      newRecruitment
+        .setGroupedCandidates(this.candidatesGroup)
+        .setParticipants(this.users.models)
+
+      return newRecruitment
     }
   }
 }

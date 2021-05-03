@@ -40,6 +40,22 @@ class Recruitment extends Model {
     return this.status === 'completed'
   }
 
+  setParticipants(users) {
+    this.participants = users.filter(
+      user => this.user_tokens.includes(user.email_token)
+    )
+
+    return this
+  }
+
+  setGroupedCandidates(candidatesGroups) {
+    this.groupedCandidates = Object.fromEntries(
+      this.stages.map(stage => [stage, candidatesGroups[stage] || []])
+    )
+
+    return this
+  }
+
   static get routes() {
     return {
       recruitmentsPath: '/v2/recruitments',

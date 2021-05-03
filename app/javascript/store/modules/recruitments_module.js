@@ -4,10 +4,12 @@ import { fetchError } from '@utils/helpers'
 import i18n from '@locales/i18n'
 
 import { Recruitment, RecruitmentsList } from '@models/recruitment'
+import { RecruitmentCandidate } from '@models/recruitment_candidate'
 import { UsersList } from '@models/user'
 
 const initState = () => ({
   recruitments: new RecruitmentsList(),
+  candidatesTree: {},
   users: new UsersList(),
   loading: true
 })
@@ -26,13 +28,17 @@ const RecruitmentsModule = {
     SET_LOADING(state, status) {
       state.loading = status
     },
-    SET_DATA(state, { recruitments, users }) {
+    SET_DATA(state, { recruitments, users, candidates_tree }) {
       state.recruitments = new RecruitmentsList(recruitments)
+      state.candidatesTree = candidates_tree
       state.users = new UsersList(users)
       state.loading = false
     },
     REFRESH_RECRUITMENT(state, recruitment) {
       state.recruitments.refresh(recruitment)
+    },
+    REFRESH_RECRUITMENT_CANDIDATES(state, { recruitment, candidates }) {
+      state.candidatesTree[recruitment.id] = candidates
     },
     REMOVE_RECRUITMENT(state, id) {
       state.recruitments.dropById(id)
@@ -204,6 +210,78 @@ const RecruitmentsModule = {
           })
       })
     },
+    moveRecruitmentCandidate({ commit }, { candidateId, payload }) {
+      return new Promise(resolve => {
+        recruitableApiClient
+          .put(RecruitmentCandidate.routes.moveCandidatePath(candidateId), { candidate: payload })
+          .then(response => {
+            commit('REFRESH_RECRUITMENT_CANDIDATES', response.data)
+
+            commit(
+              'MessagesModule/PUSH_MESSAGE',
+              { success: i18n.t('messages.recruitments.candidates.move.ok') },
+              { root: true }
+            )
+
+            resolve(response.data)
+          })
+          .catch(error => {
+            commit(
+              'MessagesModule/PUSH_MESSAGE',
+              { error: i18n.t('messages.recruitments.candidates.move.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      })
+    },
+    updateRecruitmentCandidate({ commit }, { candidateId, payload }) {
+      return new Promise(resolve => {
+        recruitableApiClient
+          .put(RecruitmentCandidate.routes.candidatePath(candidateId), { candidate: payload })
+          .then(response => {
+            commit('REFRESH_RECRUITMENT_CANDIDATES', response.data)
+
+            commit(
+              'MessagesModule/PUSH_MESSAGE',
+              { success: i18n.t('messages.recruitments.candidates.update.ok') },
+              { root: true }
+            )
+
+            resolve(response.data)
+          })
+          .catch(error => {
+            commit(
+              'MessagesModule/PUSH_MESSAGE',
+              { error: i18n.t('messages.recruitments.candidates.update.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      })
+    },
+    removeRecruitmentCandidate({ commit }, candidate) {
+      return new Promise(resolve => {
+        recruitableApiClient
+          .delete(RecruitmentCandidate.routes.candidatePath(candidate.id))
+          .then(response => {
+            commit('REFRESH_RECRUITMENT_CANDIDATES', response.data)
+
+            commit(
+              'MessagesModule/PUSH_MESSAGE',
+              { success: i18n.t('messages.recruitments.candidates.delete.ok') },
+              { root: true }
+            )
+
+            resolve()
+          })
+          .catch(error => {
+            commit(
+              'MessagesModule/PUSH_MESSAGE',
+              { error: i18n.t('messages.recruitments.candidates.delete.error', { msg: fetchError(error) }) },
+              { root: true }
+            )
+          })
+      })
+    },
     removeRecruitment({ commit }, recruitment) {
       return new Promise(resolve => {
         recruitableApiClient
@@ -227,7 +305,7 @@ const RecruitmentsModule = {
             )
           })
       })
-    },
+    }
   }
 }
 
