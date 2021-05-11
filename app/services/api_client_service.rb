@@ -2,6 +2,8 @@
 
 # :nocov:
 class ApiClientService
+  delegate :get, to: :connection
+
   def initialize(user, base_url)
     @user = user
     @base_url = base_url

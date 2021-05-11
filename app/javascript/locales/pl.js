@@ -82,7 +82,7 @@ export default {
       dashboard: 'Kokpit',
       evaluations: 'Oceny',
       employees: 'Pracownicy',
-      recruitments: 'Rekrutacje',
+      candidates: 'Kandydaci',
       templates: 'Szablony',
       settings: 'Ustawienia',
       users: 'Użytkownicy',
@@ -852,7 +852,8 @@ export default {
     },
     recruitments: {
       index: {
-        title: 'Rekrutacje',
+        title: 'Kandydaci',
+        noRecruitments: 'Brek rekrutacji przypisanych do Ciebie',
         nav: {
           recruitments: 'Recrutacje',
           list: 'Lista',

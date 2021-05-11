@@ -16,6 +16,11 @@ RSpec.describe V2::RecruitsController, type: :controller do
       it 'responds with 403 error' do
         recruit = FactoryBot.create(:recruit)
 
+        stub_api_client_service(
+          method: :get,
+          response: OpenStruct.new(status: 403)
+        )
+
         sign_in evaluator
         get :show, params: { id: recruit.public_recruit_id }
 
@@ -29,6 +34,11 @@ RSpec.describe V2::RecruitsController, type: :controller do
 
         evaluation = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit)
         FactoryBot.create(:section, sectionable: evaluation)
+
+        stub_api_client_service(
+          method: :get,
+          response: OpenStruct.new(status: 204)
+        )
 
         sign_in admin
         get :show, params: { id: recruit.public_recruit_id }

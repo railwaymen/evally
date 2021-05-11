@@ -49,17 +49,42 @@
   }
 
   &-stage {
-    min-width: 25%;
+    min-width: 100%;
     min-height: rem2dec(12rem);
     border: 1px solid $grey;
     border-radius: rem2dec(.5rem);
+
+    @include respond(md) {
+      min-width: 50%;
+    };
+
+    @include respond(lg) {
+      min-width: 33%;
+    };
+
+    @include respond(xl) {
+      min-width: 25%;
+    };
 
     &:not(:last-of-type) {
       margin-right: rem2dec(1rem);
     }
 
     &:only-child {
-      width: 25%;
+      width: 100%;
+
+      @include respond(md) {
+        width: 50%;
+      };
+
+      @include respond(lg) {
+        width: 33%;
+      };
+
+      @include respond(xl) {
+        width: 25%;
+      };
+
     }
 
     &__title {
@@ -74,6 +99,14 @@
 
     .sortable-ghost {
       border: 1px dashed $grey;
+    }
+
+    &__content {
+      height: calc(100% - rem2dec(5.7rem));
+      max-height: calc(100vh - rem2dec(15rem));
+      overflow-y: auto;
+
+      @include scrollbar-styling();
     }
   }
 

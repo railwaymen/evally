@@ -60,7 +60,7 @@ const RecruitmentsModule = {
         .catch(error => {
           commit(
             'MessagesModule/PUSH_MESSAGE',
-            { error: i18n.t('messages.recruitments.projects.index.error', { msg: fetchError(error) }) },
+            { error: i18n.t('messages.recruitments.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })
@@ -75,7 +75,7 @@ const RecruitmentsModule = {
 
             commit(
               'MessagesModule/PUSH_MESSAGE',
-              { success: i18n.t('messages.recruitments.projects.create.ok') },
+              { success: i18n.t('messages.recruitments.create.ok') },
               { root: true }
             )
 
@@ -84,7 +84,7 @@ const RecruitmentsModule = {
           .catch(error => {
             commit(
               'MessagesModule/PUSH_MESSAGE',
-              { error: i18n.t('messages.recruitments.projects.create.error', { msg: fetchError(error) }) },
+              { error: i18n.t('messages.recruitments.create.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
@@ -99,7 +99,7 @@ const RecruitmentsModule = {
 
             commit(
               'MessagesModule/PUSH_MESSAGE',
-              { success: i18n.t('messages.recruitments.projects.start.ok') },
+              { success: i18n.t('messages.recruitments.start.ok') },
               { root: true }
             )
 
@@ -108,7 +108,7 @@ const RecruitmentsModule = {
           .catch(error => {
             commit(
               'MessagesModule/PUSH_MESSAGE',
-              { error: i18n.t('messages.recruitments.projects.start.error', { msg: fetchError(error) }) },
+              { error: i18n.t('messages.recruitments.start.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
@@ -123,7 +123,7 @@ const RecruitmentsModule = {
 
             commit(
               'MessagesModule/PUSH_MESSAGE',
-              { success: i18n.t('messages.recruitments.projects.complete.ok') },
+              { success: i18n.t('messages.recruitments.complete.ok') },
               { root: true }
             )
 
@@ -132,7 +132,7 @@ const RecruitmentsModule = {
           .catch(error => {
             commit(
               'MessagesModule/PUSH_MESSAGE',
-              { error: i18n.t('messages.recruitments.projects.complete.error', { msg: fetchError(error) }) },
+              { error: i18n.t('messages.recruitments.complete.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
@@ -147,7 +147,7 @@ const RecruitmentsModule = {
 
             commit(
               'MessagesModule/PUSH_MESSAGE',
-              { success: i18n.t('messages.recruitments.projects.update.ok') },
+              { success: i18n.t('messages.recruitments.update.ok') },
               { root: true }
             )
 
@@ -156,7 +156,7 @@ const RecruitmentsModule = {
           .catch(error => {
             commit(
               'MessagesModule/PUSH_MESSAGE',
-              { error: i18n.t('messages.recruitments.projects.update.error', { msg: fetchError(error) }) },
+              { error: i18n.t('messages.recruitments.update.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })
@@ -291,7 +291,7 @@ const RecruitmentsModule = {
 
             commit(
               'MessagesModule/PUSH_MESSAGE',
-              { success: i18n.t('messages.recruitments.projects.delete.ok') },
+              { success: i18n.t('messages.recruitments.delete.ok') },
               { root: true }
             )
 
@@ -300,7 +300,7 @@ const RecruitmentsModule = {
           .catch(error => {
             commit(
               'MessagesModule/PUSH_MESSAGE',
-              { error: i18n.t('messages.recruitments.projects.delete.error', { msg: fetchError(error) }) },
+              { error: i18n.t('messages.recruitments.delete.error', { msg: fetchError(error) }) },
               { root: true }
             )
           })

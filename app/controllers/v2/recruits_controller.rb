@@ -4,7 +4,7 @@ module V2
   class RecruitsController < ApplicationController
     before_action :authenticate_user!
 
-    before_action :authorize_member!, only: :show
+    before_action :authorize_member_remotely!, only: :show
 
     def show
       presenter = V2::Recruits::ShowPresenter.new(recruit, current_user)
@@ -28,8 +28,10 @@ module V2
 
     private
 
-    def authorize_member!
-      authorize [:v2, recruit]
+    def authorize_member_remotely!
+      return if V2::RecruitPolicyVerifier.authorized?(current_user, recruit: recruit)
+
+      raise Pundit::NotAuthorizedError
     end
 
     def recruits_scope

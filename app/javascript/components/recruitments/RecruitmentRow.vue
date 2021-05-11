@@ -35,7 +35,10 @@
           </span>
         </h3>
 
-        <div class="recruitment-row__actions">
+        <div
+          v-if="recruitmentPolicy.canManage"
+          class="recruitment-row__actions"
+        >
           <v-tooltip
             v-if="localRecruitment.isDraft"
             bottom
@@ -123,9 +126,12 @@
           <div class="recruitment-stage__title">
             {{ stage }}
 
-            <span class="recruitment-stage__actions">
+            <span
+              v-if="recruitmentPolicy.canManage"
+              class="recruitment-stage__actions"
+            >
               <v-tooltip
-                v-if="candidates.length === 0"
+                v-if="candidates.length === 0 && recruitmentPolicy.canEdit"
                 bottom
               >
                 <template #activator="{ on }">
@@ -154,11 +160,13 @@
             draggable=".drag-section"
             animation="300"
             @end="moveCandidate"
+            :disabled="recruitment.isCompleted"
           >
             <recruitment-candidate
               class="drag-section"
               v-for="candidate in candidates"
               :data-candidate_id="candidate.id"
+              :recruitment-policy="recruitmentPolicy"
               :recruitment="recruitment"
               :candidate="candidate"
               :key="candidate.id"
@@ -166,7 +174,10 @@
           </draggable>
         </div>
 
-        <div class="recruitment-stage">
+        <div
+          v-if="recruitmentPolicy.canEdit"
+          class="recruitment-stage"
+        >
           <form class="recruitment-stage__form" @submit.prevent="addStage">
             <v-text-field
               v-model="newStage"
@@ -193,6 +204,8 @@ import RecruitmentForm from '@components/recruitments/RecruitmentForm'
 import RecruitmentCandidate from '@components/recruitments/RecruitmentCandidate'
 import DeleteRecruitmentConfirm from '@components/recruitments/DeleteRecruitmentConfirm'
 import RecruitmentStatusConfirm from '@components/recruitments/RecruitmentStatusConfirm'
+
+import RecruitmentPolicy from '@policies/recruitment_policy'
 
 import { Recruitment } from '@models/recruitment'
 
@@ -263,6 +276,9 @@ export default {
     }
   },
   computed: {
+    ...mapState('AuthenticationModule', [
+      'user'
+    ]),
     ...mapState('RecruitmentsModule', [
       'users'
     ]),
@@ -274,6 +290,9 @@ export default {
         .setParticipants(this.users.models)
 
       return newRecruitment
+    },
+    recruitmentPolicy() {
+      return new RecruitmentPolicy(this.user, this.recruitment)
     }
   }
 }

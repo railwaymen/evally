@@ -25,7 +25,7 @@ class RecruitmentCandidate extends Model {
 
   get showPath() {
     return {
-      name: 'recruitment_path',
+      name: 'candidate_document_path',
       params: {
         publicRecruitId: this.public_recruit_id,
         id: this.recruit_document_id

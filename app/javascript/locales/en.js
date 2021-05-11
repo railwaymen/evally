@@ -82,7 +82,7 @@ export default {
       dashboard: 'Dashboard',
       evaluations: 'Evaluations',
       employees: 'Employees',
-      recruitments: 'Recruitments',
+      candidates: 'Candidates',
       templates: 'Templates',
       settings: 'Settings',
       users: 'Users',
@@ -686,50 +686,92 @@ export default {
     },
     recruitments: {
       index: {
-        error: 'Recruit documents cannot be loaded: {msg}'
+        error: 'Recruitments cannot be loaded: {msg}'
       },
       create: {
-        ok: 'Recruit document has been created',
-        error: 'Recruit document cannot be created: {msg}'
+        ok: 'Recruitment has been created',
+        error: 'Recruitment cannot be created: {msg}'
+      },
+      start: {
+        ok: 'Recruitment has been started',
+        error: 'Recruitment cannot be started: {msg}'
+      },
+      complete: {
+        ok: 'Recruitment has been completed',
+        error: 'Recruitment cannot be completed: {msg}'
       },
       update: {
-        ok: 'Recruit document has been updated',
-        error: 'Recruit document cannot be updated: {msg}'
+        ok: 'Recruitment has been updated',
+        error: 'Recruitment cannot be updated: {msg}'
       },
-      show: {
-        error: 'Recruit document cannot be loaded: {msg}',
-        positionError: 'Position cannot be blank',
-        groupError: 'Group cannot be blank'
+      addStage: {
+        ok: 'Recruitment stage has been added',
+        error: 'Recruitment stage cannot be added: {msg}'
       },
-      destroy: {
-        ok: 'Recruit document has been deleted',
-        error: 'Recruit document cannot be deleted: {msg}'
+      dropStage: {
+        ok: 'Recruitment stage has been removed',
+        error: 'Recruitment stage cannot be removed: {msg}'
       },
-      uploadAttachments: {
-        ok: 'Attachments has been uploaded',
-        error: 'Attachments cant be uploaded: {msg}'
+      delete: {
+        ok: 'Recruitment has been deleted',
+        error: 'Recruitment cannot be deleted: {msg}'
       },
-      destroyAttachment: {
-        ok: 'Attachment has been deleted',
-        error: 'Attachment cannot be deleted: {msg}'
+      candidates: {
+        move: {
+          ok: 'Candidate has been moved',
+          error: 'Candidate cannot be moved: {msg}'
+        },
+        update: {
+          ok: 'Candidate has been updated',
+          error: 'Candidate cannot be updated: {msg}'
+        },
+        delete: {
+          ok: 'Candidate has been removed from recruitment',
+          error: 'Candidate cannot be removed from recruitment: {msg}'
+        },
       },
-      inbox: {
-        error: 'Inbox cannot be loaded: {msg}'
-      },
-      projects: {
+      documents: {
         index: {
-          error: 'Recruitments cannot be loaded: {msg}'
+          error: 'Recruit documents cannot be loaded: {msg}'
+        },
+        show: {
+          error: 'Recruit document cannot be loaded: {msg}',
+          positionError: 'Position cannot be blank',
+          groupError: 'Group cannot be blank'
         },
         create: {
-          ok: 'Recruitment has been created',
-          error: 'Recruitment cannot be created: {msg}'
+          ok: 'Recruit document has been created',
+          error: 'Recruit document cannot be created: {msg}'
+        },
+        update: {
+          ok: 'Recruit document has been updated',
+          error: 'Recruit document cannot be updated: {msg}'
+        },
+        assign: {
+          ok: 'Candidate has been added to recruitment',
+          error: 'Candidate cannot be added to recruitment: {msg}'
         },
         destroy: {
-          ok: 'Recruitment has been deleted',
-          error: 'Recruitment cannot be deleted: {msg}'
+          ok: 'Recruit document has been deleted',
+          error: 'Recruit document cannot be deleted: {msg}'
+        }
+      },
+      attachments: {
+        upload: {
+          ok: 'Attachments has been uploaded',
+          error: 'Attachments cant be uploaded: {msg}'
+        },
+        delete: {
+          ok: 'Attachment has been deleted',
+          error: 'Attachment cannot be deleted: {msg}'
+        },
+      },
+      inbox: {
+        index: {
+          error: 'Inbox cannot be loaded: {msg}'
         }
       }
-    }
+    },
   },
   models: {
     employee: {
@@ -866,7 +908,8 @@ export default {
     },
     recruitments: {
       index: {
-        title: 'Recruitments',
+        title: 'Candidates',
+        noRecruitments: 'You do not participate in any recruitment yet',
         nav: {
           recruitments: 'Recruitments',
           list: 'List',

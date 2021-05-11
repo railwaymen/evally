@@ -1,6 +1,15 @@
 <template>
   <v-layout row wrap>
+    <v-flex v-if="recruitments.isEmpty && !loading" xs12>
+      <div class="box mb-4">
+        <h4 class="box__header">
+          {{ $t('views.recruitments.index.noRecruitments') }}
+        </h4>
+      </div>
+    </v-flex>
+
     <v-flex
+      v-else
       v-for="recruitment in recruitments.models"
       :key="recruitment.id"
       xs12

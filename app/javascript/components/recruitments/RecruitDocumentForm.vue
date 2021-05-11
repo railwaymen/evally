@@ -495,7 +495,7 @@ export default {
       })
         .then(data => {
           this.$router.push({
-            name: 'recruitment_path',
+            name: 'candidate_document_path',
             params: { publicRecruitId: data.public_recruit_id, id: data.id }
           })
         })

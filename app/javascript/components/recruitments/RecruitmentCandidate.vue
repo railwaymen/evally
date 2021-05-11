@@ -17,7 +17,10 @@
         </div>
       </div>
 
-      <div class="recruitment-candidate__drag">
+      <div
+        v-if="!recruitment.isCompleted"
+        class="recruitment-candidate__drag"
+      >
         <v-btn class="drag-section-btn" icon small>
           <v-icon>mdi-drag</v-icon>
         </v-btn>
@@ -43,6 +46,7 @@
         <v-rating
           :value="localCandidate.priority"
           @input="updatePriority"
+          :readonly="!recruitmentPolicy.canEdit"
           background-color="primary"
           color="primary"
           length="3"
@@ -51,7 +55,10 @@
         />
       </div>
 
-      <div class="recruitment-candidate__delete">
+      <div
+        v-if="recruitmentPolicy.canEdit"
+        class="recruitment-candidate__delete"
+      >
         <v-btn @click="openDeleteConfirm" icon x-small>
           <v-icon color="red">mdi-close</v-icon>
         </v-btn>
@@ -70,6 +77,8 @@ import { RecruitmentCandidate } from '@models/recruitment_candidate'
 
 import DeleteRecruitmentCandidateConfirm from '@components/recruitments/DeleteRecruitmentCandidateConfirm'
 
+import RecruitmentPolicy from '@policies/recruitment_policy'
+
 export default {
   name: 'RecruitmentCandidate',
   props: {
@@ -79,6 +88,10 @@ export default {
     },
     recruitment: {
       type: Recruitment,
+      required: true
+    },
+    recruitmentPolicy: {
+      type: RecruitmentPolicy,
       required: true
     }
   },

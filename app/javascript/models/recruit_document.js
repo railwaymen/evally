@@ -44,7 +44,7 @@ class RecruitDocument extends Model {
 
   get showPath() {
     return {
-      name: 'recruitment_path',
+      name: 'candidate_document_path',
       params: {
         publicRecruitId: this.public_recruit_id,
         id: this.id
@@ -54,7 +54,7 @@ class RecruitDocument extends Model {
 
   get editPath() {
     return {
-      name: 'edit_recruitment_path',
+      name: 'edit_candidate_document_path',
       params: {
         publicRecruitId: this.public_recruit_id,
         id: this.id
@@ -64,7 +64,7 @@ class RecruitDocument extends Model {
 
   get mailerPath() {
     return {
-      name: 'recruitment_mailer_path',
+      name: 'candidate_mailer_path',
       params: {
         publicRecruitId: this.public_recruit_id,
         id: this.id

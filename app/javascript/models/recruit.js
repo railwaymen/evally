@@ -32,7 +32,7 @@ class Recruit extends Model {
 
   get recruitDocumentPath() {
     return {
-      name: 'recruitment_path',
+      name: 'candidate_document_path',
       params: {
         publicRecruitId: this.public_recruit_id,
         id: this.id
