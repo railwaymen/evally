@@ -151,10 +151,9 @@
               :items="evaluators.models"
               :value="localRecruitDocument.evaluator_token"
               @input="assignEvaluator"
-              :disabled="!recruitDocumentPolicy.canEdit"
-              :clearable="recruitDocumentPolicy.canEdit"
               item-value="email_token"
               item-text="fullname"
+              clearable
               filled
               dense
             />

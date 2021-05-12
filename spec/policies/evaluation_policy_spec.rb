@@ -26,28 +26,5 @@ RSpec.describe V2::EvaluationPolicy, type: :policy do
         expect(scope.ids).to contain_exactly(evaluation2.id)
       end
     end
-
-    it 'returns correct scope for recruits' do
-      admin = FactoryBot.create(:user, role: 'admin')
-      evaluator = FactoryBot.create(:user, role: 'evaluator')
-
-      recruit1 = FactoryBot.create(:recruit)
-      recruit2 = FactoryBot.create(:recruit, evaluator: evaluator)
-
-      evaluation1 = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit1)
-      evaluation2 = FactoryBot.create(:evaluation_draft_recruit, evaluable: recruit2)
-
-      aggregate_failures 'for admin' do
-        scope = V2::EvaluationPolicy::RecruitableScope.new(admin, Evaluation).resolve
-
-        expect(scope.ids).to contain_exactly(evaluation1.id, evaluation2.id)
-      end
-
-      aggregate_failures 'for evaluator' do
-        scope = V2::EvaluationPolicy::RecruitableScope.new(evaluator, Evaluation).resolve
-
-        expect(scope.ids).to contain_exactly(evaluation2.id)
-      end
-    end
   end
 end

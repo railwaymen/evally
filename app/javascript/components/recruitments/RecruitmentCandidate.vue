@@ -46,7 +46,6 @@
         <v-rating
           :value="localCandidate.priority"
           @input="updatePriority"
-          :readonly="!recruitmentPolicy.canEdit"
           background-color="primary"
           color="primary"
           length="3"
