@@ -76,7 +76,10 @@ export default {
       sendEmail: 'Wyślij wiadomość email',
       backToProfile: 'Powrót do profilu',
       newRecruitment: 'Nowa rekrutacja',
-      newAssignment: 'Przypisz'
+      newAssignment: 'Przypisz',
+      start: 'Rozpocznij',
+      complete: 'Zakończ',
+      removeStage: 'Usuń etap'
     },
     navbar: {
       dashboard: 'Kokpit',
@@ -478,6 +481,16 @@ export default {
       deleteCommentConfirm: {
         title: 'Usuń komentarz',
         body: 'Czy na pewno chcesz usunąć ten komentarz?'
+      },
+      recruitmentRow: {
+        startedOn: 'rozpoczęta w dniu {date}',
+        completedOn: 'zakończona w dniu {date}',
+        addStage: 'Dodaj etap'
+      },
+      assignmentSidebar: {
+        title: 'Rekrutacje ({n})',
+        notStarted: 'szkic',
+        startedOn: 'rozpoczęta w dniu {date}'
       },
       sidebar: {
         cp: 'OP',

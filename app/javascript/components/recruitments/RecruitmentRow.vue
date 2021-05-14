@@ -8,14 +8,14 @@
             class="recruitment-row__date"
             v-if="localRecruitment.isStarted"
           >
-            (started on {{ localRecruitment.startedOn }})
+            {{ $t('components.recruitments.recruitmentRow.startedOn', { date: localRecruitment.startedOn }) }}
           </span>
 
           <span
             class="recruitment-row__date"
             v-if="localRecruitment.isCompleted"
           >
-            (completed on {{ localRecruitment.completedOn }})
+            {{ $t('components.recruitments.recruitmentRow.completedOn', { date: localRecruitment.completedOn }) }}
           </span>
 
           <span class="recruitment-row__participants">
@@ -54,7 +54,7 @@
               </v-icon>
             </template>
 
-            <span>Start</span>
+            <span>{{ $t('shared.tooltips.start') }}</span>
           </v-tooltip>
 
           <v-tooltip
@@ -72,7 +72,7 @@
               </v-icon>
             </template>
 
-            <span>Complete</span>
+            <span>{{ $t('shared.tooltips.complete') }}</span>
           </v-tooltip>
 
           <v-tooltip
@@ -90,7 +90,7 @@
               </v-icon>
             </template>
 
-            <span>Edit</span>
+            <span>{{ $t('shared.tooltips.edit') }}</span>
           </v-tooltip>
 
           <v-tooltip
@@ -108,7 +108,7 @@
               </v-icon>
             </template>
 
-            <span>Delete</span>
+            <span>{{ $t('shared.tooltips.delete') }}</span>
           </v-tooltip>
         </div>
       </header>
@@ -146,7 +146,7 @@
                   </v-icon>
                 </template>
 
-                <span>Remove stage</span>
+                <span>{{ $t('shared.tooltips.removeStage') }}</span>
               </v-tooltip>
             </span>
           </div>
@@ -181,7 +181,7 @@
           <form class="recruitment-stage__form" @submit.prevent="addStage">
             <v-text-field
               v-model="newStage"
-              label="Add stage"
+              :label="$t('components.recruitments.recruitmentRow.addStage')"
               prepend-inner-icon="mdi-folder-plus-outline"
               append-icon="mdi-plus"
               filled

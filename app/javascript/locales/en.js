@@ -76,7 +76,10 @@ export default {
       sendEmail: 'Send Email',
       backToProfile: 'Back To Profile',
       newRecruitment: 'New Recruitment',
-      newAssignment: 'New Assignment'
+      newAssignment: 'New Assignment',
+      start: 'Start',
+      complete: 'Complete',
+      removeStage: 'Remove Stage'
     },
     navbar: {
       dashboard: 'Dashboard',
@@ -479,6 +482,16 @@ export default {
       deleteCommentConfirm: {
         title: 'Delete Comment',
         body: 'Are you sure you want to delete this comment?'
+      },
+      recruitmentRow: {
+        startedOn: 'started on {date}',
+        completedOn: 'completed on {date}',
+        addStage: 'Add Stage'
+      },
+      assignmentSidebar: {
+        title: 'Recruitments ({n})',
+        notStarted: 'not started yet',
+        startedOn: 'started on {date}'
       },
       sidebar: {
         cp: 'CP',

@@ -6,7 +6,9 @@
 
     <div v-else class="sidebar__section">
       <div class="sidebar__header">
-        <h3 class="sidebar__title">Recruitments ({{ recruitments.length }})</h3>
+        <h3 class="sidebar__title">
+          {{ $t('components.recruitments.assignmentSidebar.title', { n: recruitments.length }) }}
+        </h3>
 
         <div class="sidebar__actions">
           <v-tooltip bottom key="add">
@@ -33,10 +35,15 @@
           two-line
         >
           <v-list-item-content>
-            <v-list-item-title>{{ recruitment.name }} (call)</v-list-item-title>
+            <v-list-item-title>{{ recruitment.name }}</v-list-item-title>
 
-            <v-list-item-subtitle v-if="recruitment.isDraft">not started yet</v-list-item-subtitle>
-            <v-list-item-subtitle v-else>started on {{ recruitment.startedOn }}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="recruitment.isDraft">
+              {{ $t('components.recruitments.assignmentSidebar.notStarted') }}
+            </v-list-item-subtitle>
+
+            <v-list-item-subtitle v-else>
+              {{ $t('components.recruitments.assignmentSidebar.startedOn', { date: recruitment.startedOn }) }}
+            </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </v-list>
