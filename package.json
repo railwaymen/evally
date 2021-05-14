@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@kazupon/vue-i18n-loader": "^0.3.0",
-    "@mdi/font": "^5.0.45",
+    "@mdi/font": "^5.9.55",
     "@rails/webpacker": "^4.2.2",
     "axios": "^0.21.1",
     "chart.js": "^2.9.3",

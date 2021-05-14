@@ -1,0 +1,154 @@
+.recruitment {
+  &-row {
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    &__title {
+      font-size: rem2dec(2.4rem);
+      font-weight: normal;
+      line-height: 120%;
+      margin-bottom: rem2dec(2rem);
+    }
+
+    &__date {
+      font-size: rem2dec(1.8rem);
+      color: $font-gray-light;
+    }
+
+    &__description {
+      font-size: rem2dec(1.4rem);
+      color: $font-gray-dark;
+    }
+
+    &__participants {
+      & > * {
+        margin-right: rem2dec(.5rem)
+      }
+    }
+  }
+
+  &-participant {
+    font-size: rem2dec(1rem);
+    font-weight: bold;
+    color: $white;
+  }
+
+  &-stages {
+    width: 100%;
+    padding: rem2dec(1.6rem 0 1rem);
+    overflow-x: auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex: 1 0 auto;
+
+    @include scrollbar-styling();
+  }
+
+  &-stage {
+    min-width: 100%;
+    min-height: rem2dec(12rem);
+    border: 1px solid $grey;
+    border-radius: rem2dec(.5rem);
+
+    @include respond(md) {
+      min-width: 50%;
+    };
+
+    @include respond(lg) {
+      min-width: 33%;
+    };
+
+    @include respond(xl) {
+      min-width: 25%;
+    };
+
+    &:not(:last-of-type) {
+      margin-right: rem2dec(1rem);
+    }
+
+    &:only-child {
+      width: 100%;
+
+      @include respond(md) {
+        width: 50%;
+      };
+
+      @include respond(lg) {
+        width: 33%;
+      };
+
+      @include respond(xl) {
+        width: 25%;
+      };
+
+    }
+
+    &__title {
+      font-size: rem2dec(1.8rem);
+      font-weight: normal;
+      line-height: 120%;
+      padding: rem2dec(1.76rem 2rem);
+      text-align: center;
+      border-bottom: 1px solid $grey;
+      position: relative;
+    }
+
+    .sortable-ghost {
+      border: 1px dashed $grey;
+    }
+
+    &__content {
+      height: calc(100% - rem2dec(5.7rem));
+      max-height: calc(100vh - rem2dec(15rem));
+      overflow-y: auto;
+
+      @include scrollbar-styling();
+    }
+  }
+
+  &-candidate {
+    margin: rem2dec(1rem);
+    border: 1px solid $grey;
+    border-radius: rem2dec(.5rem);
+    display: flex;
+    flex-direction: column;
+
+    &__body {
+      padding: rem2dec(1rem);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    &__footer {
+      padding: rem2dec(.5rem 1rem);
+      border-top: 1px solid $grey;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    &__info {
+      flex: 1 1 auto;
+    }
+
+    &__name {
+      font-size: rem2dec(1.4rem);
+      display: flex;
+      align-items: center;
+
+      & > a {
+        text-decoration: none;
+      }
+    }
+
+    &__details {
+      font-size: rem2dec(1.2rem);
+      color: $font-gray-dark;
+    }
+  }
+}

@@ -5,7 +5,7 @@
 				<v-progress-circular :size="30" :width="3" color="primary" indeterminate />
 			</div>
 
-      <recruitment-form
+      <recruit-document-form
         v-else
         :key="recruitDocument.id"
         :recruitDocument="recruitDocument"
@@ -36,11 +36,11 @@ import { Attachment } from '@models/attachment'
 import { RecruitDocument } from '@models/recruit_document'
 
 import FilePreviewer from '@components/shared/FilePreviewer'
-import RecruitmentForm from '@components/recruitments/RecruitmentForm'
+import RecruitDocumentForm from '@components/recruitments/RecruitDocumentForm'
 
 export default {
   name: 'RecruitmentEdit',
-  components: { FilePreviewer, RecruitmentForm },
+  components: { FilePreviewer, RecruitDocumentForm },
   data() {
     return {
       localAttachment: null

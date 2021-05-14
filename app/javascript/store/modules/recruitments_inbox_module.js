@@ -43,7 +43,7 @@ const RecruitmentsInboxModule = {
         .catch((error) => {
           commit(
             'MessagesModule/PUSH_MESSAGE',
-            { error: i18n.t('messages.recruitments.inbox.error', { msg: fetchError(error) }) },
+            { error: i18n.t('messages.recruitments.inbox.index.error', { msg: fetchError(error) }) },
             { root: true }
           )
         })

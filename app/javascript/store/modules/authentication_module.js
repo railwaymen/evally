@@ -52,6 +52,7 @@ const AuthenticationModule = {
         'EvaluationEmployables',
         'Notifications',
         'RecruitDocuments',
+        'Recruitments',
         'RecruitmentsInbox',
         'RecruitmentsOverview',
         'RecruitsSearch',

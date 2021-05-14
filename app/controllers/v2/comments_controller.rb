@@ -33,10 +33,6 @@ module V2
       authorize [:v2, comment]
     end
 
-    def recruits_scope
-      V2::RecruitPolicy::Scope.new(current_user, Recruit).resolve
-    end
-
     def comment
       @comment ||= recruit.comments.find_by(id: params[:id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @comment
@@ -45,7 +41,7 @@ module V2
     end
 
     def recruit
-      @recruit ||= recruits_scope.find_by(public_recruit_id: params[:recruit_id])
+      @recruit ||= Recruit.find_by(public_recruit_id: params[:recruit_id])
       raise ErrorResponderService.new(:record_not_found, 404) unless @recruit
 
       @recruit

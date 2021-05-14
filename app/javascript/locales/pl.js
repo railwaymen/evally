@@ -22,7 +22,12 @@ export default {
         to: 'Odbiorca',
         cc: 'DW',
         bcc: 'UDW',
-        subject: 'Temat'
+        subject: 'Temat',
+        name: 'Nazwa',
+        description: 'Opis',
+        participants: 'Uczestnicy',
+        recruitment: 'Rekrutacja',
+        stage: 'Etap'
       }
     },
     buttons: {
@@ -30,6 +35,7 @@ export default {
       create: 'Utwórz',
       update: 'Aktualizuj',
       delete: 'Usuń',
+      start: 'Rozpocznij',
       complete: 'Zakończ',
       search: 'Szukaj',
       reset: 'Resetuj',
@@ -43,7 +49,8 @@ export default {
       edit: 'Edycja',
       preview: 'Podgląd',
       cc: 'DW',
-      bcc: 'UDW'
+      bcc: 'UDW',
+      assign: 'Assign'
     },
     tooltips: {
       edit: 'Edytuj',
@@ -67,13 +74,17 @@ export default {
       acceptCurrentProcessing: 'Zgoda na obecną rekrutację',
       acceptFutureProcessing: 'Zgoda na przyszłą rekrutację',
       sendEmail: 'Wyślij wiadomość email',
-      backToProfile: 'Powrót do profilu'
+      backToProfile: 'Powrót do profilu',
+      newRecruitment: 'Nowa rekrutacja',
+      newAssignment: 'Przypisz',
+      start: 'Rozpocznij',
+      removeStage: 'Usuń etap'
     },
     navbar: {
       dashboard: 'Kokpit',
       evaluations: 'Oceny',
       employees: 'Pracownicy',
-      recruitments: 'Rekrutacje',
+      candidates: 'Kandydaci',
       templates: 'Szablony',
       settings: 'Ustawienia',
       users: 'Użytkownicy',
@@ -409,8 +420,22 @@ export default {
           acceptFutureProcessing: 'PR'
         }
       },
+      assignmentForm: {
+        title: 'Przypisanie rekrutacji'
+      },
       recruitmentForm: {
+        createTitle: 'Nowa rekrutacja',
+        updateTitle: 'Edytuj rekrutację',
+      },
+      recruitmentStatusConfirm: {
+        startTitle: 'Rozpocznij rekrutację',
+        completeTitle: 'Zakończ rekrutację',
+        startBody: 'Czy na pewno chcesz rozpocząć rekrutację?',
+        completeBody: 'Czy na pewno chcesz zakończyć rekrutację?'
+      },
+      recruitDocumentForm: {
         createTitle: 'Nowe zgłoszenie rekrutacyjne',
+        updateTitle: 'Edytuj zgłoszenie rekrutacyjne',
         contact: 'Kontakt',
         general: 'Ogólne',
         applicationDetails: 'Szczegóły zgłoszenia',
@@ -428,6 +453,14 @@ export default {
       deleteConfirm: {
         title: 'Usuń zgłoszenie rekrutacyjne',
         body: 'Czy na pewno chcesz usunąć zgłoszenie od <strong>%{name}</strong>?'
+      },
+      deleteRecruitmentConfirm: {
+        title: 'Usuń rekrutację',
+        body: 'Czy na pewno chcesz usunąć rekrutację <strong>%{name}</strong>?'
+      },
+      deleteRecruitmentCandidateConfirm: {
+        title: 'Usuń kandydata',
+        body: 'Czy na pewno chcesz usunąć <strong>%{name}</strong> z rekrutacji <strong>%{recruitmentName}</strong>?'
       },
       recruitmentFilePreview: {
         label: 'Wybierz załączony plik'
@@ -447,6 +480,16 @@ export default {
       deleteCommentConfirm: {
         title: 'Usuń komentarz',
         body: 'Czy na pewno chcesz usunąć ten komentarz?'
+      },
+      recruitmentRow: {
+        startedOn: 'rozpoczęta w dniu {date}',
+        completedOn: 'zakończona w dniu {date}',
+        addStage: 'Dodaj etap'
+      },
+      assignmentSidebar: {
+        title: 'Rekrutacje ({n})',
+        notStarted: 'szkic',
+        startedOn: 'rozpoczęta w dniu {date}'
       },
       sidebar: {
         cp: 'OP',
@@ -821,8 +864,10 @@ export default {
     },
     recruitments: {
       index: {
-        title: 'Rekrutacje',
+        title: 'Kandydaci',
+        noRecruitments: 'Brek rekrutacji do wyświetlenia',
         nav: {
+          recruitments: 'Recrutacje',
           list: 'Lista',
           search: 'Wyszukaj',
           overview: 'Przegląd',

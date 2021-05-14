@@ -20,7 +20,7 @@ RSpec.describe V2::RecruitPolicy, type: :policy do
       aggregate_failures 'for evaluator' do
         scope = V2::RecruitPolicy::Scope.new(evaluator, Recruit).resolve
 
-        expect(scope.ids).to contain_exactly(recruit2.id)
+        expect(scope.ids).to be_empty
       end
     end
   end

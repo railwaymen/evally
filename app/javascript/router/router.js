@@ -77,50 +77,92 @@ export default new Router({
           component: () => import(/* webpackChunkName: 'notifications' */ '@views/notifications/Index'),
         },
         {
-          path: 'recruitments',
-          name: 'recruitments_path',
-          component: () => import(/* webpackChunkName: 'recruitments' */ '@views/recruitments/Index'),
+          path: 'candidates',
+          name: 'candidates_path',
+          component: () => import(/* webpackChunkName: 'candiates_list' */ '@views/recruitments/Index'),
           children: [
             {
-              path: 'inbox',
-              name: 'recruitments_inbox_path',
-              component: () => import(/* webpackChunkName: 'recruitments_inbox' */ '@views/recruitments/Inbox'),
+              path: 'recruitments',
+              name: 'candidates_recruitments_path',
+              component: () => import(/* webpackChunkName: 'candidates_recruitments' */ '@views/recruitments/Recruitments'),
             },
             {
               path: 'search',
-              name: 'recruitments_search_path',
-              component: () => import(/* webpackChunkName: 'recruitments_search' */ '@views/recruitments/Search'),
-            },
-            {
-              path: 'overview',
-              name: 'recruitments_overview_path',
-              component: () => import(/* webpackChunkName: 'recruitments_overview' */ '@views/recruitments/Overview'),
+              name: 'candidates_search_path',
+              component: () => import(/* webpackChunkName: 'candidates_search' */ '@views/recruitments/Search'),
               beforeEnter: recruiterAuthorizedGuard
             },
             {
+              path: 'overview',
+              name: 'candidates_overview_path',
+              component: () => import(/* webpackChunkName: 'candidates_overview' */ '@views/recruitments/Overview'),
+              beforeEnter: recruiterAuthorizedGuard
+            },
+            {
+              path: 'inbox',
+              name: 'candidates_inbox_path',
+              component: () => import(/* webpackChunkName: 'candidates_inbox' */ '@views/recruitments/Inbox'),
+            },
+            {
               path: 'new',
-              name: 'new_recruitment_path',
-              component: () => import(/* webpackChunkName: 'new_recruitment' */ '@views/recruitments/New'),
+              name: 'new_candidate_document_path',
+              component: () => import(/* webpackChunkName: 'new_candidate_document' */ '@views/recruitments/New'),
               beforeEnter: recruiterAuthorizedGuard
             },
             {
               path: ':publicRecruitId/documents/:id',
-              name: 'recruitment_path',
-              component: () => import(/* webpackChunkName: 'recruitment' */ '@views/recruitments/Show'),
+              name: 'candidate_document_path',
+              component: () => import(/* webpackChunkName: 'candidate_document' */ '@views/recruitments/Show'),
             },
             {
               path: ':publicRecruitId/documents/:id/edit',
-              name: 'edit_recruitment_path',
-              component: () => import(/* webpackChunkName: 'edit_recruitment' */ '@views/recruitments/Edit'),
+              name: 'edit_candidate_document_path',
+              component: () => import(/* webpackChunkName: 'edit_candidate_document' */ '@views/recruitments/Edit'),
               beforeEnter: recruiterAuthorizedGuard
             },
             {
               path: ':publicRecruitId/documents/:id/mailer',
-              name: 'recruitment_mailer_path',
-              component: () => import(/* webpackChunkName: 'recruitment_mailer' */ '@views/recruitments/Mailer'),
+              name: 'candidate_mailer_path',
+              component: () => import(/* webpackChunkName: 'candidate_mailer' */ '@views/recruitments/Mailer'),
               beforeEnter: recruiterAuthorizedGuard
             }
           ]
+        },
+        {
+          path: 'recruitments',
+          redirect: { name: 'candidates_path' }
+        },
+        {
+          path: 'recruitments/projects',
+          redirect: { name: 'candidates_recruitments_path' }
+        },
+        {
+          path: 'recruitments/inbox',
+          redirect: { name: 'candidates_inbox_path' }
+        },
+        {
+          path: 'recruitments/search',
+          redirect: { name: 'candidates_search_path' }
+        },
+        {
+          path: 'recruitments/overview',
+          redirect: { name: 'candidates_overview_path' }
+        },
+        {
+          path: 'recruitments/new',
+          redirect: { name: 'new_candidate_document_path' }
+        },
+        {
+          path: 'recruitments/:publicRecruitId/documents/:id',
+          redirect: { name: 'candidate_document_path' }
+        },
+        {
+          path: 'recruitments/:publicRecruitId/documents/:id/edit',
+          redirect: { name: 'edit_candidate_document_path' }
+        },
+        {
+          path: 'recruitments/:publicRecruitId/documents/:id/mailer',
+          redirect: { name: 'candidate_mailer_path' }
         },
         {
           path: 'email_templates',

@@ -17,6 +17,10 @@ export default class RecruitDocumentPolicy extends BasePolicy{
     return this.canCreate
   }
 
+  get canSearch() {
+    return this.canCreate
+  }
+
   get canSeeInbox() {
     return this.canCreate
   }

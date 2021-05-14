@@ -1,7 +1,7 @@
 <template>
   <v-layout row wrap class="align-stretch">
     <v-flex xs12 lg3 >
-      <recruitments-sidebar
+      <recruit-document-sidebar
         :recruitDocument="recruitDocument"
         :positions="positions"
         :statuses="statuses"
@@ -15,6 +15,11 @@
     <v-flex xs12 lg9>
       <v-layout row wrap>
         <v-flex xs12 lg6>
+          <recruitments-sidebar
+            :recruitments="currentRecruitments"
+            :loading="fetchLoading"
+          />
+
           <evaluations-sidebar
             :templates="templates"
             :evaluations="evaluations"
@@ -43,14 +48,21 @@ import { mapState, mapGetters } from 'vuex'
 
 import CommentsSidebar from '@components/recruitments/CommentsSidebar'
 import EvaluationsSidebar from '@components/recruitments/EvaluationsSidebar'
+import RecruitDocumentSidebar from '@components/recruitments/RecruitDocumentSidebar'
 import RecruitmentsSidebar from '@components/recruitments/RecruitmentsSidebar'
 
 export default {
   name: 'RecruitmentsShow',
-  components: { CommentsSidebar, EvaluationsSidebar, RecruitmentsSidebar },
+  components: {
+    CommentsSidebar,
+    EvaluationsSidebar,
+    RecruitDocumentSidebar,
+    RecruitmentsSidebar
+  },
   computed: {
     ...mapState('RecruitDocumentsModule', [
       'recruitDocument',
+      'currentRecruitments',
       'attachments',
       'statuses',
       'groups',
