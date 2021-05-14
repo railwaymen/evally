@@ -921,7 +921,7 @@ export default {
     recruitments: {
       index: {
         title: 'Candidates',
-        noRecruitments: 'You do not participate in any recruitment yet',
+        noRecruitments: 'No recruitments to show',
         nav: {
           recruitments: 'Recruitments',
           list: 'List',

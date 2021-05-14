@@ -865,7 +865,7 @@ export default {
     recruitments: {
       index: {
         title: 'Kandydaci',
-        noRecruitments: 'Brek rekrutacji przypisanych do Ciebie',
+        noRecruitments: 'Brek rekrutacji do wyświetlenia',
         nav: {
           recruitments: 'Recrutacje',
           list: 'Lista',
