@@ -78,7 +78,6 @@ export default {
       newRecruitment: 'New Recruitment',
       newAssignment: 'New Assignment',
       start: 'Start',
-      complete: 'Complete',
       removeStage: 'Remove Stage'
     },
     navbar: {
