@@ -117,16 +117,24 @@
         {{ localRecruitment.description }}
       </div>
 
-      <div class="recruitment-stages">
+      <draggable
+        class="recruitment-stages"
+        :list="localRecruitment.stages"
+        handle=".drag-stage-btn"
+        draggable=".drag-stage"
+        animation="300"
+        @change="moveStage"
+        :disabled="recruitment.isCompleted"
+      >
         <div
           v-for="(candidates, stage) in localRecruitment.groupedCandidates"
           :key="stage"
-          class="recruitment-stage"
+          class="recruitment-stage drag-stage"
         >
           <div class="recruitment-stage__title">
-            {{ stage }}
+            <span>{{ stage }}</span>
 
-            <span
+            <div
               v-if="recruitmentPolicy.canManage"
               class="recruitment-stage__actions"
             >
@@ -148,7 +156,16 @@
 
                 <span>{{ $t('shared.tooltips.removeStage') }}</span>
               </v-tooltip>
-            </span>
+
+              <div
+                v-if="!recruitment.isCompleted"
+                class="recruitment-stage__drag"
+              >
+                <v-btn class="drag-stage-btn" icon small>
+                  <v-icon dense>mdi-drag</v-icon>
+                </v-btn>
+              </div>
+            </div>
           </div>
 
           <draggable
@@ -156,14 +173,14 @@
             :list="candidates"
             :group="localRecruitment.id"
             :data-stage="stage"
-            handle=".drag-section-btn"
-            draggable=".drag-section"
+            handle=".drag-candidate-btn"
+            draggable=".drag-candidate"
             animation="300"
             @end="moveCandidate"
             :disabled="recruitment.isCompleted"
           >
             <recruitment-candidate
-              class="drag-section"
+              class="drag-candidate"
               v-for="candidate in candidates"
               :data-candidate_id="candidate.id"
               :recruitment-policy="recruitmentPolicy"
@@ -189,7 +206,7 @@
             />
           </form>
         </div>
-      </div>
+      </draggable>
     </div>
   </div>
 </template>
@@ -232,7 +249,8 @@ export default {
     ...mapActions('RecruitmentsModule', [
       'addRecruitmentStage',
       'dropRecruitmentStage',
-      'moveRecruitmentCandidate'
+      'moveRecruitmentCandidate',
+      'updateRecruitment'
     ]),
     openRecruitmentForm() {
       DialogsBus.$emit('openFormsDialog', {
@@ -265,6 +283,10 @@ export default {
 
       this.addRecruitmentStage({ recruitment: this.recruitment, stage: this.newStage })
         .then(() => this.newStage = '')
+    },
+    moveStage({ moved: { element, newIndex } }) {
+      this.recruitment.moveStage(element, newIndex)
+      this.updateRecruitment(this.recruitment)
     },
     moveCandidate(event) {
       const payload = {

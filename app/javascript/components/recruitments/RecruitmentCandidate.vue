@@ -21,7 +21,7 @@
         v-if="!recruitment.isCompleted"
         class="recruitment-candidate__drag"
       >
-        <v-btn class="drag-section-btn" icon small>
+        <v-btn class="drag-candidate-btn" icon small>
           <v-icon>mdi-drag</v-icon>
         </v-btn>
       </div>

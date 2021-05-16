@@ -95,6 +95,9 @@
       text-align: center;
       border-bottom: 1px solid $grey;
       position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
     }
 
     .sortable-ghost {
@@ -107,6 +110,11 @@
       overflow-y: auto;
 
       @include scrollbar-styling();
+    }
+
+    &__actions {
+      display: flex;
+      margin-left: rem2dec(1rem);
     }
   }
 

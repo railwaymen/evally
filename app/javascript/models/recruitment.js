@@ -40,6 +40,13 @@ class Recruitment extends Model {
     return this.status === 'completed'
   }
 
+  moveStage(stage, position) {
+    const stageIndex = this.stages.indexOf(stage)
+    const moveableStage = this.stages.splice(stageIndex, 1)[0]
+
+    this.stages.splice(position, 0, moveableStage)
+  }
+
   setParticipants(users) {
     this.participants = users.filter(
       user => this.user_tokens.includes(user.email_token)
