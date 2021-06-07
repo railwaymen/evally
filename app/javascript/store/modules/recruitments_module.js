@@ -9,6 +9,7 @@ import { UsersList } from '@models/user'
 
 const initState = () => ({
   recruitments: new RecruitmentsList(),
+  totalPages: 1,
   candidatesTree: {},
   users: new UsersList(),
   loading: true
@@ -28,8 +29,16 @@ const RecruitmentsModule = {
     SET_LOADING(state, status) {
       state.loading = status
     },
-    SET_DATA(state, { recruitments, users, candidates_tree }) {
+    SET_DATA(state, data) {
+      const {
+        recruitments,
+        total_pages,
+        users,
+        candidates_tree
+      } = data
+
       state.recruitments = new RecruitmentsList(recruitments)
+      state.totalPages = total_pages
       state.candidatesTree = candidates_tree
       state.users = new UsersList(users)
       state.loading = false
@@ -49,11 +58,11 @@ const RecruitmentsModule = {
   },
 
   actions: {
-    fetchRecruitments({ commit }) {
+    fetchRecruitments({ commit }, params) {
       commit('SET_LOADING', true)
 
       recruitableApiClient
-        .get(Recruitment.routes.recruitmentsPath)
+        .get(Recruitment.routes.recruitmentsPath, { params })
         .then(response => {
           commit('SET_DATA', response.data)
         })
